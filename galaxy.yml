@@ -14,8 +14,8 @@ tags:
   - rhn
   - sso
 dependencies:
-  - "middleware_automation.redhat_csp_download": ">=1.2.1"
-  - "middleware_automation.jcliff": ">=0.0.19"
+  "middleware_automation.redhat_csp_download": ">=1.2.1"
+  "middleware_automation.jcliff": ">=0.0.19"
 repository: https://github.com/ansible-middleware/keycloak
 documentation: https://github.com/ansible-middleware/keycloak
 homepage: https://github.com/ansible-middleware/keycloak

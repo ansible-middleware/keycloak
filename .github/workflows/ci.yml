@@ -38,7 +38,7 @@ jobs:
         working-directory: ./ansible_collections/middleware_automation/keycloak
 
       - name: Run molecule test
-        run: molecule test --all -- -vvvvv
+        run: molecule test --all
         working-directory: ./ansible_collections/middleware_automation/keycloak
         env:
           PY_COLORS: '1'

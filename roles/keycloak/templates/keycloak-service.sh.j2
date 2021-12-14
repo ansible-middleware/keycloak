@@ -81,6 +81,7 @@ startKeycloak() {
 	-Djboss.https.port=${KEYCLOAK_HTTPS_PORT} \
 	-Djboss.management.http.port=${KEYCLOAK_MANAGEMENT_HTTP_PORT} \
 	-Djboss.management.https.port=${KEYCLOAK_MANAGEMENT_HTTPS_PORT} \
+  {% if ansible_facts.virtualization_type == 'docker' %}-Djava.net.preferIPv4Stack=true \{% endif %}
 	-Djboss.node.name={{ inventory_hostname }} 2>&1 >> "${KEYCLOAK_LOGFILE}" &
     echo "${!}" > "${KEYCLOAK_PIDFILE}"
   fi

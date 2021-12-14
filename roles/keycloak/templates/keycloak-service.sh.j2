@@ -1,0 +1,125 @@
+#!/bin/bash
+set -eo pipefail
+
+checkEnvVar() {
+  local envVar=${1}
+  local msg=${2}
+  local exitCode=${3}
+
+  if [ -z "${envVar}" ]; then
+    echo "${msg}"
+    exit "${exitCode}"
+  fi
+}
+# SystemD will do for the unit, decomment
+#  for testing outside systemd
+. /etc/sysconfig/keycloak
+
+readonly KEYCLOAK_HOME={{ keycloak_jboss_home }}
+readonly KEYCLOAK_BIND_ADDRESS=${KEYCLOAK_BIND_ADDRESS}
+readonly KEYCLOAK_HTTP_PORT=${KEYCLOAK_HTTP_PORT}
+readonly KEYCLOAK_HTTPS_PORT=${KEYCLOAK_HTTPS_PORT}
+readonly KEYCLOAK_MANAGEMENT_HTTP_PORT=${KEYCLOAK_MANAGEMENT_HTTP_PORT}
+readonly KEYCLOAK_MANAGEMENT_HTTPS_PORT=${KEYCLOAK_MANAGEMENT_HTTPS_PORT}
+readonly KEYCLOAK_LOGFILE={{ keycloak_service_logfile }}
+readonly KEYCLOAK_PIDFILE={{ keycloak_service_pidfile }}
+
+set -u
+if [ ! -d "${KEYCLOAK_HOME}" ]; then
+  echo "KEYCLOAK_HOME (${KEYCLOAK_HOME}) is not a director or does not exists."
+  exit 1
+fi
+
+checkEnvVar "${KEYCLOAK_PIDFILE}" 'KEYCLOAK_PIDFILE not provided' 2
+
+getKeycloakPID() {
+
+  local pid
+  if [ -e "${KEYCLOAK_PIDFILE}" ]; then
+    cat "${KEYCLOAK_PIDFILE}"
+  fi
+}
+
+statusKeycloak() {
+
+  if [ "$(isKeyCloakRunning)" -eq 1 ]; then
+    echo "Keycloak is running (PID:$(getKeycloakPID ))"
+  else
+    echo "Keycloak is NOT running."
+  fi
+}
+
+isKeyCloakRunning() {
+  set +e
+  local statusKeycloak=0
+  local pid=$(getKeycloakPID )
+  if [ -n "${pid}" ]; then
+    kill -0 "${pid}" 2> /dev/null
+    if [ "${?}" -eq 0 ]; then
+      statusKeycloak=1
+    fi
+  fi
+  set -e
+  echo "${statusKeycloak}"
+}
+
+startKeycloak() {
+  checkEnvVar "${KEYCLOAK_BIND_ADDRESS}" 'KEYCLOAK_BIND_ADDRESS not provided' 2
+  checkEnvVar "${KEYCLOAK_HTTP_PORT}"    'KEYCLOAK_HTTP_PORT not provided' 4
+  checkEnvVar "${KEYCLOAK_HTTPS_PORT}"   'KEYCLOAK_HTTPS_PORT not provided' 5
+  checkEnvVar "${KEYCLOAK_MANAGEMENT_HTTP_PORT}" 'KEYCLOAK_MANAGEMENT_HTTP_PORT not provided' 6
+  checkEnvVar "${KEYCLOAK_MANAGEMENT_HTTPS_PORT}" 'KEYCLOAK_MANAGEMENT_HTTPS_PORT not provided' 7
+  checkEnvVar "${KEYCLOAK_LOGFILE}" 'KEYCLOAK_LOGFILE not provided' 8
+
+  if [ "$(isKeyCloakRunning)" -eq 1 ]; then
+    statusKeycloak
+  else
+    ${KEYCLOAK_HOME}/bin/standalone.sh \
+	-Djboss.bind.address=${KEYCLOAK_BIND_ADDRESS} \
+	-Djboss.http.port=${KEYCLOAK_HTTP_PORT} \
+	-Djboss.https.port=${KEYCLOAK_HTTPS_PORT} \
+	-Djboss.management.http.port=${KEYCLOAK_MANAGEMENT_HTTP_PORT} \
+	-Djboss.management.https.port=${KEYCLOAK_MANAGEMENT_HTTPS_PORT} \
+	-Djboss.node.name={{ inventory_hostname }} 2>&1 >> "${KEYCLOAK_LOGFILE}" &
+    echo "${!}" > "${KEYCLOAK_PIDFILE}"
+  fi
+}
+
+stopKeycloak() {
+  local pid=$(getKeycloakPID)
+  if [ -n "${pid}" ]; then
+    set +e
+    kill ${pid} 2> /dev/null
+    kill -0 "${pid}" 2> /dev/null
+#    if [ "${?}" -eq 0 ]; then
+#      sleep 5
+#      kill -9 "${pid}" > /dev/null
+#    fi
+    set -e
+    deletePidFile
+  fi
+}
+
+deletePidFile() {
+  rm -f "${KEYCLOAK_PIDFILE}"
+}
+
+case "$1" in
+    start)
+      startKeycloak
+      ;;
+    stop)
+      stopKeycloak
+      ;;
+    restart)
+      stopKeycloak
+      startKeycloak
+      ;;
+    status)
+      statusKeycloak
+      ;;
+    *)
+      echo "usage: $0 start|stop|restart" >&2
+      exit 1
+       ;;
+esac

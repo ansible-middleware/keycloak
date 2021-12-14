@@ -1,0 +1,72 @@
+---
+- assert:
+    that:
+      - zipfile_dest is defined
+      - rhn_id_file is defined
+      - rhn_username is defined
+      - rhn_password is defined
+    quiet: true
+
+- set_fact:
+    rhn_base_url: "{{ override_rhn_base_url | default('https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=') }}"
+    rhn_download_url: "{{ rhn_base_url }}{{ rhn_id_file }}"
+
+- name: "Check zipfile dest directory {{ zipfile_dest }}"
+  stat:
+    path: "{{ zipfile_dest }}"
+  register: archive_path
+
+- name: "Install zipfile from RHN: {{ rhn_download_url }}"
+  redhat_csp_download:
+    url: "{{ rhn_download_url }}"
+    dest: "{{ zipfile_dest }}"
+    username: "{{ rhn_username }}"
+    password: "{{ rhn_password }}"
+  no_log: "{{ omit_rhn_output | default(true) }}"
+  when:
+    - archive_path is defined
+    - archive_path.stat is defined
+    - not archive_path.stat.exists
+    
+- name: "Check zipfile dest directory {{ zipfile_dest }}"
+  stat:
+    path: "{{ zipfile_dest }}"
+  register: path_to_downloaded_artefact
+
+- block:
+    - file:
+        path: "{{ work_dir }}"
+        state: directory
+
+    - stat:
+        path: "{{ target_dir }}"
+      register: target_dir_state
+
+    - assert:
+        that:
+          - target_dir_state is defined
+          - target_dir_state.stat is defined
+        fail_msg: "Directory layout for {{ target_dir }} is invalid."
+        quiet: true
+
+    - name: "Decompress {{ zipfile_dest }} into {{ work_dir }} (results in {{ target_dir }}."
+      unarchive:
+        src: "{{ zipfile_dest }}"
+        dest: "{{ work_dir }}"
+        owner: "{{ keycloak_service_user }}"
+        group: "{{ keycloak_service_user }}"
+        remote_src: yes
+        creates: "{{ target_dir }}"
+      when:
+        - not target_dir_state.stat.exists
+
+    - debug:
+        msg: "{{ target_dir }} already exists, skipping decompressing {{ zipfile_dest }}"
+      when:
+        - target_dir_state.stat.exists
+  when:
+    - path_to_downloaded_artefact is defined
+    - path_to_downloaded_artefact.stat is defined
+    - path_to_downloaded_artefact.stat.exists
+    - target_dir is defined
+    - work_dir is defined

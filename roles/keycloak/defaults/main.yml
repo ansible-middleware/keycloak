@@ -1,0 +1,71 @@
+---
+### Configuration specific to keycloak
+keycloak_version: 9.0.2
+keycloak_archive: keycloak-{{ keycloak_version }}.zip
+keycloak_download_url: https://downloads.jboss.org/keycloak/{{ keycloak_version }}/{{ keycloak_archive }}
+keycloak_local_download_dest: '{{ "~/keycloak_download" | expanduser }}'
+keycloak_installdir: "{{ keycloak_dest }}/keycloak-{{ keycloak_version }}"
+
+### Configuration specific to Red Hat Single Sing-On
+keycloak_rhsso_enable: "{{ True if rhsso_rhn_id is defined else False }}"
+keycloak_rhsso_client_adapter_rhn_id: '101951'
+keycloak_rhsso_saml_adapter_rhn_id: '101901'
+keycloak_rhsso_version: 7.5
+keycloak_rhsso_archive: rh-sso-{{ keycloak_rhsso_version }}-server-dist.zip
+keycloak_rhsso_installdir: "{{ keycloak_dest }}/rh-sso-{{ keycloak_rhsso_version }}"
+
+### Install location and service settings
+keycloak_dest: /opt/keycloak
+keycloak_jboss_home: "{{ keycloak_rhsso_installdir if rhsso_rhn_id is defined else keycloak_installdir }}"
+keycloak_config_dir: "{{ keycloak_jboss_home }}/standalone/configuration"
+keycloak_service_user: keycloak
+keycloak_service_group: keycloak
+keycloak_service_pidfile: "{{ keycloak_dest }}/keycloak.pid"
+keycloak_service_logfile: "{{ keycloak_dest }}/keycloak.log"
+
+### Keycloak configuration settings
+keycloak_bind_address: 0.0.0.0
+keycloak_host: localhost
+keycloak_http_port: 8080
+keycloak_https_port: 8443
+keycloak_management_http_port: 9990
+keycloak_management_https_port: 9993
+keycloak_java_opts: "-Xms1024m -Xmx20480m -XX:MaxPermSize=768m"
+keycloak_url: "http://{{ keycloak_host }}:{{ keycloak_http_port }}"
+keycloak_management_url: "http://{{ keycloak_host }}:{{ keycloak_management_http_port }}"
+# enable auto configuration for database backend, clustering and remote caches on infinispan
+keycloak_ha_enabled: False
+
+# keycloak administration console user
+keycloak_admin_user: admin
+keycloak_admin_password: "password"
+
+keycloak_auth_realm: master
+keycloak_auth_client: admin-cli
+
+keycloak_force_install: False
+
+keycloak_modcluster:
+  enabled: "{{ keycloak_ha_enabled }}"
+  reverse_proxy_url: jbcs-0
+
+keycloak_remotecache:
+  enabled: "{{ keycloak_ha_enabled }}"
+  username: supervisor
+  password: itsme
+  realm: default
+  server_name: jdg-1
+  trust_store_path: /path/to/jks/keystore
+  trust_store_password: changeme
+
+keycloak_jdbc:
+  postgres:
+    enabled: "{{ keycloak_ha_enabled }}"
+    driver_module_name: "org.postgresql"
+    driver_module_dir: "{{ keycloak_jboss_home }}/modules/org/postgresql/main"
+    driver_version: 9.4.1212
+    driver_jar_filename: "postgresql-9.4.1212.jar"
+    driver_jar_url: "https://repo.maven.apache.org/maven2/org/postgresql/postgresql/9.4.1212/postgresql-9.4.1212.jar"
+    connection_url: "jdbc:postgresql://pgsql-0:5432/keycloak"
+    db_user: "keycloak-user"
+    db_password: "keycloak-pass"

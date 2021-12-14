@@ -1,0 +1,25 @@
+---
+- name: Ensures required package firewalld are installed
+  ansible.builtin.include_tasks: fastpackages/install.yml
+  vars:
+    packages_list:
+      - firewalld
+
+- name: Enable and start the firewalld service
+  become: yes
+  systemd:
+    name: firewalld
+    enabled: yes
+    state: started
+
+- name: Configure firewall for jdg ports
+  become: yes
+  ansible.posix.firewalld:
+    port: "{{ item }}"
+    permanent: true
+    state: enabled
+    immediate: yes
+  loop:
+    - "{{ keycloak_http_port }}/tcp"
+    - "{{ keycloak_https_port }}/tcp"
+    - "8009/tcp"

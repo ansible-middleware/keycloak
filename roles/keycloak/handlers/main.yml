@@ -1,0 +1,3 @@
+---
+- name: restart keycloak
+  include_tasks: restart_keycloak.yml

@@ -1,0 +1,8 @@
+---
+- name: Converge
+  hosts: all
+  vars: 
+  tasks:
+    - name: Include keycloak role
+      include_role:
+        name: ../../roles/keycloak

@@ -1,0 +1,17 @@
+---
+- set_fact:
+    update_cache: true
+    packages_to_install: []
+
+- name: "Check packages to be installed"
+  include_tasks: check.yml
+  loop: "{{ packages_list | flatten }}"
+  loop_control:
+    loop_var: package_name
+
+- name: "Install packages: {{ packages_to_install }}"
+  become: yes
+  yum:
+    name: "{{ packages_to_install }}"
+    state: present
+  when: packages_to_install | length > 0

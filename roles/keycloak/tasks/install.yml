@@ -1,0 +1,141 @@
+---
+- assert:
+    that:
+      - keycloak_jboss_home is defined
+      - keycloak_service_user is defined
+      - keycloak_dest is defined
+      - keycloak_archive is defined
+      - keycloak_download_url is defined
+      - keycloak_version is defined
+    quiet: true
+
+- set_fact:
+    keycloak_service_group: "{{ keycloak_service_user }}"
+  when:
+    - not keycloak_service_group is defined
+
+- name: check for an existing deployment
+  become: yes
+  stat:
+    path: "{{ keycloak_jboss_home }}"
+  register: existing_deploy
+
+- block:
+    - name: stop the old keycloak service
+      become: yes
+      ignore_errors: yes
+      systemd:
+        name: keycloak
+        state: stopped
+    - name: remove the old Keycloak deployment
+      become: yes
+      file:
+        path: "{{ keycloak_jboss_home }}"
+        state: absent
+  when: existing_deploy.stat.exists and keycloak_force_install|bool
+
+- name: check for an existing deployment after possible forced removal
+  become: yes
+  stat:
+    path: "{{ keycloak_jboss_home }}"
+
+- name: create Keycloak service user/group
+  become: yes
+  user:
+    name: "{{ keycloak_service_user }}"
+    home: /opt/keycloak
+    system: yes
+    create_home: no
+
+- name: create Keycloak install location
+  become: yes
+  file:
+    dest: "{{ keycloak_dest }}"
+    state: directory
+    owner: "{{ keycloak_service_user }}"
+    group: "{{ keycloak_service_group }}"
+
+- block:
+    - set_fact:
+        archive: "{{ keycloak_dest }}/{{ keycloak_archive }}"
+    - name: "Check archive directory {{ archive }}"
+      stat:
+        path: "{{ archive }}"
+      register: archive_path
+
+    - name: download Keycloak archive to target
+      get_url:
+        url: "{{ keycloak_download_url }}"
+        dest: "{{ keycloak_dest }}"
+        owner: "{{ keycloak_service_user }}"
+        group: "{{ keycloak_service_group }}"
+      when:
+        - archive_path is defined
+        - archive_path.stat is defined
+        - not archive_path.stat.exists
+
+    - name: extract Keycloak archive on target
+      unarchive:
+        remote_src: yes
+        src: "{{ archive }}"
+        dest: "{{ keycloak_dest }}"
+        creates: "{{ keycloak_jboss_home }}"
+        owner: "{{ keycloak_service_user }}"
+        group: "{{ keycloak_service_group }}"
+      notify:
+        - restart keycloak
+  become: yes
+  when: not keycloak_rhsso_enable
+
+- block:
+    - assert:
+        that:
+          - rhsso_rhn_id is defined
+        quiet: true
+        fail_msg: "Can't install RHSSO without RHN ID."
+
+    - name: create download directory
+      file:
+        path: /opt/apps
+        state: directory
+
+    - include_tasks: download_from_rhn.yml
+      vars:
+        rhn_id_file: "{{ rhsso_rhn_id }}"
+        zipfile_dest: "{{ keycloak_dest }}/{{ keycloak_rhsso_archive }}"
+        work_dir: "{{ keycloak_dest }}"
+        target_dir: "{{ keycloak_jboss_home }}"
+  become: yes
+  when: keycloak_rhsso_enable
+
+- name: "Install Postresql driver"
+  include_role:
+    name: wildfly_driver
+    tasks_from: jdbc_driver.yml
+  vars:
+      wildfly_user: "{{ keycloak_service_user }}"
+      jdbc_driver_module_dir: "{{ keycloak_jdbc.postgres.driver_module_dir }}"
+      jdbc_driver_version: "{{ keycloak_jdbc.postgres.driver_version }}"
+      jdbc_driver_jar_filename: "{{ keycloak_jdbc.postgres.driver_jar_filename }}"
+      jdbc_driver_jar_url: "{{ keycloak_jdbc.postgres.driver_jar_url }}"
+      jdbc_driver_jar_installation_path: "{{ keycloak_jdbc.postgres.driver_module_dir }}/{{ keycloak_jdbc.postgres.driver_jar_filename }}"
+      jdbc_driver_module_name: "{{ keycloak_jdbc.postgres.driver_module_name }}"
+  when: keycloak_jdbc.postgres.enabled
+
+- name: "Deploy Keycloak's standalone.xml"
+  become: yes
+  template:
+    src: "{{ 'templates/standalone-rhsso.xml.j2' if keycloak_rhsso_enable else 'templates/standalone.xml.j2' }}"
+    dest: "{{ keycloak_jboss_home }}/standalone/configuration/standalone.xml"
+  notify:
+    - restart keycloak
+  when: not keycloak_remotecache.enabled
+
+- name: "Deploy Keycloak's standalone.xml with remote cache store"
+  become: yes
+  template:
+    src: "{{ 'templates/standalone-rhsso-jdg.xml.j2' if keycloak_rhsso_enable else 'templates/standalone-infinispan.xml.j2' }}"
+    dest: "{{ keycloak_jboss_home }}/standalone/configuration/standalone.xml"
+  notify:
+    - restart keycloak
+  when: keycloak_remotecache.enabled

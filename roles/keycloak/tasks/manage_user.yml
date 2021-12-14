@@ -1,0 +1,51 @@
+---
+- name: "Check if User Already Exists"
+  uri:
+    url: "{{ keycloak_url }}/auth/admin/realms/{{ keycloak_realm }}/users?username={{ user.username }}"
+    validate_certs: no
+    headers:
+      Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
+  register: keycloak_user_serach_result
+
+- name: "Create User"
+  uri:
+    url: "{{ keycloak_url }}/auth/admin/realms/{{ keycloak_realm }}/users"
+    method: POST
+    body:
+      enabled: true
+      attributes: "{{ user.attributes | default(omit) }}"
+      username: "{{ user.username }}"
+      email: "{{ user.email | default(omit) }}"
+      firstName: "{{ user.firstName | default(omit) }}"
+      lastName: "{{ user.lastName | default(omit) }}"
+    validate_certs: no
+    body_format: json
+    headers:
+      Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
+    status_code: 201
+  when: keycloak_user_serach_result.json | length == 0
+
+- name: "Get User"
+  uri:
+    url: "{{ keycloak_url }}/auth/admin/realms/{{ keycloak_realm }}/users?username={{ user.username }}"
+    validate_certs: no
+    headers:
+      Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
+  register: keycloak_user
+
+- name: "Update User Password"
+  uri:
+    url: "{{ keycloak_url }}/auth/admin/realms/{{ keycloak_realm }}/users/{{ (keycloak_user.json | first).id }}/reset-password"
+    method: PUT
+    body:
+      type: password
+      temporary: false
+      value: "{{ user.password }}"
+    validate_certs: no
+    body_format: json
+    status_code:
+      - 200
+      - 204
+    headers:
+      Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
+  register: keycloak_user

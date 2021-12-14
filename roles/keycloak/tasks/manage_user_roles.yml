@@ -1,0 +1,26 @@
+---
+
+- name: "Get User {{ user.username }}"
+  uri:
+    url: "{{ keycloak_url }}/auth/admin/realms/{{ keycloak_realm }}/users?username={{ user.username }}"
+    headers:
+      validate_certs: no
+      Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
+  register: keycloak_user
+
+- name: Refresh keycloak auth token
+  uri:
+    url: "{{ keycloak_url }}/auth/realms/master/protocol/openid-connect/token"
+    method: POST
+    body: "client_id={{ keycloak_auth_client }}&username={{ keycloak_admin_user }}&password={{ keycloak_admin_password }}&grant_type=password"
+    validate_certs: no
+  register: keycloak_auth_response
+  until: keycloak_auth_response.status == 200
+  retries: 5
+  delay: 2
+
+- name: "Manage Client Role Mapping for {{ user.username }}"
+  include_tasks: manage_user_client_roles.yml
+  loop: "{{ user.client_roles | flatten }}"
+  loop_control:
+    loop_var: client_role

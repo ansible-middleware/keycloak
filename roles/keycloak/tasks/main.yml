@@ -1,0 +1,24 @@
+---
+# tasks file for keycloak
+
+- name: Prerequisites
+  include_tasks: prereqs.yml
+  tags:
+    - prereqs
+
+- include_tasks: tasks/install.yml
+
+- name: create Keycloak admin user
+  command:
+  args:
+    argv:
+      - "{{ keycloak_jboss_home }}/bin/add-user-keycloak.sh"
+      - -rmaster
+      - -u{{ keycloak_admin_user }}
+      - -p{{ keycloak_admin_password }}
+    creates: "{{ keycloak_config_dir }}/keycloak-add-user.json"
+  become: yes
+
+- include_tasks: tasks/systemd.yml
+
+

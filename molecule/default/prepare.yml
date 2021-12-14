@@ -1,0 +1,8 @@
+---
+- name: Prepare
+  hosts: all
+  tasks:
+    - name: Install sudo
+      yum:
+        name: sudo
+        state: present

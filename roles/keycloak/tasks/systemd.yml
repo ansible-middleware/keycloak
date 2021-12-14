@@ -55,6 +55,13 @@
     - command: "tail -n 100 /opt/keycloak/keycloak.log"
       changed_when: False
       ignore_errors: True
+    - debug:
+        msg: "Virt type: {{ ansible_facts.virtualization_type }} - {{ ansible_facts['virtualization_type'] }}"
+      changed_when: False
+      ignore_errors: True
+    - command: "cat /opt/keycloak/keycloak-service.sh"
+      changed_when: False
+      ignore_errors: True
 
 - command: "systemctl status keycloak"
   register: keycloak_service_status

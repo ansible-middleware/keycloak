@@ -1,6 +1,6 @@
 #!/bin/bash -eu
 
-set -o pipefail
+set +u -o pipefail
 
 checkEnvVar() {
   local envVar=${1}

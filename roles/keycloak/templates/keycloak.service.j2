@@ -11,7 +11,7 @@ Group={{ keycloak_service_group }}
 PIDFile={{ keycloak_service_pidfile }}
 ExecStart={{ keycloak_dest }}/keycloak-service.sh start
 ExecStop={{ keycloak_dest }}/keycloak-service.sh stop
-TimeoutStartSec=60
+TimeoutStartSec=90
 TimeoutStopSec=60
 LimitNOFILE=102642
 

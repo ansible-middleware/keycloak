@@ -29,6 +29,18 @@ collections:
   - name: middleware_automation.keycloak
 ```
 
+### Choosing between Red Hat products and upstream project
+
+The roles supports installing Red Hat Single Sign-On from the Customer Portal, when the following variables are defined:
+
+```
+rhn_username: '<customer_portal_username>'
+rhn_password: '<customer_portal_password>'
+rhsso_rhn_id: '<sso_product_id>'
+```
+
+where `sso_product_id` is the ID for the specific Red Hat Single Sign-On version, ie. _101971_ will install version _7.5_)
+
 ## License
 
 Apache License v2.0 or later

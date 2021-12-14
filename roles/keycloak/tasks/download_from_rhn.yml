@@ -37,8 +37,12 @@
     - file:
         path: "{{ work_dir }}"
         state: directory
+        owner: "{{ keycloak_service_user }}"
+        group: "{{ keycloak_service_group }}"
+        mode: 0750
 
-    - stat:
+    - name: "Check directory {{ target_dir }}"
+      stat:
         path: "{{ target_dir }}"
       register: target_dir_state
 

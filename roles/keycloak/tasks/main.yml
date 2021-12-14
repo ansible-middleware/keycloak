@@ -20,5 +20,3 @@
   become: yes
 
 - include_tasks: tasks/systemd.yml
-
-

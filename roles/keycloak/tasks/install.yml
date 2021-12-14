@@ -54,6 +54,7 @@
     state: directory
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
+    mode: 0750
 
 - block:
     - set_fact:
@@ -98,6 +99,9 @@
       file:
         path: /opt/apps
         state: directory
+        owner: "{{ keycloak_service_user }}"
+        group: "{{ keycloak_service_group }}"
+        mode: 0750
 
     - include_tasks: download_from_rhn.yml
       vars:
@@ -127,6 +131,9 @@
   template:
     src: "{{ 'templates/standalone-rhsso.xml.j2' if keycloak_rhsso_enable else 'templates/standalone.xml.j2' }}"
     dest: "{{ keycloak_jboss_home }}/standalone/configuration/standalone.xml"
+    owner: "{{ keycloak_service_user }}"
+    group: "{{ keycloak_service_group }}"
+    mode: 0640
   notify:
     - restart keycloak
   when: not keycloak_remotecache.enabled
@@ -136,6 +143,9 @@
   template:
     src: "{{ 'templates/standalone-rhsso-jdg.xml.j2' if keycloak_rhsso_enable else 'templates/standalone-infinispan.xml.j2' }}"
     dest: "{{ keycloak_jboss_home }}/standalone/configuration/standalone.xml"
+    owner: "{{ keycloak_service_user }}"
+    group: "{{ keycloak_service_group }}"
+    mode: 0640
   notify:
     - restart keycloak
   when: keycloak_remotecache.enabled

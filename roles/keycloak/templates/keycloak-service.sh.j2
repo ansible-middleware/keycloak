@@ -75,14 +75,16 @@ startKeycloak() {
   if [ "$(isKeyCloakRunning)" -eq 1 ]; then
     statusKeycloak
   else
-    ${KEYCLOAK_HOME}/bin/standalone.sh \
-	-Djboss.bind.address=${KEYCLOAK_BIND_ADDRESS} \
-	-Djboss.http.port=${KEYCLOAK_HTTP_PORT} \
-	-Djboss.https.port=${KEYCLOAK_HTTPS_PORT} \
-	-Djboss.management.http.port=${KEYCLOAK_MANAGEMENT_HTTP_PORT} \
-	-Djboss.management.https.port=${KEYCLOAK_MANAGEMENT_HTTPS_PORT} \
-	-Djboss.node.name={{ inventory_hostname }} 2>&1 >> "${KEYCLOAK_LOGFILE}" &
-    echo "${!}" > "${KEYCLOAK_PIDFILE}"
+    LAUNCH_JBOSS_IN_BACKGROUND=1 JBOSS_PIDFILE=${KEYCLOAK_PIDFILE} ${KEYCLOAK_HOME}/bin/standalone.sh \
+        -Djboss.bind.address=${KEYCLOAK_BIND_ADDRESS} \
+        -Djboss.http.port=${KEYCLOAK_HTTP_PORT} \
+        -Djboss.https.port=${KEYCLOAK_HTTPS_PORT} \
+        -Djboss.management.http.port=${KEYCLOAK_MANAGEMENT_HTTP_PORT} \
+        -Djboss.management.https.port=${KEYCLOAK_MANAGEMENT_HTTPS_PORT} \
+        -Djboss.node.name={{ inventory_hostname }} \
+      {% if ansible_facts.virtualization_type in ['docker','oci','containerd'] %}-Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Addresses=true {% endif %}\
+      2>&1 >> "${KEYCLOAK_LOGFILE}" &
+    while [ ! -f ${KEYCLOAK_PIDFILE} ]; do sleep 1; done
   fi
 }
 

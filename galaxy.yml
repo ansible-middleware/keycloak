@@ -1,0 +1,21 @@
+namespace: middleware_automation
+name: keycloak
+version: "0.0.1"
+readme: README.md
+authors:
+  - Romain Pelisse <rpelisse@redhat.com>
+  - Guido Grazioli <ggraziol@redhat.com>
+description: Install and configure a keycloak, or Red Hat Single Sign-on, service.
+license_file: "LICENSE"
+tags:
+  - keycloak
+  - redhat
+  - rhel
+  - rhn
+  - sso
+dependencies:
+  - "middleware_automation.redhat_csp_download": ">=1.2.1"
+repository: https://github.com/ansible-middleware/keycloak
+documentation: https://github.com/ansible-middleware/keycloak
+homepage: https://github.com/ansible-middleware/keycloak
+issues: https://github.com/ansible-middleware/keycloak/issues

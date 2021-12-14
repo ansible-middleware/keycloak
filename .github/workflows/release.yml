@@ -1,0 +1,38 @@
+name: Release collection
+
+on:
+  push:
+    tags:
+      - "*.*.*"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.x"
+      - name: Get Tag Version
+        id: get_version
+        run: echo ::set-output name=TAG_VERSION::${GITHUB_REF#refs/tags/}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install ansible-core
+      - name: Build collection
+        run: |
+          ansible-galaxy collection build .
+      - name: Publish Release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: "*.tar.gz"
+          body: "Release ${{ steps.get_version.outputs.TAG_VERSION }}"
+      - name: Publish collection
+        env:
+          ANSIBLE_GALAXY_API_KEY: ${{ secrets.ANSIBLE_GALAXY_API_KEY }}
+        run: |
+          ansible-galaxy collection publish *.tar.gz --api-key $ANSIBLE_GALAXY_API_KEY

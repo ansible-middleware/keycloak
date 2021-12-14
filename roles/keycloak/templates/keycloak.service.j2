@@ -5,13 +5,10 @@ After=network.target
 [Service]
 Type=forking
 EnvironmentFile=-/etc/sysconfig/keycloak
-
-User={{ keycloak_service_user }}
-Group={{ keycloak_service_group }}
 PIDFile={{ keycloak_service_pidfile }}
 ExecStart={{ keycloak_dest }}/keycloak-service.sh start
 ExecStop={{ keycloak_dest }}/keycloak-service.sh stop
-TimeoutStartSec=45
+TimeoutStartSec=30
 TimeoutStopSec=30
 LimitNOFILE=102642
 

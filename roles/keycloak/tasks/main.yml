@@ -8,6 +8,7 @@
 
 - include_tasks: tasks/install.yml
 
+## FIXME not idempotent (keyclock removes the file when it restarts)
 - name: create Keycloak admin user
   command:
   args:

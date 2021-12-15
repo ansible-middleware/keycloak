@@ -9,3 +9,5 @@
     - name: Keycloak Role
       include_role:
         name: keycloak
+      vars:
+        keycloak_admin_password: "changeme"

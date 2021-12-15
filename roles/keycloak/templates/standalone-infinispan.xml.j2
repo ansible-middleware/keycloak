@@ -709,11 +709,11 @@
         </outbound-socket-binding>
 {% if keycloak_modcluster.enabled %}        
         <outbound-socket-binding name="proxy1">
-            <remote-destination host="{{ (groups['jbcs'][0] if groups['jbcs'] | length > 0 else 'localhost') }}" port="6666"/>
+            <remote-destination host="{{ keycloak_modcluster.reverse_proxy_url | default('localhost') }}" port="6666"/>
         </outbound-socket-binding>
 {% endif %}
         <outbound-socket-binding name="remote-cache">
-            <remote-destination host="{{ (groups['jdg'][0] if groups['jdg'] | length > 0 else 'localhost') }}" port="${remote.cache.port:11222}"/>
+            <remote-destination host="{{ keycloak_remotecache.server_name | default('localhost') }}" port="${remote.cache.port:11222}"/>
         </outbound-socket-binding>
     </socket-binding-group>
 </server>

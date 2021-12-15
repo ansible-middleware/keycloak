@@ -607,7 +607,7 @@
         </outbound-socket-binding>
 {% if keycloak_modcluster.enabled %}
         <outbound-socket-binding name="proxy1">
-            <remote-destination host="{{ (groups['jbcs'][0] if groups['jbcs'] | length > 0 else 'localhost') }}" port="6666"/>
+            <remote-destination host="{{ keycloak_modcluster.reverse_proxy_url | default('localhost') }}" port="6666"/>
         </outbound-socket-binding>
 {% endif %}        
     </socket-binding-group>

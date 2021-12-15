@@ -4,7 +4,7 @@
   tasks:
     - name: Populate service facts
       ansible.builtin.service_facts:
-    - name: Check if infinispan service started
+    - name: Check if keycloak service started
       assert:
         that:
           - ansible_facts.services["keycloak.service"]["state"] == "running"

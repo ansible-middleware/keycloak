@@ -6,3 +6,5 @@
     - name: Include keycloak role
       include_role:
         name: ../../roles/keycloak
+      vars:
+        keycloak_admin_password: "changeme"

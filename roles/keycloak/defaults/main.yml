@@ -38,7 +38,6 @@ keycloak_ha_enabled: False
 
 # keycloak administration console user
 keycloak_admin_user: admin
-keycloak_admin_password: "password"
 
 keycloak_auth_realm: master
 keycloak_auth_client: admin-cli
@@ -47,14 +46,14 @@ keycloak_force_install: False
 
 keycloak_modcluster:
   enabled: "{{ keycloak_ha_enabled }}"
-  reverse_proxy_url: jbcs-0
+  reverse_proxy_url: "{{ keycloak_modcluster_url | default('localhost') }}"
 
 keycloak_remotecache:
   enabled: "{{ keycloak_ha_enabled }}"
-  username: supervisor
-  password: itsme
+  username: "{{ infinispan_user | default('supervisor') }}"
+  password: "{{ infinispan_pass | default('supervisor') }}"
   realm: default
-  server_name: jdg-1
+  server_name: "{{ infinispan_url | default('localhost') }}"
   trust_store_path: /path/to/jks/keystore
   trust_store_password: changeme
 
@@ -66,6 +65,6 @@ keycloak_jdbc:
     driver_version: 9.4.1212
     driver_jar_filename: "postgresql-9.4.1212.jar"
     driver_jar_url: "https://repo.maven.apache.org/maven2/org/postgresql/postgresql/9.4.1212/postgresql-9.4.1212.jar"
-    connection_url: "jdbc:postgresql://pgsql-0:5432/keycloak"
-    db_user: "keycloak-user"
-    db_password: "keycloak-pass"
+    connection_url: "{{ postgres_jdbc_url | default('jdbc:postgresql://localhost:5432/keycloak') }}"
+    db_user: "{{ postgres_db_user | default('keycloak-user') }}"
+    db_password: "{{ postgres_db_pass | default('keycloak-pass') }}"

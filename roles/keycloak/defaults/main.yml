@@ -13,6 +13,7 @@ keycloak_rhsso_saml_adapter_rhn_id: '101901'
 keycloak_rhsso_version: 7.5
 keycloak_rhsso_archive: rh-sso-{{ keycloak_rhsso_version }}-server-dist.zip
 keycloak_rhsso_installdir: "{{ keycloak_dest }}/rh-sso-{{ keycloak_rhsso_version }}"
+keycloak_rhsso_base_url: 'https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId='
 
 ### Install location and service settings
 keycloak_dest: /opt/keycloak

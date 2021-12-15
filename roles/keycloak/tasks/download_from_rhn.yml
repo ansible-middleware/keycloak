@@ -8,8 +8,7 @@
     quiet: true
 
 - set_fact:
-    rhn_base_url: "{{ override_rhn_base_url | default('https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=') }}"
-    rhn_download_url: "{{ rhn_base_url }}{{ rhn_id_file }}"
+    rhn_download_url: "{{ keycloak_rhsso_base_url }}{{ rhn_id_file }}"
 
 - name: "Check zipfile dest directory {{ zipfile_dest }}"
   stat:

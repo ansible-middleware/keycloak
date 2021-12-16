@@ -8,16 +8,28 @@
 
 - include_tasks: tasks/install.yml
 
-## FIXME not idempotent (keyclock removes the file when it restarts)
-- name: create Keycloak admin user
-  command:
-  args:
-    argv:
-      - "{{ keycloak_jboss_home }}/bin/add-user-keycloak.sh"
-      - -rmaster
-      - -u{{ keycloak_admin_user }}
-      - -p{{ keycloak_admin_password }}
-    creates: "{{ keycloak_config_dir }}/keycloak-add-user.json"
-  become: yes
-
 - include_tasks: tasks/systemd.yml
+
+- block:
+    - name: Check admin credentials by generating a token
+      uri:
+        url: "{{ keycloak_url }}/auth/realms/master/protocol/openid-connect/token"
+        method: POST
+        body: "client_id={{ keycloak_auth_client }}&username={{ keycloak_admin_user }}&password={{ keycloak_admin_password }}&grant_type=password"
+        validate_certs: no
+      register: keycloak_auth_response
+      until: keycloak_auth_response.status == 200
+      retries: 2
+      delay: 2
+  rescue:
+    - name: create Keycloak admin user
+      command:
+      args:
+        argv:
+          - "{{ keycloak_jboss_home }}/bin/add-user-keycloak.sh"
+          - -rmaster
+          - -u{{ keycloak_admin_user }}
+          - -p{{ keycloak_admin_password }}
+      become: yes
+    - name: restart keycloak
+      include_tasks: tasks/restart_keycloak.yml

@@ -112,19 +112,19 @@
   become: yes
   when: keycloak_rhsso_enable
 
-- name: "Install Postresql driver"
+- name: "Install {{ keycloak_jdbc_engine }} driver"
   include_role:
     name: wildfly_driver
     tasks_from: jdbc_driver.yml
   vars:
       wildfly_user: "{{ keycloak_service_user }}"
-      jdbc_driver_module_dir: "{{ keycloak_jdbc.postgres.driver_module_dir }}"
-      jdbc_driver_version: "{{ keycloak_jdbc.postgres.driver_version }}"
-      jdbc_driver_jar_filename: "{{ keycloak_jdbc.postgres.driver_jar_filename }}"
-      jdbc_driver_jar_url: "{{ keycloak_jdbc.postgres.driver_jar_url }}"
-      jdbc_driver_jar_installation_path: "{{ keycloak_jdbc.postgres.driver_module_dir }}/{{ keycloak_jdbc.postgres.driver_jar_filename }}"
-      jdbc_driver_module_name: "{{ keycloak_jdbc.postgres.driver_module_name }}"
-  when: keycloak_jdbc.postgres.enabled
+      jdbc_driver_module_dir: "{{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_dir }}"
+      jdbc_driver_version: "{{ keycloak_jdbc[keycloak_jdbc_engine].driver_version }}"
+      jdbc_driver_jar_filename: "{{ keycloak_jdbc[keycloak_jdbc_engine].driver_jar_filename }}"
+      jdbc_driver_jar_url: "{{ keycloak_jdbc[keycloak_jdbc_engine].driver_jar_url }}"
+      jdbc_driver_jar_installation_path: "{{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_dir }}/{{ keycloak_jdbc[keycloak_jdbc_engine].driver_jar_filename }}"
+      jdbc_driver_module_name: "{{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_name }}"
+  when: keycloak_jdbc[keycloak_jdbc_engine].enabled
 
 - name: "Deploy Keycloak's standalone.xml"
   become: yes

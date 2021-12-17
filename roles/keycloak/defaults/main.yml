@@ -36,6 +36,7 @@ keycloak_url: "http://{{ keycloak_host }}:{{ keycloak_http_port }}"
 keycloak_management_url: "http://{{ keycloak_host }}:{{ keycloak_management_http_port }}"
 # enable auto configuration for database backend, clustering and remote caches on infinispan
 keycloak_ha_enabled: False
+keycloak_db_enabled: False
 
 # keycloak administration console user
 keycloak_admin_user: admin
@@ -58,9 +59,10 @@ keycloak_remotecache:
   trust_store_path: /path/to/jks/keystore
   trust_store_password: changeme
 
+keycloak_jdbc_engine: postgres
 keycloak_jdbc:
   postgres:
-    enabled: "{{ keycloak_ha_enabled }}"
+    enabled: "{{ keycloak_ha_enabled and keycloak_jdbc_engine == 'postgres' }}"
     driver_module_name: "org.postgresql"
     driver_module_dir: "{{ keycloak_jboss_home }}/modules/org/postgresql/main"
     driver_version: 9.4.1212
@@ -69,3 +71,13 @@ keycloak_jdbc:
     connection_url: "{{ postgres_jdbc_url | default('jdbc:postgresql://localhost:5432/keycloak') }}"
     db_user: "{{ postgres_db_user | default('keycloak-user') }}"
     db_password: "{{ postgres_db_pass | default('keycloak-pass') }}"
+  mariadb:
+    enabled: "{{ keycloak_ha_enabled and keycloak_jdbc_engine == 'mariadb' }}"
+    driver_module_name: "org.mariadb"
+    driver_module_dir: "{{ keycloak_jboss_home }}/modules/org/mariadb/main"
+    driver_version: 2.7.4
+    driver_jar_filename: "mariadb-java-client-2.7.4.jar"
+    driver_jar_url: "https://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/2.7.4/mariadb-java-client-2.7.4.jar"
+    connection_url: "{{ mariadb_jdbc_url | default('jdbc:mariadb://localhost:3306/keycloak') }}"
+    db_user: "{{ mariadb_db_user | default('keycloak-user') }}"
+    db_password: "{{ mariadb_db_pass | default('keycloak-pass') }}"

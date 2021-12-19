@@ -498,6 +498,30 @@
             <stacks>
                 <stack name="tcp">
                     <transport site="${jboss.node.name}" type="TCP" socket-binding="jgroups-tcp"/>
+                    <protocol type="JDBC_PING">
+                        <property name="datasource_jndi_name">java:jboss/datasources/KeycloakDS</property>
+                        <property name="initialize_sql">
+                            CREATE TABLE IF NOT EXISTS JGROUPSPING (
+                            own_addr varchar(200) NOT NULL,
+                            cluster_name varchar(200) NOT NULL,
+                            updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                            ping_data varbinary(5000) DEFAULT NULL,
+                            PRIMARY KEY (own_addr, cluster_name))
+                            ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+                        </property>
+                    </protocol>
+                    <protocol type="MERGE3"/>
+                    <protocol type="FD_SOCK"/>
+                    <protocol type="FD_ALL"/>
+                    <protocol type="VERIFY_SUSPECT"/>
+                    <protocol type="pbcast.NAKACK2"/>
+                    <protocol type="UNICAST3"/>
+                    <protocol type="pbcast.STABLE"/>
+                    <protocol type="pbcast.GMS">
+                        <property name="join_timeout">30000</property>
+                    </protocol>
+                    <protocol type="MFC"/>
+                    <protocol type="FRAG2"/>
                 </stack>
             </stacks>
         </subsystem>
@@ -690,6 +714,9 @@
         <interface name="management">
             <inet-address value="${jboss.bind.address.management:127.0.0.1}"/>
         </interface>
+        <interface name="jgroups">
+            <subnet-match value="{{ (ansible_default_ipv4.address + '/' + ansible_default_ipv4.netmask) | ipaddr('prefix') }}"/>
+        </interface>
         <interface name="public">
             <inet-address value="${jboss.bind.address:127.0.0.1}"/>
         </interface>
@@ -700,14 +727,14 @@
         <socket-binding name="https" port="${jboss.https.port:8443}"/>
         <socket-binding name="management-http" interface="management" port="${jboss.management.http.port:9990}"/>
         <socket-binding name="management-https" interface="management" port="${jboss.management.https.port:9993}"/>
-        <socket-binding name="jgroups-tcp" interface="management" port="7600"/>
+        <socket-binding name="jgroups-tcp" interface="jgroups" port="7600"/>
         <socket-binding name="modcluster" multicast-address="${jboss.modcluster.multicast.address:224.0.1.105}" multicast-port="23364"/>
         <socket-binding name="txn-recovery-environment" port="4712"/>
         <socket-binding name="txn-status-manager" port="4713"/>
         <outbound-socket-binding name="mail-smtp">
             <remote-destination host="${jboss.mail.server.host:localhost}" port="${jboss.mail.server.port:25}"/>
         </outbound-socket-binding>
-{% if keycloak_modcluster.enabled %}        
+{% if keycloak_modcluster.enabled %}
         <outbound-socket-binding name="proxy1">
             <remote-destination host="{{ keycloak_modcluster.reverse_proxy_url | default('localhost') }}" port="6666"/>
         </outbound-socket-binding>

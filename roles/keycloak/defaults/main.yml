@@ -63,6 +63,8 @@ keycloak_jdbc_engine: postgres
 keycloak_jdbc:
   postgres:
     enabled: "{{ keycloak_ha_enabled and keycloak_jdbc_engine == 'postgres' }}"
+    driver_class: org.postgresql.Driver
+    xa_datasource_class: org.postgresql.xa.PGXADataSource
     driver_module_name: "org.postgresql"
     driver_module_dir: "{{ keycloak_jboss_home }}/modules/org/postgresql/main"
     driver_version: 9.4.1212
@@ -73,6 +75,8 @@ keycloak_jdbc:
     db_password: "{{ postgres_db_pass | default('keycloak-pass') }}"
   mariadb:
     enabled: "{{ keycloak_ha_enabled and keycloak_jdbc_engine == 'mariadb' }}"
+    driver_class: org.mariadb.jdbc.Driver
+    xa_datasource_class: org.mariadb.jdbc.MySQLDataSource
     driver_module_name: "org.mariadb"
     driver_module_dir: "{{ keycloak_jboss_home }}/modules/org/mariadb/main"
     driver_version: 2.7.4

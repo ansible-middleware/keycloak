@@ -384,7 +384,7 @@
                     <heap-memory size="10000"/>
                 </local-cache>
                 <local-cache name="authenticationSessions"/>
-                {% for cachename in [ "sessions", "offlineSessions", "clientSessions", "offlineClientSessions", "loginFailures", "actionTokens" ] %}
+{% for cachename in [ "sessions", "offlineSessions", "clientSessions", "offlineClientSessions", "loginFailures", "actionTokens" ] %}
                 <distributed-cache name="{{ cachename }}">
                     <remote-store cache="{{ cachename }}"
                                   remote-servers="remote-cache"
@@ -407,7 +407,7 @@
                         <property name="infinispan.client.hotrod.trust_store_password">{{ keycloak_remotecache.trust_store_password | default("changeme") }}</property>
                     </remote-store>
                 </distributed-cache>
-                {% endfor %}
+{% endfor %}
                 <replicated-cache name="work">
                     <remote-store cache="work"
                                   remote-servers="remote-cache"
@@ -509,6 +509,9 @@
                             PRIMARY KEY (own_addr, cluster_name))
                             ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
                         </property>
+                        <property name="insert_single_sql">INSERT INTO JGROUPSPING (own_addr, cluster_name, ping_data) values (?, ?, ?)</property>
+                        <property name="delete_single_sql">DELETE FROM JGROUPSPING WHERE own_addr=? AND cluster_name=?</property>
+                        <property name="select_all_pingdata_sql">SELECT ping_data FROM JGROUPSPING WHERE cluster_name=?</property>
                     </protocol>
                     <protocol type="MERGE3"/>
                     <protocol type="FD_SOCK"/>
@@ -675,7 +678,7 @@
             </deployment-permissions>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:transactions:6.0">
-            <core-environment node-identifier="${jboss.tx.node.id:1}">
+            <core-environment node-identifier="{{ inventory_hostname | default('${jboss.tx.node.id:1}') }}">
                 <process-id>
                     <uuid/>
                 </process-id>
@@ -715,7 +718,7 @@
             <inet-address value="${jboss.bind.address.management:127.0.0.1}"/>
         </interface>
         <interface name="jgroups">
-            <subnet-match value="{{ (ansible_default_ipv4.address + '/' + ansible_default_ipv4.netmask) | ipaddr('prefix') }}"/>
+            <subnet-match value="{{ (ansible_default_ipv4.network + '/' + ansible_default_ipv4.netmask) | ipaddr('net') }}"/>
         </interface>
         <interface name="public">
             <inet-address value="${jboss.bind.address:127.0.0.1}"/>
@@ -734,11 +737,11 @@
         <outbound-socket-binding name="mail-smtp">
             <remote-destination host="${jboss.mail.server.host:localhost}" port="${jboss.mail.server.port:25}"/>
         </outbound-socket-binding>
-{% if keycloak_modcluster.enabled %}            
+{% if keycloak_modcluster.enabled %}
         <outbound-socket-binding name="proxy1">
             <remote-destination host="{{ keycloak_modcluster.reverse_proxy_url | default('localhost') }}" port="6666"/>
         </outbound-socket-binding>
-{% endif %}        
+{% endif %}
         <outbound-socket-binding name="remote-cache">
             <remote-destination host="{{ keycloak_remotecache.server_name | default('localhost') }}" port="${remote.cache.port:11222}"/>
         </outbound-socket-binding>

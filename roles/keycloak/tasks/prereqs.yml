@@ -4,7 +4,7 @@
     that:
       - (keycloak_ha_enabled and keycloak_db_enabled) or (not keycloak_ha_enabled and keycloak_db_enabled) or (not keycloak_ha_enabled and not keycloak_db_enabled)
     quiet: True
-    fail_msg: "Cannot install HA setup without a backend database service. Check keycloak_ha_enabled and keycloak_ha_enabled"
+    fail_msg: "Cannot install HA setup without a backend database service. Check keycloak_ha_enabled and keycloak_db_enabled"
     success_msg: "{{ 'Configuring HA' if keycloak_ha_enabled else 'Configuring standalone' }}"
 
 - name: "Validate credentials"

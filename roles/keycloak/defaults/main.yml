@@ -36,7 +36,7 @@ keycloak_url: "http://{{ keycloak_host }}:{{ keycloak_http_port }}"
 keycloak_management_url: "http://{{ keycloak_host }}:{{ keycloak_management_http_port }}"
 # enable auto configuration for database backend, clustering and remote caches on infinispan
 keycloak_ha_enabled: False
-keycloak_db_enabled: False
+keycloak_db_enabled: "{{ True if keycloak_ha_enabled else False }}"
 
 # keycloak administration console user
 keycloak_admin_user: admin

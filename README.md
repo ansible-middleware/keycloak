@@ -41,6 +41,13 @@ rhsso_rhn_id: '<sso_product_id>'
 
 where `sso_product_id` is the ID for the specific Red Hat Single Sign-On version, ie. _101971_ will install version _7.5_)
 
+
+## Included roles
+
+* `keycloak`: role for installing the service.
+* `keycloak_realm`: role for configuring a realm, with clients and users, in an installed service.
+
+
 ## License
 
 Apache License v2.0 or later

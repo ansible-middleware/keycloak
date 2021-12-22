@@ -51,6 +51,7 @@
     state: present
   register: create_client_result
   loop: "{{ keycloak_clients | flatten }}"
+  when: item.name|length > 0
 
 - name: Create client roles
   include_tasks: manage_client_roles.yml
@@ -59,15 +60,8 @@
   loop_control:
     loop_var: client
 
-- name: Manage Users
-  include_tasks: manage_user.yml
-  loop: "{{ keycloak_users }}"
+- name: Create client users
+  include_tasks: manage_client_users.yml
+  loop: "{{ keycloak_clients | flatten }}"
   loop_control:
-    loop_var: user
-
-- name: Manage User Roles
-  include_tasks: manage_user_roles.yml
-  loop: "{{ keycloak_users | flatten }}"
-  loop_control:
-    loop_var: user
-  when: "'client_roles' in user"
+    loop_var: client

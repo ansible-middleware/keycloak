@@ -1,0 +1,44 @@
+---
+### Keycloak configuration settings
+keycloak_host: localhost
+keycloak_http_port: 8080
+keycloak_https_port: 8443
+
+### Keycloak administration console user
+keycloak_admin_user: admin
+keycloak_auth_realm: master
+keycloak_auth_client: admin-cli
+
+### Keycloak realm client defaults
+# list of clients to create in the realm
+#
+# Refer to the playbook for a comprehensive example.
+#
+# Each client has the form:
+#    { name: '', roles: [], realm: '', public_client: bool, web_origins: '', users: [] }
+# where roles is a list of default role names for the client
+# and users is a list of account, see below for the format definition
+# an empty name will skip the creation of the client
+keycloak_clients:
+  - name: ''
+    roles: "{{ keycloak_client_default_roles }}"
+    realm: "{{ keycloak_realm }}"
+    public_client: "{{ keycloak_client_public }}"
+    web_origins: "{{ keycloak_client_web_origins }}"
+    users: "{{ keycloak_client_users }}"
+
+# list of roles to create in the client
+keycloak_client_default_roles: []
+
+# if True, create a public client; otherwise, a confidetial client
+keycloak_client_public: True
+
+# allowed web origins for the client
+keycloak_client_web_origins: '+'
+
+# list of user and role mappings to create in the client
+# Each user has the form:
+#    { username: '', password: '', email: '', firstName: '', lastName: '', client_roles: [] }
+# where each client_role has the form:
+#    { client: '', role: '', realm: '' }
+keycloak_client_users: []

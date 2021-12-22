@@ -5,7 +5,7 @@
     validate_certs: no
     headers:
       Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
-  register: keycloak_user_serach_result
+  register: keycloak_user_search_result
 
 - name: "Create User"
   uri:
@@ -23,7 +23,7 @@
     headers:
       Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
     status_code: 201
-  when: keycloak_user_serach_result.json | length == 0
+  when: keycloak_user_search_result.json | length == 0
 
 - name: "Get User"
   uri:

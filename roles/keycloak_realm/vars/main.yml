@@ -1,0 +1,16 @@
+---
+# vars file for keycloak_realm
+
+# administrator console password, this is a required variable
+keycloak_admin_password:
+
+# name of the realm to create, this is a required variable
+keycloak_realm:
+
+# keycloak realm clients, this is a required variable
+keycloak_clients:
+
+# other settings
+keycloak_url: "http://{{ keycloak_host }}:{{ keycloak_http_port }}"
+keycloak_management_url: "http://{{ keycloak_host }}:{{ keycloak_management_http_port }}"
+keycloak_rhsso_enable: "{{ True if rhsso_rhn_id is defined else False }}"

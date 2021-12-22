@@ -8,3 +8,35 @@
         name: ../../roles/keycloak
       vars:
         keycloak_admin_password: "changeme"
+    - name: Keycloak Realm Role
+      include_role:
+        name: ../../roles/keycloak_realm
+      vars:
+        keycloak_admin_password: "changeme"
+        keycloak_client_default_roles:
+          - TestRoleAdmin
+          - TestRoleUser
+        keycloak_client_users:
+          - username: TestUser
+            password: password
+            client_roles:
+              - client: TestClient
+                role: TestRoleUser
+                realm: "{{ keycloak_realm }}"
+          - username: TestAdmin
+            password: password
+            client_roles:
+              - client: TestClient
+                role: TestRoleUser
+                realm: "{{ keycloak_realm }}"
+              - client: TestClient
+                role: TestRoleAdmin
+                realm: "{{ keycloak_realm }}"
+        keycloak_realm: TestRealm
+        keycloak_clients:
+          - name: TestClient
+            roles: "{{ keycloak_client_default_roles }}"
+            realm: "{{ keycloak_realm }}"
+            public_client: "{{ keycloak_client_public }}"
+            web_origins: "{{ keycloak_client_web_origins }}"
+            users: "{{ keycloak_client_users }}"

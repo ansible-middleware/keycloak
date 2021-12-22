@@ -64,8 +64,8 @@ Dependencies
 
 The roles depends on:
 
-* the redhat_csp_download role of [middleware_automation.redhat_csp_download](https://github.com/ansible-middleware/redhat-csp-download) collection
-* the jcliff role of [middleware_automation.jcliff](https://github.com/ansible-middleware/ansible_collections_jcliff) collection
+* the redhat_csp_download role from [middleware_automation.redhat_csp_download](https://github.com/ansible-middleware/redhat-csp-download) collection
+* the wildfly_driver role from [middleware_automation.jcliff](https://github.com/ansible-middleware/ansible_collections_jcliff) collection
 
 
 Example Playbook

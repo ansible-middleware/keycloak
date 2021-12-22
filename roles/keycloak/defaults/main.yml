@@ -3,13 +3,10 @@
 keycloak_version: 9.0.2
 keycloak_archive: keycloak-{{ keycloak_version }}.zip
 keycloak_download_url: https://downloads.jboss.org/keycloak/{{ keycloak_version }}/{{ keycloak_archive }}
-keycloak_local_download_dest: '{{ "~/keycloak_download" | expanduser }}'
 keycloak_installdir: "{{ keycloak_dest }}/keycloak-{{ keycloak_version }}"
 
 ### Configuration specific to Red Hat Single Sing-On
 keycloak_rhsso_enable: "{{ True if rhsso_rhn_id is defined else False }}"
-keycloak_rhsso_client_adapter_rhn_id: '101951'
-keycloak_rhsso_saml_adapter_rhn_id: '101901'
 keycloak_rhsso_version: 7.5
 keycloak_rhsso_archive: rh-sso-{{ keycloak_rhsso_version }}-server-dist.zip
 keycloak_rhsso_installdir: "{{ keycloak_dest }}/rh-sso-{{ keycloak_rhsso_version }}"
@@ -32,56 +29,33 @@ keycloak_https_port: 8443
 keycloak_management_http_port: 9990
 keycloak_management_https_port: 9993
 keycloak_java_opts: "-Xms1024m -Xmx20480m -XX:MaxPermSize=768m"
-keycloak_url: "http://{{ keycloak_host }}:{{ keycloak_http_port }}"
-keycloak_management_url: "http://{{ keycloak_host }}:{{ keycloak_management_http_port }}"
-# enable auto configuration for database backend, clustering and remote caches on infinispan
+
+### Enable configuration for database backend, clustering and remote caches on infinispan
 keycloak_ha_enabled: False
+### Enable database configuration, must be enabled when HA is configured
 keycloak_db_enabled: "{{ True if keycloak_ha_enabled else False }}"
 
-# keycloak administration console user
+### Keycloak administration console user
 keycloak_admin_user: admin
-
 keycloak_auth_realm: master
 keycloak_auth_client: admin-cli
 
 keycloak_force_install: False
 
-keycloak_modcluster:
-  enabled: "{{ keycloak_ha_enabled }}"
-  reverse_proxy_url: "{{ keycloak_modcluster_url | default('localhost') }}"
+### mod_cluster reverse proxy
+keycloak_modcluster_url: localhost
 
-keycloak_remotecache:
-  enabled: "{{ keycloak_ha_enabled }}"
-  username: "{{ infinispan_user | default('supervisor') }}"
-  password: "{{ infinispan_pass | default('supervisor') }}"
-  realm: default
-  server_name: "{{ infinispan_url | default('localhost') }}"
-  trust_store_path: /path/to/jks/keystore
-  trust_store_password: changeme
+### infinispan remote caches access
+infinispan_user: supervisor
+infinispan_pass: supervisor
+infinispan_url: localhost
 
+### database backend engine: values [ 'postgres', 'mariadb' ]
 keycloak_jdbc_engine: postgres
-keycloak_jdbc:
-  postgres:
-    enabled: "{{ keycloak_ha_enabled and keycloak_jdbc_engine == 'postgres' }}"
-    driver_class: org.postgresql.Driver
-    xa_datasource_class: org.postgresql.xa.PGXADataSource
-    driver_module_name: "org.postgresql"
-    driver_module_dir: "{{ keycloak_jboss_home }}/modules/org/postgresql/main"
-    driver_version: 9.4.1212
-    driver_jar_filename: "postgresql-9.4.1212.jar"
-    driver_jar_url: "https://repo.maven.apache.org/maven2/org/postgresql/postgresql/9.4.1212/postgresql-9.4.1212.jar"
-    connection_url: "{{ postgres_jdbc_url | default('jdbc:postgresql://localhost:5432/keycloak') }}"
-    db_user: "{{ postgres_db_user | default('keycloak-user') }}"
-    db_password: "{{ postgres_db_pass | default('keycloak-pass') }}"
-  mariadb:
-    enabled: "{{ keycloak_ha_enabled and keycloak_jdbc_engine == 'mariadb' }}"
-    driver_class: org.mariadb.jdbc.Driver
-    xa_datasource_class: org.mariadb.jdbc.MySQLDataSource
-    driver_module_name: "org.mariadb"
-    driver_module_dir: "{{ keycloak_jboss_home }}/modules/org/mariadb/main"
-    driver_version: 2.7.4
-    driver_jar_filename: "mariadb-java-client-2.7.4.jar"
-    driver_jar_url: "https://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/2.7.4/mariadb-java-client-2.7.4.jar"
-    connection_url: "{{ mariadb_jdbc_url | default('jdbc:mariadb://localhost:3306/keycloak') }}"
-    db_user: "{{ mariadb_db_user | default('keycloak-user') }}"
-    db_password: "{{ mariadb_db_pass | default('keycloak-pass') }}"
+### database backend credentials
+postgres_jdbc_url: 'jdbc:postgresql://localhost:5432/keycloak'
+postgres_db_user: keycloak-user
+postgres_db_pass: keycloak-pass
+mariadb_jdbc_url: 'jdbc:mariadb://localhost:3306/keycloak'
+mariadb_db_user: keycloak-user
+mariadb_db_pass: keycloak-pass

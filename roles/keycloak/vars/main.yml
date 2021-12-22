@@ -1,3 +1,51 @@
 ---
 # vars file for keycloak
+
+# administrator console password, this is a required variable
 keycloak_admin_password:
+
+# locations
+keycloak_url: "http://{{ keycloak_host }}:{{ keycloak_http_port }}"
+keycloak_management_url: "http://{{ keycloak_host }}:{{ keycloak_management_http_port }}"
+
+# database
+keycloak_jdbc:
+  postgres:
+    enabled: "{{ keycloak_ha_enabled and keycloak_jdbc_engine == 'postgres' }}"
+    driver_class: org.postgresql.Driver
+    xa_datasource_class: org.postgresql.xa.PGXADataSource
+    driver_module_name: "org.postgresql"
+    driver_module_dir: "{{ keycloak_jboss_home }}/modules/org/postgresql/main"
+    driver_version: 9.4.1212
+    driver_jar_filename: "postgresql-9.4.1212.jar"
+    driver_jar_url: "https://repo.maven.apache.org/maven2/org/postgresql/postgresql/9.4.1212/postgresql-9.4.1212.jar"
+    connection_url: "{{ postgres_jdbc_url }}"
+    db_user: "{{ postgres_db_user }}"
+    db_password: "{{ postgres_db_pass }}"
+  mariadb:
+    enabled: "{{ keycloak_ha_enabled and keycloak_jdbc_engine == 'mariadb' }}"
+    driver_class: org.mariadb.jdbc.Driver
+    xa_datasource_class: org.mariadb.jdbc.MySQLDataSource
+    driver_module_name: "org.mariadb"
+    driver_module_dir: "{{ keycloak_jboss_home }}/modules/org/mariadb/main"
+    driver_version: 2.7.4
+    driver_jar_filename: "mariadb-java-client-2.7.4.jar"
+    driver_jar_url: "https://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/2.7.4/mariadb-java-client-2.7.4.jar"
+    connection_url: "{{ mariadb_jdbc_url }}"
+    db_user: "{{ mariadb_db_user  }}"
+    db_password: "{{ mariadb_db_pass }}"
+
+# reverse proxy mod_cluster
+keycloak_modcluster:
+  enabled: "{{ keycloak_ha_enabled }}"
+  reverse_proxy_url: "{{ keycloak_modcluster_url }}"
+
+# infinispan
+keycloak_remotecache:
+  enabled: "{{ keycloak_ha_enabled }}"
+  username: "{{ infinispan_user }}"
+  password: "{{ infinispan_pass }}"
+  realm: default
+  server_name: "{{ infinispan_url }}"
+  trust_store_path: /path/to/jks/keystore
+  trust_store_password: changeme

@@ -1,1 +1,24 @@
 ---
+galaxy_info:
+  role_name: keycloak_realm
+  namespace: middleware_automation
+  author: Romain Pelisse, Guido Grazioli
+  description: Create realms and clients in keycloak or Red Hat Single Sing-On
+  company: Red Hat, Inc.
+
+  license: Apache License 2.0
+
+  min_ansible_version: "2.9"
+
+  platforms:
+   - name: EL
+     versions:
+     - 7
+     - 8
+
+  galaxy_tags:
+    - keycloak
+    - redhat
+    - rhel
+    - rhn
+    - sso

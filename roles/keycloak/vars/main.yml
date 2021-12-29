@@ -11,7 +11,7 @@ keycloak_management_url: "http://{{ keycloak_host }}:{{ keycloak_management_http
 # database
 keycloak_jdbc:
   postgres:
-    enabled: "{{ keycloak_ha_enabled and keycloak_jdbc_engine == 'postgres' }}"
+    enabled: "{{ (keycloak_ha_enabled or keycloak_db_enabled) and keycloak_jdbc_engine == 'postgres' }}"
     driver_class: org.postgresql.Driver
     xa_datasource_class: org.postgresql.xa.PGXADataSource
     driver_module_name: "org.postgresql"
@@ -22,8 +22,15 @@ keycloak_jdbc:
     connection_url: "{{ postgres_jdbc_url }}"
     db_user: "{{ postgres_db_user }}"
     db_password: "{{ postgres_db_pass }}"
+    initialize_db: >
+      CREATE TABLE IF NOT EXISTS JGROUPSPING (
+        own_addr varchar(200) NOT NULL,
+        cluster_name varchar(200) NOT NULL,
+        updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        ping_data BYTEA,
+        constraint PK_JGROUPSPING PRIMARY KEY (own_addr, cluster_name))
   mariadb:
-    enabled: "{{ keycloak_ha_enabled and keycloak_jdbc_engine == 'mariadb' }}"
+    enabled: "{{ (keycloak_ha_enabled or keycloak_db_enabled) and keycloak_jdbc_engine == 'mariadb' }}"
     driver_class: org.mariadb.jdbc.Driver
     xa_datasource_class: org.mariadb.jdbc.MySQLDataSource
     driver_module_name: "org.mariadb"
@@ -34,6 +41,14 @@ keycloak_jdbc:
     connection_url: "{{ mariadb_jdbc_url }}"
     db_user: "{{ mariadb_db_user  }}"
     db_password: "{{ mariadb_db_pass }}"
+    initialize_db: >
+      CREATE TABLE IF NOT EXISTS JGROUPSPING (
+        own_addr varchar(200) NOT NULL,
+        cluster_name varchar(200) NOT NULL,
+        updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        ping_data varbinary(5000) DEFAULT NULL,
+        PRIMARY KEY (own_addr, cluster_name))
+      ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
 
 # reverse proxy mod_cluster
 keycloak_modcluster:

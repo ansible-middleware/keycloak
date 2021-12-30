@@ -56,9 +56,12 @@
 
 - meta: flush_handlers
 
-- name: Wait until Keycloak becomes active
+- set_fact:
+    health_url: "{{ keycloak_management_url }}/health"
+
+- name: "Wait until Keycloak becomes active {{ health_url }}"
   uri:
-    url: "{{ keycloak_management_url }}/health"
+    url: "{{ health_url }}"
   register: keycloak_status
   until: keycloak_status.status == 200
   retries: 20

@@ -130,7 +130,7 @@
   become: yes
   template:
     src: "{{ 'templates/standalone-rhsso.xml.j2' if keycloak_rhsso_enable else 'templates/standalone.xml.j2' }}"
-    dest: "{{ keycloak_jboss_home }}/standalone/configuration/standalone.xml"
+    dest: "{{ keycloak_config_path_to_standalone_xml }}"
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
     mode: 0640
@@ -142,7 +142,7 @@
   become: yes
   template:
     src: "{{ 'templates/standalone-rhsso-jdg.xml.j2' if keycloak_rhsso_enable else 'templates/standalone-infinispan.xml.j2' }}"
-    dest: "{{ keycloak_jboss_home }}/standalone/configuration/standalone.xml"
+    dest: "{{ keycloak_config_path_to_standalone_xml }}"
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
     mode: 0640

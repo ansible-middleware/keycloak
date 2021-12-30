@@ -83,6 +83,7 @@ startKeycloak() {
         -Djboss.management.https.port=${KEYCLOAK_MANAGEMENT_HTTPS_PORT} \
         -Djboss.node.name={{ inventory_hostname }} \
       {% if ansible_facts.virtualization_type in ['docker','oci','containerd'] %}-Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Addresses=true {% endif %}\
+      {% if keycloak_config_standalone_xml is defined %}--server-config={{ keycloak_config_standalone_xml }}{% endif %} \
       2>&1 >> "${KEYCLOAK_LOGFILE}" &
     while [ ! -f ${KEYCLOAK_PIDFILE} ]; do sleep 1; done
   fi

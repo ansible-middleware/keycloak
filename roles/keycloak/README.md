@@ -4,6 +4,12 @@ keycloak
 Install [keycloak](https://keycloak.org/) or [Red Hat Single Sing-On](https://access.redhat.com/products/red-hat-single-sign-on) server configurations.
 
 
+Requirements
+------------
+
+This role requires the `python3-netaddr` library installed on the controller node.
+
+
 Role Defaults
 -------------
 
@@ -19,6 +25,7 @@ Role Defaults
 |`keycloak_management_http_port`| management port | `9990`
 |`keycloak_management_https_port`| TLS management port | `9993`
 |`keycloak_java_opts`| | `-Xms1024m -Xmx20480m -XX:MaxPermSize=768m`
+
 
 Role Variables
 --------------
@@ -65,7 +72,7 @@ Dependencies
 The roles depends on:
 
 * the redhat_csp_download role from [middleware_automation.redhat_csp_download](https://github.com/ansible-middleware/redhat-csp-download) collection
-* the wildfly_driver role from [middleware_automation.jcliff](https://github.com/ansible-middleware/ansible_collections_jcliff) collection
+* the wildfly_driver role from [middleware_automation.wildfly](https://github.com/ansible-middleware/wildfly) collection
 
 
 Example Playbook

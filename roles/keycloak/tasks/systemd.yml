@@ -64,5 +64,5 @@
     url: "{{ health_url }}"
   register: keycloak_status
   until: keycloak_status.status == 200
-  retries: 20
+  retries: 25
   delay: 10

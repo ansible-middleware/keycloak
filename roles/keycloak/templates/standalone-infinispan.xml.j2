@@ -712,7 +712,11 @@
             <inet-address value="${jboss.bind.address.management:127.0.0.1}"/>
         </interface>
         <interface name="jgroups">
+{% if ansible_default_ipv4 is defined %}
             <subnet-match value="{{ (ansible_default_ipv4.network + '/' + ansible_default_ipv4.netmask) | ipaddr('net') }}"/>
+{% else %}
+            <any-address />
+{% endif %}
         </interface>
         <interface name="public">
             <inet-address value="${jboss.bind.address:127.0.0.1}"/>

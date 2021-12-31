@@ -4,12 +4,6 @@ keycloak_realm
 Create realms and clients in [keycloak](https://keycloak.org/) or [Red Hat Single Sing-On](https://access.redhat.com/products/red-hat-single-sign-on) services.
 
 
-Requirements
-------------
-
-This role requires `python3-netaddr` library installed on the controller node.
-
-
 Role Defaults
 -------------
 

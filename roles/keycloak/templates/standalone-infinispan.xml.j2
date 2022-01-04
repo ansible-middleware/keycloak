@@ -405,6 +405,7 @@
                         <property name="infinispan.client.hotrod.trust_store_file_name">{{ keycloak_remotecache.trust_store_path | default('/etc/truststore/truststore.jks') }}</property>
                         <property name="infinispan.client.hotrod.trust_store_type">JKS</property>
                         <property name="infinispan.client.hotrod.trust_store_password">{{ keycloak_remotecache.trust_store_password | default("changeme") }}</property>
+                        <property name="infinispan.client.hotrod.client_intelligence">TOPOLOGY_AWARE</property>
                     </remote-store>
                 </distributed-cache>
                 {% endfor %}
@@ -428,6 +429,7 @@
                         <property name="infinispan.client.hotrod.trust_store_file_name">{{ keycloak_remotecache.trust_store_path | default('/etc/truststore/truststore.jks') }}</property>
                         <property name="infinispan.client.hotrod.trust_store_type">JKS</property>
                         <property name="infinispan.client.hotrod.trust_store_password">{{ keycloak_remotecache.trust_store_password | default("changeme") }}</property>
+                        <property name="infinispan.client.hotrod.client_intelligence">TOPOLOGY_AWARE</property>
                     </remote-store>
                 </replicated-cache>
                 <local-cache name="authorization">

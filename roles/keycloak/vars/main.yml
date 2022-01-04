@@ -1,8 +1,9 @@
 ---
-# vars file for keycloak
-
-# administrator console password, this is a required variable
+# required variables for keycloak
+# administrator console password
 keycloak_admin_password:
+
+# internal variables below
 
 # locations
 keycloak_url: "http://{{ keycloak_host }}:{{ keycloak_http_port }}"
@@ -61,6 +62,8 @@ keycloak_remotecache:
   username: "{{ infinispan_user }}"
   password: "{{ infinispan_pass }}"
   realm: default
+  sasl_mechanism: "{{ infinispan_sasl_mechanism }}"
   server_name: "{{ infinispan_url }}"
-  trust_store_path: /path/to/jks/keystore
-  trust_store_password: changeme
+  use_ssl: "{{ infinispan_use_ssl }}"
+  trust_store_path: "{{ infinispan_trust_store_path }}"
+  trust_store_password: "{{ infinispan_trust_store_password }}"

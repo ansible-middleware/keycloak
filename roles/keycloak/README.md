@@ -24,7 +24,7 @@ Role Defaults
 |`keycloak_https_port`| TLS HTTP port | `8443`
 |`keycloak_management_http_port`| management port | `9990`
 |`keycloak_management_https_port`| TLS management port | `9993`
-|`keycloak_java_opts`| | `-Xms1024m -Xmx20480m -XX:MaxPermSize=768m`
+|`keycloak_java_opts`| Additional JVM options | `-Xms1024m -Xmx20480m -XX:MaxPermSize=768m`
 
 
 Role Variables
@@ -46,6 +46,10 @@ The following variables are _required_ only when keycloak_ha_enabled is True:
 |`infinispan_url` | URL for the infinispan remote-cache server | `localhost:11122` |
 |`infinispan_user` | username for connecting to infinispan | `supervisor` |
 |`infinispan_pass` | password for connecting to infinispan | `supervisor` |
+|`infinispan_sasl_mechanism`| Authentication type | `SCRAM-SHA-512` |
+|`infinispan_use_ssl`| Enable hotrod TLS communication | `False` |
+|`infinispan_trust_store_path`| Path to truststore with infinispan server certificate | `/etc/pki/java/cacerts` |
+|`infinispan_trust_store_password`| Password for opening truststore | `changeit` |
 
 
 The following variables are _required_ only when keycloak_db_enabled is True and keycloak_jdbc_engine is postgres:

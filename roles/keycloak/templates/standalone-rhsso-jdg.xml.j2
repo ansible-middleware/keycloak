@@ -400,11 +400,12 @@
                         <property name="infinispan.client.hotrod.auth_password">{{ keycloak_remotecache.password }}</property>
                         <property name="infinispan.client.hotrod.auth_realm">{{ keycloak_remotecache.realm | default('default') }}</property>
                         <property name="infinispan.client.hotrod.auth_server_name">{{ keycloak_remotecache.server_name }}</property>
-                        <property name="infinispan.client.hotrod.sasl_mechanism">{{ keycloak_remotecache.sasl_mechanism | default('SCRAM-SHA-512') }}</property>
-                        <property name="infinispan.client.hotrod.use_ssl">false</property>
-                        <property name="infinispan.client.hotrod.trust_store_file_name">{{ keycloak_remotecache.trust_store_path | default('/etc/truststore/truststore.jks') }}</property>
+                        <property name="infinispan.client.hotrod.sasl_mechanism">{{ keycloak_remotecache.sasl_mechanism }}</property>
+                        <property name="infinispan.client.hotrod.use_ssl">{{ keycloak_remotecache.use_ssl }}</property>
+                        <property name="infinispan.client.hotrod.trust_store_file_name">{{ keycloak_remotecache.trust_store_path }}</property>
                         <property name="infinispan.client.hotrod.trust_store_type">JKS</property>
-                        <property name="infinispan.client.hotrod.trust_store_password">{{ keycloak_remotecache.trust_store_password | default("changeme") }}</property>
+                        <property name="infinispan.client.hotrod.trust_store_password">{{ keycloak_remotecache.trust_store_password }}</property>
+                        <property name="infinispan.client.hotrod.client_intelligence">TOPOLOGY_AWARE</property>
                     </remote-store>
                 </distributed-cache>
 {% endfor %}
@@ -423,11 +424,12 @@
                         <property name="infinispan.client.hotrod.auth_password">{{ keycloak_remotecache.password }}</property>
                         <property name="infinispan.client.hotrod.auth_realm">{{ keycloak_remotecache.realm | default('default') }}</property>
                         <property name="infinispan.client.hotrod.auth_server_name">{{ keycloak_remotecache.server_name }}</property>
-                        <property name="infinispan.client.hotrod.sasl_mechanism">{{ keycloak_remotecache.sasl_mechanism | default('SCRAM-SHA-512') }}</property>
-                        <property name="infinispan.client.hotrod.use_ssl">false</property>
-                        <property name="infinispan.client.hotrod.trust_store_file_name">{{ keycloak_remotecache.trust_store_path | default('/etc/truststore/truststore.jks') }}</property>
+                        <property name="infinispan.client.hotrod.sasl_mechanism">{{ keycloak_remotecache.sasl_mechanism }}</property>
+                        <property name="infinispan.client.hotrod.use_ssl">{{ keycloak_remotecache.use_ssl }}</property>
+                        <property name="infinispan.client.hotrod.trust_store_file_name">{{ keycloak_remotecache.trust_store_path }}</property>
                         <property name="infinispan.client.hotrod.trust_store_type">JKS</property>
-                        <property name="infinispan.client.hotrod.trust_store_password">{{ keycloak_remotecache.trust_store_password | default("changeme") }}</property>
+                        <property name="infinispan.client.hotrod.trust_store_password">{{ keycloak_remotecache.trust_store_password }}</property>
+                        <property name="infinispan.client.hotrod.client_intelligence">TOPOLOGY_AWARE</property>
                     </remote-store>
                 </replicated-cache>
                 <local-cache name="authorization">

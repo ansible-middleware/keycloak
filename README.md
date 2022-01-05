@@ -44,8 +44,8 @@ where `sso_product_id` is the ID for the specific Red Hat Single Sign-On version
 
 ## Included roles
 
-* [`keycloak`](https://github.com/ansible-middleware/keycloak/roles/keycloak/REAME.md): role for installing the service. _Requires: python3-netaddr_
-* [`keycloak_realm`](https://github.com/ansible-middleware/keycloak/roles/keycloak_realm/REAME.md): role for configuring a realm, with clients and users, in an installed service.
+* [`keycloak`](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak/README.md): role for installing the service. _Requires: python3-netaddr_
+* [`keycloak_realm`](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak_realm/README.md): role for configuring a realm, with clients and users, in an installed service.
 
 
 ## License

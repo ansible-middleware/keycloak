@@ -53,22 +53,14 @@ The following variables are _required_ only when keycloak_ha_enabled is True:
 |`infinispan_trust_store_password`| Password for opening truststore | `changeit` |
 
 
-The following variables are _required_ only when keycloak_db_enabled is True and keycloak_jdbc_engine is postgres:
+The following variables are _required_ only when keycloak_db_enabled is True:
 
 | Variable | Description | Default |
 |:---------|:------------|:---------|
-|`postgres_jdbc_url` | URL for the postgres backend database | `jdbc:postgresql://localhost:5432/keycloak` |
-|`postgres_db_user` | username for connecting to postgres | `keycloak-user` |
-|`postgres_db_pass` | password for connecting to postgres | `keycloak-pass` |
-
-
-The following variables are _required_ only when keycloak_db_enabled is True and keycloak_jdbc_engine is mariadb:
-
-| Variable | Description | Default |
-|:---------|:------------|:---------|
-|`mariadb_jdbc_url` | URL for the mariadb backend database | `jdbc:mariadb://localhost:3306/keycloak` |
-|`mariadb_db_user` | username for connecting to mariadb | `keycloak-user` |
-|`mariadb_db_pass` | password for connecting to mariadb | `keycloak-pass` |
+|`keycloak_jdbc_url` | URL for the postgres backend database | `jdbc:postgresql://localhost:5432/keycloak` |
+|`keycloak_jdbc_driver_version`| Version for the JDBC driver to download | `9.4.1212` |
+|`keycloak_db_user` | username for connecting to postgres | `keycloak-user` |
+|`keycloak_db_pass` | password for connecting to postgres | `keycloak-pass` |
 
 
 Dependencies

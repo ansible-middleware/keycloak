@@ -17,12 +17,12 @@ keycloak_jdbc:
     xa_datasource_class: org.postgresql.xa.PGXADataSource
     driver_module_name: "org.postgresql"
     driver_module_dir: "{{ keycloak_jboss_home }}/modules/org/postgresql/main"
-    driver_version: 9.4.1212
-    driver_jar_filename: "postgresql-9.4.1212.jar"
-    driver_jar_url: "https://repo.maven.apache.org/maven2/org/postgresql/postgresql/9.4.1212/postgresql-9.4.1212.jar"
-    connection_url: "{{ postgres_jdbc_url }}"
-    db_user: "{{ postgres_db_user }}"
-    db_password: "{{ postgres_db_pass }}"
+    driver_version: "{{ keycloak_jdbc_driver_version }}"
+    driver_jar_filename: "postgresql-{{ keycloak_jdbc_driver_version }}.jar"
+    driver_jar_url: "https://repo.maven.apache.org/maven2/org/postgresql/postgresql/{{ keycloak_jdbc_driver_version }}/postgresql-{{ keycloak_jdbc_driver_version }}.jar"
+    connection_url: "{{ keycloak_jdbc_url }}"
+    db_user: "{{ keycloak_db_user }}"
+    db_password: "{{ keycloak_db_pass }}"
     initialize_db: >
       CREATE TABLE IF NOT EXISTS JGROUPSPING (
         own_addr varchar(200) NOT NULL,
@@ -36,12 +36,12 @@ keycloak_jdbc:
     xa_datasource_class: org.mariadb.jdbc.MySQLDataSource
     driver_module_name: "org.mariadb"
     driver_module_dir: "{{ keycloak_jboss_home }}/modules/org/mariadb/main"
-    driver_version: 2.7.4
-    driver_jar_filename: "mariadb-java-client-2.7.4.jar"
-    driver_jar_url: "https://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/2.7.4/mariadb-java-client-2.7.4.jar"
-    connection_url: "{{ mariadb_jdbc_url }}"
-    db_user: "{{ mariadb_db_user  }}"
-    db_password: "{{ mariadb_db_pass }}"
+    driver_version: "{{ keycloak_jdbc_driver_version }}"
+    driver_jar_filename: "mariadb-java-client-{{ keycloak_jdbc_driver_version }}.jar"
+    driver_jar_url: "https://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/{{ keycloak_jdbc_driver_version }}/mariadb-java-client-{{ keycloak_jdbc_driver_version }}.jar"
+    connection_url: "{{ keycloak_jdbc_url }}"
+    db_user: "{{ keycloak_db_user  }}"
+    db_password: "{{ keycloak_db_pass }}"
     initialize_db: >
       CREATE TABLE IF NOT EXISTS JGROUPSPING (
         own_addr varchar(200) NOT NULL,

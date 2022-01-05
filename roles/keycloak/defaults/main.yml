@@ -63,9 +63,15 @@ infinispan_trust_store_password: changeit
 ### database backend engine: values [ 'postgres', 'mariadb' ]
 keycloak_jdbc_engine: postgres
 ### database backend credentials
-postgres_jdbc_url: 'jdbc:postgresql://localhost:5432/keycloak'
-postgres_db_user: keycloak-user
-postgres_db_pass: keycloak-pass
-mariadb_jdbc_url: 'jdbc:mariadb://localhost:3306/keycloak'
-mariadb_db_user: keycloak-user
-mariadb_db_pass: keycloak-pass
+keycloak_db_user: keycloak-user
+keycloak_db_pass: keycloak-pass
+keycloak_jdbc_url: "{{ keycloak_default_jdbc[keycloak_jdbc_engine].url }}"
+keycloak_jdbc_driver_version: "{{ keycloak_default_jdbc[keycloak_jdbc_engine].version }}"
+# override the variables above, following defaults show minimum supported versions
+keycloak_default_jdbc:
+  postgres:
+    url: 'jdbc:postgresql://localhost:5432/keycloak'
+    version: 9.4.1212
+  mariadb:
+    url: 'jdbc:mariadb://localhost:3306/keycloak'
+    version: 2.7.4

@@ -54,14 +54,22 @@ where `sso_product_id` is the ID for the specific Red Hat Single Sign-On version
 Execute the following command from the source root directory 
 
 ```
-ansible-playbook -i ansible_hosts -e @rhn-creds.yml playbooks/keycloak.yml -e keycloak_admin_password=<changeme>`
+ansible-playbook -i <ansible_hosts> -e @rhn-creds.yml playbooks/keycloak.yml -e keycloak_admin_password=<changeme>
 ``` 
+
+- `keycloak_admin_password` Password for the administration console user account.
+- `ansible_hosts` is the inventory, below is an example inventory for deploying to localhost
+
+  ```
+  [keycloak]
+  localhost ansible_connection=local
+  ```
 
 ## Configuration
 
 ### Config Playbook
 
-`playbooks/keycloak-realm.yml` creates the realm, provided client(s), client role(s) and client user(s) if they don't exist.
+`playbooks/keycloak-realm.yml` creates provided realm, client(s), client role(s) and client user(s) if they don't exist.
 
 ### Config role
 
@@ -72,8 +80,17 @@ ansible-playbook -i ansible_hosts -e @rhn-creds.yml playbooks/keycloak.yml -e ke
 Execute the following command from the source root directory
 
 ```
-ansible-playbook -i ansible_hosts -e @rhn-creds.yml playbooks/keycloak.yml -e keycloak_admin_password=<changeme> -e keycloak_realm=test`
+ansible-playbook -i <ansible_hosts> -e @rhn-creds.yml playbooks/keycloak.yml -e keycloak_admin_password=<changeme> -e keycloak_realm=test
 ```
+
+- `keycloak_admin_password` password for the administration console user account.
+- `keycloak_realm` name of the realm to be created/used.
+- `ansible_hosts` is the inventory, below is an example inventory for deploying to localhost
+
+  ```
+  [keycloak]
+  localhost ansible_connection=local
+  ```
 
 ## License
 

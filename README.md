@@ -13,7 +13,7 @@ This collection has been tested against following Ansible versions: **>=2.9.10**
 Plugins and modules within a collection may be tested with only specific Ansible versions. A collection may contain metadata that identifies these versions.
 <!--end requires_ansible-->
 
-## Installation and Usage
+## Installation
 
 ### Installing the Collection from Ansible Galaxy
 
@@ -29,6 +29,10 @@ collections:
   - name: middleware_automation.keycloak
 ```
 
+### Install Playbook
+
+`playbooks/keycloak.yml` installs the keycloak or Red Hat Single Sign-On based on the defined variables.
+
 ### Choosing between Red Hat products and upstream project
 
 The roles supports installing Red Hat Single Sign-On from the Customer Portal, when the following variables are defined:
@@ -41,12 +45,35 @@ rhsso_rhn_id: '<sso_product_id>'
 
 where `sso_product_id` is the ID for the specific Red Hat Single Sign-On version, ie. _101971_ will install version _7.5_)
 
-
-## Included roles
+### Install role
 
 * [`keycloak`](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak/README.md): role for installing the service. _Requires: python3-netaddr_
+
+### Example installation command
+
+Execute the following command from the source root directory 
+
+```
+ansible-playbook -i ansible_hosts -e @rhn-creds.yml playbooks/keycloak.yml -e keycloak_admin_password=<changeme>`
+``` 
+
+## Configuration
+
+### Config Playbook
+
+`playbooks/keycloak-realm.yml` creates the realm, provided client(s), client role(s) and client user(s) if they don't exist.
+
+### Config role
+
 * [`keycloak_realm`](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak_realm/README.md): role for configuring a realm, with clients and users, in an installed service.
 
+### Example configuration command
+
+Execute the following command from the source root directory
+
+```
+ansible-playbook -i ansible_hosts -e @rhn-creds.yml playbooks/keycloak.yml -e keycloak_admin_password=<changeme> -e keycloak_realm=test`
+```
 
 ## License
 

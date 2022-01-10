@@ -9,6 +9,9 @@ Requirements
 
 This role requires the `python3-netaddr` library installed on the controller node.
 
+* to install via yum/dnf: `dnf install python3-netaddr`
+* or via pip: `pip install netaddr==0.8.0`
+
 
 Role Defaults
 -------------
@@ -38,7 +41,7 @@ The following are a set of _required_ variables for the role:
 |`keycloak_admin_password`| Password for the administration console user account |
 
 
-The following variables are _required_ only when keycloak_ha_enabled is True:
+The following variables are _required_ only when `keycloak_ha_enabled` is True:
 
 | Variable | Description | Default |
 |:---------|:------------|:---------|
@@ -53,7 +56,7 @@ The following variables are _required_ only when keycloak_ha_enabled is True:
 |`infinispan_trust_store_password`| Password for opening truststore | `changeit` |
 
 
-The following variables are _required_ only when keycloak_db_enabled is True:
+The following variables are _required_ only when `keycloak_db_enabled` is True:
 
 | Variable | Description | Default |
 |:---------|:------------|:---------|
@@ -68,8 +71,8 @@ Dependencies
 
 The roles depends on:
 
-* the redhat_csp_download role from [middleware_automation.redhat_csp_download](https://github.com/ansible-middleware/redhat-csp-download) collection
-* the wildfly_driver role from [middleware_automation.wildfly](https://github.com/ansible-middleware/wildfly) collection
+* the `redhat_csp_download` role from [middleware_automation.redhat_csp_download](https://github.com/ansible-middleware/redhat-csp-download) collection
+* the `wildfly_driver` role from [middleware_automation.wildfly](https://github.com/ansible-middleware/wildfly) collection
 
 
 Example Playbook

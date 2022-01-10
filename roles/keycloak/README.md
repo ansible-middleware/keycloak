@@ -19,7 +19,7 @@ Role Defaults
 | Variable | Description | Default |
 |:---------|:------------|:---------|
 |`keycloak_ha_enabled`| Enable auto configuration for database backend, clustering and remote caches on infinispan | `False` |
-|`keycloak_db_enabled`| Enable auto configuration for database backend | `True` if keycloak_ha_enabled is True, else `False` |
+|`keycloak_db_enabled`| Enable auto configuration for database backend | `True` if `keycloak_ha_enabled` is True, else `False` |
 |`keycloak_admin_user`| Administration console user account | `admin` |
 |`keycloak_bind_address`| Address for binding service ports | `0.0.0.0` |
 |`keycloak_host`| hostname | `localhost` |
@@ -27,7 +27,8 @@ Role Defaults
 |`keycloak_https_port`| TLS HTTP port | `8443` |
 |`keycloak_management_http_port`| Management port | `9990` |
 |`keycloak_management_https_port`| TLS management port | `9993` |
-|`keycloak_java_opts`| Additional JVM options | `-Xms1024m -Xmx20480m -XX:MaxPermSize=768m` |
+|`keycloak_java_opts`| Additional JVM options | `-Xms1024m -Xmx2048m` |
+|`keycloak_prefer_ipv4`| Prefer IPv4 stack and addresses for port binding | `True` |
 |`jvm_package`| RHEL java package runtime | `java-1.8.0-openjdk-devel` |
 
 

@@ -27,9 +27,16 @@
       args:
         argv:
           - "{{ keycloak_jboss_home }}/bin/add-user-keycloak.sh"
-          - -rmaster
-          - -u{{ keycloak_admin_user }}
-          - -p{{ keycloak_admin_password }}
+          - "-rmaster"
+          - "-u{{ keycloak_admin_user }}"
+          - "-p{{ keycloak_admin_password }}"
       become: yes
     - name: restart keycloak
       include_tasks: tasks/restart_keycloak.yml
+    - name: "Wait until Keycloak becomes active {{ health_url }}"
+      uri:
+        url: "{{ health_url }}"
+      register: keycloak_status
+      until: keycloak_status.status == 200
+      retries: 25
+      delay: 10

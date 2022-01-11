@@ -2,9 +2,7 @@
 - assert:
     that:
       - zipfile_dest is defined
-      - rhn_id_file is defined
-      - rhn_username is defined
-      - rhn_password is defined
+      - (rhn_username is defined and rhn_password is defined and rhn_id_file is defined) or rhsso_zip_file_local_path is defined
     quiet: true
 
 - set_fact:
@@ -26,11 +24,25 @@
     - archive_path is defined
     - archive_path.stat is defined
     - not archive_path.stat.exists
+    - not rhsso_zip_file_local_path is defined
+
+- name: "Copy zipfile from local source: {{ rhsso_zip_file_local_path }}"
+  ansible.builtin.copy:
+    src: "{{ rhsso_zip_file_local_path }}"
+    dest: "{{ zipfile_dest }}"
+    owner: "{{ keycloak_service_user }}"
+    group: "{{ keycloak_service_group }}"
+    mode: 0750
+  when:
+    - archive_path is defined
+    - archive_path.stat is defined
+    - not archive_path.stat.exists
+    - rhsso_zip_file_local_path is defined
     
 - name: "Check zipfile dest directory {{ zipfile_dest }}"
   stat:
     path: "{{ zipfile_dest }}"
-  register: path_to_downloaded_artefact
+  register: path_to_downloaded_artifact
 
 - block:
     - file:
@@ -68,8 +80,8 @@
       when:
         - target_dir_state.stat.exists
   when:
-    - path_to_downloaded_artefact is defined
-    - path_to_downloaded_artefact.stat is defined
-    - path_to_downloaded_artefact.stat.exists
+    - path_to_downloaded_artifact is defined
+    - path_to_downloaded_artifact.stat is defined
+    - path_to_downloaded_artifact.stat.exists
     - target_dir is defined
     - work_dir is defined

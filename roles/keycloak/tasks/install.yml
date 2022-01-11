@@ -74,6 +74,20 @@
         - archive_path is defined
         - archive_path.stat is defined
         - not archive_path.stat.exists
+        - not keycloak_zip_file_local_path is defined
+
+    - name: "Copy zipfile from local source: {{ keycloak_zip_file_local_path }}"
+      ansible.builtin.copy:
+        src: "{{ keycloak_zip_file_local_path }}"
+        dest: "{{ keycloak_dest }}"
+        owner: "{{ keycloak_service_user }}"
+        group: "{{ keycloak_service_group }}"
+        mode: 0750
+      when:
+        - archive_path is defined
+        - archive_path.stat is defined
+        - not archive_path.stat.exists
+        - keycloak_zip_file_local_path is defined
 
     - name: extract Keycloak archive on target
       unarchive:
@@ -91,9 +105,9 @@
 - block:
     - assert:
         that:
-          - rhsso_rhn_id is defined
+          - rhsso_rhn_id is defined or rhsso_zip_file_local_path is defined
         quiet: true
-        fail_msg: "Can't install RHSSO without RHN ID."
+        fail_msg: "Can't install RHSSO without either RHN ID or RHSSO zip file local path"
 
     - name: create download directory
       file:
@@ -105,7 +119,7 @@
 
     - include_tasks: download_from_rhn.yml
       vars:
-        rhn_id_file: "{{ rhsso_rhn_id }}"
+        rhn_id_file: "{{ rhsso_rhn_id | default(None) }}"
         zipfile_dest: "{{ keycloak_dest }}/{{ keycloak_rhsso_archive }}"
         work_dir: "{{ keycloak_dest }}"
         target_dir: "{{ keycloak_jboss_home }}"

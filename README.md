@@ -31,11 +31,23 @@ collections:
 
 ### Install Playbook
 
-`playbooks/keycloak.yml` installs the keycloak or Red Hat Single Sign-On based on the defined variables.
+`playbooks/keycloak.yml` installs the keycloak or Red Hat Single Sign-On(RHSSO) based on the defined variables.
 
-### Choosing between Red Hat products and upstream project
+### Choosing between Red Hat products and upstream(Keycloak) project
 
-The roles supports installing Red Hat Single Sign-On from the Customer Portal, when the following variables are defined:
+The roles supports installing Keycloak or Red Hat Single Sign-On in following ways
+
+#### Install upstream from remote source
+
+This is default way, no need to define any additional variables.
+
+#### Install upstream from local source when the following variable is defined
+
+```
+keycloak_zip_file_local_path: <local path of keycloak zip file>
+```
+
+#### Install RHSSO from the Customer Portal, when the following variables are defined
 
 ```
 rhn_username: '<customer_portal_username>'
@@ -44,6 +56,12 @@ rhsso_rhn_id: '<sso_product_id>'
 ```
 
 where `sso_product_id` is the ID for the specific Red Hat Single Sign-On version, ie. _101971_ will install version _7.5_)
+
+#### Install RHSSO from local source when the following variable is defined
+
+```
+rhsso_zip_file_local_path: <local path of rhsso zip file>
+```
 
 ### Install role
 

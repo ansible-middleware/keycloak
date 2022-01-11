@@ -66,20 +66,25 @@ The following variables are _required_ only when `keycloak_db_enabled` is True:
 |`keycloak_db_user` | username for connecting to postgres | `keycloak-user` |
 |`keycloak_db_pass` | password for connecting to postgres | `keycloak-pass` |
 
+The following variables can be used to install Keycloak or Red Hat Single Sign-On from local path:
+| Variable | Description | Default |
+|:---------|:------------|:---------|
+|`rhsso_zip_file_local_path` | Full local path of Red Hat Single Sign-On zip file  | `tmp/rhsso/rh-sso-7.5-server-dist.zip` |
+|`keycloak_zip_file_local_path` | Full local path of Keycloak zip file  | `/tmp/keycloak/keycloak-16.1.0.zip` |
 
 Dependencies
 ------------
 
 The roles depends on:
 
-* the `redhat_csp_download` role from [middleware_automation.redhat_csp_download](https://github.com/ansible-middleware/redhat-csp-download) collection
-* the `wildfly_driver` role from [middleware_automation.wildfly](https://github.com/ansible-middleware/wildfly) collection
+* the redhat_csp_download role from [middleware_automation.redhat_csp_download](https://github.com/ansible-middleware/redhat-csp-download) collection if Red Hat Single Sign-on zip have to be downloaded from RHN.
+* the wildfly_driver role from [middleware_automation.wildfly](https://github.com/ansible-middleware/wildfly) collection
 
 
 Example Playbook
 ----------------
 
-The following is an example playbook that makes use of the role to install keycloak
+The following is an example playbook that makes use of the role to install keycloak from remote
 
 ```yaml
 ---
@@ -93,6 +98,55 @@ The following is an example playbook that makes use of the role to install keycl
           vars:
             keycloak_admin_password: "changeme"
 ```
+
+The following is an example playbook that makes use of the role to install keycloak from local path
+
+```yaml
+---
+- hosts: ...
+      collections:
+        - middleware_automation.keycloak
+      tasks:
+        - name: Include keycloak role
+          include_role:
+            name: keycloak
+          vars:
+            keycloak_admin_password: "changeme"
+            keycloak_zip_file_local_path: "/tmp/keycloak/keycloak-16.1.0.zip" # This should be local path of keycloak zip file
+```
+
+The following is an example playbook that makes use of the role to install Red Hat Single Sign-On from RHN
+
+```yaml
+---
+- name: Playbook for Keycloak Hosts
+  hosts: keycloak
+  collections:
+    - middleware_automation.redhat_csp_download
+  roles:
+    - redhat_csp_download
+  tasks:
+    - name: Keycloak Role
+      include_role:
+        name: keycloak
+      vars:
+        keycloak_admin_password: "changeme"
+```
+
+The following is an example playbook that makes use of the role to install Red Hat Single Sign-On from local path
+
+```yaml
+---
+- hosts: keycloak
+  tasks:
+    - name: Keycloak Role
+      include_role:
+        name: keycloak
+      vars:
+        keycloak_admin_password: "changeme"
+        rhsso_zip_file_local_path: "/tmp/rhsso/rh-sso-7.5-server-dist.zip" # This should be local path of rhsso zip file
+```
+
 
 License
 -------

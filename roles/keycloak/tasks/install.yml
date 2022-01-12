@@ -105,7 +105,7 @@
 - block:
     - assert:
         that:
-          - rhsso_rhn_id is defined or rhsso_zip_file_local_path is defined
+          - rhsso_rhn_id is defined or rhsso_zip_file_local_path is defined or rhsso_source_download_url is defined
         quiet: true
         fail_msg: "Can't install RHSSO without either RHN ID or RHSSO zip file local path"
 

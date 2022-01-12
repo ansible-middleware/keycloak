@@ -72,6 +72,11 @@ The following variables can be used to install Keycloak or Red Hat Single Sign-O
 |`rhsso_zip_file_local_path` | Full local path of Red Hat Single Sign-On zip file  | `tmp/rhsso/rh-sso-7.5-server-dist.zip` |
 |`keycloak_zip_file_local_path` | Full local path of Keycloak zip file  | `/tmp/keycloak/keycloak-16.1.0.zip` |
 
+The following variable can be used to install Red Hat Single Sign-On from source via url, auth support is not added right now.
+| Variable | Description | Default |
+|:---------|:------------|:---------|
+|`rhsso_source_download_url` | URL to download Red Hat Single Sign-On zip file from | `http://localhost:8081/nexus/rhsso/rh-sso-7.5-server-dist.zip` |
+
 Dependencies
 ------------
 
@@ -133,6 +138,20 @@ The following is an example playbook that makes use of the role to install Red H
         keycloak_admin_password: "changeme"
 ```
 
+The following is an example playbook that makes use of the role to install Red Hat Single Sign-On from source url
+
+```yaml
+---
+- hosts: keycloak
+  tasks:
+    - name: Keycloak Role
+      include_role:
+        name: keycloak
+      vars:
+        keycloak_admin_password: "changeme"
+        rhsso_source_download_url: "<REPLACE with - Source download url>" # This should be the full of remote source rhsso zip file
+```
+
 The following is an example playbook that makes use of the role to install Red Hat Single Sign-On from local path
 
 ```yaml
@@ -146,7 +165,6 @@ The following is an example playbook that makes use of the role to install Red H
         keycloak_admin_password: "changeme"
         rhsso_zip_file_local_path: "/tmp/rhsso/rh-sso-7.5-server-dist.zip" # This should be local path of rhsso zip file
 ```
-
 
 License
 -------

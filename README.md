@@ -47,12 +47,20 @@ This is default way, no need to define any additional variables.
 keycloak_zip_file_local_path: <local path of keycloak zip file>
 ```
 
-#### Install RHSSO from the Customer Portal, when the following variables are defined
+#### Install RHSSO from the Customer Support Portal, when the following variables are defined
 
 ```
 rhn_username: '<customer_portal_username>'
 rhn_password: '<customer_portal_password>'
 rhsso_rhn_id: '<sso_product_id>'
+```
+
+where `sso_product_id` is the ID for the specific Red Hat Single Sign-On version, ie. _101971_ will install version _7.5_)
+
+#### Install RHSSO from remote sources like Nexus etc, when the following variables are defined
+
+```
+rhsso_source_download_url: '<url to downloand RHSSO zip file>'
 ```
 
 where `sso_product_id` is the ID for the specific Red Hat Single Sign-On version, ie. _101971_ will install version _7.5_)

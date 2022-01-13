@@ -38,6 +38,9 @@
     daemon_reload: yes
   when: systemdunit.changed
 
+- set_fact:
+    health_url: "{{ keycloak_management_url }}/health"
+
 - name: start keycloak
   systemd:
     name: keycloak
@@ -55,9 +58,6 @@
       - keycloak_service_status.stdout is defined
 
 - meta: flush_handlers
-
-- set_fact:
-    health_url: "{{ keycloak_management_url }}/health"
 
 - name: "Wait until Keycloak becomes active {{ health_url }}"
   uri:

@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
+        with:
+          path: ansible_collections/middleware_automation/keycloak
 
       - name: Set up Python ${{ matrix.python_version }}
         uses: actions/setup-python@v1
@@ -32,9 +34,12 @@ jobs:
 
       - name: Run sanity tests
         run: ansible-test sanity --docker -v --color --python ${{ matrix.python_version }}
+        working-directory: ./ansible_collections/middleware_automation/keycloak
 
       - name: Run molecule test
         run: molecule test --all
+        working-directory: ./ansible_collections/middleware_automation/keycloak
+
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'

@@ -35,7 +35,7 @@ collections:
 
 ### Choosing between Red Hat products and upstream (Keycloak) project
 
-The roles supports installing Keycloak or Red Hat Single Sign-On in following ways
+The roles supports installing Keycloak or Red Hat Single Sign-On in the following ways
 
 #### Install upstream from remote source
 

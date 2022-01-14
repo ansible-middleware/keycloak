@@ -18,6 +18,7 @@ Role Defaults
 
 | Variable | Description | Default |
 |:---------|:------------|:---------|
+|`keycloak_rhsso_enable`| Enable Red Hat Single Sign-on installation  | `False` |
 |`keycloak_ha_enabled`| Enable auto configuration for database backend, clustering and remote caches on infinispan | `False` |
 |`keycloak_db_enabled`| Enable auto configuration for database backend | `True` if `keycloak_ha_enabled` is True, else `False` |
 |`keycloak_admin_user`| Administration console user account | `admin` |
@@ -66,16 +67,15 @@ The following variables are _required_ only when `keycloak_db_enabled` is True:
 |`keycloak_db_user` | username for connecting to postgres | `keycloak-user` |
 |`keycloak_db_pass` | password for connecting to postgres | `keycloak-pass` |
 
-The following variables can be used to install Keycloak or Red Hat Single Sign-On from local path:
-| Variable | Description | Default |
+The following variable can be used to install Keycloak or Red Hat Single Sign-On from local path:
+| Variable | Description | Example |
 |:---------|:------------|:---------|
-|`rhsso_zip_file_local_path` | Full local path of Red Hat Single Sign-On zip file  | `tmp/rhsso/rh-sso-7.5-server-dist.zip` |
-|`keycloak_zip_file_local_path` | Full local path of Keycloak zip file  | `/tmp/keycloak/keycloak-16.1.0.zip` |
+|`zip_file_local_path` | Full local path of upstream(Keycloak) or Red Hat Single Sign-On zip file on Ansible control plane | `tmp/rhsso/rh-sso-7.5-server-dist.zip` |
 
 The following variable can be used to install Red Hat Single Sign-On from source via url, auth support is not added right now.
-| Variable | Description | Default |
+| Variable | Description | Example |
 |:---------|:------------|:---------|
-|`rhsso_source_download_url` | URL to download Red Hat Single Sign-On zip file from | `http://localhost:8081/nexus/rhsso/rh-sso-7.5-server-dist.zip` |
+|`rhsso_source_download_url` | URL to download Red Hat Single Sign-On zip file from source | `http://localhost:8081/nexus/rhsso/rh-sso-7.5-server-dist.zip` |
 
 Dependencies
 ------------
@@ -104,7 +104,7 @@ The following is an example playbook that makes use of the role to install keycl
             keycloak_admin_password: "changeme"
 ```
 
-The following is an example playbook that makes use of the role to install keycloak from local path
+The following is an example playbook that makes use of the role to install keycloak from local path on Ansible node
 
 ```yaml
 ---
@@ -117,14 +117,14 @@ The following is an example playbook that makes use of the role to install keycl
             name: keycloak
           vars:
             keycloak_admin_password: "changeme"
-            keycloak_zip_file_local_path: "/tmp/keycloak/keycloak-16.1.0.zip" # This should be local path of keycloak zip file
+            zip_file_local_path: "/tmp/keycloak/keycloak-16.1.0.zip"  # This should be local path on Ansible node of upstream(keycloak) zip file
 ```
 
 The following is an example playbook that makes use of the role to install Red Hat Single Sign-On from RHN
 
 ```yaml
 ---
-- name: Playbook for Keycloak Hosts
+- name: Playbook for RHSSO
   hosts: keycloak
   collections:
     - middleware_automation.redhat_csp_download
@@ -136,6 +136,7 @@ The following is an example playbook that makes use of the role to install Red H
         name: keycloak
       vars:
         keycloak_admin_password: "changeme"
+        keycloak_rhsso_enable: True
 ```
 
 The following is an example playbook that makes use of the role to install Red Hat Single Sign-On from source url
@@ -143,27 +144,33 @@ The following is an example playbook that makes use of the role to install Red H
 ```yaml
 ---
 - hosts: keycloak
+  collections:
+    - middleware_automation.keycloak
   tasks:
     - name: Keycloak Role
       include_role:
         name: keycloak
       vars:
         keycloak_admin_password: "changeme"
+        keycloak_rhsso_enable: True
         rhsso_source_download_url: "<REPLACE with - Source download url>" # This should be the full of remote source rhsso zip file
 ```
 
-The following is an example playbook that makes use of the role to install Red Hat Single Sign-On from local path
+The following is an example playbook that makes use of the role to install Red Hat Single Sign-On from local path on Ansible node
 
 ```yaml
 ---
 - hosts: keycloak
+  collections:
+    - middleware_automation.keycloak
   tasks:
     - name: Keycloak Role
       include_role:
         name: keycloak
       vars:
         keycloak_admin_password: "changeme"
-        rhsso_zip_file_local_path: "/tmp/rhsso/rh-sso-7.5-server-dist.zip" # This should be local path of rhsso zip file
+        keycloak_rhsso_enable: True
+        zip_file_local_path: "/tmp/rhsso/rh-sso-7.5-server-dist.zip"  # This should be local path on Ansible node of rhsso zip file
 ```
 
 License

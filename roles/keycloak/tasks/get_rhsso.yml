@@ -2,11 +2,13 @@
 - assert:
     that:
       - zipfile_dest is defined
-      - (rhn_username is defined and rhn_password is defined and rhn_id_file is defined) or rhsso_zip_file_local_path is defined or rhsso_source_download_url is defined
+      - keycloak_rhsso_enable
     quiet: true
 
 - set_fact:
-    rhn_download_url: "{{ keycloak_rhsso_base_url }}{{ rhn_id_file }}"
+    rhn_download_url: "{{ keycloak_rhsso_base_url }}{{ rhsso_rhn_id }}"
+  when:
+    - rhsso_rhn_id is defined
 
 - name: "Check zipfile dest directory {{ zipfile_dest }}"
   stat:
@@ -24,6 +26,8 @@
     - archive_path is defined
     - archive_path.stat is defined
     - not archive_path.stat.exists
+    - rhn_username is defined
+    - rhn_password is defined
     - rhsso_rhn_id is defined
 
 - name: "Copy zipfile from source like Nexus etc : {{ rhsso_source_download_url }}"
@@ -39,9 +43,9 @@
     - not archive_path.stat.exists
     - rhsso_source_download_url is defined
 
-- name: "Copy zipfile from local source: {{ rhsso_zip_file_local_path }}"
+- name: "Copy zipfile from local source: {{ zip_file_local_path }}"
   ansible.builtin.copy:
-    src: "{{ rhsso_zip_file_local_path }}"
+    src: "{{ zip_file_local_path }}"
     dest: "{{ zipfile_dest }}"
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
@@ -50,7 +54,7 @@
     - archive_path is defined
     - archive_path.stat is defined
     - not archive_path.stat.exists
-    - rhsso_zip_file_local_path is defined
+    - zip_file_local_path is defined
     
 - name: "Check zipfile dest directory {{ zipfile_dest }}"
   stat:

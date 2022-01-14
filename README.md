@@ -31,25 +31,32 @@ collections:
 
 ### Install Playbook
 
-`playbooks/keycloak.yml` installs the keycloak or Red Hat Single Sign-On(RHSSO) based on the defined variables.
+`playbooks/keycloak.yml` installs the upstream(Keycloak) based on the defined variables.
+`playbooks/rhsso.yml` installs Red Hat Single Sign-On(RHSSO) based on defined variables.
 
-### Choosing between Red Hat products and upstream (Keycloak) project
+### Choosing between upstream(Keycloak) project and Red Hat Single Sign-On(RHSSO)
 
-The roles supports installing Keycloak or Red Hat Single Sign-On in the following ways
+The roles supports installing upstream(Keycloak) or Red Hat Single Sign-On in the following ways
 
-#### Install upstream from remote source
+#### Install upstream(Keycloak) from remote source
 
-This is default way, no need to define any additional variables.
-
-#### Install upstream from local source when the following variable is defined
-
-```
-keycloak_zip_file_local_path: <local path of keycloak zip file>
-```
-
-#### Install RHSSO from the Customer Support Portal, when the following variables are defined
+This is default approach, there is one required variable
 
 ```
+keycloak_admin_password: "<changeme>"
+```
+
+#### Install upstream(Keycloak) from local source when the following variable is defined
+
+```
+keycloak_admin_password: "<changeme>"
+zip_file_local_path: <keycloak zip file on Ansible control node local path>
+```
+
+#### Install RHSSO from the Red Hat Customer Support Portal, when the following variables are defined
+
+```
+keycloak_admin_password: "<changeme>"
 rhn_username: '<customer_portal_username>'
 rhn_password: '<customer_portal_password>'
 rhsso_rhn_id: '<sso_product_id>'
@@ -60,15 +67,17 @@ where `sso_product_id` is the ID for the specific Red Hat Single Sign-On version
 #### Install RHSSO from remote sources like Nexus etc, when the following variables are defined
 
 ```
-rhsso_source_download_url: '<url to downloand RHSSO zip file>'
+keycloak_admin_password: "<changeme>"
+keycloak_rhsso_enable: True
+rhsso_source_download_url: '<url to download RHSSO zip file>'
 ```
-
-where `sso_product_id` is the ID for the specific Red Hat Single Sign-On version, ie. _101971_ will install version _7.5_)
 
 #### Install RHSSO from local source when the following variable is defined
 
 ```
-rhsso_zip_file_local_path: <local path of rhsso zip file>
+keycloak_admin_password: "<changeme>"
+keycloak_rhsso_enable: True
+zip_file_local_path: <rhsso zip file on Ansible control node local path>
 ```
 
 ### Install role

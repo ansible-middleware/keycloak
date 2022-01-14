@@ -33,7 +33,7 @@ collections:
 
 `playbooks/keycloak.yml` installs the keycloak or Red Hat Single Sign-On(RHSSO) based on the defined variables.
 
-### Choosing between Red Hat products and upstream(Keycloak) project
+### Choosing between Red Hat products and upstream (Keycloak) project
 
 The roles supports installing Keycloak or Red Hat Single Sign-On in following ways
 

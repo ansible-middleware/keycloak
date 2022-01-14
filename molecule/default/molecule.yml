@@ -3,7 +3,7 @@ dependency:
   name: shell
   command: ansible-galaxy collection install -r molecule/default/requirements.yml -p $HOME/.ansible/collections --force-with-deps
 driver:
-  name: podman
+  name: docker
 platforms:
   - name: instance
     image: registry.access.redhat.com/ubi8/ubi-init:latest

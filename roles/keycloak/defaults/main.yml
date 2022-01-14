@@ -1,6 +1,6 @@
 ---
 ### Configuration specific to keycloak
-keycloak_version: 9.0.2
+keycloak_version: 15.0.2
 keycloak_archive: keycloak-{{ keycloak_version }}.zip
 keycloak_download_url: https://downloads.jboss.org/keycloak/{{ keycloak_version }}/{{ keycloak_archive }}
 keycloak_installdir: "{{ keycloak_dest }}/keycloak-{{ keycloak_version }}"

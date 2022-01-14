@@ -50,7 +50,7 @@ keycloak_force_install: False
 
 ### mod_cluster reverse proxy
 keycloak_modcluster_url: localhost
-keycloak_frontend_url: localhost
+keycloak_frontend_url: http://localhost
 
 ### infinispan remote caches access (hotrod)
 infinispan_user: supervisor

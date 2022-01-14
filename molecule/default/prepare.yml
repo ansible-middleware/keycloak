@@ -2,6 +2,8 @@
 - name: Prepare
   hosts: all
   tasks:
+    - name: Disable beta repos
+      command: yum config-manager --disable '*beta*'
     - name: Install sudo
       yum:
         name: sudo

@@ -47,7 +47,7 @@ The following variables are _required_ only when `keycloak_ha_enabled` is True:
 | Variable | Description | Default |
 |:---------|:------------|:---------|
 |`keycloak_modcluster_url` | URL for the modcluster reverse proxy | `localhost` |
-|`keycloak_frontend_url` | frontend URL for keycloak endpoints when a reverse proxy is used | `localhost` |
+|`keycloak_frontend_url` | frontend URL for keycloak endpoints when a reverse proxy is used | `http://localhost` |
 |`keycloak_jdbc_engine` | backend database flavour when db is enabled: [ postgres, mariadb ] | `postgres` |
 |`infinispan_url` | URL for the infinispan remote-cache server | `localhost:11122` |
 |`infinispan_user` | username for connecting to infinispan | `supervisor` |

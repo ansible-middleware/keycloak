@@ -4,6 +4,8 @@
   tasks:
     - name: Disable beta repos
       command: yum config-manager --disable '*beta*'
+      ignore_errors: yes
+
     - name: Install sudo
       yum:
         name: sudo

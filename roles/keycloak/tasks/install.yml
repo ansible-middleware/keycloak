@@ -142,7 +142,7 @@
 - name: "Deploy Keycloak's standalone.xml"
   become: yes
   template:
-    src: "{{ 'templates/standalone-rhsso.xml.j2' if keycloak_rhsso_enable else 'templates/standalone.xml.j2' }}"
+    src: templates/standalone.xml.j2
     dest: "{{ keycloak_config_path_to_standalone_xml }}"
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
@@ -154,7 +154,7 @@
 - name: "Deploy Keycloak's standalone.xml with remote cache store"
   become: yes
   template:
-    src: "{{ 'templates/standalone-rhsso-jdg.xml.j2' if keycloak_rhsso_enable else 'templates/standalone-infinispan.xml.j2' }}"
+    src: templates/standalone-infinispan.xml.j2
     dest: "{{ keycloak_config_path_to_standalone_xml }}"
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"

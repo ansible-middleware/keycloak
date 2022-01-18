@@ -13,6 +13,14 @@ This role requires the `python3-netaddr` library installed on the controller nod
 * or via pip: `pip install netaddr==0.8.0`
 
 
+Versions
+--------
+
+| RH-SSO VERSION | Release Date      | Keycloak Version | EAP Version | Notes           |
+|:---------------|:------------------|:-----------------|:------------|:----------------|
+|`7.5.0 GA`      |September 20, 2021 |`15.0.2`          | `7.4.0`     |[Release Notes](https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.5/html/release_notes/index)|
+
+
 Role Defaults
 -------------
 
@@ -48,6 +56,7 @@ The following variables are _required_ only when `keycloak_ha_enabled` is True:
 | Variable | Description | Default |
 |:---------|:------------|:---------|
 |`keycloak_modcluster_url` | URL for the modcluster reverse proxy | `localhost` |
+|`keycloak_frontend_url` | frontend URL for keycloak endpoints when a reverse proxy is used | `http://localhost` |
 |`keycloak_jdbc_engine` | backend database flavour when db is enabled: [ postgres, mariadb ] | `postgres` |
 |`infinispan_url` | URL for the infinispan remote-cache server | `localhost:11122` |
 |`infinispan_user` | username for connecting to infinispan | `supervisor` |

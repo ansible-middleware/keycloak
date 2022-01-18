@@ -1,0 +1,14 @@
+---
+- name: Playbook for Keycloak Hosts
+  hosts: keycloak
+  collections:
+    - middleware_automation.redhat_csp_download
+  roles:
+    - redhat_csp_download
+  tasks:
+    - name: Keycloak Role
+      include_role:
+        name: keycloak
+      vars:
+        keycloak_admin_password: "changeme"
+        keycloak_rhsso_enable: True

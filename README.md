@@ -104,18 +104,18 @@ ansible-playbook -i <ansible_hosts> -e @rhn-creds.yml playbooks/keycloak.yml -e 
 
 ### Config Playbook
 
-`playbooks/keycloak-realm.yml` creates provided realm, client(s), client role(s) and client user(s) if they don't exist.
+`playbooks/keycloak-realm.yml` creates provided realm, user federation(s), client(s), client role(s) and client user(s) if they don't exist.
 
 ### Config role
 
-* [`keycloak_realm`](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak_realm/README.md): role for configuring a realm, with clients and users, in an installed service.
+* [`keycloak_realm`](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak_realm/README.md): role for configuring a realm, user federation(s), clients and users, in an installed service.
 
 ### Example configuration command
 
 Execute the following command from the source root directory
 
 ```
-ansible-playbook -i <ansible_hosts> -e @rhn-creds.yml playbooks/keycloak.yml -e keycloak_admin_password=<changeme> -e keycloak_realm=test
+ansible-playbook -i <ansible_hosts> playbooks/keycloak-realm.yml -e keycloak_admin_password=<changeme> -e keycloak_realm=test
 ```
 
 - `keycloak_admin_password` password for the administration console user account.

@@ -14,6 +14,8 @@ Role Defaults
 |`keycloak_http_port` | HTTP port | `8080` |
 |`keycloak_https_port` | TLS HTTP port | `8443` |
 |`keycloak_auth_realm` | Name of the main authentication realm | `master` |
+|`keycloak_rhsso_enable` | Define service is an upstream(Keycloak) or RHSSO | `master` |
+
 
 
 Role Variables
@@ -35,9 +37,28 @@ The following variables are available for creating clients:
 |`keycloak_client_default_roles` | List of default role name for clients | `[]` |
 |`keycloak_client_users` | List of user/role mappings for a client | `[]` |
 
+The following variable are available for creating user federation:
+
+| Variable | Description | Default |
+|:---------|:------------|:---------|
+|`keycloak_user_federation` | List of _keycloak_user_federation_ for the realm | `[]` |
+
 
 Variable formats
 ----------------
+
+* `keycloak_user_federation`, a list of:
+
+```yaml
+    - realm:  <name of the realm in which user federation should be configured, required>
+      name: <name of the user federation provider, required>
+      provider_id: <Type of the user federation provider, required>
+      provider_type: < Provider Type, default is set to org.keycloak.storage.UserStorageProvider>
+      config: <Dictionary of supported configuration values, required>
+      mappers: <List of supported configuration values, required>
+```
+
+Refer to [docs](https://docs.ansible.com/ansible/latest/collections/community/general/keycloak_user_federation_module.html) for information on supported variables.
 
 * `keycloak_clients`, a list of:
 
@@ -70,7 +91,6 @@ Variable formats
 ```
 
 For a comprehensive example, refer to the [playbook](playbooks/keycloak.yml).
-
 
 Example Playbook
 ----------------

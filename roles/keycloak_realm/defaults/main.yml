@@ -9,6 +9,9 @@ keycloak_admin_user: admin
 keycloak_auth_realm: master
 keycloak_auth_client: admin-cli
 
+### List of Keycloak User Federation
+keycloak_user_federation: []
+
 ### Keycloak realm client defaults
 # list of clients to create in the realm
 #

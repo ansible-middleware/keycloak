@@ -12,7 +12,7 @@
     enabled: yes
     state: started
 
-- name: Configure firewall for jdg ports
+- name: Configure firewall for keycloak ports
   become: yes
   firewalld:
     port: "{{ item }}"
@@ -24,4 +24,5 @@
     - "{{ keycloak_https_port }}/tcp"
     - "{{ keycloak_management_http_port }}/tcp"
     - "{{ keycloak_management_https_port }}/tcp"
+    - "7600/tcp"
     - "8009/tcp"

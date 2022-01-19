@@ -9,9 +9,6 @@
     auth_realm: "{{ keycloak_auth_realm }}"
     auth_username: "{{ keycloak_admin_user }}"
     auth_password: "{{ keycloak_admin_password }}"
-    attributes: "{{ item.attributes | default(omit) }}"
-    token: "{{ item.token | default(omit) }}"
-    validate_certs: "{{ item.validate_certs | default(omit) }}"
     state: present
   loop: "{{ client.roles | flatten }}"
   when: "'roles' in client"

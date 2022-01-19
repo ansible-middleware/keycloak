@@ -2,11 +2,9 @@
 - name: Playbook for Keycloak Hosts
   hosts: keycloak
   collections:
-    - middleware_automation.redhat_csp_download
-  roles:
-    - redhat_csp_download
+    - middleware_automation.keycloak
   tasks:
-    - name: Keycloak Role
+    - name: Include keycloak role
       include_role:
         name: keycloak
       vars:

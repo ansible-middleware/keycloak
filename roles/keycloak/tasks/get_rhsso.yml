@@ -2,20 +2,20 @@
 - assert:
     that:
       - zipfile_dest is defined
-      - rhn_id_file is defined
-      - rhn_username is defined
-      - rhn_password is defined
+      - keycloak_rhsso_enable
     quiet: true
 
 - set_fact:
-    rhn_download_url: "{{ keycloak_rhsso_base_url }}{{ rhn_id_file }}"
+    rhn_download_url: "{{ keycloak_rhsso_base_url }}{{ rhsso_rhn_id }}"
+  when:
+    - rhsso_rhn_id is defined
 
 - name: "Check zipfile dest directory {{ zipfile_dest }}"
   stat:
     path: "{{ zipfile_dest }}"
   register: archive_path
 
-- name: "Install zipfile from RHN: {{ rhn_download_url }}"
+- name: "Download zipfile from RHN: {{ rhn_download_url }}"
   redhat_csp_download:
     url: "{{ rhn_download_url }}"
     dest: "{{ zipfile_dest }}"
@@ -26,11 +26,40 @@
     - archive_path is defined
     - archive_path.stat is defined
     - not archive_path.stat.exists
+    - rhn_username is defined
+    - rhn_password is defined
+    - rhsso_rhn_id is defined
+
+- name: "Copy zipfile from source like Nexus etc : {{ rhsso_source_download_url }}"
+  get_url:
+    url: "{{ rhsso_source_download_url }}"
+    dest: "{{ zipfile_dest }}"
+    owner: "{{ keycloak_service_user }}"
+    group: "{{ keycloak_service_group }}"
+    mode: 0750
+  when:
+    - archive_path is defined
+    - archive_path.stat is defined
+    - not archive_path.stat.exists
+    - rhsso_source_download_url is defined
+
+- name: "Copy zipfile from local source: {{ zip_file_local_path }}"
+  ansible.builtin.copy:
+    src: "{{ zip_file_local_path }}"
+    dest: "{{ zipfile_dest }}"
+    owner: "{{ keycloak_service_user }}"
+    group: "{{ keycloak_service_group }}"
+    mode: 0750
+  when:
+    - archive_path is defined
+    - archive_path.stat is defined
+    - not archive_path.stat.exists
+    - zip_file_local_path is defined
     
 - name: "Check zipfile dest directory {{ zipfile_dest }}"
   stat:
     path: "{{ zipfile_dest }}"
-  register: path_to_downloaded_artefact
+  register: path_to_downloaded_artifact
 
 - block:
     - file:
@@ -68,8 +97,8 @@
       when:
         - target_dir_state.stat.exists
   when:
-    - path_to_downloaded_artefact is defined
-    - path_to_downloaded_artefact.stat is defined
-    - path_to_downloaded_artefact.stat.exists
+    - path_to_downloaded_artifact is defined
+    - path_to_downloaded_artifact.stat is defined
+    - path_to_downloaded_artifact.stat.exists
     - target_dir is defined
     - work_dir is defined

@@ -34,42 +34,54 @@
     status_code: 201
   when: keycloak_realm_exists.status == 404
 
-- name: Create user federation
-  community.general.keycloak_user_federation:
-    auth_keycloak_url: "{{ keycloak_url }}/auth"
-    auth_realm: "{{ keycloak_auth_realm }}"
-    auth_username: "{{ keycloak_admin_user }}"
-    auth_password: "{{ keycloak_admin_password }}"
-    realm: "{{ item.realm }}"
-    name: "{{ item.name }}"
-    state: present
-    provider_id: "{{ item.provider_id }}"
-    provider_type: "{{ item.provider_type | default(org.keycloak.storage.UserStorageProvider) }}" 
-    config: "{{ item.config }}"
-    mappers: "{{ item.mappers | default(omit) }}"
-  register: create_user_federation_result
-  loop: "{{ keycloak_user_federation | flatten }}"
-  when: keycloak_user_federation is defined
-
-
-- name: Create Client
+- name: Create or update a Keycloak client
   community.general.keycloak_client:
     auth_client_id: "{{ keycloak_auth_client }}"
     auth_keycloak_url: "{{ keycloak_url }}/auth"
     auth_realm: "{{ keycloak_auth_realm }}"
     auth_username: "{{ keycloak_admin_user }}"
     auth_password: "{{ keycloak_admin_password }}"
-    client_id: "{{ item.name }}"
     realm: "{{ item.realm }}"
-    default_roles: "{{ item.roles | default(omit) }}"
+    client_id: "{{ item.client_id | default(omit) }}"
+    id: "{{ item.id | default(omit) }}"
+    name: "{{ item.name | default(omit) }}"
+    description: "{{ item.description | default(omit) }}"
     root_url: "{{ item.root_url | default('') }}"
-    redirect_uris: "{{ demo_app_redirect_uris | default([]) }}"
-    public_client: "{{ item.public_client | default(False) }}"
+    admin_url: "{{ item.admin_url | default('') }}"
+    base_url: "{{ item.base_url | default('') }}"
+    enabled: "{{ item.enabled | default(True) }}"
+    client_authenticator_type: "{{ item.client_authenticator_type | default(omit) }}"
+    secret: "{{ item.secret | default(omit) }}"
+    redirect_uris: "{{ item.redirect_uris | default(omit) }}"
     web_origins: "{{ item.web_origins | default('+') }}"
+    not_before: "{{ item.not_before | default(omit) }}"
+    bearer_only: "{{ item.bearer_only | default(omit) }}"
+    consent_required: "{{ item.consent_required | default(omit) }}"
+    standard_flow_enabled: "{{ item.standard_flow_enabled | default(omit) }}"
+    implicit_flow_enabled: "{{ item.implicit_flow_enabled | default(omit) }}"
+    direct_access_grants_enabled: "{{ item.direct_access_grants_enabled | default(omit) }}"
+    service_accounts_enabled: "{{ item.service_accounts_enabled | default(omit) }}"
+    authorization_services_enabled: "{{ item.authorization_services_enabled | default(omit) }}"
+    public_client: "{{ item.public_client | default(False) }}"
+    frontchannel_logout: "{{ item.frontchannel_logout | default(omit) }}"
+    protocol: "{{ item.protocol | default(omit) }}"
+    full_scope_allowed: "{{ item.full_scope_allowed | default(omit) }}"
+    node_re_registration_timeout: "{{ item.node_re_registration_timeout | default(omit) }}"
+    client_template: "{{ item.client_template | default(omit) }}"
+    use_template_config: "{{ item.use_template_config | default(omit) }}"
+    use_template_scope: "{{ item.use_template_scope | default(omit) }}"
+    use_template_mappers: "{{ item.use_template_mappers | default(omit) }}"
+    registered_nodes: "{{ item.registered_nodes | default(omit) }}"
+    registration_access_token: "{{ item.registration_access_token | default(omit) }}"
+    surrogate_auth_required: "{{ item.surrogate_auth_required | default(omit) }}"
+    default_roles: "{{ item.default_roles | default(omit) }}"
+    authentication_flow_binding_overrides: "{{ item.authentication_flow_binding_overrides | default(omit) }}"
+    protocol_mappers: "{{ item.protocol_mappers | default(omit) }}"
+    attributes: "{{ item.attributes | default(omit) }}"
     state: present
   register: create_client_result
   loop: "{{ keycloak_clients | flatten }}"
-  when: item.name|length > 0
+  when: keycloak_clients is defined
 
 - name: Create client roles
   include_tasks: manage_client_roles.yml
@@ -83,3 +95,4 @@
   loop: "{{ keycloak_clients | flatten }}"
   loop_control:
     loop_var: client
+  when: "'users' in keycloak_clients"

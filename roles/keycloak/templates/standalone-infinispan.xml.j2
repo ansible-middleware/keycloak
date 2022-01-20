@@ -206,11 +206,11 @@
             <default-bindings context-service="java:jboss/ee/concurrency/context/default" datasource="java:jboss/datasources/ExampleDS" managed-executor-service="java:jboss/ee/concurrency/executor/default" managed-scheduled-executor-service="java:jboss/ee/concurrency/scheduler/default" managed-thread-factory="java:jboss/ee/concurrency/factory/default"/>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:ejb3:9.0">
-            <session-bean>
+             <session-bean>
                 <stateless>
                     <bean-instance-pool-ref pool-name="slsb-strict-max-pool"/>
                 </stateless>
-                <stateful default-access-timeout="5000" cache-ref="simple" passivation-disabled-cache-ref="simple"/>
+                <stateful default-access-timeout="5000" cache-ref="distributable" passivation-disabled-cache-ref="simple"/>
                 <singleton default-access-timeout="5000"/>
             </session-bean>
             <pools>
@@ -368,12 +368,13 @@
         </subsystem>
         <subsystem xmlns="urn:wildfly:health:1.0" security-enabled="false"/>
         <subsystem xmlns="urn:jboss:domain:infinispan:12.0">
-            <cache-container name="ejb" default-cache="passivation" aliases="sfsb" modules="org.wildfly.clustering.ejb.infinispan">
-                <local-cache name="passivation">
+            <cache-container name="ejb" default-cache="dist" aliases="sfsb" modules="org.wildfly.clustering.ejb.infinispan">
+                <transport lock-timeout="60000"/>
+                <distributed-cache name="dist">
                     <locking isolation="REPEATABLE_READ"/>
                     <transaction mode="BATCH"/>
-                    <file-store passivation="true" purge="false"/>
-                </local-cache>
+                    <file-store/>
+                </distributed-cache>
             </cache-container>
             <cache-container name="keycloak" modules="org.keycloak.keycloak-model-infinispan">
                 <transport lock-timeout="60000"/>
@@ -383,8 +384,7 @@
                 <local-cache name="users">
                     <heap-memory size="10000"/>
                 </local-cache>
-                <local-cache name="authenticationSessions"/>
-{% for cachename in [ "sessions", "offlineSessions", "clientSessions", "offlineClientSessions", "loginFailures", "actionTokens" ] %}
+{% for cachename in [ "sessions", "offlineSessions", "clientSessions", "offlineClientSessions", "loginFailures", "actionTokens", "authenticationSessions" ] %}
                 <distributed-cache name="{{ cachename }}">
                     <remote-store cache="{{ cachename }}"
                                   remote-servers="remote-cache"
@@ -440,33 +440,37 @@
                     <expiration max-idle="3600000"/>
                 </local-cache>
             </cache-container>
-            <cache-container name="server" default-cache="default" modules="org.wildfly.clustering.server">
-                <local-cache name="default">
+            <cache-container name="server" default-cache="default" aliases="singleton cluster" modules="org.wildfly.clustering.server">
+                <transport lock-timeout="60000"/>
+                <replicated-cache name="default">
                     <transaction mode="BATCH"/>
-                </local-cache>
+                </replicated-cache>
             </cache-container>
-            <cache-container name="web" default-cache="passivation" modules="org.wildfly.clustering.web.infinispan">
-                <local-cache name="passivation">
+            <cache-container name="web" default-cache="dist" modules="org.wildfly.clustering.web.infinispan">
+                <transport lock-timeout="60000"/>
+                <replicated-cache name="sso">
                     <locking isolation="REPEATABLE_READ"/>
                     <transaction mode="BATCH"/>
-                    <file-store passivation="true" purge="false"/>
-                </local-cache>
-                <local-cache name="sso">
+                </replicated-cache>
+                <distributed-cache name="dist">
                     <locking isolation="REPEATABLE_READ"/>
                     <transaction mode="BATCH"/>
-                </local-cache>
-                <local-cache name="routing"/>
+                    <file-store/>
+                </distributed-cache>
+                <distributed-cache name="routing"/>
             </cache-container>
             <cache-container name="hibernate" modules="org.infinispan.hibernate-cache">
-                <local-cache name="entity">
-                    <heap-memory size="10000"/>
-                    <expiration max-idle="100000"/>
-                </local-cache>
+                <transport lock-timeout="60000"/>
                 <local-cache name="local-query">
                     <heap-memory size="10000"/>
                     <expiration max-idle="100000"/>
                 </local-cache>
-                <local-cache name="timestamps"/>
+                <invalidation-cache name="entity">
+                    <transaction mode="NON_XA"/>
+                    <heap-memory size="10000"/>
+                    <expiration max-idle="100000"/>
+                </invalidation-cache>
+                <replicated-cache name="timestamps"/>
             </cache-container>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:io:3.0">
@@ -547,6 +551,15 @@
                 <cacheTemplates>true</cacheTemplates>
                 <dir>${jboss.home.dir}/themes</dir>
             </theme>
+{% if keycloak_ha_enabled %}
+            <spi name="dblock">
+                <provider name="jpa" enabled="true">
+                    <properties>
+                        <property name="lockWaitTimeout" value="900"/>
+                    </properties>
+                </provider>
+            </spi>
+{% endif %}
             <spi name="eventsStore">
                 <provider name="jpa" enabled="true">
                     <properties>

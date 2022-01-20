@@ -446,6 +446,15 @@
                 <cacheTemplates>true</cacheTemplates>
                 <dir>${jboss.home.dir}/themes</dir>
             </theme>
+{% if keycloak_ha_enabled %}
+            <spi name="dblock">
+                <provider name="jpa" enabled="true">
+                    <properties>
+                        <property name="lockWaitTimeout" value="900"/>
+                    </properties>
+                </provider>
+            </spi>
+{% endif %}
             <spi name="eventsStore">
                 <provider name="jpa" enabled="true">
                     <properties>

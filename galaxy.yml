@@ -1,10 +1,11 @@
 namespace: middleware_automation
 name: keycloak
-version: "0.1.8"
+version: "0.1.9"
 readme: README.md
 authors:
   - Romain Pelisse <rpelisse@redhat.com>
   - Guido Grazioli <ggraziol@redhat.com>
+  - Pavan Kumar Motaparthi <pmotapar@redhat.com>
 description: Install and configure a keycloak, or Red Hat Single Sign-on, service.
 license_file: "LICENSE"
 tags:

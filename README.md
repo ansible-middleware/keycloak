@@ -29,6 +29,23 @@ collections:
   - name: middleware_automation.keycloak
 ```
 
+The keycloak collection also depends on the following python packages to be present on the controller host:
+
+* netaddr
+
+A requirement file is provided to install:
+
+    pip install -r requirements.txt
+
+
+### Included roles
+
+* [`keycloak`](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak/README.md): role for installing the service.
+* [`keycloak_realm`](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak_realm/README.md): role for configuring a realm, user federation(s), clients and users, in an installed service.
+
+
+## Usage
+
 ### Install Playbook
 
 `playbooks/keycloak.yml` installs the upstream(Keycloak) based on the defined variables.
@@ -80,10 +97,6 @@ keycloak_rhsso_enable: True
 zip_file_local_path: <rhsso zip file on Ansible control node local path>
 ```
 
-### Install role
-
-* [`keycloak`](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak/README.md): role for installing the service. _Requires: python3-netaddr_
-
 ### Example installation command
 
 Execute the following command from the source root directory 
@@ -106,10 +119,6 @@ ansible-playbook -i <ansible_hosts> -e @rhn-creds.yml playbooks/keycloak.yml -e 
 
 `playbooks/keycloak-realm.yml` creates provided realm, user federation(s), client(s), client role(s) and client user(s) if they don't exist.
 
-### Config role
-
-* [`keycloak_realm`](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak_realm/README.md): role for configuring a realm, user federation(s), clients and users, in an installed service.
-
 ### Example configuration command
 
 Execute the following command from the source root directory
@@ -131,5 +140,5 @@ ansible-playbook -i <ansible_hosts> playbooks/keycloak-realm.yml -e keycloak_adm
 
 Apache License v2.0 or later
 
-See [LICENCE](LICENSE) to view the full text.
+See [LICENSE](LICENSE) to view the full text.
 

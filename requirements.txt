@@ -1,0 +1,6 @@
+#################################################
+# python dependencies required to be installed 
+# on the controller host with:
+# pip install -r requirements.txt
+#
+netaddr

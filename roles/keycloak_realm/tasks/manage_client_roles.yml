@@ -10,3 +10,4 @@
     auth_password: "{{ keycloak_admin_password }}"
     state: present
   loop: "{{ client.roles | flatten }}"
+  when: "'roles' in client"

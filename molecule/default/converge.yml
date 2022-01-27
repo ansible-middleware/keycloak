@@ -40,3 +40,4 @@
             public_client: "{{ keycloak_client_public }}"
             web_origins: "{{ keycloak_client_web_origins }}"
             users: "{{ keycloak_client_users }}"
+            client_id: TestClient

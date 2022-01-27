@@ -9,11 +9,6 @@
       - keycloak_version is defined
     quiet: true
 
-- set_fact:
-    keycloak_service_group: "{{ keycloak_service_user }}"
-  when:
-    - not keycloak_service_group is defined
-
 - name: check for an existing deployment
   become: yes
   stat:

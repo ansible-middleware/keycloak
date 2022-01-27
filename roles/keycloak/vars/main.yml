@@ -12,6 +12,12 @@ rhsso_rhn_ids:
 keycloak_url: "http://{{ keycloak_host }}:{{ keycloak_http_port }}"
 keycloak_management_url: "http://{{ keycloak_host }}:{{ keycloak_management_http_port }}"
 
+
+keycloak:
+  home: "{{ keycloak_jboss_home }}"
+  config_dir: "{{ keycloak_config_dir }}"
+
+
 # database
 keycloak_jdbc:
   postgres:

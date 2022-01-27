@@ -11,6 +11,7 @@ This role requires the `python3-netaddr` library installed on the controller nod
 
 * to install via yum/dnf: `dnf install python3-netaddr`
 * or via pip: `pip install netaddr==0.8.0`
+* or via the collection: `pip install -r requirements.txt`
 
 
 Versions
@@ -38,6 +39,11 @@ Role Defaults
 |`keycloak_management_https_port`| TLS management port | `9993` |
 |`keycloak_java_opts`| Additional JVM options | `-Xms1024m -Xmx2048m` |
 |`keycloak_prefer_ipv4`| Prefer IPv4 stack and addresses for port binding | `True` |
+|`keycloak_offline_install` | perform an offline install | `False`|
+|`keycloak_config_standalone_xml`| filename for configuration | `keycloak.xml` |
+|`keycloak_service_user`| posix account username | `keycloak` |
+|`keycloak_service_group`| posix account group | `keycloak` |
+|`keycloak_service_pidfile`| pid file path for service | `/run/keycloak.pid` |
 |`jvm_package`| RHEL java package runtime | `java-1.8.0-openjdk-devel` |
 
 
@@ -77,14 +83,17 @@ The following variables are _required_ only when `keycloak_db_enabled` is True:
 |`keycloak_db_pass` | password for connecting to postgres | `keycloak-pass` |
 
 The following variable can be used to install Keycloak or Red Hat Single Sign-On from local path:
+
 | Variable | Description | Example |
 |:---------|:------------|:---------|
 |`zip_file_local_path` | Full local path of upstream(Keycloak) or Red Hat Single Sign-On zip file on Ansible control plane | `tmp/rhsso/rh-sso-7.5-server-dist.zip` |
 
 The following variable can be used to install Red Hat Single Sign-On from source via url, auth support is not added right now.
+
 | Variable | Description | Example |
 |:---------|:------------|:---------|
 |`rhsso_source_download_url` | URL to download Red Hat Single Sign-On zip file from source | `http://localhost:8081/nexus/rhsso/rh-sso-7.5-server-dist.zip` |
+
 
 Dependencies
 ------------

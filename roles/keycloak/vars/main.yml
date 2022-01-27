@@ -16,7 +16,9 @@ keycloak_management_url: "http://{{ keycloak_host }}:{{ keycloak_management_http
 keycloak:
   home: "{{ keycloak_jboss_home }}"
   config_dir: "{{ keycloak_config_dir }}"
-
+  bundle: "{{ keycloak_rhsso_archive if keycloak_rhsso_enable else keycloak_archive }}"
+  service_name: "{{ 'rhsso' if keycloak_rhsso_enable else 'keycloak') }}"
+  health_url: "{{ keycloak_management_url }}/health"
 
 # database
 keycloak_jdbc:

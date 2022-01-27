@@ -15,7 +15,7 @@
 - name: Link default logs directory
   file:
     state: link
-    src: "{{keycloak_jboss_home}}/standalone/log"
+    src: "{{ keycloak_jboss_home }}/standalone/log"
     dest: /var/log/keycloak
 
 - block:
@@ -30,7 +30,7 @@
       retries: 2
       delay: 2
   rescue:
-    - name: create Keycloak admin user
+    - name: "Create {{ keycloak.service_name }} admin user"
       command:
       args:
         argv:
@@ -39,11 +39,11 @@
           - "-u{{ keycloak_admin_user }}"
           - "-p{{ keycloak_admin_password }}"
       become: yes
-    - name: restart keycloak
+    - name: "Restart {{ keycloak.service_name }}"
       include_tasks: tasks/restart_keycloak.yml
-    - name: "Wait until Keycloak becomes active {{ health_url }}"
+    - name: "Wait until {{ keycloak.service_name }} becomes active {{ keycloak.health_url }}"
       uri:
-        url: "{{ health_url }}"
+        url: "{{ keycloak.health_url }}"
       register: keycloak_status
       until: keycloak_status.status == 200
       retries: 25

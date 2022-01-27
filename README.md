@@ -46,56 +46,70 @@ A requirement file is provided to install:
 
 ## Usage
 
+
 ### Install Playbook
 
-`playbooks/keycloak.yml` installs the upstream(Keycloak) based on the defined variables.
-`playbooks/rhsso.yml` installs Red Hat Single Sign-On(RHSSO) based on defined variables.
+* [`playbooks/keycloak.yml`](playbooks/keycloak.yml) installs the upstream(Keycloak) based on the defined variables.
+* [`playbooks/rhsso.yml`](playbooks/rhsso.yml) installs Red Hat Single Sign-On(RHSSO) based on defined variables.
 
-### Choosing between upstream(Keycloak) project and Red Hat Single Sign-On(RHSSO)
+Both playbooks include the `keycloak` role, with different settings, as described in the following sections.
 
-The roles supports installing upstream(Keycloak) or Red Hat Single Sign-On in the following ways
+For service configuration details, refer to the [keycloak role README](roles/keycloak/README.md).
 
-#### Install upstream(Keycloak) from remote source
 
-This is default approach, there is one required variable
+### Choosing between upstream project (Keycloak) and Red Hat Single Sign-On (RHSSO)
 
-```
-keycloak_admin_password: "<changeme>"
-```
+The general flag `keycloak_rhsso_enable` controls what to install between upstream(Keycloak, when `False`) or Red Hat Single Sign-On (when `True`).
+The default value for the flag if `True` when Red Hat Network credentials are defined, `False` otherwise.
 
-#### Install upstream(Keycloak) from local source when the following variable is defined
 
-```
-keycloak_admin_password: "<changeme>"
-zip_file_local_path: <keycloak zip file on Ansible control node local path>
-```
+#### Install upstream (Keycloak) from keycloak releases
 
-#### Install RHSSO from the Red Hat Customer Support Portal, when the following variables are defined
+This is the default approach when RHN credentials are not defined. Keycloak is downloaded from keycloak builds (hosted on github.com) locally, and distributed to target nodes.
 
-```
-keycloak_admin_password: "<changeme>"
+
+#### Install RHSSO from the Red Hat Customer Support Portal
+
+Define the credentials as follows, and the default behaviour is to download a fresh archive of RHSSO on the controller node, then distribute to target nodes.
+
+```yaml
 rhn_username: '<customer_portal_username>'
 rhn_password: '<customer_portal_password>'
-rhsso_rhn_id: '<sso_product_id>'
+# (keycloak_rhsso_enable defaults to True)
 ```
 
-where `sso_product_id` is the ID for the specific Red Hat Single Sign-On version, ie. _101971_ will install version _7.5_)
 
-#### Install RHSSO from remote sources like Nexus etc, when the following variables are defined
+#### Install from controller node (local source)
 
+Making the keycloak zip archive (or the RHSSO zip archive), available to the playbook repository root directory, and setting `keycloak_offline_install` to `True`, allows to skip
+the download tasks. The local path for the archive matches the downloaded archive path, so it is also used as a cache when multiple hosts are provisioned in a cluster.
+
+```yaml
+keycloak_offline_install: True
 ```
-keycloak_admin_password: "<changeme>"
+
+And depending on `keycloak_rhsso_enable`:
+
+* `True`: install RHSSO using file rh-sso-x.y.z-server-dist.zip
+* `False`: install keycloak using file keycloak-x.y.zip
+
+
+#### Install from alternate sources (like corporate Nexus, artifactory, proxy, etc)
+
+For RHSSO:
+
+```yaml
 keycloak_rhsso_enable: True
-rhsso_source_download_url: '<url to download RHSSO zip file>'
+keycloak_rhsso_download_url: "https://<internal-nexus.private.net>/<path>/<to>/rh-sso-x.y.z-server-dist.zip"
 ```
 
-#### Install RHSSO from local source when the following variable is defined
+For keycloak:
 
+```yaml
+keycloak_rhsso_enable: False
+keycloak_download_url: "https://<internal-nexus.private.net>/<path>/<to>/keycloak-x.y.zip"
 ```
-keycloak_admin_password: "<changeme>"
-keycloak_rhsso_enable: True
-zip_file_local_path: <rhsso zip file on Ansible control node local path>
-```
+
 
 ### Example installation command
 
@@ -113,17 +127,20 @@ ansible-playbook -i <ansible_hosts> -e @rhn-creds.yml playbooks/keycloak.yml -e 
   localhost ansible_connection=local
   ```
 
+
 ## Configuration
+
 
 ### Config Playbook
 
-`playbooks/keycloak-realm.yml` creates provided realm, user federation(s), client(s), client role(s) and client user(s) if they don't exist.
+[`playbooks/keycloak-realm.yml`](playbooks/keycloak-realm.yml) creates provided realm, user federation(s), client(s), client role(s) and client user(s) if they don't exist.
+
 
 ### Example configuration command
 
 Execute the following command from the source root directory
 
-```
+```bash
 ansible-playbook -i <ansible_hosts> playbooks/keycloak-realm.yml -e keycloak_admin_password=<changeme> -e keycloak_realm=test
 ```
 
@@ -135,6 +152,9 @@ ansible-playbook -i <ansible_hosts> playbooks/keycloak-realm.yml -e keycloak_adm
   [keycloak]
   localhost ansible_connection=local
   ```
+
+For configuration details, refer to the [keycloak_realm role README](roles/keycloak_realm/README.md).
+
 
 ## License
 

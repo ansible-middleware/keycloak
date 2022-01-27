@@ -3,7 +3,6 @@
     name: "{{ item }}"
     realm: "{{ client.realm }}"
     client_id: "{{ client.name }}"
-    description: "{{ item.description | default(omit) }}"
     auth_client_id: "{{ keycloak_auth_client }}"
     auth_keycloak_url: "{{ keycloak_url }}/auth"
     auth_realm: "{{ keycloak_auth_realm }}"

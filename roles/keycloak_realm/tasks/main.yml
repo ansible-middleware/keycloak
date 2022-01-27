@@ -42,6 +42,7 @@
     auth_username: "{{ keycloak_admin_user }}"
     auth_password: "{{ keycloak_admin_password }}"
     realm: "{{ item.realm }}"
+    default_roles: "{{ item.roles | default(omit) }}"
     client_id: "{{ item.client_id | default(omit) }}"
     id: "{{ item.id | default(omit) }}"
     name: "{{ item.name | default(omit) }}"
@@ -62,7 +63,7 @@
     state: present
   register: create_client_result
   loop: "{{ keycloak_clients | flatten }}"
-  when: keycloak_clients is defined
+  when: (item.name is defined and item.client_id is defined) or (item.name is defined and item.id is defined)
 
 - name: Create client roles
   include_tasks: manage_client_roles.yml

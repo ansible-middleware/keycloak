@@ -738,12 +738,12 @@
         </interface>
     </interfaces>
     <socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">
-        <socket-binding name="ajp" port="${jboss.ajp.port:8009}"/>
-        <socket-binding name="http" port="${jboss.http.port:8080}"/>
-        <socket-binding name="https" port="${jboss.https.port:8443}"/>
-        <socket-binding name="management-http" interface="management" port="${jboss.management.http.port:9990}"/>
-        <socket-binding name="management-https" interface="management" port="${jboss.management.https.port:9993}"/>
-        <socket-binding name="jgroups-tcp" interface="jgroups" port="7600"/>
+        <socket-binding name="ajp" port="{{ keycloak_ajp_port }}"/>
+        <socket-binding name="http" port="{{ keycloak_http_port }}"/>
+        <socket-binding name="https" port="{{ keycloak_https_port }}"/>
+        <socket-binding name="management-http" interface="management" port="{{ keycloak_management_http_port }}"/>
+        <socket-binding name="management-https" interface="management" port="{{ keycloak_management_https_port }}"/>
+        <socket-binding name="jgroups-tcp" interface="jgroups" port="{{ keycloak_jgroups_port }}"/>
         <socket-binding name="modcluster" multicast-address="${jboss.modcluster.multicast.address:224.0.1.105}" multicast-port="23364"/>
         <socket-binding name="txn-recovery-environment" port="4712"/>
         <socket-binding name="txn-status-manager" port="4713"/>

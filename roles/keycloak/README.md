@@ -35,6 +35,8 @@ Role Defaults
 |`keycloak_host`| hostname | `localhost` |
 |`keycloak_http_port`| HTTP port | `8080` |
 |`keycloak_https_port`| TLS HTTP port | `8443` |
+|`keycloak_ajp_port`| AJP port | `8009` |
+|`keycloak_jgroups_port`| jgroups cluster tcp port | `7600` |
 |`keycloak_management_http_port`| Management port | `9990` |
 |`keycloak_management_https_port`| TLS management port | `9993` |
 |`keycloak_java_opts`| Additional JVM options | `-Xms1024m -Xmx2048m` |

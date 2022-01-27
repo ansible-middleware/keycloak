@@ -5,19 +5,14 @@
       - keycloak_rhsso_enable
     quiet: true
 
-- set_fact:
-    rhn_download_url: "{{ keycloak_rhsso_base_url }}{{ rhsso_rhn_id }}"
-  when:
-    - rhsso_rhn_id is defined
-
 - name: "Check zipfile dest directory {{ zipfile_dest }}"
   stat:
     path: "{{ zipfile_dest }}"
   register: archive_path
 
-- name: "Download zipfile from RHN: {{ rhn_download_url }}"
+- name: "Download zipfile from RHN: {{ keycloak_rhsso_download_url }}"
   redhat_csp_download:
-    url: "{{ rhn_download_url }}"
+    url: "{{ keycloak_rhsso_download_url }}"
     dest: "{{ zipfile_dest }}"
     username: "{{ rhn_username }}"
     password: "{{ rhn_password }}"

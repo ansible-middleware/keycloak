@@ -37,7 +37,7 @@ jobs:
           ANSIBLE_GALAXY_API_KEY: ${{ secrets.ANSIBLE_GALAXY_API_KEY }}
         run: |
           ansible-galaxy collection publish *.tar.gz --api-key $ANSIBLE_GALAXY_API_KEY
-   dispatch:
+  dispatch:
     needs: release
     strategy:
       matrix:

@@ -7,11 +7,17 @@ keycloak_download_url_9x: "https://downloads.jboss.org/keycloak/{{ keycloak_vers
 keycloak_installdir: "{{ keycloak_dest }}/keycloak-{{ keycloak_version }}"
 
 ### Configuration specific to Red Hat Single Sing-On
-keycloak_rhsso_enable: False
-keycloak_rhsso_version: 7.5
+keycloak_rhsso_version: 7.5.0
+rhsso_rhn_id: "{{ rhsso_rhn_ids[keycloak_rhsso_version] }}"
 keycloak_rhsso_archive: "rh-sso-{{ keycloak_rhsso_version }}-server-dist.zip"
-keycloak_rhsso_installdir: "{{ keycloak_dest }}/rh-sso-{{ keycloak_rhsso_version }}"
-keycloak_rhsso_base_url: 'https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId='
+keycloak_rhsso_installdir: "{{ keycloak_dest }}/rh-sso-{{ keycloak_rhsso_version | regex_replace('^([0-9])\\.([0-9]*).*', '\\1.\\2') }}"
+keycloak_rhn_url: 'https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId='
+keycloak_rhsso_download_url: "{{ keycloak_rhn_url }}{{ rhsso_rhn_id }}"
+
+### keycloak/rhsso choice: by default install rhsso if rhn credentials are defined
+keycloak_rhsso_enable: "{{ True if rhsso_rhn_id is defined and rhn_username is defined and rhn_password is defined else False }}"
+# whether to install from local archive; filename must be keycloak_archive or keycloak_rhsso_archive depending on keycloak_rhsso_enable
+keycloak_offline_install: False
 
 ### Install location and service settings
 jvm_package: java-1.8.0-openjdk-devel
@@ -27,7 +33,7 @@ keycloak_service_group: keycloak
 keycloak_service_pidfile: "/run/keycloak.pid"
 keycloak_service_logfile: "{{ keycloak_dest }}/keycloak.log"
 
-### Keycloak configuration settings
+### Common configuration settings
 keycloak_bind_address: 0.0.0.0
 keycloak_host: localhost
 keycloak_http_port: 8080

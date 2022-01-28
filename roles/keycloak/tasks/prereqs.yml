@@ -10,11 +10,11 @@
 - name: Validate credentials
   assert:
     that:
-      - (rhn_username is defined and rhsso_rhn_id is defined) or rhsso_rhn_id is not defined
-      - (rhn_password is defined and rhsso_rhn_id is defined) or rhsso_rhn_id is not defined
+      - (rhn_username is defined and keycloak_rhsso_enable) or not keycloak_rhsso_enable or keycloak_offline_install
+      - (rhn_password is defined and keycloak_rhsso_enable) or not keycloak_rhsso_enable or keycloak_offline_install
     quiet: True
     fail_msg: "Cannot install Red Hat SSO without RHN credentials. Check rhn_username and rhn_password are defined"
-    success_msg: "{{ 'Installing Red Hat Single Sign-On' if rhsso_rhn_id is defined else 'Installing keycloak.org' }}"
+    success_msg: "{{ 'Installing Red Hat Single Sign-On' if keycloak_rhsso_enable else 'Installing keycloak.org' }}"
 
 - name: Set required packages facts
   set_fact:

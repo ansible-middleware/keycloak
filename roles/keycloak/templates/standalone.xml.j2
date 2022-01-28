@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-
+<!-- {{ ansible_managed }} -->
 <server xmlns="urn:jboss:domain:16.0">
     <extensions>
         <extension module="org.jboss.as.clustering.infinispan"/>
@@ -139,14 +139,32 @@
                     </security>
                 </datasource>
                 <datasource jndi-name="java:jboss/datasources/KeycloakDS" pool-name="KeycloakDS" enabled="true" use-java-context="true" statistics-enabled="${wildfly.datasources.statistics-enabled:${wildfly.statistics-enabled:false}}">
+{% if keycloak_jdbc[keycloak_jdbc_engine].enabled %}
+                    <connection-url>{{ keycloak_jdbc[keycloak_jdbc_engine].connection_url }}</connection-url>
+                    <driver>{{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_name }}</driver>
+                    <pool>
+                       <max-pool-size>20</max-pool-size>
+                    </pool>
+                    <security>
+                        <user-name>{{ keycloak_jdbc[keycloak_jdbc_engine].db_user }}</user-name>
+                        <password>{{ keycloak_jdbc[keycloak_jdbc_engine].db_password }}</password>
+                    </security>
+{% else %}
                     <connection-url>jdbc:h2:${jboss.server.data.dir}/keycloak;AUTO_SERVER=TRUE</connection-url>
                     <driver>h2</driver>
                     <security>
                         <user-name>sa</user-name>
                         <password>sa</password>
                     </security>
+{% endif %}
                 </datasource>
                 <drivers>
+{% if keycloak_jdbc[keycloak_jdbc_engine].enabled %}
+                    <driver name="{{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_name }}" module="{{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_name }}">
+                        <driver-class>{{ keycloak_jdbc[keycloak_jdbc_engine].driver_class }}</driver-class>
+                        <xa-datasource-class>{{ keycloak_jdbc[keycloak_jdbc_engine].xa_datasource_class }}</xa-datasource-class>
+                    </driver>
+{% endif %}
                     <driver name="h2" module="com.h2database.h2">
                         <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
                     </driver>
@@ -621,11 +639,11 @@
         </interface>
     </interfaces>
     <socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">
-        <socket-binding name="ajp" port="${jboss.ajp.port:8009}"/>
-        <socket-binding name="http" port="${jboss.http.port:8080}"/>
-        <socket-binding name="https" port="${jboss.https.port:8443}"/>
-        <socket-binding name="management-http" interface="management" port="${jboss.management.http.port:9990}"/>
-        <socket-binding name="management-https" interface="management" port="${jboss.management.https.port:9993}"/>
+        <socket-binding name="ajp" port="{{ keycloak_ajp_port }}"/>
+        <socket-binding name="http" port="{{ keycloak_http_port }}"/>
+        <socket-binding name="https" port="{{ keycloak_https_port }}"/>
+        <socket-binding name="management-http" interface="management" port="{{ keycloak_management_http_port }}"/>
+        <socket-binding name="management-https" interface="management" port="{{ keycloak_management_https_port }}"/>
         <socket-binding name="modcluster" multicast-address="${jboss.modcluster.multicast.address:224.0.1.105}" multicast-port="23364"/>
         <socket-binding name="txn-recovery-environment" port="4712"/>
         <socket-binding name="txn-status-manager" port="4713"/>

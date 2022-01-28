@@ -38,9 +38,6 @@
     daemon_reload: yes
   when: systemdunit.changed
 
-- set_fact:
-    health_url: "{{ keycloak_management_url }}/health"
-
 - name: start keycloak
   systemd:
     name: keycloak
@@ -48,20 +45,22 @@
     state: started
   become: yes
 
-- command: "systemctl status keycloak"
+- name: Check service status
+  command: "systemctl status keycloak"
   register: keycloak_service_status
   changed_when: False
 
-- assert:
+- name: Verify service status
+  assert:
     that:
       - keycloak_service_status is defined
       - keycloak_service_status.stdout is defined
 
 - meta: flush_handlers
 
-- name: "Wait until Keycloak becomes active {{ health_url }}"
+- name: "Wait until Keycloak becomes active {{ keycloak.health_url }}"
   uri:
-    url: "{{ health_url }}"
+    url: "{{ keycloak.health_url }}"
   register: keycloak_status
   until: keycloak_status.status == 200
   retries: 25

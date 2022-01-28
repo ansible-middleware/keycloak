@@ -11,6 +11,16 @@ This role requires the `python3-netaddr` library installed on the controller nod
 
 * to install via yum/dnf: `dnf install python3-netaddr`
 * or via pip: `pip install netaddr==0.8.0`
+* or via the collection: `pip install -r requirements.txt`
+
+
+Dependencies
+------------
+
+The roles depends on:
+
+* the `redhat_csp_download` role from [middleware_automation.redhat_csp_download](https://github.com/ansible-middleware/redhat-csp-download) collection if Red Hat Single Sign-on zip have to be downloaded from RHN.
+* the `wildfly_driver` role from [middleware_automation.wildfly](https://github.com/ansible-middleware/wildfly) collection
 
 
 Versions
@@ -24,9 +34,10 @@ Versions
 Role Defaults
 -------------
 
+* Service configuration
+
 | Variable | Description | Default |
 |:---------|:------------|:---------|
-|`keycloak_rhsso_enable`| Enable Red Hat Single Sign-on installation  | `False` |
 |`keycloak_ha_enabled`| Enable auto configuration for database backend, clustering and remote caches on infinispan | `False` |
 |`keycloak_db_enabled`| Enable auto configuration for database backend | `True` if `keycloak_ha_enabled` is True, else `False` |
 |`keycloak_admin_user`| Administration console user account | `admin` |
@@ -34,11 +45,30 @@ Role Defaults
 |`keycloak_host`| hostname | `localhost` |
 |`keycloak_http_port`| HTTP port | `8080` |
 |`keycloak_https_port`| TLS HTTP port | `8443` |
+|`keycloak_ajp_port`| AJP port | `8009` |
+|`keycloak_jgroups_port`| jgroups cluster tcp port | `7600` |
 |`keycloak_management_http_port`| Management port | `9990` |
 |`keycloak_management_https_port`| TLS management port | `9993` |
 |`keycloak_java_opts`| Additional JVM options | `-Xms1024m -Xmx2048m` |
 |`keycloak_prefer_ipv4`| Prefer IPv4 stack and addresses for port binding | `True` |
+|`keycloak_config_standalone_xml`| filename for configuration | `keycloak.xml` |
+|`keycloak_service_user`| posix account username | `keycloak` |
+|`keycloak_service_group`| posix account group | `keycloak` |
+|`keycloak_service_pidfile`| pid file path for service | `/run/keycloak.pid` |
 |`jvm_package`| RHEL java package runtime | `java-1.8.0-openjdk-devel` |
+
+
+* Install options
+
+| Variable | Description | Default |
+|:---------|:------------|:---------|
+|`keycloak_rhsso_enable`| Enable Red Hat Single Sign-on installation  | `False` |
+|`keycloak_offline_install` | perform an offline install | `False`|
+|`keycloak_download_url`| Download URL for keycloak | `https://github.com/keycloak/keycloak/releases/download/<version>/<archive>`| 
+|`keycloak_rhsso_download_url`| Download URL for RHSSO | `https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=<productID>`|
+|`keycloak_version`| keycloak.org package version | `15.0.2` |
+|`keycloak_rhsso_version`| RHSSO version | `7.5.0` |
+|`keycloak_dest`| Installation root path | `/opt/keycloak` |
 
 
 Role Variables
@@ -76,29 +106,14 @@ The following variables are _required_ only when `keycloak_db_enabled` is True:
 |`keycloak_db_user` | username for connecting to postgres | `keycloak-user` |
 |`keycloak_db_pass` | password for connecting to postgres | `keycloak-pass` |
 
-The following variable can be used to install Keycloak or Red Hat Single Sign-On from local path:
-| Variable | Description | Example |
-|:---------|:------------|:---------|
-|`zip_file_local_path` | Full local path of upstream(Keycloak) or Red Hat Single Sign-On zip file on Ansible control plane | `tmp/rhsso/rh-sso-7.5-server-dist.zip` |
 
-The following variable can be used to install Red Hat Single Sign-On from source via url, auth support is not added right now.
-| Variable | Description | Example |
-|:---------|:------------|:---------|
-|`rhsso_source_download_url` | URL to download Red Hat Single Sign-On zip file from source | `http://localhost:8081/nexus/rhsso/rh-sso-7.5-server-dist.zip` |
+Example Playbooks
+-----------------
 
-Dependencies
-------------
-
-The roles depends on:
-
-* the redhat_csp_download role from [middleware_automation.redhat_csp_download](https://github.com/ansible-middleware/redhat-csp-download) collection if Red Hat Single Sign-on zip have to be downloaded from RHN.
-* the wildfly_driver role from [middleware_automation.wildfly](https://github.com/ansible-middleware/wildfly) collection
+_NOTE_: use ansible vaults or other security systems for storing credentials.
 
 
-Example Playbook
-----------------
-
-The following is an example playbook that makes use of the role to install keycloak from remote
+* The following is an example playbook that makes use of the role to install keycloak from remote:
 
 ```yaml
 ---
@@ -113,23 +128,7 @@ The following is an example playbook that makes use of the role to install keycl
             keycloak_admin_password: "changeme"
 ```
 
-The following is an example playbook that makes use of the role to install keycloak from local path on Ansible node
-
-```yaml
----
-- hosts: ...
-      collections:
-        - middleware_automation.keycloak
-      tasks:
-        - name: Include keycloak role
-          include_role:
-            name: keycloak
-          vars:
-            keycloak_admin_password: "changeme"
-            zip_file_local_path: "/tmp/keycloak/keycloak-16.1.0.zip"  # This should be local path on Ansible node of upstream(keycloak) zip file
-```
-
-The following is an example playbook that makes use of the role to install Red Hat Single Sign-On from RHN
+* The following is an example playbook that makes use of the role to install Red Hat Single Sign-On from RHN:
 
 ```yaml
 ---
@@ -146,9 +145,30 @@ The following is an example playbook that makes use of the role to install Red H
       vars:
         keycloak_admin_password: "changeme"
         keycloak_rhsso_enable: True
+        rhn_username: '<customer portal username>'
+        rhn_password: '<customer portal password>'
 ```
 
-The following is an example playbook that makes use of the role to install Red Hat Single Sign-On from source url
+
+* The following example playbook makes use of the role to install keycloak from the controller node:
+
+```yaml
+---
+- hosts: ...
+      collections:
+        - middleware_automation.keycloak
+      tasks:
+        - name: Include keycloak role
+          include_role:
+            name: keycloak
+          vars:
+            keycloak_admin_password: "changeme"
+            keycloak_offline_install: True
+            # This should be the filename of keycloak archive on Ansible node: keycloak-16.1.0.zip
+```
+
+
+* This playbook installs Red Hat Single Sign-On from an alternate url:
 
 ```yaml
 ---
@@ -162,10 +182,12 @@ The following is an example playbook that makes use of the role to install Red H
       vars:
         keycloak_admin_password: "changeme"
         keycloak_rhsso_enable: True
-        rhsso_source_download_url: "<REPLACE with - Source download url>" # This should be the full of remote source rhsso zip file
+        keycloak_rhsso_download_url: "<REPLACE with download url>"
+        # This should be the full of remote source rhsso zip file and can contain basic authentication credentials
 ```
 
-The following is an example playbook that makes use of the role to install Red Hat Single Sign-On from local path on Ansible node
+
+* The following is an example playbook that makes use of the role to install Red Hat Single Sign-On from the controller node:
 
 ```yaml
 ---
@@ -179,7 +201,8 @@ The following is an example playbook that makes use of the role to install Red H
       vars:
         keycloak_admin_password: "changeme"
         keycloak_rhsso_enable: True
-        zip_file_local_path: "/tmp/rhsso/rh-sso-7.5-server-dist.zip"  # This should be local path on Ansible node of rhsso zip file
+        keycloak_offline_install: True
+        # This should be the filename of rhsso zip file on Ansible node: rh-sso-7.5-server-dist.zip
 ```
 
 License

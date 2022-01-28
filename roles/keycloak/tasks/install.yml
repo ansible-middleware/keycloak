@@ -121,21 +121,11 @@
   register: new_version_downloaded
   become: yes
 
-- name: "Check work directory: {{ keycloak_dest }}"
+- name: "Check target directory: {{ keycloak.home }}"
   stat:
-    path: "{{ keycloak_dest }}"
+    path: "{{ keycloak.home }}"
   register: path_to_workdir
   become: yes
-
-- name: "Create work directory {{ keycloak_dest }}"
-  file:
-    path: "{{ keycloak_dest }}"
-    state: directory
-    owner: "{{ keycloak_service_user }}"
-    group: "{{ keycloak_service_group }}"
-    mode: 0750
-  become: yes
-  when: not path_to_workdir.stat.exists
 
 - name: "Extract {{ 'Red Hat Single Sign-On' if keycloak_rhsso_enable else 'Keycloak' }} archive on target"
   unarchive:

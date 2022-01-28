@@ -95,7 +95,7 @@
     - not archive_path.stat.exists
     - keycloak_rhsso_enable
     - not keycloak_offline_install
-    - keycloak_rhsso_download_url is match(keycloak_rhn_url+".*")
+    - keycloak_rhn_url in keycloak_rhsso_download_url
 
 - name: Download rhsso archive from alternate location
   get_url:
@@ -108,7 +108,7 @@
     - not archive_path.stat.exists
     - keycloak_rhsso_enable
     - not keycloak_offline_install
-    - not keycloak_rhsso_download_url is match(keycloak_rhn_url+".*")
+    - not keycloak_rhn_url in keycloak_rhsso_download_url
 
 ## copy and unpack
 - name: Copy archive to target nodes

@@ -1,5 +1,4 @@
 ---
-
 - name: "Get User {{ user.username }}"
   uri:
     url: "{{ keycloak_url }}/auth/admin/realms/{{ keycloak_realm }}/users?username={{ user.username }}"

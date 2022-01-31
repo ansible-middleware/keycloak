@@ -1,4 +1,4 @@
-b81!---
+---
 - name: Generate keycloak auth token
   uri:
     url: "{{ keycloak_url }}/auth/realms/master/protocol/openid-connect/token"

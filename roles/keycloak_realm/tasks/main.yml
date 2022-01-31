@@ -1,4 +1,4 @@
----
+b81!---
 - name: Generate keycloak auth token
   uri:
     url: "{{ keycloak_url }}/auth/realms/master/protocol/openid-connect/token"
@@ -77,4 +77,4 @@
   loop: "{{ keycloak_clients | flatten }}"
   loop_control:
     loop_var: client
-  when: "'users' in keycloak_clients"
+  when: "'users' in client"

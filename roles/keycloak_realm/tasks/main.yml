@@ -34,6 +34,23 @@
     status_code: 201
   when: keycloak_realm_exists.status == 404
 
+- name: Create user federation
+  community.general.keycloak_user_federation:
+    auth_keycloak_url: "{{ keycloak_url }}/auth"
+    auth_realm: "{{ keycloak_auth_realm }}"
+    auth_username: "{{ keycloak_admin_user }}"
+    auth_password: "{{ keycloak_admin_password }}"
+    realm: "{{ item.realm }}"
+    name: "{{ item.name }}"
+    state: present
+    provider_id: "{{ item.provider_id }}"
+    provider_type: "{{ item.provider_type | default(org.keycloak.storage.UserStorageProvider) }}" 
+    config: "{{ item.config }}"
+    mappers: "{{ item.mappers | default(omit) }}"
+  register: create_user_federation_result
+  loop: "{{ keycloak_user_federation | flatten }}"
+  when: keycloak_user_federation is defined
+
 - name: Create or update a Keycloak client
   community.general.keycloak_client:
     auth_client_id: "{{ keycloak_auth_client }}"

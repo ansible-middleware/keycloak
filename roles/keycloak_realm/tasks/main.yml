@@ -67,10 +67,10 @@
 
 - name: Create client roles
   include_tasks: manage_client_roles.yml
-  when: keycloak_rhsso_enable
   loop: "{{ keycloak_clients | flatten }}"
   loop_control:
     loop_var: client
+  when: "'roles' in client"
 
 - name: Create client users
   include_tasks: manage_client_users.yml

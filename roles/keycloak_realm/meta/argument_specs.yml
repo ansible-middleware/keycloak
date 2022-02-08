@@ -1,0 +1,88 @@
+argument_specs:
+    main:
+        options:
+            keycloak_host:
+                # line 3 of keycloak_realm/defaults/main.yml
+                default: "localhost"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_http_port:
+                # line 4 of keycloak_realm/defaults/main.yml
+                default: 8080
+                description: "TODO document argument"
+                type: "int"
+            keycloak_https_port:
+                # line 5 of keycloak_realm/defaults/main.yml
+                default: 8443
+                description: "TODO document argument"
+                type: "int"
+            keycloak_admin_user:
+                # line 8 of keycloak_realm/defaults/main.yml
+                default: "admin"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_auth_realm:
+                # line 9 of keycloak_realm/defaults/main.yml
+                default: "master"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_auth_client:
+                # line 10 of keycloak_realm/defaults/main.yml
+                default: "admin-cli"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_user_federation:
+                # line 13 of keycloak_realm/defaults/main.yml
+                default: "[]"
+                description: "TODO document argument"
+                type: "list"
+            keycloak_client_default_roles:
+                # line 36 of keycloak_realm/defaults/main.yml
+                default: "[]"
+                description: "TODO document argument"
+                type: "list"
+            keycloak_client_public:
+                # line 39 of keycloak_realm/defaults/main.yml
+                default: true
+                description: "TODO document argument"
+                type: "bool"
+            keycloak_client_web_origins:
+                # line 42 of keycloak_realm/defaults/main.yml
+                default: "+"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_client_users:
+                # line 49 of keycloak_realm/defaults/main.yml
+                default: "[]"
+                description: "TODO document argument"
+                type: "list"
+            keycloak_admin_password:
+                # line 5 of keycloak_realm/vars/main.yml
+                required: true
+                description: "TODO document argument"
+                type: "str"
+            keycloak_realm:
+                # line 8 of keycloak_realm/vars/main.yml
+                required: true
+                description: "TODO document argument"
+                type: "str"
+            keycloak_clients:
+                # line 11 of keycloak_realm/vars/main.yml
+                required: true
+                description: "TODO document argument"
+                type: "str"
+            keycloak_url:
+                # line 14 of keycloak_realm/vars/main.yml
+                default: "http://{{ keycloak_host }}:{{ keycloak_http_port }}"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_management_url:
+                # line 15 of keycloak_realm/vars/main.yml
+                default: "http://{{ keycloak_host }}:{{ keycloak_management_http_port }}"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_rhsso_enable:
+                # line 16 of keycloak_realm/vars/main.yml
+                default: false
+                description: "TODO document argument"
+                type: "bool"

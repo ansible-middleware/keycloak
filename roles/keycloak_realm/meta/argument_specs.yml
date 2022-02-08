@@ -16,26 +16,31 @@ argument_specs:
                 default: 8443
                 description: "TODO document argument"
                 type: "int"
+            keycloak_management_http_port:
+                # line 6 of keycloak_realm/defaults/main.yml
+                default: 9990
+                description: "TODO document argument"
+                type: "int"
+            keycloak_rhsso_enable:
+                # line 7 of keycloak_realm/defaults/main.yml
+                default: false
+                description: "TODO document argument"
+                type: "bool"
             keycloak_admin_user:
-                # line 8 of keycloak_realm/defaults/main.yml
+                # line 10 of keycloak_realm/defaults/main.yml
                 default: "admin"
                 description: "TODO document argument"
                 type: "str"
             keycloak_auth_realm:
-                # line 9 of keycloak_realm/defaults/main.yml
+                # line 11 of keycloak_realm/defaults/main.yml
                 default: "master"
                 description: "TODO document argument"
                 type: "str"
             keycloak_auth_client:
-                # line 10 of keycloak_realm/defaults/main.yml
+                # line 12 of keycloak_realm/defaults/main.yml
                 default: "admin-cli"
                 description: "TODO document argument"
                 type: "str"
-            keycloak_user_federation:
-                # line 13 of keycloak_realm/defaults/main.yml
-                default: "[]"
-                description: "TODO document argument"
-                type: "list"
             keycloak_client_default_roles:
                 # line 36 of keycloak_realm/defaults/main.yml
                 default: "[]"
@@ -53,6 +58,11 @@ argument_specs:
                 type: "str"
             keycloak_client_users:
                 # line 49 of keycloak_realm/defaults/main.yml
+                default: "[]"
+                description: "TODO document argument"
+                type: "list"
+            keycloak_user_federation:
+                # line 52 of keycloak_realm/defaults/main.yml
                 default: "[]"
                 description: "TODO document argument"
                 type: "list"
@@ -81,8 +91,3 @@ argument_specs:
                 default: "http://{{ keycloak_host }}:{{ keycloak_management_http_port }}"
                 description: "TODO document argument"
                 type: "str"
-            keycloak_rhsso_enable:
-                # line 16 of keycloak_realm/vars/main.yml
-                default: false
-                description: "TODO document argument"
-                type: "bool"

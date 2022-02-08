@@ -13,4 +13,3 @@ keycloak_clients:
 # other settings
 keycloak_url: "http://{{ keycloak_host }}:{{ keycloak_http_port }}"
 keycloak_management_url: "http://{{ keycloak_host }}:{{ keycloak_management_http_port }}"
-keycloak_rhsso_enable: False

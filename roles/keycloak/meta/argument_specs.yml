@@ -164,17 +164,17 @@ argument_specs:
             keycloak_ha_enabled:
                 # line 46 of keycloak/defaults/main.yml
                 default: false
-                description: "TODO document argument"
+                description: "Enable auto configuration for database backend, clustering and remote caches on infinispan"
                 type: "bool"
             keycloak_db_enabled:
                 # line 48 of keycloak/defaults/main.yml
                 default: "{{ True if keycloak_ha_enabled else False }}"
-                description: "TODO document argument"
+                description: "Enable auto configuration for database backend"
                 type: "str"
             keycloak_admin_user:
                 # line 51 of keycloak/defaults/main.yml
                 default: "admin"
-                description: "TODO document argument"
+                description: "Administration console user account"
                 type: "str"
             keycloak_auth_realm:
                 # line 52 of keycloak/defaults/main.yml

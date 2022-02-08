@@ -12,23 +12,25 @@ keycloak_auth_client: admin-cli
 ### List of Keycloak User Federation
 keycloak_user_federation: []
 
-### Keycloak realm client defaults
+### Keycloak realms, clients, roles
 # list of clients to create in the realm
 #
 # Refer to the playbook for a comprehensive example.
+# Also refer to meta/argument_specs.yml for specifications.
 #
 # Each client has the form:
 #    { name: '', roles: [], realm: '', public_client: bool, web_origins: '', users: [] }
 # where roles is a list of default role names for the client
 # and users is a list of account, see below for the format definition
 # an empty name will skip the creation of the client
-keycloak_clients:
-  - name: ''
-    roles: "{{ keycloak_client_default_roles }}"
-    realm: "{{ keycloak_realm }}"
-    public_client: "{{ keycloak_client_public }}"
-    web_origins: "{{ keycloak_client_web_origins }}"
-    users: "{{ keycloak_client_users }}"
+#
+#keycloak_clients:
+#  - name: ''
+#    roles: "{{ keycloak_client_default_roles }}"
+#    realm: "{{ keycloak_realm }}"
+#    public_client: "{{ keycloak_client_public }}"
+#    web_origins: "{{ keycloak_client_web_origins }}"
+#    users: "{{ keycloak_client_users }}"
 
 # list of roles to create in the client
 keycloak_client_default_roles: []

@@ -110,6 +110,12 @@
     - not keycloak_offline_install
     - not keycloak_rhn_url in keycloak_rhsso_download_url
 
+- name: Check downloaded archive
+  stat:
+    path: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
+  register: local_archive_path
+  delegate_to: localhost
+
 ## copy and unpack
 - name: Copy archive to target nodes
   copy:
@@ -119,6 +125,10 @@
     group: "{{ keycloak_service_group }}"
     mode: 0750
   register: new_version_downloaded
+  when:
+    - not archive_path.stat.exists
+    - local_archive_path.stat is defined
+    - local_archive_path.stat.exists
   become: yes
 
 - name: "Check target directory: {{ keycloak.home }}"

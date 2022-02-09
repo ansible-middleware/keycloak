@@ -31,6 +31,7 @@ keycloak_auth_client: admin-cli
 #    public_client: "{{ keycloak_client_public }}"
 #    web_origins: "{{ keycloak_client_web_origins }}"
 #    users: "{{ keycloak_client_users }}"
+keycloak_clients: []
 
 # list of roles to create in the client
 keycloak_client_default_roles: []

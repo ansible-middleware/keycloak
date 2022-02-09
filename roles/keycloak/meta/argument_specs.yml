@@ -4,162 +4,162 @@ argument_specs:
             keycloak_version:
                 # line 3 of keycloak/defaults/main.yml
                 default: "15.0.2"
-                description: "TODO document argument"
+                description: "keycloak.org package version"
                 type: "str"
             keycloak_archive:
                 # line 4 of keycloak/defaults/main.yml
                 default: "keycloak-{{ keycloak_version }}.zip"
-                description: "TODO document argument"
+                description: "keycloak install archive filename"
                 type: "str"
             keycloak_download_url:
                 # line 5 of keycloak/defaults/main.yml
                 default: "https://github.com/keycloak/keycloak/releases/download/{{ keycloak_version }}/{{ keycloak_archive }}"
-                description: "TODO document argument"
+                description: "Download URL for keycloak"
                 type: "str"
             keycloak_download_url_9x:
                 # line 6 of keycloak/defaults/main.yml
                 default: "https://downloads.jboss.org/keycloak/{{ keycloak_version }}/{{ keycloak_archive }}"
-                description: "TODO document argument"
+                description: "Download URL for keycloak (deprecated)"
                 type: "str"
             keycloak_installdir:
                 # line 7 of keycloak/defaults/main.yml
                 default: "{{ keycloak_dest }}/keycloak-{{ keycloak_version }}"
-                description: "TODO document argument"
+                description: "Installation path"
                 type: "str"
             keycloak_rhsso_version:
                 # line 10 of keycloak/defaults/main.yml
                 default: "7.5.0"
-                description: "TODO document argument"
+                description: "Red Hat Single Sign-On version"
                 type: "str"
             rhsso_rhn_id:
                 # line 11 of keycloak/defaults/main.yml
                 default: "{{ rhsso_rhn_ids[keycloak_rhsso_version] }}"
-                description: "TODO document argument"
+                description: "Customer Portal product ID for Red Hat SSO"
                 type: "str"
             keycloak_rhsso_archive:
                 # line 12 of keycloak/defaults/main.yml
                 default: "rh-sso-{{ keycloak_rhsso_version }}-server-dist.zip"
-                description: "TODO document argument"
+                description: "ed Hat SSO install archive filename"
                 type: "str"
             keycloak_rhsso_installdir:
                 # line 13 of keycloak/defaults/main.yml
                 default: "{{ keycloak_dest }}/rh-sso-{{ keycloak_rhsso_version | regex_replace('^([0-9])\\.([0-9]*).*', '\\1.\\2') }}"
-                description: "TODO document argument"
+                description: "Installation path for Red Hat SSO"
                 type: "str"
             keycloak_rhn_url:
                 # line 14 of keycloak/defaults/main.yml
                 default: "https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId="
-                description: "TODO document argument"
+                description: "Base download URI for customer portal"
                 type: "str"
             keycloak_rhsso_download_url:
                 # line 15 of keycloak/defaults/main.yml
                 default: "{{ keycloak_rhn_url }}{{ rhsso_rhn_id }}"
-                description: "TODO document argument"
+                description: "Full download URI for Red Hat SSO"
                 type: "str"
             keycloak_rhsso_enable:
                 # line 18 of keycloak/defaults/main.yml
                 default: "{{ True if rhsso_rhn_id is defined and rhn_username is defined and rhn_password is defined else False }}"
-                description: "TODO document argument"
+                description: "Enable Red Hat Single Sign-on installation"
                 type: "str"
             keycloak_offline_install:
                 # line 20 of keycloak/defaults/main.yml
                 default: false
-                description: "TODO document argument"
+                description: "Perform an offline install"
                 type: "bool"
             jvm_package:
                 # line 23 of keycloak/defaults/main.yml
                 default: "java-1.8.0-openjdk-devel"
-                description: "TODO document argument"
+                description: "RHEL java package runtime rpm"
                 type: "str"
             keycloak_dest:
                 # line 24 of keycloak/defaults/main.yml
                 default: "/opt/keycloak"
-                description: "TODO document argument"
+                description: "Root installation directory"
                 type: "str"
             keycloak_jboss_home:
                 # line 25 of keycloak/defaults/main.yml
                 default: "{{ keycloak_rhsso_installdir if keycloak_rhsso_enable else keycloak_installdir }}"
-                description: "TODO document argument"
+                description: "Installation work directory"
                 type: "str"
             keycloak_config_dir:
                 # line 26 of keycloak/defaults/main.yml
                 default: "{{ keycloak_jboss_home }}/standalone/configuration"
-                description: "TODO document argument"
+                description: "Path for configuration"
                 type: "str"
             keycloak_config_standalone_xml:
                 # line 27 of keycloak/defaults/main.yml
                 default: "keycloak.xml"
-                description: "TODO document argument"
+                description: "Service configuration filename"
                 type: "str"
             keycloak_config_path_to_standalone_xml:
                 # line 28 of keycloak/defaults/main.yml
                 default: "{{ keycloak_jboss_home }}/standalone/configuration/{{ keycloak_config_standalone_xml }}"
-                description: "TODO document argument"
+                description: "Custom path for configuration"
                 type: "str"
             keycloak_service_user:
                 # line 29 of keycloak/defaults/main.yml
                 default: "keycloak"
-                description: "TODO document argument"
+                description: "posix account username"
                 type: "str"
             keycloak_service_group:
                 # line 30 of keycloak/defaults/main.yml
                 default: "keycloak"
-                description: "TODO document argument"
+                description: "posix account group"
                 type: "str"
             keycloak_service_pidfile:
                 # line 31 of keycloak/defaults/main.yml
                 default: "/run/keycloak.pid"
-                description: "TODO document argument"
+                description: "PID file path for service"
                 type: "str"
             keycloak_bind_address:
                 # line 34 of keycloak/defaults/main.yml
                 default: "0.0.0.0"
-                description: "TODO document argument"
+                description: "Address for binding service ports"
                 type: "str"
             keycloak_host:
                 # line 35 of keycloak/defaults/main.yml
                 default: "localhost"
-                description: "TODO document argument"
+                description: "Hostname for service"
                 type: "str"
             keycloak_http_port:
                 # line 36 of keycloak/defaults/main.yml
                 default: 8080
-                description: "TODO document argument"
+                description: "Listening HTTP port"
                 type: "int"
             keycloak_https_port:
                 # line 37 of keycloak/defaults/main.yml
                 default: 8443
-                description: "TODO document argument"
+                description: "Listening HTTPS port"
                 type: "int"
             keycloak_ajp_port:
                 # line 38 of keycloak/defaults/main.yml
                 default: 8009
-                description: "TODO document argument"
+                description: "Listening AJP port"
                 type: "int"
             keycloak_jgroups_port:
                 # line 39 of keycloak/defaults/main.yml
                 default: 7600
-                description: "TODO document argument"
+                description: "jgroups cluster tcp port"
                 type: "int"
             keycloak_management_http_port:
                 # line 40 of keycloak/defaults/main.yml
                 default: 9990
-                description: "TODO document argument"
+                description: "Management port (http)"
                 type: "int"
             keycloak_management_https_port:
                 # line 41 of keycloak/defaults/main.yml
                 default: 9993
-                description: "TODO document argument"
+                description: "Management port (https)"
                 type: "int"
             keycloak_java_opts:
                 # line 42 of keycloak/defaults/main.yml
                 default: "-Xms1024m -Xmx2048m"
-                description: "TODO document argument"
+                description: "Additional JVM options"
                 type: "str"
             keycloak_prefer_ipv4:
                 # line 43 of keycloak/defaults/main.yml
                 default: true
-                description: "TODO document argument"
+                description: "Prefer IPv4 stack and addresses for port binding"
                 type: "bool"
             keycloak_ha_enabled:
                 # line 46 of keycloak/defaults/main.yml
@@ -179,52 +179,52 @@ argument_specs:
             keycloak_auth_realm:
                 # line 52 of keycloak/defaults/main.yml
                 default: "master"
-                description: "TODO document argument"
+                description: "Name for rest authentication realm"
                 type: "str"
             keycloak_auth_client:
                 # line 53 of keycloak/defaults/main.yml
                 default: "admin-cli"
-                description: "TODO document argument"
+                description: "Authentication client for configuration REST calls"
                 type: "str"
             keycloak_force_install:
                 # line 55 of keycloak/defaults/main.yml
                 default: false
-                description: "TODO document argument"
+                description: "Remove pre-existing versions of service"
                 type: "bool"
             keycloak_modcluster_url:
                 # line 58 of keycloak/defaults/main.yml
                 default: "localhost"
-                description: "TODO document argument"
+                description: "URL for the modcluster reverse proxy"
                 type: "str"
             keycloak_frontend_url:
                 # line 59 of keycloak/defaults/main.yml
                 default: "http://localhost"
-                description: "TODO document argument"
+                description: "Frontend URL for keycloak endpoints when a reverse proxy is used"
                 type: "str"
             infinispan_user:
                 # line 62 of keycloak/defaults/main.yml
                 default: "supervisor"
-                description: "TODO document argument"
+                description: "Username for connecting to infinispan"
                 type: "str"
             infinispan_pass:
                 # line 63 of keycloak/defaults/main.yml
                 default: "supervisor"
-                description: "TODO document argument"
+                description: "Password for connecting to infinispan"
                 type: "str"
             infinispan_url:
                 # line 64 of keycloak/defaults/main.yml
                 default: "localhost"
-                description: "TODO document argument"
+                description: "URL for the infinispan remote-cache server"
                 type: "str"
             infinispan_sasl_mechanism:
                 # line 65 of keycloak/defaults/main.yml
                 default: "SCRAM-SHA-512"
-                description: "TODO document argument"
+                description: "Authentication type to infinispan server"
                 type: "str"
             infinispan_use_ssl:
                 # line 66 of keycloak/defaults/main.yml
                 default: false
-                description: "TODO document argument"
+                description: "Enable hotrod client TLS communication"
                 type: "bool"
             infinispan_trust_store_path:
                 # line 68 of keycloak/defaults/main.yml
@@ -234,45 +234,45 @@ argument_specs:
             infinispan_trust_store_password:
                 # line 69 of keycloak/defaults/main.yml
                 default: "changeit"
-                description: "TODO document argument"
+                description: "Path to truststore containing infinispan server certificate"
                 type: "str"
             keycloak_jdbc_engine:
                 # line 72 of keycloak/defaults/main.yml
                 default: "postgres"
-                description: "TODO document argument"
+                description: "Backend database flavour when db is enabled: [ postgres, mariadb ]"
                 type: "str"
             keycloak_db_user:
                 # line 74 of keycloak/defaults/main.yml
                 default: "keycloak-user"
-                description: "TODO document argument"
+                description: "Username for connecting to database"
                 type: "str"
             keycloak_db_pass:
                 # line 75 of keycloak/defaults/main.yml
                 default: "keycloak-pass"
-                description: "TODO document argument"
+                description: "Password for connecting to database"
                 type: "str"
             keycloak_jdbc_url:
                 # line 76 of keycloak/defaults/main.yml
                 default: "{{ keycloak_default_jdbc[keycloak_jdbc_engine].url }}"
-                description: "TODO document argument"
+                description: "URL for connecting to backend database"
                 type: "str"
             keycloak_jdbc_driver_version:
                 # line 77 of keycloak/defaults/main.yml
                 default: "{{ keycloak_default_jdbc[keycloak_jdbc_engine].version }}"
-                description: "TODO document argument"
+                description: "Version for the JDBC driver to download"
                 type: "str"
             keycloak_admin_password:
                 # line 4 of keycloak/vars/main.yml
                 required: true
-                description: "TODO document argument"
+                description: "Password for the administration console user account"
                 type: "str"
             keycloak_url:
                 # line 12 of keycloak/vars/main.yml
                 default: "http://{{ keycloak_host }}:{{ keycloak_http_port }}"
-                description: "TODO document argument"
+                description: "URL for configuration rest calls"
                 type: "str"
             keycloak_management_url:
                 # line 13 of keycloak/vars/main.yml
                 default: "http://{{ keycloak_host }}:{{ keycloak_management_http_port }}"
-                description: "TODO document argument"
+                description: "URL for management console rest calls"
                 type: "str"

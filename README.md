@@ -1,4 +1,4 @@
-# Ansible Collection - keycloak
+# Ansible Collection - middleware_automation.keycloak
 
 [![Build Status](https://github.com/ansible-middleware/keycloak/workflows/CI/badge.svg?branch=main)](https://github.com/ansible-middleware/keycloak/actions/workflows/ci.yml)
 
@@ -12,6 +12,7 @@ This collection has been tested against following Ansible versions: **>=2.9.10**
 
 Plugins and modules within a collection may be tested with only specific Ansible versions. A collection may contain metadata that identifies these versions.
 <!--end requires_ansible-->
+
 
 ## Installation
 
@@ -54,12 +55,12 @@ A requirement file is provided to install:
 
 Both playbooks include the `keycloak` role, with different settings, as described in the following sections.
 
-For service configuration details, refer to the [keycloak role README](roles/keycloak/README.md).
+For full service configuration details, refer to the [keycloak role README](roles/keycloak/README.md).
 
 
 ### Choosing between upstream project (Keycloak) and Red Hat Single Sign-On (RHSSO)
 
-The general flag `keycloak_rhsso_enable` controls what to install between upstream(Keycloak, when `False`) or Red Hat Single Sign-On (when `True`).
+The general flag `keycloak_rhsso_enable` controls what to install between upstream (Keycloak, when `False`) or Red Hat Single Sign-On (when `True`).
 The default value for the flag if `True` when Red Hat Network credentials are defined, `False` otherwise.
 
 
@@ -133,15 +134,15 @@ ansible-playbook -i <ansible_hosts> -e @rhn-creds.yml playbooks/keycloak.yml -e 
 
 ### Config Playbook
 
-[`playbooks/keycloak-realm.yml`](playbooks/keycloak-realm.yml) creates provided realm, user federation(s), client(s), client role(s) and client user(s) if they don't exist.
+[`playbooks/keycloak_realm.yml`](playbooks/keycloak_realm.yml) creates or updates provided realm, user federation(s), client(s), client role(s) and client user(s).
 
 
 ### Example configuration command
 
-Execute the following command from the source root directory
+Execute the following command from the source root directory:
 
 ```bash
-ansible-playbook -i <ansible_hosts> playbooks/keycloak-realm.yml -e keycloak_admin_password=<changeme> -e keycloak_realm=test
+ansible-playbook -i <ansible_hosts> playbooks/keycloak_realm.yml -e keycloak_admin_password=<changeme> -e keycloak_realm=test
 ```
 
 - `keycloak_admin_password` password for the administration console user account.
@@ -153,7 +154,7 @@ ansible-playbook -i <ansible_hosts> playbooks/keycloak-realm.yml -e keycloak_adm
   localhost ansible_connection=local
   ```
 
-For configuration details, refer to the [keycloak_realm role README](roles/keycloak_realm/README.md).
+For full configuration details, refer to the [keycloak_realm role README](roles/keycloak_realm/README.md).
 
 
 ## License

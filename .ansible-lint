@@ -1,19 +1,25 @@
- rulesdir:
-   - ../../rules/
+# .ansible-lint
+exclude_paths:
+  - .cache/
+  - .github/
+  - molecule/
+
+rulesdir:
+   - ../../ansible-lint-custom-rules/rules/
 
 enable_list:
   - fqcn-builtins  # opt-in
   - no-log-password  # opt-in
 
 warn_list:
-  - role_vars_start_with_role_name  # All role parameters must be named ^<role_name>_.*
-  - vars_in_vars_files_have_valid_names  # Variable in vars files must have valid name
-  - vars_should_not_be_used  # vars should not be used
-  - experimental  # all rules tagged as experimental
-  - ignore-errors  # Use failed_when and specify error conditions instead of using ignore_errors
-  - no-handler  # Tasks that run when changed should likely be handlers
+  - role_vars_start_with_role_name
+  - vars_in_vars_files_have_valid_names
+  - vars_should_not_be_used
+  - experimental
+  - ignore-errors
+  - no-handler
   - fqcn-builtins
   - no-log-password
 
 use_default_rules: true
-offline: false
+offline: true

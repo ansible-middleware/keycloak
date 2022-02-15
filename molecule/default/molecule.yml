@@ -5,7 +5,8 @@ dependency:
 driver:
   name: docker
 lint: |
-  ansible-lint roles/*
+  ansible-lint --version
+  ansible-lint -vv
 platforms:
   - name: instance
     image: registry.access.redhat.com/ubi8/ubi-init:latest

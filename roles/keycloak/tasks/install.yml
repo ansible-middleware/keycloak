@@ -81,7 +81,7 @@
     - not keycloak_rhsso_enable
     - not keycloak_offline_install
 
-- name: Performing download from RHN
+- name: Perform download from RHN
   redhat_csp_download:
     url: "{{ keycloak_rhsso_download_url }}"
     dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"

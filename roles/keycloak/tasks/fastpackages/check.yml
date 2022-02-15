@@ -8,7 +8,7 @@
     changed_when: rpm_info.failed
 
   rescue:
-    - name: "If package {{ package_name }} is missing, add it to the yum install list."
+    - name: "Add {{ package_name }} to the yum install list if missing"
       set_fact:
         packages_to_install: "{{ packages_to_install + [ package_name ] }}"
       when: rpm_info.failed

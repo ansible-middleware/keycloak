@@ -56,7 +56,8 @@
       - keycloak_service_status is defined
       - keycloak_service_status.stdout is defined
 
-- meta: flush_handlers
+- name: Flush handlers
+  meta: flush_handlers
 
 - name: "Wait until Keycloak becomes active {{ keycloak.health_url }}"
   uri:

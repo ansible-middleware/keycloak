@@ -38,6 +38,7 @@
           - "-rmaster"
           - "-u{{ keycloak_admin_user }}"
           - "-p{{ keycloak_admin_password }}"
+      changed_when: yes
       become: yes
     - name: "Restart {{ keycloak.service_name }}"
       include_tasks: tasks/restart_keycloak.yml

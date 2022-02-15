@@ -1,5 +1,6 @@
 ---
-- set_fact:
+- name: Set facts
+  set_fact:
     update_cache: true
     packages_to_install: []
 

@@ -29,6 +29,12 @@ jobs:
           pip install yamllint 'molecule[docker]~=3.5.2' ansible-core flake8 ansible-lint voluptuous
           pip install -r ansible_collections/middleware_automation/keycloak/requirements.txt
 
+      - name: Install ansible-lint custom rules
+        uses: actions/checkout@v2
+        with:
+          repository: ansible-middleware/ansible-lint-custom-rules
+          path: ansible_collections/rules/
+
       - name: Create default collection path
         run: |
           mkdir -p /home/runner/.ansible/collections/ansible_collections

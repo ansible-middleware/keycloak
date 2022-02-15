@@ -3,6 +3,8 @@ exclude_paths:
   - .cache/
   - .github/
   - molecule/
+  - .ansible-lint
+  - .yamllint
 
 rulesdir:
    - ../../ansible-lint-custom-rules/rules/
@@ -22,4 +24,4 @@ warn_list:
   - no-log-password
 
 use_default_rules: true
-offline: true
+parseable: true

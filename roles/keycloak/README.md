@@ -69,6 +69,29 @@ Role Defaults
 |`keycloak_version`| keycloak.org package version | `15.0.2` |
 |`keycloak_rhsso_version`| RHSSO version | `7.5.0` |
 |`keycloak_dest`| Installation root path | `/opt/keycloak` |
+|`keycloak_download_url` | Download URL for keycloak | `https://github.com/keycloak/keycloak/releases/download/{{ keycloak_version }}/{{ keycloak_archive }}` |
+|`keycloak_rhn_url` | Base download URI for customer portal | `https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=` |
+
+
+* Miscellaneous configuration
+
+| Variable | Description | Default |
+|:---------|:------------|:--------|
+|`keycloak_archive` | keycloak install archive filename | `keycloak-{{ keycloak_version }}.zip` |
+|`keycloak_download_url_9x` | Download URL for keycloak (deprecated) | `https://downloads.jboss.org/keycloak/{{ keycloak_version }}/{{ keycloak_archive }}` |
+|`keycloak_installdir` | Installation path | `{{ keycloak_dest }}/keycloak-{{ keycloak_version }}` |
+|`keycloak_rhsso_archive` | Red Hat SSO install archive filename | `rh-sso-{{ keycloak_rhsso_version }}-server-dist.zip` |
+|`keycloak_rhsso_installdir`| Installation path for Red Hat SSO | `{{ keycloak_dest }}/rh-sso-{{ keycloak_rhsso_version | regex_replace('^([0-9])\.([0-9]*).*', '\1.\2') }}` |
+|`keycloak_rhsso_download_url`| Full download URI for Red Hat SSO | `{{ keycloak_rhn_url }}{{ rhsso_rhn_id }}` |
+|`keycloak_jboss_home` | Installation work directory | `{{ keycloak_rhsso_installdir if keycloak_rhsso_enable else keycloak_installdir }}` |
+|`keycloak_config_dir` | Path for configuration | `{{ keycloak_jboss_home }}/standalone/configuration` |
+|`keycloak_config_path_to_standalone_xml` | Custom path for configuration | `{{ keycloak_jboss_home }}/standalone/configuration/{{ keycloak_config_standalone_xml }}` |
+|`keycloak_auth_realm` | Name for rest authentication realm | `master` |
+|`keycloak_auth_client` | Authentication client for configuration REST calls | `admin-cli` |
+|`keycloak_force_install` | Remove pre-existing versions of service | `False` |
+|`keycloak_url` | URL for configuration rest calls | `http://{{ keycloak_host }}:{{ keycloak_http_port }}` |
+|`keycloak_management_url` | URL for management console rest calls | `http://{{ keycloak_host }}:{{ keycloak_management_http_port }}` |
+|`rhsso_rhn_id` | Customer Portal product ID for Red Hat SSO | `{{ rhsso_rhn_ids[keycloak_rhsso_version] }}` |
 
 
 Role Variables

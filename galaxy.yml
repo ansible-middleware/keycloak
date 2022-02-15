@@ -1,6 +1,6 @@
 namespace: middleware_automation
 name: keycloak
-version: "0.2.4"
+version: "0.2.5"
 readme: README.md
 authors:
   - Romain Pelisse <rpelisse@redhat.com>
@@ -16,7 +16,7 @@ tags:
   - sso
 dependencies:
   "middleware_automation.redhat_csp_download": ">=1.2.1"
-  "middleware_automation.wildfly": ">=0.0.4"
+  "middleware_automation.wildfly": ">=0.0.6"
 repository: https://github.com/ansible-middleware/keycloak
 documentation: https://github.com/ansible-middleware/keycloak
 homepage: https://github.com/ansible-middleware/keycloak

@@ -9,13 +9,18 @@ Role Defaults
 
 | Variable | Description | Default |
 |:---------|:------------|:---------|
-|`keycloak_admin_user` | Administration console user account | `admin` |
-|`keycloak_host` | hostname | `localhost` |
-|`keycloak_http_port` | HTTP port | `8080` |
-|`keycloak_https_port` | TLS HTTP port | `8443` |
-|`keycloak_auth_realm` | Name of the main authentication realm | `master` |
-|`keycloak_rhsso_enable` | Define service is an upstream(Keycloak) or RHSSO | `master` |
-
+|`keycloak_admin_user`| Administration console user account | `admin` |
+|`keycloak_host`| hostname | `localhost` |
+|`keycloak_http_port`| HTTP port | `8080` |
+|`keycloak_https_port`| TLS HTTP port | `8443` |
+|`keycloak_auth_realm`| Name of the main authentication realm | `master` |
+|`keycloak_rhsso_enable`| Define service is an upstream(Keycloak) or RHSSO | `master` |
+|`keycloak_management_http_port`| Management port | `9990` |
+|`keycloak_auth_client`| Authentication client for configuration REST calls | `admin-cli` |
+|`keycloak_client_public`| Configure a public realm client | `True` |
+|`keycloak_client_web_origins`| Web origins for realm client | `+` |
+|`keycloak_url`| URL for configuration rest calls | `http://{{ keycloak_host }}:{{ keycloak_http_port }}` |
+|`keycloak_management_url`| URL for management console rest calls | `http://{{ keycloak_host }}:{{ keycloak_management_http_port }}` |
 
 
 Role Variables

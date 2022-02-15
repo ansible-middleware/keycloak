@@ -63,7 +63,7 @@
   register: archive_path
 
 ## download to controller
-- name: Check load download archive path
+- name: Check local download archive path
   stat:
     path: "{{ lookup('env', 'PWD') }}"
   register: local_path

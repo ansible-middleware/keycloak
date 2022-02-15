@@ -1,3 +1,10 @@
+ rulesdir:
+   - ../../rules/
+
+enable_list:
+  - fqcn-builtins  # opt-in
+  - no-log-password  # opt-in
+
 warn_list:
   - role_vars_start_with_role_name  # All role parameters must be named ^<role_name>_.*
   - vars_in_vars_files_have_valid_names  # Variable in vars files must have valid name
@@ -5,3 +12,8 @@ warn_list:
   - experimental  # all rules tagged as experimental
   - ignore-errors  # Use failed_when and specify error conditions instead of using ignore_errors
   - no-handler  # Tasks that run when changed should likely be handlers
+  - fqcn-builtins
+  - no-log-password
+
+use_default_rules: true
+offline: false

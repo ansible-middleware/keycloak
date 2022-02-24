@@ -14,6 +14,10 @@ tags:
   - rhel
   - rhn
   - sso
+  - single sign-on
+  - security
+  - infrastructure
+  - authentication
 dependencies:
   "middleware_automation.redhat_csp_download": ">=1.2.1"
   "middleware_automation.wildfly": ">=0.0.6"

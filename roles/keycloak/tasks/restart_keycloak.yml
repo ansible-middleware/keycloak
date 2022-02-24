@@ -1,6 +1,6 @@
 ---
 - name: "Restart and enable keycloack service"
-  systemd:
+  ansible.builtin.systemd:
     name: keycloak
     enabled: yes
     state: restarted

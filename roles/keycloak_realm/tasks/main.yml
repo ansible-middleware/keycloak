@@ -1,17 +1,18 @@
 ---
 - name: Generate keycloak auth token
-  uri:
+  ansible.builtin.uri:
     url: "{{ keycloak_url }}/auth/realms/master/protocol/openid-connect/token"
     method: POST
     body: "client_id={{ keycloak_auth_client }}&username={{ keycloak_admin_user }}&password={{ keycloak_admin_password }}&grant_type=password"
     validate_certs: no
+  no_log: True
   register: keycloak_auth_response
   until: keycloak_auth_response.status == 200
   retries: 5
   delay: 2
 
 - name: "Determine if realm exists"
-  uri:
+  ansible.builtin.uri:
     url: "{{ keycloak_url }}/auth/admin/realms/{{ keycloak_realm }}"
     method: GET
     status_code:
@@ -23,7 +24,7 @@
   register: keycloak_realm_exists
 
 - name: Create Realm
-  uri:
+  ansible.builtin.uri:
     url: "{{ keycloak_url }}/auth/admin/realms"
     method: POST
     body: "{{ lookup('template','realm.json.j2') }}"
@@ -47,6 +48,7 @@
     provider_type: "{{ item.provider_type | default(org.keycloak.storage.UserStorageProvider) }}" 
     config: "{{ item.config }}"
     mappers: "{{ item.mappers | default(omit) }}"
+  no_log: True
   register: create_user_federation_result
   loop: "{{ keycloak_user_federation | flatten }}"
   when: keycloak_user_federation is defined
@@ -78,19 +80,20 @@
     public_client: "{{ item.public_client | default(False) }}"
     protocol: "{{ item.protocol | default(omit) }}"
     state: present
+  no_log: True
   register: create_client_result
   loop: "{{ keycloak_clients | flatten }}"
   when: (item.name is defined and item.client_id is defined) or (item.name is defined and item.id is defined)
 
 - name: Create client roles
-  include_tasks: manage_client_roles.yml
+  ansible.builtin.include_tasks: manage_client_roles.yml
   loop: "{{ keycloak_clients | flatten }}"
   loop_control:
     loop_var: client
   when: "'roles' in client"
 
 - name: Create client users
-  include_tasks: manage_client_users.yml
+  ansible.builtin.include_tasks: manage_client_users.yml
   loop: "{{ keycloak_clients | flatten }}"
   loop_control:
     loop_var: client

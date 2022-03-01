@@ -156,6 +156,9 @@ ansible-playbook -i <ansible_hosts> playbooks/keycloak_realm.yml -e keycloak_adm
 
 For full configuration details, refer to the [keycloak_realm role README](roles/keycloak_realm/README.md).
 
+## Support
+
+Keycloak collection v1.0.0 is a Beta release and for [Technical Preview](https://access.redhat.com/support/offerings/techpreview). If you have any issues or questions related to collection, please don't hesitate to contact us on Ansible-middleware-core@redhat.com or open an issue on https://github.com/ansible-middleware/keycloak/issues
 
 ## License
 

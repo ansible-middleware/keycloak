@@ -1,6 +1,6 @@
 namespace: middleware_automation
 name: keycloak
-version: "0.2.6"
+version: "1.0.0"
 readme: README.md
 authors:
   - Romain Pelisse <rpelisse@redhat.com>

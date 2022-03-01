@@ -1,6 +1,6 @@
 ---
 - name: Validate parameters
-  assert:
+  ansible.builtin.assert:
     that:
       - keycloak_jboss_home is defined
       - keycloak_service_user is defined
@@ -12,7 +12,7 @@
 
 - name: Check for an existing deployment
   become: yes
-  stat:
+  ansible.builtin.stat:
     path: "{{ keycloak_jboss_home }}"
   register: existing_deploy
 
@@ -20,24 +20,24 @@
     - name: Stop the old keycloak service
       become: yes
       ignore_errors: yes
-      systemd:
+      ansible.builtin.systemd:
         name: keycloak
         state: stopped
     - name: Remove the old Keycloak deployment
       become: yes
-      file:
+      ansible.builtin.file:
         path: "{{ keycloak_jboss_home }}"
         state: absent
   when: existing_deploy.stat.exists and keycloak_force_install|bool
 
 - name: check for an existing deployment after possible forced removal
   become: yes
-  stat:
+  ansible.builtin.stat:
     path: "{{ keycloak_jboss_home }}"
 
 - name: create Keycloak service user/group
   become: yes
-  user:
+  ansible.builtin.user:
     name: "{{ keycloak_service_user }}"
     home: /opt/keycloak
     system: yes
@@ -45,7 +45,7 @@
 
 - name: create Keycloak install location
   become: yes
-  file:
+  ansible.builtin.file:
     dest: "{{ keycloak_dest }}"
     state: directory
     owner: "{{ keycloak_service_user }}"
@@ -54,23 +54,23 @@
 
 ## check remote archive
 - name: Set download archive path
-  set_fact:
+  ansible.builtin.set_fact:
     archive: "{{ keycloak_dest }}/{{ keycloak.bundle }}"
 
 - name: Check download archive path
-  stat:
+  ansible.builtin.stat:
     path: "{{ archive }}"
   register: archive_path
 
 ## download to controller
 - name: Check local download archive path
-  stat:
+  ansible.builtin.stat:
     path: "{{ lookup('env', 'PWD') }}"
   register: local_path
   delegate_to: localhost
 
 - name: Download keycloak archive
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ keycloak_download_url }}"
     dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
   delegate_to: localhost
@@ -82,7 +82,7 @@
     - not keycloak_offline_install
 
 - name: Perform download from RHN
-  redhat_csp_download:
+  middleware_automation.redhat_csp_download.redhat_csp_download:
     url: "{{ keycloak_rhsso_download_url }}"
     dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
     username: "{{ rhn_username }}"
@@ -98,7 +98,7 @@
     - keycloak_rhn_url in keycloak_rhsso_download_url
 
 - name: Download rhsso archive from alternate location
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ keycloak_rhsso_download_url }}"
     dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
   delegate_to: localhost
@@ -111,14 +111,14 @@
     - not keycloak_rhn_url in keycloak_rhsso_download_url
 
 - name: Check downloaded archive
-  stat:
+  ansible.builtin.stat:
     path: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
   register: local_archive_path
   delegate_to: localhost
 
 ## copy and unpack
 - name: Copy archive to target nodes
-  copy:
+  ansible.builtin.copy:
     src: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
     dest: "{{ archive }}"
     owner: "{{ keycloak_service_user }}"
@@ -132,13 +132,13 @@
   become: yes
 
 - name: "Check target directory: {{ keycloak.home }}"
-  stat:
+  ansible.builtin.stat:
     path: "{{ keycloak.home }}"
   register: path_to_workdir
   become: yes
 
 - name: "Extract {{ 'Red Hat Single Sign-On' if keycloak_rhsso_enable else 'Keycloak' }} archive on target"
-  unarchive:
+  ansible.builtin.unarchive:
     remote_src: yes
     src: "{{ archive }}"
     dest: "{{ keycloak_dest }}"
@@ -152,13 +152,13 @@
     - restart keycloak
 
 - name: Inform decompression was not executed
-  debug:
+  ansible.builtin.debug:
     msg: "{{ keycloak.home }} already exists and version unchanged, skipping decompression"
   when:
     - not new_version_downloaded.changed and path_to_workdir.stat.exists
 
 - name: "Reown installation directory to {{ keycloak_service_user }}"
-  file:
+  ansible.builtin.file:
     path: "{{ keycloak.home }}"
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
@@ -168,8 +168,8 @@
 
 # driver and configuration
 - name: "Install {{ keycloak_jdbc_engine }} driver"
-  include_role:
-    name: wildfly_driver
+  ansible.builtin.include_role:
+    name: middleware_automation.wildfly.wildfly_driver
   vars:
       wildfly_user: "{{ keycloak_service_user }}"
       jdbc_driver_module_dir: "{{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_dir }}"
@@ -182,7 +182,7 @@
 
 - name: "Deploy {{ keycloak.service_name }} config to {{ keycloak_config_path_to_standalone_xml }}"
   become: yes
-  template:
+  ansible.builtin.template:
     src: templates/standalone.xml.j2
     dest: "{{ keycloak_config_path_to_standalone_xml }}"
     owner: "{{ keycloak_service_user }}"
@@ -194,7 +194,7 @@
 
 - name: "Deploy {{ keycloak.service_name }} config with remote cache store to {{ keycloak_config_path_to_standalone_xml }}"
   become: yes
-  template:
+  ansible.builtin.template:
     src: templates/standalone-infinispan.xml.j2
     dest: "{{ keycloak_config_path_to_standalone_xml }}"
     owner: "{{ keycloak_service_user }}"

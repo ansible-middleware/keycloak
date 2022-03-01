@@ -1,6 +1,6 @@
 ---
 - name: Validate configuration
-  assert:
+  ansible.builtin.assert:
     that:
       - (keycloak_ha_enabled and keycloak_db_enabled) or (not keycloak_ha_enabled and keycloak_db_enabled) or (not keycloak_ha_enabled and not keycloak_db_enabled)
     quiet: True
@@ -8,7 +8,7 @@
     success_msg: "{{ 'Configuring HA' if keycloak_ha_enabled else 'Configuring standalone' }}"
 
 - name: Validate credentials
-  assert:
+  ansible.builtin.assert:
     that:
       - (rhn_username is defined and keycloak_rhsso_enable) or not keycloak_rhsso_enable or keycloak_offline_install
       - (rhn_password is defined and keycloak_rhsso_enable) or not keycloak_rhsso_enable or keycloak_offline_install
@@ -17,7 +17,7 @@
     success_msg: "{{ 'Installing Red Hat Single Sign-On' if keycloak_rhsso_enable else 'Installing keycloak.org' }}"
 
 - name: Set required packages facts
-  set_fact:
+  ansible.builtin.set_fact:
     required_packages:
     - "{{ jvm_package }}"
     - unzip

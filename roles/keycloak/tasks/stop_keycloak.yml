@@ -1,6 +1,6 @@
 ---
 - name: "Stop SSO service"
-  systemd:
+  ansible.builtin.systemd:
     name: keycloak
     enabled: yes
     state: stopped

@@ -1,6 +1,6 @@
 - name: configure keycloak service script wrapper
   become: yes
-  template:
+  ansible.builtin.template:
     src: keycloak-service.sh.j2
     dest: "{{ keycloak_dest }}/keycloak-service.sh"
     owner: root
@@ -11,7 +11,7 @@
 
 - name: configure sysconfig file for keycloak service
   become: yes
-  template:
+  ansible.builtin.template:
     src: keycloak-sysconfig.j2
     dest: /etc/sysconfig/keycloak
     owner: root
@@ -21,7 +21,7 @@
     - restart keycloak
 
 - name: configure systemd unit file for keycloak service
-  template:
+  ansible.builtin.template:
     src: keycloak.service.j2
     dest: /etc/systemd/system/keycloak.service
     owner: root
@@ -34,33 +34,33 @@
 
 - name: reload systemd
   become: yes
-  systemd:
+  ansible.builtin.systemd:
     daemon_reload: yes
   when: systemdunit.changed
 
 - name: start keycloak
-  systemd:
+  ansible.builtin.systemd:
     name: keycloak
     enabled: yes
     state: started
   become: yes
 
 - name: Check service status
-  command: "systemctl status keycloak"
+  ansible.builtin.command: "systemctl status keycloak"
   register: keycloak_service_status
   changed_when: False
 
 - name: Verify service status
-  assert:
+  ansible.builtin.assert:
     that:
       - keycloak_service_status is defined
       - keycloak_service_status.stdout is defined
 
 - name: Flush handlers
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
 
 - name: "Wait until Keycloak becomes active {{ keycloak.health_url }}"
-  uri:
+  ansible.builtin.uri:
     url: "{{ keycloak.health_url }}"
   register: keycloak_status
   until: keycloak_status.status == 200

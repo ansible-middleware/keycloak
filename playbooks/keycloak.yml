@@ -5,7 +5,7 @@
     - middleware_automation.keycloak
   tasks:
     - name: Include keycloak role
-      include_role:
-        name: keycloak
+      ansible.builtin.include_role:
+        name: middleware_automation.keycloak.keycloak
       vars:
         keycloak_admin_password: "changeme"

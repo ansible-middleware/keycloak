@@ -2,25 +2,25 @@
 # tasks file for keycloak
 
 - name: Check prerequisites
-  include_tasks: prereqs.yml
+  ansible.builtin.include_tasks: prereqs.yml
   tags:
     - prereqs
 
 - name: Include install tasks
-  include_tasks: tasks/install.yml
+  ansible.builtin.include_tasks: tasks/install.yml
 
 - name: Include systemd tasks
-  include_tasks: tasks/systemd.yml
+  ansible.builtin.include_tasks: tasks/systemd.yml
 
 - name: Link default logs directory
-  file:
+  ansible.builtin.file:
     state: link
     src: "{{ keycloak_jboss_home }}/standalone/log"
     dest: /var/log/keycloak
 
 - block:
     - name: Check admin credentials by generating a token
-      uri:
+      ansible.builtin.uri:
         url: "{{ keycloak_url }}/auth/realms/master/protocol/openid-connect/token"
         method: POST
         body: "client_id={{ keycloak_auth_client }}&username={{ keycloak_admin_user }}&password={{ keycloak_admin_password }}&grant_type=password"
@@ -31,7 +31,7 @@
       delay: 2
   rescue:
     - name: "Create {{ keycloak.service_name }} admin user"
-      command:
+      ansible.builtin.command:
       args:
         argv:
           - "{{ keycloak_jboss_home }}/bin/add-user-keycloak.sh"
@@ -41,9 +41,9 @@
       changed_when: yes
       become: yes
     - name: "Restart {{ keycloak.service_name }}"
-      include_tasks: tasks/restart_keycloak.yml
+      ansible.builtin.include_tasks: tasks/restart_keycloak.yml
     - name: "Wait until {{ keycloak.service_name }} becomes active {{ keycloak.health_url }}"
-      uri:
+      ansible.builtin.uri:
         url: "{{ keycloak.health_url }}"
       register: keycloak_status
       until: keycloak_status.status == 200

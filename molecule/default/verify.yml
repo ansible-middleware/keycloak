@@ -5,6 +5,6 @@
     - name: Populate service facts
       ansible.builtin.service_facts:
     - name: Check if keycloak service started
-      assert:
+      ansible.builtin.assert:
         that:
           - ansible_facts.services["keycloak.service"]["state"] == "running"

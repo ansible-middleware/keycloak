@@ -1,0 +1,75 @@
+---
+name: Documentation
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "*.*.*"
+
+env:
+  COLORTERM: 'yes'
+  TERM: 'xterm-256color'
+  PYTEST_ADDOPTS: '--color=yes'
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    if: github.repository == 'ansible-middleware/keycloak'
+    permissions:
+      actions: write
+      checks: write
+      contents: write
+      deployments: write
+      packages: write
+      pages: write
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+        with:
+          path: ansible_collections/middleware_automation/keycloak
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Install doc dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r ansible_collections/middleware_automation/keycloak/docs/requirements.txt
+          pip install -r ansible_collections/middleware_automation/keycloak/requirements.txt
+
+      - name: Create default collection path
+        run: |
+          mkdir -p /home/runner/.ansible/collections/ansible_collections
+
+      - name: Create doc directories and resources
+        run: |
+          mkdir -p ./docs/plugins ./docs/roles
+          cat ./docs/roles.rst.template > ./docs/roles/index.rst
+          antsibull-docs collection --use-current --squash-hierarchy --dest-dir docs/plugins  middleware_automation.keycloak
+          for role_readme in roles/*/README.md; do ln -f -s ../../$role_readme ./docs/roles/$(basename $(dirname $role_readme)).md; echo " * :doc:\`$(basename $(dirname $role_readme))\`" >> ./docs/roles/index.rst; done
+        working-directory: ansible_collections/middleware_automation/keycloak
+
+      - name: Run sphinx
+        run: |
+          sphinx-build -M html . _build -v
+        working-directory: ansible_collections/middleware_automation/keycloak/docs/
+
+      - name: Commit docs
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git checkout gh-pages
+          rm -rf $(basename ${GITHUB_REF})
+          mv docs/_build/html $(basename ${GITHUB_REF})
+          ln --force --no-dereference --symbolic   main latest
+          git show origin/main:docs/_gh_include/header.inc > index.html
+          (echo main; echo latest; dirname *.*.*/index.html | sort --version-sort --reverse) | xargs -I@@ -n1 echo '<li class="toctree-l1"><a class="reference internal" href="@@/">@@</a></li>' >> index.html
+          git show origin/main:docs/_gh_include/footer.inc >> index.html
+          git add $(basename ${GITHUB_REF}) latest index.html
+          git commit -m "Update docs for $(basename ${GITHUB_REF})" || true
+          git push origin gh-pages
+        working-directory: ansible_collections/middleware_automation/keycloak/

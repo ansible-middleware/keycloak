@@ -6,7 +6,7 @@ collections:
 galaxy_info:
   role_name: keycloak
   namespace: middleware_automation
-  author: Romain Pelisse, Guido Grazioli
+  author: Romain Pelisse, Guido Grazioli, Pavan Kumar Motaparthi
   description: Install keycloak or Red Hat Single Sing-On server configurations
   company: Red Hat, Inc.
 
@@ -17,7 +17,6 @@ galaxy_info:
   platforms:
    - name: EL
      versions:
-     - 7
      - 8
 
   galaxy_tags:

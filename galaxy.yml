@@ -22,6 +22,6 @@ dependencies:
   "middleware_automation.redhat_csp_download": ">=1.2.1"
   "middleware_automation.wildfly": ">=0.0.6"
 repository: https://github.com/ansible-middleware/keycloak
-documentation: https://github.com/ansible-middleware/keycloak
+documentation: https://ansible-middleware.github.io/keycloak
 homepage: https://github.com/ansible-middleware/keycloak
 issues: https://github.com/ansible-middleware/keycloak/issues

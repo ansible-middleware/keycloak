@@ -1,6 +1,6 @@
 namespace: middleware_automation
 name: keycloak
-version: "0.2.5"
+version: "0.2.6"
 readme: README.md
 authors:
   - Romain Pelisse <rpelisse@redhat.com>
@@ -12,9 +12,10 @@ tags:
   - keycloak
   - redhat
   - rhel
-  - rhn
   - sso
-  - single sign-on
+  - openid
+  - application
+  - identity
   - security
   - infrastructure
   - authentication

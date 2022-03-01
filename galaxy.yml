@@ -1,3 +1,4 @@
+---
 namespace: middleware_automation
 name: keycloak
 version: "1.0.0"
@@ -26,3 +27,7 @@ repository: https://github.com/ansible-middleware/keycloak
 documentation: https://ansible-middleware.github.io/keycloak
 homepage: https://github.com/ansible-middleware/keycloak
 issues: https://github.com/ansible-middleware/keycloak/issues
+build_ignore:
+  - molecule
+  - docs
+  - .github

@@ -1,9 +1,9 @@
+---
 name: Release collection
-
 on:
   push:
     tags:
-      - "*.*.*"
+      - "[0-9]+.[0-9]+.[0-9]+"
 
 jobs:
   release:
@@ -31,7 +31,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           files: "*.tar.gz"
-          body: "Release ${{ steps.get_version.outputs.TAG_VERSION }}"
+          body: "Release v${{ steps.get_version.outputs.TAG_VERSION }}"
       - name: Publish collection
         env:
           ANSIBLE_GALAXY_API_KEY: ${{ secrets.ANSIBLE_GALAXY_API_KEY }}

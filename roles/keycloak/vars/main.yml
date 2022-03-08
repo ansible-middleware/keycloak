@@ -5,8 +5,11 @@ keycloak_admin_password:
 
 # internal variables below
 rhsso_rhn_ids:
-  '7.5.0': '101971'
-  '7.5.1': '103836'
+  '7.5.0':
+    id: '101971'
+    latest_cp:
+      id: '103836'
+      v: '7.5.1'
 
 # locations
 keycloak_url: "http://{{ keycloak_host }}:{{ keycloak_http_port }}"

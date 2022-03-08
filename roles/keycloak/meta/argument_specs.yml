@@ -33,7 +33,7 @@ argument_specs:
                 type: "str"
             rhsso_rhn_id:
                 # line 11 of keycloak/defaults/main.yml
-                default: "{{ rhsso_rhn_ids[keycloak_rhsso_version] }}"
+                default: "{{ rhsso_rhn_ids[keycloak_rhsso_version].id }}"
                 description: "Customer Portal product ID for Red Hat SSO"
                 type: "str"
             keycloak_rhsso_archive:
@@ -41,6 +41,11 @@ argument_specs:
                 default: "rh-sso-{{ keycloak_rhsso_version }}-server-dist.zip"
                 description: "ed Hat SSO install archive filename"
                 type: "str"
+            keycloak_rhsso_apply_patches:
+                # line 16 of keycloak/defaults/main.yml
+                default: true
+                description: "Install RHSSO more recent cumulative patch"
+                type: "bool"
             keycloak_rhsso_installdir:
                 # line 13 of keycloak/defaults/main.yml
                 default: "{{ keycloak_dest }}/rh-sso-{{ keycloak_rhsso_version | regex_replace('^([0-9])\\.([0-9]*).*', '\\1.\\2') }}"

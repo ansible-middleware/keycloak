@@ -1,0 +1,20 @@
+---
+- name: Ensure required params for CLI have been provided
+  ansible.builtin.assert:
+    that:
+      - query is defined
+    fail_msg: "Missing required parameters to execute CLI."
+    quiet: true
+
+- name: Verify server management interface is functional
+  ansible.builtin.uri:
+    url: "{{ keycloak_management_url }}"
+  register: result
+  until: result.status == 200
+  retries: 5
+  delay: 5
+
+- name: "Execute CLI query: {{ query }}"
+  ansible.builtin.command: >
+    {{ path_to_cli }} -c --output-json --command='{{ query }}' --controller={{ keycloak_host }}:{{ keycloak_management_http_port }}
+  changed_when: false

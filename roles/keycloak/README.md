@@ -68,6 +68,7 @@ Role Defaults
 |`keycloak_rhsso_download_url`| Download URL for RHSSO | `https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=<productID>`|
 |`keycloak_version`| keycloak.org package version | `15.0.2` |
 |`keycloak_rhsso_version`| RHSSO version | `7.5.0` |
+|`keycloak_rhsso_apply_patches`| Install RHSSO more recent cumulative patch | `True` |
 |`keycloak_dest`| Installation root path | `/opt/keycloak` |
 |`keycloak_download_url` | Download URL for keycloak | `https://github.com/keycloak/keycloak/releases/download/{{ keycloak_version }}/{{ keycloak_archive }}` |
 |`keycloak_rhn_url` | Base download URI for customer portal | `https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=` |
@@ -91,7 +92,7 @@ Role Defaults
 |`keycloak_force_install` | Remove pre-existing versions of service | `False` |
 |`keycloak_url` | URL for configuration rest calls | `http://{{ keycloak_host }}:{{ keycloak_http_port }}` |
 |`keycloak_management_url` | URL for management console rest calls | `http://{{ keycloak_host }}:{{ keycloak_management_http_port }}` |
-|`rhsso_rhn_id` | Customer Portal product ID for Red Hat SSO | `{{ rhsso_rhn_ids[keycloak_rhsso_version] }}` |
+|`rhsso_rhn_id` | Customer Portal product ID for Red Hat SSO | `{{ rhsso_rhn_ids[keycloak_rhsso_version].id }}` |
 
 
 Role Variables

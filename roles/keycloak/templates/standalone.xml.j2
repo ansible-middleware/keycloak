@@ -546,7 +546,7 @@
         <subsystem xmlns="urn:wildfly:metrics:1.0" security-enabled="false" exposed-subsystems="*" prefix="${wildfly.metrics.prefix:jboss}"/>
 {% if keycloak_modcluster.enabled %}        
         <subsystem xmlns="urn:jboss:domain:modcluster:5.0">
-            <proxy name="default" advertise-socket="modcluster" listener="ajp" proxies="proxy1">
+            <proxy name="default" advertise="false" listener="ajp" proxies="proxy1">
                 <dynamic-load-provider>
                     <load-metric type="cpu"/>
                 </dynamic-load-provider>
@@ -644,7 +644,6 @@
         <socket-binding name="https" port="{{ keycloak_https_port }}"/>
         <socket-binding name="management-http" interface="management" port="{{ keycloak_management_http_port }}"/>
         <socket-binding name="management-https" interface="management" port="{{ keycloak_management_https_port }}"/>
-        <socket-binding name="modcluster" multicast-address="${jboss.modcluster.multicast.address:224.0.1.105}" multicast-port="23364"/>
         <socket-binding name="txn-recovery-environment" port="4712"/>
         <socket-binding name="txn-status-manager" port="4713"/>
         <outbound-socket-binding name="mail-smtp">

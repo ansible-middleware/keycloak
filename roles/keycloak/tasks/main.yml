@@ -7,10 +7,10 @@
     - prereqs
 
 - name: Include install tasks
-  ansible.builtin.include_tasks: tasks/install.yml
+  ansible.builtin.include_tasks: install.yml
 
 - name: Include systemd tasks
-  ansible.builtin.include_tasks: tasks/systemd.yml
+  ansible.builtin.include_tasks: systemd.yml
 
 - name: Link default logs directory
   ansible.builtin.file:

@@ -1,4 +1,4 @@
-- name: configure keycloak service script wrapper
+- name: Configure keycloak service script wrapper
   become: yes
   ansible.builtin.template:
     src: keycloak-service.sh.j2
@@ -9,7 +9,7 @@
   notify:
     - restart keycloak
 
-- name: configure sysconfig file for keycloak service
+- name: Configure sysconfig file for keycloak service
   become: yes
   ansible.builtin.template:
     src: keycloak-sysconfig.j2
@@ -20,7 +20,7 @@
   notify:
     - restart keycloak
 
-- name: configure systemd unit file for keycloak service
+- name: Configure systemd unit file for keycloak service
   ansible.builtin.template:
     src: keycloak.service.j2
     dest: /etc/systemd/system/keycloak.service
@@ -32,18 +32,19 @@
   notify:
     - restart keycloak
 
-- name: reload systemd
+- name: Reload systemd
   become: yes
   ansible.builtin.systemd:
     daemon_reload: yes
   when: systemdunit.changed
 
-- name: start keycloak
-  ansible.builtin.systemd:
-    name: keycloak
-    enabled: yes
-    state: started
-  become: yes
+- name: Start and wait for keycloak service (first node db)
+  ansible.builtin.include_tasks: start_keycloak.yml
+  run_once: yes
+  when: keycloak_db_enabled
+
+- name: Start and wait for keycloak service (remaining nodes)
+  ansible.builtin.include_tasks: start_keycloak.yml
 
 - name: Check service status
   ansible.builtin.command: "systemctl status keycloak"
@@ -58,11 +59,3 @@
 
 - name: Flush handlers
   ansible.builtin.meta: flush_handlers
-
-- name: "Wait until Keycloak becomes active {{ keycloak.health_url }}"
-  ansible.builtin.uri:
-    url: "{{ keycloak.health_url }}"
-  register: keycloak_status
-  until: keycloak_status.status == 200
-  retries: 25
-  delay: 10

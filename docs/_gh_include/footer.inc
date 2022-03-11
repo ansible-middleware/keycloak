@@ -7,7 +7,7 @@
       </div>
       <hr/>
       <div role="contentinfo">
-        <p>&#169; Copyright 2022, Red Hat, Inc..</p>
+        <p>&#169; Copyright 2022, Red Hat, Inc.</p>
       </div>
       Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
         <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>

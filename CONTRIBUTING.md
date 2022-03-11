@@ -1,7 +1,7 @@
 
 ## Contributor's Guidelines
 
-- All YAML files named with '.yml' extension
+- All YAML files named with `.yml` extension
 - Use spaces around jinja variables. `{{ var }}` over `{{var}}`
 - Variables that are internal to the role should be lowercase and start with the role name
 - Keep roles self contained - Roles should avoid including tasks from other roles when possible
@@ -11,4 +11,4 @@
 - Indentation - Use 2 spaces for each indent
 - `vars/` vs `defaults/` - internal or interpolated variables that don't need to change or be overridden by user go in `vars/`, those that a user would likely override, go under `defaults/` directory
 - All role arguments have a specification in `meta/argument_specs.yml`
-- All playbooks/roles should be focused on compatibility with Ansible Tower
+- All playbooks/roles should be focused on compatibility with Ansible Automation Platform

@@ -30,12 +30,12 @@
         state: absent
   when: existing_deploy.stat.exists and keycloak_force_install|bool
 
-- name: check for an existing deployment after possible forced removal
+- name: Check for an existing deployment after possible forced removal
   become: yes
   ansible.builtin.stat:
     path: "{{ keycloak_jboss_home }}"
 
-- name: create Keycloak service user/group
+- name: Create Keycloak service user/group
   become: yes
   ansible.builtin.user:
     name: "{{ keycloak_service_user }}"
@@ -43,7 +43,7 @@
     system: yes
     create_home: no
 
-- name: create Keycloak install location
+- name: Create Keycloak install location
   become: yes
   ansible.builtin.file:
     dest: "{{ keycloak_dest }}"

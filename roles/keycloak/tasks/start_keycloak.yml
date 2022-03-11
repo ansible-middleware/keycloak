@@ -1,5 +1,5 @@
 ---
-- name: start keycloak
+- name: Start keycloak
   ansible.builtin.systemd:
     name: keycloak
     enabled: yes

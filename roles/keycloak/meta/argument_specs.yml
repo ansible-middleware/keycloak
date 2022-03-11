@@ -11,6 +11,11 @@ argument_specs:
                 default: "keycloak-{{ keycloak_version }}.zip"
                 description: "keycloak install archive filename"
                 type: "str"
+            keycloak_configure_firewalld:
+                # line 33 of keycloak/defaults/main.yml
+                default: false
+                description: "Ensure firewalld is running and configure keycloak ports"
+                type: "bool"
             keycloak_download_url:
                 # line 5 of keycloak/defaults/main.yml
                 default: "https://github.com/keycloak/keycloak/releases/download/{{ keycloak_version }}/{{ keycloak_archive }}"

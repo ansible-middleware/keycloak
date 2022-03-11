@@ -19,6 +19,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Testing" href="testing.html" />
     <link rel="prev" title="Role Index" href="roles/index.html" /> 
 </head>
 
@@ -45,6 +46,8 @@
 <p class="caption" role="heading"><span class="caption-text">Developer documentation</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Contributor’s Guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releasing.html">Collection Versioning Strategy</a></li>
 </ul>
 
         </div>
@@ -74,7 +77,7 @@
   <section id="contributor-s-guidelines">
 <h1>Contributor’s Guidelines<a class="headerlink" href="#contributor-s-guidelines" title="Permalink to this headline"></a></h1>
 <ul class="simple">
-<li><p>All YAML files named with ‘.yml’ extension</p></li>
+<li><p>All YAML files named with <code class="docutils literal notranslate"><span class="pre">.yml</span></code> extension</p></li>
 <li><p>Use spaces around jinja variables. <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">var</span> <span class="pre">}}</span></code> over <code class="docutils literal notranslate"><span class="pre">{{var}}</span></code></p></li>
 <li><p>Variables that are internal to the role should be lowercase and start with the role name</p></li>
 <li><p>Keep roles self contained - Roles should avoid including tasks from other roles when possible</p></li>
@@ -84,7 +87,7 @@
 <li><p>Indentation - Use 2 spaces for each indent</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">vars/</span></code> vs <code class="docutils literal notranslate"><span class="pre">defaults/</span></code> - internal or interpolated variables that don’t need to change or be overridden by user go in <code class="docutils literal notranslate"><span class="pre">vars/</span></code>, those that a user would likely override, go under <code class="docutils literal notranslate"><span class="pre">defaults/</span></code> directory</p></li>
 <li><p>All role arguments have a specification in <code class="docutils literal notranslate"><span class="pre">meta/argument_specs.yml</span></code></p></li>
-<li><p>All playbooks/roles should be focused on compatibility with Ansible Tower</p></li>
+<li><p>All playbooks/roles should be focused on compatibility with Ansible Automation Platform</p></li>
 </ul>
 </section>
 
@@ -93,6 +96,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="roles/index.html" class="btn btn-neutral float-left" title="Role Index" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="testing.html" class="btn btn-neutral float-right" title="Testing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

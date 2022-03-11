@@ -30,6 +30,7 @@ keycloak_config_path_to_standalone_xml: "{{ keycloak_jboss_home }}/standalone/co
 keycloak_service_user: keycloak
 keycloak_service_group: keycloak
 keycloak_service_pidfile: "/run/keycloak.pid"
+keycloak_configure_firewalld: False
 
 ### Common configuration settings
 keycloak_bind_address: 0.0.0.0

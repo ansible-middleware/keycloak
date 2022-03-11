@@ -20,8 +20,10 @@ keycloak:
   home: "{{ keycloak_jboss_home }}"
   config_dir: "{{ keycloak_config_dir }}"
   bundle: "{{ keycloak_rhsso_archive if keycloak_rhsso_enable else keycloak_archive }}"
+  patch_bundle: "rh-sso-{{ rhsso_rhn_ids[keycloak_rhsso_version].latest_cp.v }}-patch.zip"
   service_name: "{{ 'rhsso' if keycloak_rhsso_enable else 'keycloak' }}"
   health_url: "{{ keycloak_management_url }}/health"
+  cli_path: "{{ keycloak_jboss_home }}/bin/jboss-cli.sh"
 
 # database
 keycloak_jdbc:

@@ -6,11 +6,28 @@
   tags:
     - prereqs
 
+- name: Include firewall config tasks
+  ansible.builtin.include_tasks: firewalld.yml
+  when: keycloak_configure_firewalld
+  tags:
+    - firewall
+
 - name: Include install tasks
   ansible.builtin.include_tasks: install.yml
+  tags:
+    - install
 
 - name: Include systemd tasks
   ansible.builtin.include_tasks: systemd.yml
+  tags:
+    - systemd
+
+- name: Include patch install tasks
+  ansible.builtin.include_tasks: rhsso_patch.yml
+  when: keycloak_rhsso_apply_patches and keycloak_rhsso_enable
+  tags:
+    - install
+    - patch
 
 - name: Link default logs directory
   ansible.builtin.file:

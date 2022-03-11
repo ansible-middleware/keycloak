@@ -31,6 +31,17 @@ Versions
 |`7.5.0 GA`      |September 20, 2021 |`15.0.2`          | `7.4.0`     |[Release Notes](https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.5/html/release_notes/index)|
 
 
+Patching
+--------
+
+When variable `keycloak_rhsso_apply_patches` is `True` (default: `True`), the role will automatically apply the latest cumulative patch for the selected base version.
+
+| RH-SSO VERSION | Release Date      | RH-SSO LATEST CP | Notes           |
+|:---------------|:------------------|:-----------------|:----------------|
+|`7.5.0 GA`      |January 20, 2022   |`7.5.1 GA`        |[Release Notes](https://access.redhat.com/articles/6646321)|
+
+
+
 Role Defaults
 -------------
 
@@ -62,7 +73,7 @@ Role Defaults
 
 | Variable | Description | Default |
 |:---------|:------------|:---------|
-|`keycloak_rhsso_enable`| Enable Red Hat Single Sign-on installation  | `False` |
+|`keycloak_rhsso_enable`| Enable Red Hat Single Sign-on installation | `False` |
 |`keycloak_offline_install` | perform an offline install | `False`|
 |`keycloak_download_url`| Download URL for keycloak | `https://github.com/keycloak/keycloak/releases/download/<version>/<archive>`| 
 |`keycloak_rhsso_download_url`| Download URL for RHSSO | `https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=<productID>`|
@@ -72,6 +83,7 @@ Role Defaults
 |`keycloak_dest`| Installation root path | `/opt/keycloak` |
 |`keycloak_download_url` | Download URL for keycloak | `https://github.com/keycloak/keycloak/releases/download/{{ keycloak_version }}/{{ keycloak_archive }}` |
 |`keycloak_rhn_url` | Base download URI for customer portal | `https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=` |
+|`keycloak_configure_firewalld` | Ensure firewalld is running and configure keycloak ports | `False` |
 
 
 * Miscellaneous configuration

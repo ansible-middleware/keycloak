@@ -36,7 +36,7 @@
     dest: /var/log/keycloak
 
 - block:
-    - name: Check admin credentials by generating a token
+    - name: Check admin credentials by generating a token (supposed to fail on first installation)
       ansible.builtin.uri:
         url: "{{ keycloak_url }}/auth/realms/master/protocol/openid-connect/token"
         method: POST

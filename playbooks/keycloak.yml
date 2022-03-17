@@ -1,11 +1,9 @@
 ---
 - name: Playbook for Keycloak Hosts
   hosts: keycloak
+  vars:
+    keycloak_admin_password: "changeme"
   collections:
     - middleware_automation.keycloak
-  tasks:
-    - name: Include keycloak role
-      ansible.builtin.include_role:
-        name: middleware_automation.keycloak.keycloak
-      vars:
-        keycloak_admin_password: "changeme"
+  roles:
+    - middleware_automation.keycloak.keycloak

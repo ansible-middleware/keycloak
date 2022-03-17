@@ -12,7 +12,7 @@
     enabled: yes
     state: started
 
-- name: Configure firewall for keycloak ports
+- name: "Configure firewall for {{ keycloak.service_name }} ports"
   become: yes
   firewalld:
     port: "{{ item }}"

@@ -1,12 +1,12 @@
 ---
-- name: Start keycloak
+- name: "Start {{ keycloak.service_name }} service"
   ansible.builtin.systemd:
     name: keycloak
     enabled: yes
     state: started
   become: yes
 
-- name: "Wait until Keycloak becomes active {{ keycloak.health_url }}"
+- name: "Wait until {{ keycloak.service_name }} becomes active {{ keycloak.health_url }}"
   ansible.builtin.uri:
     url: "{{ keycloak.health_url }}"
   register: keycloak_status

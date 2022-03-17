@@ -17,13 +17,13 @@
   register: existing_deploy
 
 - block:
-    - name: Stop the old keycloak service
+    - name: "Stop the old {{ keycloak.service_name }} service"
       become: yes
       ignore_errors: yes
       ansible.builtin.systemd:
         name: keycloak
         state: stopped
-    - name: Remove the old Keycloak deployment
+    - name: "Remove the old {{ keycloak.service_name }} deployment"
       become: yes
       ansible.builtin.file:
         path: "{{ keycloak_jboss_home }}"
@@ -35,7 +35,7 @@
   ansible.builtin.stat:
     path: "{{ keycloak_jboss_home }}"
 
-- name: Create Keycloak service user/group
+- name: "Create {{ keycloak.service_name }} service user/group"
   become: yes
   ansible.builtin.user:
     name: "{{ keycloak_service_user }}"
@@ -43,7 +43,7 @@
     system: yes
     create_home: no
 
-- name: Create Keycloak install location
+- name: "Create {{ keycloak.service_name }} install location"
   become: yes
   ansible.builtin.file:
     dest: "{{ keycloak_dest }}"
@@ -58,6 +58,7 @@
     archive: "{{ keycloak_dest }}/{{ keycloak.bundle }}"
 
 - name: Check download archive path
+  become: yes
   ansible.builtin.stat:
     path: "{{ archive }}"
   register: archive_path

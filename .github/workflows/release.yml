@@ -41,7 +41,7 @@ jobs:
     needs: release
     strategy:
       matrix:
-        repo: ['ansible-middleware/cross-dc-rhsso-demo', 'ansible-middleware/flange-demo']
+        repo: ['ansible-middleware/cross-dc-rhsso-demo', 'ansible-middleware/flange-demo', 'ansible-middleware/ansible-middleware-ee']
     runs-on: ubuntu-latest
     steps:
       - name: Repository Dispatch

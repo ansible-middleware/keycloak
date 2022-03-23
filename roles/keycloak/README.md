@@ -1,7 +1,7 @@
 keycloak
 ========
 
-Install [keycloak](https://keycloak.org/) or [Red Hat Single Sing-On](https://access.redhat.com/products/red-hat-single-sign-on) server configurations.
+Install [keycloak](https://keycloak.org/) or [Red Hat Single Sign-On](https://access.redhat.com/products/red-hat-single-sign-on) server configurations.
 
 
 Requirements

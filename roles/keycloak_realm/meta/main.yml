@@ -3,7 +3,7 @@ galaxy_info:
   role_name: keycloak_realm
   namespace: middleware_automation
   author: Romain Pelisse, Guido Grazioli
-  description: Create realms and clients in keycloak or Red Hat Single Sing-On
+  description: Create realms and clients in keycloak or Red Hat Single Sign-On
   company: Red Hat, Inc.
 
   license: Apache License 2.0

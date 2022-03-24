@@ -8,3 +8,4 @@
       ansible.builtin.assert:
         that:
           - ansible_facts.services["keycloak.service"]["state"] == "running"
+          - ansible_facts.services["keycloak.service"]["status"] == "enabled"

@@ -1,8 +1,4 @@
 ---
-# required variables for keycloak
-# administrator console password
-keycloak_admin_password:
-
 # internal variables below
 rhsso_rhn_ids:
   '7.5.0':

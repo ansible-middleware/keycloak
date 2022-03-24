@@ -32,6 +32,9 @@ keycloak_service_group: keycloak
 keycloak_service_pidfile: "/run/keycloak.pid"
 keycloak_configure_firewalld: False
 
+### administrator console password
+keycloak_admin_password: ''
+
 ### Common configuration settings
 keycloak_bind_address: 0.0.0.0
 keycloak_host: localhost

@@ -1,6 +1,6 @@
 # {{ ansible_managed }}
 [Unit]
-Description=Keycloak Server
+Description={{ keycloak.service_name }} Server
 After=network.target
 
 [Service]

@@ -21,7 +21,7 @@ keycloak_rhsso_enable: "{{ True if rhsso_rhn_id is defined and rhn_username is d
 keycloak_offline_install: False
 
 ### Install location and service settings
-jvm_package: java-1.8.0-openjdk-devel
+keycloak_jvm_package: java-1.8.0-openjdk-devel
 keycloak_dest: /opt/keycloak
 keycloak_jboss_home: "{{ keycloak_rhsso_installdir if keycloak_rhsso_enable else keycloak_installdir }}"
 keycloak_config_dir: "{{ keycloak_jboss_home }}/standalone/configuration"
@@ -58,7 +58,9 @@ keycloak_force_install: False
 
 ### mod_cluster reverse proxy
 keycloak_modcluster_url: localhost
-keycloak_frontend_url: http://localhost
+
+### keycloak frontend url
+keycloak_frontend_url: http://localhost:8080/auth
 
 ### infinispan remote caches access (hotrod)
 infinispan_user: supervisor

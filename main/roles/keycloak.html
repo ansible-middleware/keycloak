@@ -214,7 +214,7 @@
 <td class="text-left"><p>pid file path for service</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/run/keycloak.pid</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jvm_package</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_jvm_package</span></code></p></td>
 <td class="text-left"><p>RHEL java package runtime</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">java-1.8.0-openjdk-devel</span></code></p></td>
 </tr>
@@ -364,6 +364,9 @@
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_admin_password</span></code></p></td>
 <td class="text-left"><p>Password for the administration console user account</p></td>
 </tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_frontend_url</span></code></p></td>
+<td class="text-left"><p>frontend URL for keycloak endpoint</p></td>
+</tr>
 </tbody>
 </table>
 <p>The following variables are <em>required</em> only when <code class="docutils literal notranslate"><span class="pre">keycloak_ha_enabled</span></code> is True:</p>
@@ -379,39 +382,35 @@
 <td class="text-left"><p>URL for the modcluster reverse proxy</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">localhost</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_frontend_url</span></code></p></td>
-<td class="text-left"><p>frontend URL for keycloak endpoints when a reverse proxy is used</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">http://localhost</span></code></p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_jdbc_engine</span></code></p></td>
-<td class="text-left"><p>backend database flavour when db is enabled: [ postgres, mariadb ]</p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_jdbc_engine</span></code></p></td>
+<td class="text-left"><p>backend database engine when db is enabled: [ postgres, mariadb ]</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">postgres</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_url</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_url</span></code></p></td>
 <td class="text-left"><p>URL for the infinispan remote-cache server</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">localhost:11122</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_user</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_user</span></code></p></td>
 <td class="text-left"><p>username for connecting to infinispan</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">supervisor</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_pass</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_pass</span></code></p></td>
 <td class="text-left"><p>password for connecting to infinispan</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">supervisor</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_sasl_mechanism</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_sasl_mechanism</span></code></p></td>
 <td class="text-left"><p>Authentication type</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">SCRAM-SHA-512</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_use_ssl</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_use_ssl</span></code></p></td>
 <td class="text-left"><p>Enable hotrod TLS communication</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_trust_store_path</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_trust_store_path</span></code></p></td>
 <td class="text-left"><p>Path to truststore with infinispan server certificate</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/etc/pki/java/cacerts</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_trust_store_password</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">infinispan_trust_store_password</span></code></p></td>
 <td class="text-left"><p>Password for opening truststore</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">changeit</span></code></p></td>
 </tr>

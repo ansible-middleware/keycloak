@@ -66,7 +66,7 @@ Role Defaults
 |`keycloak_service_user`| posix account username | `keycloak` |
 |`keycloak_service_group`| posix account group | `keycloak` |
 |`keycloak_service_pidfile`| pid file path for service | `/run/keycloak.pid` |
-|`jvm_package`| RHEL java package runtime | `java-1.8.0-openjdk-devel` |
+|`keycloak_jvm_package`| RHEL java package runtime | `java-1.8.0-openjdk-devel` |
 
 
 * Install options
@@ -115,6 +115,7 @@ The following are a set of _required_ variables for the role:
 | Variable | Description |
 |:---------|:------------|
 |`keycloak_admin_password`| Password for the administration console user account |
+|`keycloak_frontend_url` | frontend URL for keycloak endpoint | `http://localhost:8080/auth` |
 
 
 The following variables are _required_ only when `keycloak_ha_enabled` is True:
@@ -122,8 +123,7 @@ The following variables are _required_ only when `keycloak_ha_enabled` is True:
 | Variable | Description | Default |
 |:---------|:------------|:---------|
 |`keycloak_modcluster_url` | URL for the modcluster reverse proxy | `localhost` |
-|`keycloak_frontend_url` | frontend URL for keycloak endpoints when a reverse proxy is used | `http://localhost` |
-|`keycloak_jdbc_engine` | backend database flavour when db is enabled: [ postgres, mariadb ] | `postgres` |
+|`keycloak_jdbc_engine` | backend database engine when db is enabled: [ postgres, mariadb ] | `postgres` |
 |`infinispan_url` | URL for the infinispan remote-cache server | `localhost:11122` |
 |`infinispan_user` | username for connecting to infinispan | `supervisor` |
 |`infinispan_pass` | password for connecting to infinispan | `supervisor` |

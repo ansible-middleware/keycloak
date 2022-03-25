@@ -28,7 +28,7 @@
   ansible.builtin.include_tasks: fastpackages.yml
   vars:
     packages_list:
-      - "{{ jvm_package }}"
+      - "{{ keycloak_jvm_package }}"
       - unzip
       - procps-ng
       - initscripts

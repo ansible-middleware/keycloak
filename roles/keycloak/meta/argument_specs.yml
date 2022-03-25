@@ -76,7 +76,7 @@ argument_specs:
                 default: false
                 description: "Perform an offline install"
                 type: "bool"
-            jvm_package:
+            keycloak_jvm_package:
                 # line 23 of keycloak/defaults/main.yml
                 default: "java-1.8.0-openjdk-devel"
                 description: "RHEL java package runtime rpm"

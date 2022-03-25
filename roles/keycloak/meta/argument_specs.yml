@@ -48,7 +48,7 @@ argument_specs:
                 type: "str"
             keycloak_rhsso_apply_patches:
                 # line 16 of keycloak/defaults/main.yml
-                default: true
+                default: false
                 description: "Install RHSSO more recent cumulative patch"
                 type: "bool"
             keycloak_rhsso_installdir:

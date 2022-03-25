@@ -13,7 +13,7 @@ keycloak_rhsso_archive: "rh-sso-{{ keycloak_rhsso_version }}-server-dist.zip"
 keycloak_rhsso_installdir: "{{ keycloak_dest }}/rh-sso-{{ keycloak_rhsso_version | regex_replace('^([0-9])\\.([0-9]*).*', '\\1.\\2') }}"
 keycloak_rhn_url: 'https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId='
 keycloak_rhsso_download_url: "{{ keycloak_rhn_url }}{{ rhsso_rhn_id }}"
-keycloak_rhsso_apply_patches: True
+keycloak_rhsso_apply_patches: False
 
 ### keycloak/rhsso choice: by default install rhsso if rhn credentials are defined
 keycloak_rhsso_enable: "{{ True if rhsso_rhn_id is defined and rhn_username is defined and rhn_password is defined else False }}"

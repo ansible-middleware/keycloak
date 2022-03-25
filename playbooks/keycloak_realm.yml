@@ -6,7 +6,7 @@
       ansible.builtin.include_role:
         name: middleware_automation.keycloak.keycloak_realm
       vars:
-        keycloak_admin_password: "changeme"
+        keycloak_admin_password: "remembertochangeme"
         keycloak_realm: TestRealm
         keycloak_user_federation:
           - realm: TestRealm

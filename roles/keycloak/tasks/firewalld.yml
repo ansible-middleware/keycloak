@@ -1,5 +1,5 @@
 ---
-- name: Ensures required package firewalld are installed
+- name: Ensure required package firewalld are installed
   ansible.builtin.include_tasks: fastpackages.yml
   vars:
     packages_list:

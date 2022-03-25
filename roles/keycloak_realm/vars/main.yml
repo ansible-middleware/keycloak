@@ -1,9 +1,6 @@
 ---
 # vars file for keycloak_realm
 
-# administrator console password, this is a required variable
-keycloak_admin_password:
-
 # name of the realm to create, this is a required variable
 keycloak_realm:
 

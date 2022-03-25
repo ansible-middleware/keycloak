@@ -30,8 +30,8 @@ The following are a set of _required_ variables for the role:
 
 | Variable | Description |
 |:---------|:------------|
-|`keycloak_admin_password`| Password for the administration console user account |
 |`keycloak_realm` | Name of the realm to be created |
+|`keycloak_admin_password`| Password for the administration console user account |
 
 
 The following variables are available for creating clients:

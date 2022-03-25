@@ -2,17 +2,15 @@
 - name: Converge
   hosts: all
   vars: 
+    keycloak_admin_password: "remembertochangeme"
   tasks:
     - name: Include keycloak role
       include_role:
         name: ../../roles/keycloak
-      vars:
-        keycloak_admin_password: "changeme"
     - name: Keycloak Realm Role
       include_role:
         name: ../../roles/keycloak_realm
       vars:
-        keycloak_admin_password: "changeme"
         keycloak_client_default_roles:
           - TestRoleAdmin
           - TestRoleUser

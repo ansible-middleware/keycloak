@@ -34,7 +34,7 @@ Versions
 Patching
 --------
 
-When variable `keycloak_rhsso_apply_patches` is `True` (default: `True`), the role will automatically apply the latest cumulative patch for the selected base version.
+When variable `keycloak_rhsso_apply_patches` is `True` (default: `False`), the role will automatically apply the latest cumulative patch for the selected base version.
 
 | RH-SSO VERSION | Release Date      | RH-SSO LATEST CP | Notes           |
 |:---------------|:------------------|:-----------------|:----------------|
@@ -79,7 +79,7 @@ Role Defaults
 |`keycloak_rhsso_download_url`| Download URL for RHSSO | `https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=<productID>`|
 |`keycloak_version`| keycloak.org package version | `15.0.2` |
 |`keycloak_rhsso_version`| RHSSO version | `7.5.0` |
-|`keycloak_rhsso_apply_patches`| Install RHSSO more recent cumulative patch | `True` |
+|`keycloak_rhsso_apply_patches`| Install RHSSO more recent cumulative patch | `False` |
 |`keycloak_dest`| Installation root path | `/opt/keycloak` |
 |`keycloak_download_url` | Download URL for keycloak | `https://github.com/keycloak/keycloak/releases/download/{{ keycloak_version }}/{{ keycloak_archive }}` |
 |`keycloak_rhn_url` | Base download URI for customer portal | `https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=` |
@@ -114,7 +114,7 @@ The following are a set of _required_ variables for the role:
 
 | Variable | Description |
 |:---------|:------------|
-|`keycloak_admin_password`| Password for the administration console user account |
+|`keycloak_admin_password`| Password for the administration console user account (minimum 12 characters) |
 |`keycloak_frontend_url` | frontend URL for keycloak endpoint | `http://localhost:8080/auth` |
 
 
@@ -154,14 +154,12 @@ _NOTE_: use ansible vaults or other security systems for storing credentials.
 ```yaml
 ---
 - hosts: ...
+      vars:
+        keycloak_admin_password: "remembertochangeme"
       collections:
         - middleware_automation.keycloak
-      tasks:
-        - name: Include keycloak role
-          include_role:
-            name: keycloak
-          vars:
-            keycloak_admin_password: "changeme"
+      roles:
+        - middleware_automation.keycloak.keycloak
 ```
 
 * The following is an example playbook that makes use of the role to install Red Hat Single Sign-On from RHN:
@@ -179,7 +177,7 @@ _NOTE_: use ansible vaults or other security systems for storing credentials.
       include_role:
         name: keycloak
       vars:
-        keycloak_admin_password: "changeme"
+        keycloak_admin_password: "remembertochangeme"
         keycloak_rhsso_enable: True
         rhn_username: '<customer portal username>'
         rhn_password: '<customer portal password>'
@@ -198,7 +196,7 @@ _NOTE_: use ansible vaults or other security systems for storing credentials.
           include_role:
             name: keycloak
           vars:
-            keycloak_admin_password: "changeme"
+            keycloak_admin_password: "remembertochangeme"
             keycloak_offline_install: True
             # This should be the filename of keycloak archive on Ansible node: keycloak-16.1.0.zip
 ```
@@ -216,14 +214,14 @@ _NOTE_: use ansible vaults or other security systems for storing credentials.
       include_role:
         name: keycloak
       vars:
-        keycloak_admin_password: "changeme"
+        keycloak_admin_password: "remembertochangeme"
         keycloak_rhsso_enable: True
         keycloak_rhsso_download_url: "<REPLACE with download url>"
         # This should be the full of remote source rhsso zip file and can contain basic authentication credentials
 ```
 
 
-* The following is an example playbook that makes use of the role to install Red Hat Single Sign-On from the controller node:
+* The following is an example playbook that makes use of the role to install Red Hat Single Sign-On offline from the controller node, and apply latest cumulative patch:
 
 ```yaml
 ---
@@ -235,9 +233,10 @@ _NOTE_: use ansible vaults or other security systems for storing credentials.
       include_role:
         name: keycloak
       vars:
-        keycloak_admin_password: "changeme"
+        keycloak_admin_password: "remembertochangeme"
         keycloak_rhsso_enable: True
         keycloak_offline_install: True
+        keycloak_rhsso_apply_patches: True
         # This should be the filename of rhsso zip file on Ansible node: rh-sso-7.5-server-dist.zip
 ```
 

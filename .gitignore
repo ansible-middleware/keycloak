@@ -8,3 +8,4 @@ docs/_build/
 .pytest_cache/
 .mypy_cache/
 *.retry
+changelogs/.plugin-cache.yaml

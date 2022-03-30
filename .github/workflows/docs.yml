@@ -6,6 +6,7 @@ on:
       - main
     tags:
       - "[0-9]+.[0-9]+.[0-9]+"
+  pull_request:
 
 env:
   COLORTERM: 'yes'
@@ -40,6 +41,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r ansible_collections/middleware_automation/keycloak/docs/requirements.txt
           pip install -r ansible_collections/middleware_automation/keycloak/requirements.txt
+          sudo apt install -y sed hub
 
       - name: Create default collection path
         run: |
@@ -52,6 +54,27 @@ jobs:
           antsibull-docs collection --use-current --squash-hierarchy --dest-dir docs/plugins  middleware_automation.keycloak
           for role_readme in roles/*/README.md; do ln -f -s ../../$role_readme ./docs/roles/$(basename $(dirname $role_readme)).md; echo " * :doc:\`$(basename $(dirname $role_readme))\`" >> ./docs/roles/index.rst; done
         working-directory: ansible_collections/middleware_automation/keycloak
+
+      - name: Scan PR merges from latest tag
+        run: |
+          TYPES=("minor_changes" "major_changes" "bugfixes" "deprecated_features" "removed_features")
+          TAG=$(git describe --abbrev=0 --tags)
+          PRS=($(comm -12 <(git log --oneline ${TAG}.. --format="tformat:%H" | sort ) <(hub pr list -s all -f '%sm%n' --color=never | sort )))
+          IFS=$'\n' FRAGMENTS=($(hub pr list -s all -f '%sm~%I~%L~%t~%n' --color=never| grep -P "$(echo "^(${PRS[@]})" | tr ' ' '|')"))
+          for frag in "${FRAGMENTS[@]}"; do
+            PR=$(echo $frag|cut -d~ -f2)
+            type="$(echo $frag|cut -d~ -f3)"
+            msg="$(echo $frag|cut -d~ -f4|sed 's/`/``/g')"
+            if [[ "${TYPES[*]}" =~ "${type}" ]]; then
+              echo -e "$type:\n  - >\n    $msg \`#${PR}<https://github.com/ansible-middleware/keycloak/pull/${PR}>\`" \
+                > changelogs/fragments/${PR}.yaml
+            fi
+          done
+          antsibull-changelog lint -vvv
+          antsibull-changelog generate
+        working-directory: ansible_collections/middleware_automation/keycloak
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run sphinx
         run: |

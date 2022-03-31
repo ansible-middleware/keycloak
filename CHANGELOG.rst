@@ -15,15 +15,15 @@ Release Summary
 Minor enhancements, bug and documentation fixes.
 
 
+Major Changes
+-------------
+
+- Apply latest cumulative patch of RH-SSO automatically when new parameter ``keycloak_rhsso_apply_patches`` is ``true`` `#18 <https://github.com/ansible-middleware/keycloak/pull/18>`_
+
 Minor Changes
 -------------
 
-- apply latest cumulative patch of RH-SSO automatically when new parameter ``keycloak_rhsso_apply_patches`` is ``true``
-
-Bugfixes
---------
-
-- clustered installs now perform database initialization on first node to avoid locking issues
+- Clustered installs now perform database initialization on first node to avoid locking issues `#17 <https://github.com/ansible-middleware/keycloak/pull/17>`_
 
 v1.0.0
 ======

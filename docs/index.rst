@@ -15,8 +15,8 @@ Welcome to Keycloak Collection documentation
    :maxdepth: 2
    :caption: Developer documentation
 
-   developing
    testing
+   developing
    releasing
 
 .. toctree::

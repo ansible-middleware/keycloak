@@ -65,7 +65,7 @@ jobs:
             type="$(echo $frag|cut -d~ -f3)"
             msg="$(echo $frag|cut -d~ -f4|sed 's/`/``/g')"
             if [[ "${TYPES[*]}" =~ "${type}" ]]; then
-              echo -e "$type:\n  - >\n    $msg \`#${PR}<https://github.com/ansible-middleware/keycloak/pull/${PR}>\`_" \
+              echo -e "$type:\n  - >\n    $msg \`#${PR} <https://github.com/ansible-middleware/keycloak/pull/${PR}>\`_" \
                 > changelogs/fragments/${PR}.yaml
             fi
           done

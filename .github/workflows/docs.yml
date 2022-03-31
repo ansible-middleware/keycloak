@@ -51,7 +51,10 @@ jobs:
           mkdir -p ./docs/plugins ./docs/roles
           cat ./docs/roles.rst.template > ./docs/roles/index.rst
           antsibull-docs collection --use-current --squash-hierarchy --dest-dir docs/plugins  middleware_automation.keycloak
-          for role_readme in roles/*/README.md; do ln -f -s ../../$role_readme ./docs/roles/$(basename $(dirname $role_readme)).md; echo " * :doc:\`$(basename $(dirname $role_readme))\`" >> ./docs/roles/index.rst; done
+          for role_readme in roles/*/README.md; do
+            ln -f -s ../../$role_readme ./docs/roles/$(basename $(dirname $role_readme)).md
+            echo "    $(basename $(dirname $role_readme))" >> ./docs/roles/index.rst
+          done
         working-directory: ansible_collections/middleware_automation/keycloak
 
       - name: Scan PR merges from latest tag

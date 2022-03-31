@@ -50,12 +50,12 @@ A requirement file is provided to install:
 
 ### Install Playbook
 
-* [`playbooks/keycloak.yml`](playbooks/keycloak.yml) installs the upstream(Keycloak) based on the defined variables.
-* [`playbooks/rhsso.yml`](playbooks/rhsso.yml) installs Red Hat Single Sign-On(RHSSO) based on defined variables.
+* [`playbooks/keycloak.yml`](https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak.yml) installs the upstream(Keycloak) based on the defined variables.
+* [`playbooks/rhsso.yml`](https://github.com/ansible-middleware/keycloak/blob/main/playbooks/rhsso.yml) installs Red Hat Single Sign-On(RHSSO) based on defined variables.
 
 Both playbooks include the `keycloak` role, with different settings, as described in the following sections.
 
-For full service configuration details, refer to the [keycloak role README](roles/keycloak/README.md).
+For full service configuration details, refer to the [keycloak role README](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak/README.md).
 
 
 ### Choosing between upstream project (Keycloak) and Red Hat Single Sign-On (RHSSO)
@@ -134,7 +134,7 @@ ansible-playbook -i <ansible_hosts> -e @rhn-creds.yml playbooks/keycloak.yml -e 
 
 ### Config Playbook
 
-[`playbooks/keycloak_realm.yml`](playbooks/keycloak_realm.yml) creates or updates provided realm, user federation(s), client(s), client role(s) and client user(s).
+[`playbooks/keycloak_realm.yml`](https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_realm.yml) creates or updates provided realm, user federation(s), client(s), client role(s) and client user(s).
 
 
 ### Example configuration command
@@ -154,7 +154,7 @@ ansible-playbook -i <ansible_hosts> playbooks/keycloak_realm.yml -e keycloak_adm
   localhost ansible_connection=local
   ```
 
-For full configuration details, refer to the [keycloak_realm role README](roles/keycloak_realm/README.md).
+For full configuration details, refer to the [keycloak_realm role README](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak_realm/README.md).
 
 ## Support
 

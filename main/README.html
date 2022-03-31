@@ -72,8 +72,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Developer documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="developing.html">Contributor’s Guidelines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">Contributor’s Guidelines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="releasing.html">Collection Versioning Strategy</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">General</span></p>
@@ -152,11 +152,11 @@
 <section id="install-playbook">
 <h3>Install Playbook<a class="headerlink" href="#install-playbook" title="Permalink to this headline"></a></h3>
 <ul class="simple">
-<li><p><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak.yml</span></code></span> installs the upstream(Keycloak) based on the defined variables.</p></li>
-<li><p><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">playbooks/rhsso.yml</span></code></span> installs Red Hat Single Sign-On(RHSSO) based on defined variables.</p></li>
+<li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak.yml</span></code></a> installs the upstream(Keycloak) based on the defined variables.</p></li>
+<li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/rhsso.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/rhsso.yml</span></code></a> installs Red Hat Single Sign-On(RHSSO) based on defined variables.</p></li>
 </ul>
 <p>Both playbooks include the <code class="docutils literal notranslate"><span class="pre">keycloak</span></code> role, with different settings, as described in the following sections.</p>
-<p>For full service configuration details, refer to the <span class="xref myst">keycloak role README</span>.</p>
+<p>For full service configuration details, refer to the <a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak/README.md">keycloak role README</a>.</p>
 </section>
 <section id="choosing-between-upstream-project-keycloak-and-red-hat-single-sign-on-rhsso">
 <h3>Choosing between upstream project (Keycloak) and Red Hat Single Sign-On (RHSSO)<a class="headerlink" href="#choosing-between-upstream-project-keycloak-and-red-hat-single-sign-on-rhsso" title="Permalink to this headline"></a></h3>
@@ -223,7 +223,7 @@ the download tasks. The local path for the archive matches the downloaded archiv
 <h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline"></a></h2>
 <section id="config-playbook">
 <h3>Config Playbook<a class="headerlink" href="#config-playbook" title="Permalink to this headline"></a></h3>
-<p><span class="xref myst"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak_realm.yml</span></code></span> creates or updates provided realm, user federation(s), client(s), client role(s) and client user(s).</p>
+<p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_realm.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak_realm.yml</span></code></a> creates or updates provided realm, user federation(s), client(s), client role(s) and client user(s).</p>
 </section>
 <section id="example-configuration-command">
 <h3>Example configuration command<a class="headerlink" href="#example-configuration-command" title="Permalink to this headline"></a></h3>
@@ -241,7 +241,7 @@ the download tasks. The local path for the archive matches the downloaded archiv
 </div>
 </li>
 </ul>
-<p>For full configuration details, refer to the <span class="xref myst">keycloak_realm role README</span>.</p>
+<p>For full configuration details, refer to the <a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak_realm/README.md">keycloak_realm role README</a>.</p>
 </section>
 </section>
 <section id="support">

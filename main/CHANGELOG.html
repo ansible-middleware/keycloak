@@ -44,8 +44,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Developer documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="developing.html">Contributor’s Guidelines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">Contributor’s Guidelines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="releasing.html">Collection Versioning Strategy</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">General</span></p>
@@ -58,12 +58,12 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v1-0-1">v1.0.1</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#release-summary">Release Summary</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id1">Minor Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">Bugfixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Minor Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Bugfixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v1-0-0">v1.0.0</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id3">Release Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Release Summary</a></li>
 </ul>
 </li>
 </ul>
@@ -95,28 +95,28 @@
            <div itemprop="articleBody">
              
   <section id="middleware-automation-keycloak-release-notes">
-<h1><a class="toc-backref" href="#id4">middleware_automation.keycloak Release Notes</a><a class="headerlink" href="#middleware-automation-keycloak-release-notes" title="Permalink to this headline"></a></h1>
+<h1><a class="toc-backref" href="#id7">middleware_automation.keycloak Release Notes</a><a class="headerlink" href="#middleware-automation-keycloak-release-notes" title="Permalink to this headline"></a></h1>
 <div class="contents topic" id="topics">
 <p class="topic-title">Topics</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#middleware-automation-keycloak-release-notes" id="id4">middleware_automation.keycloak Release Notes</a></p>
+<li><p><a class="reference internal" href="#middleware-automation-keycloak-release-notes" id="id7">middleware_automation.keycloak Release Notes</a></p>
 <ul>
-<li><p><a class="reference internal" href="#v1-0-2-devel" id="id5">v1.0.2-devel</a></p>
+<li><p><a class="reference internal" href="#v1-0-2-devel" id="id8">v1.0.2-devel</a></p>
 <ul>
-<li><p><a class="reference internal" href="#minor-changes" id="id6">Minor Changes</a></p></li>
-<li><p><a class="reference internal" href="#bugfixes" id="id7">Bugfixes</a></p></li>
+<li><p><a class="reference internal" href="#minor-changes" id="id9">Minor Changes</a></p></li>
+<li><p><a class="reference internal" href="#bugfixes" id="id10">Bugfixes</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#v1-0-1" id="id8">v1.0.1</a></p>
+<li><p><a class="reference internal" href="#v1-0-1" id="id11">v1.0.1</a></p>
 <ul>
-<li><p><a class="reference internal" href="#release-summary" id="id9">Release Summary</a></p></li>
-<li><p><a class="reference internal" href="#id1" id="id10">Minor Changes</a></p></li>
-<li><p><a class="reference internal" href="#id2" id="id11">Bugfixes</a></p></li>
+<li><p><a class="reference internal" href="#release-summary" id="id12">Release Summary</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id13">Minor Changes</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id14">Bugfixes</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#v1-0-0" id="id12">v1.0.0</a></p>
+<li><p><a class="reference internal" href="#v1-0-0" id="id15">v1.0.0</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id3" id="id13">Release Summary</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id16">Release Summary</a></p></li>
 </ul>
 </li>
 </ul>
@@ -125,44 +125,44 @@
 </div>
 <p>This changelog describes changes after version 0.2.6.</p>
 <section id="v1-0-2-devel">
-<h2><a class="toc-backref" href="#id5">v1.0.2-devel</a><a class="headerlink" href="#v1-0-2-devel" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id8">v1.0.2-devel</a><a class="headerlink" href="#v1-0-2-devel" title="Permalink to this headline"></a></h2>
 <section id="minor-changes">
-<h3><a class="toc-backref" href="#id6">Minor Changes</a><a class="headerlink" href="#minor-changes" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id9">Minor Changes</a><a class="headerlink" href="#minor-changes" title="Permalink to this headline"></a></h3>
 <ul class="simple">
-<li><p>Make <code class="docutils literal notranslate"><span class="pre">keycloak_admin_password</span></code> a default with assert (was: role variable) <cite>#26&lt;https://github.com/ansible-middleware/keycloak/pull/26&gt;</cite></p></li>
-<li><p>Simplify dependency install logic and reduce play execution time <cite>#19&lt;https://github.com/ansible-middleware/keycloak/pull/19&gt;</cite></p></li>
+<li><p>Make <code class="docutils literal notranslate"><span class="pre">keycloak_admin_password</span></code> a default with assert (was: role variable) <a class="reference external" href="https://github.com/ansible-middleware/keycloak/pull/26">#26</a></p></li>
+<li><p>Simplify dependency install logic and reduce play execution time <a class="reference external" href="https://github.com/ansible-middleware/keycloak/pull/19">#19</a></p></li>
 </ul>
 </section>
 <section id="bugfixes">
-<h3><a class="toc-backref" href="#id7">Bugfixes</a><a class="headerlink" href="#bugfixes" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id10">Bugfixes</a><a class="headerlink" href="#bugfixes" title="Permalink to this headline"></a></h3>
 <ul class="simple">
-<li><p>Set <code class="docutils literal notranslate"><span class="pre">keycloak_frontend_url</span></code> default according to other defaults <cite>#25&lt;https://github.com/ansible-middleware/keycloak/pull/25&gt;</cite></p></li>
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">keycloak_frontend_url</span></code> default according to other defaults <a class="reference external" href="https://github.com/ansible-middleware/keycloak/pull/25">#25</a></p></li>
 </ul>
 </section>
 </section>
 <section id="v1-0-1">
-<h2><a class="toc-backref" href="#id8">v1.0.1</a><a class="headerlink" href="#v1-0-1" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id11">v1.0.1</a><a class="headerlink" href="#v1-0-1" title="Permalink to this headline"></a></h2>
 <section id="release-summary">
-<h3><a class="toc-backref" href="#id9">Release Summary</a><a class="headerlink" href="#release-summary" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id12">Release Summary</a><a class="headerlink" href="#release-summary" title="Permalink to this headline"></a></h3>
 <p>Minor enhancements, bug and documentation fixes.</p>
 </section>
-<section id="id1">
-<h3><a class="toc-backref" href="#id10">Minor Changes</a><a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
+<section id="id4">
+<h3><a class="toc-backref" href="#id13">Minor Changes</a><a class="headerlink" href="#id4" title="Permalink to this headline"></a></h3>
 <ul class="simple">
 <li><p>apply latest cumulative patch of RH-SSO automatically when new parameter <code class="docutils literal notranslate"><span class="pre">keycloak_rhsso_apply_patches</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code></p></li>
 </ul>
 </section>
-<section id="id2">
-<h3><a class="toc-backref" href="#id11">Bugfixes</a><a class="headerlink" href="#id2" title="Permalink to this headline"></a></h3>
+<section id="id5">
+<h3><a class="toc-backref" href="#id14">Bugfixes</a><a class="headerlink" href="#id5" title="Permalink to this headline"></a></h3>
 <ul class="simple">
 <li><p>clustered installs now perform database initialization on first node to avoid locking issues</p></li>
 </ul>
 </section>
 </section>
 <section id="v1-0-0">
-<h2><a class="toc-backref" href="#id12">v1.0.0</a><a class="headerlink" href="#v1-0-0" title="Permalink to this headline"></a></h2>
-<section id="id3">
-<h3><a class="toc-backref" href="#id13">Release Summary</a><a class="headerlink" href="#id3" title="Permalink to this headline"></a></h3>
+<h2><a class="toc-backref" href="#id15">v1.0.0</a><a class="headerlink" href="#v1-0-0" title="Permalink to this headline"></a></h2>
+<section id="id6">
+<h3><a class="toc-backref" href="#id16">Release Summary</a><a class="headerlink" href="#id6" title="Permalink to this headline"></a></h3>
 <p>This is the first stable release of the <code class="docutils literal notranslate"><span class="pre">middleware_automation.keycloak</span></code> collection.</p>
 </section>
 </section>

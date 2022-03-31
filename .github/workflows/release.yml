@@ -38,14 +38,14 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install ansible-core
+          pip install ansible-core antsibull
           sudo apt install -y sed hub
       - name: Build collection
         run: |
           ansible-galaxy collection build .
       - name: Scan PR merges from latest tag
         run: |
-          TYPES=("minor_changes" "major_changes" "bugfixes" "deprecated_features" "removed_features")
+          TYPES=("minor_changes" "major_changes" "bugfixes" "deprecated_features" "removed_features" "breaking_changes")
           TAG=$(git describe --abbrev=0 --tags)
           PRS=($(comm -12 <(git log --oneline ${TAG}.. --format="tformat:%H" | sort ) <(hub pr list -s all -f '%sm%n' --color=never | sort )))
           IFS=$'\n' FRAGMENTS=($(hub pr list -s all -f '%sm~%I~%L~%t~%n' --color=never| grep -P "$(echo "^(${PRS[@]})" | tr ' ' '|')"))
@@ -54,7 +54,7 @@ jobs:
             type="$(echo $frag|cut -d~ -f3)"
             msg="$(echo $frag|cut -d~ -f4|sed 's/`/``/g')"
             if [[ "${TYPES[*]}" =~ "${type}" ]]; then
-              echo -e "$type:\n  - >\n    $msg \`#${PR}<https://github.com/ansible-middleware/keycloak/pull/${PR}>\`" \
+              echo -e "$type:\n  - >\n    $msg \`#${PR}<https://github.com/ansible-middleware/keycloak/pull/${PR}>\`_" \
                 > changelogs/fragments/${PR}.yaml
             fi
           done

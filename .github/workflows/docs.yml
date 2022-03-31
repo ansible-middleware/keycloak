@@ -56,7 +56,7 @@ jobs:
 
       - name: Scan PR merges from latest tag
         run: |
-          TYPES=("minor_changes" "major_changes" "bugfixes" "deprecated_features" "removed_features")
+          TYPES=("minor_changes" "major_changes" "bugfixes" "deprecated_features" "removed_features" "breaking_changes")
           TAG=$(git describe --abbrev=0 --tags)
           PRS=($(comm -12 <(git log --oneline ${TAG}.. --format="tformat:%H" | sort ) <(hub pr list -s all -f '%sm%n' --color=never | sort )))
           IFS=$'\n' FRAGMENTS=($(hub pr list -s all -f '%sm~%I~%L~%t~%n' --color=never| grep -P "$(echo "^(${PRS[@]})" | tr ' ' '|')"))

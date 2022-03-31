@@ -71,7 +71,7 @@ jobs:
           done
           antsibull-changelog lint -vvv
           if [[ "${{github.ref}}" == "refs/heads/main" ]]; then
-            antsibull-changelog release --version "prerelease-$(grep version galaxy.yml | awk -F'"' '{ print $2 }')"
+            antsibull-changelog release --version "$(grep version galaxy.yml | awk -F'"' '{ print $2 }')-devel" -v
           fi
         working-directory: ansible_collections/middleware_automation/keycloak
         env:

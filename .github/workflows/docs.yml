@@ -6,7 +6,6 @@ on:
       - main
     tags:
       - "[0-9]+.[0-9]+.[0-9]+"
-  pull_request:
 
 env:
   COLORTERM: 'yes'
@@ -71,7 +70,9 @@ jobs:
             fi
           done
           antsibull-changelog lint -vvv
-          antsibull-changelog generate
+          if [[ "${{github.ref}}" == "refs/heads/main" ]]; then
+            antsibull-changelog release --version "prerelease-$(grep version galaxy.yml | awk -F'"' '{ print $2 }')"
+          fi
         working-directory: ansible_collections/middleware_automation/keycloak
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

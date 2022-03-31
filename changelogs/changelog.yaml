@@ -1,0 +1,16 @@
+ancestor: 0.2.6
+releases:
+  1.0.0:
+    changes:
+      release_summary: |
+        This is the first stable release of the ``middleware_automation.keycloak`` collection.
+    release_date: '2022-03-04'
+  1.0.1:
+    changes:
+      minor_changes:
+        - apply latest cumulative patch of RH-SSO automatically when new parameter ``keycloak_rhsso_apply_patches`` is ``true``
+      bugfixes:
+        - clustered installs now perform database initialization on first node to avoid locking issues
+      release_summary: |
+        Minor enhancements, bug and documentation fixes.
+    release_date: '2022-03-11'

@@ -40,7 +40,7 @@ jobs:
           mkdir -p /home/runner/.ansible/collections/ansible_collections
 
       - name: Run sanity tests
-        run: ansible-test sanity --docker -v --color --python ${{ matrix.python_version }}
+        run: ansible-test sanity --docker -v --color --python ${{ matrix.python_version }} --exclude changelogs/fragments/.gitignore
         working-directory: ./ansible_collections/middleware_automation/keycloak
 
       - name: Run molecule test

@@ -86,6 +86,7 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
+          git stash
           git checkout gh-pages
           rm -rf $(basename ${GITHUB_REF})
           mv docs/_build/html $(basename ${GITHUB_REF})

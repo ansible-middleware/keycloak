@@ -76,6 +76,7 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
+          git diff --minimal --output-indicator-new=' ' -U0 --no-indent-heuristic CHANGELOG.rst | grep "^ "| sed -e 's/`\(#[0-9]\+\) <.*_/\1/g' > gh-release.md
           git add CHANGELOG.rst changelogs/changelog.yaml
           git commit -m "Update changelog for release ${{ steps.get_version.outputs.TAG_VERSION }}" || true
           git push origin
@@ -98,8 +99,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          tag_name: ${{ steps.get_version.outputs.TAG_VERSION }}
           files: "*.tar.gz"
-          body: "Release v${{ steps.get_version.outputs.TAG_VERSION }}"
+          body_path: gh-release.md
 
   dispatch:
     needs: release

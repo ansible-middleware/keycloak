@@ -2,15 +2,39 @@ ancestor: 0.2.6
 releases:
   1.0.0:
     changes:
-      release_summary: |
-        This is the first stable release of the ``middleware_automation.keycloak`` collection.
+      release_summary: 'This is the first stable release of the ``middleware_automation.keycloak``
+        collection.
+
+        '
     release_date: '2022-03-04'
   1.0.1:
     changes:
       major_changes:
-        - Apply latest cumulative patch of RH-SSO automatically when new parameter ``keycloak_rhsso_apply_patches`` is ``true`` `#18 <https://github.com/ansible-middleware/keycloak/pull/18>`_
+      - Apply latest cumulative patch of RH-SSO automatically when new parameter ``keycloak_rhsso_apply_patches``
+        is ``true`` `#18 <https://github.com/ansible-middleware/keycloak/pull/18>`_
       minor_changes:
-        - Clustered installs now perform database initialization on first node to avoid locking issues `#17 <https://github.com/ansible-middleware/keycloak/pull/17>`_
-      release_summary: |
-        Minor enhancements, bug and documentation fixes.
+      - Clustered installs now perform database initialization on first node to avoid
+        locking issues `#17 <https://github.com/ansible-middleware/keycloak/pull/17>`_
+      release_summary: 'Minor enhancements, bug and documentation fixes.
+
+        '
     release_date: '2022-03-11'
+  1.0.2:
+    changes:
+      bugfixes:
+      - 'Set ``keycloak_frontend_url`` default according to other defaults `#25 <https://github.com/ansible-middleware/keycloak/pull/25>`_
+
+        '
+      minor_changes:
+      - 'Make ``keycloak_admin_password`` a default with assert (was: role variable)
+        `#26 <https://github.com/ansible-middleware/keycloak/pull/26>`_
+
+        '
+      - 'Simplify dependency install logic and reduce play execution time `#19 <https://github.com/ansible-middleware/keycloak/pull/19>`_
+
+        '
+    fragments:
+    - 19.yaml
+    - 25.yaml
+    - 26.yaml
+    release_date: '2022-04-01'

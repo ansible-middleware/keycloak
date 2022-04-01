@@ -1,0 +1,6 @@
+Role Index
+==========
+
+.. toctree::
+    keycloak
+    keycloak_realm

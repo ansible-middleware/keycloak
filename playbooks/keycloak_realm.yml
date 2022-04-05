@@ -1,6 +1,6 @@
 ---
 - name: Playbook for Keycloak Hosts
-  hosts: keycloak
+  hosts: all
   tasks:
     - name: Keycloak Realm Role
       ansible.builtin.include_role:

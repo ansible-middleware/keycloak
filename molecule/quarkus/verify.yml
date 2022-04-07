@@ -1,0 +1,11 @@
+---
+- name: Verify
+  hosts: all
+  tasks:
+    - name: Populate service facts
+      ansible.builtin.service_facts:
+    - name: Check if keycloak service started
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.services["keycloak.service"]["state"] == "running"
+          - ansible_facts.services["keycloak.service"]["status"] == "enabled"

@@ -1,0 +1,41 @@
+---
+# tasks file for keycloak
+
+- name: Check prerequisites
+  ansible.builtin.include_tasks: prereqs.yml
+  tags:
+    - prereqs
+
+- name: Include firewall config tasks
+  ansible.builtin.include_tasks: firewalld.yml
+  when: keycloak_quarkus_configure_firewalld
+  tags:
+    - firewall
+
+- name: Include install tasks
+  ansible.builtin.include_tasks: install.yml
+  tags:
+    - install
+
+- name: Include systemd tasks
+  ansible.builtin.include_tasks: systemd.yml
+  tags:
+    - systemd
+
+- name: "Configure config for keycloak service"
+  ansible.builtin.template:
+    src: keycloak.conf.j2
+    dest: "{{ keycloak.home }}/conf/keycloak.conf"
+    owner: "{{ keycloak.service_user }}"
+    group: "{{ keycloak.service_group }}"
+    mode: 0644
+  notify:
+    - restart keycloak
+
+- name: "Start and wait for keycloak service"
+  ansible.builtin.include_tasks: start.yml
+
+- name: Check service status
+  ansible.builtin.command: "systemctl status keycloak"
+  register: keycloak_service_status
+  changed_when: False

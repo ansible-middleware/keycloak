@@ -1,0 +1,28 @@
+---
+collections:
+
+galaxy_info:
+  role_name: keycloak_quarkus
+  namespace: middleware_automation
+  author: Guido Grazioli
+  description: Install keycloak on quarkus server configurations
+  company: Red Hat, Inc.
+
+  license: Apache License 2.0
+
+  min_ansible_version: "2.9"
+
+  platforms:
+   - name: EL
+     versions:
+     - 8
+
+  galaxy_tags:
+    - keycloak
+    - quarkus
+    - redhat
+    - rhel
+    - sso
+    - authentication
+    - identity
+    - security

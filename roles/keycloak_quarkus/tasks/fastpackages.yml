@@ -1,0 +1,21 @@
+---
+- block:
+  - name: "Check if packages are already installed"
+    ansible.builtin.command: "rpm -q {{ packages_list | join(' ') }}"
+    args:
+      warn: no
+    register: rpm_info
+    changed_when: rpm_info.failed
+
+  rescue:
+    - name: "Add missing packages to the yum install list"
+      ansible.builtin.set_fact:
+        packages_to_install: "{{ packages_to_install | default([]) + rpm_info.stdout_lines | map('regex_findall', 'package (.+) is not installed$') | flatten }}"
+      when: rpm_info.failed
+
+- name: "Install packages: {{ packages_to_install }}"
+  become: yes
+  ansible.builtin.yum:
+    name: "{{ packages_to_install }}"
+    state: present
+  when: packages_to_install | default([]) | length > 0

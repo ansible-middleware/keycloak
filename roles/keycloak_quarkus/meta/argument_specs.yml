@@ -1,0 +1,203 @@
+argument_specs:
+    main:
+        options:
+            keycloak_quarkus_version:
+                # line 3 of defaults/main.yml
+                default: "17.0.1"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_archive:
+                # line 4 of defaults/main.yml
+                default: "keycloak-{{ keycloak_quarkus_version }}.zip"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_download_url:
+                # line 5 of defaults/main.yml
+                default: "https://github.com/keycloak/keycloak/releases/download/{{ keycloak_quarkus_version }}/{{ keycloak_quarkus_archive }}"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_installdir:
+                # line 6 of defaults/main.yml
+                default: "{{ keycloak_quarkus_dest }}/keycloak-{{ keycloak_quarkus_version }}"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_offline_install:
+                # line 9 of defaults/main.yml
+                default: false
+                description: "TODO document argument"
+                type: "bool"
+            keycloak_quarkus_jvm_package:
+                # line 12 of defaults/main.yml
+                default: "java-11-openjdk-headless"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_dest:
+                # line 13 of defaults/main.yml
+                default: "/opt/keycloak"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_home:
+                # line 14 of defaults/main.yml
+                default: "{{ keycloak_quarkus_installdir }}"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_config_dir:
+                # line 15 of defaults/main.yml
+                default: "{{ keycloak_quarkus_home }}/conf"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_service_user:
+                # line 16 of defaults/main.yml
+                default: "keycloak"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_service_group:
+                # line 17 of defaults/main.yml
+                default: "keycloak"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_service_pidfile:
+                # line 18 of defaults/main.yml
+                default: "/run/keycloak.pid"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_configure_firewalld:
+                # line 19 of defaults/main.yml
+                default: false
+                description: "TODO document argument"
+                type: "bool"
+            keycloak_quarkus_admin_user:
+                # line 22 of defaults/main.yml
+                default: "admin"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_admin_pass:
+                # line 23 of defaults/main.yml
+                default: ""
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_master_realm:
+                # line 24 of defaults/main.yml
+                default: "master"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_bind_address:
+                # line 27 of defaults/main.yml
+                default: "0.0.0.0"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_host:
+                # line 28 of defaults/main.yml
+                default: "localhost"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_http_port:
+                # line 29 of defaults/main.yml
+                default: 8080
+                description: "TODO document argument"
+                type: "int"
+            keycloak_quarkus_https_port:
+                # line 30 of defaults/main.yml
+                default: 8443
+                description: "TODO document argument"
+                type: "int"
+            keycloak_quarkus_ajp_port:
+                # line 31 of defaults/main.yml
+                default: 8009
+                description: "TODO document argument"
+                type: "int"
+            keycloak_quarkus_jgroups_port:
+                # line 32 of defaults/main.yml
+                default: 7600
+                description: "TODO document argument"
+                type: "int"
+            keycloak_quarkus_java_opts:
+                # line 33 of defaults/main.yml
+                default: "-Xms1024m -Xmx2048m"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_ha_enabled:
+                # line 36 of defaults/main.yml
+                default: false
+                description: "TODO document argument"
+                type: "bool"
+            keycloak_quarkus_db_enabled:
+                # line 38 of defaults/main.yml
+                default: "{{ True if keycloak_quarkus_ha_enabled else False }}"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_http_relative_path:
+                # line 41 of defaults/main.yml
+                default: "auth"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_frontend_url:
+                # line 41 of defaults/main.yml
+                default: "http://localhost:8080/auth"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_metrics_enabled:
+                # line 43 of defaults/main.yml
+                default: false
+                description: "TODO document argument"
+                type: "bool"
+            keycloak_quarkus_ispn_user:
+                # line 46 of defaults/main.yml
+                default: "supervisor"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_ispn_pass:
+                # line 47 of defaults/main.yml
+                default: "supervisor"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_ispn_url:
+                # line 48 of defaults/main.yml
+                default: "localhost"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_ispn_sasl_mechanism:
+                # line 49 of defaults/main.yml
+                default: "SCRAM-SHA-512"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_ispn_use_ssl:
+                # line 50 of defaults/main.yml
+                default: false
+                description: "TODO document argument"
+                type: "bool"
+            keycloak_quarkus_ispn_trust_store_path:
+                # line 52 of defaults/main.yml
+                default: "/etc/pki/java/cacerts"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_ispn_trust_store_password:
+                # line 53 of defaults/main.yml
+                default: "changeit"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_jdbc_engine:
+                # line 56 of defaults/main.yml
+                default: "postgres"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_db_user:
+                # line 58 of defaults/main.yml
+                default: "keycloak-user"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_db_pass:
+                # line 59 of defaults/main.yml
+                default: "keycloak-pass"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_jdbc_url:
+                # line 60 of defaults/main.yml
+                default: "{{ keycloak_quarkus_default_jdbc[keycloak_quarkus_jdbc_engine].url }}"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_quarkus_jdbc_driver_version:
+                # line 61 of defaults/main.yml
+                default: "{{ keycloak_quarkus_default_jdbc[keycloak_quarkus_jdbc_engine].version }}"
+                description: "TODO document argument"
+                type: "str"

@@ -46,65 +46,15 @@ jobs:
         run: |
           mkdir -p /home/runner/.ansible/collections/ansible_collections
 
-      - name: Create doc directories and resources
-        run: |
-          mkdir -p ./docs/plugins ./docs/roles
-          cat ./docs/roles.rst.template > ./docs/roles/index.rst
-          antsibull-docs collection --use-current --squash-hierarchy --dest-dir docs/plugins  middleware_automation.keycloak
-          for role_readme in roles/*/README.md; do
-            ln -f -s ../../$role_readme ./docs/roles/$(basename $(dirname $role_readme)).md
-            echo "    $(basename $(dirname $role_readme))" >> ./docs/roles/index.rst
-          done
-        working-directory: ansible_collections/middleware_automation/keycloak
-
-      - name: Scan PR merges from latest tag
-        run: |
-          TYPES=("minor_changes" "major_changes" "bugfixes" "deprecated_features" "removed_features" "breaking_changes")
-          TAG=$(git describe --abbrev=0 --tags)
-          if [[ "${{github.ref}}" == "refs/heads/main" ]]; then
-            PRS=($(comm -12 <(git log --oneline ${TAG}.. --format="tformat:%H" | sort ) <(hub pr list -s all -f '%sm%n' --color=never | sort )))
-          else
-            PREV_TAG=$(git tag | grep -P "^[0-9]+[.][0-9]+[.][0-9]+$" | sort --version-sort -r | head -n2 | grep -v "${TAG}")
-            PRS=($(comm -12 <(git log --oneline ${PREV_TAG}..${TAG} --format="tformat:%H" | sort ) <(hub pr list -s all -f '%sm%n' --color=never | sort )))
-          fi
-          if [[ ${#PRS[@]} > 0 ]]; then
-            IFS=$'\n' FRAGMENTS=($(hub pr list -s all -f '%sm~%I~%L~%t~%n' --color=never | grep -P "$(echo "^(${PRS[@]})" | tr ' ' '|')"))
-            for frag in "${FRAGMENTS[@]}"; do
-              PR=$(echo $frag|cut -d~ -f2)
-              type="$(echo $frag|cut -d~ -f3)"
-              msg="$(echo $frag|cut -d~ -f4|sed 's/`/``/g')"
-              if [[ "$type" != "" && "${TYPES[*]}" =~ "${type}" ]]; then
-                echo -e "$type:\n  - >\n    $msg \`#${PR} <https://github.com/ansible-middleware/keycloak/pull/${PR}>\`_" \
-                  > changelogs/fragments/${PR}.yaml
-              fi
-            done
-            antsibull-changelog lint -vvv
-            if [[ "${{github.ref}}" == "refs/heads/main" ]]; then
-              antsibull-changelog release --version "$(git describe --tags)" -v
-            fi
-          fi
-        working-directory: ansible_collections/middleware_automation/keycloak
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Run sphinx
-        run: |
-          sphinx-build -M html . _build -v
-        working-directory: ansible_collections/middleware_automation/keycloak/docs/
-
-      - name: Commit docs
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git stash
-          git checkout gh-pages
-          rm -rf $(basename ${GITHUB_REF})
-          mv docs/_build/html $(basename ${GITHUB_REF})
-          ln --force --no-dereference --symbolic   main latest
-          git show origin/main:docs/_gh_include/header.inc > index.html
-          (echo main; echo latest; dirname *.*.*/index.html | sort --version-sort --reverse) | xargs -I@@ -n1 echo '<li class="toctree-l1"><a class="reference internal" href="@@/">@@</a></li>' >> index.html
-          git show origin/main:docs/_gh_include/footer.inc >> index.html
-          git add $(basename ${GITHUB_REF}) latest index.html
-          git commit -m "Update docs for $(basename ${GITHUB_REF})" || true
-          git push origin gh-pages
-        working-directory: ansible_collections/middleware_automation/keycloak/
+      - name: Create changelog and documentation
+        uses: ansible-middleware/collection-docs-action@main
+        with:
+          collection_fqcn: middleware_automation.keycloak
+          collection_repo: ansible-middleware/keycloak
+          dependencies: false
+          commit_changelog: false
+          commit_ghpages: true
+          changelog_release: false
+          generate_docs: true
+          path: ansible_collections/middleware_automation/keycloak
+          token: ${{ secrets.GITHUB_TOKEN }}

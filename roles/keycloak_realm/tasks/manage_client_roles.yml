@@ -4,7 +4,7 @@
     realm: "{{ client.realm }}"
     client_id: "{{ client.name }}"
     auth_client_id: "{{ keycloak_auth_client }}"
-    auth_keycloak_url: "{{ keycloak_url }}/auth"
+    auth_keycloak_url: "{{ keycloak_url }}{{ keycloak_context }}"
     auth_realm: "{{ keycloak_auth_realm }}"
     auth_username: "{{ keycloak_admin_user }}"
     auth_password: "{{ keycloak_admin_password }}"

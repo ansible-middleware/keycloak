@@ -1,7 +1,7 @@
 ---
 - name: "Get Realm for role"
   ansible.builtin.uri:
-    url: "{{ keycloak_url }}/auth/admin/realms/{{ client_role.realm }}"
+    url: "{{ keycloak_url }}{{ keycloak_context }}/admin/realms/{{ client_role.realm }}"
     method: GET
     status_code:
       - 200
@@ -12,7 +12,7 @@
 
 - name: Check if Mapping is available
   ansible.builtin.uri:
-    url: "{{ keycloak_url }}/auth/admin/realms/{{ client_role.realm }}/users/{{ (keycloak_user.json | first).id }}/role-mappings/clients/{{ (create_client_result.results | selectattr('end_state.clientId', 'equalto', client_role.client) | list | first).end_state.id }}/available"
+    url: "{{ keycloak_url }}{{ keycloak_context }}/admin/realms/{{ client_role.realm }}/users/{{ (keycloak_user.json | first).id }}/role-mappings/clients/{{ (create_client_result.results | selectattr('end_state.clientId', 'equalto', client_role.client) | list | first).end_state.id }}/available"
     method: GET
     status_code:
       - 200
@@ -23,7 +23,7 @@
 
 - name: "Create Role Mapping"
   ansible.builtin.uri:
-    url: "{{ keycloak_url }}/auth/admin/realms/{{ client_role.realm }}/users/{{ (keycloak_user.json | first).id }}/role-mappings/clients/{{ (create_client_result.results | selectattr('end_state.clientId', 'equalto', client_role.client) | list | first).end_state.id }}"
+    url: "{{ keycloak_url }}{{ keycloak_context }}/admin/realms/{{ client_role.realm }}/users/{{ (keycloak_user.json | first).id }}/role-mappings/clients/{{ (create_client_result.results | selectattr('end_state.clientId', 'equalto', client_role.client) | list | first).end_state.id }}"
     method: POST
     body:
       - id: "{{ item.id }}"

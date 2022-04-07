@@ -1,7 +1,7 @@
 ---
 - name: Generate keycloak auth token
   ansible.builtin.uri:
-    url: "{{ keycloak_url }}/auth/realms/master/protocol/openid-connect/token"
+    url: "{{ keycloak_url }}{{ keycloak_context }}/realms/master/protocol/openid-connect/token"
     method: POST
     body: "client_id={{ keycloak_auth_client }}&username={{ keycloak_admin_user }}&password={{ keycloak_admin_password }}&grant_type=password"
     validate_certs: no
@@ -13,7 +13,7 @@
 
 - name: "Determine if realm exists"
   ansible.builtin.uri:
-    url: "{{ keycloak_url }}/auth/admin/realms/{{ keycloak_realm }}"
+    url: "{{ keycloak_url }}{{ keycloak_context }}/admin/realms/{{ keycloak_realm }}"
     method: GET
     status_code:
       - 200
@@ -25,7 +25,7 @@
 
 - name: Create Realm
   ansible.builtin.uri:
-    url: "{{ keycloak_url }}/auth/admin/realms"
+    url: "{{ keycloak_url }}{{ keycloak_context }}/admin/realms"
     method: POST
     body: "{{ lookup('template','realm.json.j2') }}"
     validate_certs: no
@@ -37,7 +37,7 @@
 
 - name: Create user federation
   community.general.keycloak_user_federation:
-    auth_keycloak_url: "{{ keycloak_url }}/auth"
+    auth_keycloak_url: "{{ keycloak_url }}{{ keycloak_context }}"
     auth_realm: "{{ keycloak_auth_realm }}"
     auth_username: "{{ keycloak_admin_user }}"
     auth_password: "{{ keycloak_admin_password }}"
@@ -56,7 +56,7 @@
 - name: Create or update a Keycloak client
   community.general.keycloak_client:
     auth_client_id: "{{ keycloak_auth_client }}"
-    auth_keycloak_url: "{{ keycloak_url }}/auth"
+    auth_keycloak_url: "{{ keycloak_url }}{{ keycloak_context }}"
     auth_realm: "{{ keycloak_auth_realm }}"
     auth_username: "{{ keycloak_admin_user }}"
     auth_password: "{{ keycloak_admin_password }}"

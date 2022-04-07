@@ -10,6 +10,7 @@ keycloak_rhsso_enable: False
 keycloak_admin_user: admin
 keycloak_auth_realm: master
 keycloak_auth_client: admin-cli
+keycloak_context: /auth
 
 # administrator console password, this is a required variable
 keycloak_admin_password: ''

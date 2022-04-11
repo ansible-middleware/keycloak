@@ -3,4 +3,5 @@ Role Index
 
 .. toctree::
     keycloak
+    keycloak_quarkus
     keycloak_realm

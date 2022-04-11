@@ -9,6 +9,11 @@ This changelog describes changes after version 0.2.6.
 v1.0.2
 ======
 
+Major Changes
+-------------
+
+- New role for installing keycloak >= 17.0.0 (quarkus) `#29 <https://github.com/ansible-middleware/keycloak/pull/29>`_
+
 Minor Changes
 -------------
 

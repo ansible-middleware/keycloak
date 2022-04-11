@@ -1,7 +1,7 @@
 ---
 - name: "Check if User Already Exists"
   ansible.builtin.uri:
-    url: "{{ keycloak_url }}/auth/admin/realms/{{ keycloak_realm }}/users?username={{ user.username }}"
+    url: "{{ keycloak_url }}{{ keycloak_context }}/admin/realms/{{ keycloak_realm }}/users?username={{ user.username }}"
     validate_certs: no
     headers:
       Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
@@ -9,7 +9,7 @@
 
 - name: "Create User"
   ansible.builtin.uri:
-    url: "{{ keycloak_url }}/auth/admin/realms/{{ keycloak_realm }}/users"
+    url: "{{ keycloak_url }}{{ keycloak_context }}/admin/realms/{{ keycloak_realm }}/users"
     method: POST
     body:
       enabled: true
@@ -27,7 +27,7 @@
 
 - name: "Get User"
   ansible.builtin.uri:
-    url: "{{ keycloak_url }}/auth/admin/realms/{{ keycloak_realm }}/users?username={{ user.username }}"
+    url: "{{ keycloak_url }}{{ keycloak_context }}/admin/realms/{{ keycloak_realm }}/users?username={{ user.username }}"
     validate_certs: no
     headers:
       Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
@@ -35,7 +35,7 @@
 
 - name: "Update User Password"
   ansible.builtin.uri:
-    url: "{{ keycloak_url }}/auth/admin/realms/{{ keycloak_realm }}/users/{{ (keycloak_user.json | first).id }}/reset-password"
+    url: "{{ keycloak_url }}{{ keycloak_context }}/admin/realms/{{ keycloak_realm }}/users/{{ (keycloak_user.json | first).id }}/reset-password"
     method: PUT
     body:
       type: password

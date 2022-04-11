@@ -4,8 +4,13 @@ argument_specs:
             keycloak_host:
                 # line 3 of keycloak_realm/defaults/main.yml
                 default: "localhost"
-                description: "hostname for rest calls"
+                description: "Hostname for rest calls"
                 type: "str"
+            keycloak_context:
+                # line 5 of keycloak_realm/defaults/main.yml
+                default: "/auth"
+                description: "Context path for rest calls"
+                type: "str"                
             keycloak_http_port:
                 # line 4 of keycloak_realm/defaults/main.yml
                 default: 8080

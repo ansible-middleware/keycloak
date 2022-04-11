@@ -1,0 +1,11 @@
+---
+keycloak:
+  home: "{{ keycloak_quarkus_home }}"
+  config_dir: "{{ keycloak_quarkus_config_dir }}"
+  bundle: "{{ keycloak_quarkus_archive }}"
+  service_name: "keycloak"
+  health_url: "http://localhost:8080/realms/master/.well-known/openid-configuration"
+  cli_path: "{{ keycloak_quarkus_home }}/bin/kcadm.sh"
+  service_user: "{{ keycloak_quarkus_service_user }}"
+  service_group: "{{ keycloak_quarkus_service_group }}"
+  offline_install: "{{ keycloak_quarkus_offline_install }}"

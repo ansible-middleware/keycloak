@@ -1,0 +1,34 @@
+---
+- name: Validate admin console password
+  ansible.builtin.assert:
+    that:
+      - keycloak_quarkus_admin_pass | length > 12
+    quiet: True
+    fail_msg: "The console administrator password is empty or invalid. Please set the keycloak_quarkus_admin_pass variable to a 12+ char long string"
+    success_msg: "{{ 'Console administrator password OK' }}"
+
+- name: Validate configuration
+  ansible.builtin.assert:
+    that:
+      - (keycloak_quarkus_ha_enabled and keycloak_quarkus_db_enabled) or (not keycloak_quarkus_ha_enabled and keycloak_quarkus_db_enabled) or (not keycloak_quarkus_ha_enabled and not keycloak_quarkus_db_enabled)
+    quiet: True
+    fail_msg: "Cannot install HA setup without a backend database service. Check keycloak_quarkus_ha_enabled and keycloak_quarkus_db_enabled"
+    success_msg: "{{ 'Configuring HA' if keycloak_quarkus_ha_enabled else 'Configuring standalone' }}"
+
+# - name: Validate credentials
+#   ansible.builtin.assert:
+#     that:
+#       - (rhn_username is defined and keycloak_rhsso_enable) or not keycloak_rhsso_enable or keycloak_offline_install
+#       - (rhn_password is defined and keycloak_rhsso_enable) or not keycloak_rhsso_enable or keycloak_offline_install
+#     quiet: True
+#     fail_msg: "Cannot install Red Hat SSO without RHN credentials. Check rhn_username and rhn_password are defined"
+#     success_msg: "{{ 'Installing Red Hat Single Sign-On' if keycloak_rhsso_enable else 'Installing keycloak.org' }}"
+
+- name: Ensure required packages are installed
+  ansible.builtin.include_tasks: fastpackages.yml
+  vars:
+    packages_list:
+      - "{{ keycloak_quarkus_jvm_package }}"
+      - unzip
+      - procps-ng
+      - initscripts

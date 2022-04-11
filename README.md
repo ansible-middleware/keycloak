@@ -43,6 +43,7 @@ A requirement file is provided to install:
 
 * [`keycloak`](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak/README.md): role for installing the service.
 * [`keycloak_realm`](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak_realm/README.md): role for configuring a realm, user federation(s), clients and users, in an installed service.
+* [`keycloak_quarkus`](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak_quarkus/README.md): role for installing the quarkus variant of keycloak (>= 17.0.0).
 
 
 ## Usage

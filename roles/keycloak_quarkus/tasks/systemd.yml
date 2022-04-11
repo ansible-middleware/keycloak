@@ -1,0 +1,29 @@
+---
+- name: "Configure sysconfig file for keycloak service"
+  become: yes
+  ansible.builtin.template:
+    src: keycloak-sysconfig.j2
+    dest: /etc/sysconfig/keycloak
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart keycloak
+
+- name: "Configure systemd unit file for keycloak service"
+  ansible.builtin.template:
+    src: keycloak.service.j2
+    dest: /etc/systemd/system/keycloak.service
+    owner: root
+    group: root
+    mode: 0644
+  become: yes
+  register: systemdunit
+  notify:
+    - restart keycloak
+
+- name: Reload systemd
+  become: yes
+  ansible.builtin.systemd:
+    daemon_reload: yes
+  when: systemdunit.changed

@@ -1,0 +1,14 @@
+# {{ ansible_managed }}
+[Unit]
+Description=Keycloak Server
+After=network.target
+
+[Service]
+Type=simple
+EnvironmentFile=-/etc/sysconfig/keycloak
+PIDFile={{ keycloak_quarkus_service_pidfile }}
+ExecStart={{ keycloak.home }}/bin/kc.sh start 
+#--http-relative-path={{ keycloak_quarkus_http_relative_path }}
+
+[Install]
+WantedBy=multi-user.target

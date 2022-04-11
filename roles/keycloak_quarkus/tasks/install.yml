@@ -1,0 +1,110 @@
+---
+- name: Validate parameters
+  ansible.builtin.assert:
+    that:
+      - keycloak.home is defined
+      - keycloak_quarkus_service_user is defined
+      - keycloak_quarkus_dest is defined
+      - keycloak_quarkus_archive is defined
+      - keycloak_quarkus_download_url is defined
+      - keycloak_quarkus_version is defined
+    quiet: true
+
+- name: Check for an existing deployment
+  become: yes
+  ansible.builtin.stat:
+    path: "{{ keycloak.home }}"
+  register: existing_deploy
+
+- name: "Create {{ keycloak.service_name }} service user/group"
+  become: yes
+  ansible.builtin.user:
+    name: "{{ keycloak.service_user }}"
+    home: /opt/keycloak
+    system: yes
+    create_home: no
+
+- name: "Create {{ keycloak.service_name }} install location"
+  become: yes
+  ansible.builtin.file:
+    dest: "{{ keycloak_quarkus_dest }}"
+    state: directory
+    owner: "{{ keycloak.service_user }}"
+    group: "{{ keycloak.service_group }}"
+    mode: 0750
+
+## check remote archive
+- name: Set download archive path
+  ansible.builtin.set_fact:
+    archive: "{{ keycloak_quarkus_dest }}/{{ keycloak.bundle }}"
+
+- name: Check download archive path
+  become: yes
+  ansible.builtin.stat:
+    path: "{{ archive }}"
+  register: archive_path
+
+## download to controller
+- name: Check local download archive path
+  ansible.builtin.stat:
+    path: "{{ lookup('env', 'PWD') }}"
+  register: local_path
+  delegate_to: localhost
+
+- name: Download keycloak archive
+  ansible.builtin.get_url:
+    url: "{{ keycloak_quarkus_download_url }}"
+    dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
+  delegate_to: localhost
+  when:
+    - archive_path is defined
+    - archive_path.stat is defined
+    - not archive_path.stat.exists
+    - not keycloak.offline_install
+
+- name: Check downloaded archive
+  ansible.builtin.stat:
+    path: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
+  register: local_archive_path
+  delegate_to: localhost
+
+## copy and unpack
+- name: Copy archive to target nodes
+  ansible.builtin.copy:
+    src: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
+    dest: "{{ archive }}"
+    owner: "{{ keycloak.service_user }}"
+    group: "{{ keycloak.service_group }}"
+    mode: 0750
+  register: new_version_downloaded
+  when:
+    - not archive_path.stat.exists
+    - local_archive_path.stat is defined
+    - local_archive_path.stat.exists
+  become: yes
+
+- name: "Check target directory: {{ keycloak.home }}"
+  ansible.builtin.stat:
+    path: "{{ keycloak.home }}"
+  register: path_to_workdir
+  become: yes
+
+- name: "Extract Keycloak archive on target"
+  ansible.builtin.unarchive:
+    remote_src: yes
+    src: "{{ archive }}"
+    dest: "{{ keycloak_quarkus_dest }}"
+    creates: "{{ keycloak.home }}"
+    owner: "{{ keycloak.service_user }}"
+    group: "{{ keycloak.service_group }}"
+  become: yes
+  when:
+    - new_version_downloaded.changed or not path_to_workdir.stat.exists
+  notify:
+    - restart keycloak
+
+- name: Inform decompression was not executed
+  ansible.builtin.debug:
+    msg: "{{ keycloak.home }} already exists and version unchanged, skipping decompression"
+  when:
+    - not new_version_downloaded.changed and path_to_workdir.stat.exists

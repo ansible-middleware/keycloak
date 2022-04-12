@@ -3,12 +3,12 @@
   hosts: all
   vars: 
     keycloak_quarkus_admin_pass: "remembertochangeme"
+    keycloak_admin_password: "remembertochangeme"
     keycloak_realm: TestRealm
   roles:
     - role: keycloak_quarkus
     - role: keycloak_realm
       keycloak_context: ''
-      keycloak_admin_password: "remembertochangeme"
       keycloak_client_default_roles:
         - TestRoleAdmin
         - TestRoleUser

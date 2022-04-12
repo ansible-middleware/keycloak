@@ -3,6 +3,9 @@
   hosts: all
   vars: 
     keycloak_admin_password: "remembertochangeme"
+    keycloak_config_override_template: custom.xml.j2
+    keycloak_http_port: 8081
+    keycloak_management_http_port: 19990
   roles:
     - role: keycloak
   tasks:

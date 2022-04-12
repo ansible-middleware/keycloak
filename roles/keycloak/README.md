@@ -99,6 +99,7 @@ Role Defaults
 |`keycloak_jboss_home` | Installation work directory | `{{ keycloak_rhsso_installdir if keycloak_rhsso_enable else keycloak_installdir }}` |
 |`keycloak_config_dir` | Path for configuration | `{{ keycloak_jboss_home }}/standalone/configuration` |
 |`keycloak_config_path_to_standalone_xml` | Custom path for configuration | `{{ keycloak_jboss_home }}/standalone/configuration/{{ keycloak_config_standalone_xml }}` |
+|`keycloak_config_override_template` | Path to custom template for standalone.xml configuration | `''` |
 |`keycloak_auth_realm` | Name for rest authentication realm | `master` |
 |`keycloak_auth_client` | Authentication client for configuration REST calls | `admin-cli` |
 |`keycloak_force_install` | Remove pre-existing versions of service | `False` |

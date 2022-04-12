@@ -1,0 +1,53 @@
+---
+dependency:
+  name: shell
+  command: ansible-galaxy collection install -r molecule/default/requirements.yml -p $HOME/.ansible/collections --force-with-deps
+driver:
+  name: docker
+lint: |
+  ansible-lint --version
+  ansible-lint -v
+platforms:
+  - name: instance
+    image: registry.access.redhat.com/ubi8/ubi-init:latest
+    pre_build_image: true
+    privileged: true
+    command: "/usr/sbin/init"
+    port_bindings:
+      - "8080/tcp"
+      - "8443/tcp"
+      - "8009/tcp"      
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      interpreter_python: auto_silent
+    ssh_connection:
+      pipelining: false
+  playbooks:
+    prepare: prepare.yml
+    converge: converge.yml
+    verify: verify.yml
+  inventory:
+    host_vars:
+      localhost:
+        ansible_python_interpreter: "{{ ansible_playbook_python }}"
+  env:
+    ANSIBLE_FORCE_COLOR: "true"        
+verifier:
+  name: ansible
+scenario:
+  test_sequence:
+    - dependency
+    - lint
+    - cleanup
+    - destroy
+    - syntax
+    - create
+    - prepare
+    - converge
+    - idempotence
+    - side_effect
+    - verify
+    - cleanup
+    - destroy

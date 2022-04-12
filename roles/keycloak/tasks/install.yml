@@ -181,17 +181,17 @@
       jdbc_driver_module_name: "{{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_name }}"
   when: keycloak_jdbc[keycloak_jdbc_engine].enabled
 
-- name: "Deploy {{ keycloak.service_name }} config to {{ keycloak_config_path_to_standalone_xml }}"
+- name: "Deploy {{ keycloak.service_name }} config to {{ keycloak_config_path_to_standalone_xml }} from {{ keycloak.config_template_source }}"
   become: yes
   ansible.builtin.template:
-    src: templates/standalone.xml.j2
+    src: "templates/{{ keycloak.config_template_source }}"
     dest: "{{ keycloak_config_path_to_standalone_xml }}"
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
     mode: 0640
   notify:
     - restart keycloak
-  when: not keycloak_remotecache.enabled
+  when: not keycloak_remotecache.enabled or keycloak_config_override_template|length > 0
 
 - name: "Deploy {{ keycloak.service_name }} config with remote cache store to {{ keycloak_config_path_to_standalone_xml }}"
   become: yes

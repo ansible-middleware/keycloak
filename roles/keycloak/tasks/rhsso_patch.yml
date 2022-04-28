@@ -83,5 +83,5 @@
         success_msg: "Patch installation successful"
 
 - name: "Skipping patch"
-  debug:
+  ansible.builtin.debug:
     msg: "Latest cumulative patch {{ rhsso_rhn_ids[keycloak_rhsso_version].latest_cp.v }} already installed, skipping patch installation."

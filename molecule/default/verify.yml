@@ -23,6 +23,7 @@
         method: POST
         body: "client_id=admin-cli&username=admin&password={{ keycloak_admin_password }}&grant_type=password"
         validate_certs: no
+      register: keycloak_auth_response
       until: keycloak_auth_response.status == 200
       retries: 2
       delay: 2

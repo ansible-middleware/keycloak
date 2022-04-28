@@ -17,7 +17,7 @@ checkEnvVar() {
 #  for testing outside systemd
 . /etc/sysconfig/keycloak
 
-readonly KEYCLOAK_HOME={{ keycloak_jboss_home }}
+readonly KEYCLOAK_HOME={{ keycloak.home }}
 readonly KEYCLOAK_BIND_ADDRESS=${KEYCLOAK_BIND_ADDRESS}
 readonly KEYCLOAK_HTTP_PORT=${KEYCLOAK_HTTP_PORT}
 readonly KEYCLOAK_HTTPS_PORT=${KEYCLOAK_HTTPS_PORT}
@@ -27,7 +27,7 @@ readonly KEYCLOAK_PIDFILE={{ keycloak_service_pidfile }}
 
 set -u
 if [ ! -d "${KEYCLOAK_HOME}" ]; then
-  echo "KEYCLOAK_HOME (${KEYCLOAK_HOME}) is not a director or does not exists."
+  echo "KEYCLOAK_HOME (${KEYCLOAK_HOME}) is not a directory or does not exists."
   exit 1
 fi
 

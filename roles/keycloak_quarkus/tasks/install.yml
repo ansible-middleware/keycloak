@@ -52,9 +52,10 @@
   delegate_to: localhost
 
 - name: Download keycloak archive
-  ansible.builtin.get_url:
+  ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
     url: "{{ keycloak_quarkus_download_url }}"
     dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
+    mode: 0640
   delegate_to: localhost
   when:
     - archive_path is defined

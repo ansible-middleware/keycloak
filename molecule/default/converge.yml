@@ -3,6 +3,7 @@
   hosts: all
   vars: 
     keycloak_admin_password: "remembertochangeme"
+    keycloak_jvm_package: java-11-openjdk-headless
   roles:
     - role: keycloak
   tasks:

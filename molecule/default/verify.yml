@@ -1,6 +1,11 @@
 ---
 - name: Verify
   hosts: all
+  vars:
+    keycloak_admin_password: "remembertochangeme"
+    keycloak_jvm_package: java-11-openjdk-headless
+    keycloak_port: http://localhost:8080
+    keycloak_management_port: http://localhost:9990
   tasks:
     - name: Populate service facts
       ansible.builtin.service_facts:
@@ -9,3 +14,16 @@
         that:
           - ansible_facts.services["keycloak.service"]["state"] == "running"
           - ansible_facts.services["keycloak.service"]["status"] == "enabled"
+    - name: Verify we are running on requested jvm
+      shell: |
+        ps -ef | grep /usr/lib/jvm/java-11 | grep -v grep
+    - name: Verify token api call
+      ansible.builtin.uri:
+        url: "{{ keycloak_port }}/auth/realms/master/protocol/openid-connect/token"
+        method: POST
+        body: "client_id=admin-cli&username=admin&password={{ keycloak_admin_password }}&grant_type=password"
+        validate_certs: no
+      register: keycloak_auth_response
+      until: keycloak_auth_response.status == 200
+      retries: 2
+      delay: 2

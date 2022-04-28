@@ -71,9 +71,10 @@
   delegate_to: localhost
 
 - name: Download keycloak archive
-  ansible.builtin.get_url:
+  ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
     url: "{{ keycloak_download_url }}"
     dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
+    mode: 0640
   delegate_to: localhost
   when:
     - archive_path is defined
@@ -99,9 +100,10 @@
     - keycloak_rhn_url in keycloak_rhsso_download_url
 
 - name: Download rhsso archive from alternate location
-  ansible.builtin.get_url:
+  ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
     url: "{{ keycloak_rhsso_download_url }}"
     dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
+    mode: 0640
   delegate_to: localhost
   when:
     - archive_path is defined

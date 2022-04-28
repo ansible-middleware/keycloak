@@ -81,6 +81,9 @@ argument_specs:
                 default: "java-1.8.0-openjdk-devel"
                 description: "RHEL java package runtime rpm"
                 type: "str"
+            keycloak_java_home:
+                description: "JAVA_HOME of installed JRE, leave empty for using specified keycloak_jvm_package RPM path"
+                type: "str"
             keycloak_dest:
                 # line 24 of keycloak/defaults/main.yml
                 default: "/opt/keycloak"

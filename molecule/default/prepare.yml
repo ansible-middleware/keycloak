@@ -8,5 +8,7 @@
 
     - name: Install sudo
       ansible.builtin.yum:
-        name: sudo
+        name:
+          - sudo
+          - java-1.8.0-openjdk
         state: present

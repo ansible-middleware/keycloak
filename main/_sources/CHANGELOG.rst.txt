@@ -19,6 +19,11 @@ Minor Changes
 
 - Add ``keycloak_config_override_template`` parameter for passing a custom xml config template `#30 <https://github.com/ansible-middleware/keycloak/pull/30>`_
 
+Bugfixes
+--------
+
+- Make sure systemd unit starts with selected java JVM `#31 <https://github.com/ansible-middleware/keycloak/pull/31>`_
+
 v1.0.2
 ======
 

@@ -213,33 +213,37 @@
 <td class="text-left"><p>TLS management port</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">9993</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_java_opts</span></code></p></td>
-<td class="text-left"><p>Additional JVM options</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">-Xms1024m</span> <span class="pre">-Xmx2048m</span></code></p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_prefer_ipv4</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_prefer_ipv4</span></code></p></td>
 <td class="text-left"><p>Prefer IPv4 stack and addresses for port binding</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_config_standalone_xml</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_config_standalone_xml</span></code></p></td>
 <td class="text-left"><p>filename for configuration</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak.xml</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_user</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_user</span></code></p></td>
 <td class="text-left"><p>posix account username</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_group</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_group</span></code></p></td>
 <td class="text-left"><p>posix account group</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_pidfile</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_pidfile</span></code></p></td>
 <td class="text-left"><p>pid file path for service</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/run/keycloak.pid</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_jvm_package</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_jvm_package</span></code></p></td>
 <td class="text-left"><p>RHEL java package runtime</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">java-1.8.0-openjdk-devel</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_java_home</span></code></p></td>
+<td class="text-left"><p>JAVA_HOME of installed JRE, leave empty for using specified keycloak_jvm_package RPM path</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_java_opts</span></code></p></td>
+<td class="text-left"><p>Additional JVM options</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">-Xms1024m</span> <span class="pre">-Xmx2048m</span></code></p></td>
 </tr>
 </tbody>
 </table>

@@ -31,7 +31,7 @@
     dest: "{{ patch_archive }}"
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
-    mode: 0750
+    mode: 0640
   register: new_version_downloaded
   when:
     - not patch_archive_path.stat.exists

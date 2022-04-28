@@ -6,4 +6,4 @@
   collections:
     - middleware_automation.keycloak
   roles:
-    - middleware_automation.keycloak.keycloak
+    - keycloak

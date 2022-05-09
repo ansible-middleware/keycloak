@@ -65,7 +65,7 @@ Role Defaults
 |`keycloak_service_user`| posix account username | `keycloak` |
 |`keycloak_service_group`| posix account group | `keycloak` |
 |`keycloak_service_pidfile`| pid file path for service | `/run/keycloak.pid` |
-|`keycloak_jvm_package`| RHEL java package runtime | `java-1.8.0-openjdk-devel` |
+|`keycloak_jvm_package`| RHEL java package runtime | `java-1.8.0-openjdk-headless` |
 |`keycloak_java_home`| JAVA_HOME of installed JRE, leave empty for using specified keycloak_jvm_package RPM path | `None` |
 |`keycloak_java_opts`| Additional JVM options | `-Xms1024m -Xmx2048m` |
 

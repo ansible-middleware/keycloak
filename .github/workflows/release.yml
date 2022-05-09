@@ -19,6 +19,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          token: ${{ secrets.TRIGGERING_PAT }}
 
       - name: Set up Python
         uses: actions/setup-python@v1

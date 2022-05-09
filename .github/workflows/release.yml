@@ -50,35 +50,17 @@ jobs:
         run: |
           ansible-galaxy collection build .
 
-      - name: Scan PR merges from latest tag
-        run: |
-          TYPES=("minor_changes" "major_changes" "bugfixes" "deprecated_features" "removed_features" "breaking_changes")
-          TAG=$(git describe --abbrev=0 --tags)
-          PRS=($(comm -12 <(git log --oneline ${TAG}.. --format="tformat:%H" | sort ) <(hub pr list -s all -f '%sm%n' --color=never | sort )))
-          IFS=$'\n' FRAGMENTS=($(hub pr list -s all -f '%sm~%I~%L~%t~%n' --color=never| grep -P "$(echo "^(${PRS[@]})" | tr ' ' '|')"))
-          for frag in "${FRAGMENTS[@]}"; do
-            PR=$(echo $frag|cut -d~ -f2)
-            type="$(echo $frag|cut -d~ -f3)"
-            msg="$(echo $frag|cut -d~ -f4|sed 's/`/``/g')"
-            if [[ "$type" != "" && "${TYPES[*]}" =~ "${type}" ]]; then
-              echo -e "$type:\n  - >\n    $msg \`#${PR} <https://github.com/ansible-middleware/keycloak/pull/${PR}>\`_" \
-                > changelogs/fragments/${PR}.yaml
-            fi
-          done
-          antsibull-changelog lint -vvv
-          antsibull-changelog generate
-          antsibull-changelog release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Commit changelogs
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git diff --minimal --output-indicator-new=' ' -U0 --no-indent-heuristic CHANGELOG.rst | grep "^ "| sed -e 's/`\(#[0-9]\+\) <.*_/\1/g' > gh-release.md
-          git add CHANGELOG.rst changelogs/changelog.yaml
-          git commit -m "Update changelog for release ${{ steps.get_version.outputs.TAG_VERSION }}" || true
-          git push origin
+      - name: Create changelog and documentation
+        uses: ansible-middleware/collection-docs-action@main
+        with:
+          collection_fqcn: middleware_automation.keycloak
+          collection_repo: ansible-middleware/keycloak
+          dependencies: false
+          commit_changelog: true
+          commit_ghpages: false
+          changelog_release: true
+          generate_docs: false
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish collection
         env:

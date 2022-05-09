@@ -32,9 +32,9 @@
       - keycloak_db_user | length > 0
       - keycloak_db_pass | length > 0
     quiet: True
-    when: keycloak_db_enabled
     fail_msg: "Configuration for the JDBC persistence is invalid or incomplete"
     success_msg: "Configuring JDBC persistence using {{ keycloak_jdbc_engine }} database"
+  when: keycloak_db_enabled
 
 - name: Ensure required packages are installed
   ansible.builtin.include_tasks: fastpackages.yml

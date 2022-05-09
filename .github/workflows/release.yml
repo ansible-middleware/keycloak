@@ -14,6 +14,8 @@ jobs:
       deployments: write
       packages: write
       pages: write
+    outputs:
+      tag_version: ${{ steps.get_version.outputs.TAG_VERSION }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -97,5 +99,5 @@ jobs:
         with:
           token: ${{ secrets.TRIGGERING_PAT }}
           repository: ${{ matrix.repo }}
-          event-type: "Dependency released - Keycloak v${{ steps.get_version.outputs.TAG_VERSION }}"
+          event-type: "Dependency released - Keycloak v${{ needs.release.outputs.tag_version }}"
           client-payload: '{ "github": ${{toJson(github)}} }'

@@ -78,7 +78,7 @@ argument_specs:
                 type: "bool"
             keycloak_jvm_package:
                 # line 23 of keycloak/defaults/main.yml
-                default: "java-1.8.0-openjdk-devel"
+                default: "java-1.8.0-openjdk-headless"
                 description: "RHEL java package runtime rpm"
                 type: "str"
             keycloak_java_home:

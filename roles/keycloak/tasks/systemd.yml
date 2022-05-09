@@ -1,3 +1,4 @@
+---
 - name: "Configure {{ keycloak.service_name }} service script wrapper"
   become: yes
   ansible.builtin.template:

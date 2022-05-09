@@ -4,7 +4,7 @@
     that:
       - keycloak_admin_password | length > 12
     quiet: True
-    fail_msg: "The console administrator password is empty or invalid. Please set the keycloak_admin_password variable to a 16+ char long string"
+    fail_msg: "The console administrator password is empty or invalid. Please set the keycloak_admin_password variable to a 12+ char long string"
     success_msg: "{{ 'Console administrator password OK' }}"
 
 - name: Validate configuration
@@ -23,6 +23,18 @@
     quiet: True
     fail_msg: "Cannot install Red Hat SSO without RHN credentials. Check rhn_username and rhn_password are defined"
     success_msg: "{{ 'Installing Red Hat Single Sign-On' if keycloak_rhsso_enable else 'Installing keycloak.org' }}"
+
+- name: Validate persistence configuration
+  ansible.builtin.assert:
+    that:
+      - keycloak_jdbc_engine is defined and keycloak_jdbc_engine in [ 'postgres', 'mariadb' ]
+      - keycloak_jdbc_url | length > 0
+      - keycloak_db_user | length > 0
+      - keycloak_db_pass | length > 0
+    quiet: True
+    when: keycloak_db_enabled
+    fail_msg: "Configuration for the JDBC persistence is invalid or incomplete"
+    success_msg: "Configuring JDBC persistence using {{ keycloak_jdbc_engine }} database"
 
 - name: Ensure required packages are installed
   ansible.builtin.include_tasks: fastpackages.yml

@@ -38,3 +38,23 @@ releases:
     - 25.yaml
     - 26.yaml
     release_date: '2022-04-01'
+  1.0.3:
+    changes:
+      bugfixes:
+      - 'Make sure systemd unit starts with selected java JVM `#31 <https://github.com/ansible-middleware/keycloak/pull/31>`_
+
+        '
+      major_changes:
+      - 'New role for installing keycloak >= 17.0.0 (quarkus) `#29 <https://github.com/ansible-middleware/keycloak/pull/29>`_
+
+        '
+      minor_changes:
+      - 'Add ``keycloak_config_override_template`` parameter for passing a custom
+        xml config template `#30 <https://github.com/ansible-middleware/keycloak/pull/30>`_
+
+        '
+    fragments:
+    - 29.yaml
+    - 30.yaml
+    - 31.yaml
+    release_date: '2022-05-09'

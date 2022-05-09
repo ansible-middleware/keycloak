@@ -6,6 +6,24 @@ middleware_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v1.0.3
+======
+
+Major Changes
+-------------
+
+- New role for installing keycloak >= 17.0.0 (quarkus) `#29 <https://github.com/ansible-middleware/keycloak/pull/29>`_
+
+Minor Changes
+-------------
+
+- Add ``keycloak_config_override_template`` parameter for passing a custom xml config template `#30 <https://github.com/ansible-middleware/keycloak/pull/30>`_
+
+Bugfixes
+--------
+
+- Make sure systemd unit starts with selected java JVM `#31 <https://github.com/ansible-middleware/keycloak/pull/31>`_
+
 v1.0.2
 ======
 

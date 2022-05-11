@@ -1,7 +1,7 @@
 ---
 # internal variables below
 rhsso_rhn_ids:
-  '7.5.0':
+  '7.5.0': # noqa vars_in_vars_files_have_valid_names
     id: '101971'
     latest_cp:
       id: '103836'

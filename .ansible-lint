@@ -16,12 +16,14 @@ enable_list:
 warn_list:
   - role_vars_start_with_role_name
   - vars_in_vars_files_have_valid_names
-  - vars_should_not_be_used
   - experimental
   - ignore-errors
   - no-handler
   - fqcn-builtins
   - no-log-password
+
+skip_list:
+  - vars_should_not_be_used
 
 use_default_rules: true
 parseable: true

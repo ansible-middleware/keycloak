@@ -16,7 +16,8 @@
     path: "{{ keycloak_jboss_home }}"
   register: existing_deploy
 
-- block:
+- name: Stop and restart if existing deployment exists and install forced
+  block:
     - name: "Stop the old {{ keycloak.service_name }} service"
       become: yes
       ignore_errors: yes

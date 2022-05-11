@@ -58,3 +58,5 @@ releases:
     - 30.yaml
     - 31.yaml
     release_date: '2022-05-09'
+  1.0.4:
+    release_date: '2022-05-11'

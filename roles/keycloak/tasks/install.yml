@@ -74,7 +74,7 @@
   ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
     url: "{{ keycloak_download_url }}"
     dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
-    mode: 0640
+    mode: 0644
   delegate_to: localhost
   when:
     - archive_path is defined
@@ -103,7 +103,7 @@
   ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
     url: "{{ keycloak_rhsso_download_url }}"
     dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
-    mode: 0640
+    mode: 0644
   delegate_to: localhost
   when:
     - archive_path is defined
@@ -126,7 +126,7 @@
     dest: "{{ archive }}"
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
-    mode: 0750
+    mode: 0640
   register: new_version_downloaded
   when:
     - not archive_path.stat.exists

@@ -1,0 +1,19 @@
+# {{ ansible_managed }}
+{% if keycloak_quarkus_ha_enabled %}
+quarkus.infinispan-client.server-list={{ keycloak_quarkus_ispn_url }}
+quarkus.infinispan-client.client-intelligence=HASH_DISTRIBUTION_AWARE
+quarkus.infinispan-client.use-auth=true
+quarkus.infinispan-client.auth-username={{ keycloak_quarkus_ispn_user }}
+quarkus.infinispan-client.auth-password={{ keycloak_quarkus_ispn_pass }}
+quarkus.infinispan-client.auth-realm=default
+quarkus.infinispan-client.auth-server-name=infinispan
+quarkus.infinispan-client.sasl-mechanism={{ keycloak_quarkus_ispn_sasl_mechanism }}
+{% if keycloak_quarkus_ispn_use_ssl %}
+quarkus.infinispan-client.trust-store={{ keycloak_quarkus_ispn_trust_store_path }}
+quarkus.infinispan-client.trust-store-password={{ keycloak_quarkus_ispn_trust_store_password }}
+quarkus.infinispan-client.trust-store-type=jks
+{% endif %}
+#quarkus.infinispan-client.use-schema-registration=true
+#quarkus.infinispan-client.auth-client-subject
+#quarkus.infinispan-client.auth-callback-handler
+{% endif %}

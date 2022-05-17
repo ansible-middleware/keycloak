@@ -7,6 +7,13 @@ Install [keycloak](https://keycloak.org/) >= 17.0.0 (quarkus) server configurati
 Role Defaults
 -------------
 
+* Installation options
+
+| Variable | Description | Default |
+|:---------|:------------|:--------|
+|`keycloak_quarkus_version`| keycloak.org package version | `17.0.1` |
+
+
 * Service configuration
 
 | Variable | Description | Default |
@@ -27,6 +34,10 @@ Role Defaults
 |`keycloak_quarkus_jvm_package`| RHEL java package runtime | `java-11-openjdk-headless` |
 |`keycloak_quarkus_frontend_url`| Service public URL | `http://localhost:8080/auth` |
 |`keycloak_quarkus_http_relative_path` | Service context path | `auth` |
+|`keycloak_quarkus_http_enabled`| Enable listener on HTTP port | `True` |
+|`keycloak_quarkus_https_enabled`| Enable listener on HTTPS port | `False` |
+|`keycloak_quarkus_key_file`| The file path to a private key in PEM format | `conf/server.key.pem` |
+|`keycloak_quarkus_cert_file`| The file path to a server certificate or certificate chain in PEM format | `conf/server.crt.pem` |
 
 
 * Database configuration
@@ -70,6 +81,7 @@ Role Defaults
 | Variable | Description | Default |
 |:---------|:------------|:--------|
 |`keycloak_quarkus_metrics_enabled`| Whether to enable metrics | `False` |
+|`keycloak_quarkus_health_enabled`| If the server should expose health check endpoints | `True` |
 |`keycloak_quarkus_archive` | keycloak install archive filename | `keycloak-{{ keycloak_quarkus_version }}.zip` |
 |`keycloak_quarkus_installdir` | Installation path | `{{ keycloak_quarkus_dest }}/keycloak-{{ keycloak_quarkus_version }}` |
 |`keycloak_quarkus_home` | Installation work directory | `{{ keycloak_quarkus_installdir }}` |
@@ -79,14 +91,18 @@ Role Defaults
 |`keycloak_force_install` | Remove pre-existing versions of service | `False` |
 |`keycloak_url` | URL for configuration rest calls | `http://{{ keycloak_quarkus_host }}:{{ keycloak_http_port }}` |
 |`keycloak_management_url` | URL for management console rest calls | `http://{{ keycloak_quarkus_host }}:{{ keycloak_management_http_port }}` |
+|`keycloak_quarkus_log`| Enable one or more log handlers in a comma-separated list | `file` |
+|`keycloak_quarkus_log_level`| The log level of the root category or a comma-separated list of individual categories and their levels | `info` |
+|`keycloak_quarkus_log_file`| Set the log file path and filename relative to keycloak home | `data/log/keycloak.log` |
+|`keycloak_quarkus_log_format`| Set a format specific to file log entries | `%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n` |
 
 
 Role Variables
 --------------
 
-| Variable | Description |
-|:---------|:------------|
-|`keycloak_quarkus_admin_pass`| Password of console admin account |
+| Variable | Description | Required |
+|:---------|:------------|----------|
+|`keycloak_quarkus_admin_pass`| Password of console admin account | `yes` |
 
 
 License

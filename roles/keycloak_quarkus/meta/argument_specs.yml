@@ -31,6 +31,9 @@ argument_specs:
                 default: "java-11-openjdk-headless"
                 description: "RHEL java package runtime"
                 type: "str"
+            keycloak_quarkus_java_home:
+                description: "JAVA_HOME of installed JRE, leave empty for using specified keycloak_jvm_package RPM path"
+                type: "str"
             keycloak_quarkus_dest:
                 # line 13 of defaults/main.yml
                 default: "/opt/keycloak"

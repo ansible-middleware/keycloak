@@ -1,6 +1,5 @@
 ---
 # tasks file for keycloak
-
 - name: Check prerequisites
   ansible.builtin.include_tasks: prereqs.yml
   tags:
@@ -53,5 +52,6 @@
 - name: Link default logs directory
   ansible.builtin.file:
     state: link
-    src: "{{ keycloak.home }}/{{ keycloak.log_file }}"
+    src: "{{ keycloak.home }}/{{ keycloak.log.file }}"
     dest: /var/log/keycloak
+    force: yes

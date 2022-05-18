@@ -7,7 +7,8 @@ After=network.target
 Type=simple
 EnvironmentFile=-/etc/sysconfig/keycloak
 PIDFile={{ keycloak_quarkus_service_pidfile }}
-ExecStart={{ keycloak.home }}/bin/kc.sh start --auto-build 
+ExecStart={{ keycloak.home }}/bin/kc.sh start --auto-build --log={{ keycloak_quarkus_log }}
+User={{ keycloak.service_user }}
 
 [Install]
 WantedBy=multi-user.target

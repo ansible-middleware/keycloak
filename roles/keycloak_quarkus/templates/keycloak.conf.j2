@@ -22,8 +22,6 @@ https-port={{ keycloak_quarkus_https_port }}
 https-certificate-file={{ keycloak.home }}/{{ keycloak_quarkus_cert_file}}
 https-certificate-key-file={{ keycloak.home }}/{{ keycloak_quarkus_key_file }}
 {% endif %}
-# Do not attach route to cookies and rely on the session affinity capabilities from reverse proxy
-#spi-sticky-session-encoder-infinispan-should-attach-route=false
 
 # Hostname for the Keycloak server.
 hostname={{ keycloak_quarkus_host }}
@@ -37,13 +35,13 @@ cache-stack=tcp
 {% endif %}
 
 # Proxy
-# The proxy address forwarding mode if the server is behind a reverse proxy. [edge, reencrypt, passthrough]
-#proxy=
+proxy={{ keycloak_quarkus_proxy_mode }}
+# Do not attach route to cookies and rely on the session affinity capabilities from reverse proxy
+#spi-sticky-session-encoder-infinispan-should-attach-route=false
 
 # Logging
-# The format of log entries.
 #log-format=%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n
-log=file
+log={{ keycloak_quarkus_log }}
 log-level={{ keycloak.log.level }}
 log-file={{ keycloak.log.file }}
 log-file-format={{ keycloak.log.format }}

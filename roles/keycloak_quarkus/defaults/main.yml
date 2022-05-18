@@ -1,6 +1,6 @@
 ---
 ### Configuration specific to keycloak
-keycloak_quarkus_version: 17.0.1
+keycloak_quarkus_version: 18.0.0
 keycloak_quarkus_archive: "keycloak-{{ keycloak_quarkus_version }}.zip"
 keycloak_quarkus_download_url: "https://github.com/keycloak/keycloak/releases/download/{{ keycloak_quarkus_version }}/{{ keycloak_quarkus_archive }}"  
 keycloak_quarkus_installdir: "{{ keycloak_quarkus_dest }}/keycloak-{{ keycloak_quarkus_version }}"
@@ -10,6 +10,7 @@ keycloak_quarkus_offline_install: False
 
 ### Install location and service settings
 keycloak_quarkus_jvm_package: java-11-openjdk-headless
+keycloak_quarkus_java_home:
 keycloak_quarkus_dest: /opt/keycloak
 keycloak_quarkus_home: "{{ keycloak_quarkus_installdir }}"
 keycloak_quarkus_config_dir: "{{ keycloak_quarkus_home }}/conf"
@@ -46,6 +47,9 @@ keycloak_quarkus_db_enabled: "{{ True if keycloak_quarkus_ha_enabled else False 
 ### keycloak frontend url
 keycloak_quarkus_http_relative_path: auth
 keycloak_quarkus_frontend_url: http://localhost:8080/auth
+
+# proxy address forwarding mode if the server is behind a reverse proxy. [edge, reencrypt, passthrough]
+keycloak_quarkus_proxy_mode: edge
 
 keycloak_quarkus_metrics_enabled: False
 keycloak_quarkus_health_enabled: True

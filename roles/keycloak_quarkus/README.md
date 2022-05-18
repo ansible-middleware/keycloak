@@ -27,11 +27,12 @@ Role Defaults
 |`keycloak_quarkus_https_port`| TLS HTTP port | `8443` |
 |`keycloak_quarkus_ajp_port`| AJP port | `8009` |
 |`keycloak_quarkus_jgroups_port`| jgroups cluster tcp port | `7600` |
-|`keycloak_quarkus_java_opts`| Additional JVM options | `-Xms1024m -Xmx2048m` |
 |`keycloak_quarkus_service_user`| Posix account username | `keycloak` |
 |`keycloak_quarkus_service_group`| Posix account group | `keycloak` |
 |`keycloak_quarkus_service_pidfile`| Pid file path for service | `/run/keycloak.pid` |
 |`keycloak_quarkus_jvm_package`| RHEL java package runtime | `java-11-openjdk-headless` |
+|`keycloak_quarkus_java_home`| JAVA_HOME of installed JRE, leave empty for using specified keycloak_quarkus_jvm_package RPM path | `None` |
+|`keycloak_quarkus_java_opts`| Additional JVM options | `-Xms1024m -Xmx2048m` |
 |`keycloak_quarkus_frontend_url`| Service public URL | `http://localhost:8080/auth` |
 |`keycloak_quarkus_http_relative_path` | Service context path | `auth` |
 |`keycloak_quarkus_http_enabled`| Enable listener on HTTP port | `True` |

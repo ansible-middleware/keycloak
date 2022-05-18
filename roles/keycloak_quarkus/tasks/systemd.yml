@@ -1,4 +1,13 @@
 ---
+- name: Determine JAVA_HOME for selected JVM RPM  # noqa blocked_modules
+  ansible.builtin.shell: |
+    set -o pipefail
+    rpm -ql {{ keycloak_quarkus_jvm_package }} | grep -Po '/usr/lib/jvm/.*(?=/bin/java$)'
+  args:
+    executable: /bin/bash
+  changed_when: False
+  register: rpm_java_home
+
 - name: "Configure sysconfig file for keycloak service"
   become: yes
   ansible.builtin.template:
@@ -7,6 +16,8 @@
     owner: root
     group: root
     mode: 0644
+  vars:
+    keycloak_rpm_java_home: "{{ rpm_java_home.stdout }}"
   notify:
     - restart keycloak
 

@@ -31,6 +31,9 @@ argument_specs:
                 default: "java-11-openjdk-headless"
                 description: "RHEL java package runtime"
                 type: "str"
+            keycloak_quarkus_java_home:
+                description: "JAVA_HOME of installed JRE, leave empty for using specified keycloak_jvm_package RPM path"
+                type: "str"
             keycloak_quarkus_dest:
                 # line 13 of defaults/main.yml
                 default: "/opt/keycloak"
@@ -91,11 +94,27 @@ argument_specs:
                 default: "localhost"
                 description: "hostname"
                 type: "str"
+            keycloak_quarkus_http_enabled:
+                default: true
+                description: "Enable listener on HTTP port"
+                type: "bool"                
             keycloak_quarkus_http_port:
                 # line 29 of defaults/main.yml
                 default: 8080
                 description: "HTTP port"
                 type: "int"
+            keycloak_quarkus_https_enabled:
+                default: false
+                description: "Enable listener on HTTPS port"
+                type: "bool" 
+            keycloak_quarkus_key_file:
+                default: "conf/server.key.pem"
+                description: "The file path to a private key in PEM format"
+                type: "str"
+            keycloak_quarkus_cert_file:
+                default: "conf/server.crt.pem"
+                description: "The file path to a server certificate or certificate chain in PEM format"
+                type: "str"
             keycloak_quarkus_https_port:
                 # line 30 of defaults/main.yml
                 default: 8443
@@ -140,6 +159,10 @@ argument_specs:
                 # line 43 of defaults/main.yml
                 default: false
                 description: "Whether to enable metrics"
+                type: "bool"
+            keycloak_quarkus_health_enabled:
+                default: true
+                description: "If the server should expose health check endpoints"
                 type: "bool"
             keycloak_quarkus_ispn_user:
                 # line 46 of defaults/main.yml
@@ -201,3 +224,23 @@ argument_specs:
                 default: "{{ keycloak_quarkus_default_jdbc[keycloak_quarkus_jdbc_engine].version }}"
                 description: "Version for JDBC driver"
                 type: "str"
+            keycloak_quarkus_log:
+                default: "file"
+                type: "str"
+                description: "Enable one or more log handlers in a comma-separated list"
+            keycloak_quarkus_log_level:
+                default: "info"
+                type: "str"
+                description: "The log level of the root category or a comma-separated list of individual categories and their levels"
+            keycloak_quarkus_log_file:
+                default: "data/log/keycloak.log"
+                type: "str"
+                description: "Set the log file path and filename relative to keycloak home"
+            keycloak_quarkus_log_format:
+                default: '%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n'
+                type: "str"
+                description: "Set a format specific to file log entries"
+            keycloak_quarkus_proxy_mode:
+                default: 'edge'
+                type: "str"
+                description: "The proxy address forwarding mode if the server is behind a reverse proxy"

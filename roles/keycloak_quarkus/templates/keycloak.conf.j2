@@ -1,51 +1,47 @@
 # {{ ansible_managed }}
 
+{% if keycloak_quarkus_db_enabled %}
 # Database
-# Database vendor [dev-file, dev-mem, mariadb, mssql, mysql, oracle, postgres]
-#db=postgres
-# The username of the database user.
-#db-username=keycloak
-# The password of the database user.
-#db-password=password
-# The full database JDBC URL. If not provided, a default URL is set based on the selected database vendor.
-#db-url=jdbc:postgresql://localhost/keycloak
+db={{ keycloak_quarkus_jdbc_engine }}
+db-url={{ keycloak_quarkus_jdbc_url }}
+db-username={{ keycloak_quarkus_db_user }}
+db-password={{ keycloak_quarkus_db_pass }}
+{% endif %}
 
 # Observability
-# If the server should expose metrics and healthcheck endpoints.
-#metrics-enabled=true
+metrics-enabled={{ keycloak_quarkus_metrics_enabled }}
+health-enabled={{ keycloak_quarkus_health_enabled }}
 
 # HTTP
-http-enabled=true
-http-port=8080
-https-port=8443
-# The file path to a server certificate or certificate chain in PEM format.
-#https-certificate-file=${kc.home.dir}conf/server.crt.pem
-# The file path to a private key in PEM format.
-#https-certificate-key-file=${kc.home.dir}conf/server.key.pem
-# The proxy address forwarding mode if the server is behind a reverse proxy.
-#proxy=reencrypt
-# Do not attach route to cookies and rely on the session affinity capabilities from reverse proxy
-#spi-sticky-session-encoder-infinispan-should-attach-route=false
+http-enabled={{ keycloak_quarkus_http_enabled }}
+http-port={{ keycloak_quarkus_http_port }}
+
+# HTTPS
+https-port={{ keycloak_quarkus_https_port }}
+{% if keycloak_quarkus_https_enabled %}
+https-certificate-file={{ keycloak.home }}/{{ keycloak_quarkus_cert_file}}
+https-certificate-key-file={{ keycloak.home }}/{{ keycloak_quarkus_key_file }}
+{% endif %}
 
 # Hostname for the Keycloak server.
 hostname={{ keycloak_quarkus_host }}
 hostname-path={{ keycloak_quarkus_http_relative_path }}
 
 # Cluster
-#cache=ispn
-#Defines the cache mechanism for high-availability. [local, ispn]
-#cache-config-file=conf/cache-ispn.xml
-#Defines the file from which cache configuration should be loaded from.
-#cache-stack=tcp
-#Define the default stack to use for cluster communication and node discovery. [tcp, udp, kubernetes, ec2, azure, google]
+{% if keycloak_quarkus_ha_enabled %}
+cache=ispn
+cache-config-file=conf/cache-ispn.xml
+cache-stack=tcp
+{% endif %}
 
 # Proxy
-# The proxy address forwarding mode if the server is behind a reverse proxy. [edge, reencrypt, passthrough]
-#proxy=
+proxy={{ keycloak_quarkus_proxy_mode }}
+# Do not attach route to cookies and rely on the session affinity capabilities from reverse proxy
+#spi-sticky-session-encoder-infinispan-should-attach-route=false
 
 # Logging
-# The format of log entries.
 #log-format=%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n
-# The log level of the root category or a comma-separated list of individual categories and their levels.
-#log-level=info
-
+log={{ keycloak_quarkus_log }}
+log-level={{ keycloak.log.level }}
+log-file={{ keycloak.log.file }}
+log-file-format={{ keycloak.log.format }}

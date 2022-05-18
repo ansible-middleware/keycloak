@@ -14,7 +14,7 @@
         packages_to_install: "{{ packages_to_install | default([]) + rpm_info.stdout_lines | map('regex_findall', 'package (.+) is not installed$') | flatten }}"
       when: rpm_info.failed
 
-- name: "Install packages: {{ packages_to_install }}"
+- name: "Install packages: {{ packages_to_install | join(',') }}"
   become: yes
   ansible.builtin.yum:
     name: "{{ packages_to_install }}"

@@ -1,6 +1,6 @@
 ---
 ### Configuration specific to keycloak
-keycloak_quarkus_version: 17.0.1
+keycloak_quarkus_version: 18.0.0
 keycloak_quarkus_archive: "keycloak-{{ keycloak_quarkus_version }}.zip"
 keycloak_quarkus_download_url: "https://github.com/keycloak/keycloak/releases/download/{{ keycloak_quarkus_version }}/{{ keycloak_quarkus_archive }}"  
 keycloak_quarkus_installdir: "{{ keycloak_quarkus_dest }}/keycloak-{{ keycloak_quarkus_version }}"
@@ -10,6 +10,7 @@ keycloak_quarkus_offline_install: False
 
 ### Install location and service settings
 keycloak_quarkus_jvm_package: java-11-openjdk-headless
+keycloak_quarkus_java_home:
 keycloak_quarkus_dest: /opt/keycloak
 keycloak_quarkus_home: "{{ keycloak_quarkus_installdir }}"
 keycloak_quarkus_config_dir: "{{ keycloak_quarkus_home }}/conf"
@@ -26,11 +27,17 @@ keycloak_quarkus_master_realm: master
 ### Configuration settings
 keycloak_quarkus_bind_address: 0.0.0.0
 keycloak_quarkus_host: localhost
+keycloak_quarkus_http_enabled: True
 keycloak_quarkus_http_port: 8080
 keycloak_quarkus_https_port: 8443
 keycloak_quarkus_ajp_port: 8009
 keycloak_quarkus_jgroups_port: 7600
 keycloak_quarkus_java_opts: "-Xms1024m -Xmx2048m"
+
+### TLS/HTTPS configuration
+keycloak_quarkus_https_enabled: False
+keycloak_quarkus_key_file: conf/server.key.pem
+keycloak_quarkus_cert_file: conf/server.crt.pem
 
 ### Enable configuration for database backend, clustering and remote caches on infinispan
 keycloak_quarkus_ha_enabled: False
@@ -41,7 +48,11 @@ keycloak_quarkus_db_enabled: "{{ True if keycloak_quarkus_ha_enabled else False 
 keycloak_quarkus_http_relative_path: auth
 keycloak_quarkus_frontend_url: http://localhost:8080/auth
 
+# proxy address forwarding mode if the server is behind a reverse proxy. [edge, reencrypt, passthrough]
+keycloak_quarkus_proxy_mode: edge
+
 keycloak_quarkus_metrics_enabled: False
+keycloak_quarkus_health_enabled: True
 
 ### infinispan remote caches access (hotrod)
 keycloak_quarkus_ispn_user: supervisor
@@ -68,3 +79,9 @@ keycloak_quarkus_default_jdbc:
   mariadb:
     url: 'jdbc:mariadb://localhost:3306/keycloak'
     version: 2.7.4
+
+### logging configuration
+keycloak_quarkus_log: file
+keycloak_quarkus_log_level: info
+keycloak_quarkus_log_file: data/log/keycloak.log
+keycloak_quarkus_log_format: '%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n'

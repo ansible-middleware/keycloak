@@ -1,6 +1,5 @@
 ---
 # tasks file for keycloak
-
 - name: Check prerequisites
   ansible.builtin.include_tasks: prereqs.yml
   tags:
@@ -32,6 +31,16 @@
   notify:
     - restart keycloak
 
+- name: "Configure quarkus config for keycloak service"
+  ansible.builtin.template:
+    src: quarkus.properties.j2
+    dest: "{{ keycloak.home }}/conf/quarkus.properties"
+    owner: "{{ keycloak.service_user }}"
+    group: "{{ keycloak.service_group }}"
+    mode: 0644
+  notify:
+    - restart keycloak    
+
 - name: "Start and wait for keycloak service"
   ansible.builtin.include_tasks: start.yml
 
@@ -39,3 +48,10 @@
   ansible.builtin.command: "systemctl status keycloak"
   register: keycloak_service_status
   changed_when: False
+
+- name: Link default logs directory
+  ansible.builtin.file:
+    state: link
+    src: "{{ keycloak.home }}/{{ keycloak.log.file }}"
+    dest: /var/log/keycloak
+    force: yes

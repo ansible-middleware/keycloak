@@ -240,3 +240,7 @@ argument_specs:
                 default: '%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n'
                 type: "str"
                 description: "Set a format specific to file log entries"
+            keycloak_quarkus_proxy_mode:
+                default: 'edge'
+                type: "str"
+                description: "The proxy address forwarding mode if the server is behind a reverse proxy"

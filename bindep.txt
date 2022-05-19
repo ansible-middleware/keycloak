@@ -1,0 +1,7 @@
+python39-devel [platform:rpm compile]
+git-lfs [platform:rpm]
+python3-netaddr [platform:rpm]
+python3-lxml [platform:rpm]
+python3-jmespath [platform:rpm]
+python3-requests [platform:rpm]
+

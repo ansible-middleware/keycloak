@@ -1,0 +1,11 @@
+---
+version: 1
+build_arg_defaults:
+  EE_BASE_IMAGE: 'quay.io/ansible/ansible-runner:stable-2.12-devel'
+dependencies:
+  galaxy: requirements.yml
+  python: requirements.txt
+  system: bindep.txt
+additional_build_steps:
+  append:
+    - RUN alternatives --set python /usr/bin/python3

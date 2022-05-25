@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>keycloak_realm &mdash; Keycloak Ansible Collection  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/ansible-basic-sphinx-ext.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Testing" href="../testing.html" />
+    <link rel="prev" title="keycloak_quarkus" href="keycloak_quarkus.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Keycloak Ansible Collection
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Ansible Collection - middleware_automation.keycloak</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Role Index</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="keycloak.html">keycloak</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_quarkus.html">keycloak_quarkus</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">keycloak_realm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#role-defaults">Role Defaults</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#role-variables">Role Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#variable-formats">Variable formats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-playbook">Example Playbook</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#license">License</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#author-information">Author Information</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing.html">Contributor’s Guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releasing.html">Collection Versioning Strategy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../CHANGELOG.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Keycloak Ansible Collection</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Role Index</a> &raquo;</li>
+      <li>keycloak_realm</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/roles/keycloak_realm.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="keycloak-realm">
+<h1>keycloak_realm<a class="headerlink" href="#keycloak-realm" title="Permalink to this headline"></a></h1>
+<p>Create realms and clients in <a class="reference external" href="https://keycloak.org/">keycloak</a> or <a class="reference external" href="https://access.redhat.com/products/red-hat-single-sign-on">Red Hat Single Sign-On</a> services.</p>
+<section id="role-defaults">
+<h2>Role Defaults<a class="headerlink" href="#role-defaults" title="Permalink to this headline"></a></h2>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>Variable</p></th>
+<th class="text-left head"><p>Description</p></th>
+<th class="text-left head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_admin_user</span></code></p></td>
+<td class="text-left"><p>Administration console user account</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">admin</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_host</span></code></p></td>
+<td class="text-left"><p>hostname</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">localhost</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_context</span></code></p></td>
+<td class="text-left"><p>Context path for rest calls</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/auth</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_http_port</span></code></p></td>
+<td class="text-left"><p>HTTP port</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">8080</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_https_port</span></code></p></td>
+<td class="text-left"><p>TLS HTTP port</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">8443</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_auth_realm</span></code></p></td>
+<td class="text-left"><p>Name of the main authentication realm</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">master</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_rhsso_enable</span></code></p></td>
+<td class="text-left"><p>Define service is an upstream(Keycloak) or RHSSO</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">master</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_management_http_port</span></code></p></td>
+<td class="text-left"><p>Management port</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">9990</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_auth_client</span></code></p></td>
+<td class="text-left"><p>Authentication client for configuration REST calls</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">admin-cli</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_client_public</span></code></p></td>
+<td class="text-left"><p>Configure a public realm client</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_client_web_origins</span></code></p></td>
+<td class="text-left"><p>Web origins for realm client</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">+</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_url</span></code></p></td>
+<td class="text-left"><p>URL for configuration rest calls</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">http://{{</span> <span class="pre">keycloak_host</span> <span class="pre">}}:{{</span> <span class="pre">keycloak_http_port</span> <span class="pre">}}</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_management_url</span></code></p></td>
+<td class="text-left"><p>URL for management console rest calls</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">http://{{</span> <span class="pre">keycloak_host</span> <span class="pre">}}:{{</span> <span class="pre">keycloak_management_http_port</span> <span class="pre">}}</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="role-variables">
+<h2>Role Variables<a class="headerlink" href="#role-variables" title="Permalink to this headline"></a></h2>
+<p>The following are a set of <em>required</em> variables for the role:</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>Variable</p></th>
+<th class="text-left head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm</span></code></p></td>
+<td class="text-left"><p>Name of the realm to be created</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_admin_password</span></code></p></td>
+<td class="text-left"><p>Password for the administration console user account</p></td>
+</tr>
+</tbody>
+</table>
+<p>The following variables are available for creating clients:</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>Variable</p></th>
+<th class="text-left head"><p>Description</p></th>
+<th class="text-left head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_clients</span></code></p></td>
+<td class="text-left"><p>List of <em>client</em> declarations for the realm</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_client_default_roles</span></code></p></td>
+<td class="text-left"><p>List of default role name for clients</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_client_users</span></code></p></td>
+<td class="text-left"><p>List of user/role mappings for a client</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>The following variable are available for creating user federation:</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="text-left head"><p>Variable</p></th>
+<th class="text-left head"><p>Description</p></th>
+<th class="text-left head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_user_federation</span></code></p></td>
+<td class="text-left"><p>List of <em>keycloak_user_federation</em> for the realm</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="variable-formats">
+<h2>Variable formats<a class="headerlink" href="#variable-formats" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_user_federation</span></code>, a list of:</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">realm</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">&lt;name of the realm in which user federation should be configured, required&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;name of the user federation provider, required&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">provider_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;type of the user federation provider, required&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">provider_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;Provider Type, default is set to org.keycloak.storage.UserStorageProvider&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;dictionary of supported configuration values, required&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">mappers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;list of supported configuration values, required&gt;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Refer to <a class="reference external" href="https://docs.ansible.com/ansible/latest/collections/community/general/keycloak_user_federation_module.html">docs</a> for information on supported variables.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_clients</span></code>, a list of:</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;name of the client&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">roles</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;keycloak_client_default_roles&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;name of the realm that contains the client&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">public_client</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;true for public, false for confidential&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">web_origins</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;list of allowed we origins for the client&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">users</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;keycloak_client_users&gt;</span><span class="w"></span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_client_users</span></code>, a list of:</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;username, required&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;password, required&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">firstName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;firstName, optional&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">lastName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;lastName, optional&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;email, optional&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">client_roles</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;list of client user/role mappings&gt;</span><span class="w"></span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Client user/role mappings, a list of:</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">client</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;name of the client&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;name of the role&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;name of the realm&gt;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>For a comprehensive example, refer to the <a class="reference download internal" download="" href="../_downloads/a0468922d38230cfdad1d445a6b10b9e/keycloak_realm.yml"><span class="xref download myst">playbook</span></a>.</p>
+</section>
+<section id="example-playbook">
+<h2>Example Playbook<a class="headerlink" href="#example-playbook" title="Permalink to this headline"></a></h2>
+<p>The following is an example playbook that makes use of the role to create a realm in keycloak.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">collections</span><span class="p p-Indicator">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">middleware_automation.keycloak</span><span class="w"></span>
+<span class="w">  </span><span class="w w-Error">    </span><span class="nt">tasks</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Include keycloak role</span><span class="w"></span>
+<span class="w">          </span><span class="nt">include_role</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keycloak_realm</span><span class="w"></span>
+<span class="w">          </span><span class="nt">vars</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="nt">keycloak_admin_password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;changeme&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="nt">keycloak_realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TestRealm</span><span class="w"></span>
+<span class="w">            </span><span class="nt">keycloak_clients</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline"></a></h2>
+<p>Apache License 2.0</p>
+</section>
+<section id="author-information">
+<h2>Author Information<a class="headerlink" href="#author-information" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/guidograzioli">Guido Grazioli</a></p></li>
+<li><p><a class="reference external" href="https://github.com/rpelisse">Romain Pelisse</a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="keycloak_quarkus.html" class="btn btn-neutral float-left" title="keycloak_quarkus" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../testing.html" class="btn btn-neutral float-right" title="Testing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Red Hat, Inc..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -6,6 +6,14 @@ middleware_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v1.0.5
+======
+
+Minor Changes
+-------------
+
+- Update config options: keycloak and quarkus `#32 <https://github.com/ansible-middleware/keycloak/pull/32>`_
+
 v1.0.4
 ======
 

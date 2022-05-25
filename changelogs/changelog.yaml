@@ -60,3 +60,12 @@ releases:
     release_date: '2022-05-09'
   1.0.4:
     release_date: '2022-05-11'
+  1.0.5:
+    changes:
+      minor_changes:
+      - 'Update config options: keycloak and quarkus `#32 <https://github.com/ansible-middleware/keycloak/pull/32>`_
+
+        '
+    fragments:
+    - 32.yaml
+    release_date: '2022-05-25'

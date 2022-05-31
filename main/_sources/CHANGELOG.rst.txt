@@ -13,7 +13,11 @@ Minor Changes
 -------------
 
 - Update config options: keycloak and quarkus `#32 <https://github.com/ansible-middleware/keycloak/pull/32>`_
-- Update config options: keycloak and quarkus `#32 <https://github.com/ansible-middleware/keycloak/pull/32>`_
+
+Bugfixes
+--------
+
+- keycloak_quarkus: add selected java to PATH in systemd unit `#34 <https://github.com/ansible-middleware/keycloak/pull/34>`_
 
 v1.0.4
 ======

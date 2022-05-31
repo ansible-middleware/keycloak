@@ -3,6 +3,11 @@
   hosts: all
   vars:
     keycloak_admin_password: "remembertochangeme"
+    keycloak_quarkus_host: localhost:8443
+    keycloak_quarkus_log: file
+    keycloak_quarkus_https_enabled: True
+    keycloak_quarkus_key_file: conf/key.pem
+    keycloak_quarkus_cert_file: conf/cert.pem
   collections:
     - middleware_automation.keycloak
   roles:

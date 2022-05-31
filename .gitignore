@@ -9,3 +9,4 @@ docs/_build/
 .mypy_cache/
 *.retry
 changelogs/.plugin-cache.yaml
+*.pem

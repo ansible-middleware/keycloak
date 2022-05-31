@@ -6,6 +6,15 @@ middleware_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v1.0.6-devel
+============
+
+Bugfixes
+--------
+
+- keycloak_quarkus: add selected java to PATH in systemd unit `#34 <https://github.com/ansible-middleware/keycloak/pull/34>`_
+- keycloak_quarkus: set logfile path correctly under keycloak home `#35 <https://github.com/ansible-middleware/keycloak/pull/35>`_
+
 v1.0.5
 ======
 
@@ -13,12 +22,6 @@ Minor Changes
 -------------
 
 - Update config options: keycloak and quarkus `#32 <https://github.com/ansible-middleware/keycloak/pull/32>`_
-
-Bugfixes
---------
-
-- keycloak_quarkus: add selected java to PATH in systemd unit `#34 <https://github.com/ansible-middleware/keycloak/pull/34>`_
-- keycloak_quarkus: set logfile path correctly under keycloak home `#35 <https://github.com/ansible-middleware/keycloak/pull/35>`_
 
 v1.0.4
 ======

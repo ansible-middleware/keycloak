@@ -5,6 +5,7 @@ exclude_paths:
   - molecule/
   - .ansible-lint
   - .yamllint
+  - meta/
 
 rulesdir:
    - ../../ansible-lint-custom-rules/rules/

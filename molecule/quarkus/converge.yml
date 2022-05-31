@@ -12,22 +12,6 @@
     keycloak_quarkus_https_enabled: True
     keycloak_quarkus_key_file: conf/key.pem
     keycloak_quarkus_cert_file: conf/cert.pem
-  pre_tasks:
-    - command: openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 365 -nodes -subj '/CN=instance'
-      delegate_to: localhost
-    - lineinfile:
-        dest: /etc/hosts
-        line: "127.0.0.1 instance"
-        state: present
-      delegate_to: localhost
-      become: yes
-    - copy:
-        src: "{{ item }}"
-        dest: "/opt/keycloak/keycloak-18.0.0/conf/{{ item }}"
-        mode: 0444
-      loop:
-        - cert.pem
-        - key.pem
   roles:
     - role: keycloak_quarkus
     - role: keycloak_realm

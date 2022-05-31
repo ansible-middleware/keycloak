@@ -84,9 +84,9 @@
     - local_archive_path.stat.exists
   become: yes
 
-- name: "Check target directory: {{ keycloak.home }}"
+- name: "Check target directory: {{ keycloak.home }}/bin/"
   ansible.builtin.stat:
-    path: "{{ keycloak.home }}"
+    path: "{{ keycloak.home }}/bin/"
   register: path_to_workdir
   become: yes
 
@@ -95,12 +95,12 @@
     remote_src: yes
     src: "{{ archive }}"
     dest: "{{ keycloak_quarkus_dest }}"
-    creates: "{{ keycloak.home }}"
+    creates: "{{ keycloak.home }}/bin/"
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
   become: yes
   when:
-    - new_version_downloaded.changed or not path_to_workdir.stat.exists
+    - (not path_to_workdir.stat.exists) or new_version_downloaded.changed
   notify:
     - restart keycloak
 
@@ -108,4 +108,4 @@
   ansible.builtin.debug:
     msg: "{{ keycloak.home }} already exists and version unchanged, skipping decompression"
   when:
-    - not new_version_downloaded.changed and path_to_workdir.stat.exists
+    - (not new_version_downloaded.changed) and path_to_workdir.stat.exists

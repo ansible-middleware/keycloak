@@ -6,3 +6,21 @@
       ansible.builtin.yum:
         name: sudo
         state: present
+    - command: openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 365 -nodes -subj '/CN=instance'
+      delegate_to: localhost
+    - lineinfile:
+        dest: /etc/hosts
+        line: "127.0.0.1 instance"
+        state: present
+      delegate_to: localhost
+      become: yes
+    - file:
+        state: directory
+        path: /opt/keycloak/keycloak-18.0.0/conf/
+    - copy:
+        src: "{{ item }}"
+        dest: "/opt/keycloak/keycloak-18.0.0/conf/{{ item }}"
+        mode: 0444
+      loop:
+        - cert.pem
+        - key.pem

@@ -10,6 +10,6 @@ keycloak:
   service_group: "{{ keycloak_quarkus_service_group }}"
   offline_install: "{{ keycloak_quarkus_offline_install }}"
   log:
-    file: "{{ keycloak_quarkus_log_file }}"
+    file: "{{ keycloak_quarkus_home }}/{{ keycloak_quarkus_log_file }}"
     level: "{{ keycloak_quarkus_log_level }}"
     format: "{{ keycloak_quarkus_log_format }}"

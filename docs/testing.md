@@ -46,4 +46,3 @@ EOF
 # run the playbook
 ansible-playbook -i inventory playbooks/keycloak.yml
 ```
-

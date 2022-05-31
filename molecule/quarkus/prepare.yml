@@ -2,10 +2,6 @@
 - name: Prepare
   hosts: all
   tasks:
-    - name: Disable beta repos
-      ansible.builtin.command: yum config-manager --disable '*beta*'
-      ignore_errors: yes
-
     - name: Install sudo
       ansible.builtin.yum:
         name: sudo

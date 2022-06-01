@@ -69,3 +69,16 @@ releases:
     fragments:
     - 32.yaml
     release_date: '2022-05-25'
+  1.0.6:
+    changes:
+      bugfixes:
+      - 'keycloak_quarkus: add selected java to PATH in systemd unit `#34 <https://github.com/ansible-middleware/keycloak/pull/34>`_
+
+        '
+      - 'keycloak_quarkus: set logfile path correctly under keycloak home `#35 <https://github.com/ansible-middleware/keycloak/pull/35>`_
+
+        '
+    fragments:
+    - 34.yaml
+    - 35.yaml
+    release_date: '2022-06-01'

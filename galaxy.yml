@@ -1,7 +1,7 @@
 ---
 namespace: middleware_automation
 name: keycloak
-version: "1.0.6"
+version: "1.0.7"
 readme: README.md
 authors:
   - Romain Pelisse <rpelisse@redhat.com>
@@ -32,3 +32,4 @@ build_ignore:
   - .github
   - '*.tar.gz'
   - '*.zip'
+  - changelogs/fragments/.gitignore

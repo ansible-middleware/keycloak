@@ -28,6 +28,7 @@
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
     mode: 0644
+  become: yes
   notify:
     - restart keycloak
 
@@ -38,6 +39,7 @@
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
     mode: 0644
+  become: yes
   notify:
     - restart keycloak    
 
@@ -48,6 +50,7 @@
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
     mode: 0775
+  become: yes
 
 - name: "Start and wait for keycloak service"
   ansible.builtin.include_tasks: start.yml
@@ -63,3 +66,4 @@
     src: "{{ keycloak.home }}/{{ keycloak.log.file | dirname }}"
     dest: /var/log/keycloak
     force: yes
+  become: yes

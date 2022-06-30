@@ -19,8 +19,8 @@ http-port={{ keycloak_quarkus_http_port }}
 # HTTPS
 https-port={{ keycloak_quarkus_https_port }}
 {% if keycloak_quarkus_https_enabled %}
-https-certificate-file={{ keycloak.home }}/{{ keycloak_quarkus_cert_file}}
-https-certificate-key-file={{ keycloak.home }}/{{ keycloak_quarkus_key_file }}
+https-certificate-file={{ keycloak_quarkus_cert_file}}
+https-certificate-key-file={{ keycloak_quarkus_key_file }}
 {% endif %}
 
 # Hostname for the Keycloak server.

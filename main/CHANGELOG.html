@@ -15,6 +15,7 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -51,9 +52,12 @@
 <p class="caption" role="heading"><span class="caption-text">General</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#v1-0-7-devel">v1.0.7-devel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#v1-0-6">v1.0.6</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#v1-0-7-devel">v1.0.7-devel</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#bugfixes">Bugfixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#v1-0-6">v1.0.6</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Bugfixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v1-0-5">v1.0.5</a><ul>
@@ -63,23 +67,23 @@
 <li class="toctree-l2"><a class="reference internal" href="#v1-0-4">v1.0.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#v1-0-3">v1.0.3</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#major-changes">Major Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">Minor Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id7">Bugfixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Minor Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">Bugfixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v1-0-2">v1.0.2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id9">Minor Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id12">Bugfixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">Minor Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">Bugfixes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v1-0-1">v1.0.1</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#release-summary">Release Summary</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id14">Major Changes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id16">Minor Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id16">Major Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id18">Minor Changes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#v1-0-0">v1.0.0</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id18">Release Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id20">Release Summary</a></li>
 </ul>
 </li>
 </ul>
@@ -111,47 +115,51 @@
            <div itemprop="articleBody">
              
   <section id="middleware-automation-keycloak-release-notes">
-<h1><a class="toc-backref" href="#id19">middleware_automation.keycloak Release Notes</a><a class="headerlink" href="#middleware-automation-keycloak-release-notes" title="Permalink to this headline"></a></h1>
+<h1><a class="toc-backref" href="#id21">middleware_automation.keycloak Release Notes</a><a class="headerlink" href="#middleware-automation-keycloak-release-notes" title="Permalink to this heading"></a></h1>
 <div class="contents topic" id="topics">
 <p class="topic-title">Topics</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#middleware-automation-keycloak-release-notes" id="id19">middleware_automation.keycloak Release Notes</a></p>
+<li><p><a class="reference internal" href="#middleware-automation-keycloak-release-notes" id="id21">middleware_automation.keycloak Release Notes</a></p>
 <ul>
-<li><p><a class="reference internal" href="#v1-0-7-devel" id="id20">v1.0.7-devel</a></p></li>
-<li><p><a class="reference internal" href="#v1-0-6" id="id21">v1.0.6</a></p>
+<li><p><a class="reference internal" href="#v1-0-7-devel" id="id22">v1.0.7-devel</a></p>
 <ul>
-<li><p><a class="reference internal" href="#bugfixes" id="id22">Bugfixes</a></p></li>
+<li><p><a class="reference internal" href="#bugfixes" id="id23">Bugfixes</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#v1-0-5" id="id23">v1.0.5</a></p>
+<li><p><a class="reference internal" href="#v1-0-6" id="id24">v1.0.6</a></p>
 <ul>
-<li><p><a class="reference internal" href="#minor-changes" id="id24">Minor Changes</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id25">Bugfixes</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#v1-0-4" id="id25">v1.0.4</a></p></li>
-<li><p><a class="reference internal" href="#v1-0-3" id="id26">v1.0.3</a></p>
+<li><p><a class="reference internal" href="#v1-0-5" id="id26">v1.0.5</a></p>
 <ul>
-<li><p><a class="reference internal" href="#major-changes" id="id27">Major Changes</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id28">Minor Changes</a></p></li>
-<li><p><a class="reference internal" href="#id7" id="id29">Bugfixes</a></p></li>
+<li><p><a class="reference internal" href="#minor-changes" id="id27">Minor Changes</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#v1-0-2" id="id30">v1.0.2</a></p>
+<li><p><a class="reference internal" href="#v1-0-4" id="id28">v1.0.4</a></p></li>
+<li><p><a class="reference internal" href="#v1-0-3" id="id29">v1.0.3</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id9" id="id31">Minor Changes</a></p></li>
-<li><p><a class="reference internal" href="#id12" id="id32">Bugfixes</a></p></li>
+<li><p><a class="reference internal" href="#major-changes" id="id30">Major Changes</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id31">Minor Changes</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id32">Bugfixes</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#v1-0-1" id="id33">v1.0.1</a></p>
+<li><p><a class="reference internal" href="#v1-0-2" id="id33">v1.0.2</a></p>
 <ul>
-<li><p><a class="reference internal" href="#release-summary" id="id34">Release Summary</a></p></li>
-<li><p><a class="reference internal" href="#id14" id="id35">Major Changes</a></p></li>
-<li><p><a class="reference internal" href="#id16" id="id36">Minor Changes</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id34">Minor Changes</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id35">Bugfixes</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#v1-0-0" id="id37">v1.0.0</a></p>
+<li><p><a class="reference internal" href="#v1-0-1" id="id36">v1.0.1</a></p>
 <ul>
-<li><p><a class="reference internal" href="#id18" id="id38">Release Summary</a></p></li>
+<li><p><a class="reference internal" href="#release-summary" id="id37">Release Summary</a></p></li>
+<li><p><a class="reference internal" href="#id16" id="id38">Major Changes</a></p></li>
+<li><p><a class="reference internal" href="#id18" id="id39">Minor Changes</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#v1-0-0" id="id40">v1.0.0</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id20" id="id41">Release Summary</a></p></li>
 </ul>
 </li>
 </ul>
@@ -160,12 +168,18 @@
 </div>
 <p>This changelog describes changes after version 0.2.6.</p>
 <section id="v1-0-7-devel">
-<h2><a class="toc-backref" href="#id20">v1.0.7-devel</a><a class="headerlink" href="#v1-0-7-devel" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id22">v1.0.7-devel</a><a class="headerlink" href="#v1-0-7-devel" title="Permalink to this heading"></a></h2>
+<section id="bugfixes">
+<h3><a class="toc-backref" href="#id23">Bugfixes</a><a class="headerlink" href="#bugfixes" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Use become for tasks that will otherwise fail <a class="reference external" href="https://github.com/ansible-middleware/keycloak/pull/38">#38</a></p></li>
+</ul>
+</section>
 </section>
 <section id="v1-0-6">
-<h2><a class="toc-backref" href="#id21">v1.0.6</a><a class="headerlink" href="#v1-0-6" title="Permalink to this headline"></a></h2>
-<section id="bugfixes">
-<h3><a class="toc-backref" href="#id22">Bugfixes</a><a class="headerlink" href="#bugfixes" title="Permalink to this headline"></a></h3>
+<h2><a class="toc-backref" href="#id24">v1.0.6</a><a class="headerlink" href="#v1-0-6" title="Permalink to this heading"></a></h2>
+<section id="id2">
+<h3><a class="toc-backref" href="#id25">Bugfixes</a><a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
 <ul class="simple">
 <li><p>keycloak_quarkus: add selected java to PATH in systemd unit <a class="reference external" href="https://github.com/ansible-middleware/keycloak/pull/34">#34</a></p></li>
 <li><p>keycloak_quarkus: set logfile path correctly under keycloak home <a class="reference external" href="https://github.com/ansible-middleware/keycloak/pull/35">#35</a></p></li>
@@ -173,77 +187,77 @@
 </section>
 </section>
 <section id="v1-0-5">
-<h2><a class="toc-backref" href="#id23">v1.0.5</a><a class="headerlink" href="#v1-0-5" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id26">v1.0.5</a><a class="headerlink" href="#v1-0-5" title="Permalink to this heading"></a></h2>
 <section id="minor-changes">
-<h3><a class="toc-backref" href="#id24">Minor Changes</a><a class="headerlink" href="#minor-changes" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id27">Minor Changes</a><a class="headerlink" href="#minor-changes" title="Permalink to this heading"></a></h3>
 <ul class="simple">
 <li><p>Update config options: keycloak and quarkus <a class="reference external" href="https://github.com/ansible-middleware/keycloak/pull/32">#32</a></p></li>
 </ul>
 </section>
 </section>
 <section id="v1-0-4">
-<h2><a class="toc-backref" href="#id25">v1.0.4</a><a class="headerlink" href="#v1-0-4" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id28">v1.0.4</a><a class="headerlink" href="#v1-0-4" title="Permalink to this heading"></a></h2>
 </section>
 <section id="v1-0-3">
-<h2><a class="toc-backref" href="#id26">v1.0.3</a><a class="headerlink" href="#v1-0-3" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id29">v1.0.3</a><a class="headerlink" href="#v1-0-3" title="Permalink to this heading"></a></h2>
 <section id="major-changes">
-<h3><a class="toc-backref" href="#id27">Major Changes</a><a class="headerlink" href="#major-changes" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id30">Major Changes</a><a class="headerlink" href="#major-changes" title="Permalink to this heading"></a></h3>
 <ul class="simple">
 <li><p>New role for installing keycloak &gt;= 17.0.0 (quarkus) <a class="reference external" href="https://github.com/ansible-middleware/keycloak/pull/29">#29</a></p></li>
 </ul>
 </section>
-<section id="id5">
-<h3><a class="toc-backref" href="#id28">Minor Changes</a><a class="headerlink" href="#id5" title="Permalink to this headline"></a></h3>
+<section id="id7">
+<h3><a class="toc-backref" href="#id31">Minor Changes</a><a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
 <ul class="simple">
 <li><p>Add <code class="docutils literal notranslate"><span class="pre">keycloak_config_override_template</span></code> parameter for passing a custom xml config template <a class="reference external" href="https://github.com/ansible-middleware/keycloak/pull/30">#30</a></p></li>
 </ul>
 </section>
-<section id="id7">
-<h3><a class="toc-backref" href="#id29">Bugfixes</a><a class="headerlink" href="#id7" title="Permalink to this headline"></a></h3>
+<section id="id9">
+<h3><a class="toc-backref" href="#id32">Bugfixes</a><a class="headerlink" href="#id9" title="Permalink to this heading"></a></h3>
 <ul class="simple">
 <li><p>Make sure systemd unit starts with selected java JVM <a class="reference external" href="https://github.com/ansible-middleware/keycloak/pull/31">#31</a></p></li>
 </ul>
 </section>
 </section>
 <section id="v1-0-2">
-<h2><a class="toc-backref" href="#id30">v1.0.2</a><a class="headerlink" href="#v1-0-2" title="Permalink to this headline"></a></h2>
-<section id="id9">
-<h3><a class="toc-backref" href="#id31">Minor Changes</a><a class="headerlink" href="#id9" title="Permalink to this headline"></a></h3>
+<h2><a class="toc-backref" href="#id33">v1.0.2</a><a class="headerlink" href="#v1-0-2" title="Permalink to this heading"></a></h2>
+<section id="id11">
+<h3><a class="toc-backref" href="#id34">Minor Changes</a><a class="headerlink" href="#id11" title="Permalink to this heading"></a></h3>
 <ul class="simple">
 <li><p>Make <code class="docutils literal notranslate"><span class="pre">keycloak_admin_password</span></code> a default with assert (was: role variable) <a class="reference external" href="https://github.com/ansible-middleware/keycloak/pull/26">#26</a></p></li>
 <li><p>Simplify dependency install logic and reduce play execution time <a class="reference external" href="https://github.com/ansible-middleware/keycloak/pull/19">#19</a></p></li>
 </ul>
 </section>
-<section id="id12">
-<h3><a class="toc-backref" href="#id32">Bugfixes</a><a class="headerlink" href="#id12" title="Permalink to this headline"></a></h3>
+<section id="id14">
+<h3><a class="toc-backref" href="#id35">Bugfixes</a><a class="headerlink" href="#id14" title="Permalink to this heading"></a></h3>
 <ul class="simple">
 <li><p>Set <code class="docutils literal notranslate"><span class="pre">keycloak_frontend_url</span></code> default according to other defaults <a class="reference external" href="https://github.com/ansible-middleware/keycloak/pull/25">#25</a></p></li>
 </ul>
 </section>
 </section>
 <section id="v1-0-1">
-<h2><a class="toc-backref" href="#id33">v1.0.1</a><a class="headerlink" href="#v1-0-1" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id36">v1.0.1</a><a class="headerlink" href="#v1-0-1" title="Permalink to this heading"></a></h2>
 <section id="release-summary">
-<h3><a class="toc-backref" href="#id34">Release Summary</a><a class="headerlink" href="#release-summary" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id37">Release Summary</a><a class="headerlink" href="#release-summary" title="Permalink to this heading"></a></h3>
 <p>Minor enhancements, bug and documentation fixes.</p>
 </section>
-<section id="id14">
-<h3><a class="toc-backref" href="#id35">Major Changes</a><a class="headerlink" href="#id14" title="Permalink to this headline"></a></h3>
+<section id="id16">
+<h3><a class="toc-backref" href="#id38">Major Changes</a><a class="headerlink" href="#id16" title="Permalink to this heading"></a></h3>
 <ul class="simple">
 <li><p>Apply latest cumulative patch of RH-SSO automatically when new parameter <code class="docutils literal notranslate"><span class="pre">keycloak_rhsso_apply_patches</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code> <a class="reference external" href="https://github.com/ansible-middleware/keycloak/pull/18">#18</a></p></li>
 </ul>
 </section>
-<section id="id16">
-<h3><a class="toc-backref" href="#id36">Minor Changes</a><a class="headerlink" href="#id16" title="Permalink to this headline"></a></h3>
+<section id="id18">
+<h3><a class="toc-backref" href="#id39">Minor Changes</a><a class="headerlink" href="#id18" title="Permalink to this heading"></a></h3>
 <ul class="simple">
 <li><p>Clustered installs now perform database initialization on first node to avoid locking issues <a class="reference external" href="https://github.com/ansible-middleware/keycloak/pull/17">#17</a></p></li>
 </ul>
 </section>
 </section>
 <section id="v1-0-0">
-<h2><a class="toc-backref" href="#id37">v1.0.0</a><a class="headerlink" href="#v1-0-0" title="Permalink to this headline"></a></h2>
-<section id="id18">
-<h3><a class="toc-backref" href="#id38">Release Summary</a><a class="headerlink" href="#id18" title="Permalink to this headline"></a></h3>
+<h2><a class="toc-backref" href="#id40">v1.0.0</a><a class="headerlink" href="#v1-0-0" title="Permalink to this heading"></a></h2>
+<section id="id20">
+<h3><a class="toc-backref" href="#id41">Release Summary</a><a class="headerlink" href="#id20" title="Permalink to this heading"></a></h3>
 <p>This is the first stable release of the <code class="docutils literal notranslate"><span class="pre">middleware_automation.keycloak</span></code> collection.</p>
 </section>
 </section>

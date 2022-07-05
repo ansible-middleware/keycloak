@@ -9,8 +9,8 @@
     keycloak_quarkus_http_relative_path: ''
     keycloak_quarkus_log: file
     keycloak_quarkus_https_enabled: True
-    keycloak_quarkus_key_file: conf/key.pem
-    keycloak_quarkus_cert_file: conf/cert.pem
+    keycloak_quarkus_key_file: "{{ keycloak.home }}/conf/key.pem"
+    keycloak_quarkus_cert_file: "{{ keycloak.home }}/conf/cert.pem"
   roles:
     - role: keycloak_quarkus
     - role: keycloak_realm

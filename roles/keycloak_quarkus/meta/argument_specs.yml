@@ -108,11 +108,11 @@ argument_specs:
                 description: "Enable listener on HTTPS port"
                 type: "bool" 
             keycloak_quarkus_key_file:
-                default: "conf/server.key.pem"
+                default: "{{ keycloak.home }}/conf/server.key.pem"
                 description: "The file path to a private key in PEM format"
                 type: "str"
             keycloak_quarkus_cert_file:
-                default: "conf/server.crt.pem"
+                default: "{{ keycloak.home }}/conf/server.crt.pem"
                 description: "The file path to a server certificate or certificate chain in PEM format"
                 type: "str"
             keycloak_quarkus_https_port:

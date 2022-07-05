@@ -37,8 +37,8 @@ Role Defaults
 |`keycloak_quarkus_http_relative_path` | Service context path | `auth` |
 |`keycloak_quarkus_http_enabled`| Enable listener on HTTP port | `True` |
 |`keycloak_quarkus_https_enabled`| Enable listener on HTTPS port | `False` |
-|`keycloak_quarkus_key_file`| The file path to a private key in PEM format | `conf/server.key.pem` |
-|`keycloak_quarkus_cert_file`| The file path to a server certificate or certificate chain in PEM format | `conf/server.crt.pem` |
+|`keycloak_quarkus_key_file`| The file path to a private key in PEM format | `{{ keycloak.home }}/conf/server.key.pem` |
+|`keycloak_quarkus_cert_file`| The file path to a server certificate or certificate chain in PEM format | `{{ keycloak.home }}/conf/server.crt.pem` |
 
 
 * Database configuration

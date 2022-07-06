@@ -6,6 +6,19 @@ middleware_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v1.0.7
+======
+
+Breaking Changes / Porting Guide
+--------------------------------
+
+- keycloak_quarkus: use absolute path for certificate files `#39 <https://github.com/ansible-middleware/keycloak/pull/39>`_
+
+Bugfixes
+--------
+
+- keycloak_quarkus: use become for tasks that will otherwise fail `#38 <https://github.com/ansible-middleware/keycloak/pull/38>`_
+
 v1.0.6
 ======
 

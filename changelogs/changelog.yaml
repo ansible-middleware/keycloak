@@ -82,3 +82,17 @@ releases:
     - 34.yaml
     - 35.yaml
     release_date: '2022-06-01'
+  1.0.7:
+    changes:
+      breaking_changes:
+      - 'keycloak_quarkus: use absolute path for certificate files `#39 <https://github.com/ansible-middleware/keycloak/pull/39>`_
+
+        '
+      bugfixes:
+      - 'keycloak_quarkus: use become for tasks that will otherwise fail `#38 <https://github.com/ansible-middleware/keycloak/pull/38>`_
+
+        '
+    fragments:
+    - 38.yaml
+    - 39.yaml
+    release_date: '2022-07-06'

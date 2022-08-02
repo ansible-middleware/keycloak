@@ -6,18 +6,30 @@
       ansible.builtin.yum:
         name: sudo
         state: present
-    - command: openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 365 -nodes -subj '/CN=instance'
+
+    - name: "Display hera_home if defined."
+      ansible.builtin.set_fact:
+        hera_home: "{{ lookup('env', 'HERA_HOME') }}"
+
+    - ansible.builtin.command: openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 365 -nodes -subj '/CN=instance'
       delegate_to: localhost
-    - lineinfile:
-        dest: /etc/hosts
-        line: "127.0.0.1 instance"
-        state: present
-      delegate_to: localhost
-      become: yes
-    - file:
+
+    - block:
+        - ansible.builtin.lineinfile:
+            dest: /etc/hosts
+            line: "127.0.0.1 instance"
+            state: present
+          delegate_to: localhost
+          become: yes
+      when:
+        - hera_home is defined
+        - hera_home | length == 0
+
+    - ansible.builtin.file:
         state: directory
         path: /opt/keycloak/keycloak-18.0.0/conf/
-    - copy:
+
+    - ansible.builtin.copy:
         src: "{{ item }}"
         dest: "/opt/keycloak/keycloak-18.0.0/conf/{{ item }}"
         mode: 0444

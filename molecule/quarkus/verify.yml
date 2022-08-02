@@ -9,19 +9,27 @@
         that:
           - ansible_facts.services["keycloak.service"]["state"] == "running"
           - ansible_facts.services["keycloak.service"]["status"] == "enabled"
-    - name: Fetch openID config
-      shell: |
-        curl https://instance:8443/realms/master/.well-known/openid-configuration -k | jq .
-      delegate_to: localhost
-      register: openid_config
-    - debug:
-        msg: " {{ openid_config.stdout | from_json }}"
-      delegate_to: localhost
-    - name: Verify endpoint URLs
-      assert:
-        that:
-          - (openid_config.stdout | from_json)["backchannel_authentication_endpoint"] == 'https://instance:8443/realms/master/protocol/openid-connect/ext/ciba/auth'
-          - (openid_config.stdout | from_json)['issuer'] == 'https://instance:8443/realms/master'
-          - (openid_config.stdout | from_json)['authorization_endpoint'] == 'https://instance:8443/realms/master/protocol/openid-connect/auth'
-          - (openid_config.stdout | from_json)['token_endpoint'] == 'https://instance:8443/realms/master/protocol/openid-connect/token'
-      delegate_to: localhost
+
+    - set_fact:
+        hera_home: "{{ lookup('env', 'HERA_HOME') }}"
+
+    - block:
+        - name: Fetch openID config
+          shell: |
+            curl https://instance:8443/realms/master/.well-known/openid-configuration -k | jq .
+          delegate_to: localhost
+          register: openid_config
+        - debug:
+            msg: " {{ openid_config.stdout | from_json }}"
+          delegate_to: localhost
+        - name: Verify endpoint URLs
+          assert:
+            that:
+              - (openid_config.stdout | from_json)["backchannel_authentication_endpoint"] == 'https://instance:8443/realms/master/protocol/openid-connect/ext/ciba/auth'
+              - (openid_config.stdout | from_json)['issuer'] == 'https://instance:8443/realms/master'
+              - (openid_config.stdout | from_json)['authorization_endpoint'] == 'https://instance:8443/realms/master/protocol/openid-connect/auth'
+              - (openid_config.stdout | from_json)['token_endpoint'] == 'https://instance:8443/realms/master/protocol/openid-connect/token'
+          delegate_to: localhost
+      when:
+        - hera_home is defined
+        - hera_home | length == 0

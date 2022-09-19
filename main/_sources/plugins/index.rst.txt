@@ -1,0 +1,53 @@
+
+
+
+.. _plugins_in_middleware_automation.keycloak:
+
+Middleware_Automation.Keycloak
+==============================
+
+Collection version 1.0.7
+
+.. contents::
+   :local:
+   :depth: 1
+
+Description
+-----------
+
+Install and configure a keycloak, or Red Hat Single Sign-on, service.
+
+**Authors:**
+
+* Romain Pelisse <rpelisse@redhat.com>
+* Guido Grazioli <ggraziol@redhat.com>
+* Pavan Kumar Motaparthi <pmotapar@redhat.com>
+
+.. raw:: html
+
+  <p class="ansible-links">
+    <a href="https://github.com/ansible-middleware/keycloak/issues" aria-role="button" target="_blank" rel="noopener external">Issue Tracker</a>
+    <a href="https://github.com/ansible-middleware/keycloak" aria-role="button" target="_blank" rel="noopener external">Repository (Sources)</a>
+  </p>
+
+
+
+.. toctree::
+    :maxdepth: 1
+
+
+Plugin Index
+------------
+
+There are no plugins in the middleware_automation.keycloak collection with automatically generated documentation.
+
+
+
+.. seealso::
+
+    List of :ref:`collections <list_of_collections>` with docs hosted here.
+
+.. toctree::
+    :maxdepth: 1
+    :hidden:
+

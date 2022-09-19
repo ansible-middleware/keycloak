@@ -74,16 +74,11 @@ Role Defaults
 
 | Variable | Description | Default |
 |:---------|:------------|:---------|
-|`keycloak_rhsso_enable`| Enable Red Hat Single Sign-on installation | `False` |
 |`keycloak_offline_install` | perform an offline install | `False`|
 |`keycloak_download_url`| Download URL for keycloak | `https://github.com/keycloak/keycloak/releases/download/<version>/<archive>`| 
-|`keycloak_rhsso_download_url`| Download URL for RHSSO | `https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=<productID>`|
 |`keycloak_version`| keycloak.org package version | `15.0.2` |
-|`keycloak_rhsso_version`| RHSSO version | `7.5.0` |
-|`keycloak_rhsso_apply_patches`| Install RHSSO more recent cumulative patch | `False` |
 |`keycloak_dest`| Installation root path | `/opt/keycloak` |
 |`keycloak_download_url` | Download URL for keycloak | `https://github.com/keycloak/keycloak/releases/download/{{ keycloak_version }}/{{ keycloak_archive }}` |
-|`keycloak_rhn_url` | Base download URI for customer portal | `https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=` |
 |`keycloak_configure_firewalld` | Ensure firewalld is running and configure keycloak ports | `False` |
 
 
@@ -94,9 +89,6 @@ Role Defaults
 |`keycloak_archive` | keycloak install archive filename | `keycloak-{{ keycloak_version }}.zip` |
 |`keycloak_download_url_9x` | Download URL for keycloak (deprecated) | `https://downloads.jboss.org/keycloak/{{ keycloak_version }}/{{ keycloak_archive }}` |
 |`keycloak_installdir` | Installation path | `{{ keycloak_dest }}/keycloak-{{ keycloak_version }}` |
-|`keycloak_rhsso_archive` | Red Hat SSO install archive filename | `rh-sso-{{ keycloak_rhsso_version }}-server-dist.zip` |
-|`keycloak_rhsso_installdir`| Installation path for Red Hat SSO | `{{ keycloak_dest }}/rh-sso-{{ keycloak_rhsso_version | regex_replace('^([0-9])\.([0-9]*).*', '\1.\2') }}` |
-|`keycloak_rhsso_download_url`| Full download URI for Red Hat SSO | `{{ keycloak_rhn_url }}{{ rhsso_rhn_id }}` |
 |`keycloak_jboss_home` | Installation work directory | `{{ keycloak_rhsso_installdir if keycloak_rhsso_enable else keycloak_installdir }}` |
 |`keycloak_config_dir` | Path for configuration | `{{ keycloak_jboss_home }}/standalone/configuration` |
 |`keycloak_config_path_to_standalone_xml` | Custom path for configuration | `{{ keycloak_jboss_home }}/standalone/configuration/{{ keycloak_config_standalone_xml }}` |
@@ -106,7 +98,6 @@ Role Defaults
 |`keycloak_force_install` | Remove pre-existing versions of service | `False` |
 |`keycloak_url` | URL for configuration rest calls | `http://{{ keycloak_host }}:{{ keycloak_http_port }}` |
 |`keycloak_management_url` | URL for management console rest calls | `http://{{ keycloak_host }}:{{ keycloak_management_http_port }}` |
-|`rhsso_rhn_id` | Customer Portal product ID for Red Hat SSO | `{{ rhsso_rhn_ids[keycloak_rhsso_version].id }}` |
 
 
 Role Variables
@@ -126,13 +117,13 @@ The following variables are _required_ only when `keycloak_ha_enabled` is True:
 |:---------|:------------|:---------|
 |`keycloak_modcluster_url` | URL for the modcluster reverse proxy | `localhost` |
 |`keycloak_jdbc_engine` | backend database engine when db is enabled: [ postgres, mariadb ] | `postgres` |
-|`infinispan_url` | URL for the infinispan remote-cache server | `localhost:11122` |
-|`infinispan_user` | username for connecting to infinispan | `supervisor` |
-|`infinispan_pass` | password for connecting to infinispan | `supervisor` |
-|`infinispan_sasl_mechanism`| Authentication type | `SCRAM-SHA-512` |
-|`infinispan_use_ssl`| Enable hotrod TLS communication | `False` |
-|`infinispan_trust_store_path`| Path to truststore with infinispan server certificate | `/etc/pki/java/cacerts` |
-|`infinispan_trust_store_password`| Password for opening truststore | `changeit` |
+|`keycloak_infinispan_url` | URL for the infinispan remote-cache server | `localhost:11122` |
+|`keycloak_infinispan_user` | username for connecting to infinispan | `supervisor` |
+|`keycloak_infinispan_pass` | password for connecting to infinispan | `supervisor` |
+|`keycloak_infinispan_sasl_mechanism`| Authentication type | `SCRAM-SHA-512` |
+|`keycloak_infinispan_use_ssl`| Enable hotrod TLS communication | `False` |
+|`keycloak_infinispan_trust_store_path`| Path to truststore with infinispan server certificate | `/etc/pki/java/cacerts` |
+|`keycloak_infinispan_trust_store_password`| Password for opening truststore | `changeit` |
 
 
 The following variables are _required_ only when `keycloak_db_enabled` is True:
@@ -145,11 +136,8 @@ The following variables are _required_ only when `keycloak_db_enabled` is True:
 |`keycloak_db_pass` | password for connecting to postgres | `keycloak-pass` |
 
 
-Example Playbooks
+Example Playbook
 -----------------
-
-_NOTE_: use ansible vaults or other security systems for storing credentials.
-
 
 * The following is an example playbook that makes use of the role to install keycloak from remote:
 
@@ -162,27 +150,6 @@ _NOTE_: use ansible vaults or other security systems for storing credentials.
         - middleware_automation.keycloak
       roles:
         - middleware_automation.keycloak.keycloak
-```
-
-* The following is an example playbook that makes use of the role to install Red Hat Single Sign-On from RHN:
-
-```yaml
----
-- name: Playbook for RHSSO
-  hosts: keycloak
-  collections:
-    - middleware_automation.redhat_csp_download
-  roles:
-    - redhat_csp_download
-  tasks:
-    - name: Keycloak Role
-      include_role:
-        name: keycloak
-      vars:
-        keycloak_admin_password: "remembertochangeme"
-        keycloak_rhsso_enable: True
-        rhn_username: '<customer portal username>'
-        rhn_password: '<customer portal password>'
 ```
 
 
@@ -201,45 +168,6 @@ _NOTE_: use ansible vaults or other security systems for storing credentials.
             keycloak_admin_password: "remembertochangeme"
             keycloak_offline_install: True
             # This should be the filename of keycloak archive on Ansible node: keycloak-16.1.0.zip
-```
-
-
-* This playbook installs Red Hat Single Sign-On from an alternate url:
-
-```yaml
----
-- hosts: keycloak
-  collections:
-    - middleware_automation.keycloak
-  tasks:
-    - name: Keycloak Role
-      include_role:
-        name: keycloak
-      vars:
-        keycloak_admin_password: "remembertochangeme"
-        keycloak_rhsso_enable: True
-        keycloak_rhsso_download_url: "<REPLACE with download url>"
-        # This should be the full of remote source rhsso zip file and can contain basic authentication credentials
-```
-
-
-* The following is an example playbook that makes use of the role to install Red Hat Single Sign-On offline from the controller node, and apply latest cumulative patch:
-
-```yaml
----
-- hosts: keycloak
-  collections:
-    - middleware_automation.keycloak
-  tasks:
-    - name: Keycloak Role
-      include_role:
-        name: keycloak
-      vars:
-        keycloak_admin_password: "remembertochangeme"
-        keycloak_rhsso_enable: True
-        keycloak_offline_install: True
-        keycloak_rhsso_apply_patches: True
-        # This should be the filename of rhsso zip file on Ansible node: rh-sso-7.5-server-dist.zip
 ```
 
 License

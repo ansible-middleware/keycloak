@@ -26,11 +26,6 @@ argument_specs:
                 default: 9990
                 description: "Management port"
                 type: "int"
-            keycloak_rhsso_enable:
-                # line 7 of keycloak_realm/defaults/main.yml
-                default: false
-                description: "Enable Red Hat Single Sign-on"
-                type: "bool"
             keycloak_admin_user:
                 # line 10 of keycloak_realm/defaults/main.yml
                 default: "admin"
@@ -95,4 +90,26 @@ argument_specs:
                 # line 15 of keycloak_realm/vars/main.yml
                 default: "http://{{ keycloak_host }}:{{ keycloak_management_http_port }}"
                 description: "URL for management console rest calls"
+                type: "str"
+    downstream:
+        options:
+            sso_version:
+                default: "7.5.0"
+                description: "Red Hat Single Sign-On version"
+                type: "str"
+            sso_dest:
+                default: "/opt/sso"
+                description: "Root installation directory"
+                type: "str"
+            sso_installdir:
+                default: "{{ keycloak_dest }}/rh-sso-{{ keycloak_version | regex_replace('^([0-9])\\.([0-9]*).*', '\\1.\\2') }}"
+                description: "Installation path for Red Hat SSO"
+                type: "str"
+            sso_apply_patches:
+                default: False
+                description: "Install Red Hat SSO most recent cumulative patch"
+                type: "bool"
+            sso_enable:
+                default: True
+                description: "Enable Red Hat Single Sign-on installation"
                 type: "str"

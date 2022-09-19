@@ -18,11 +18,11 @@
 - name: Validate credentials
   ansible.builtin.assert:
     that:
-      - (rhn_username is defined and keycloak_rhsso_enable) or not keycloak_rhsso_enable or keycloak_offline_install
-      - (rhn_password is defined and keycloak_rhsso_enable) or not keycloak_rhsso_enable or keycloak_offline_install
+      - (rhn_username is defined and sso_enable is defined and sso_enable) or not sso_enable is defined or not sso_enable or keycloak_offline_install
+      - (rhn_password is defined and sso_enable is defined and sso_enable) or not sso_enable is defined or not sso_enable or keycloak_offline_install
     quiet: True
     fail_msg: "Cannot install Red Hat SSO without RHN credentials. Check rhn_username and rhn_password are defined"
-    success_msg: "{{ 'Installing Red Hat Single Sign-On' if keycloak_rhsso_enable else 'Installing keycloak.org' }}"
+    success_msg: "Installing {{ keycloak_service_desc }}"
 
 - name: Validate persistence configuration
   ansible.builtin.assert:

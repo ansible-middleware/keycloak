@@ -51,7 +51,7 @@ argument_specs:
                 type: "str"
             keycloak_jboss_home:
                 # line 25 of keycloak/defaults/main.yml
-                default: "{{ keycloak_rhsso_installdir if keycloak_rhsso_enable else keycloak_installdir }}"
+                default: "{{ keycloak_installdir }}"
                 description: "Installation work directory"
                 type: "str"
             keycloak_config_dir:
@@ -254,6 +254,14 @@ argument_specs:
                 default: "http://{{ keycloak_host }}:{{ keycloak_management_http_port }}"
                 description: "URL for management console rest calls"
                 type: "str"
+            keycloak_service_name:
+                default: "keycloak"
+                description: "systemd service name for keycloak"
+                type: "str"
+            keycloak_service_desc:
+                default: "Keycloak"
+                description: "systemd description for keycloak"
+                type: "str"
     downstream:
         options:
             sso_version:
@@ -296,3 +304,15 @@ argument_specs:
                 default: True
                 description: "Perform an offline install"
                 type: "bool"
+            sso_service_name:
+                default: "sso"
+                description: "systemd service name for Single Sign-On"
+                type: "str"
+            sso_service_desc:
+                default: "Red Hat Single Sign-On"
+                description: "systemd description for Red Hat Single Sign-On"
+                type: "str"
+            sso_patch_bundle:
+                default: "rh-sso-{{ sso_rhn_ids[keycloak_version].latest_cp.v }}-patch.zip"
+                description: "Red Hat SSO patch archive filename"
+                type: "str"

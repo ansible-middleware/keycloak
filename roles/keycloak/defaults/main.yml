@@ -5,12 +5,13 @@ keycloak_archive: "keycloak-{{ keycloak_version }}.zip"
 keycloak_download_url: "https://github.com/keycloak/keycloak/releases/download/{{ keycloak_version }}/{{ keycloak_archive }}"  
 keycloak_download_url_9x: "https://downloads.jboss.org/keycloak/{{ keycloak_version }}/{{ keycloak_archive }}"
 keycloak_installdir: "{{ keycloak_dest }}/keycloak-{{ keycloak_version }}"
+keycloak_offline_install: False
 
 ### Install location and service settings
 keycloak_jvm_package: java-1.8.0-openjdk-headless
 keycloak_java_home:
 keycloak_dest: /opt/keycloak
-keycloak_jboss_home: "{{ keycloak_rhsso_installdir if keycloak_rhsso_enable else keycloak_installdir }}"
+keycloak_jboss_home: "{{ keycloak_installdir }}"
 keycloak_config_dir: "{{ keycloak_jboss_home }}/standalone/configuration"
 keycloak_config_standalone_xml: "keycloak.xml"
 keycloak_config_path_to_standalone_xml: "{{ keycloak_jboss_home }}/standalone/configuration/{{ keycloak_config_standalone_xml }}"
@@ -18,6 +19,9 @@ keycloak_config_override_template: ''
 keycloak_service_user: keycloak
 keycloak_service_group: keycloak
 keycloak_service_pidfile: "/run/keycloak.pid"
+keycloak_service_name: keycloak
+keycloak_service_desc: Keycloak
+
 keycloak_configure_firewalld: False
 
 ### administrator console password

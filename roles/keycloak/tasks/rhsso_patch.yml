@@ -2,7 +2,7 @@
 ## check remote patch archive
 - name: Set download patch archive path
   ansible.builtin.set_fact:
-    patch_archive: "{{ keycloak_dest }}/{{ keycloak.patch_bundle }}"
+    patch_archive: "{{ keycloak_dest }}/{{ sso_patch_bundle }}"
 
 - name: Check download patch archive path
   ansible.builtin.stat:
@@ -11,8 +11,8 @@
 
 - name: Perform download from RHN
   middleware_automation.redhat_csp_download.redhat_csp_download:
-    url: "{{ keycloak_rhn_url }}{{ rhsso_rhn_ids[keycloak_rhsso_version].latest_cp.id }}"
-    dest: "{{ local_path.stat.path }}/{{ keycloak.patch_bundle }}"
+    url: "{{ keycloak_rhn_url }}{{ sso_rhn_ids[keycloak_version].latest_cp.id }}"
+    dest: "{{ local_path.stat.path }}/{{ sso_patch_bundle }}"
     username: "{{ rhn_username }}"
     password: "{{ rhn_password }}"
   no_log: "{{ omit_rhn_output | default(true) }}"
@@ -21,13 +21,13 @@
     - patch_archive_path is defined
     - patch_archive_path.stat is defined
     - not patch_archive_path.stat.exists
-    - keycloak_rhsso_enable
+    - sso_enable is defined and sso_enable
     - not keycloak_offline_install
 
 ## copy and unpack
 - name: Copy patch archive to target nodes
   ansible.builtin.copy:
-    src: "{{ local_path.stat.path }}/{{ keycloak.patch_bundle }}"
+    src: "{{ local_path.stat.path }}/{{ sso_patch_bundle }}"
     dest: "{{ patch_archive }}"
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
@@ -48,9 +48,9 @@
   when: 
     - cli_result is defined
     - cli_result.stdout is defined
-    - rhsso_rhn_ids[keycloak_rhsso_version].latest_cp.v not in cli_result.stdout
+    - sso_rhn_ids[keycloak_version].latest_cp.v not in cli_result.stdout
   block:
-    - name: "Apply patch {{ rhsso_rhn_ids[keycloak_rhsso_version].latest_cp.v }} to server"
+    - name: "Apply patch {{ sso_rhn_ids[keycloak_version].latest_cp.v }} to server"
       ansible.builtin.include_tasks: rhsso_cli.yml
       vars:
         query: "patch apply {{ patch_archive }}"
@@ -78,10 +78,10 @@
     - name: "Verify installed patch version"
       ansible.builtin.assert:
         that:
-          - rhsso_rhn_ids[keycloak_rhsso_version].latest_cp.v not in cli_result.stdout
+          - sso_rhn_ids[keycloak_version].latest_cp.v not in cli_result.stdout
         fail_msg: "Patch installation failed"
         success_msg: "Patch installation successful"
 
 - name: "Skipping patch"
   ansible.builtin.debug:
-    msg: "Latest cumulative patch {{ rhsso_rhn_ids[keycloak_rhsso_version].latest_cp.v }} already installed, skipping patch installation."
+    msg: "Latest cumulative patch {{ sso_rhn_ids[keycloak_version].latest_cp.v }} already installed, skipping patch installation."

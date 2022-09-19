@@ -45,7 +45,8 @@ jobs:
 
       - name: Create default collection path
         run: |
-          mkdir -p /home/runner/.ansible/collections/ansible_collections
+          mkdir -p /home/runner/.ansible/
+          ln -s /home/runner/work/keycloak/keycloak /home/runner/.ansible/collections
 
       - name: Create changelog and documentation
         uses: ansible-middleware/collection-docs-action@main

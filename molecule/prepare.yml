@@ -1,0 +1,28 @@
+---
+- name: Display Ansible version
+  ansible.builtin.debug:
+    msg: "Ansible version is  {{ ansible_version.full }}"
+
+- name: Install sudo
+  ansible.builtin.yum:
+    name: 
+      - sudo
+      - iproute
+    state: present
+
+- name: "Retrieve assets server from env"
+  ansible.builtin.set_fact:
+    assets_server: "{{ lookup('env','MIDDLEWARE_DOWNLOAD_RELEASE_SERVER_URL') }}"
+
+- name: "Download and deploy jws zips from {{ assets_server }}"
+  ansible.builtin.get_url:
+    url: "{{ asset }}"
+    dest: "{{ lookup('env', 'PWD') }}"
+    validate_certs: no
+  delegate_to: localhost
+  loop: "{{ assets }}"
+  loop_control:
+    loop_var: asset
+  when:
+    - assets_server is defined
+    - assets_server | length > 0

@@ -1,6 +1,6 @@
 ---
 # internal variables below
-rhsso_rhn_ids:
+sso_rhn_ids:
   '7.5.0': # noqa vars_in_vars_files_have_valid_names
     id: '101971'
     latest_cp:
@@ -15,8 +15,8 @@ keycloak_management_url: "http://{{ keycloak_host }}:{{ keycloak_management_http
 keycloak:
   home: "{{ keycloak_jboss_home }}"
   config_dir: "{{ keycloak_config_dir }}"
-  bundle: "{{ keycloak_rhsso_archive if keycloak_rhsso_enable else keycloak_archive }}"
-  patch_bundle: "rh-sso-{{ rhsso_rhn_ids[keycloak_rhsso_version].latest_cp.v }}-patch.zip"
+  bundle: "{{ keycloak_archive }}"
+  patch_bundle: "rh-sso-{{ sso_rhn_ids[keycloak_version].latest_cp.v }}-patch.zip"
   service_name: "{{ 'rhsso' if keycloak_rhsso_enable else 'keycloak' }}"
   health_url: "{{ keycloak_management_url }}/health"
   cli_path: "{{ keycloak_jboss_home }}/bin/jboss-cli.sh"
@@ -73,11 +73,11 @@ keycloak_modcluster:
 # infinispan
 keycloak_remotecache:
   enabled: "{{ keycloak_ha_enabled }}"
-  username: "{{ infinispan_user }}"
-  password: "{{ infinispan_pass }}"
+  username: "{{ keycloak_infinispan_user }}"
+  password: "{{ keycloak_infinispan_pass }}"
   realm: default
-  sasl_mechanism: "{{ infinispan_sasl_mechanism }}"
-  server_name: "{{ infinispan_url }}"
-  use_ssl: "{{ infinispan_use_ssl }}"
-  trust_store_path: "{{ infinispan_trust_store_path }}"
-  trust_store_password: "{{ infinispan_trust_store_password }}"
+  sasl_mechanism: "{{ keycloak_infinispan_sasl_mechanism }}"
+  server_name: "{{ keycloak_infinispan_url }}"
+  use_ssl: "{{ keycloak_infinispan_use_ssl }}"
+  trust_store_path: "{{ keycloak_infinispan_trust_store_path }}"
+  trust_store_password: "{{ keycloak_infinispan_trust_store_password }}"

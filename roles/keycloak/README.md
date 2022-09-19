@@ -126,13 +126,13 @@ The following variables are _required_ only when `keycloak_ha_enabled` is True:
 |:---------|:------------|:---------|
 |`keycloak_modcluster_url` | URL for the modcluster reverse proxy | `localhost` |
 |`keycloak_jdbc_engine` | backend database engine when db is enabled: [ postgres, mariadb ] | `postgres` |
-|`infinispan_url` | URL for the infinispan remote-cache server | `localhost:11122` |
-|`infinispan_user` | username for connecting to infinispan | `supervisor` |
-|`infinispan_pass` | password for connecting to infinispan | `supervisor` |
-|`infinispan_sasl_mechanism`| Authentication type | `SCRAM-SHA-512` |
-|`infinispan_use_ssl`| Enable hotrod TLS communication | `False` |
-|`infinispan_trust_store_path`| Path to truststore with infinispan server certificate | `/etc/pki/java/cacerts` |
-|`infinispan_trust_store_password`| Password for opening truststore | `changeit` |
+|`keycloak_infinispan_url` | URL for the infinispan remote-cache server | `localhost:11122` |
+|`keycloak_infinispan_user` | username for connecting to infinispan | `supervisor` |
+|`keycloak_infinispan_pass` | password for connecting to infinispan | `supervisor` |
+|`keycloak_infinispan_sasl_mechanism`| Authentication type | `SCRAM-SHA-512` |
+|`keycloak_infinispan_use_ssl`| Enable hotrod TLS communication | `False` |
+|`keycloak_infinispan_trust_store_path`| Path to truststore with infinispan server certificate | `/etc/pki/java/cacerts` |
+|`keycloak_infinispan_trust_store_password`| Password for opening truststore | `changeit` |
 
 
 The following variables are _required_ only when `keycloak_db_enabled` is True:

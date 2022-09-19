@@ -6,20 +6,6 @@ keycloak_download_url: "https://github.com/keycloak/keycloak/releases/download/{
 keycloak_download_url_9x: "https://downloads.jboss.org/keycloak/{{ keycloak_version }}/{{ keycloak_archive }}"
 keycloak_installdir: "{{ keycloak_dest }}/keycloak-{{ keycloak_version }}"
 
-### Configuration specific to Red Hat Single Sign-On
-keycloak_rhsso_version: 7.5.0
-rhsso_rhn_id: "{{ rhsso_rhn_ids[keycloak_rhsso_version].id }}"
-keycloak_rhsso_archive: "rh-sso-{{ keycloak_rhsso_version }}-server-dist.zip"
-keycloak_rhsso_installdir: "{{ keycloak_dest }}/rh-sso-{{ keycloak_rhsso_version | regex_replace('^([0-9])\\.([0-9]*).*', '\\1.\\2') }}"
-keycloak_rhn_url: 'https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId='
-keycloak_rhsso_download_url: "{{ keycloak_rhn_url }}{{ rhsso_rhn_id }}"
-keycloak_rhsso_apply_patches: False
-
-### keycloak/rhsso choice: by default install rhsso if rhn credentials are defined
-keycloak_rhsso_enable: "{{ True if rhsso_rhn_id is defined and rhn_username is defined and rhn_password is defined else False }}"
-# whether to install from local archive; filename must be keycloak_archive or keycloak_rhsso_archive depending on keycloak_rhsso_enable
-keycloak_offline_install: False
-
 ### Install location and service settings
 keycloak_jvm_package: java-1.8.0-openjdk-headless
 keycloak_java_home:
@@ -68,14 +54,14 @@ keycloak_modcluster_url: localhost
 keycloak_frontend_url: http://localhost:8080/auth
 
 ### infinispan remote caches access (hotrod)
-infinispan_user: supervisor
-infinispan_pass: supervisor
-infinispan_url: localhost
-infinispan_sasl_mechanism: SCRAM-SHA-512
-infinispan_use_ssl: False
+keycloak_infinispan_user: supervisor
+keycloak_infinispan_pass: supervisor
+keycloak_infinispan_url: localhost
+keycloak_infinispan_sasl_mechanism: SCRAM-SHA-512
+keycloak_infinispan_use_ssl: False
 # if ssl is enabled, import ispn server certificate here
-infinispan_trust_store_path: /etc/pki/java/cacerts
-infinispan_trust_store_password: changeit
+keycloak_infinispan_trust_store_path: /etc/pki/java/cacerts
+keycloak_infinispan_trust_store_password: changeit
 
 ### database backend engine: values [ 'postgres', 'mariadb' ]
 keycloak_jdbc_engine: postgres

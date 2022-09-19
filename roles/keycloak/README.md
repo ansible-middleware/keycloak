@@ -20,7 +20,6 @@ Dependencies
 The roles depends on:
 
 * the `redhat_csp_download` role from [middleware_automation.redhat_csp_download](https://github.com/ansible-middleware/redhat-csp-download) collection if Red Hat Single Sign-on zip have to be downloaded from RHN.
-* the `wildfly_driver` role from [middleware_automation.wildfly](https://github.com/ansible-middleware/wildfly) collection
 
 
 Versions

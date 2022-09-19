@@ -1,7 +1,6 @@
 ---
 collections:
   - middleware_automation.redhat_csp_download
-  - middleware_automation.wildfly
 
 galaxy_info:
   role_name: keycloak

@@ -1,0 +1,36 @@
+---
+- name: "Check module directory: {{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_dir }}"
+  ansible.builtin.stat:
+    path: "{{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_dir }}"
+  register: dest_path
+  become: yes
+
+- name: "Set up module dir for JDBC Driver {{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_name }}"
+  ansible.builtin.file:
+    path: "{{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_dir }}"
+    state: directory
+    recurse: yes
+    owner: "{{ keycloak_service_user }}"
+    group: "{{ keycloak_service_group }}"
+    mode: 0750
+  become: yes
+  when:
+    - not dest_path.stat.exists
+
+- name: "Retrieve JDBC Driver from {{ keycloak_jdbc[keycloak_jdbc_engine].driver_jar_url }}"
+  ansible.builtin.uri:
+    url: "{{ keycloak_jdbc[keycloak_jdbc_engine].driver_jar_url }}"
+    dest: "{{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_dir }}/{{ keycloak_jdbc[keycloak_jdbc_engine].driver_jar_filename }}"
+    group: "{{ keycloak_service_group }}"
+    owner: "{{ keycloak_service_user }}"
+    mode: 0640
+  become: yes
+
+- name: "Deploy module.xml for JDBC Driver"
+  ansible.builtin.template:
+    src: "templates/jdbc_driver_module.xml.j2"
+    dest: "{{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_dir }}/module.xml"
+    group: "{{ keycloak_service_group }}"
+    owner: "{{ keycloak_service_user }}"
+    mode: 0640
+  become: yes

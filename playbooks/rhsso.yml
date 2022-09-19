@@ -3,7 +3,7 @@
   hosts: keycloak
   vars:
     keycloak_admin_password: "remembertochangeme"
-    keycloak_rhsso_enable: True
+    sso_enable: True
   collections:
     - middleware_automation.redhat_csp_download
     - middleware_automation.keycloak

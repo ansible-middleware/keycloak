@@ -4,7 +4,6 @@ keycloak_host: localhost
 keycloak_http_port: 8080
 keycloak_https_port: 8443
 keycloak_management_http_port: 9990
-keycloak_rhsso_enable: False
 
 ### Keycloak administration console user
 keycloak_admin_user: admin

@@ -81,7 +81,7 @@
     - archive_path is defined
     - archive_path.stat is defined
     - not archive_path.stat.exists
-    - not keycloak_rhsso_enable
+    - not sso_enable is defined or not sso_enable
     - not keycloak_offline_install
 
 - name: Perform download from RHN
@@ -96,9 +96,9 @@
     - archive_path is defined
     - archive_path.stat is defined
     - not archive_path.stat.exists
-    - keycloak_rhsso_enable
+    - sso_enable is defined and sso_enable
     - not keycloak_offline_install
-    - keycloak_rhn_url in keycloak_rhsso_download_url
+    - keycloak_rhn_url in keycloak_download_url
 
 - name: Download rhsso archive from alternate location
   ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
@@ -110,9 +110,9 @@
     - archive_path is defined
     - archive_path.stat is defined
     - not archive_path.stat.exists
-    - keycloak_rhsso_enable
+    - sso_enable is defined and sso_enable
     - not keycloak_offline_install
-    - not keycloak_rhn_url in keycloak_rhsso_download_url
+    - not keycloak_rhn_url in keycloak_download_url
 
 - name: Check downloaded archive
   ansible.builtin.stat:
@@ -141,7 +141,7 @@
   register: path_to_workdir
   become: yes
 
-- name: "Extract {{ 'Red Hat Single Sign-On' if keycloak_rhsso_enable else 'Keycloak' }} archive on target"
+- name: "Extract {{ keycloak_service_desc }} archive on target"
   ansible.builtin.unarchive:
     remote_src: yes
     src: "{{ archive }}"

@@ -15,7 +15,6 @@ Role Defaults
 |`keycloak_http_port`| HTTP port | `8080` |
 |`keycloak_https_port`| TLS HTTP port | `8443` |
 |`keycloak_auth_realm`| Name of the main authentication realm | `master` |
-|`keycloak_rhsso_enable`| Define service is an upstream(Keycloak) or RHSSO | `master` |
 |`keycloak_management_http_port`| Management port | `9990` |
 |`keycloak_auth_client`| Authentication client for configuration REST calls | `admin-cli` |
 |`keycloak_client_public`| Configure a public realm client | `True` |

@@ -31,46 +31,6 @@ argument_specs:
                 default: "{{ keycloak_dest }}/keycloak-{{ keycloak_version }}"
                 description: "Installation path"
                 type: "str"
-            keycloak_rhsso_version:
-                # line 10 of keycloak/defaults/main.yml
-                default: "7.5.0"
-                description: "Red Hat Single Sign-On version"
-                type: "str"
-            rhsso_rhn_id:
-                # line 11 of keycloak/defaults/main.yml
-                default: "{{ rhsso_rhn_ids[keycloak_rhsso_version].id }}"
-                description: "Customer Portal product ID for Red Hat SSO"
-                type: "str"
-            keycloak_rhsso_archive:
-                # line 12 of keycloak/defaults/main.yml
-                default: "rh-sso-{{ keycloak_rhsso_version }}-server-dist.zip"
-                description: "ed Hat SSO install archive filename"
-                type: "str"
-            keycloak_rhsso_apply_patches:
-                # line 16 of keycloak/defaults/main.yml
-                default: false
-                description: "Install RHSSO more recent cumulative patch"
-                type: "bool"
-            keycloak_rhsso_installdir:
-                # line 13 of keycloak/defaults/main.yml
-                default: "{{ keycloak_dest }}/rh-sso-{{ keycloak_rhsso_version | regex_replace('^([0-9])\\.([0-9]*).*', '\\1.\\2') }}"
-                description: "Installation path for Red Hat SSO"
-                type: "str"
-            keycloak_rhn_url:
-                # line 14 of keycloak/defaults/main.yml
-                default: "https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId="
-                description: "Base download URI for customer portal"
-                type: "str"
-            keycloak_rhsso_download_url:
-                # line 15 of keycloak/defaults/main.yml
-                default: "{{ keycloak_rhn_url }}{{ rhsso_rhn_id }}"
-                description: "Full download URI for Red Hat SSO"
-                type: "str"
-            keycloak_rhsso_enable:
-                # line 18 of keycloak/defaults/main.yml
-                default: "{{ True if rhsso_rhn_id is defined and rhn_username is defined and rhn_password is defined else False }}"
-                description: "Enable Red Hat Single Sign-on installation"
-                type: "str"
             keycloak_offline_install:
                 # line 20 of keycloak/defaults/main.yml
                 default: false
@@ -91,7 +51,7 @@ argument_specs:
                 type: "str"
             keycloak_jboss_home:
                 # line 25 of keycloak/defaults/main.yml
-                default: "{{ keycloak_rhsso_installdir if keycloak_rhsso_enable else keycloak_installdir }}"
+                default: "{{ keycloak_installdir }}"
                 description: "Installation work directory"
                 type: "str"
             keycloak_config_dir:
@@ -219,37 +179,37 @@ argument_specs:
                 default: "http://localhost"
                 description: "Frontend URL for keycloak endpoints when a reverse proxy is used"
                 type: "str"
-            infinispan_user:
+            keycloak_infinispan_user:
                 # line 62 of keycloak/defaults/main.yml
                 default: "supervisor"
                 description: "Username for connecting to infinispan"
                 type: "str"
-            infinispan_pass:
+            keycloak_infinispan_pass:
                 # line 63 of keycloak/defaults/main.yml
                 default: "supervisor"
                 description: "Password for connecting to infinispan"
                 type: "str"
-            infinispan_url:
+            keycloak_infinispan_url:
                 # line 64 of keycloak/defaults/main.yml
                 default: "localhost"
                 description: "URL for the infinispan remote-cache server"
                 type: "str"
-            infinispan_sasl_mechanism:
+            keycloak_infinispan_sasl_mechanism:
                 # line 65 of keycloak/defaults/main.yml
                 default: "SCRAM-SHA-512"
                 description: "Authentication type to infinispan server"
                 type: "str"
-            infinispan_use_ssl:
+            keycloak_infinispan_use_ssl:
                 # line 66 of keycloak/defaults/main.yml
                 default: false
                 description: "Enable hotrod client TLS communication"
                 type: "bool"
-            infinispan_trust_store_path:
+            keycloak_infinispan_trust_store_path:
                 # line 68 of keycloak/defaults/main.yml
                 default: "/etc/pki/java/cacerts"
                 description: "TODO document argument"
                 type: "str"
-            infinispan_trust_store_password:
+            keycloak_infinispan_trust_store_password:
                 # line 69 of keycloak/defaults/main.yml
                 default: "changeit"
                 description: "Path to truststore containing infinispan server certificate"
@@ -293,4 +253,66 @@ argument_specs:
                 # line 13 of keycloak/vars/main.yml
                 default: "http://{{ keycloak_host }}:{{ keycloak_management_http_port }}"
                 description: "URL for management console rest calls"
+                type: "str"
+            keycloak_service_name:
+                default: "keycloak"
+                description: "systemd service name for keycloak"
+                type: "str"
+            keycloak_service_desc:
+                default: "Keycloak"
+                description: "systemd description for keycloak"
+                type: "str"
+    downstream:
+        options:
+            sso_version:
+                default: "7.5.0"
+                description: "Red Hat Single Sign-On version"
+                type: "str"
+            sso_rhn_id:
+                default: "{{ sso_rhn_ids[keycloak_version].id }}"
+                description: "Customer Portal product ID for Red Hat SSO"
+                type: "str"                
+            sso_archive:
+                default: "rh-sso-{{ keycloak_version }}-server-dist.zip"
+                description: "Red Hat SSO install archive filename"
+                type: "str"                
+            sso_dest:
+                default: "/opt/sso"
+                description: "Root installation directory"
+                type: "str"
+            sso_installdir:
+                default: "{{ keycloak_dest }}/rh-sso-{{ keycloak_version | regex_replace('^([0-9])\\.([0-9]*).*', '\\1.\\2') }}"
+                description: "Installation path for Red Hat SSO"
+                type: "str"
+            sso_rhn_url:
+                default: 'https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId='
+                description: "Base download URI for customer portal"
+                type: "str"
+            sso_download_url:
+                default: "{{ sso_rhn_url }}{{ sso_rhn_id }}"
+                description: "Full download URI for Red Hat SSO"
+                type: "str"
+            sso_apply_patches:
+                default: False
+                description: "Install Red Hat SSO most recent cumulative patch"
+                type: "bool"
+            sso_enable:
+                default: True
+                description: "Enable Red Hat Single Sign-on installation"
+                type: "str"
+            sso_offline_install:
+                default: True
+                description: "Perform an offline install"
+                type: "bool"
+            sso_service_name:
+                default: "sso"
+                description: "systemd service name for Single Sign-On"
+                type: "str"
+            sso_service_desc:
+                default: "Red Hat Single Sign-On"
+                description: "systemd description for Red Hat Single Sign-On"
+                type: "str"
+            sso_patch_bundle:
+                default: "rh-sso-{{ sso_rhn_ids[keycloak_version].latest_cp.v }}-patch.zip"
+                description: "Red Hat SSO patch archive filename"
                 type: "str"

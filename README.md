@@ -59,28 +59,6 @@ Both playbooks include the `keycloak` role, with different settings, as describe
 For full service configuration details, refer to the [keycloak role README](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak/README.md).
 
 
-### Choosing between upstream project (Keycloak) and Red Hat Single Sign-On (RHSSO)
-
-The general flag `keycloak_rhsso_enable` controls what to install between upstream (Keycloak, when `False`) or Red Hat Single Sign-On (when `True`).
-The default value for the flag if `True` when Red Hat Network credentials are defined, `False` otherwise.
-
-
-#### Install upstream (Keycloak) from keycloak releases
-
-This is the default approach when RHN credentials are not defined. Keycloak is downloaded from keycloak builds (hosted on github.com) locally, and distributed to target nodes.
-
-
-#### Install RHSSO from the Red Hat Customer Support Portal
-
-Define the credentials as follows, and the default behaviour is to download a fresh archive of RHSSO on the controller node, then distribute to target nodes.
-
-```yaml
-rhn_username: '<customer_portal_username>'
-rhn_password: '<customer_portal_password>'
-# (keycloak_rhsso_enable defaults to True)
-```
-
-
 #### Install from controller node (local source)
 
 Making the keycloak zip archive (or the RHSSO zip archive), available to the playbook repository root directory, and setting `keycloak_offline_install` to `True`, allows to skip
@@ -101,14 +79,12 @@ And depending on `keycloak_rhsso_enable`:
 For RHSSO:
 
 ```yaml
-keycloak_rhsso_enable: True
-keycloak_rhsso_download_url: "https://<internal-nexus.private.net>/<path>/<to>/rh-sso-x.y.z-server-dist.zip"
+sso_download_url: "https://<internal-nexus.private.net>/<path>/<to>/rh-sso-x.y.z-server-dist.zip"
 ```
 
 For keycloak:
 
 ```yaml
-keycloak_rhsso_enable: False
 keycloak_download_url: "https://<internal-nexus.private.net>/<path>/<to>/keycloak-x.y.zip"
 ```
 

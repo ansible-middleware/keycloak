@@ -269,11 +269,11 @@ argument_specs:
                 description: "Red Hat Single Sign-On version"
                 type: "str"
             sso_rhn_id:
-                default: "{{ sso_rhn_ids[keycloak_version].id }}"
+                default: "{{ sso_rhn_ids[sso_version].id }}"
                 description: "Customer Portal product ID for Red Hat SSO"
                 type: "str"                
             sso_archive:
-                default: "rh-sso-{{ keycloak_version }}-server-dist.zip"
+                default: "rh-sso-{{ sso_version }}-server-dist.zip"
                 description: "Red Hat SSO install archive filename"
                 type: "str"                
             sso_dest:
@@ -281,7 +281,7 @@ argument_specs:
                 description: "Root installation directory"
                 type: "str"
             sso_installdir:
-                default: "{{ keycloak_dest }}/rh-sso-{{ keycloak_version | regex_replace('^([0-9])\\.([0-9]*).*', '\\1.\\2') }}"
+                default: "{{ sso_dest }}/rh-sso-{{ sso_version.split('.')[0] }}.{{ sso_version.split('.')[1] }}"
                 description: "Installation path for Red Hat SSO"
                 type: "str"
             sso_rhn_url:
@@ -313,6 +313,6 @@ argument_specs:
                 description: "systemd description for Red Hat Single Sign-On"
                 type: "str"
             sso_patch_bundle:
-                default: "rh-sso-{{ sso_rhn_ids[keycloak_version].latest_cp.v }}-patch.zip"
+                default: "rh-sso-{{ sso_rhn_ids[sso_version].latest_cp.v }}-patch.zip"
                 description: "Red Hat SSO patch archive filename"
                 type: "str"

@@ -52,6 +52,7 @@ Role Defaults
 |`keycloak_db_enabled`| Enable auto configuration for database backend | `True` if `keycloak_ha_enabled` is True, else `False` |
 |`keycloak_admin_user`| Administration console user account | `admin` |
 |`keycloak_bind_address`| Address for binding service ports | `0.0.0.0` |
+|`keycloak_management_port_bind_address`| Address for binding management ports | `127.0.0.1` |
 |`keycloak_host`| hostname | `localhost` |
 |`keycloak_http_port`| HTTP port | `8080` |
 |`keycloak_https_port`| TLS HTTP port | `8443` |

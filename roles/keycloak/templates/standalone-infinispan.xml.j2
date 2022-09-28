@@ -724,7 +724,7 @@
     </profile>
     <interfaces>
         <interface name="management">
-            <inet-address value="${jboss.bind.address.management:127.0.0.1}"/>
+            <inet-address value="{{ keycloak_management_port_bind_address }}"/>
         </interface>
         <interface name="jgroups">
 {% if ansible_default_ipv4 is defined %}
@@ -734,7 +734,7 @@
 {% endif %}
         </interface>
         <interface name="public">
-            <inet-address value="${jboss.bind.address:127.0.0.1}"/>
+            <inet-address value="{{ keycloak_bind_address }}"/>
         </interface>
     </interfaces>
     <socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">

@@ -94,6 +94,10 @@ argument_specs:
                 default: "0.0.0.0"
                 description: "Address for binding service ports"
                 type: "str"
+            keycloak_management_port_bind_address:
+                default: "127.0.0.1"
+                description: "Address for binding the managemnt ports"
+                type: "str"
             keycloak_host:
                 # line 35 of keycloak/defaults/main.yml
                 default: "localhost"

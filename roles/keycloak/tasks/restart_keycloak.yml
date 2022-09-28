@@ -24,4 +24,4 @@
     enabled: yes
     state: restarted
   become: yes
-  when: and inventory_hostname != ansible_play_hosts | first
+  when: inventory_hostname != ansible_play_hosts | first

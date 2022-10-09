@@ -46,7 +46,7 @@
 - name: Ensure logdirectory exists
   ansible.builtin.file:
     state: directory
-    path:  "{{ keycloak.home }}/{{ keycloak.log.file | dirname }}"
+    path:  "{{ keycloak.log.file | dirname }}"
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
     mode: 0775
@@ -63,7 +63,7 @@
 - name: Link default logs directory
   ansible.builtin.file:
     state: link
-    src: "{{ keycloak.home }}/{{ keycloak.log.file | dirname }}"
+    src: "{{ keycloak.log.file | dirname }}"
     dest: /var/log/keycloak
     force: yes
   become: yes

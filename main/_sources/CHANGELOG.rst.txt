@@ -14,6 +14,11 @@ Breaking Changes / Porting Guide
 
 - Rename variables from ``infinispan_`` prefix to ``keycloak_infinispan_`` `#42 <https://github.com/ansible-middleware/keycloak/pull/42>`_
 
+Bugfixes
+--------
+
+- keycloak_quarkus: fix /var/log/keycloak symlink to keycloak log directory `#44 <https://github.com/ansible-middleware/keycloak/pull/44>`_
+
 v1.0.7
 ======
 

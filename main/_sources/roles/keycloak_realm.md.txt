@@ -71,12 +71,17 @@ Refer to [docs](https://docs.ansible.com/ansible/latest/collections/community/ge
 
 ```yaml
     - name: <name of the client>
+      id: <id of the client>
+      client_id: <id of the client>
       roles: <keycloak_client_default_roles>
       realm: <name of the realm that contains the client>
       public_client: <true for public, false for confidential>
       web_origins: <list of allowed we origins for the client>
       users: <keycloak_client_users>
 ```
+
+`name` and either `id` or `client_id` are required.
+
 
 * `keycloak_client_users`, a list of:
 

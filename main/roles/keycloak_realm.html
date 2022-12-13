@@ -83,9 +83,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">Role Index</a> &raquo;</li>
-      <li>keycloak_realm</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Role Index</a></li>
+      <li class="breadcrumb-item active">keycloak_realm</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/roles/keycloak_realm.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -234,6 +234,8 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">keycloak_clients</span></code>, a list of:</p></li>
 </ul>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;name of the client&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;id of the client&gt;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">client_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;id of the client&gt;</span><span class="w"></span>
 <span class="w">      </span><span class="nt">roles</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;keycloak_client_default_roles&gt;</span><span class="w"></span>
 <span class="w">      </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;name of the realm that contains the client&gt;</span><span class="w"></span>
 <span class="w">      </span><span class="nt">public_client</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;true for public, false for confidential&gt;</span><span class="w"></span>
@@ -241,6 +243,7 @@
 <span class="w">      </span><span class="nt">users</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;keycloak_client_users&gt;</span><span class="w"></span>
 </pre></div>
 </div>
+<p><code class="docutils literal notranslate"><span class="pre">name</span></code> and either <code class="docutils literal notranslate"><span class="pre">id</span></code> or <code class="docutils literal notranslate"><span class="pre">client_id</span></code> are required.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">keycloak_client_users</span></code>, a list of:</p></li>
 </ul>

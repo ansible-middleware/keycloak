@@ -9,6 +9,11 @@ This changelog describes changes after version 0.2.6.
 v1.1.0-devel
 ============
 
+Minor Changes
+-------------
+
+- keycloak_quarkus: variable to enable development mode `#45 <https://github.com/ansible-middleware/keycloak/pull/45>`_
+
 Breaking Changes / Porting Guide
 --------------------------------
 

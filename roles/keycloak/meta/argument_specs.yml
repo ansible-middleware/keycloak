@@ -3,12 +3,12 @@ argument_specs:
         options:
             keycloak_version:
                 # line 3 of keycloak/defaults/main.yml
-                default: "15.0.2"
+                default: "19.0.3"
                 description: "keycloak.org package version"
                 type: "str"
             keycloak_archive:
                 # line 4 of keycloak/defaults/main.yml
-                default: "keycloak-{{ keycloak_version }}.zip"
+                default: "keycloak-legacy-{{ keycloak_version }}.zip"
                 description: "keycloak install archive filename"
                 type: "str"
             keycloak_configure_firewalld:

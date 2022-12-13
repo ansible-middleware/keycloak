@@ -28,6 +28,7 @@ Versions
 | RH-SSO VERSION | Release Date      | Keycloak Version | EAP Version | Notes           |
 |:---------------|:------------------|:-----------------|:------------|:----------------|
 |`7.5.0 GA`      |September 20, 2021 |`15.0.2`          | `7.4.0`     |[Release Notes](https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.5/html/release_notes/index)|
+|`7.6.0 GA`      |June 30, 2022      |`7.6.1 GA`        |[Release Notes](https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.6/html-single/release_notes/index)|
 
 
 Patching
@@ -37,8 +38,8 @@ When variable `keycloak_rhsso_apply_patches` is `True` (default: `False`), the r
 
 | RH-SSO VERSION | Release Date      | RH-SSO LATEST CP | Notes           |
 |:---------------|:------------------|:-----------------|:----------------|
-|`7.5.0 GA`      |January 20, 2022   |`7.5.1 GA`        |[Release Notes](https://access.redhat.com/articles/6646321)|
-
+|`7.5.0 GA`      |January 20, 2022   |`7.5.3 GA`        |[Release Notes](https://access.redhat.com/articles/6646321)|
+|`7.6.0 GA`      |November 11, 2022  |`7.6.1 GA`        |[Release Notes](https://access.redhat.com/articles/6982711)|
 
 
 Role Defaults
@@ -76,7 +77,7 @@ Role Defaults
 |:---------|:------------|:---------|
 |`keycloak_offline_install` | perform an offline install | `False`|
 |`keycloak_download_url`| Download URL for keycloak | `https://github.com/keycloak/keycloak/releases/download/<version>/<archive>`| 
-|`keycloak_version`| keycloak.org package version | `15.0.2` |
+|`keycloak_version`| keycloak.org package version | `19.0.3` |
 |`keycloak_dest`| Installation root path | `/opt/keycloak` |
 |`keycloak_download_url` | Download URL for keycloak | `https://github.com/keycloak/keycloak/releases/download/{{ keycloak_version }}/{{ keycloak_archive }}` |
 |`keycloak_configure_firewalld` | Ensure firewalld is running and configure keycloak ports | `False` |
@@ -86,7 +87,7 @@ Role Defaults
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
-|`keycloak_archive` | keycloak install archive filename | `keycloak-{{ keycloak_version }}.zip` |
+|`keycloak_archive` | keycloak install archive filename | `keycloak-legacy-{{ keycloak_version }}.zip` |
 |`keycloak_download_url_9x` | Download URL for keycloak (deprecated) | `https://downloads.jboss.org/keycloak/{{ keycloak_version }}/{{ keycloak_archive }}` |
 |`keycloak_installdir` | Installation path | `{{ keycloak_dest }}/keycloak-{{ keycloak_version }}` |
 |`keycloak_jboss_home` | Installation work directory | `{{ keycloak_rhsso_installdir if keycloak_rhsso_enable else keycloak_installdir }}` |

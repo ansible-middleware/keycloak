@@ -27,6 +27,7 @@ warn_list:
   - jinja[invalid]
   - meta-no-tags
   - name[template]
+  - name[casing]
   - fqcn[action]
 
 skip_list:

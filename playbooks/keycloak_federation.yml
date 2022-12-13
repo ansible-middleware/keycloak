@@ -1,0 +1,68 @@
+---
+- name: Playbook for Keycloak Hosts
+  hosts: all
+  tasks:
+    - name: Keycloak Realm Role
+      ansible.builtin.include_role:
+        name: keycloak_realm
+      vars:
+        keycloak_admin_password: "remembertochangeme"
+        keycloak_realm: TestRealm
+        keycloak_user_federation:
+          - realm: TestRealm
+            name: my-ldap
+            provider_id: ldap
+            provider_type: org.keycloak.storage.UserStorageProvider
+            config:
+              priority: '0'
+              enabled: true
+              cachePolicy: DEFAULT
+              batchSizeForSync: '1000'
+              editMode: READ_ONLY
+              importEnabled: true
+              syncRegistrations: false
+              vendor: other
+              usernameLDAPAttribute: uid
+              rdnLDAPAttribute: uid
+              uuidLDAPAttribute: entryUUID
+              userObjectClasses: inetOrgPerson, organizationalPerson
+              connectionUrl: ldaps://ldap.example.com:636
+              usersDn: ou=Users,dc=example,dc=com
+              authType: simple
+              bindDn: cn=directory reader
+              bindCredential: password
+              searchScope: '1'
+              validatePasswordPolicy: false
+              trustEmail: false
+              useTruststoreSpi: ldapsOnly
+              connectionPooling: true
+              pagination: true
+              allowKerberosAuthentication: false
+              debug: false
+              useKerberosForPasswordAuthentication: false
+            mappers:
+              - name: "full name"
+                providerId: "full-name-ldap-mapper"
+                providerType: "org.keycloak.storage.ldap.mappers.LDAPStorageMapper"
+                config:
+                  ldap.full.name.attribute: cn
+                  read.only: true
+                  write.only: false
+        keycloak_clients:
+          - name: TestClient1
+            client_id: TestClient1
+            roles:
+              - TestClient1Admin
+              - TestClient1User
+            realm: "{{ keycloak_realm }}"
+            public_client: True
+            web_origins:
+              - http://testclient1origin/application
+              - http://testclient1origin/other
+            users:
+            - username: TestUser
+              password: password
+              client_roles:
+                - client: TestClient1
+                  role: TestClient1User
+                  realm: "{{ keycloak_realm }}"

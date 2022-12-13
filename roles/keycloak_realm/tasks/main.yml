@@ -53,6 +53,17 @@
   loop: "{{ keycloak_user_federation | flatten }}"
   when: keycloak_user_federation is defined
 
+- name: Validate Keycloak clients
+  ansible.builtin.assert:
+    that:
+      - item.name is defined and item.name | length > 0
+      - (item.client_id is defined and item.client_id | length > 0) or (item.id is defined and item.id | length > 0)
+    fail_msg: "For each keycloak client, attributes `name` and either `id` or `client_id` is required"
+    quiet: True
+  loop: "{{ keycloak_clients | flatten }}"
+  loop_control:
+    label: "{{ item.name | default('unnamed client') }}"
+
 - name: Create or update a Keycloak client
   community.general.keycloak_client:
     auth_client_id: "{{ keycloak_auth_client }}"

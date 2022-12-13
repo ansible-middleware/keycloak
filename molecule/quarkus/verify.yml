@@ -25,10 +25,10 @@
         - name: Verify endpoint URLs
           assert:
             that:
-              - (openid_config.stdout | from_json)["backchannel_authentication_endpoint"] == 'https://instance:8443/realms/master/protocol/openid-connect/ext/ciba/auth'
-              - (openid_config.stdout | from_json)['issuer'] == 'https://instance:8443/realms/master'
-              - (openid_config.stdout | from_json)['authorization_endpoint'] == 'https://instance:8443/realms/master/protocol/openid-connect/auth'
-              - (openid_config.stdout | from_json)['token_endpoint'] == 'https://instance:8443/realms/master/protocol/openid-connect/token'
+              - (openid_config.stdout | from_json)["backchannel_authentication_endpoint"] == 'https://instance/realms/master/protocol/openid-connect/ext/ciba/auth'
+              - (openid_config.stdout | from_json)['issuer'] == 'https://instance/realms/master'
+              - (openid_config.stdout | from_json)['authorization_endpoint'] == 'https://instance/realms/master/protocol/openid-connect/auth'
+              - (openid_config.stdout | from_json)['token_endpoint'] == 'https://instance/realms/master/protocol/openid-connect/token'
           delegate_to: localhost
       when:
         - hera_home is defined

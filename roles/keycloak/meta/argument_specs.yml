@@ -273,7 +273,7 @@ argument_specs:
                 description: "Red Hat Single Sign-On version"
                 type: "str"
             sso_rhn_id:
-                default: "{{ sso_rhn_ids[sso_version].id }}"
+                default: "101971"
                 description: "Customer Portal product ID for Red Hat SSO"
                 type: "str"                
             sso_archive:
@@ -316,7 +316,15 @@ argument_specs:
                 default: "Red Hat Single Sign-On"
                 description: "systemd description for Red Hat Single Sign-On"
                 type: "str"
+            sso_patch_version:
+                default: "7.5.3"
+                description: "Red Hat Single Sign-On latest cumulative patch version"
+                type: "str"
             sso_patch_bundle:
-                default: "rh-sso-{{ sso_rhn_ids[sso_version].latest_cp.v }}-patch.zip"
+                default: "rh-sso-{{ sso_patch_version }}-patch.zip"
                 description: "Red Hat SSO patch archive filename"
+                type: "str"
+            sso_patch_rhn_id:
+                default: "104738"
+                description: "Customer Portal product ID for Red Hat SSO latest cumulative patch"
                 type: "str"

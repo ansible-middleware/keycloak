@@ -46,7 +46,7 @@ jobs:
           path: ansible_collections/ansible-lint-custom-rules/
 
       - name: Run sanity tests
-        run: ansible-test sanity --docker -v --color --python ${{ matrix.python_version }} --exclude changelogs/fragments/.gitignore
+        run: ansible-test sanity -v --color --python ${{ matrix.python_version }} --exclude changelogs/fragments/.gitignore --skip-test symlinks
         working-directory: ./ansible_collections/middleware_automation/keycloak
 
       - name: Run molecule test

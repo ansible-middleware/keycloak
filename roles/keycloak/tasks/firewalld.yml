@@ -14,7 +14,7 @@
 
 - name: "Configure firewall for {{ keycloak.service_name }} ports"
   become: yes
-  firewalld:
+  ansible.posix.firewalld:
     port: "{{ item }}"
     permanent: true
     state: enabled

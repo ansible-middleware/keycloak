@@ -3,8 +3,6 @@
   block:
   - name: "Check if packages are already installed"
     ansible.builtin.command: "rpm -q {{ packages_list | join(' ') }}"
-    args:
-      warn: no
     register: rpm_info
     changed_when: rpm_info.failed
 

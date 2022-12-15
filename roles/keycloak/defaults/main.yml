@@ -83,3 +83,5 @@ keycloak_default_jdbc:
   mariadb:
     url: 'jdbc:mariadb://localhost:3306/keycloak'
     version: 2.7.4
+# role specific vars
+keycloak_no_log: True

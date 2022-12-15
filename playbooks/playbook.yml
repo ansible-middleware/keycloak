@@ -1,0 +1,43 @@
+---
+- name: Playbook for Keycloak Hosts
+  hosts: all
+  vars:
+    keycloak_admin_password: "remembertochangeme"
+    keycloak_jvm_package: java-11-openjdk-headless
+  roles:
+    - role: keycloak
+  collections:
+    - middleware_automation.keycloak
+  tasks:
+    - name: Keycloak Realm Role
+      ansible.builtin.include_role:
+        name: keycloak_realm
+      vars:
+        keycloak_client_default_roles:
+          - TestRoleAdmin
+          - TestRoleUser
+        keycloak_client_users:
+          - username: TestUser
+            password: password
+            client_roles:
+              - client: TestClient
+                role: TestRoleUser
+                realm: "{{ keycloak_realm }}"
+          - username: TestAdmin
+            password: password
+            client_roles:
+              - client: TestClient
+                role: TestRoleUser
+                realm: "{{ keycloak_realm }}"
+              - client: TestClient
+                role: TestRoleAdmin
+                realm: "{{ keycloak_realm }}"
+        keycloak_realm: TestRealm
+        keycloak_clients:
+          - name: TestClient
+            roles: "{{ keycloak_client_default_roles }}"
+            realm: "{{ keycloak_realm }}"
+            public_client: "{{ keycloak_client_public }}"
+            web_origins: "{{ keycloak_client_web_origins }}"
+            users: "{{ keycloak_client_users }}"
+            client_id: TestClient

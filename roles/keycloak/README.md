@@ -27,8 +27,8 @@ Versions
 
 | RH-SSO VERSION | Release Date      | Keycloak Version | EAP Version | Notes           |
 |:---------------|:------------------|:-----------------|:------------|:----------------|
-|`7.5.0 GA`      |September 20, 2021 |`15.0.2`          | `7.4.0`     |[Release Notes](https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.5/html/release_notes/index)|
-|`7.6.0 GA`      |June 30, 2022      |`7.6.1 GA`        |[Release Notes](https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.6/html-single/release_notes/index)|
+|`7.5.0 GA`      |September 20, 2021 |`15.0.2`          | `7.4.6`     |[Release Notes](https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.5/html/release_notes/index)|
+|`7.6.0 GA`      |June 30, 2022      |`18.0.3`          | `7.4.6`     |[Release Notes](https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.6/html-single/release_notes/index)|
 
 
 Patching
@@ -77,7 +77,7 @@ Role Defaults
 |:---------|:------------|:---------|
 |`keycloak_offline_install` | perform an offline install | `False`|
 |`keycloak_download_url`| Download URL for keycloak | `https://github.com/keycloak/keycloak/releases/download/<version>/<archive>`| 
-|`keycloak_version`| keycloak.org package version | `19.0.3` |
+|`keycloak_version`| keycloak.org package version | `18.0.2` |
 |`keycloak_dest`| Installation root path | `/opt/keycloak` |
 |`keycloak_download_url` | Download URL for keycloak | `https://github.com/keycloak/keycloak/releases/download/{{ keycloak_version }}/{{ keycloak_archive }}` |
 |`keycloak_configure_firewalld` | Ensure firewalld is running and configure keycloak ports | `False` |

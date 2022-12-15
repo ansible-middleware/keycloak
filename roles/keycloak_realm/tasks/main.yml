@@ -5,7 +5,7 @@
     method: POST
     body: "client_id={{ keycloak_auth_client }}&username={{ keycloak_admin_user }}&password={{ keycloak_admin_password }}&grant_type=password"
     validate_certs: no
-  no_log: True
+  no_log: "{{ keycloak_no_log | default('True') }}"
   register: keycloak_auth_response
   until: keycloak_auth_response.status == 200
   retries: 5
@@ -48,7 +48,7 @@
     provider_type: "{{ item.provider_type | default(org.keycloak.storage.UserStorageProvider) }}" 
     config: "{{ item.config }}"
     mappers: "{{ item.mappers | default(omit) }}"
-  no_log: True
+  no_log: "{{ keycloak_no_log | default('True') }}"
   register: create_user_federation_result
   loop: "{{ keycloak_user_federation | flatten }}"
   when: keycloak_user_federation is defined
@@ -91,7 +91,7 @@
     public_client: "{{ item.public_client | default(False) }}"
     protocol: "{{ item.protocol | default(omit) }}"
     state: present
-  no_log: True
+  no_log: "{{ keycloak_no_log | default('True') }}"
   register: create_client_result
   loop: "{{ keycloak_clients | flatten }}"
   when: (item.name is defined and item.client_id is defined) or (item.name is defined and item.id is defined)

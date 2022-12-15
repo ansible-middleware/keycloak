@@ -12,6 +12,7 @@ v1.1.0-devel
 Minor Changes
 -------------
 
+- allows user to switch no_log to True for debugging purpose `#47 <https://github.com/ansible-middleware/keycloak/pull/47>`_
 - keycloak_quarkus: variable to enable development mode `#45 <https://github.com/ansible-middleware/keycloak/pull/45>`_
 
 Breaking Changes / Porting Guide

@@ -266,6 +266,10 @@ argument_specs:
                 default: "Keycloak"
                 description: "systemd description for keycloak"
                 type: "str"
+            keycloak_no_log:
+                default: true
+                type: "bool"
+                description: "Changes default behavior for no_log for debugging purpose, do not change for production system."
     downstream:
         options:
             sso_version:
@@ -275,11 +279,11 @@ argument_specs:
             sso_rhn_id:
                 default: "{{ sso_rhn_ids[sso_version].id }}"
                 description: "Customer Portal product ID for Red Hat SSO"
-                type: "str"                
+                type: "str"
             sso_archive:
                 default: "rh-sso-{{ sso_version }}-server-dist.zip"
                 description: "Red Hat SSO install archive filename"
-                type: "str"                
+                type: "str"
             sso_dest:
                 default: "/opt/sso"
                 description: "Root installation directory"

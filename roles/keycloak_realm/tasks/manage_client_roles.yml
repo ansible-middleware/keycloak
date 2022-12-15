@@ -10,4 +10,4 @@
     auth_password: "{{ keycloak_admin_password }}"
     state: present
   loop: "{{ client.roles | flatten }}"
-  no_log: True
+  no_log: "{{ keycloak_no_log | default('True') }}"

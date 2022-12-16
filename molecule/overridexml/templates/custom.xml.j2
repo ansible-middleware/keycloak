@@ -252,6 +252,13 @@
                         </mechanism>
                     </mechanism-configuration>
                 </http-authentication-factory>
+                <http-authentication-factory name="application-http-authentication" security-domain="ApplicationDomain" http-server-mechanism-factory="global">
+                    <mechanism-configuration>
+                        <mechanism mechanism-name="BASIC">
+                            <mechanism-realm realm-name="ApplicationRealm"/>
+                        </mechanism>
+                    </mechanism-configuration>
+                </http-authentication-factory>
                 <provider-http-server-mechanism-factory name="global"/>
             </http>
             <sasl>

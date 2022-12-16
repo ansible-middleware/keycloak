@@ -1,8 +1,8 @@
 ---
 ### Configuration specific to keycloak
-keycloak_version: 15.0.2
-keycloak_archive: "keycloak-{{ keycloak_version }}.zip"
-keycloak_download_url: "https://github.com/keycloak/keycloak/releases/download/{{ keycloak_version }}/{{ keycloak_archive }}"
+keycloak_version: 18.0.2
+keycloak_archive: "keycloak-legacy-{{ keycloak_version }}.zip"
+keycloak_download_url: "https://github.com/keycloak/keycloak/releases/download/{{ keycloak_version }}/{{ keycloak_archive }}"  
 keycloak_download_url_9x: "https://downloads.jboss.org/keycloak/{{ keycloak_version }}/{{ keycloak_archive }}"
 keycloak_installdir: "{{ keycloak_dest }}/keycloak-{{ keycloak_version }}"
 keycloak_offline_install: False

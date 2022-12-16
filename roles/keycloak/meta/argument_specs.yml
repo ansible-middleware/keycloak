@@ -3,12 +3,12 @@ argument_specs:
         options:
             keycloak_version:
                 # line 3 of keycloak/defaults/main.yml
-                default: "15.0.2"
+                default: "18.0.2"
                 description: "keycloak.org package version"
                 type: "str"
             keycloak_archive:
                 # line 4 of keycloak/defaults/main.yml
-                default: "keycloak-{{ keycloak_version }}.zip"
+                default: "keycloak-legacy-{{ keycloak_version }}.zip"
                 description: "keycloak install archive filename"
                 type: "str"
             keycloak_configure_firewalld:
@@ -273,11 +273,11 @@ argument_specs:
     downstream:
         options:
             sso_version:
-                default: "7.5.0"
+                default: "7.6.0"
                 description: "Red Hat Single Sign-On version"
                 type: "str"
             sso_rhn_id:
-                default: "{{ sso_rhn_ids[sso_version].id }}"
+                default: "104539"
                 description: "Customer Portal product ID for Red Hat SSO"
                 type: "str"
             sso_archive:
@@ -320,7 +320,15 @@ argument_specs:
                 default: "Red Hat Single Sign-On"
                 description: "systemd description for Red Hat Single Sign-On"
                 type: "str"
+            sso_patch_version:
+                default: "7.6.1"
+                description: "Red Hat Single Sign-On latest cumulative patch version"
+                type: "str"
             sso_patch_bundle:
-                default: "rh-sso-{{ sso_rhn_ids[sso_version].latest_cp.v }}-patch.zip"
+                default: "rh-sso-{{ sso_patch_version }}-patch.zip"
                 description: "Red Hat SSO patch archive filename"
+                type: "str"
+            sso_patch_rhn_id:
+                default: "104867"
+                description: "Customer Portal product ID for Red Hat SSO latest cumulative patch"
                 type: "str"

@@ -16,5 +16,5 @@
       ansible.builtin.include_tasks: ../prepare.yml
       vars:
         assets:
-          - "{{ assets_server }}/sso/7.5.0/rh-sso-7.5.0-server-dist.zip"
-          - "{{ assets_server }}/sso/7.5.1/rh-sso-7.5.1-patch.zip"
+          - "{{ assets_server }}/sso/7.6.0/rh-sso-7.6.0-server-dist.zip"
+          - "{{ assets_server }}/sso/7.6.1/rh-sso-7.6.1-patch.zip"

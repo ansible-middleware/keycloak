@@ -11,7 +11,7 @@
 
 - name: Perform download from RHN
   middleware_automation.redhat_csp_download.redhat_csp_download:
-    url: "{{ keycloak_rhn_url }}{{ sso_rhn_ids[keycloak_version].latest_cp.id }}"
+    url: "{{ keycloak_rhn_url }}{{ sso_patch_rhn_id }}"
     dest: "{{ local_path.stat.path }}/{{ sso_patch_bundle }}"
     username: "{{ rhn_username }}"
     password: "{{ rhn_password }}"
@@ -48,9 +48,9 @@
   when: 
     - cli_result is defined
     - cli_result.stdout is defined
-    - sso_rhn_ids[keycloak_version].latest_cp.v not in cli_result.stdout
+    - sso_patch_version not in cli_result.stdout
   block:
-    - name: "Apply patch {{ sso_rhn_ids[keycloak_version].latest_cp.v }} to server"
+    - name: "Apply patch {{ sso_patch_version }} to server"
       ansible.builtin.include_tasks: rhsso_cli.yml
       vars:
         query: "patch apply {{ patch_archive }}"
@@ -78,10 +78,10 @@
     - name: "Verify installed patch version"
       ansible.builtin.assert:
         that:
-          - sso_rhn_ids[keycloak_version].latest_cp.v not in cli_result.stdout
+          - sso_patch_version not in cli_result.stdout
         fail_msg: "Patch installation failed"
         success_msg: "Patch installation successful"
 
 - name: "Skipping patch"
   ansible.builtin.debug:
-    msg: "Latest cumulative patch {{ sso_rhn_ids[keycloak_version].latest_cp.v }} already installed, skipping patch installation."
+    msg: "Latest cumulative patch {{ sso_patch_version }} already installed, skipping patch installation."

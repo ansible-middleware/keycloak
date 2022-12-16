@@ -266,6 +266,14 @@ argument_specs:
                 default: "Keycloak"
                 description: "systemd description for keycloak"
                 type: "str"
+            keycloak_service_start_delay:
+                default: "10"
+                description: "Expected delay in ms before the service is expected to be available after start."
+                type: "int"
+            keycloak_service_start_retries:
+                default: "25"
+                description: "How many time should Ansible retry to connect to the service after it was started, before failing."
+                type: "int"
             keycloak_no_log:
                 default: true
                 type: "bool"

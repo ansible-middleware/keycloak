@@ -25,8 +25,15 @@ Welcome to Keycloak Collection documentation
 
    Changelog <CHANGELOG>
 
-Indices and tables
-==================
+.. toctree::
+   :maxdepth: 2
+   :caption: Middleware collections
 
-* :ref:`genindex`
-* :ref:`search`
+   Infinispan / Red Hat Data Grid <https://ansible-middleware.github.io/infinispan/>
+   Keycloak / Red Hat Single Sign-On <https://ansible-middleware.github.io/keycloak/>
+   Wildfly / Red Hat JBoss EAP <https://ansible-middleware.github.io/wildfly/>
+   Tomcat / Red Hat JWS <https://ansible-middleware.github.io/jws/>
+   ActiveMQ / Red Hat AMQ Broker <https://ansible-middleware.github.io/amq/>
+   Kafka / Red Hat AMQ Streams <https://ansible-middleware.github.io/amq_streams/>
+   Red Hat CSP Download <https://ansible-middleware.github.io/redhat-csp-download/>
+   JCliff <https://ansible-middleware.github.io/ansible_collections_jcliff/>

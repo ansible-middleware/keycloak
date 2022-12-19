@@ -21,6 +21,19 @@
         <div class="wy-side-nav-search" >
             <a href="#" class="icon icon-home"> Keycloak Ansible Collection</a>
         </div>
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+            <p class="caption" role="heading"><span class="caption-text">Middleware Automation</span></p>
+            <ul>
+              <li class="toctree-l1"><a class="reference internal" href="https://ansible-middleware.github.io/infinispan/">Infinispan / Red Hat Data Grid</a></li>
+              <li class="toctree-l1"><a class="reference internal" href="https://ansible-middleware.github.io/keycloak/">Keycloak / Red Hat Single Sign-On</a></li>
+              <li class="toctree-l1"><a class="reference internal" href="https://ansible-middleware.github.io/wildfly/">Wildfly / Red Hat JBoss EAP</a></li>
+              <li class="toctree-l1"><a class="reference internal" href="https://ansible-middleware.github.io/jws/">Tomcat / Red Hat JWS</a></li>
+              <li class="toctree-l1"><a class="reference internal" href="https://ansible-middleware.github.io/amq/">ActiveMQ / Red Hat AMQ Broker</a></li>
+              <li class="toctree-l1"><a class="reference internal" href="https://ansible-middleware.github.io/amq_streams/">Kafka / Red Hat AMQ Streams</a></li>
+              <li class="toctree-l1"><a class="reference internal" href="https://ansible-middleware.github.io/redhat-csp-download/">Red Hat CSP Download</a></li>
+              <li class="toctree-l1"><a class="reference internal" href="https://ansible-middleware.github.io/ansible_collections_jcliff/">JCliff</a></li>
+            </ul>
+        </div>
       </div>
     </nav>
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">

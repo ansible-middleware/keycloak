@@ -46,8 +46,3 @@ Plugin Index
 There are no plugins in the middleware_automation.keycloak collection with automatically generated documentation.
 
 
-
-.. toctree::
-    :maxdepth: 1
-    :hidden:
-

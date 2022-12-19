@@ -179,6 +179,9 @@
                 </thread-pool>
             </thread-pools>
             <default-security-domain value="other"/>
+            <application-security-domains>
+                <application-security-domain name="other" security-domain="ApplicationDomain"/>
+            </application-security-domains>
             <default-missing-method-permissions-deny-access value="true"/>
             <statistics enabled="${wildfly.ejb3.statistics-enabled:${wildfly.statistics-enabled:false}}"/>
             <log-system-exceptions value="true"/>
@@ -520,7 +523,7 @@
                 <http-listener name="default" socket-binding="http"/>
                 <host name="default-host" alias="localhost">
                     <location name="/" handler="welcome-content"/>
-                    <http-invoker security-realm="ApplicationRealm"/>
+                    <http-invoker http-authentication-factory="application-http-authentication"/>
                 </host>
             </server>
             <servlet-container name="default">

@@ -1,7 +1,7 @@
 ---
 dependency:
   name: shell
-  command: ansible-galaxy collection install -r molecule/default/requirements.yml -p $HOME/.ansible/collections --force-with-deps
+  command: ansible-galaxy collection install -r molecule/requirements.yml -p $HOME/.ansible/collections --force-with-deps
 driver:
   name: docker
 lint: |
@@ -16,7 +16,7 @@ platforms:
     port_bindings:
       - "8080/tcp"
       - "8443/tcp"
-      - "8009/tcp"      
+      - "8009/tcp"
 provisioner:
   name: ansible
   config_options:
@@ -33,7 +33,7 @@ provisioner:
       localhost:
         ansible_python_interpreter: "{{ ansible_playbook_python }}"
   env:
-    ANSIBLE_FORCE_COLOR: "true"        
+    ANSIBLE_FORCE_COLOR: "true"
 verifier:
   name: ansible
 scenario:

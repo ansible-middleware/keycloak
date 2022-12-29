@@ -20,6 +20,7 @@ tags:
   - security
   - infrastructure
   - authentication
+  - java
 dependencies:
   "middleware_automation.redhat_csp_download": ">=1.2.1"
   "community.general": ">=5.6.0"

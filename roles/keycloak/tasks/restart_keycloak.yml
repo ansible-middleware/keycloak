@@ -15,8 +15,8 @@
   until: keycloak_status.status == 200
   delegate_to: "{{ ansible_play_hosts | first }}"
   run_once: True
-  retries: 25
-  delay: 10
+  retries: "{{ keycloak_service_start_retries }}"
+  delay: "{{ keycloak_service_start_delay }}"
 
 - name: "Restart and enable {{ keycloak.service_name }} service"
   ansible.builtin.systemd:

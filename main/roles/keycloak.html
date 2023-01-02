@@ -472,31 +472,31 @@
 <ul class="simple">
 <li><p>The following is an example playbook that makes use of the role to install keycloak from remote:</p></li>
 </ul>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">vars</span><span class="p p-Indicator">:</span><span class="w"></span>
-<span class="w">        </span><span class="nt">keycloak_admin_password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;remembertochangeme&quot;</span><span class="w"></span>
-<span class="w">  </span><span class="w w-Error">    </span><span class="nt">collections</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">middleware_automation.keycloak</span><span class="w"></span>
-<span class="w">      </span><span class="nt">roles</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">middleware_automation.keycloak.keycloak</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">vars</span><span class="p p-Indicator">:</span>
+<span class="w">        </span><span class="nt">keycloak_admin_password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;remembertochangeme&quot;</span>
+<span class="w">  </span><span class="w w-Error">    </span><span class="nt">collections</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">middleware_automation.keycloak</span>
+<span class="w">      </span><span class="nt">roles</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">middleware_automation.keycloak.keycloak</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li><p>The following example playbook makes use of the role to install keycloak from the controller node:</p></li>
 </ul>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">collections</span><span class="p p-Indicator">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">middleware_automation.keycloak</span><span class="w"></span>
-<span class="w">  </span><span class="w w-Error">    </span><span class="nt">tasks</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Include keycloak role</span><span class="w"></span>
-<span class="w">          </span><span class="nt">include_role</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keycloak</span><span class="w"></span>
-<span class="w">          </span><span class="nt">vars</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">keycloak_admin_password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;remembertochangeme&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="nt">keycloak_offline_install</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span><span class="w"></span>
-<span class="w">            </span><span class="c1"># This should be the filename of keycloak archive on Ansible node: keycloak-16.1.0.zip</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">collections</span><span class="p p-Indicator">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">middleware_automation.keycloak</span>
+<span class="w">  </span><span class="w w-Error">    </span><span class="nt">tasks</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Include keycloak role</span>
+<span class="w">          </span><span class="nt">include_role</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keycloak</span>
+<span class="w">          </span><span class="nt">vars</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">keycloak_admin_password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;remembertochangeme&quot;</span>
+<span class="w">            </span><span class="nt">keycloak_offline_install</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="w">            </span><span class="c1"># This should be the filename of keycloak archive on Ansible node: keycloak-16.1.0.zip</span>
 </pre></div>
 </div>
 </section>
@@ -525,7 +525,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Red Hat, Inc..</p>
+    <p>&#169; Copyright 2023, Red Hat, Inc..</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

@@ -232,46 +232,46 @@
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">keycloak_user_federation</span></code>, a list of:</p></li>
 </ul>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">realm</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">&lt;name of the realm in which user federation should be configured, required&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;name of the user federation provider, required&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">provider_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;type of the user federation provider, required&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">provider_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;Provider Type, default is set to org.keycloak.storage.UserStorageProvider&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;dictionary of supported configuration values, required&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">mappers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;list of supported configuration values, required&gt;</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">realm</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">&lt;name of the realm in which user federation should be configured, required&gt;</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;name of the user federation provider, required&gt;</span>
+<span class="w">      </span><span class="nt">provider_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;type of the user federation provider, required&gt;</span>
+<span class="w">      </span><span class="nt">provider_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;Provider Type, default is set to org.keycloak.storage.UserStorageProvider&gt;</span>
+<span class="w">      </span><span class="nt">config</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;dictionary of supported configuration values, required&gt;</span>
+<span class="w">      </span><span class="nt">mappers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;list of supported configuration values, required&gt;</span>
 </pre></div>
 </div>
 <p>Refer to <a class="reference external" href="https://docs.ansible.com/ansible/latest/collections/community/general/keycloak_user_federation_module.html">docs</a> for information on supported variables.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">keycloak_clients</span></code>, a list of:</p></li>
 </ul>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;name of the client&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;id of the client&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">client_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;id of the client&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">roles</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;keycloak_client_default_roles&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;name of the realm that contains the client&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">public_client</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;true for public, false for confidential&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">web_origins</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;list of allowed we origins for the client&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">users</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;keycloak_client_users&gt;</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;name of the client&gt;</span>
+<span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;id of the client&gt;</span>
+<span class="w">      </span><span class="nt">client_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;id of the client&gt;</span>
+<span class="w">      </span><span class="nt">roles</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;keycloak_client_default_roles&gt;</span>
+<span class="w">      </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;name of the realm that contains the client&gt;</span>
+<span class="w">      </span><span class="nt">public_client</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;true for public, false for confidential&gt;</span>
+<span class="w">      </span><span class="nt">web_origins</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;list of allowed we origins for the client&gt;</span>
+<span class="w">      </span><span class="nt">users</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;keycloak_client_users&gt;</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">name</span></code> and either <code class="docutils literal notranslate"><span class="pre">id</span></code> or <code class="docutils literal notranslate"><span class="pre">client_id</span></code> are required.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">keycloak_client_users</span></code>, a list of:</p></li>
 </ul>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;username, required&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;password, required&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">firstName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;firstName, optional&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">lastName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;lastName, optional&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;email, optional&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">client_roles</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;list of client user/role mappings&gt;</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;username, required&gt;</span>
+<span class="w">      </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;password, required&gt;</span>
+<span class="w">      </span><span class="nt">firstName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;firstName, optional&gt;</span>
+<span class="w">      </span><span class="nt">lastName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;lastName, optional&gt;</span>
+<span class="w">      </span><span class="nt">email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;email, optional&gt;</span>
+<span class="w">      </span><span class="nt">client_roles</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;list of client user/role mappings&gt;</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li><p>Client user/role mappings, a list of:</p></li>
 </ul>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">client</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;name of the client&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;name of the role&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;name of the realm&gt;</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">client</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;name of the client&gt;</span>
+<span class="w">      </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;name of the role&gt;</span>
+<span class="w">      </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;name of the realm&gt;</span>
 </pre></div>
 </div>
 <p>For a comprehensive example, refer to the <a class="reference download internal" download="" href="../_downloads/a0468922d38230cfdad1d445a6b10b9e/keycloak_realm.yml"><span class="xref download myst">playbook</span></a>.</p>
@@ -279,18 +279,18 @@
 <section id="example-playbook">
 <h2>Example Playbook<a class="headerlink" href="#example-playbook" title="Permalink to this heading"></a></h2>
 <p>The following is an example playbook that makes use of the role to create a realm in keycloak.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span><span class="w"></span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span><span class="w"></span>
-<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">collections</span><span class="p p-Indicator">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">middleware_automation.keycloak</span><span class="w"></span>
-<span class="w">  </span><span class="w w-Error">    </span><span class="nt">tasks</span><span class="p">:</span><span class="w"></span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Include keycloak role</span><span class="w"></span>
-<span class="w">          </span><span class="nt">include_role</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keycloak_realm</span><span class="w"></span>
-<span class="w">          </span><span class="nt">vars</span><span class="p">:</span><span class="w"></span>
-<span class="w">            </span><span class="nt">keycloak_admin_password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;changeme&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="nt">keycloak_realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TestRealm</span><span class="w"></span>
-<span class="w">            </span><span class="nt">keycloak_clients</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span><span class="w"></span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">collections</span><span class="p p-Indicator">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">middleware_automation.keycloak</span>
+<span class="w">  </span><span class="w w-Error">    </span><span class="nt">tasks</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Include keycloak role</span>
+<span class="w">          </span><span class="nt">include_role</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keycloak_realm</span>
+<span class="w">          </span><span class="nt">vars</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">keycloak_admin_password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;changeme&quot;</span>
+<span class="w">            </span><span class="nt">keycloak_realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TestRealm</span>
+<span class="w">            </span><span class="nt">keycloak_clients</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
 </pre></div>
 </div>
 </section>
@@ -318,7 +318,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Red Hat, Inc..</p>
+    <p>&#169; Copyright 2023, Red Hat, Inc..</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

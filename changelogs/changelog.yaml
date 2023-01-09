@@ -96,3 +96,37 @@ releases:
     - 38.yaml
     - 39.yaml
     release_date: '2022-07-06'
+  1.1.0:
+    changes:
+      breaking_changes:
+      - 'Rename variables from ``infinispan_`` prefix to ``keycloak_infinispan_``
+        `#42 <https://github.com/ansible-middleware/keycloak/pull/42>`_
+
+        '
+      bugfixes:
+      - 'keycloak_quarkus: fix /var/log/keycloak symlink to keycloak log directory
+        `#44 <https://github.com/ansible-middleware/keycloak/pull/44>`_
+
+        '
+      minor_changes:
+      - 'Update keycloak to 18.0.2 - sso to 7.6.1 `#46 <https://github.com/ansible-middleware/keycloak/pull/46>`_
+
+        '
+      - 'Variable ``keycloak_no_log`` controls ansible ``no_log`` parameter (for debugging
+        purposes) `#47 <https://github.com/ansible-middleware/keycloak/pull/47>`_
+
+        '
+      - 'Variables to override service start retries and delay `#51 <https://github.com/ansible-middleware/keycloak/pull/51>`_
+
+        '
+      - 'keycloak_quarkus: variable to enable development mode `#45 <https://github.com/ansible-middleware/keycloak/pull/45>`_
+
+        '
+    fragments:
+    - 42.yaml
+    - 44.yaml
+    - 45.yaml
+    - 46.yaml
+    - 47.yaml
+    - 51.yaml
+    release_date: '2023-01-09'

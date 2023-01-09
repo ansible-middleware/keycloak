@@ -6,6 +6,27 @@ middleware_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v1.1.0
+======
+
+Minor Changes
+-------------
+
+- Update keycloak to 18.0.2 - sso to 7.6.1 `#46 <https://github.com/ansible-middleware/keycloak/pull/46>`_
+- Variable ``keycloak_no_log`` controls ansible ``no_log`` parameter (for debugging purposes) `#47 <https://github.com/ansible-middleware/keycloak/pull/47>`_
+- Variables to override service start retries and delay `#51 <https://github.com/ansible-middleware/keycloak/pull/51>`_
+- keycloak_quarkus: variable to enable development mode `#45 <https://github.com/ansible-middleware/keycloak/pull/45>`_
+
+Breaking Changes / Porting Guide
+--------------------------------
+
+- Rename variables from ``infinispan_`` prefix to ``keycloak_infinispan_`` `#42 <https://github.com/ansible-middleware/keycloak/pull/42>`_
+
+Bugfixes
+--------
+
+- keycloak_quarkus: fix /var/log/keycloak symlink to keycloak log directory `#44 <https://github.com/ansible-middleware/keycloak/pull/44>`_
+
 v1.0.7
 ======
 

@@ -9,6 +9,11 @@ This changelog describes changes after version 0.2.6.
 v1.1.1-devel
 ============
 
+Bugfixes
+--------
+
+- keycloak-quarkus: fix ``cache-config-file`` path in keycloak.conf.j2 template `#53 <https://github.com/ansible-middleware/keycloak/pull/53>`_
+
 v1.1.0
 ======
 

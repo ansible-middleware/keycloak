@@ -9,7 +9,5 @@
     keycloak_quarkus_https_enabled: True
     keycloak_quarkus_key_file: conf/key.pem
     keycloak_quarkus_cert_file: conf/cert.pem
-  collections:
-    - middleware_automation.keycloak
   roles:
-    - keycloak_quarkus
+    - middleware_automation.keycloak.keycloak_quarkus

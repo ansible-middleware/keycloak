@@ -1,6 +1,4 @@
 ---
-collections:
-
 galaxy_info:
   role_name: keycloak_quarkus
   namespace: middleware_automation

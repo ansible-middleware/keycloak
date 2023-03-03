@@ -3,7 +3,5 @@
   hosts: all
   vars:
     keycloak_admin_password: "remembertochangeme"
-  collections:
-    - middleware_automation.keycloak
   roles:
-    - keycloak
+    - middleware_automation.keycloak.keycloak

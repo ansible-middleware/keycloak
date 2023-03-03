@@ -27,7 +27,7 @@
   ansible.builtin.uri:
     url: "{{ keycloak_url }}{{ keycloak_context }}/admin/realms"
     method: POST
-    body: "{{ lookup('template','realm.json.j2') }}"
+    body: "{{ lookup('template', 'realm.json.j2') }}"
     validate_certs: no
     body_format: json
     headers:

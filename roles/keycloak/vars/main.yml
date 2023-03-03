@@ -46,7 +46,7 @@ keycloak_jdbc:
     driver_jar_filename: "mariadb-java-client-{{ keycloak_jdbc_driver_version }}.jar"
     driver_jar_url: "https://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/{{ keycloak_jdbc_driver_version }}/mariadb-java-client-{{ keycloak_jdbc_driver_version }}.jar"
     connection_url: "{{ keycloak_jdbc_url }}"
-    db_user: "{{ keycloak_db_user  }}"
+    db_user: "{{ keycloak_db_user }}"
     db_password: "{{ keycloak_db_pass }}"
     initialize_db: >
       CREATE TABLE IF NOT EXISTS JGROUPSPING (

@@ -4,9 +4,6 @@
   vars:
     keycloak_admin_password: "remembertochangeme"
     sso_enable: True
-  collections:
-    - middleware_automation.redhat_csp_download
-    - middleware_automation.keycloak
   roles:
     - middleware_automation.redhat_csp_download.redhat_csp_download
     - middleware_automation.keycloak.keycloak

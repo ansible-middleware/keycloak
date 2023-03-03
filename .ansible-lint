@@ -29,6 +29,7 @@ warn_list:
   - name[template]
   - name[casing]
   - fqcn[action]
+  - schema[meta]
 
 skip_list:
   - vars_should_not_be_used

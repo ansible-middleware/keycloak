@@ -17,6 +17,7 @@
   register: existing_deploy
 
 - name: Stop and restart if existing deployment exists and install forced
+  when: existing_deploy.stat.exists and keycloak_force_install | bool
   block:
     - name: "Stop the old {{ keycloak.service_name }} service"
       become: yes
@@ -29,7 +30,6 @@
       ansible.builtin.file:
         path: "{{ keycloak_jboss_home }}"
         state: absent
-  when: existing_deploy.stat.exists and keycloak_force_install|bool
 
 - name: Check for an existing deployment after possible forced removal
   become: yes
@@ -185,7 +185,7 @@
     mode: 0640
   notify:
     - restart keycloak
-  when: not keycloak_remotecache.enabled or keycloak_config_override_template|length > 0
+  when: not keycloak_remotecache.enabled or keycloak_config_override_template | length > 0
 
 - name: "Deploy {{ keycloak.service_name }} config with remote cache store to {{ keycloak_config_path_to_standalone_xml }}"
   become: yes

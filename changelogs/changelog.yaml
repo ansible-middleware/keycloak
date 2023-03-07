@@ -130,3 +130,13 @@ releases:
     - 47.yaml
     - 51.yaml
     release_date: '2023-01-09'
+  1.1.1:
+    changes:
+      bugfixes:
+      - 'keycloak-quarkus: fix ``cache-config-file`` path in keycloak.conf.j2 template
+        `#53 <https://github.com/ansible-middleware/keycloak/pull/53>`_
+
+        '
+    fragments:
+    - 53.yaml
+    release_date: '2023-03-07'

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>keycloak_quarkus &mdash; Keycloak Ansible Collection  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/ansible-basic-sphinx-ext.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="keycloak_realm" href="keycloak_realm.html" />
+    <link rel="prev" title="keycloak" href="keycloak.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Keycloak Ansible Collection
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Ansible Collection - middleware_automation.keycloak</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Role Index</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="keycloak.html">keycloak</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">keycloak_quarkus</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#role-defaults">Role Defaults</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#role-variables">Role Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#license">License</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#author-information">Author Information</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm.html">keycloak_realm</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing.html">Contributor’s Guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releasing.html">Collection Versioning Strategy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../CHANGELOG.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Middleware collections</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/infinispan/">Infinispan / Red Hat Data Grid</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/keycloak/">Keycloak / Red Hat Single Sign-On</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/wildfly/">Wildfly / Red Hat JBoss EAP</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/jws/">Tomcat / Red Hat JWS</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/amq/">ActiveMQ / Red Hat AMQ Broker</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/amq_streams/">Kafka / Red Hat AMQ Streams</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/redhat-csp-download/">Red Hat CSP Download</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/ansible_collections_jcliff/">JCliff</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Keycloak Ansible Collection</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Role Index</a></li>
+      <li class="breadcrumb-item active">keycloak_quarkus</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/roles/keycloak_quarkus.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="keycloak-quarkus">
+<h1>keycloak_quarkus<a class="headerlink" href="#keycloak-quarkus" title="Permalink to this heading"></a></h1>
+<p>Install <a class="reference external" href="https://keycloak.org/">keycloak</a> &gt;= 17.0.0 (quarkus) server configurations.</p>
+<section id="role-defaults">
+<h2>Role Defaults<a class="headerlink" href="#role-defaults" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p>Installation options</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
+<th class="head text-left"><p>Description</p></th>
+<th class="head text-left"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_version</span></code></p></td>
+<td class="text-left"><p>keycloak.org package version</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">17.0.1</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Service configuration</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
+<th class="head text-left"><p>Description</p></th>
+<th class="head text-left"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_ha_enabled</span></code></p></td>
+<td class="text-left"><p>Enable auto configuration for database backend, clustering and remote caches on infinispan</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_db_enabled</span></code></p></td>
+<td class="text-left"><p>Enable auto configuration for database backend</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_ha_enabled</span></code> is True, else <code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_admin_user</span></code></p></td>
+<td class="text-left"><p>Administration console user account</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">admin</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_bind_address</span></code></p></td>
+<td class="text-left"><p>Address for binding service ports</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">0.0.0.0</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_host</span></code></p></td>
+<td class="text-left"><p>hostname</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">localhost</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_http_port</span></code></p></td>
+<td class="text-left"><p>HTTP port</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">8080</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_https_port</span></code></p></td>
+<td class="text-left"><p>TLS HTTP port</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">8443</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_ajp_port</span></code></p></td>
+<td class="text-left"><p>AJP port</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">8009</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_jgroups_port</span></code></p></td>
+<td class="text-left"><p>jgroups cluster tcp port</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">7600</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_service_user</span></code></p></td>
+<td class="text-left"><p>Posix account username</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_service_group</span></code></p></td>
+<td class="text-left"><p>Posix account group</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_service_pidfile</span></code></p></td>
+<td class="text-left"><p>Pid file path for service</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/run/keycloak.pid</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_jvm_package</span></code></p></td>
+<td class="text-left"><p>RHEL java package runtime</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">java-11-openjdk-headless</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_java_home</span></code></p></td>
+<td class="text-left"><p>JAVA_HOME of installed JRE, leave empty for using specified keycloak_quarkus_jvm_package RPM path</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_java_opts</span></code></p></td>
+<td class="text-left"><p>Additional JVM options</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">-Xms1024m</span> <span class="pre">-Xmx2048m</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_frontend_url</span></code></p></td>
+<td class="text-left"><p>Service public URL</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">http://localhost:8080/auth</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_http_relative_path</span></code></p></td>
+<td class="text-left"><p>Service context path</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">auth</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_http_enabled</span></code></p></td>
+<td class="text-left"><p>Enable listener on HTTP port</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_https_enabled</span></code></p></td>
+<td class="text-left"><p>Enable listener on HTTPS port</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_key_file</span></code></p></td>
+<td class="text-left"><p>The file path to a private key in PEM format</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">keycloak.home</span> <span class="pre">}}/conf/server.key.pem</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_cert_file</span></code></p></td>
+<td class="text-left"><p>The file path to a server certificate or certificate chain in PEM format</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">keycloak.home</span> <span class="pre">}}/conf/server.crt.pem</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Database configuration</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
+<th class="head text-left"><p>Description</p></th>
+<th class="head text-left"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_jdbc_engine</span></code></p></td>
+<td class="text-left"><p>Database engine [mariadb,postres]</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">postgres</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_db_user</span></code></p></td>
+<td class="text-left"><p>User for database connection</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak-user</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_db_pass</span></code></p></td>
+<td class="text-left"><p>Password for database connection</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak-pass</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_jdbc_url</span></code></p></td>
+<td class="text-left"><p>JDBC URL for connecting to database</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdbc:postgresql://localhost:5432/keycloak</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_jdbc_driver_version</span></code></p></td>
+<td class="text-left"><p>Version for JDBC driver</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">9.4.1212</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Remote caches configuration</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
+<th class="head text-left"><p>Description</p></th>
+<th class="head text-left"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_ispn_user</span></code></p></td>
+<td class="text-left"><p>Username for connecting to infinispan</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">supervisor</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_ispn_pass</span></code></p></td>
+<td class="text-left"><p>Password for connecting to infinispan</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">supervisor</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_ispn_url</span></code></p></td>
+<td class="text-left"><p>URL for connecting to infinispan</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">localhost</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_ispn_sasl_mechanism</span></code></p></td>
+<td class="text-left"><p>Infinispan auth mechanism</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">SCRAM-SHA-512</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_ispn_use_ssl</span></code></p></td>
+<td class="text-left"><p>Whether infinispan uses TLS connection</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_ispn_trust_store_path</span></code></p></td>
+<td class="text-left"><p>Path to infinispan server trust certificate</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/etc/pki/java/cacerts</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_ispn_trust_store_password</span></code></p></td>
+<td class="text-left"><p>Password for infinispan certificate keystore</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">changeit</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Install options</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
+<th class="head text-left"><p>Description</p></th>
+<th class="head text-left"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_offline_install</span></code></p></td>
+<td class="text-left"><p>Perform an offline install</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_download_url</span></code></p></td>
+<td class="text-left"><p>Download URL for keycloak</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">https://github.com/keycloak/keycloak/releases/download/&lt;version&gt;/&lt;archive&gt;</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_version</span></code></p></td>
+<td class="text-left"><p>keycloak.org package version</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">17.0.1</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_dest</span></code></p></td>
+<td class="text-left"><p>Installation root path</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/opt/keycloak</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_download_url</span></code></p></td>
+<td class="text-left"><p>Download URL for keycloak</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">https://github.com/keycloak/keycloak/releases/download/{{</span> <span class="pre">keycloak_quarkus_version</span> <span class="pre">}}/{{</span> <span class="pre">keycloak_quarkus_archive</span> <span class="pre">}}</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_configure_firewalld</span></code></p></td>
+<td class="text-left"><p>Ensure firewalld is running and configure keycloak ports</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Miscellaneous configuration</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
+<th class="head text-left"><p>Description</p></th>
+<th class="head text-left"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_metrics_enabled</span></code></p></td>
+<td class="text-left"><p>Whether to enable metrics</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_health_enabled</span></code></p></td>
+<td class="text-left"><p>If the server should expose health check endpoints</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_archive</span></code></p></td>
+<td class="text-left"><p>keycloak install archive filename</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak-{{</span> <span class="pre">keycloak_quarkus_version</span> <span class="pre">}}.zip</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_installdir</span></code></p></td>
+<td class="text-left"><p>Installation path</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">keycloak_quarkus_dest</span> <span class="pre">}}/keycloak-{{</span> <span class="pre">keycloak_quarkus_version</span> <span class="pre">}}</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_home</span></code></p></td>
+<td class="text-left"><p>Installation work directory</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">keycloak_quarkus_installdir</span> <span class="pre">}}</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_config_dir</span></code></p></td>
+<td class="text-left"><p>Path for configuration</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">keycloak_quarkus_home</span> <span class="pre">}}/conf</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_master_realm</span></code></p></td>
+<td class="text-left"><p>Name for rest authentication realm</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">master</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_auth_client</span></code></p></td>
+<td class="text-left"><p>Authentication client for configuration REST calls</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">admin-cli</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_force_install</span></code></p></td>
+<td class="text-left"><p>Remove pre-existing versions of service</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_url</span></code></p></td>
+<td class="text-left"><p>URL for configuration rest calls</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">http://{{</span> <span class="pre">keycloak_quarkus_host</span> <span class="pre">}}:{{</span> <span class="pre">keycloak_http_port</span> <span class="pre">}}</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_management_url</span></code></p></td>
+<td class="text-left"><p>URL for management console rest calls</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">http://{{</span> <span class="pre">keycloak_quarkus_host</span> <span class="pre">}}:{{</span> <span class="pre">keycloak_management_http_port</span> <span class="pre">}}</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_log</span></code></p></td>
+<td class="text-left"><p>Enable one or more log handlers in a comma-separated list</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">file</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_log_level</span></code></p></td>
+<td class="text-left"><p>The log level of the root category or a comma-separated list of individual categories and their levels</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">info</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_log_file</span></code></p></td>
+<td class="text-left"><p>Set the log file path and filename relative to keycloak home</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">data/log/keycloak.log</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_log_format</span></code></p></td>
+<td class="text-left"><p>Set a format specific to file log entries</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%d{yyyy-MM-dd</span> <span class="pre">HH:mm:ss,SSS}</span> <span class="pre">%-5p</span> <span class="pre">[%c]</span> <span class="pre">(%t)</span> <span class="pre">%s%e%n</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_proxy_mode</span></code></p></td>
+<td class="text-left"><p>The proxy address forwarding mode if the server is behind a reverse proxy</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">edge</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_start_dev</span></code></p></td>
+<td class="text-left"><p>Whether to start the service in development mode (start-dev)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="role-variables">
+<h2>Role Variables<a class="headerlink" href="#role-variables" title="Permalink to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
+<th class="head text-left"><p>Description</p></th>
+<th class="head"><p>Required</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_admin_pass</span></code></p></td>
+<td class="text-left"><p>Password of console admin account</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">yes</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this heading"></a></h2>
+<p>Apache License 2.0</p>
+</section>
+<section id="author-information">
+<h2>Author Information<a class="headerlink" href="#author-information" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/guidograzioli">Guido Grazioli</a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="keycloak.html" class="btn btn-neutral float-left" title="keycloak" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="keycloak_realm.html" class="btn btn-neutral float-right" title="keycloak_realm" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Red Hat, Inc..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

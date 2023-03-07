@@ -1,6 +1,5 @@
 ---
 # tasks file for keycloak
-
 - name: Check prerequisites
   ansible.builtin.include_tasks: prereqs.yml
   tags:

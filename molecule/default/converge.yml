@@ -4,6 +4,12 @@
   vars: 
     keycloak_admin_password: "remembertochangeme"
     keycloak_jvm_package: java-11-openjdk-headless
+    keycloak_modcluster_enabled: True
+    keycloak_modcluster_urls:
+      - host: myhost1
+        port: 16667
+      - host: myhost2
+        port: 16668
   roles:
     - role: keycloak
   tasks:

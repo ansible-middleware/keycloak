@@ -617,7 +617,7 @@
         <subsystem xmlns="urn:wildfly:metrics:1.0" security-enabled="false" exposed-subsystems="*" prefix="${wildfly.metrics.prefix:jboss}"/>
 {% if keycloak_modcluster.enabled %}    
         <subsystem xmlns="urn:jboss:domain:modcluster:5.0">
-            <proxy name="default" advertise="false" listener="ajp" proxies="proxy1">
+            <proxy name="default" advertise="false" listener="ajp" proxies="{{ ['proxy_'] | product(keycloak_modcluster.reverse_proxy_urls | map(attribute='host')) | map('join') | list | join(' ') }}">
                 <dynamic-load-provider>
                     <load-metric type="cpu"/>
                 </dynamic-load-provider>
@@ -705,9 +705,11 @@
             <remote-destination host="${jboss.mail.server.host:localhost}" port="${jboss.mail.server.port:25}"/>
         </outbound-socket-binding>
 {% if keycloak_modcluster.enabled %}
-        <outbound-socket-binding name="proxy1">
-            <remote-destination host="{{ keycloak_modcluster.reverse_proxy_url | default('localhost') }}" port="6666"/>
+{% for modcluster in keycloak_modcluster.reverse_proxy_urls %}
+        <outbound-socket-binding name="proxy_{{ modcluster.host }}">
+            <remote-destination host="{{ modcluster.host }}" port="{{ modcluster.port }}"/>
         </outbound-socket-binding>
+{% endfor %}
 {% endif %}
         <outbound-socket-binding name="remote-cache">
             <remote-destination host="{{ keycloak_remotecache.server_name | default('localhost') }}" port="${remote.cache.port:11222}"/>

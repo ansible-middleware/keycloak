@@ -116,7 +116,9 @@ The following variables are _required_ only when `keycloak_ha_enabled` is True:
 
 | Variable | Description | Default |
 |:---------|:------------|:---------|
-|`keycloak_modcluster_url` | URL for the modcluster reverse proxy | `localhost` |
+|`keycloak_modcluster_url` | _deprecated_ Host for the modcluster reverse proxy | `localhost` |
+|`keycloak_modcluster_port` | _deprecated_ Port for the modcluster reverse proxy | `6666` |
+|`keycloak_modcluster_urls` | List of {host,port} dicts for the modcluster reverse proxies | `[ { localhost:6666 } ]` |
 |`keycloak_jdbc_engine` | backend database engine when db is enabled: [ postgres, mariadb ] | `postgres` |
 |`keycloak_infinispan_url` | URL for the infinispan remote-cache server | `localhost:11122` |
 |`keycloak_infinispan_user` | username for connecting to infinispan | `supervisor` |

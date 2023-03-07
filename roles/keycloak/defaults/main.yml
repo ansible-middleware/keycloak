@@ -54,8 +54,12 @@ keycloak_auth_client: admin-cli
 
 keycloak_force_install: False
 
-### mod_cluster reverse proxy
+### mod_cluster reverse proxy list
 keycloak_modcluster_url: localhost
+keycloak_modcluster_port: 6666
+keycloak_modcluster_urls:
+  - host: "{{ keycloak_modcluster_url }}"
+    port: "{{ keycloak_modcluster_port }}"
 
 ### keycloak frontend url
 keycloak_frontend_url: http://localhost:8080/auth

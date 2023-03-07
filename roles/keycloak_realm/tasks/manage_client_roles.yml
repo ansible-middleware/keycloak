@@ -1,5 +1,5 @@
 - name: Create client roles
-  community.general.keycloak_role:
+  middleware_automation.keycloak.keycloak_role:
     name: "{{ item }}"
     realm: "{{ client.realm }}"
     client_id: "{{ client.name }}"

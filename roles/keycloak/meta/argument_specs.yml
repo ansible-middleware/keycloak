@@ -178,14 +178,10 @@ argument_specs:
                 default: "localhost"
                 description: "URL for the modcluster reverse proxy"
                 type: "str"
-                removed_in_version: "1.4.0"
-                removed_from_collection: "middleware_automation.keycloak"
             keycloak_modcluster_port:
                 default: 6666
                 description: "Port for the modcluster reverse proxy"
                 type: "int"
-                removed_in_version: "1.4.0"
-                removed_from_collection: "middleware_automation.keycloak"
             keycloak_modcluster_urls:
                 default: "[ { host: 'localhost', port: 6666 } ]"
                 description: "List of modproxy node URLs in the format { host, port } for the modcluster reverse proxy"

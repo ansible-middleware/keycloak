@@ -9,6 +9,11 @@ This changelog describes changes after version 0.2.6.
 v1.2.0-devel
 ============
 
+Major Changes
+-------------
+
+- Provide config for multiple modcluster proxies `#60 <https://github.com/ansible-middleware/keycloak/pull/60>`_
+
 v1.1.1
 ======
 

@@ -59,7 +59,7 @@ keycloak_jdbc:
 
 # reverse proxy mod_cluster
 keycloak_modcluster:
-  enabled: "{{ keycloak_ha_enabled }}"
+  enabled: "{{ keycloak_ha_enabled or keycloak_modcluster_enabled }}"
   reverse_proxy_urls: "{{ keycloak_modcluster_urls }}"
   frontend_url: "{{ keycloak_frontend_url }}"
 

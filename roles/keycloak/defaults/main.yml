@@ -55,6 +55,7 @@ keycloak_auth_client: admin-cli
 keycloak_force_install: False
 
 ### mod_cluster reverse proxy list
+keycloak_modcluster_enabled: "{{ True if keycloak_ha_enabled else False }}"
 keycloak_modcluster_url: localhost
 keycloak_modcluster_port: 6666
 keycloak_modcluster_urls:

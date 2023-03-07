@@ -152,7 +152,7 @@ argument_specs:
                 # line 48 of keycloak/defaults/main.yml
                 default: "{{ True if keycloak_ha_enabled else False }}"
                 description: "Enable auto configuration for database backend"
-                type: "str"
+                type: "bool"
             keycloak_admin_user:
                 # line 51 of keycloak/defaults/main.yml
                 default: "admin"
@@ -172,6 +172,10 @@ argument_specs:
                 # line 55 of keycloak/defaults/main.yml
                 default: false
                 description: "Remove pre-existing versions of service"
+                type: "bool"
+            keycloak_modcluster_enabled:
+                default: "{{ True if keycloak_ha_enabled else False }}"
+                description: "Enable configuration for modcluster subsystem"
                 type: "bool"
             keycloak_modcluster_url:
                 # line 58 of keycloak/defaults/main.yml

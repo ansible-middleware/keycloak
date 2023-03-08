@@ -148,6 +148,10 @@ argument_specs:
                 default: false
                 description: "Enable auto configuration for database backend, clustering and remote caches on infinispan"
                 type: "bool"
+            keycloak_ha_discovery:
+                default: "{{ 'JDBC_PING' if keycloak_db_enabled else 'TCPPING' }}"
+                description: "Discovery protocol for HA cluster members"
+                type: "str"
             keycloak_db_enabled:
                 # line 48 of keycloak/defaults/main.yml
                 default: "{{ True if keycloak_ha_enabled else False }}"

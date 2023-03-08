@@ -198,7 +198,7 @@
           "value": hostvars[item].ansible_default_ipv4.address | default(item)
         }
       ] }}
-     loop: "{{ ansible_play_batch }}"
+    loop: "{{ ansible_play_batch }}"
 
 - name: "Deploy {{ keycloak.service_name }} config with remote cache store to {{ keycloak_config_path_to_standalone_xml }}"
   become: yes

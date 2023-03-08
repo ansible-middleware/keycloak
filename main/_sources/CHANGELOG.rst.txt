@@ -19,6 +19,7 @@ Minor Changes
 
 - Allow to configure TCPPING for cluster discovery `#62 <https://github.com/ansible-middleware/keycloak/pull/62>`_
 - Drop community.general from dependencies `#61 <https://github.com/ansible-middleware/keycloak/pull/61>`_
+- Switch middleware_automation.redhat_csp_download for middleware_automation.common `#63 <https://github.com/ansible-middleware/keycloak/pull/63>`_
 
 v1.1.1
 ======

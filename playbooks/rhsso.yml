@@ -1,9 +1,8 @@
 ---
-- name: Playbook for Keycloak Hosts
-  hosts: keycloak
+- name: Playbook for Red Hat SSO Hosts
+  hosts: sso
   vars:
     keycloak_admin_password: "remembertochangeme"
     sso_enable: True
   roles:
-    - middleware_automation.redhat_csp_download.redhat_csp_download
-    - middleware_automation.keycloak.keycloak
+    - redhat.sso.sso

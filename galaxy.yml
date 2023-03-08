@@ -22,7 +22,7 @@ tags:
   - authentication
   - java
 dependencies:
-  "middleware_automation.redhat_csp_download": ">=1.2.1"
+  "middleware_automation.common": ">=1.0.0"
   "ansible.posix": ">=1.4.0"
 repository: https://github.com/ansible-middleware/keycloak
 documentation: https://ansible-middleware.github.io/keycloak

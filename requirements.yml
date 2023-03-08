@@ -1,5 +1,4 @@
 ---
 collections:
-  - name: middleware_automation.redhat_csp_download
-    version: ">=1.2.1"
+  - name: middleware_automation.common
   - name: ansible.posix

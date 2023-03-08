@@ -1,6 +1,7 @@
 ---
 collections:
-  - middleware_automation.redhat_csp_download
+  - middleware_automation.common
+  - ansible.posix
 
 galaxy_info:
   role_name: keycloak

@@ -19,5 +19,4 @@ galaxy_info:
     - keycloak
     - redhat
     - rhel
-    - rhn
     - sso

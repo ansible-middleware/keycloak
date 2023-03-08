@@ -5,4 +5,4 @@
     keycloak_admin_password: "remembertochangeme"
     sso_enable: True
   roles:
-    - redhat.sso.sso
+    - middleware_automation.keycloak.keycloak

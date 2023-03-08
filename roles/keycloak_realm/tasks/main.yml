@@ -36,7 +36,7 @@
   when: keycloak_realm_exists.status == 404
 
 - name: Create user federation
-  community.general.keycloak_user_federation:
+  middleware_automation.keycloak.keycloak_user_federation:
     auth_keycloak_url: "{{ keycloak_url }}{{ keycloak_context }}"
     auth_realm: "{{ keycloak_auth_realm }}"
     auth_username: "{{ keycloak_admin_user }}"
@@ -65,7 +65,7 @@
     label: "{{ item.name | default('unnamed client') }}"
 
 - name: Create or update a Keycloak client
-  community.general.keycloak_client:
+  middleware_automation.keycloak.keycloak_client:
     auth_client_id: "{{ keycloak_auth_client }}"
     auth_keycloak_url: "{{ keycloak_url }}{{ keycloak_context }}"
     auth_realm: "{{ keycloak_auth_realm }}"

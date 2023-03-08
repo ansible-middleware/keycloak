@@ -19,7 +19,12 @@ Dependencies
 
 The roles depends on:
 
-* the `redhat_csp_download` role from [middleware_automation.redhat_csp_download](https://github.com/ansible-middleware/redhat-csp-download) collection if Red Hat Single Sign-on zip have to be downloaded from RHN.
+* [middleware_automation.common](https://github.com/ansible-middleware/common)
+* [ansible-posix](https://docs.ansible.com/ansible/latest/collections/ansible/posix/index.html)
+
+To install all the dependencies via galaxy:
+
+    ansible-galaxy collection install -r requirements.yml
 
 
 Versions

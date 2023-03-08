@@ -77,6 +77,7 @@
     dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
     mode: 0644
   delegate_to: localhost
+  run_once: yes
   when:
     - archive_path is defined
     - archive_path.stat is defined
@@ -84,21 +85,43 @@
     - not sso_enable is defined or not sso_enable
     - not keycloak_offline_install
 
-- name: Perform download from RHN
-  middleware_automation.redhat_csp_download.redhat_csp_download:
-    url: "{{ keycloak_rhsso_download_url }}"
-    dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
-    username: "{{ rhn_username }}"
-    password: "{{ rhn_password }}"
-  no_log: "{{ omit_rhn_output | default(true) }}"
+- name: Perform download from RHN using JBoss Network API
   delegate_to: localhost
+  run_once: yes
   when:
     - archive_path is defined
     - archive_path.stat is defined
     - not archive_path.stat.exists
     - sso_enable is defined and sso_enable
     - not keycloak_offline_install
-    - keycloak_rhn_url in keycloak_download_url
+  block:
+    - name: Retrieve product download using JBoss Network API
+      middleware_automation.common.product_search:
+        client_id: "{{ rhn_username }}"
+￼       client_secret: "{{ rhn_password }}"
+￼       product_type: DISTRIBUTION
+        product_version: "{{ sso_version }}"
+￼       product_category: "{{ sso_product_category }}"
+      register: rhn_products
+      no_log: "{{ omit_rhn_output | default(true) }}"
+      delegate_to: localhost
+      run_once: yes
+
+    - name: Determine install zipfile from search results
+      ansible.builtin.set_fact:
+        rhn_filtered_products: "{{ rhn_products.results | selectattr('file_path', 'match', '[^/]*/{{ sso_archive }}$') }}"
+￼     delegate_to: localhost
+￼     run_once: yes
+￼
+    - name: Download Red Hat Single Sign-On
+      middleware_automation.common.product_download: # noqa risky-file-permissions delegated, uses controller host user
+￼        client_id: "{{ rhn_username }}"
+￼        client_secret: "{{ rhn_password }}"
+￼        product_id: "{{ (rhn_filtered_products | first).id }}"
+￼        dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
+￼     no_log: "{{ omit_rhn_output | default(true) }}"
+￼     delegate_to: localhost
+￼     run_once: yes
 
 - name: Download rhsso archive from alternate location
   ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
@@ -106,13 +129,14 @@
     dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
     mode: 0644
   delegate_to: localhost
+  run_once: yes
   when:
     - archive_path is defined
     - archive_path.stat is defined
     - not archive_path.stat.exists
     - sso_enable is defined and sso_enable
     - not keycloak_offline_install
-    - not keycloak_rhn_url in keycloak_download_url
+    - keycloak_rhsso_download_url is defined
 
 - name: Check downloaded archive
   ansible.builtin.stat:

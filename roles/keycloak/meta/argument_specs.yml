@@ -300,10 +300,6 @@ argument_specs:
                 default: "7.6.0"
                 description: "Red Hat Single Sign-On version"
                 type: "str"
-            sso_rhn_id:
-                default: "104539"
-                description: "Customer Portal product ID for Red Hat SSO"
-                type: "str"
             sso_archive:
                 default: "rh-sso-{{ sso_version }}-server-dist.zip"
                 description: "Red Hat SSO install archive filename"
@@ -316,14 +312,6 @@ argument_specs:
                 default: "{{ sso_dest }}/rh-sso-{{ sso_version.split('.')[0] }}.{{ sso_version.split('.')[1] }}"
                 description: "Installation path for Red Hat SSO"
                 type: "str"
-            sso_rhn_url:
-                default: 'https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId='
-                description: "Base download URI for customer portal"
-                type: "str"
-            sso_download_url:
-                default: "{{ sso_rhn_url }}{{ sso_rhn_id }}"
-                description: "Full download URI for Red Hat SSO"
-                type: "str"
             sso_apply_patches:
                 default: False
                 description: "Install Red Hat SSO most recent cumulative patch"
@@ -333,7 +321,7 @@ argument_specs:
                 description: "Enable Red Hat Single Sign-on installation"
                 type: "str"
             sso_offline_install:
-                default: True
+                default: False
                 description: "Perform an offline install"
                 type: "bool"
             sso_service_name:
@@ -352,7 +340,7 @@ argument_specs:
                 default: "rh-sso-{{ sso_patch_version }}-patch.zip"
                 description: "Red Hat SSO patch archive filename"
                 type: "str"
-            sso_patch_rhn_id:
-                default: "104867"
-                description: "Customer Portal product ID for Red Hat SSO latest cumulative patch"
-                type: "str"
+            sso_product_category:
+￼               default: "core.service.rhsso"
+￼               description: "JBossNetwork API category for Single Sign-On"
+￼               type: "str"

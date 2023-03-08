@@ -341,6 +341,6 @@ argument_specs:
                 description: "Red Hat SSO patch archive filename"
                 type: "str"
             sso_product_category:
-￼               default: "core.service.rhsso"
-￼               description: "JBossNetwork API category for Single Sign-On"
-￼               type: "str"
+                default: "core.service.rhsso"
+                description: "JBossNetwork API category for Single Sign-On"
+                type: "str"

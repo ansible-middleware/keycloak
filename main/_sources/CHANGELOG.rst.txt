@@ -14,6 +14,11 @@ Major Changes
 
 - Provide config for multiple modcluster proxies `#60 <https://github.com/ansible-middleware/keycloak/pull/60>`_
 
+Minor Changes
+-------------
+
+- Drop community.general from dependencies `#61 <https://github.com/ansible-middleware/keycloak/pull/61>`_
+
 v1.1.1
 ======
 

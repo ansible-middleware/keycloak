@@ -333,11 +333,11 @@ argument_specs:
                 description: "systemd description for Red Hat Single Sign-On"
                 type: "str"
             sso_patch_version:
-                default: "7.6.1"
-                description: "Red Hat Single Sign-On latest cumulative patch version"
+                required: False
+                description: "Red Hat Single Sign-On latest cumulative patch version to apply; default to latest version when sso_apply_patches is True"
                 type: "str"
             sso_patch_bundle:
-                default: "rh-sso-{{ sso_patch_version }}-patch.zip"
+                default: "rh-sso-{{ sso_patch_version | default('') }}-patch.zip"
                 description: "Red Hat SSO patch archive filename"
                 type: "str"
             sso_product_category:

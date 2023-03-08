@@ -109,7 +109,7 @@
 
     - name: Determine install zipfile from search results
       ansible.builtin.set_fact:
-        rhn_filtered_products: "{{ rhn_products.results | selectattr('file_path', 'match', '[^/]*/{{ sso_archive }}$') }}"
+        rhn_filtered_products: "{{ rhn_products.results | selectattr('file_path', 'match', '[^/]*/' + sso_archive + '$') }}"
 ￼     delegate_to: localhost
 ￼     run_once: yes
 ￼

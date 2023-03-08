@@ -98,10 +98,10 @@
     - name: Retrieve product download using JBoss Network API
       middleware_automation.common.product_search:
         client_id: "{{ rhn_username }}"
-￼       client_secret: "{{ rhn_password }}"
-￼       product_type: DISTRIBUTION
+        client_secret: "{{ rhn_password }}"
+        product_type: DISTRIBUTION
         product_version: "{{ sso_version }}"
-￼       product_category: "{{ sso_product_category }}"
+        product_category: "{{ sso_product_category }}"
       register: rhn_products
       no_log: "{{ omit_rhn_output | default(true) }}"
       delegate_to: localhost
@@ -110,18 +110,18 @@
     - name: Determine install zipfile from search results
       ansible.builtin.set_fact:
         rhn_filtered_products: "{{ rhn_products.results | selectattr('file_path', 'match', '[^/]*/' + sso_archive + '$') }}"
-￼     delegate_to: localhost
-￼     run_once: yes
-￼
+      delegate_to: localhost
+      run_once: yes
+
     - name: Download Red Hat Single Sign-On
       middleware_automation.common.product_download: # noqa risky-file-permissions delegated, uses controller host user
-￼        client_id: "{{ rhn_username }}"
-￼        client_secret: "{{ rhn_password }}"
-￼        product_id: "{{ (rhn_filtered_products | first).id }}"
-￼        dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
-￼     no_log: "{{ omit_rhn_output | default(true) }}"
-￼     delegate_to: localhost
-￼     run_once: yes
+        client_id: "{{ rhn_username }}"
+        client_secret: "{{ rhn_password }}"
+        product_id: "{{ (rhn_filtered_products | first).id }}"
+        dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
+      no_log: "{{ omit_rhn_output | default(true) }}"
+      delegate_to: localhost
+      run_once: yes
 
 - name: Download rhsso archive from alternate location
   ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user

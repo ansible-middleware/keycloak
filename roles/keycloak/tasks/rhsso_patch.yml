@@ -9,25 +9,78 @@
     path: "{{ patch_archive }}"
   register: patch_archive_path
 
-- name: Perform download from RHN
-  middleware_automation.redhat_csp_download.redhat_csp_download:
-    url: "{{ keycloak_rhn_url }}{{ sso_patch_rhn_id }}"
-    dest: "{{ local_path.stat.path }}/{{ sso_patch_bundle }}"
-    username: "{{ rhn_username }}"
-    password: "{{ rhn_password }}"
-  no_log: "{{ omit_rhn_output | default(true) }}"
+- name: Perform patch download from RHN via JBossNetwork API
   delegate_to: localhost
+  run_once: yes
   when:
     - patch_archive_path is defined
     - patch_archive_path.stat is defined
     - not patch_archive_path.stat.exists
     - sso_enable is defined and sso_enable
     - not keycloak_offline_install
+  block:
+    - name: Retrieve product download using JBossNetwork API
+      middleware_automation.common.product_search:
+        client_id: "{{ rhn_username }}"
+        client_secret: "{{ rhn_password }}"
+        product_type: BUGFIX
+        product_version: "{{ sso_version }}"
+        product_category: "{{ sso_product_category }}"
+      register: rhn_products
+      no_log: "{{ omit_rhn_output | default(true) }}"
+      delegate_to: localhost
+      run_once: yes
+
+    - name: Filter patch versions
+      set_fact:
+        filtered_versions: "{{ rhn_products.results | map(attribute='file_path') | select('match', '^[^/]*/rh-sso-.*[0-9]*[.][0-9]*[.][0-9]*.*$') | map('regex_replace','[^/]*/rh-sso-([0-9]*[.][0-9]*[.][0-9]*)-.*','\\1' ) | list | unique }}"
+      when: sso_patch_version is not defined or sso_patch_version | length == 0
+      delegate_to: localhost
+      run_once: yes
+
+    - name: Determine latest version
+      set_fact:
+         sso_latest_version: "{{ filtered_versions | middleware_automation.keycloak.version_sort | last }}"
+      when: sso_patch_version is not defined or sso_patch_version | length == 0
+      delegate_to: localhost
+      run_once: yes
+
+    - name: Determine install zipfile from search results
+      ansible.builtin.set_fact:
+        rhn_filtered_products: "{{ rhn_products.results | selectattr('file_path', 'match', '[^/]*/rh-sso-' + sso_latest_version + '-patch.zip$') }}"
+        patch_bundle: "rh-sso-{{ sso_latest_version }}-patch.zip"
+        patch_version: "{{ sso_latest_version }}"
+      when: sso_patch_version is not defined or sso_patch_version | length == 0
+      delegate_to: localhost
+      run_once: yes
+
+    - name: "Filter selected patch version {{ sso_patch_version }}"
+      set_fact:
+        rhn_filtered_products: "{{ rhn_products.results | selectattr('file_path', 'match', '[^/]*/' + sso_patch_bundle + '$') }}"
+        patch_bundle: "{{ sso_patch_bundle }}"
+        patch_version: "{{ sso_patch_version }}"
+      when: sso_patch_version is defined
+      delegate_to: localhost
+      run_once: yes
+
+    - name: Download Red Hat Single Sign-On patch
+      middleware_automation.common.product_download: # noqa risky-file-permissions delegated, uses controller host user
+        client_id: "{{ rhn_username }}"
+        client_secret: "{{ rhn_password }}"
+        product_id: "{{ (rhn_filtered_products | first).id }}"
+        dest: "{{ local_path.stat.path }}/{{ patch_bundle }}"
+      no_log: "{{ omit_rhn_output | default(true) }}"
+      delegate_to: localhost
+      run_once: yes
+
+- name: Set download patch archive path
+  ansible.builtin.set_fact:
+    patch_archive: "{{ keycloak_dest }}/{{ patch_bundle }}"
 
 ## copy and unpack
 - name: Copy patch archive to target nodes
   ansible.builtin.copy:
-    src: "{{ local_path.stat.path }}/{{ sso_patch_bundle }}"
+    src: "{{ local_path.stat.path }}/{{ patch_bundle }}"
     dest: "{{ patch_archive }}"
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
@@ -48,9 +101,9 @@
   when: 
     - cli_result is defined
     - cli_result.stdout is defined
-    - sso_patch_version not in cli_result.stdout
+    - patch_version not in cli_result.stdout
   block:
-    - name: "Apply patch {{ sso_patch_version }} to server"
+    - name: "Apply patch {{ patch_version }} to server"
       ansible.builtin.include_tasks: rhsso_cli.yml
       vars:
         query: "patch apply {{ patch_archive }}"
@@ -78,10 +131,10 @@
     - name: "Verify installed patch version"
       ansible.builtin.assert:
         that:
-          - sso_patch_version not in cli_result.stdout
+          - patch_version not in cli_result.stdout
         fail_msg: "Patch installation failed"
         success_msg: "Patch installation successful"
 
 - name: "Skipping patch"
   ansible.builtin.debug:
-    msg: "Latest cumulative patch {{ sso_patch_version }} already installed, skipping patch installation."
+    msg: "Cumulative patch {{ patch_version }} already installed, skipping patch installation."

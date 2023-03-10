@@ -19,7 +19,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="keycloak_client – Allows administration of Keycloak clients via Keycloak API" href="keycloak_client.html" />
+    <link rel="next" title="version_sort – Sort a list according to version order instead of pure alphabetical one" href="version_sort.html" />
     <link rel="prev" title="Ansible Collection - middleware_automation.keycloak" href="../README.html" /> 
 </head>
 
@@ -46,6 +46,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../README.html">Ansible Collection - middleware_automation.keycloak</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Plugin Index</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="version_sort.html">version_sort – Sort a list according to version order instead of pure alphabetical one</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_client.html">keycloak_client – Allows administration of Keycloak clients via Keycloak API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_role.html">keycloak_role – Allows administration of Keycloak roles via Keycloak API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_user_federation.html">keycloak_user_federation – Allows administration of Keycloak user federations via Keycloak API</a></li>
@@ -102,11 +103,27 @@
   <section id="plugin-index">
 <h1>Plugin Index<a class="headerlink" href="#plugin-index" title="Permalink to this heading"></a></h1>
 <div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">filter plugins</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="version_sort.html">version_sort – Sort a list according to version order instead of pure alphabetical one</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="version_sort.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="version_sort.html#input">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="version_sort.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="version_sort.html#return-value">Return Value</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="version_sort.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">modules plugins</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="keycloak_client.html">keycloak_client – Allows administration of Keycloak clients via Keycloak API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_client.html#synopsis">Synopsis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_client.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_client.html#attributes">Attributes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_client.html#examples">Examples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_client.html#return-values">Return Values</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="keycloak_client.html#authors">Authors</a></li>
@@ -117,6 +134,7 @@
 <li class="toctree-l1"><a class="reference internal" href="keycloak_role.html">keycloak_role – Allows administration of Keycloak roles via Keycloak API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_role.html#synopsis">Synopsis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_role.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_role.html#attributes">Attributes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_role.html#examples">Examples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_role.html#return-values">Return Values</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="keycloak_role.html#authors">Authors</a></li>
@@ -127,6 +145,7 @@
 <li class="toctree-l1"><a class="reference internal" href="keycloak_user_federation.html">keycloak_user_federation – Allows administration of Keycloak user federations via Keycloak API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_user_federation.html#synopsis">Synopsis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_user_federation.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user_federation.html#attributes">Attributes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_user_federation.html#examples">Examples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_user_federation.html#return-values">Return Values</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="keycloak_user_federation.html#authors">Authors</a></li>
@@ -143,7 +162,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../README.html" class="btn btn-neutral float-left" title="Ansible Collection - middleware_automation.keycloak" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="keycloak_client.html" class="btn btn-neutral float-right" title="keycloak_client – Allows administration of Keycloak clients via Keycloak API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="version_sort.html" class="btn btn-neutral float-right" title="version_sort – Sort a list according to version order instead of pure alphabetical one" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

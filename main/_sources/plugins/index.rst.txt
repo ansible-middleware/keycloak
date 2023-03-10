@@ -2,6 +2,12 @@ Plugin Index
 ============
 
 .. toctree::
+   :caption: filter plugins
+   :maxdepth: 0
+
+   version_sort
+
+.. toctree::
    :caption: modules plugins
    :maxdepth: 0
 

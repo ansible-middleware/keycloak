@@ -1,7 +1,7 @@
 antsibull>=0.17.0
 antsibull-docs
 antsibull-changelog
-ansible-base>=2.10.12
+ansible-core>=2.14.1
 sphinx-rtd-theme
 git+https://github.com/felixfontein/ansible-basic-sphinx-ext
 myst-parser

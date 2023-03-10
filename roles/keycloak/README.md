@@ -96,7 +96,7 @@ Role Defaults
 |`keycloak_archive` | keycloak install archive filename | `keycloak-legacy-{{ keycloak_version }}.zip` |
 |`keycloak_download_url_9x` | Download URL for keycloak (deprecated) | `https://downloads.jboss.org/keycloak/{{ keycloak_version }}/{{ keycloak_archive }}` |
 |`keycloak_installdir` | Installation path | `{{ keycloak_dest }}/keycloak-{{ keycloak_version }}` |
-|`keycloak_jboss_home` | Installation work directory | `{{ keycloak_rhsso_installdir if keycloak_rhsso_enable else keycloak_installdir }}` |
+|`keycloak_jboss_home` | Installation work directory | `{{ keycloak_rhsso_installdir }}` |
 |`keycloak_config_dir` | Path for configuration | `{{ keycloak_jboss_home }}/standalone/configuration` |
 |`keycloak_config_path_to_standalone_xml` | Custom path for configuration | `{{ keycloak_jboss_home }}/standalone/configuration/{{ keycloak_config_standalone_xml }}` |
 |`keycloak_config_override_template` | Path to custom template for standalone.xml configuration | `''` |

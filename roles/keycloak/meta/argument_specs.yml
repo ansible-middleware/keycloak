@@ -334,10 +334,10 @@ argument_specs:
                 type: "str"
             sso_patch_version:
                 required: False
-                description: "Red Hat Single Sign-On latest cumulative patch version to apply; default to latest version when sso_apply_patches is True"
+                description: "Red Hat Single Sign-On latest cumulative patch version to apply; defaults to latest version when sso_apply_patches is True"
                 type: "str"
             sso_patch_bundle:
-                default: "rh-sso-{{ sso_patch_version | default('') }}-patch.zip"
+                default: "rh-sso-{{ sso_patch_version | default('[0-9]+[.][0-9]+[.][0-9]+') }}-patch.zip"
                 description: "Red Hat SSO patch archive filename"
                 type: "str"
             sso_product_category:

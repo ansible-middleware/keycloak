@@ -3,28 +3,29 @@
 - name: Set download patch archive path
   ansible.builtin.set_fact:
     patch_archive: "{{ keycloak_dest }}/{{ sso_patch_bundle }}"
+  when: sso_patch_version is defined
 
 - name: Check download patch archive path
   ansible.builtin.stat:
     path: "{{ patch_archive }}"
   register: patch_archive_path
+  when: sso_patch_version is defined
 
 - name: Perform patch download from RHN via JBossNetwork API
   delegate_to: localhost
   run_once: yes
   when:
-    - patch_archive_path is defined
-    - patch_archive_path.stat is defined
-    - not patch_archive_path.stat.exists
+    - patch_archive_path is defined and patch_archive_path.stat is defined and not patch_archive_path.stat.exists or patch_archive_path is not defined
     - sso_enable is defined and sso_enable
     - not keycloak_offline_install
+    - sso_apply_patches
   block:
     - name: Retrieve product download using JBossNetwork API
       middleware_automation.common.product_search:
         client_id: "{{ rhn_username }}"
         client_secret: "{{ rhn_password }}"
         product_type: BUGFIX
-        product_version: "{{ sso_version }}"
+        product_version: "{{ sso_version.split('.')[:2] | join('.') }}"
         product_category: "{{ sso_product_category }}"
       register: rhn_products
       no_log: "{{ omit_rhn_output | default(true) }}"
@@ -76,6 +77,11 @@
 - name: Set download patch archive path
   ansible.builtin.set_fact:
     patch_archive: "{{ keycloak_dest }}/{{ patch_bundle }}"
+
+- name: Check download patch archive path
+  ansible.builtin.stat:
+    path: "{{ patch_archive }}"
+  register: patch_archive_path
 
 ## copy and unpack
 - name: Copy patch archive to target nodes

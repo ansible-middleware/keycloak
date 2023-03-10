@@ -100,7 +100,7 @@
         client_id: "{{ rhn_username }}"
         client_secret: "{{ rhn_password }}"
         product_type: DISTRIBUTION
-        product_version: "{{ sso_version }}"
+        product_version: "{{ sso_version.split('.')[:2] | join('.') }}"
         product_category: "{{ sso_product_category }}"
       register: rhn_products
       no_log: "{{ omit_rhn_output | default(true) }}"

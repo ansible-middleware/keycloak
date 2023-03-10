@@ -82,6 +82,7 @@
   ansible.builtin.stat:
     path: "{{ patch_archive }}"
   register: patch_archive_path
+  become: yes
 
 ## copy and unpack
 - name: Copy patch archive to target nodes
@@ -102,9 +103,13 @@
   ansible.builtin.include_tasks: rhsso_cli.yml
   vars:
     query: "patch info"
+  args:
+    apply:
+      become: yes
+      become_user: "{{ keycloak_service_user }}"
 
 - name: "Perform patching"
-  when: 
+  when:
     - cli_result is defined
     - cli_result.stdout is defined
     - patch_version not in cli_result.stdout
@@ -113,6 +118,10 @@
       ansible.builtin.include_tasks: rhsso_cli.yml
       vars:
         query: "patch apply {{ patch_archive }}"
+      args:
+        apply:
+          become: yes
+          become_user: "{{ keycloak_service_user }}"
 
     - name: "Restart server to ensure patch content is running"
       ansible.builtin.include_tasks: rhsso_cli.yml
@@ -120,6 +129,10 @@
         query: "shutdown --restart"
       when:
         - cli_result.rc == 0
+      args:
+        apply:
+            become: yes
+            become_user: "{{ keycloak_service_user }}"
 
     - name: "Wait until {{ keycloak.service_name }} becomes active {{ keycloak.health_url }}"
       ansible.builtin.uri:
@@ -133,7 +146,11 @@
       ansible.builtin.include_tasks: rhsso_cli.yml
       vars:
         query: "patch info"
-  
+      args:
+        apply:
+            become: yes
+            become_user: "{{ keycloak_service_user }}"
+
     - name: "Verify installed patch version"
       ansible.builtin.assert:
         that:
@@ -144,3 +161,7 @@
 - name: "Skipping patch"
   ansible.builtin.debug:
     msg: "Cumulative patch {{ patch_version }} already installed, skipping patch installation."
+  when:
+    - cli_result is defined
+    - cli_result.stdout is defined
+    - patch_version in cli_result.stdout

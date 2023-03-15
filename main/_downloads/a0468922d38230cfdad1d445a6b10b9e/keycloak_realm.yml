@@ -3,14 +3,13 @@
   hosts: all
   vars:
     keycloak_admin_password: "remembertochangeme"
-    keycloak_realm: TestRealm
     keycloak_clients:
       - name: TestClient1
         client_id: TestClient1
         roles:
           - TestClient1Admin
           - TestClient1User
-        realm: "{{ keycloak_realm }}"
+        realm: TestRealm
         public_client: True
         web_origins:
           - http://testclient1origin/application
@@ -21,6 +20,7 @@
           client_roles:
             - client: TestClient1
               role: TestClient1User
-              realm: "{{ keycloak_realm }}"
+              realm: TestRealm
   roles:
-    - middleware_automation.keycloak.keycloak_realm
+    - name: middleware_automation.keycloak.keycloak_realm
+      keycloak_realm: TestRealm

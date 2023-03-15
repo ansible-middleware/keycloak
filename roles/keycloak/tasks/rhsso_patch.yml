@@ -15,7 +15,6 @@
   delegate_to: localhost
   run_once: yes
   when:
-    - patch_archive_path is defined and patch_archive_path.stat is defined and not patch_archive_path.stat.exists or patch_archive_path is not defined
     - sso_enable is defined and sso_enable
     - not keycloak_offline_install
     - sso_apply_patches

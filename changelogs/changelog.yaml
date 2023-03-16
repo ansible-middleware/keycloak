@@ -140,3 +140,30 @@ releases:
     fragments:
     - 53.yaml
     release_date: '2023-03-07'
+  1.2.0:
+    changes:
+      major_changes:
+      - 'Provide config for multiple modcluster proxies `#60 <https://github.com/ansible-middleware/keycloak/pull/60>`_
+
+        '
+      minor_changes:
+      - 'Allow to configure TCPPING for cluster discovery `#62 <https://github.com/ansible-middleware/keycloak/pull/62>`_
+
+        '
+      - 'Drop community.general from dependencies `#61 <https://github.com/ansible-middleware/keycloak/pull/61>`_
+
+        '
+      - 'Switch middleware_automation.redhat_csp_download for middleware_automation.common
+        `#63 <https://github.com/ansible-middleware/keycloak/pull/63>`_
+
+        '
+      - 'Switch to middleware_automation.common for rh-sso patching `#64 <https://github.com/ansible-middleware/keycloak/pull/64>`_
+
+        '
+    fragments:
+    - 60.yaml
+    - 61.yaml
+    - 62.yaml
+    - 63.yaml
+    - 64.yaml
+    release_date: '2023-03-16'

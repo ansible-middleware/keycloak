@@ -6,20 +6,25 @@ middleware_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
-v1.2.0-devel
-============
+v1.2.0
+======
 
 Major Changes
 -------------
 
+- Provide config for multiple modcluster proxies `#60 <https://github.com/ansible-middleware/keycloak/pull/60>`_
 - Provide config for multiple modcluster proxies `#60 <https://github.com/ansible-middleware/keycloak/pull/60>`_
 
 Minor Changes
 -------------
 
 - Allow to configure TCPPING for cluster discovery `#62 <https://github.com/ansible-middleware/keycloak/pull/62>`_
+- Allow to configure TCPPING for cluster discovery `#62 <https://github.com/ansible-middleware/keycloak/pull/62>`_
+- Drop community.general from dependencies `#61 <https://github.com/ansible-middleware/keycloak/pull/61>`_
 - Drop community.general from dependencies `#61 <https://github.com/ansible-middleware/keycloak/pull/61>`_
 - Switch middleware_automation.redhat_csp_download for middleware_automation.common `#63 <https://github.com/ansible-middleware/keycloak/pull/63>`_
+- Switch middleware_automation.redhat_csp_download for middleware_automation.common `#63 <https://github.com/ansible-middleware/keycloak/pull/63>`_
+- Switch to middleware_automation.common for rh-sso patching `#64 <https://github.com/ansible-middleware/keycloak/pull/64>`_
 - Switch to middleware_automation.common for rh-sso patching `#64 <https://github.com/ansible-middleware/keycloak/pull/64>`_
 
 v1.1.1

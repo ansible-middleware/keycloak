@@ -41,3 +41,14 @@
             web_origins: "{{ keycloak_client_web_origins }}"
             users: "{{ keycloak_client_users }}"
             client_id: TestClient
+  pre_tasks:
+    - name: "Retrieve assets server from env"
+      ansible.builtin.set_fact:
+        assets_server: "{{ lookup('env','MIDDLEWARE_DOWNLOAD_RELEASE_SERVER_URL') }}"
+
+    - name: "Set offline when assets server from env is defined"
+      ansible.builtin.set_fact:
+        sso_offline_install: True
+      when:
+        - assets_server is defined
+        - assets_server | length > 0

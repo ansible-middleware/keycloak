@@ -52,7 +52,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#install-playbook">Install Playbook</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#install-from-controller-node-local-source">Install from controller node (local source)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#install-from-controller-node-offline">Install from controller node (offline)</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#install-from-alternate-sources-like-corporate-nexus-artifactory-proxy-etc">Install from alternate sources (like corporate Nexus, artifactory, proxy, etc)</a></li>
 </ul>
 </li>
@@ -64,7 +64,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#example-configuration-command">Example configuration command</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#support">Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
 </ul>
 </li>
@@ -130,12 +129,14 @@
 </section>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h2>
+<!--start galaxy_download -->
 <section id="installing-the-collection-from-ansible-galaxy">
 <h3>Installing the Collection from Ansible Galaxy<a class="headerlink" href="#installing-the-collection-from-ansible-galaxy" title="Permalink to this heading"></a></h3>
 <p>Before using the collection, you need to install it with the Ansible Galaxy CLI:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ansible-galaxy collection install middleware_automation.keycloak
 </pre></div>
 </div>
+<!--end galaxy_download -->
 <p>You can also include it in a <code class="docutils literal notranslate"><span class="pre">requirements.yml</span></code> file and install it via <code class="docutils literal notranslate"><span class="pre">ansible-galaxy</span> <span class="pre">collection</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.yml</span></code>, using the format:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
 <span class="nt">collections</span><span class="p">:</span>
@@ -165,34 +166,23 @@
 <section id="install-playbook">
 <h3>Install Playbook<a class="headerlink" href="#install-playbook" title="Permalink to this heading"></a></h3>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak.yml</span></code></a> installs the upstream(Keycloak) based on the defined variables.</p></li>
-<li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/rhsso.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/rhsso.yml</span></code></a> installs Red Hat Single Sign-On(RHSSO) based on defined variables.</p></li>
+<li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak.yml</span></code></a> installs based on the defined variables (using most defaults).</p></li>
 </ul>
 <p>Both playbooks include the <code class="docutils literal notranslate"><span class="pre">keycloak</span></code> role, with different settings, as described in the following sections.</p>
 <p>For full service configuration details, refer to the <a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak/README.md">keycloak role README</a>.</p>
-<section id="install-from-controller-node-local-source">
-<h4>Install from controller node (local source)<a class="headerlink" href="#install-from-controller-node-local-source" title="Permalink to this heading"></a></h4>
-<p>Making the keycloak zip archive (or the RHSSO zip archive), available to the playbook repository root directory, and setting <code class="docutils literal notranslate"><span class="pre">keycloak_offline_install</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code>, allows to skip
-the download tasks. The local path for the archive matches the downloaded archive path, so it is also used as a cache when multiple hosts are provisioned in a cluster.</p>
+<section id="install-from-controller-node-offline">
+<h4>Install from controller node (offline)<a class="headerlink" href="#install-from-controller-node-offline" title="Permalink to this heading"></a></h4>
+<p>Making the keycloak zip archive available to the playbook working directory, and setting <code class="docutils literal notranslate"><span class="pre">keycloak_offline_install</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code>, allows to skip
+the download tasks. The local path for the archive does match the downloaded archive path, so that it is also used as a cache when multiple hosts are provisioned in a cluster.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">keycloak_offline_install</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
 </pre></div>
 </div>
-<p>And depending on <code class="docutils literal notranslate"><span class="pre">keycloak_rhsso_enable</span></code>:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">True</span></code>: install RHSSO using file rh-sso-x.y.z-server-dist.zip</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">False</span></code>: install keycloak using file keycloak-x.y.zip</p></li>
-</ul>
+<!--start rhn_credentials -->
+<!--end rhn_credentials -->
 </section>
 <section id="install-from-alternate-sources-like-corporate-nexus-artifactory-proxy-etc">
 <h4>Install from alternate sources (like corporate Nexus, artifactory, proxy, etc)<a class="headerlink" href="#install-from-alternate-sources-like-corporate-nexus-artifactory-proxy-etc" title="Permalink to this heading"></a></h4>
-<p>For RHSSO:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">sso_download_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://&lt;internal-nexus.private.net&gt;/&lt;path&gt;/&lt;to&gt;/rh-sso-x.y.z-server-dist.zip&quot;</span>
-</pre></div>
-</div>
-<p>For keycloak:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">keycloak_download_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://&lt;internal-nexus.private.net&gt;/&lt;path&gt;/&lt;to&gt;/keycloak-x.y.zip&quot;</span>
-</pre></div>
-</div>
+<p>It is possible to perform downloads from alternate sources, using the <code class="docutils literal notranslate"><span class="pre">keycloak_download_url</span></code> variable; make sure the final downloaded filename matches with the source filename (ie. keycloak-legacy-x.y.zip or rh-sso-x.y.z-server-dist.zip).</p>
 </section>
 </section>
 <section id="example-installation-command">
@@ -210,6 +200,7 @@ the download tasks. The local path for the archive matches the downloaded archiv
 </div>
 </li>
 </ul>
+<p>Note: when deploying clustered configurations, all hosts beloging to the cluster must be present in ansible_play_batch; ie. they must be targeted byh the same ansible-playbook execution.</p>
 </section>
 </section>
 <section id="configuration">
@@ -235,11 +226,9 @@ the download tasks. The local path for the archive matches the downloaded archiv
 </li>
 </ul>
 <p>For full configuration details, refer to the <a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak_realm/README.md">keycloak_realm role README</a>.</p>
+<!--start support -->
+<!--end support -->
 </section>
-</section>
-<section id="support">
-<h2>Support<a class="headerlink" href="#support" title="Permalink to this heading"></a></h2>
-<p>Keycloak collection v1.0.0 is a Beta release and for <a class="reference external" href="https://access.redhat.com/support/offerings/techpreview">Technical Preview</a>. If you have any issues or questions related to collection, please don’t hesitate to contact us on Ansible-middleware-core&#64;redhat.com or open an issue on https://github.com/ansible-middleware/keycloak/issues</p>
 </section>
 <section id="license">
 <h2>License<a class="headerlink" href="#license" title="Permalink to this heading"></a></h2>

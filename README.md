@@ -16,11 +16,14 @@ Plugins and modules within a collection may be tested with only specific Ansible
 
 ## Installation
 
+<!--start galaxy_download -->
 ### Installing the Collection from Ansible Galaxy
 
 Before using the collection, you need to install it with the Ansible Galaxy CLI:
 
     ansible-galaxy collection install middleware_automation.keycloak
+
+<!--end galaxy_download -->
 
 You can also include it in a `requirements.yml` file and install it via `ansible-galaxy collection install -r requirements.yml`, using the format:
 
@@ -51,42 +54,30 @@ A requirement file is provided to install:
 
 ### Install Playbook
 
-* [`playbooks/keycloak.yml`](https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak.yml) installs the upstream(Keycloak) based on the defined variables.
-* [`playbooks/rhsso.yml`](https://github.com/ansible-middleware/keycloak/blob/main/playbooks/rhsso.yml) installs Red Hat Single Sign-On(RHSSO) based on defined variables.
+* [`playbooks/keycloak.yml`](https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak.yml) installs based on the defined variables (using most defaults).
 
 Both playbooks include the `keycloak` role, with different settings, as described in the following sections.
 
 For full service configuration details, refer to the [keycloak role README](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak/README.md).
 
 
-#### Install from controller node (local source)
+#### Install from controller node (offline)
 
-Making the keycloak zip archive (or the RHSSO zip archive), available to the playbook repository root directory, and setting `keycloak_offline_install` to `True`, allows to skip
-the download tasks. The local path for the archive matches the downloaded archive path, so it is also used as a cache when multiple hosts are provisioned in a cluster.
+Making the keycloak zip archive available to the playbook working directory, and setting `keycloak_offline_install` to `True`, allows to skip
+the download tasks. The local path for the archive does match the downloaded archive path, so that it is also used as a cache when multiple hosts are provisioned in a cluster.
 
 ```yaml
 keycloak_offline_install: True
 ```
 
-And depending on `keycloak_rhsso_enable`:
 
-* `True`: install RHSSO using file rh-sso-x.y.z-server-dist.zip
-* `False`: install keycloak using file keycloak-x.y.zip
+<!--start rhn_credentials -->
+<!--end rhn_credentials -->
 
 
 #### Install from alternate sources (like corporate Nexus, artifactory, proxy, etc)
 
-For RHSSO:
-
-```yaml
-sso_download_url: "https://<internal-nexus.private.net>/<path>/<to>/rh-sso-x.y.z-server-dist.zip"
-```
-
-For keycloak:
-
-```yaml
-keycloak_download_url: "https://<internal-nexus.private.net>/<path>/<to>/keycloak-x.y.zip"
-```
+It is possible to perform downloads from alternate sources, using the `keycloak_download_url` variable; make sure the final downloaded filename matches with the source filename (ie. keycloak-legacy-x.y.zip or rh-sso-x.y.z-server-dist.zip).
 
 
 ### Example installation command
@@ -104,6 +95,8 @@ ansible-playbook -i <ansible_hosts> -e @rhn-creds.yml playbooks/keycloak.yml -e 
   [keycloak]
   localhost ansible_connection=local
   ```
+
+Note: when deploying clustered configurations, all hosts beloging to the cluster must be present in ansible_play_batch; ie. they must be targeted byh the same ansible-playbook execution.
 
 
 ## Configuration
@@ -133,9 +126,10 @@ ansible-playbook -i <ansible_hosts> playbooks/keycloak_realm.yml -e keycloak_adm
 
 For full configuration details, refer to the [keycloak_realm role README](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak_realm/README.md).
 
-## Support
 
-Keycloak collection v1.0.0 is a Beta release and for [Technical Preview](https://access.redhat.com/support/offerings/techpreview). If you have any issues or questions related to collection, please don't hesitate to contact us on Ansible-middleware-core@redhat.com or open an issue on https://github.com/ansible-middleware/keycloak/issues
+<!--start support -->
+<!--end support -->
+
 
 ## License
 

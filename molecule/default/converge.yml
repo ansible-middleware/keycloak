@@ -45,6 +45,8 @@
             web_origins: "{{ keycloak_client_web_origins }}"
             users: "{{ keycloak_client_users }}"
             client_id: TestClient
+            attributes:
+              post.logout.redirect.uris: '/public/logout'
   pre_tasks:
     - name: "Retrieve assets server from env"
       ansible.builtin.set_fact:

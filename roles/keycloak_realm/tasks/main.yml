@@ -90,6 +90,7 @@
     service_accounts_enabled: "{{ item.service_accounts_enabled | default(omit) }}"
     public_client: "{{ item.public_client | default(False) }}"
     protocol: "{{ item.protocol | default(omit) }}"
+    attributes: "{{ item.attributes | default(omit) }}"
     state: present
   no_log: "{{ keycloak_no_log | default('True') }}"
   register: create_client_result

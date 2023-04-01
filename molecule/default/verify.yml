@@ -4,7 +4,7 @@
   vars:
     keycloak_admin_password: "remembertochangeme"
     keycloak_jvm_package: java-11-openjdk-headless
-    keycloak_port: http://localhost:8080
+    keycloak_uri: http://localhost:8080
     keycloak_management_port: http://localhost:9990
   tasks:
     - name: Populate service facts
@@ -17,9 +17,10 @@
     - name: Verify we are running on requested jvm
       shell: |
         ps -ef | grep /usr/lib/jvm/java-11 | grep -v grep
+      changed_when: no
     - name: Verify token api call
       ansible.builtin.uri:
-        url: "{{ keycloak_port }}/auth/realms/master/protocol/openid-connect/token"
+        url: "{{ keycloak_uri }}/auth/realms/master/protocol/openid-connect/token"
         method: POST
         body: "client_id=admin-cli&username=admin&password={{ keycloak_admin_password }}&grant_type=password"
         validate_certs: no
@@ -27,3 +28,29 @@
       until: keycloak_auth_response.status == 200
       retries: 2
       delay: 2
+    - name: Fetch openid-connect config
+      ansible.builtin.uri:
+        url: "{{ keycloak_uri }}/auth/realms/TestRealm/.well-known/openid-configuration"
+        method: GET
+        validate_certs: no
+        status_code: 200
+      register: keycloak_openid_config
+    - name: Verify expected config
+      ansible.builtin.assert:
+        that:
+          - keycloak_openid_config.json.registration_endpoint == 'http://localhost:8080/auth/realms/TestRealm/clients-registrations/openid-connect'
+    - name: Get test realm clients
+      ansible.builtin.uri:
+        url: "{{ keycloak_uri }}/auth/admin/realms/TestRealm/clients"
+        method: GET
+        validate_certs: no
+        status_code: 200
+        headers:
+          Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
+      register: keycloak_query_clients
+    - debug:
+        msg: "{{ keycloak_query_clients.json | selectattr('clientId','equalto','TestClient') }}"
+    - name: Verify expected config
+      ansible.builtin.assert:
+        that:
+          - (keycloak_query_clients.json | selectattr('clientId','equalto','TestClient') | first)["attributes"]["post.logout.redirect.uris"] == '/public/logout'

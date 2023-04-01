@@ -23,6 +23,11 @@ Minor Changes
 - Switch middleware_automation.redhat_csp_download for middleware_automation.common `#63 <https://github.com/ansible-middleware/keycloak/pull/63>`_
 - Switch to middleware_automation.common for rh-sso patching `#64 <https://github.com/ansible-middleware/keycloak/pull/64>`_
 
+Bugfixes
+--------
+
+- Pass attributes to realm clients `#69 <https://github.com/ansible-middleware/keycloak/pull/69>`_
+
 v1.1.1
 ======
 

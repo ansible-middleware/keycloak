@@ -57,6 +57,7 @@ Role Defaults
 |`keycloak_ha_enabled`| Enable auto configuration for database backend, clustering and remote caches on infinispan | `False` |
 |`keycloak_ha_discovery`| Discovery protocol for HA cluster members | `JDBC_PING` if keycloak_db_enabled else `TCPPING` |
 |`keycloak_db_enabled`| Enable auto configuration for database backend | `True` if `keycloak_ha_enabled` is True, else `False` |
+|`keycloak_remote_cache_enabled`| Enable remote cache store when in clustered ha configurations | `True` if `keycloak_ha_enabled` else `False` |
 |`keycloak_admin_user`| Administration console user account | `admin` |
 |`keycloak_bind_address`| Address for binding service ports | `0.0.0.0` |
 |`keycloak_management_port_bind_address`| Address for binding management ports | `127.0.0.1` |

@@ -294,6 +294,10 @@ argument_specs:
                 default: true
                 type: "bool"
                 description: "Changes default behavior for no_log for debugging purpose, do not change for production system."
+            keycloak_remote_cache_enabled:
+                default: "{{ True if keycloak_ha_enabled else False }}"
+                description: "Enable remote cache store when in clustered ha configurations"
+                type: "bool"
     downstream:
         options:
             sso_version:

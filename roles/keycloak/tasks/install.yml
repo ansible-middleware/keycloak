@@ -214,7 +214,7 @@
 - name: "Deploy standalone {{ keycloak.service_name }} config to {{ keycloak_config_path_to_standalone_xml }}"
   become: yes
   ansible.builtin.template:
-    src: templates/standalone.xml
+    src: templates/standalone.xml.j2
     dest: "{{ keycloak_config_path_to_standalone_xml }}"
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
@@ -242,7 +242,7 @@
 - name: "Deploy HA {{ keycloak.service_name }} config to {{ keycloak_config_path_to_standalone_xml }} from {{ keycloak.config_template_source }}"
   become: yes
   ansible.builtin.template:
-    src: templates/standalone-ha.xml
+    src: templates/standalone-ha.xml.j2
     dest: "{{ keycloak_config_path_to_standalone_xml }}"
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"

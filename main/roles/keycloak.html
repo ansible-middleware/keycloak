@@ -211,75 +211,79 @@
 <td class="text-left"><p>Enable auto configuration for database backend</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if <code class="docutils literal notranslate"><span class="pre">keycloak_ha_enabled</span></code> is True, else <code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_admin_user</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_remote_cache_enabled</span></code></p></td>
+<td class="text-left"><p>Enable remote cache store when in clustered ha configurations</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if <code class="docutils literal notranslate"><span class="pre">keycloak_ha_enabled</span></code> else <code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_admin_user</span></code></p></td>
 <td class="text-left"><p>Administration console user account</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">admin</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_bind_address</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_bind_address</span></code></p></td>
 <td class="text-left"><p>Address for binding service ports</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">0.0.0.0</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_management_port_bind_address</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_management_port_bind_address</span></code></p></td>
 <td class="text-left"><p>Address for binding management ports</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">127.0.0.1</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_host</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_host</span></code></p></td>
 <td class="text-left"><p>hostname</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">localhost</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_http_port</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_http_port</span></code></p></td>
 <td class="text-left"><p>HTTP port</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">8080</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_https_port</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_https_port</span></code></p></td>
 <td class="text-left"><p>TLS HTTP port</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">8443</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_ajp_port</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_ajp_port</span></code></p></td>
 <td class="text-left"><p>AJP port</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">8009</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_jgroups_port</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_jgroups_port</span></code></p></td>
 <td class="text-left"><p>jgroups cluster tcp port</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">7600</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_management_http_port</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_management_http_port</span></code></p></td>
 <td class="text-left"><p>Management port</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">9990</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_management_https_port</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_management_https_port</span></code></p></td>
 <td class="text-left"><p>TLS management port</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">9993</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_prefer_ipv4</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_prefer_ipv4</span></code></p></td>
 <td class="text-left"><p>Prefer IPv4 stack and addresses for port binding</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_config_standalone_xml</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_config_standalone_xml</span></code></p></td>
 <td class="text-left"><p>filename for configuration</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak.xml</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_user</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_user</span></code></p></td>
 <td class="text-left"><p>posix account username</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_group</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_group</span></code></p></td>
 <td class="text-left"><p>posix account group</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_pidfile</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_pidfile</span></code></p></td>
 <td class="text-left"><p>pid file path for service</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/run/keycloak.pid</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_jvm_package</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_jvm_package</span></code></p></td>
 <td class="text-left"><p>RHEL java package runtime</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">java-1.8.0-openjdk-headless</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_java_home</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_java_home</span></code></p></td>
 <td class="text-left"><p>JAVA_HOME of installed JRE, leave empty for using specified keycloak_jvm_package RPM path</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_java_opts</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_java_opts</span></code></p></td>
 <td class="text-left"><p>Additional JVM options</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">-Xms1024m</span> <span class="pre">-Xmx2048m</span></code></p></td>
 </tr>

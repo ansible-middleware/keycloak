@@ -15,6 +15,14 @@
     fail_msg: "Cannot install HA setup without a backend database service. Check keycloak_ha_enabled and keycloak_db_enabled"
     success_msg: "{{ 'Configuring HA' if keycloak_ha_enabled else 'Configuring standalone' }}"
 
+- name: Validate remote cache store configuration
+  ansible.builtin.assert:
+    that:
+      - (keycloak_remote_cache_enabled and keycloak_ha_enabled) or (not keycloak_ha_enabled)
+    quiet: True
+    fail_msg: "Cannot deploy with remote cache storage on infinispan when keycloak_ha_enabled is false"
+    success_msg: "{{ 'Configuring HA with infinispan remote cache storage' if keycloak_ha_enabled else 'Configuring standalone' }}"
+
 - name: Validate credentials
   ansible.builtin.assert:
     that:

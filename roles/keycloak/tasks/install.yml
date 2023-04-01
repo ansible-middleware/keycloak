@@ -199,17 +199,31 @@
   ansible.builtin.include_tasks: jdbc_driver.yml
   when: keycloak_jdbc[keycloak_jdbc_engine].enabled
 
-- name: "Deploy {{ keycloak.service_name }} config to {{ keycloak_config_path_to_standalone_xml }} from {{ keycloak.config_template_source }}"
+- name: "Deploy custom {{ keycloak.service_name }} config to {{ keycloak_config_path_to_standalone_xml }} from {{ keycloak_config_override_template }}"
   become: yes
   ansible.builtin.template:
-    src: "templates/{{ keycloak.config_template_source }}"
+    src: "templates/{{ keycloak_config_override_template }}"
     dest: "{{ keycloak_config_path_to_standalone_xml }}"
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
     mode: 0640
   notify:
     - restart keycloak
-  when: not keycloak_remotecache.enabled or keycloak_config_override_template | length > 0
+  when: keycloak_config_override_template | length > 0
+
+- name: "Deploy standalone {{ keycloak.service_name }} config to {{ keycloak_config_path_to_standalone_xml }}"
+  become: yes
+  ansible.builtin.template:
+    src: templates/standalone.xml.j2
+    dest: "{{ keycloak_config_path_to_standalone_xml }}"
+    owner: "{{ keycloak_service_user }}"
+    group: "{{ keycloak_service_group }}"
+    mode: 0640
+  notify:
+    - restart keycloak
+  when:
+    - not keycloak_ha_enabled
+    - keycloak_config_override_template | length == 0
 
 - name: Create tcpping cluster node list
   ansible.builtin.set_fact:
@@ -225,7 +239,22 @@
     loop: "{{ ansible_play_batch }}"
   when: keycloak_ha_enabled and keycloak_ha_discovery == 'TCPPING'
 
-- name: "Deploy {{ keycloak.service_name }} config with remote cache store to {{ keycloak_config_path_to_standalone_xml }}"
+- name: "Deploy HA {{ keycloak.service_name }} config to {{ keycloak_config_path_to_standalone_xml }} from {{ keycloak.config_template_source }}"
+  become: yes
+  ansible.builtin.template:
+    src: templates/standalone-ha.xml.j2
+    dest: "{{ keycloak_config_path_to_standalone_xml }}"
+    owner: "{{ keycloak_service_user }}"
+    group: "{{ keycloak_service_group }}"
+    mode: 0640
+  notify:
+    - restart keycloak
+  when:
+    - keycloak_ha_enabled
+    - not keycloak_remote_cache_enabled
+    - keycloak_config_override_template | length == 0
+
+- name: "Deploy HA {{ keycloak.service_name }} config with infinispan remote cache store to {{ keycloak_config_path_to_standalone_xml }}"
   become: yes
   ansible.builtin.template:
     src: templates/standalone-infinispan.xml.j2
@@ -235,4 +264,7 @@
     mode: 0640
   notify:
     - restart keycloak
-  when: keycloak_remotecache.enabled
+  when:
+    - keycloak_ha_enabled
+    - keycloak_remote_cache_enabled    
+    - keycloak_config_override_template | length == 0

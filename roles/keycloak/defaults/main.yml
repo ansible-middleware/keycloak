@@ -48,6 +48,8 @@ keycloak_ha_enabled: False
 keycloak_db_enabled: "{{ True if keycloak_ha_enabled else False }}"
 ### Discovery protocol for ha cluster members, valus [ 'JDBC_PING', 'TCPPING' ]
 keycloak_ha_discovery: "{{ 'JDBC_PING' if keycloak_db_enabled else 'TCPPING' }}"
+### Remote cache store on infinispan cluster
+keycloak_remote_cache_enabled: "{{ True if keycloak_ha_enabled else False }}"
 
 ### Keycloak administration console user
 keycloak_admin_user: admin

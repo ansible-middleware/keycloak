@@ -13,7 +13,7 @@ keycloak:
   service_name: "{{ keycloak_service_name }}"
   health_url: "{{ keycloak_management_url }}/health"
   cli_path: "{{ keycloak_jboss_home }}/bin/jboss-cli.sh"
-  config_template_source: "{{ keycloak_config_override_template if keycloak_config_override_template | length > 0 else 'standalone.xml.j2' }}"
+  config_template_source: "{{ keycloak_config_override_template if keycloak_config_override_template | length > 0 else 'standalone-ha.xml.j2' if keycloak_remote_cache_enabled else 'standalone.xml.j2' }}"
 
 # database
 keycloak_jdbc:

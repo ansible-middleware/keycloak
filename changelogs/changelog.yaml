@@ -167,3 +167,17 @@ releases:
     - 63.yaml
     - 64.yaml
     release_date: '2023-03-16'
+  1.2.1:
+    changes:
+      bugfixes:
+      - 'Pass attributes to realm clients `#69 <https://github.com/ansible-middleware/keycloak/pull/69>`_
+
+        '
+      minor_changes:
+      - 'Allow to setup keycloak HA cluster without remote cache store `#68 <https://github.com/ansible-middleware/keycloak/pull/68>`_
+
+        '
+    fragments:
+    - 68.yaml
+    - 69.yaml
+    release_date: '2023-04-11'

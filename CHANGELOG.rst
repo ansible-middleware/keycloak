@@ -6,6 +6,19 @@ middleware_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v1.2.1
+======
+
+Minor Changes
+-------------
+
+- Allow to setup keycloak HA cluster without remote cache store `#68 <https://github.com/ansible-middleware/keycloak/pull/68>`_
+
+Bugfixes
+--------
+
+- Pass attributes to realm clients `#69 <https://github.com/ansible-middleware/keycloak/pull/69>`_
+
 v1.2.0
 ======
 

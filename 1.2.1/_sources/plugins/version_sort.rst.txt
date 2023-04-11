@@ -1,0 +1,243 @@
+
+.. Document meta
+
+:orphan:
+
+.. |antsibull-internal-nbsp| unicode:: 0xA0
+    :trim:
+
+.. role:: ansible-attribute-support-label
+.. role:: ansible-attribute-support-property
+.. role:: ansible-attribute-support-full
+.. role:: ansible-attribute-support-partial
+.. role:: ansible-attribute-support-none
+.. role:: ansible-attribute-support-na
+.. role:: ansible-option-type
+.. role:: ansible-option-elements
+.. role:: ansible-option-required
+.. role:: ansible-option-versionadded
+.. role:: ansible-option-aliases
+.. role:: ansible-option-choices
+.. role:: ansible-option-choices-default-mark
+.. role:: ansible-option-default-bold
+.. role:: ansible-option-configuration
+.. role:: ansible-option-returned-bold
+.. role:: ansible-option-sample-bold
+
+.. Anchors
+
+.. _ansible_collections.middleware_automation.keycloak.version_sort_filter:
+
+.. Anchors: short name for ansible.builtin
+
+.. Anchors: aliases
+
+
+
+.. Title
+
+version_sort -- Sort a list according to version order instead of pure alphabetical one
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. Collection note
+
+.. note::
+    This filter plugin is part of the `middleware_automation.keycloak collection <https://galaxy.ansible.com/middleware_automation/keycloak>`_.
+
+    To install it, use: :code:`ansible-galaxy collection install middleware\_automation.keycloak`.
+
+    To use it in a playbook, specify: :code:`middleware_automation.keycloak.version_sort`.
+
+.. version_added
+
+.. rst-class:: ansible-version-added
+
+New in middleware\_automation.keycloak 2.2.0
+
+.. contents::
+   :local:
+   :depth: 1
+
+.. Deprecated
+
+
+Synopsis
+--------
+
+.. Description
+
+- Sort a list according to version order instead of pure alphabetical one.
+
+
+.. Aliases
+
+
+.. Requirements
+
+
+
+
+
+.. Input
+
+Input
+-----
+
+This describes the input of the filter, the value before ``| middleware_automation.keycloak.version_sort``.
+
+.. rst-class:: ansible-option-table
+
+.. list-table::
+  :width: 100%
+  :widths: auto
+  :header-rows: 1
+
+  * - Parameter
+    - Comments
+
+  * - .. raw:: html
+
+        <div class="ansible-option-cell">
+        <div class="ansibleOptionAnchor" id="parameter-_input"></div>
+
+      .. _ansible_collections.middleware_automation.keycloak.version_sort_filter__parameter-_input:
+
+      .. rst-class:: ansible-option-title
+
+      **Input**
+
+      .. raw:: html
+
+        <a class="ansibleOptionLink" href="#parameter-_input" title="Permalink to this option"></a>
+
+      .. rst-class:: ansible-option-type-line
+
+      :ansible-option-type:`list` / :ansible-option-elements:`elements=string` / :ansible-option-required:`required`
+
+
+
+
+      .. raw:: html
+
+        </div>
+
+    - .. raw:: html
+
+        <div class="ansible-option-cell">
+
+      A list of strings to sort.
+
+
+      .. raw:: html
+
+        </div>
+
+
+
+
+.. Options
+
+
+.. Attributes
+
+
+.. Notes
+
+
+.. Seealso
+
+
+.. Examples
+
+Examples
+--------
+
+.. code-block:: yaml+jinja
+
+    
+    - name: Convert list of tuples into dictionary
+      ansible.builtin.set_fact:
+        dictionary: "{{ ['2.1', '2.10', '2.9'] | middleware_automation.keycloak.version_sort }}"
+        # Result is ['2.1', '2.9', '2.10']
+
+
+
+
+.. Facts
+
+
+.. Return values
+
+Return Value
+------------
+
+.. rst-class:: ansible-option-table
+
+.. list-table::
+  :width: 100%
+  :widths: auto
+  :header-rows: 1
+
+  * - Key
+    - Description
+
+  * - .. raw:: html
+
+        <div class="ansible-option-cell">
+        <div class="ansibleOptionAnchor" id="return-_value"></div>
+
+      .. _ansible_collections.middleware_automation.keycloak.version_sort_filter__return-_value:
+
+      .. rst-class:: ansible-option-title
+
+      **Return value**
+
+      .. raw:: html
+
+        <a class="ansibleOptionLink" href="#return-_value" title="Permalink to this return value"></a>
+
+      .. rst-class:: ansible-option-type-line
+
+      :ansible-option-type:`list` / :ansible-option-elements:`elements=string`
+
+      .. raw:: html
+
+        </div>
+
+    - .. raw:: html
+
+        <div class="ansible-option-cell">
+
+      The list of strings sorted by version.
+
+
+      .. rst-class:: ansible-option-line
+
+      :ansible-option-returned-bold:`Returned:` success
+
+
+      .. raw:: html
+
+        </div>
+
+
+
+..  Status (Presently only deprecated)
+
+
+.. Authors
+
+Authors
+~~~~~~~
+
+- Eric L. (@ericzolf)
+
+
+.. hint::
+    Configuration entries for each entry type have a low to high priority order. For example, a variable that is lower in the list will override a variable that is higher up.
+
+.. Extra links
+
+
+.. Parsing errors
+

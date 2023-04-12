@@ -232,11 +232,11 @@
         {
           "name": item,
           "address": 'jgroups-' + item,
-          "inventory_host": hostvars[item].ansible_default_ipv4.address | default(item) + '[' + keycloak_jgroups_port + ']',
+          "inventory_host": hostvars[item].ansible_default_ipv4.address | default(item) + '[' + (keycloak_jgroups_port | string) + ']',
           "value": hostvars[item].ansible_default_ipv4.address | default(item)
         }
       ] }}
-    loop: "{{ ansible_play_batch }}"
+  loop: "{{ ansible_play_batch }}"
   when: keycloak_ha_enabled and keycloak_ha_discovery == 'TCPPING'
 
 - name: "Deploy HA {{ keycloak.service_name }} config to {{ keycloak_config_path_to_standalone_xml }} from {{ keycloak.config_template_source }}"

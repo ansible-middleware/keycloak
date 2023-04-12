@@ -376,7 +376,6 @@
                 <distributed-cache name="offlineClientSessions" owners="2"/>
                 <distributed-cache name="loginFailures" owners="2"/>
                 <distributed-cache name="actionTokens" owners="2">
-                    <object-memory size="-1"/>
                     <expiration interval="300000" max-idle="-1"/>
                 </distributed-cache>
                 <local-cache name="authorization">

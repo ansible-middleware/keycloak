@@ -3,6 +3,8 @@
 - name: Set download patch archive path
   ansible.builtin.set_fact:
     patch_archive: "{{ keycloak_dest }}/{{ sso_patch_bundle }}"
+    patch_bundle: "{{ sso_patch_bundle }}"
+    patch_version: "{{ sso_patch_version }}"
   when: sso_patch_version is defined
 
 - name: Check download patch archive path
@@ -10,6 +12,7 @@
     path: "{{ patch_archive }}"
   register: patch_archive_path
   when: sso_patch_version is defined
+  become: yes
 
 - name: Perform patch download from RHN via JBossNetwork API
   delegate_to: localhost

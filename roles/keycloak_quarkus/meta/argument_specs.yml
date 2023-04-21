@@ -248,3 +248,7 @@ argument_specs:
                 default: False
                 type: "bool"
                 description: "Whether to start the service in development mode (start-dev)"
+            keycloak_quarkus_transaction_xa_enabled:
+                default: True
+                type: bool"
+                description: "Enable or disable XA transactions which may not be supported by some DBMS"

@@ -52,6 +52,9 @@ keycloak_quarkus_frontend_url: http://localhost:8080/auth
 # proxy address forwarding mode if the server is behind a reverse proxy. [edge, reencrypt, passthrough]
 keycloak_quarkus_proxy_mode: edge
 
+# disable xa transactions
+keycloak_quarkus_transaction_xa_enabled: True
+
 keycloak_quarkus_metrics_enabled: False
 keycloak_quarkus_health_enabled: True
 

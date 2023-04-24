@@ -98,6 +98,7 @@ Role Defaults
 |`keycloak_quarkus_log_format`| Set a format specific to file log entries | `%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n` |
 |`keycloak_quarkus_proxy_mode`| The proxy address forwarding mode if the server is behind a reverse proxy | `edge` |
 |`keycloak_quarkus_start_dev`| Whether to start the service in development mode (start-dev) | `False` |
+|`keycloak_quarkus_transaction_xa_enabled`| Whether to use XA transactions | `True` |
 
 
 Role Variables

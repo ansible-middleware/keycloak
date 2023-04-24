@@ -9,6 +9,11 @@ This changelog describes changes after version 0.2.6.
 v1.2.2-devel
 ============
 
+Minor Changes
+-------------
+
+- Add configurability for XA transactions `#73 <https://github.com/ansible-middleware/keycloak/pull/73>`_
+
 v1.2.1
 ======
 

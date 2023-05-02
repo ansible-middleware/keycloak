@@ -23,6 +23,7 @@ tags:
   - java
   - runtimes
   - middleware
+  - A4MW
 dependencies:
   "middleware_automation.common": ">=1.0.0"
   "ansible.posix": ">=1.4.0"

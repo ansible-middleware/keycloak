@@ -21,6 +21,8 @@ tags:
   - infrastructure
   - authentication
   - java
+  - runtimes
+  - middleware
 dependencies:
   "middleware_automation.common": ">=1.0.0"
   "ansible.posix": ">=1.4.0"

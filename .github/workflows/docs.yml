@@ -42,6 +42,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r ansible_collections/middleware_automation/keycloak/docs/requirements.txt
           pip install -r ansible_collections/middleware_automation/keycloak/requirements.txt
+          sudo apt --fix-missing update
           sudo apt install -y sed hub
 
       - name: Create default collection path

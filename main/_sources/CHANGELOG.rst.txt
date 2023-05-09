@@ -12,6 +12,7 @@ v1.2.4-devel
 Minor Changes
 -------------
 
+- Add ``sqlserver`` to keycloak role jdbc configurations `#78 <https://github.com/ansible-middleware/keycloak/pull/78>`_
 - Add configurability for XA transactions `#73 <https://github.com/ansible-middleware/keycloak/pull/73>`_
 
 Bugfixes

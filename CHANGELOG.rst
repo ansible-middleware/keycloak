@@ -6,6 +6,21 @@ middleware_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v1.2.4
+======
+
+Minor Changes
+-------------
+
+- Add ``sqlserver`` to keycloak role jdbc configurations `#78 <https://github.com/ansible-middleware/keycloak/pull/78>`_
+- Add configurability for XA transactions `#73 <https://github.com/ansible-middleware/keycloak/pull/73>`_
+
+Bugfixes
+--------
+
+- Fix deprecation warning for ``ipaddr`` `#77 <https://github.com/ansible-middleware/keycloak/pull/77>`_
+- Fix undefined facts when offline patching sso `#71 <https://github.com/ansible-middleware/keycloak/pull/71>`_
+
 v1.2.1
 ======
 

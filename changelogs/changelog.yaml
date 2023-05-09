@@ -181,3 +181,25 @@ releases:
     - 68.yaml
     - 69.yaml
     release_date: '2023-04-11'
+  1.2.4:
+    changes:
+      bugfixes:
+      - 'Fix deprecation warning for ``ipaddr`` `#77 <https://github.com/ansible-middleware/keycloak/pull/77>`_
+
+        '
+      - 'Fix undefined facts when offline patching sso `#71 <https://github.com/ansible-middleware/keycloak/pull/71>`_
+
+        '
+      minor_changes:
+      - 'Add ``sqlserver`` to keycloak role jdbc configurations `#78 <https://github.com/ansible-middleware/keycloak/pull/78>`_
+
+        '
+      - 'Add configurability for XA transactions `#73 <https://github.com/ansible-middleware/keycloak/pull/73>`_
+
+        '
+    fragments:
+    - 71.yaml
+    - 73.yaml
+    - 77.yaml
+    - 78.yaml
+    release_date: '2023-05-09'

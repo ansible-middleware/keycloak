@@ -27,7 +27,7 @@
 - name: Validate persistence configuration
   ansible.builtin.assert:
     that:
-      - keycloak_jdbc_engine is defined and keycloak_jdbc_engine in [ 'postgres', 'mariadb' ]
+      - keycloak_jdbc_engine is defined and keycloak_jdbc_engine in [ 'postgres', 'mariadb', 'sqlserver' ]
       - keycloak_jdbc_url | length > 0
       - keycloak_db_user | length > 0
       - keycloak_db_pass | length > 0

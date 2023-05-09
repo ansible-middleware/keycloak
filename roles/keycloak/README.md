@@ -83,7 +83,7 @@ Role Defaults
 | Variable | Description | Default |
 |:---------|:------------|:---------|
 |`keycloak_offline_install` | perform an offline install | `False`|
-|`keycloak_download_url`| Download URL for keycloak | `https://github.com/keycloak/keycloak/releases/download/<version>/<archive>`| 
+|`keycloak_download_url`| Download URL for keycloak | `https://github.com/keycloak/keycloak/releases/download/<version>/<archive>`|
 |`keycloak_version`| keycloak.org package version | `18.0.2` |
 |`keycloak_dest`| Installation root path | `/opt/keycloak` |
 |`keycloak_download_url` | Download URL for keycloak | `https://github.com/keycloak/keycloak/releases/download/{{ keycloak_version }}/{{ keycloak_archive }}` |
@@ -127,7 +127,7 @@ The following variables are _required_ only when `keycloak_ha_enabled` is True:
 |`keycloak_modcluster_url` | _deprecated_ Host for the modcluster reverse proxy | `localhost` |
 |`keycloak_modcluster_port` | _deprecated_ Port for the modcluster reverse proxy | `6666` |
 |`keycloak_modcluster_urls` | List of {host,port} dicts for the modcluster reverse proxies | `[ { localhost:6666 } ]` |
-|`keycloak_jdbc_engine` | backend database engine when db is enabled: [ postgres, mariadb ] | `postgres` |
+|`keycloak_jdbc_engine` | backend database engine when db is enabled: [ postgres, mariadb, sqlserver ] | `postgres` |
 |`keycloak_infinispan_url` | URL for the infinispan remote-cache server | `localhost:11122` |
 |`keycloak_infinispan_user` | username for connecting to infinispan | `supervisor` |
 |`keycloak_infinispan_pass` | password for connecting to infinispan | `supervisor` |

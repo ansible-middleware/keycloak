@@ -79,7 +79,7 @@ keycloak_infinispan_use_ssl: False
 keycloak_infinispan_trust_store_path: /etc/pki/java/cacerts
 keycloak_infinispan_trust_store_password: changeit
 
-### database backend engine: values [ 'postgres', 'mariadb' ]
+### database backend engine: values [ 'postgres', 'mariadb', 'sqlserver' ]
 keycloak_jdbc_engine: postgres
 ### database backend credentials
 keycloak_db_user: keycloak-user
@@ -94,5 +94,8 @@ keycloak_default_jdbc:
   mariadb:
     url: 'jdbc:mariadb://localhost:3306/keycloak'
     version: 2.7.4
+  sqlserver:
+    url: 'jdbc:sqlserver://localhost:1433;databaseName=keycloak;'
+    version: 12.2.0
 # role specific vars
 keycloak_no_log: True

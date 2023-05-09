@@ -56,6 +56,28 @@ keycloak_jdbc:
         ping_data varbinary(5000) DEFAULT NULL,
         PRIMARY KEY (own_addr, cluster_name))
       ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+  sqlserver:
+    enabled: "{{ (keycloak_ha_enabled or keycloak_db_enabled) and keycloak_jdbc_engine == 'sqlserver' }}"
+    driver_class: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    xa_datasource_class: com.microsoft.sqlserver.jdbc.SQLServerXADataSource
+    driver_module_name: "com.microsoft.sqlserver"
+    driver_module_dir: "{{ keycloak_jboss_home }}/modules/com/microsoft/sqlserver/main"
+    driver_version: "{{ keycloak_jdbc_driver_version }}"
+    driver_jar_filename: "mssql-java-client-{{ keycloak_jdbc_driver_version }}.jar"
+    driver_jar_url: "https://repo1.maven.org/maven2/com/microsoft/sqlserver/mssql-jdbc/{{ keycloak_jdbc_driver_version }}.jre11/mssql-jdbc-{{ keycloak_jdbc_driver_version }}.jre11.jar" # e.g., https://repo1.maven.org/maven2/com/microsoft/sqlserver/mssql-jdbc/12.2.0.jre11/mssql-jdbc-12.2.0.jre11.jar
+    connection_url: "{{ keycloak_jdbc_url }}"
+    db_user: "{{ keycloak_db_user }}"
+    db_password: "{{ keycloak_db_pass }}"
+    initialize_db: >
+      IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[JGROUPSPING]') AND type in (N'U'))
+      BEGIN
+        CREATE TABLE JGROUPSPING (
+          own_addr varchar(200) NOT NULL,
+          cluster_name varchar(200) NOT NULL,
+          updated DATETIME2 DEFAULT SYSUTCDATETIME(),
+          ping_data varbinary(5000) DEFAULT NULL,
+          PRIMARY KEY (own_addr, cluster_name))
+      END
 
 # reverse proxy mod_cluster
 keycloak_modcluster:

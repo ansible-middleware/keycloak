@@ -725,7 +725,7 @@
         </interface>
         <interface name="jgroups">
 {% if ansible_default_ipv4 is defined %}
-            <subnet-match value="{{ (ansible_default_ipv4.network + '/' + ansible_default_ipv4.netmask) | ipaddr('net') }}"/>
+            <subnet-match value="{{ (ansible_default_ipv4.network + '/' + ansible_default_ipv4.netmask) | ansible.utils.ipaddr('net') }}"/>
 {% else %}
             <any-address />
 {% endif %}

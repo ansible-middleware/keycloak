@@ -23,6 +23,10 @@ keycloak_service_name: keycloak
 keycloak_service_desc: Keycloak
 keycloak_service_start_delay: 10
 keycloak_service_start_retries: 25
+keycloak_service_restart_on_failure: True
+keycloak_service_startlimitintervalsec: "{{ 300 if keycloak_service_restart_on_failure else '' }}"
+keycloak_service_startlimitburst: "{{ 5 if keycloak_service_restart_on_failure else '' }}"
+keycloak_service_restartsec: "{{ '10s' if keycloak_service_restart_on_failure else '' }}"
 
 keycloak_configure_firewalld: False
 
@@ -67,7 +71,7 @@ keycloak_modcluster_urls:
     port: "{{ keycloak_modcluster_port }}"
 
 ### keycloak frontend url
-keycloak_frontend_url: http://localhost:8080/auth
+keycloak_frontend_url: http://localhost:8080/auth/
 
 ### infinispan remote caches access (hotrod)
 keycloak_infinispan_user: supervisor

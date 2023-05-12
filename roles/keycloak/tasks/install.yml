@@ -266,5 +266,5 @@
     - restart keycloak
   when:
     - keycloak_ha_enabled
-    - keycloak_remote_cache_enabled    
+    - keycloak_remote_cache_enabled
     - keycloak_config_override_template | length == 0

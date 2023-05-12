@@ -2,6 +2,11 @@
 [Unit]
 Description={{ keycloak.service_name }} Server
 After=network.target
+{% if keycloak_service_restart_on_failure %}
+StartLimitIntervalSec={{ keycloak_service_startlimitintervalsec }}
+StartLimitBurst={{ keycloak_service_startlimitburst }}
+{% endif %}
+
 
 [Service]
 Type=forking
@@ -12,6 +17,10 @@ ExecStop={{ keycloak_dest }}/keycloak-service.sh stop
 TimeoutStartSec=30
 TimeoutStopSec=30
 LimitNOFILE=102642
+{% if keycloak_service_restart_on_failure %}
+Restart=on-failure
+RestartSec={{ keycloak_service_restartsec }}
+{% endif %}
 
 [Install]
 WantedBy=multi-user.target

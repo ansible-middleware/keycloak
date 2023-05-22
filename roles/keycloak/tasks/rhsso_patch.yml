@@ -35,14 +35,14 @@
       run_once: yes
 
     - name: Determine patch versions list
-      set_fact:
+      ansible.builtin.set_fact:
         filtered_versions: "{{ rhn_products.results | map(attribute='file_path') | select('match', '^[^/]*/rh-sso-.*[0-9]*[.][0-9]*[.][0-9]*.*$') | map('regex_replace','[^/]*/rh-sso-([0-9]*[.][0-9]*[.][0-9]*)-.*','\\1' ) | list | unique }}"
       when: sso_patch_version is not defined or sso_patch_version | length == 0
       delegate_to: localhost
       run_once: yes
 
     - name: Determine latest version
-      set_fact:
+      ansible.builtin.set_fact:
          sso_latest_version: "{{ filtered_versions | middleware_automation.keycloak.version_sort | last }}"
       when: sso_patch_version is not defined or sso_patch_version | length == 0
       delegate_to: localhost
@@ -58,7 +58,7 @@
       run_once: yes
 
     - name: "Determine selected patch from supplied version: {{ sso_patch_version }}"
-      set_fact:
+      ansible.builtin.set_fact:
         rhn_filtered_products: "{{ rhn_products.results | selectattr('file_path', 'match', '[^/]*/' + sso_patch_bundle + '$') }}"
         patch_bundle: "{{ sso_patch_bundle }}"
         patch_version: "{{ sso_patch_version }}"

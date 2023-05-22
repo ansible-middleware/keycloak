@@ -11,25 +11,30 @@
       ansible.builtin.set_fact:
         hera_home: "{{ lookup('env', 'HERA_HOME') }}"
 
-    - ansible.builtin.command: openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 365 -nodes -subj '/CN=instance'
+    - name: Create certificate request
+      ansible.builtin.command: openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 365 -nodes -subj '/CN=instance'
       delegate_to: localhost
+      changed_when: False
 
-    - block:
-        - ansible.builtin.lineinfile:
-            dest: /etc/hosts
-            line: "127.0.0.1 instance"
-            state: present
-          delegate_to: localhost
-          become: yes
+    - name: Set /etc/hosts
+      ansible.builtin.lineinfile:
+        dest: /etc/hosts
+        line: "127.0.0.1 instance"
+        state: present
+      delegate_to: localhost
+      become: yes
       when:
         - hera_home is defined
         - hera_home | length == 0
 
-    - ansible.builtin.file:
+    - name: Create conf directory # risky-file-permissions in test user account does not exist yet
+      ansible.builtin.file:
         state: directory
         path: /opt/keycloak/keycloak-18.0.0/conf/
+        mode: 0755
 
-    - ansible.builtin.copy:
+    - name: Copy certificates
+      ansible.builtin.copy:
         src: "{{ item }}"
         dest: "/opt/keycloak/keycloak-18.0.0/conf/{{ item }}"
         mode: 0444

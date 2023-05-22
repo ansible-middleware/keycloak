@@ -21,19 +21,20 @@ warn_list:
   - experimental
   - ignore-errors
   - no-handler
-  - fqcn-builtins
   - no-log-password
   - jinja[spacing]
   - jinja[invalid]
   - meta-no-tags
-  - name[template]
   - name[casing]
   - fqcn[action]
   - schema[meta]
+  - var-naming[no-role-prefix]
+  - key-order[task]
 
 skip_list:
   - vars_should_not_be_used
   - file_is_small_enough
+  - name[template]
 
 use_default_rules: true
 parseable: true

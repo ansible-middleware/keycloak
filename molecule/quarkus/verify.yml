@@ -4,26 +4,30 @@
   tasks:
     - name: Populate service facts
       ansible.builtin.service_facts:
+
     - name: Check if keycloak service started
       ansible.builtin.assert:
         that:
           - ansible_facts.services["keycloak.service"]["state"] == "running"
           - ansible_facts.services["keycloak.service"]["status"] == "enabled"
 
-    - set_fact:
+    - name: Set internal envvar
+      ansible.builtin.set_fact:
         hera_home: "{{ lookup('env', 'HERA_HOME') }}"
 
-    - block:
-        - name: Fetch openID config
-          shell: |
+    - name: Verify openid config
+      block:
+        - name: Fetch openID config # noqa command-instead-of-module
+          ansible.builtin.shell: |
+            set -o pipefail
             curl https://instance:8443/realms/master/.well-known/openid-configuration -k | jq .
+          args:
+            executable: /bin/bash
           delegate_to: localhost
           register: openid_config
-        - debug:
-            msg: " {{ openid_config.stdout | from_json }}"
-          delegate_to: localhost
+          changed_when: False
         - name: Verify endpoint URLs
-          assert:
+          ansible.builtin.assert:
             that:
               - (openid_config.stdout | from_json)["backchannel_authentication_endpoint"] == 'https://instance/realms/master/protocol/openid-connect/ext/ciba/auth'
               - (openid_config.stdout | from_json)['issuer'] == 'https://instance/realms/master'

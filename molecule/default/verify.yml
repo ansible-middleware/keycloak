@@ -15,8 +15,11 @@
           - ansible_facts.services["keycloak.service"]["state"] == "running"
           - ansible_facts.services["keycloak.service"]["status"] == "enabled"
     - name: Verify we are running on requested jvm
-      shell: |
+      ansible.builtin.shell: |
+        set -o pipefail
         ps -ef | grep /usr/lib/jvm/java-11 | grep -v grep
+      args:
+        executable: /bin/bash
       changed_when: no
     - name: Verify token api call
       ansible.builtin.uri:
@@ -48,8 +51,6 @@
         headers:
           Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
       register: keycloak_query_clients
-    - debug:
-        msg: "{{ keycloak_query_clients.json | selectattr('clientId','equalto','TestClient') }}"
     - name: Verify expected config
       ansible.builtin.assert:
         that:

@@ -9,6 +9,11 @@ This changelog describes changes after version 0.2.6.
 v1.2.5-devel
 ============
 
+Minor Changes
+-------------
+
+- Introduce systemd unit restart behavior `#81 <https://github.com/ansible-middleware/keycloak/pull/81>`_
+
 v1.2.4
 ======
 

@@ -271,6 +271,22 @@
 <td class="text-left"><p>posix account group</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak</span></code></p></td>
 </tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_restart_on_failure</span></code></p></td>
+<td class="text-left"><p>systemd restart-on-failure behavior activation</p></td>
+<td class="text-left"><p>True</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_startlimitintervalsec</span></code></p></td>
+<td class="text-left"><p>systemd StartLimitIntervalSec</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">300</span></code> if <code class="docutils literal notranslate"><span class="pre">keycloak_service_restart_on_failure</span></code> else ``</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_startlimitburst</span></code></p></td>
+<td class="text-left"><p>systemd StartLimitBurst</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">5</span></code> if <code class="docutils literal notranslate"><span class="pre">keycloak_service_restart_on_failure</span></code> else ``</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_restartsec</span></code></p></td>
+<td class="text-left"><p>systemd RestartSec</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">10s</span></code> if <code class="docutils literal notranslate"><span class="pre">keycloak_service_restart_on_failure</span></code> else ``</p></td>
+</tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_pidfile</span></code></p></td>
 <td class="text-left"><p>pid file path for service</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/run/keycloak.pid</span></code></p></td>

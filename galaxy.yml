@@ -25,7 +25,7 @@ tags:
   - middleware
   - a4mw
 dependencies:
-  "middleware_automation.common": ">=1.0.0"
+  "middleware_automation.common": ">=1.1.0"
   "ansible.posix": ">=1.4.0"
 repository: https://github.com/ansible-middleware/keycloak
 documentation: https://ansible-middleware.github.io/keycloak

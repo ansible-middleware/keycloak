@@ -611,7 +611,7 @@
                 <provider name="default" enabled="true">
                     <properties>
                         <property name="frontendUrl" value="{{ keycloak_modcluster.frontend_url }}"/>
-                        <property name="forceBackendUrlToFrontendUrl" value="true"/>
+                        <property name="forceBackendUrlToFrontendUrl" value="{{ keycloak_modcluster.force_frontend_url }}"/>
                     </properties>
                 </provider>
             </spi>

@@ -199,6 +199,10 @@ argument_specs:
                 default: "http://localhost"
                 description: "Frontend URL for keycloak endpoints when a reverse proxy is used"
                 type: "str"
+            keycloak_frontend_url_force:
+                default: False
+                description: "Force backend requests to use the frontend URL"
+                type: "bool"
             keycloak_infinispan_user:
                 # line 62 of keycloak/defaults/main.yml
                 default: "supervisor"

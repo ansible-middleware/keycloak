@@ -43,7 +43,7 @@
 
     - name: Determine latest version
       ansible.builtin.set_fact:
-         sso_latest_version: "{{ filtered_versions | middleware_automation.keycloak.version_sort | last }}"
+         sso_latest_version: "{{ filtered_versions | middleware_automation.common.version_sort | last }}"
       when: sso_patch_version is not defined or sso_patch_version | length == 0
       delegate_to: localhost
       run_once: yes

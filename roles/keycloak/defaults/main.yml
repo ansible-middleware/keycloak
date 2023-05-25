@@ -72,6 +72,7 @@ keycloak_modcluster_urls:
 
 ### keycloak frontend url
 keycloak_frontend_url: http://localhost:8080/auth/
+keycloak_frontend_url_force: False
 
 ### infinispan remote caches access (hotrod)
 keycloak_infinispan_user: supervisor

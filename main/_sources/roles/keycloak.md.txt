@@ -73,9 +73,9 @@ Role Defaults
 |`keycloak_service_user`| posix account username | `keycloak` |
 |`keycloak_service_group`| posix account group | `keycloak` |
 |`keycloak_service_restart_on_failure`| systemd restart-on-failure behavior activation |True
-|`keycloak_service_startlimitintervalsec`| systemd StartLimitIntervalSec | `300` if `keycloak_service_restart_on_failure` else ``
-|`keycloak_service_startlimitburst`| systemd StartLimitBurst | `5` if `keycloak_service_restart_on_failure` else ``
-|`keycloak_service_restartsec`| systemd RestartSec | `10s` if `keycloak_service_restart_on_failure` else ``
+|`keycloak_service_startlimitintervalsec`| systemd StartLimitIntervalSec | `300` if `keycloak_service_restart_on_failure` else `` |
+|`keycloak_service_startlimitburst`| systemd StartLimitBurst | `5` if `keycloak_service_restart_on_failure` else `` |
+|`keycloak_service_restartsec`| systemd RestartSec | `10s` if `keycloak_service_restart_on_failure` else `` |
 |`keycloak_service_pidfile`| pid file path for service | `/run/keycloak.pid` |
 |`keycloak_jvm_package`| RHEL java package runtime | `java-1.8.0-openjdk-headless` |
 |`keycloak_java_home`| JAVA_HOME of installed JRE, leave empty for using specified keycloak_jvm_package RPM path | `None` |
@@ -110,7 +110,7 @@ Role Defaults
 |`keycloak_force_install` | Remove pre-existing versions of service | `False` |
 |`keycloak_url` | URL for configuration rest calls | `http://{{ keycloak_host }}:{{ keycloak_http_port }}` |
 |`keycloak_management_url` | URL for management console rest calls | `http://{{ keycloak_host }}:{{ keycloak_management_http_port }}` |
-
+|`keycloak_frontend_url_force` | Force backend requests to use the frontend URL | `False` |
 
 Role Variables
 --------------

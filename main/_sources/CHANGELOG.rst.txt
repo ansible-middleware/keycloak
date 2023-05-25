@@ -12,6 +12,7 @@ v1.2.5-devel
 Minor Changes
 -------------
 
+- Allow to force backend URLs to frontend URLs `#84 <https://github.com/ansible-middleware/keycloak/pull/84>`_
 - Introduce systemd unit restart behavior `#81 <https://github.com/ansible-middleware/keycloak/pull/81>`_
 
 v1.2.4

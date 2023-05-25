@@ -29,6 +29,7 @@ keycloak_jdbc:
     connection_url: "{{ keycloak_jdbc_url }}"
     db_user: "{{ keycloak_db_user }}"
     db_password: "{{ keycloak_db_pass }}"
+    validate_query: "{{ keycloak_db_valid_conn_sql | default('select 1') }}"
     initialize_db: >
       CREATE TABLE IF NOT EXISTS JGROUPSPING (
         own_addr varchar(200) NOT NULL,
@@ -48,6 +49,7 @@ keycloak_jdbc:
     connection_url: "{{ keycloak_jdbc_url }}"
     db_user: "{{ keycloak_db_user }}"
     db_password: "{{ keycloak_db_pass }}"
+    validate_query: "{{ keycloak_db_valid_conn_sql | default('select 1') }}"
     initialize_db: >
       CREATE TABLE IF NOT EXISTS JGROUPSPING (
         own_addr varchar(200) NOT NULL,
@@ -68,6 +70,7 @@ keycloak_jdbc:
     connection_url: "{{ keycloak_jdbc_url }}"
     db_user: "{{ keycloak_db_user }}"
     db_password: "{{ keycloak_db_pass }}"
+    validate_query: "{{ keycloak_db_valid_conn_sql | default('select 1') }}"
     initialize_db: >
       IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[JGROUPSPING]') AND type in (N'U'))
       BEGIN

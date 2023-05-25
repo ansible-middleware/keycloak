@@ -318,6 +318,22 @@ argument_specs:
                 default: "{{ True if keycloak_ha_enabled else False }}"
                 description: "Enable remote cache store when in clustered ha configurations"
                 type: "bool"
+            keycloak_db_background_validation: 
+                default: False
+                description: "Enable background validation of database connection"
+                type: "bool"
+            keycloak_db_background_validation_millis:
+                default: "{{ 10000 if keycloak_db_background_validation else 0 }}"
+                description: "How frequenly the connection pool is validated in the background"
+                type: 'int'
+            keycloak_db_background_validate_on_match:
+                default: False
+                description: "Enable validate on match for database connections"
+                type: "bool"
+            keycloak_db_valid_conn_sql:
+                required: False
+                description: "Override the default database connection validation query sql"
+                type: "str"
     downstream:
         options:
             sso_version:

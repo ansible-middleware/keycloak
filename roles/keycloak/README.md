@@ -111,6 +111,11 @@ Role Defaults
 |`keycloak_url` | URL for configuration rest calls | `http://{{ keycloak_host }}:{{ keycloak_http_port }}` |
 |`keycloak_management_url` | URL for management console rest calls | `http://{{ keycloak_host }}:{{ keycloak_management_http_port }}` |
 |`keycloak_frontend_url_force` | Force backend requests to use the frontend URL | `False` |
+|`keycloak_db_background_validation` | Enable background validation of database connection | `False` |
+|`keycloak_db_background_validation_millis`| How frequenly the connection pool is validated in the background | `10000` if background validation enabled |
+|`keycloak_db_background_validate_on_match` Enable validate on match for database connections | `False` |
+|`keycloak_frontend_url` | frontend URL for keycloak endpoint | `http://localhost:8080/auth/` |
+
 
 Role Variables
 --------------
@@ -123,7 +128,7 @@ The following are a set of _required_ variables for the role:
 |`keycloak_frontend_url` | frontend URL for keycloak endpoint | `http://localhost:8080/auth/` |
 
 
-The following variables are _required_ only when `keycloak_ha_enabled` is True:
+The following parameters are _required_ only when `keycloak_ha_enabled` is True:
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
@@ -141,7 +146,7 @@ The following variables are _required_ only when `keycloak_ha_enabled` is True:
 |`keycloak_infinispan_trust_store_password`| Password for opening truststore | `changeit` |
 
 
-The following variables are _required_ only when `keycloak_db_enabled` is True:
+The following parameters are _required_ only when `keycloak_db_enabled` is True:
 
 | Variable | Description | Default |
 |:---------|:------------|:---------|
@@ -149,6 +154,13 @@ The following variables are _required_ only when `keycloak_db_enabled` is True:
 |`keycloak_jdbc_driver_version`| Version for the JDBC driver to download | `9.4.1212` |
 |`keycloak_db_user` | username for connecting to postgres | `keycloak-user` |
 |`keycloak_db_pass` | password for connecting to postgres | `keycloak-pass` |
+
+
+The following variables are _optional_:
+
+| Variable | Description |
+|:---------|:------------|
+|`keycloak_db_valid_conn_sql` | Override the default database connection validation query sql |
 
 
 Example Playbook
@@ -161,8 +173,6 @@ Example Playbook
 - hosts: ...
       vars:
         keycloak_admin_password: "remembertochangeme"
-      collections:
-        - middleware_automation.keycloak
       roles:
         - middleware_automation.keycloak.keycloak
 ```

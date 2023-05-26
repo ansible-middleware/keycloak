@@ -88,6 +88,7 @@ keycloak_modcluster:
   reverse_proxy_urls: "{{ keycloak_modcluster_urls }}"
   frontend_url: "{{ keycloak_frontend_url }}"
   force_frontend_url: "{{ keycloak_frontend_url_force }}"
+  admin_url: "{{ keycloak_admin_url | default('') }}"
 
 # infinispan
 keycloak_remotecache:

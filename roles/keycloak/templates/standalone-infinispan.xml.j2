@@ -618,6 +618,9 @@
                     <properties>
                         <property name="frontendUrl" value="{{ keycloak_modcluster.frontend_url }}"/>
                         <property name="forceBackendUrlToFrontendUrl" value="{{ keycloak_modcluster.force_frontend_url }}"/>
+{% if keycloak_modcluster.admin_url | length > 0 %}
+                        <property name="adminUrl" value="{{ keycloak_modcluster.admin_url }}" />
+{% endif %}
                     </properties>
                 </provider>
             </spi>

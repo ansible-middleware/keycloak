@@ -334,6 +334,10 @@ argument_specs:
                 required: False
                 description: "Override the default database connection validation query sql"
                 type: "str"
+            keycloak_admin_url:
+                required: False
+                description: "Override the default administration endpoint URL"
+                type: "str"
     downstream:
         options:
             sso_version:

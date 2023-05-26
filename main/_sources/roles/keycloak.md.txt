@@ -117,6 +117,7 @@ Role Defaults
 |`keycloak_frontend_url` | frontend URL for keycloak endpoint | `http://localhost:8080/auth/` |
 
 
+
 Role Variables
 --------------
 
@@ -161,6 +162,7 @@ The following variables are _optional_:
 | Variable | Description |
 |:---------|:------------|
 |`keycloak_db_valid_conn_sql` | Override the default database connection validation query sql |
+|`keycloak_admin_url` | Override the default administration endpoint URL |
 
 
 Example Playbook

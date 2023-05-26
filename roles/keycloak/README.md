@@ -113,7 +113,7 @@ Role Defaults
 |`keycloak_frontend_url_force` | Force backend requests to use the frontend URL | `False` |
 |`keycloak_db_background_validation` | Enable background validation of database connection | `False` |
 |`keycloak_db_background_validation_millis`| How frequenly the connection pool is validated in the background | `10000` if background validation enabled |
-|`keycloak_db_background_validate_on_match` Enable validate on match for database connections | `False` |
+|`keycloak_db_background_validate_on_match` | Enable validate on match for database connections | `False` |
 |`keycloak_frontend_url` | frontend URL for keycloak endpoint | `http://localhost:8080/auth/` |
 
 

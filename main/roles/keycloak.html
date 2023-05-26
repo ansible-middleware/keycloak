@@ -407,6 +407,22 @@
 <td class="text-left"><p>Force backend requests to use the frontend URL</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_db_background_validation</span></code></p></td>
+<td class="text-left"><p>Enable background validation of database connection</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_db_background_validation_millis</span></code></p></td>
+<td class="text-left"><p>How frequenly the connection pool is validated in the background</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">10000</span></code> if background validation enabled</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_db_background_validate_on_match</span></code></p></td>
+<td class="text-left"><p>Enable validate on match for database connections</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_frontend_url</span></code></p></td>
+<td class="text-left"><p>frontend URL for keycloak endpoint</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">http://localhost:8080/auth/</span></code></p></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -428,7 +444,7 @@
 </tr>
 </tbody>
 </table>
-<p>The following variables are <em>required</em> only when <code class="docutils literal notranslate"><span class="pre">keycloak_ha_enabled</span></code> is True:</p>
+<p>The following parameters are <em>required</em> only when <code class="docutils literal notranslate"><span class="pre">keycloak_ha_enabled</span></code> is True:</p>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
@@ -487,7 +503,7 @@
 </tr>
 </tbody>
 </table>
-<p>The following variables are <em>required</em> only when <code class="docutils literal notranslate"><span class="pre">keycloak_db_enabled</span></code> is True:</p>
+<p>The following parameters are <em>required</em> only when <code class="docutils literal notranslate"><span class="pre">keycloak_db_enabled</span></code> is True:</p>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
@@ -514,6 +530,19 @@
 </tr>
 </tbody>
 </table>
+<p>The following variables are <em>optional</em>:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
+<th class="head text-left"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_db_valid_conn_sql</span></code></p></td>
+<td class="text-left"><p>Override the default database connection validation query sql</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="example-playbook">
 <h2>Example Playbook<a class="headerlink" href="#example-playbook" title="Permalink to this heading"></a></h2>
@@ -524,9 +553,7 @@
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
 <span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">vars</span><span class="p p-Indicator">:</span>
 <span class="w">        </span><span class="nt">keycloak_admin_password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;remembertochangeme&quot;</span>
-<span class="w">  </span><span class="w w-Error">    </span><span class="nt">collections</span><span class="p">:</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">middleware_automation.keycloak</span>
-<span class="w">      </span><span class="nt">roles</span><span class="p">:</span>
+<span class="w">  </span><span class="w w-Error">    </span><span class="nt">roles</span><span class="p">:</span>
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">middleware_automation.keycloak.keycloak</span>
 </pre></div>
 </div>

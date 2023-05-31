@@ -1,0 +1,3 @@
+{% for feature in keycloak.features %}
+feature.{{ feature.name }}={{ feature.status | default('enabled') }}
+{% endfor %}

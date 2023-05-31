@@ -89,6 +89,11 @@ argument_specs:
                 default: "/run/keycloak.pid"
                 description: "PID file path for service"
                 type: "str"
+            keycloak_features:
+                # line 17 of keycloak/defaults/main.yml
+                default: "[]"
+                description: "List of `name`/`status` pairs of features (also known as profiles on RH-SSO) to `enable` or `disable`, example: `[ { name: 'docker', status: 'enabled' } ]`"
+                type: "list"
             keycloak_bind_address:
                 # line 34 of keycloak/defaults/main.yml
                 default: "0.0.0.0"
@@ -96,7 +101,7 @@ argument_specs:
                 type: "str"
             keycloak_management_port_bind_address:
                 default: "127.0.0.1"
-                description: "Address for binding the managemnt ports"
+                description: "Address for binding the management ports"
                 type: "str"
             keycloak_host:
                 # line 35 of keycloak/defaults/main.yml
@@ -318,7 +323,7 @@ argument_specs:
                 default: "{{ True if keycloak_ha_enabled else False }}"
                 description: "Enable remote cache store when in clustered ha configurations"
                 type: "bool"
-            keycloak_db_background_validation: 
+            keycloak_db_background_validation:
                 default: False
                 description: "Enable background validation of database connection"
                 type: "bool"

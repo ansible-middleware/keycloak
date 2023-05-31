@@ -14,6 +14,7 @@ keycloak:
   health_url: "{{ keycloak_management_url }}/health"
   cli_path: "{{ keycloak_jboss_home }}/bin/jboss-cli.sh"
   config_template_source: "{{ keycloak_config_override_template if keycloak_config_override_template | length > 0 else 'standalone-ha.xml.j2' if keycloak_remote_cache_enabled else 'standalone.xml.j2' }}"
+  features: "{{ keycloak_features }}"
 
 # database
 keycloak_jdbc:

@@ -268,3 +268,15 @@
     - keycloak_ha_enabled
     - keycloak_remote_cache_enabled
     - keycloak_config_override_template | length == 0
+
+- name: "Deploy profile.properties file to {{ keycloak_config_path_to_properties }}"
+  become: yes
+  ansible.builtin.template:
+    src: keycloak-profile.properties.j2
+    dest: "{{ keycloak_config_path_to_properties }}"
+    owner: "{{ keycloak_service_user }}"
+    group: "{{ keycloak_service_group }}"
+    mode: 0640
+  notify:
+    - restart keycloak
+  when: keycloak_features | length > 0

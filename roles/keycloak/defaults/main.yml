@@ -16,6 +16,7 @@ keycloak_config_dir: "{{ keycloak_jboss_home }}/standalone/configuration"
 keycloak_config_standalone_xml: "keycloak.xml"
 keycloak_config_path_to_standalone_xml: "{{ keycloak_jboss_home }}/standalone/configuration/{{ keycloak_config_standalone_xml }}"
 keycloak_config_override_template: ''
+keycloak_config_path_to_properties: "{{ keycloak_jboss_home }}/standalone/configuration/profile.properties"
 keycloak_service_user: keycloak
 keycloak_service_group: keycloak
 keycloak_service_pidfile: "/run/keycloak.pid"
@@ -45,6 +46,7 @@ keycloak_management_http_port: 9990
 keycloak_management_https_port: 9993
 keycloak_java_opts: "-Xms1024m -Xmx2048m"
 keycloak_prefer_ipv4: True
+keycloak_features: []
 
 ### Enable configuration for database backend, clustering and remote caches on infinispan
 keycloak_ha_enabled: False

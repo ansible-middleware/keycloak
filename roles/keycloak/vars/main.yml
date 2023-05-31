@@ -40,7 +40,7 @@ keycloak_jdbc:
   mariadb:
     enabled: "{{ (keycloak_ha_enabled or keycloak_db_enabled) and keycloak_jdbc_engine == 'mariadb' }}"
     driver_class: org.mariadb.jdbc.Driver
-    xa_datasource_class: org.mariadb.jdbc.MySQLDataSource
+    xa_datasource_class: org.mariadb.jdbc.MariaDbDataSource
     driver_module_name: "org.mariadb"
     driver_module_dir: "{{ keycloak_jboss_home }}/modules/org/mariadb/main"
     driver_version: "{{ keycloak_jdbc_driver_version }}"

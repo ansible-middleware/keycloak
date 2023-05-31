@@ -24,10 +24,11 @@ keycloak_service_name: keycloak
 keycloak_service_desc: Keycloak
 keycloak_service_start_delay: 10
 keycloak_service_start_retries: 25
-keycloak_service_restart_on_failure: True
-keycloak_service_startlimitintervalsec: "{{ 300 if keycloak_service_restart_on_failure else '' }}"
-keycloak_service_startlimitburst: "{{ 5 if keycloak_service_restart_on_failure else '' }}"
-keycloak_service_restartsec: "{{ '10s' if keycloak_service_restart_on_failure else '' }}"
+keycloak_service_restart_always: False
+keycloak_service_restart_on_failure: False
+keycloak_service_startlimitintervalsec: "300"
+keycloak_service_startlimitburst: "5"
+keycloak_service_restartsec: "10s"
 
 keycloak_configure_firewalld: False
 

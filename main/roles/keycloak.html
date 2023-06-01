@@ -273,39 +273,43 @@
 <td class="text-left"><p>posix account group</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_restart_on_failure</span></code></p></td>
-<td class="text-left"><p>systemd restart-on-failure behavior activation</p></td>
-<td class="text-left"><p>True</p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_restart_always</span></code></p></td>
+<td class="text-left"><p>systemd restart always behavior activation</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_startlimitintervalsec</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_restart_on_failure</span></code></p></td>
+<td class="text-left"><p>systemd restart on-failure behavior activation</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_startlimitintervalsec</span></code></p></td>
 <td class="text-left"><p>systemd StartLimitIntervalSec</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">300</span></code> if <code class="docutils literal notranslate"><span class="pre">keycloak_service_restart_on_failure</span></code> else ``</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">300</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_startlimitburst</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_startlimitburst</span></code></p></td>
 <td class="text-left"><p>systemd StartLimitBurst</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">5</span></code> if <code class="docutils literal notranslate"><span class="pre">keycloak_service_restart_on_failure</span></code> else ``</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">5</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_restartsec</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_restartsec</span></code></p></td>
 <td class="text-left"><p>systemd RestartSec</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">10s</span></code> if <code class="docutils literal notranslate"><span class="pre">keycloak_service_restart_on_failure</span></code> else ``</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">10s</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_pidfile</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_pidfile</span></code></p></td>
 <td class="text-left"><p>pid file path for service</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/run/keycloak.pid</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_features</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_features</span></code></p></td>
 <td class="text-left"><p>List of <code class="docutils literal notranslate"><span class="pre">name</span></code>/<code class="docutils literal notranslate"><span class="pre">status</span></code> pairs of features (also known as profiles on RH-SSO) to <code class="docutils literal notranslate"><span class="pre">enable</span></code> or <code class="docutils literal notranslate"><span class="pre">disable</span></code>, example: <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">{</span> <span class="pre">name:</span> <span class="pre">'docker',</span> <span class="pre">status:</span> <span class="pre">'enabled'</span> <span class="pre">}</span> <span class="pre">]</span></code></p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_jvm_package</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_jvm_package</span></code></p></td>
 <td class="text-left"><p>RHEL java package runtime</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">java-1.8.0-openjdk-headless</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_java_home</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_java_home</span></code></p></td>
 <td class="text-left"><p>JAVA_HOME of installed JRE, leave empty for using specified keycloak_jvm_package RPM path</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_java_opts</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_java_opts</span></code></p></td>
 <td class="text-left"><p>Additional JVM options</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">-Xms1024m</span> <span class="pre">-Xmx2048m</span></code></p></td>
 </tr>

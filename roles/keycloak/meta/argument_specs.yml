@@ -299,9 +299,13 @@ argument_specs:
                 default: "25"
                 description: "How many time should Ansible retry to connect to the service after it was started, before failing."
                 type: "int"
+            keycloak_service_restart_always:
+                default: false
+                description: "systemd restart always behavior activation for keycloak"
+                type: "bool"
             keycloak_service_restart_on_failure:
-                default: true
-                description: "systemd restart-on-failure behavior activation for keycloak"
+                default: false
+                description: "systemd restart on-failure behavior activation for keycloak"
                 type: "bool"
             keycloak_service_startlimitintervalsec:
                 default: 300

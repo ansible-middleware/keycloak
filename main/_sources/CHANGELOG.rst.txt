@@ -6,6 +6,16 @@ middleware_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v1.2.6-devel
+============
+
+Minor Changes
+-------------
+
+- Add profile features enabling/disabling `#87 <https://github.com/ansible-middleware/keycloak/pull/87>`_
+- Improve service restart behavior configuration `#88 <https://github.com/ansible-middleware/keycloak/pull/88>`_
+- Update default xa_datasource_class value for mariadb jdbc configuration `#89 <https://github.com/ansible-middleware/keycloak/pull/89>`_
+
 v1.2.5
 ======
 
@@ -13,12 +23,9 @@ Minor Changes
 -------------
 
 - Add configuration for database connection pool validation `#85 <https://github.com/ansible-middleware/keycloak/pull/85>`_
-- Add profile features enabling/disabling `#87 <https://github.com/ansible-middleware/keycloak/pull/87>`_
 - Allow to configure administration endpoint URL `#86 <https://github.com/ansible-middleware/keycloak/pull/86>`_
 - Allow to force backend URLs to frontend URLs `#84 <https://github.com/ansible-middleware/keycloak/pull/84>`_
-- Improve service restart behavior configuration `#88 <https://github.com/ansible-middleware/keycloak/pull/88>`_
 - Introduce systemd unit restart behavior `#81 <https://github.com/ansible-middleware/keycloak/pull/81>`_
-- Update default xa_datasource_class value for mariadb jdbc configuration `#89 <https://github.com/ansible-middleware/keycloak/pull/89>`_
 
 v1.2.4
 ======

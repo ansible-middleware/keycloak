@@ -16,6 +16,11 @@ Minor Changes
 - Improve service restart behavior configuration `#88 <https://github.com/ansible-middleware/keycloak/pull/88>`_
 - Update default xa_datasource_class value for mariadb jdbc configuration `#89 <https://github.com/ansible-middleware/keycloak/pull/89>`_
 
+Bugfixes
+--------
+
+- Handle WFLYCTL0117 when background validation millis is 0 `#90 <https://github.com/ansible-middleware/keycloak/pull/90>`_
+
 v1.2.5
 ======
 

@@ -126,8 +126,10 @@
                     <validation>
                         <check-valid-connection-sql>{{ keycloak_jdbc[keycloak_jdbc_engine].validate_query }}</check-valid-connection-sql>
                         <validate-on-match>{{ keycloak_db_background_validate_on_match }}</validate-on-match>
+{% if keycloak_db_background_validation_millis > 0  or keycloak_db_background_validation %}
                         <background-validation>{{ keycloak_db_background_validation }}</background-validation>
                         <background-validation-millis>{{ keycloak_db_background_validation_millis }}</background-validation-millis>
+{% endif %}
                     </validation>
 {% else %}
                     <connection-url>jdbc:h2:${jboss.server.data.dir}/keycloak;AUTO_SERVER=TRUE</connection-url>

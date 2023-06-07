@@ -6,6 +6,21 @@ middleware_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v1.2.6
+======
+
+Minor Changes
+-------------
+
+- Add profile features enabling/disabling `#87 <https://github.com/ansible-middleware/keycloak/pull/87>`_
+- Improve service restart behavior configuration `#88 <https://github.com/ansible-middleware/keycloak/pull/88>`_
+- Update default xa_datasource_class value for mariadb jdbc configuration `#89 <https://github.com/ansible-middleware/keycloak/pull/89>`_
+
+Bugfixes
+--------
+
+- Handle WFLYCTL0117 when background validation millis is 0 `#90 <https://github.com/ansible-middleware/keycloak/pull/90>`_
+
 v1.2.5
 ======
 

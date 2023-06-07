@@ -224,3 +224,26 @@ releases:
     - 85.yaml
     - 86.yaml
     release_date: '2023-05-26'
+  1.2.6:
+    changes:
+      bugfixes:
+      - 'Handle WFLYCTL0117 when background validation millis is 0 `#90 <https://github.com/ansible-middleware/keycloak/pull/90>`_
+
+        '
+      minor_changes:
+      - 'Add profile features enabling/disabling `#87 <https://github.com/ansible-middleware/keycloak/pull/87>`_
+
+        '
+      - 'Improve service restart behavior configuration `#88 <https://github.com/ansible-middleware/keycloak/pull/88>`_
+
+        '
+      - 'Update default xa_datasource_class value for mariadb jdbc configuration `#89
+        <https://github.com/ansible-middleware/keycloak/pull/89>`_
+
+        '
+    fragments:
+    - 87.yaml
+    - 88.yaml
+    - 89.yaml
+    - 90.yaml
+    release_date: '2023-06-07'

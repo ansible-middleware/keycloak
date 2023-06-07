@@ -1,0 +1,11 @@
+Plugin Index
+============
+
+.. toctree::
+   :caption: modules plugins
+   :maxdepth: 0
+
+   keycloak_client
+   keycloak_role
+   keycloak_user_federation
+

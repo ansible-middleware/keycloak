@@ -97,8 +97,6 @@ keycloak_db_pass: keycloak-pass
 keycloak_db_background_validation: False
 keycloak_db_background_validation_millis: "{{ 10000 if keycloak_db_background_validation else 0 }}"
 keycloak_db_background_validate_on_match: False
-# variable to override database connection validation query
-keycloak_db_valid_conn_sql:
 keycloak_jdbc_url: "{{ keycloak_default_jdbc[keycloak_jdbc_engine].url }}"
 keycloak_jdbc_driver_version: "{{ keycloak_default_jdbc[keycloak_jdbc_engine].version }}"
 # override the variables above, following defaults show minimum supported versions

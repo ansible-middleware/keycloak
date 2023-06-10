@@ -9,6 +9,11 @@ This changelog describes changes after version 0.2.6.
 v1.2.7-devel
 ============
 
+Minor Changes
+-------------
+
+- Allow to override jgroups subnet `#93 <https://github.com/ansible-middleware/keycloak/pull/93>`_
+
 v1.2.6
 ======
 

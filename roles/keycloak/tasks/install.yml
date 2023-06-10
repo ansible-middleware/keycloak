@@ -239,7 +239,7 @@
   loop: "{{ ansible_play_batch }}"
   when: keycloak_ha_enabled and keycloak_ha_discovery == 'TCPPING'
 
-- name: "Deploy HA {{ keycloak.service_name }} config to {{ keycloak_config_path_to_standalone_xml }} from {{ keycloak.config_template_source }}"
+- name: "Deploy HA {{ keycloak.service_name }} config to {{ keycloak_config_path_to_standalone_xml }}"
   become: yes
   ansible.builtin.template:
     src: templates/standalone-ha.xml.j2

@@ -165,7 +165,7 @@ The following variables are _optional_:
 |:---------|:------------|
 |`keycloak_db_valid_conn_sql` | Override the default database connection validation query sql |
 |`keycloak_admin_url` | Override the default administration endpoint URL |
-
+|`keycloak_jgroups_subnet`| Override the subnet match for jgroups cluster formation; if not defined, it will be inferred from local machine route configuration |
 
 Example Playbook
 -----------------

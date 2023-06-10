@@ -347,6 +347,10 @@ argument_specs:
                 required: False
                 description: "Override the default administration endpoint URL"
                 type: "str"
+            keycloak_jgroups_subnet:
+                required: False
+                description: "Override the subnet match for jgroups cluster formation; if not defined, it will be inferred from local machine route configuration"
+                type: "str"
     downstream:
         options:
             sso_version:

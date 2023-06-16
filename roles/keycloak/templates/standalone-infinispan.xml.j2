@@ -700,7 +700,9 @@
             <inet-address value="{{ keycloak_management_port_bind_address }}"/>
         </interface>
         <interface name="jgroups">
-{% if ansible_default_ipv4 is defined %}
+{% if keycloak_jgroups_subnet is defined and keycloak_jgroups_subnet | string | length > 0 %}
+            <subnet-match value="{{ keycloak_jgroups_subnet | string }}"/>
+{% elif ansible_default_ipv4 is defined and (ansible_default_ipv4.network + '/' + ansible_default_ipv4.netmask) | ansible.utils.ipaddr('net') | length > 0 %}
             <subnet-match value="{{ (ansible_default_ipv4.network + '/' + ansible_default_ipv4.netmask) | ansible.utils.ipaddr('net') }}"/>
 {% else %}
             <any-address />

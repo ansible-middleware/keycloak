@@ -1,0 +1,26 @@
+---
+- name: Playbook for Keycloak Hosts
+  hosts: all
+  vars:
+    keycloak_admin_password: "remembertochangeme"
+    keycloak_clients:
+      - name: TestClient1
+        client_id: TestClient1
+        roles:
+          - TestClient1Admin
+          - TestClient1User
+        realm: TestRealm
+        public_client: True
+        web_origins:
+          - http://testclient1origin/application
+          - http://testclient1origin/other
+        users:
+        - username: TestUser
+          password: password
+          client_roles:
+            - client: TestClient1
+              role: TestClient1User
+              realm: TestRealm
+  roles:
+    - role: middleware_automation.keycloak.keycloak_realm
+      keycloak_realm: TestRealm

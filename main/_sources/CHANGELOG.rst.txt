@@ -13,6 +13,7 @@ Minor Changes
 -------------
 
 - Allow to override jgroups subnet `#93 <https://github.com/ansible-middleware/keycloak/pull/93>`_
+- keycloak-quarkus: update keycloakx to v21.1.1 `#92 <https://github.com/ansible-middleware/keycloak/pull/92>`_
 
 v1.2.6
 ======

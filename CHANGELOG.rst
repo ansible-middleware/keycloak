@@ -6,6 +6,15 @@ middleware_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v1.2.7
+======
+
+Minor Changes
+-------------
+
+- Allow to override jgroups subnet `#93 <https://github.com/ansible-middleware/keycloak/pull/93>`_
+- keycloak-quarkus: update keycloakx to v21.1.1 `#92 <https://github.com/ansible-middleware/keycloak/pull/92>`_
+
 v1.2.6
 ======
 

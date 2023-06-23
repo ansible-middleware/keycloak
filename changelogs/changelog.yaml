@@ -247,3 +247,16 @@ releases:
     - 89.yaml
     - 90.yaml
     release_date: '2023-06-07'
+  1.2.7:
+    changes:
+      minor_changes:
+      - 'Allow to override jgroups subnet `#93 <https://github.com/ansible-middleware/keycloak/pull/93>`_
+
+        '
+      - 'keycloak-quarkus: update keycloakx to v21.1.1 `#92 <https://github.com/ansible-middleware/keycloak/pull/92>`_
+
+        '
+    fragments:
+    - 92.yaml
+    - 93.yaml
+    release_date: '2023-06-19'

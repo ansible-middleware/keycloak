@@ -9,6 +9,11 @@ This changelog describes changes after version 0.2.6.
 v1.2.8-devel
 ============
 
+Bugfixes
+--------
+
+- Fix incorrect checks for ``keycloak_jgroups_subnet`` `#98 <https://github.com/ansible-middleware/keycloak/pull/98>`_
+
 v1.2.7
 ======
 

@@ -42,6 +42,7 @@ keycloak_http_port: 8080
 keycloak_https_port: 8443
 keycloak_ajp_port: 8009
 keycloak_jgroups_port: 7600
+keycloak_jgroups_subnet:
 keycloak_management_port_bind_address: 127.0.0.1
 keycloak_management_http_port: 9990
 keycloak_management_https_port: 9993

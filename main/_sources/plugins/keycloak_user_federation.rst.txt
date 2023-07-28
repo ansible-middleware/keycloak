@@ -30,10 +30,6 @@
 
 .. Anchors: short name for ansible.builtin
 
-.. Anchors: aliases
-
-
-
 .. Title
 
 keycloak_user_federation -- Allows administration of Keycloak user federations via Keycloak API

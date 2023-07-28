@@ -32,6 +32,7 @@ keycloak_admin_password: ''
 #    realm: "{{ keycloak_realm }}"
 #    public_client: "{{ keycloak_client_public }}"
 #    web_origins: "{{ keycloak_client_web_origins }}"
+#    redirect_uris: "{{ keycloak_client_redirect_uris }}"
 #    users: "{{ keycloak_client_users }}"
 keycloak_clients: []
 

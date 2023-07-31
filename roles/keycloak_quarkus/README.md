@@ -1,7 +1,7 @@
 keycloak_quarkus
 ================
 
-Install [keycloak](https://keycloak.org/) >= 22.0.0 (quarkus) server configurations.
+Install [keycloak](https://keycloak.org/) >= 20.0.0 (quarkus) server configurations.
 
 
 Role Defaults

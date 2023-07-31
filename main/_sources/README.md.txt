@@ -3,7 +3,7 @@
 <!--start build_status -->
 [![Build Status](https://github.com/ansible-middleware/keycloak/workflows/CI/badge.svg?branch=main)](https://github.com/ansible-middleware/keycloak/actions/workflows/ci.yml)
 
-If you are Red Hat customer, install `redhat.sso` from [Automation Hub](https://console.redhat.com/ansible/ansible-dashboard) as the certified version of this collection.
+> **_NOTE:_ If you are Red Hat customer, install `redhat.sso` from [Automation Hub](https://console.redhat.com/ansible/ansible-dashboard) as the certified version of this collection.**
 
 <!--end build_status -->
 Collection to install and configure [Keycloak](https://www.keycloak.org/) or [Red Hat Single Sign-On](https://access.redhat.com/products/red-hat-single-sign-on). 

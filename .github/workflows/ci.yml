@@ -5,6 +5,8 @@ on:
     branches:
       - main
   pull_request:
+  schedule:
+    - cron: '0 6 * * *'
 
 env:
   COLORTERM: 'yes'
@@ -16,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python_version: ["3.10"]
+        python_version: ["3.11"]
     steps:
       - name: Check out code
         uses: actions/checkout@v2
@@ -32,8 +34,16 @@ jobs:
       - name: Install yamllint, ansible and molecule
         run: |
           python -m pip install --upgrade pip
-          pip install yamllint 'molecule[docker]~=3.5.2' ansible-core flake8 ansible-lint==6.17.0 voluptuous
-          pip install -r ansible_collections/middleware_automation/keycloak/requirements.txt
+          pip install yamllint 'molecule>=4.0.4' 'molecule-plugins[docker]>=23.0.0' ansible-core flake8 ansible-lint voluptuous
+          if [ -f ansible_collections/middleware_automation/keycloak/requirements.txt ]; then
+            pip install -r ansible_collections/middleware_automation/keycloak/requirements.txt
+          fi
+          if [ -f ansible_collections/middleware_automation/keycloak/requirements.yml ]; then
+            ansible-galaxy collection install -r ansible_collections/middleware_automation/keycloak/requirements.yml -p /home/runner/.ansible/collections --force-with-deps
+          fi
+          if [ -f ansible_collections/middleware_automation/keycloak/molecule/requirements.yml ]; then
+            ansible-galaxy collection install -r ansible_collections/middleware_automation/keycloak/molecule/requirements.yml -p /home/runner/.ansible/collections
+          fi
 
       - name: Create default collection path
         run: |
@@ -45,6 +55,12 @@ jobs:
         with:
           repository: ansible-middleware/ansible-lint-custom-rules
           path: ansible_collections/ansible-lint-custom-rules/
+
+      - name: Run linter
+        run: |
+          ansible-lint --version
+          ansible-lint -v
+        working-directory: ./ansible_collections/middleware_automation/amq
 
       - name: Run sanity tests
         run: ansible-test sanity -v --color --python ${{ matrix.python_version }} --exclude changelogs/fragments/.gitignore --skip-test symlinks

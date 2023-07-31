@@ -17,7 +17,7 @@
     - name: Verify we are running on requested jvm # noqa blocked_modules command-instead-of-module
       ansible.builtin.shell: |
         set -o pipefail
-        ps -ef | grep /usr/lib/jvm/java-11 | grep -v grep
+        ps -ef | grep '/etc/alternatives/jre_11/' | grep -v grep
       args:
         executable: /bin/bash
       changed_when: no

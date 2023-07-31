@@ -9,6 +9,11 @@ This changelog describes changes after version 0.2.6.
 v1.2.8-devel
 ============
 
+Minor Changes
+-------------
+
+- Update keycloak_quarkus to Keycloak version 22.0.0 `#100 <https://github.com/ansible-middleware/keycloak/pull/100>`_
+
 Bugfixes
 --------
 

@@ -9,7 +9,7 @@ keycloak_quarkus_installdir: "{{ keycloak_quarkus_dest }}/keycloak-{{ keycloak_q
 keycloak_quarkus_offline_install: False
 
 ### Install location and service settings
-keycloak_quarkus_jvm_package: java-11-openjdk-headless
+keycloak_quarkus_jvm_package: java-17-openjdk-headless
 keycloak_quarkus_java_home:
 keycloak_quarkus_dest: /opt/keycloak
 keycloak_quarkus_home: "{{ keycloak_quarkus_installdir }}"

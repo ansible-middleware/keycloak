@@ -44,3 +44,4 @@
       - unzip
       - procps-ng
       - initscripts
+      - tzdata-java

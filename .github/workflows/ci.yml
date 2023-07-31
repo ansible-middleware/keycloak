@@ -60,7 +60,7 @@ jobs:
         run: |
           ansible-lint --version
           ansible-lint -v
-        working-directory: ./ansible_collections/middleware_automation/amq
+        working-directory: ./ansible_collections/middleware_automation/keycloak
 
       - name: Run sanity tests
         run: ansible-test sanity -v --color --python ${{ matrix.python_version }} --exclude changelogs/fragments/.gitignore --skip-test symlinks

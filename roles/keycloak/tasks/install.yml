@@ -53,6 +53,21 @@
     group: "{{ keycloak_service_group }}"
     mode: 0750
 
+- name: Check pidfile folder
+  ansible.builtin.stat:
+    path: "{{ keycloak_service_pidfile | dirname }}"
+  register: keycloak_service_pidfile_stat
+- name: Create pidfile folder
+  become: yes
+  become_user: root
+  ansible.builtin.file:
+    dest: "{{ keycloak_service_pidfile | dirname }}"
+    state: directory
+    owner: "{{ keycloak_service_user }}"
+    group: "{{ keycloak_service_group }}"
+    mode: "0750"
+  when: not keycloak_service_pidfile_stat.stat.exists
+
 ## check remote archive
 - name: Set download archive path
   ansible.builtin.set_fact:

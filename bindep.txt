@@ -1,4 +1,5 @@
-python39-devel [platform:rpm compile]
+python3-devel [compile platform:rpm]
+python39-devel [compile platform:centos-8 platform:rhel-8]
 git-lfs [platform:rpm]
 python3-netaddr [platform:rpm]
 python3-lxml [platform:rpm]

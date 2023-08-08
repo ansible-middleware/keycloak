@@ -17,7 +17,7 @@ keycloak_quarkus_config_dir: "{{ keycloak_quarkus_home }}/conf"
 keycloak_quarkus_start_dev: False
 keycloak_quarkus_service_user: keycloak
 keycloak_quarkus_service_group: keycloak
-keycloak_quarkus_service_pidfile: "/run/keycloak.pid"
+keycloak_quarkus_service_pidfile: "/run/keycloak/keycloak.pid"
 keycloak_quarkus_configure_firewalld: False
 
 ### administrator console password

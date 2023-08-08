@@ -86,7 +86,7 @@ argument_specs:
                 type: "str"
             keycloak_service_pidfile:
                 # line 31 of keycloak/defaults/main.yml
-                default: "/run/keycloak.pid"
+                default: "/run/keycloak/keycloak.pid"
                 description: "PID file path for service"
                 type: "str"
             keycloak_features:

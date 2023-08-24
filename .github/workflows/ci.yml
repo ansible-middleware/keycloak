@@ -123,7 +123,7 @@ jobs:
       - name: Install yamllint, ansible and molecule
         run: |
           python -m pip install --upgrade pip
-          pip install yamllint 'molecule>=4.0.4' 'molecule-plugins[docker]>=23.0.0' ansible-core flake8 ansible-lint voluptuous
+          pip install 'molecule>=5.0.1' 'molecule-plugins[docker]>=23.0.0' ansible-coreansible-core==${{ matrix.ansible_version }}
           if [ -f ansible_collections/middleware_automation/keycloak/requirements.txt ]; then
             pip install -r ansible_collections/middleware_automation/keycloak/requirements.txt
           fi

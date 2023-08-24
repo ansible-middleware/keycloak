@@ -135,7 +135,9 @@ jobs:
           fi
 
       - name: Run molecule test
-        run: molecule test -s ${{ matrix.molecule_test }}
+        run: |
+          molecule --version
+          molecule test -s ${{ matrix.molecule_test }}
         working-directory: ./ansible_collections/middleware_automation/keycloak
         env:
           PY_COLORS: '1'

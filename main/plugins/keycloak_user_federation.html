@@ -7,16 +7,17 @@
   <title>keycloak_user_federation – Allows administration of Keycloak user federations via Keycloak API &mdash; Keycloak Ansible Collection  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/antsibull-minimal.css" type="text/css" />
       <link rel="stylesheet" href="../_static/ansible-basic-sphinx-ext.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -112,7 +113,7 @@
            <div itemprop="articleBody">
              
   <span class="target" id="ansible-collections-middleware-automation-keycloak-keycloak-user-federation-module"></span><section id="keycloak-user-federation-allows-administration-of-keycloak-user-federations-via-keycloak-api">
-<h1>keycloak_user_federation – Allows administration of Keycloak user federations via Keycloak API<a class="headerlink" href="#keycloak-user-federation-allows-administration-of-keycloak-user-federations-via-keycloak-api" title="Permalink to this heading"></a></h1>
+<h1>keycloak_user_federation – Allows administration of Keycloak user federations via Keycloak API<a class="headerlink" href="#keycloak-user-federation-allows-administration-of-keycloak-user-federations-via-keycloak-api" title="Link to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This module is part of the <a class="reference external" href="https://galaxy.ansible.com/middleware_automation/keycloak">middleware_automation.keycloak collection</a>.</p>
@@ -122,22 +123,22 @@
 <p class="ansible-version-added">New in middleware_automation.keycloak 3.7.0</p>
 <nav class="contents local" id="contents">
 <ul class="simple">
-<li><p><a class="reference internal" href="#synopsis" id="id135">Synopsis</a></p></li>
-<li><p><a class="reference internal" href="#parameters" id="id136">Parameters</a></p></li>
-<li><p><a class="reference internal" href="#attributes" id="id137">Attributes</a></p></li>
-<li><p><a class="reference internal" href="#examples" id="id138">Examples</a></p></li>
-<li><p><a class="reference internal" href="#return-values" id="id139">Return Values</a></p></li>
+<li><p><a class="reference internal" href="#synopsis" id="id1">Synopsis</a></p></li>
+<li><p><a class="reference internal" href="#parameters" id="id2">Parameters</a></p></li>
+<li><p><a class="reference internal" href="#attributes" id="id3">Attributes</a></p></li>
+<li><p><a class="reference internal" href="#examples" id="id4">Examples</a></p></li>
+<li><p><a class="reference internal" href="#return-values" id="id5">Return Values</a></p></li>
 </ul>
 </nav>
 <section id="synopsis">
-<h2><a class="toc-backref" href="#id135" role="doc-backlink">Synopsis</a><a class="headerlink" href="#synopsis" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id1" role="doc-backlink">Synopsis</a><a class="headerlink" href="#synopsis" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p>This module allows you to add, remove or modify Keycloak user federations via the Keycloak REST API. It requires access to the REST API via OpenID Connect; the user connecting and the client being used must have the requisite access rights. In a default Keycloak installation, admin-cli and an admin user would work, as would a separate client definition with the scope tailored to your needs and a user having the expected roles.</p></li>
 <li><p>The names of module options are snake_cased versions of the camelCase ones found in the Keycloak API and its documentation at <a class="reference external" href="https://www.keycloak.org/docs-api/20.0.2/rest-api/index.html">https://www.keycloak.org/docs-api/20.0.2/rest-api/index.html</a>.</p></li>
 </ul>
 </section>
 <section id="parameters">
-<h2><a class="toc-backref" href="#id136" role="doc-backlink">Parameters</a><a class="headerlink" href="#parameters" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Parameters</a><a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
 <table class="ansible-option-table docutils align-default" style="width: 100%">
 <thead>
 <tr class="row-odd"><th class="head"><p>Parameter</p></th>
@@ -150,7 +151,7 @@
 <a class="ansibleOptionLink" href="#parameter-auth_client_id" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
 </div></td>
 <td><div class="ansible-option-cell"><p>OpenID Connect <em>client_id</em> to authenticate to the API with.</p>
-<p class="ansible-option-line"><span class="ansible-option-default-bold">Default:</span> <a href="#id1"><span class="problematic" id="id2">:ansible-option-default:`&quot;admin-cli&quot;`</span></a></p>
+<p class="ansible-option-line"><span class="ansible-option-default-bold">Default:</span> <code class="ansible-option-default docutils literal notranslate"><span class="pre">&quot;admin-cli&quot;</span></code></p>
 </div></td>
 </tr>
 <tr class="row-odd"><td><div class="ansible-option-cell">
@@ -209,8 +210,8 @@
 <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell"><p>Enable/disable HTTP authentication of users with SPNEGO/Kerberos tokens. The data about authenticated users will be provisioned from this LDAP server.</p>
 <p class="ansible-option-line"><span class="ansible-option-choices">Choices:</span></p>
 <ul class="simple">
-<li><p><a href="#id3"><span class="problematic" id="id4">:ansible-option-choices-entry-default:`false`</span></a> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
-<li><p><a href="#id5"><span class="problematic" id="id6">:ansible-option-choices-entry:`true`</span></a></p></li>
+<li><p><code class="ansible-option-default-bold docutils literal notranslate"><span class="pre">false</span></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">true</span></code></p></li>
 </ul>
 </div></td>
 </tr>
@@ -221,8 +222,8 @@
 <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell"><p>Enable/disable possibility of username/password authentication against Kerberos database.</p>
 <p class="ansible-option-line"><span class="ansible-option-choices">Choices:</span></p>
 <ul class="simple">
-<li><p><a href="#id7"><span class="problematic" id="id8">:ansible-option-choices-entry:`false`</span></a></p></li>
-<li><p><a href="#id9"><span class="problematic" id="id10">:ansible-option-choices-entry:`true`</span></a></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">false</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">true</span></code></p></li>
 </ul>
 </div></td>
 </tr>
@@ -233,8 +234,8 @@
 <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell"><p>Type of the Authentication method used during LDAP Bind operation. It is used in most of the requests sent to the LDAP server.</p>
 <p class="ansible-option-line"><span class="ansible-option-choices">Choices:</span></p>
 <ul class="simple">
-<li><p><a href="#id11"><span class="problematic" id="id12">:ansible-option-choices-entry-default:`&quot;none&quot;`</span></a> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
-<li><p><a href="#id13"><span class="problematic" id="id14">:ansible-option-choices-entry:`&quot;simple&quot;`</span></a></p></li>
+<li><p><code class="ansible-option-default-bold docutils literal notranslate"><span class="pre">&quot;none&quot;</span></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;simple&quot;</span></code></p></li>
 </ul>
 </div></td>
 </tr>
@@ -243,7 +244,7 @@
 <a class="ansibleOptionLink" href="#parameter-config/batchSizeForSync" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">integer</span></p>
 </div></td>
 <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell"><p>Count of LDAP users to be imported from LDAP to Keycloak within a single transaction.</p>
-<p class="ansible-option-line"><span class="ansible-option-default-bold">Default:</span> <a href="#id15"><span class="problematic" id="id16">:ansible-option-default:`1000`</span></a></p>
+<p class="ansible-option-line"><span class="ansible-option-default-bold">Default:</span> <code class="ansible-option-default docutils literal notranslate"><span class="pre">1000</span></code></p>
 </div></td>
 </tr>
 <tr class="row-odd"><td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
@@ -267,11 +268,11 @@
 <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell"><p>Cache Policy for this storage provider.</p>
 <p class="ansible-option-line"><span class="ansible-option-choices">Choices:</span></p>
 <ul class="simple">
-<li><p><a href="#id17"><span class="problematic" id="id18">:ansible-option-choices-entry-default:`&quot;DEFAULT&quot;`</span></a> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
-<li><p><a href="#id19"><span class="problematic" id="id20">:ansible-option-choices-entry:`&quot;EVICT\_DAILY&quot;`</span></a></p></li>
-<li><p><a href="#id21"><span class="problematic" id="id22">:ansible-option-choices-entry:`&quot;EVICT\_WEEKLY&quot;`</span></a></p></li>
-<li><p><a href="#id23"><span class="problematic" id="id24">:ansible-option-choices-entry:`&quot;MAX\_LIFESPAN&quot;`</span></a></p></li>
-<li><p><a href="#id25"><span class="problematic" id="id26">:ansible-option-choices-entry:`&quot;NO\_CACHE&quot;`</span></a></p></li>
+<li><p><code class="ansible-option-default-bold docutils literal notranslate"><span class="pre">&quot;DEFAULT&quot;</span></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;EVICT_DAILY&quot;</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;EVICT_WEEKLY&quot;</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;MAX_LIFESPAN&quot;</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;NO_CACHE&quot;</span></code></p></li>
 </ul>
 </div></td>
 </tr>
@@ -280,7 +281,7 @@
 <a class="ansibleOptionLink" href="#parameter-config/changedSyncPeriod" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">integer</span></p>
 </div></td>
 <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell"><p>Period for synchronization of changed or newly created LDAP users in seconds.</p>
-<p class="ansible-option-line"><span class="ansible-option-default-bold">Default:</span> <a href="#id27"><span class="problematic" id="id28">:ansible-option-default:`-1`</span></a></p>
+<p class="ansible-option-line"><span class="ansible-option-default-bold">Default:</span> <code class="ansible-option-default docutils literal notranslate"><span class="pre">-1</span></code></p>
 </div></td>
 </tr>
 <tr class="row-odd"><td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
@@ -290,8 +291,8 @@
 <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell"><p>Determines if Keycloak should use connection pooling for accessing LDAP server.</p>
 <p class="ansible-option-line"><span class="ansible-option-choices">Choices:</span></p>
 <ul class="simple">
-<li><p><a href="#id29"><span class="problematic" id="id30">:ansible-option-choices-entry:`false`</span></a></p></li>
-<li><p><a href="#id31"><span class="problematic" id="id32">:ansible-option-choices-entry-default:`true`</span></a> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">false</span></code></p></li>
+<li><p><code class="ansible-option-default-bold docutils literal notranslate"><span class="pre">true</span></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
 </ul>
 </div></td>
 </tr>
@@ -302,9 +303,9 @@
 <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell"><p>A list of space-separated authentication types of connections that may be pooled.</p>
 <p class="ansible-option-line"><span class="ansible-option-choices">Choices:</span></p>
 <ul class="simple">
-<li><p><a href="#id33"><span class="problematic" id="id34">:ansible-option-choices-entry:`&quot;none&quot;`</span></a></p></li>
-<li><p><a href="#id35"><span class="problematic" id="id36">:ansible-option-choices-entry:`&quot;simple&quot;`</span></a></p></li>
-<li><p><a href="#id37"><span class="problematic" id="id38">:ansible-option-choices-entry:`&quot;DIGEST-MD5&quot;`</span></a></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;none&quot;</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;simple&quot;</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;DIGEST-MD5&quot;</span></code></p></li>
 </ul>
 </div></td>
 </tr>
@@ -378,8 +379,8 @@
 <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell"><p>Enable/disable debug logging to standard output for Krb5LoginModule.</p>
 <p class="ansible-option-line"><span class="ansible-option-choices">Choices:</span></p>
 <ul class="simple">
-<li><p><a href="#id39"><span class="problematic" id="id40">:ansible-option-choices-entry:`false`</span></a></p></li>
-<li><p><a href="#id41"><span class="problematic" id="id42">:ansible-option-choices-entry:`true`</span></a></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">false</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">true</span></code></p></li>
 </ul>
 </div></td>
 </tr>
@@ -390,9 +391,9 @@
 <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell"><p><code class="docutils literal notranslate"><span class="pre">READ_ONLY</span></code> is a read-only LDAP store. <code class="docutils literal notranslate"><span class="pre">WRITABLE</span></code> means data will be synced back to LDAP on demand. <code class="docutils literal notranslate"><span class="pre">UNSYNCED</span></code> means user data will be imported, but not synced back to LDAP.</p>
 <p class="ansible-option-line"><span class="ansible-option-choices">Choices:</span></p>
 <ul class="simple">
-<li><p><a href="#id43"><span class="problematic" id="id44">:ansible-option-choices-entry:`&quot;READ\_ONLY&quot;`</span></a></p></li>
-<li><p><a href="#id45"><span class="problematic" id="id46">:ansible-option-choices-entry:`&quot;WRITABLE&quot;`</span></a></p></li>
-<li><p><a href="#id47"><span class="problematic" id="id48">:ansible-option-choices-entry:`&quot;UNSYNCED&quot;`</span></a></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;READ_ONLY&quot;</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;WRITABLE&quot;</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;UNSYNCED&quot;</span></code></p></li>
 </ul>
 </div></td>
 </tr>
@@ -403,8 +404,8 @@
 <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell"><p>Enable/disable this user federation.</p>
 <p class="ansible-option-line"><span class="ansible-option-choices">Choices:</span></p>
 <ul class="simple">
-<li><p><a href="#id49"><span class="problematic" id="id50">:ansible-option-choices-entry:`false`</span></a></p></li>
-<li><p><a href="#id51"><span class="problematic" id="id52">:ansible-option-choices-entry-default:`true`</span></a> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">false</span></code></p></li>
+<li><p><code class="ansible-option-default-bold docutils literal notranslate"><span class="pre">true</span></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
 </ul>
 </div></td>
 </tr>
@@ -434,7 +435,7 @@
 <a class="ansibleOptionLink" href="#parameter-config/fullSyncPeriod" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">integer</span></p>
 </div></td>
 <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell"><p>Period for full synchronization in seconds.</p>
-<p class="ansible-option-line"><span class="ansible-option-default-bold">Default:</span> <a href="#id53"><span class="problematic" id="id54">:ansible-option-default:`-1`</span></a></p>
+<p class="ansible-option-line"><span class="ansible-option-default-bold">Default:</span> <code class="ansible-option-default docutils literal notranslate"><span class="pre">-1</span></code></p>
 </div></td>
 </tr>
 <tr class="row-odd"><td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
@@ -444,8 +445,8 @@
 <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell"><p>If <code class="docutils literal notranslate"><span class="pre">true</span></code>, LDAP users will be imported into Keycloak DB and synced by the configured sync policies.</p>
 <p class="ansible-option-line"><span class="ansible-option-choices">Choices:</span></p>
 <ul class="simple">
-<li><p><a href="#id55"><span class="problematic" id="id56">:ansible-option-choices-entry:`false`</span></a></p></li>
-<li><p><a href="#id57"><span class="problematic" id="id58">:ansible-option-choices-entry-default:`true`</span></a> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">false</span></code></p></li>
+<li><p><code class="ansible-option-default-bold docutils literal notranslate"><span class="pre">true</span></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
 </ul>
 </div></td>
 </tr>
@@ -477,8 +478,8 @@
 <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell"><p>Does the LDAP server support pagination.</p>
 <p class="ansible-option-line"><span class="ansible-option-choices">Choices:</span></p>
 <ul class="simple">
-<li><p><a href="#id59"><span class="problematic" id="id60">:ansible-option-choices-entry:`false`</span></a></p></li>
-<li><p><a href="#id61"><span class="problematic" id="id62">:ansible-option-choices-entry-default:`true`</span></a> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">false</span></code></p></li>
+<li><p><code class="ansible-option-default-bold docutils literal notranslate"><span class="pre">true</span></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
 </ul>
 </div></td>
 </tr>
@@ -487,7 +488,7 @@
 <a class="ansibleOptionLink" href="#parameter-config/priority" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">integer</span></p>
 </div></td>
 <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell"><p>Priority of provider when doing a user lookup. Lowest first.</p>
-<p class="ansible-option-line"><span class="ansible-option-default-bold">Default:</span> <a href="#id63"><span class="problematic" id="id64">:ansible-option-default:`0`</span></a></p>
+<p class="ansible-option-line"><span class="ansible-option-default-bold">Default:</span> <code class="ansible-option-default docutils literal notranslate"><span class="pre">0</span></code></p>
 </div></td>
 </tr>
 <tr class="row-odd"><td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
@@ -511,8 +512,8 @@
 <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell"><p>For one level, the search applies only for users in the DNs specified by User DNs. For subtree, the search applies to the whole subtree. See LDAP documentation for more details.</p>
 <p class="ansible-option-line"><span class="ansible-option-choices">Choices:</span></p>
 <ul class="simple">
-<li><p><a href="#id65"><span class="problematic" id="id66">:ansible-option-choices-entry-default:`&quot;1&quot;`</span></a> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
-<li><p><a href="#id67"><span class="problematic" id="id68">:ansible-option-choices-entry:`&quot;2&quot;`</span></a></p></li>
+<li><p><code class="ansible-option-default-bold docutils literal notranslate"><span class="pre">&quot;1&quot;</span></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;2&quot;</span></code></p></li>
 </ul>
 </div></td>
 </tr>
@@ -530,8 +531,8 @@
 <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell"><p>Encrypts the connection to LDAP using STARTTLS, which will disable connection pooling.</p>
 <p class="ansible-option-line"><span class="ansible-option-choices">Choices:</span></p>
 <ul class="simple">
-<li><p><a href="#id69"><span class="problematic" id="id70">:ansible-option-choices-entry-default:`false`</span></a> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
-<li><p><a href="#id71"><span class="problematic" id="id72">:ansible-option-choices-entry:`true`</span></a></p></li>
+<li><p><code class="ansible-option-default-bold docutils literal notranslate"><span class="pre">false</span></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">true</span></code></p></li>
 </ul>
 </div></td>
 </tr>
@@ -542,8 +543,8 @@
 <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell"><p>Should newly created users be created within LDAP store? Priority effects which provider is chosen to sync the new user.</p>
 <p class="ansible-option-line"><span class="ansible-option-choices">Choices:</span></p>
 <ul class="simple">
-<li><p><a href="#id73"><span class="problematic" id="id74">:ansible-option-choices-entry-default:`false`</span></a> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
-<li><p><a href="#id75"><span class="problematic" id="id76">:ansible-option-choices-entry:`true`</span></a></p></li>
+<li><p><code class="ansible-option-default-bold docutils literal notranslate"><span class="pre">false</span></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">true</span></code></p></li>
 </ul>
 </div></td>
 </tr>
@@ -554,8 +555,8 @@
 <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell"><p>If enabled, email provided by this provider is not verified even if verification is enabled for the realm.</p>
 <p class="ansible-option-line"><span class="ansible-option-choices">Choices:</span></p>
 <ul class="simple">
-<li><p><a href="#id77"><span class="problematic" id="id78">:ansible-option-choices-entry-default:`false`</span></a> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
-<li><p><a href="#id79"><span class="problematic" id="id80">:ansible-option-choices-entry:`true`</span></a></p></li>
+<li><p><code class="ansible-option-default-bold docutils literal notranslate"><span class="pre">false</span></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">true</span></code></p></li>
 </ul>
 </div></td>
 </tr>
@@ -566,8 +567,8 @@
 <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell"><p>Update profile on first login.</p>
 <p class="ansible-option-line"><span class="ansible-option-choices">Choices:</span></p>
 <ul class="simple">
-<li><p><a href="#id81"><span class="problematic" id="id82">:ansible-option-choices-entry:`false`</span></a></p></li>
-<li><p><a href="#id83"><span class="problematic" id="id84">:ansible-option-choices-entry:`true`</span></a></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">false</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">true</span></code></p></li>
 </ul>
 </div></td>
 </tr>
@@ -578,8 +579,8 @@
 <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell"><p>Use Kerberos login module for authenticate username/password against Kerberos server instead of authenticating against LDAP server with Directory Service API.</p>
 <p class="ansible-option-line"><span class="ansible-option-choices">Choices:</span></p>
 <ul class="simple">
-<li><p><a href="#id85"><span class="problematic" id="id86">:ansible-option-choices-entry-default:`false`</span></a> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
-<li><p><a href="#id87"><span class="problematic" id="id88">:ansible-option-choices-entry:`true`</span></a></p></li>
+<li><p><code class="ansible-option-default-bold docutils literal notranslate"><span class="pre">false</span></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">true</span></code></p></li>
 </ul>
 </div></td>
 </tr>
@@ -590,8 +591,8 @@
 <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell"><p>Use the LDAPv3 Password Modify Extended Operation (RFC-3062). The password modify extended operation usually requires that LDAP user already has password in the LDAP server. So when this is used with ‘Sync Registrations’, it can be good to add also ‘Hardcoded LDAP attribute mapper’ with randomly generated initial password.</p>
 <p class="ansible-option-line"><span class="ansible-option-choices">Choices:</span></p>
 <ul class="simple">
-<li><p><a href="#id89"><span class="problematic" id="id90">:ansible-option-choices-entry-default:`false`</span></a> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
-<li><p><a href="#id91"><span class="problematic" id="id92">:ansible-option-choices-entry:`true`</span></a></p></li>
+<li><p><code class="ansible-option-default-bold docutils literal notranslate"><span class="pre">false</span></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">true</span></code></p></li>
 </ul>
 </div></td>
 </tr>
@@ -623,9 +624,9 @@
 <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell"><p>Specifies whether LDAP connection will use the truststore SPI with the truststore configured in standalone.xml/domain.xml. <code class="docutils literal notranslate"><span class="pre">Always</span></code> means that it will always use it. <code class="docutils literal notranslate"><span class="pre">Never</span></code> means that it will not use it. <code class="docutils literal notranslate"><span class="pre">Only</span> <span class="pre">for</span> <span class="pre">ldaps</span></code> means that it will use if your connection URL use ldaps. Note even if standalone.xml/domain.xml is not configured, the default Java cacerts or certificate specified by <code class="docutils literal notranslate"><span class="pre">javax.net.ssl.trustStore</span></code> property will be used.</p>
 <p class="ansible-option-line"><span class="ansible-option-choices">Choices:</span></p>
 <ul class="simple">
-<li><p><a href="#id93"><span class="problematic" id="id94">:ansible-option-choices-entry:`&quot;always&quot;`</span></a></p></li>
-<li><p><a href="#id95"><span class="problematic" id="id96">:ansible-option-choices-entry-default:`&quot;ldapsOnly&quot;`</span></a> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
-<li><p><a href="#id97"><span class="problematic" id="id98">:ansible-option-choices-entry:`&quot;never&quot;`</span></a></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;always&quot;</span></code></p></li>
+<li><p><code class="ansible-option-default-bold docutils literal notranslate"><span class="pre">&quot;ldapsOnly&quot;</span></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;never&quot;</span></code></p></li>
 </ul>
 </div></td>
 </tr>
@@ -643,8 +644,8 @@
 <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell"><p>Determines if Keycloak should validate the password with the realm password policy before updating it.</p>
 <p class="ansible-option-line"><span class="ansible-option-choices">Choices:</span></p>
 <ul class="simple">
-<li><p><a href="#id99"><span class="problematic" id="id100">:ansible-option-choices-entry-default:`false`</span></a> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
-<li><p><a href="#id101"><span class="problematic" id="id102">:ansible-option-choices-entry:`true`</span></a></p></li>
+<li><p><code class="ansible-option-default-bold docutils literal notranslate"><span class="pre">false</span></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">true</span></code></p></li>
 </ul>
 </div></td>
 </tr>
@@ -662,7 +663,7 @@
 <p><span class="ansible-option-versionadded">added in middleware_automation.keycloak 4.5.0</span></p>
 </div></td>
 <td><div class="ansible-option-cell"><p>Controls the HTTP connections timeout period (in seconds) to Keycloak API.</p>
-<p class="ansible-option-line"><span class="ansible-option-default-bold">Default:</span> <a href="#id103"><span class="problematic" id="id104">:ansible-option-default:`10`</span></a></p>
+<p class="ansible-option-line"><span class="ansible-option-default-bold">Default:</span> <code class="ansible-option-default docutils literal notranslate"><span class="pre">10</span></code></p>
 </div></td>
 </tr>
 <tr class="row-odd"><td><div class="ansible-option-cell">
@@ -671,7 +672,7 @@
 <p><span class="ansible-option-versionadded">added in middleware_automation.keycloak 5.4.0</span></p>
 </div></td>
 <td><div class="ansible-option-cell"><p>Configures the HTTP User-Agent header.</p>
-<p class="ansible-option-line"><span class="ansible-option-default-bold">Default:</span> <a href="#id105"><span class="problematic" id="id106">:ansible-option-default:`&quot;Ansible&quot;`</span></a></p>
+<p class="ansible-option-line"><span class="ansible-option-default-bold">Default:</span> <code class="ansible-option-default docutils literal notranslate"><span class="pre">&quot;Ansible&quot;</span></code></p>
 </div></td>
 </tr>
 <tr class="row-even"><td><div class="ansible-option-cell">
@@ -728,7 +729,7 @@
 <a class="ansibleOptionLink" href="#parameter-mappers/providerType" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
 </div></td>
 <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell"><p>Component type for this mapper.</p>
-<p class="ansible-option-line"><span class="ansible-option-default-bold">Default:</span> <a href="#id107"><span class="problematic" id="id108">:ansible-option-default:`&quot;org.keycloak.storage.ldap.mappers.LDAPStorageMapper&quot;`</span></a></p>
+<p class="ansible-option-line"><span class="ansible-option-default-bold">Default:</span> <code class="ansible-option-default docutils literal notranslate"><span class="pre">&quot;org.keycloak.storage.ldap.mappers.LDAPStorageMapper&quot;</span></code></p>
 </div></td>
 </tr>
 <tr class="row-even"><td><div class="ansible-option-cell">
@@ -756,9 +757,9 @@
 <td><div class="ansible-option-cell"><p>Provider for this user federation.</p>
 <p class="ansible-option-line"><span class="ansible-option-choices">Choices:</span></p>
 <ul class="simple">
-<li><p><a href="#id109"><span class="problematic" id="id110">:ansible-option-choices-entry:`&quot;ldap&quot;`</span></a></p></li>
-<li><p><a href="#id111"><span class="problematic" id="id112">:ansible-option-choices-entry:`&quot;kerberos&quot;`</span></a></p></li>
-<li><p><a href="#id113"><span class="problematic" id="id114">:ansible-option-choices-entry:`&quot;sssd&quot;`</span></a></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;ldap&quot;</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;kerberos&quot;</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;sssd&quot;</span></code></p></li>
 </ul>
 </div></td>
 </tr>
@@ -769,7 +770,7 @@
 <p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
 </div></td>
 <td><div class="ansible-option-cell"><p>Component type for user federation (only supported value is <code class="docutils literal notranslate"><span class="pre">org.keycloak.storage.UserStorageProvider</span></code>).</p>
-<p class="ansible-option-line"><span class="ansible-option-default-bold">Default:</span> <a href="#id115"><span class="problematic" id="id116">:ansible-option-default:`&quot;org.keycloak.storage.UserStorageProvider&quot;`</span></a></p>
+<p class="ansible-option-line"><span class="ansible-option-default-bold">Default:</span> <code class="ansible-option-default docutils literal notranslate"><span class="pre">&quot;org.keycloak.storage.UserStorageProvider&quot;</span></code></p>
 </div></td>
 </tr>
 <tr class="row-even"><td><div class="ansible-option-cell">
@@ -777,7 +778,7 @@
 <a class="ansibleOptionLink" href="#parameter-realm" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
 </div></td>
 <td><div class="ansible-option-cell"><p>The Keycloak realm under which this user federation resides.</p>
-<p class="ansible-option-line"><span class="ansible-option-default-bold">Default:</span> <a href="#id117"><span class="problematic" id="id118">:ansible-option-default:`&quot;master&quot;`</span></a></p>
+<p class="ansible-option-line"><span class="ansible-option-default-bold">Default:</span> <code class="ansible-option-default docutils literal notranslate"><span class="pre">&quot;master&quot;</span></code></p>
 </div></td>
 </tr>
 <tr class="row-odd"><td><div class="ansible-option-cell">
@@ -789,8 +790,8 @@
 <p>On <code class="docutils literal notranslate"><span class="pre">absent</span></code>, the user federation will be removed if it exists.</p>
 <p class="ansible-option-line"><span class="ansible-option-choices">Choices:</span></p>
 <ul class="simple">
-<li><p><a href="#id119"><span class="problematic" id="id120">:ansible-option-choices-entry-default:`&quot;present&quot;`</span></a> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
-<li><p><a href="#id121"><span class="problematic" id="id122">:ansible-option-choices-entry:`&quot;absent&quot;`</span></a></p></li>
+<li><p><code class="ansible-option-default-bold docutils literal notranslate"><span class="pre">&quot;present&quot;</span></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;absent&quot;</span></code></p></li>
 </ul>
 </div></td>
 </tr>
@@ -809,8 +810,8 @@
 <td><div class="ansible-option-cell"><p>Verify TLS certificates (do not disable this in production).</p>
 <p class="ansible-option-line"><span class="ansible-option-choices">Choices:</span></p>
 <ul class="simple">
-<li><p><a href="#id123"><span class="problematic" id="id124">:ansible-option-choices-entry:`false`</span></a></p></li>
-<li><p><a href="#id125"><span class="problematic" id="id126">:ansible-option-choices-entry-default:`true`</span></a> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">false</span></code></p></li>
+<li><p><code class="ansible-option-default-bold docutils literal notranslate"><span class="pre">true</span></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
 </ul>
 </div></td>
 </tr>
@@ -818,7 +819,7 @@
 </table>
 </section>
 <section id="attributes">
-<h2><a class="toc-backref" href="#id137" role="doc-backlink">Attributes</a><a class="headerlink" href="#attributes" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Attributes</a><a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
 <table class="ansible-option-table docutils align-default" style="width: 100%">
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute</p></th>
@@ -847,7 +848,7 @@
 </table>
 </section>
 <section id="examples">
-<h2><a class="toc-backref" href="#id138" role="doc-backlink">Examples</a><a class="headerlink" href="#examples" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Examples</a><a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
 <div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Create LDAP user federation</span>
 <span class="w">  </span><span class="nt">middleware_automation.keycloak.keycloak_user_federation</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">auth_keycloak_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://keycloak.example.com/auth</span>
@@ -945,7 +946,7 @@
 </div>
 </section>
 <section id="return-values">
-<h2><a class="toc-backref" href="#id139" role="doc-backlink">Return Values</a><a class="headerlink" href="#return-values" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Return Values</a><a class="headerlink" href="#return-values" title="Link to this heading"></a></h2>
 <p>Common return values are documented <a class="reference external" href="https://docs.ansible.com/ansible/latest/reference_appendices/common_return_values.html#common-return-values" title="(in Ansible v8)"><span class="xref std std-ref">here</span></a>, the following are the fields unique to this module:</p>
 <table class="ansible-option-table docutils align-default" style="width: 100%">
 <thead>
@@ -960,7 +961,7 @@
 </div></td>
 <td><div class="ansible-option-cell"><p>Representation of user federation after module execution.</p>
 <p class="ansible-option-line"><span class="ansible-option-returned-bold">Returned:</span> on success</p>
-<p class="ansible-option-line ansible-option-sample"><span class="ansible-option-sample-bold">Sample:</span> <a href="#id127"><span class="problematic" id="id128">:ansible-rv-sample-value:`{&quot;config&quot;: {&quot;allowPasswordAuthentication&quot;: &quot;false&quot;, &quot;cachePolicy&quot;: &quot;DEFAULT&quot;, &quot;enabled&quot;: &quot;true&quot;, &quot;kerberosRealm&quot;: &quot;EXAMPLE.COM&quot;, &quot;keyTab&quot;: &quot;/etc/krb5.keytab&quot;, &quot;priority&quot;: &quot;0&quot;, &quot;serverPrincipal&quot;: &quot;HTTP/host.example.com&#64;EXAMPLE.COM&quot;, &quot;updateProfileFirstLogin&quot;: &quot;false&quot;}, &quot;id&quot;: &quot;cf52ae4f-4471-4435-a0cf-bb620cadc122&quot;, &quot;mappers&quot;: [], &quot;name&quot;: &quot;kerberos&quot;, &quot;parentId&quot;: &quot;myrealm&quot;, &quot;providerId&quot;: &quot;kerberos&quot;, &quot;providerType&quot;: &quot;org.keycloak.storage.UserStorageProvider&quot;}`</span></a></p>
+<p class="ansible-option-line ansible-option-sample"><span class="ansible-option-sample-bold">Sample:</span> <code class="ansible-option-sample docutils literal notranslate"><span class="pre">{&quot;config&quot;:</span> <span class="pre">{&quot;allowPasswordAuthentication&quot;:</span> <span class="pre">&quot;false&quot;,</span> <span class="pre">&quot;cachePolicy&quot;:</span> <span class="pre">&quot;DEFAULT&quot;,</span> <span class="pre">&quot;enabled&quot;:</span> <span class="pre">&quot;true&quot;,</span> <span class="pre">&quot;kerberosRealm&quot;:</span> <span class="pre">&quot;EXAMPLE.COM&quot;,</span> <span class="pre">&quot;keyTab&quot;:</span> <span class="pre">&quot;/etc/krb5.keytab&quot;,</span> <span class="pre">&quot;priority&quot;:</span> <span class="pre">&quot;0&quot;,</span> <span class="pre">&quot;serverPrincipal&quot;:</span> <span class="pre">&quot;HTTP/host.example.com&#64;EXAMPLE.COM&quot;,</span> <span class="pre">&quot;updateProfileFirstLogin&quot;:</span> <span class="pre">&quot;false&quot;},</span> <span class="pre">&quot;id&quot;:</span> <span class="pre">&quot;cf52ae4f-4471-4435-a0cf-bb620cadc122&quot;,</span> <span class="pre">&quot;mappers&quot;:</span> <span class="pre">[],</span> <span class="pre">&quot;name&quot;:</span> <span class="pre">&quot;kerberos&quot;,</span> <span class="pre">&quot;parentId&quot;:</span> <span class="pre">&quot;myrealm&quot;,</span> <span class="pre">&quot;providerId&quot;:</span> <span class="pre">&quot;kerberos&quot;,</span> <span class="pre">&quot;providerType&quot;:</span> <span class="pre">&quot;org.keycloak.storage.UserStorageProvider&quot;}</span></code></p>
 </div></td>
 </tr>
 <tr class="row-odd"><td><div class="ansible-option-cell">
@@ -969,7 +970,7 @@
 </div></td>
 <td><div class="ansible-option-cell"><p>Representation of existing user federation.</p>
 <p class="ansible-option-line"><span class="ansible-option-returned-bold">Returned:</span> always</p>
-<p class="ansible-option-line ansible-option-sample"><span class="ansible-option-sample-bold">Sample:</span> <a href="#id129"><span class="problematic" id="id130">:ansible-rv-sample-value:`{&quot;config&quot;: {&quot;allowKerberosAuthentication&quot;: &quot;false&quot;, &quot;authType&quot;: &quot;simple&quot;, &quot;batchSizeForSync&quot;: &quot;1000&quot;, &quot;bindCredential&quot;: &quot;\*\*\*\*\*\*\*\*\*\*&quot;, &quot;bindDn&quot;: &quot;cn=directory reader&quot;, &quot;cachePolicy&quot;: &quot;DEFAULT&quot;, &quot;changedSyncPeriod&quot;: &quot;-1&quot;, &quot;connectionPooling&quot;: &quot;true&quot;, &quot;connectionUrl&quot;: &quot;ldaps://ldap.example.com:636&quot;, &quot;debug&quot;: &quot;false&quot;, &quot;editMode&quot;: &quot;READ\_ONLY&quot;, &quot;enabled&quot;: &quot;true&quot;, &quot;fullSyncPeriod&quot;: &quot;-1&quot;, &quot;importEnabled&quot;: &quot;true&quot;, &quot;pagination&quot;: &quot;true&quot;, &quot;priority&quot;: &quot;0&quot;, &quot;rdnLDAPAttribute&quot;: &quot;uid&quot;, &quot;searchScope&quot;: &quot;1&quot;, &quot;syncRegistrations&quot;: &quot;false&quot;, &quot;trustEmail&quot;: &quot;false&quot;, &quot;useKerberosForPasswordAuthentication&quot;: &quot;false&quot;, &quot;useTruststoreSpi&quot;: &quot;ldapsOnly&quot;, &quot;userObjectClasses&quot;: &quot;inetOrgPerson, organizationalPerson&quot;, &quot;usernameLDAPAttribute&quot;: &quot;uid&quot;, &quot;usersDn&quot;: &quot;ou=Users,dc=example,dc=com&quot;, &quot;uuidLDAPAttribute&quot;: &quot;entryUUID&quot;, &quot;validatePasswordPolicy&quot;: &quot;false&quot;, &quot;vendor&quot;: &quot;other&quot;}, &quot;id&quot;: &quot;01122837-9047-4ae4-8ca0-6e2e891a765f&quot;, &quot;mappers&quot;: [{&quot;config&quot;: {&quot;always.read.value.from.ldap&quot;: &quot;false&quot;, &quot;is.mandatory.in.ldap&quot;: &quot;false&quot;, &quot;ldap.attribute&quot;: &quot;mail&quot;, &quot;read.only&quot;: &quot;true&quot;, &quot;user.model.attribute&quot;: &quot;email&quot;}, &quot;id&quot;: &quot;17d60ce2-2d44-4c2c-8b1f-1fba601b9a9f&quot;, &quot;name&quot;: &quot;email&quot;, &quot;parentId&quot;: &quot;01122837-9047-4ae4-8ca0-6e2e891a765f&quot;, &quot;providerId&quot;: &quot;user-attribute-ldap-mapper&quot;, &quot;providerType&quot;: &quot;org.keycloak.storage.ldap.mappers.LDAPStorageMapper&quot;}], &quot;name&quot;: &quot;myfed&quot;, &quot;parentId&quot;: &quot;myrealm&quot;, &quot;providerId&quot;: &quot;ldap&quot;, &quot;providerType&quot;: &quot;org.keycloak.storage.UserStorageProvider&quot;}`</span></a></p>
+<p class="ansible-option-line ansible-option-sample"><span class="ansible-option-sample-bold">Sample:</span> <code class="ansible-option-sample docutils literal notranslate"><span class="pre">{&quot;config&quot;:</span> <span class="pre">{&quot;allowKerberosAuthentication&quot;:</span> <span class="pre">&quot;false&quot;,</span> <span class="pre">&quot;authType&quot;:</span> <span class="pre">&quot;simple&quot;,</span> <span class="pre">&quot;batchSizeForSync&quot;:</span> <span class="pre">&quot;1000&quot;,</span> <span class="pre">&quot;bindCredential&quot;:</span> <span class="pre">&quot;**********&quot;,</span> <span class="pre">&quot;bindDn&quot;:</span> <span class="pre">&quot;cn=directory</span> <span class="pre">reader&quot;,</span> <span class="pre">&quot;cachePolicy&quot;:</span> <span class="pre">&quot;DEFAULT&quot;,</span> <span class="pre">&quot;changedSyncPeriod&quot;:</span> <span class="pre">&quot;-1&quot;,</span> <span class="pre">&quot;connectionPooling&quot;:</span> <span class="pre">&quot;true&quot;,</span> <span class="pre">&quot;connectionUrl&quot;:</span> <span class="pre">&quot;ldaps://ldap.example.com:636&quot;,</span> <span class="pre">&quot;debug&quot;:</span> <span class="pre">&quot;false&quot;,</span> <span class="pre">&quot;editMode&quot;:</span> <span class="pre">&quot;READ_ONLY&quot;,</span> <span class="pre">&quot;enabled&quot;:</span> <span class="pre">&quot;true&quot;,</span> <span class="pre">&quot;fullSyncPeriod&quot;:</span> <span class="pre">&quot;-1&quot;,</span> <span class="pre">&quot;importEnabled&quot;:</span> <span class="pre">&quot;true&quot;,</span> <span class="pre">&quot;pagination&quot;:</span> <span class="pre">&quot;true&quot;,</span> <span class="pre">&quot;priority&quot;:</span> <span class="pre">&quot;0&quot;,</span> <span class="pre">&quot;rdnLDAPAttribute&quot;:</span> <span class="pre">&quot;uid&quot;,</span> <span class="pre">&quot;searchScope&quot;:</span> <span class="pre">&quot;1&quot;,</span> <span class="pre">&quot;syncRegistrations&quot;:</span> <span class="pre">&quot;false&quot;,</span> <span class="pre">&quot;trustEmail&quot;:</span> <span class="pre">&quot;false&quot;,</span> <span class="pre">&quot;useKerberosForPasswordAuthentication&quot;:</span> <span class="pre">&quot;false&quot;,</span> <span class="pre">&quot;useTruststoreSpi&quot;:</span> <span class="pre">&quot;ldapsOnly&quot;,</span> <span class="pre">&quot;userObjectClasses&quot;:</span> <span class="pre">&quot;inetOrgPerson,</span> <span class="pre">organizationalPerson&quot;,</span> <span class="pre">&quot;usernameLDAPAttribute&quot;:</span> <span class="pre">&quot;uid&quot;,</span> <span class="pre">&quot;usersDn&quot;:</span> <span class="pre">&quot;ou=Users,dc=example,dc=com&quot;,</span> <span class="pre">&quot;uuidLDAPAttribute&quot;:</span> <span class="pre">&quot;entryUUID&quot;,</span> <span class="pre">&quot;validatePasswordPolicy&quot;:</span> <span class="pre">&quot;false&quot;,</span> <span class="pre">&quot;vendor&quot;:</span> <span class="pre">&quot;other&quot;},</span> <span class="pre">&quot;id&quot;:</span> <span class="pre">&quot;01122837-9047-4ae4-8ca0-6e2e891a765f&quot;,</span> <span class="pre">&quot;mappers&quot;:</span> <span class="pre">[{&quot;config&quot;:</span> <span class="pre">{&quot;always.read.value.from.ldap&quot;:</span> <span class="pre">&quot;false&quot;,</span> <span class="pre">&quot;is.mandatory.in.ldap&quot;:</span> <span class="pre">&quot;false&quot;,</span> <span class="pre">&quot;ldap.attribute&quot;:</span> <span class="pre">&quot;mail&quot;,</span> <span class="pre">&quot;read.only&quot;:</span> <span class="pre">&quot;true&quot;,</span> <span class="pre">&quot;user.model.attribute&quot;:</span> <span class="pre">&quot;email&quot;},</span> <span class="pre">&quot;id&quot;:</span> <span class="pre">&quot;17d60ce2-2d44-4c2c-8b1f-1fba601b9a9f&quot;,</span> <span class="pre">&quot;name&quot;:</span> <span class="pre">&quot;email&quot;,</span> <span class="pre">&quot;parentId&quot;:</span> <span class="pre">&quot;01122837-9047-4ae4-8ca0-6e2e891a765f&quot;,</span> <span class="pre">&quot;providerId&quot;:</span> <span class="pre">&quot;user-attribute-ldap-mapper&quot;,</span> <span class="pre">&quot;providerType&quot;:</span> <span class="pre">&quot;org.keycloak.storage.ldap.mappers.LDAPStorageMapper&quot;}],</span> <span class="pre">&quot;name&quot;:</span> <span class="pre">&quot;myfed&quot;,</span> <span class="pre">&quot;parentId&quot;:</span> <span class="pre">&quot;myrealm&quot;,</span> <span class="pre">&quot;providerId&quot;:</span> <span class="pre">&quot;ldap&quot;,</span> <span class="pre">&quot;providerType&quot;:</span> <span class="pre">&quot;org.keycloak.storage.UserStorageProvider&quot;}</span></code></p>
 </div></td>
 </tr>
 <tr class="row-even"><td><div class="ansible-option-cell">
@@ -978,7 +979,7 @@
 </div></td>
 <td><div class="ansible-option-cell"><p>Message as to what action was taken.</p>
 <p class="ansible-option-line"><span class="ansible-option-returned-bold">Returned:</span> always</p>
-<p class="ansible-option-line ansible-option-sample"><span class="ansible-option-sample-bold">Sample:</span> <a href="#id131"><span class="problematic" id="id132">:ansible-rv-sample-value:`&quot;No changes required to user federation 164bb483-c613-482e-80fe-7f1431308799.&quot;`</span></a></p>
+<p class="ansible-option-line ansible-option-sample"><span class="ansible-option-sample-bold">Sample:</span> <code class="ansible-option-sample docutils literal notranslate"><span class="pre">&quot;No</span> <span class="pre">changes</span> <span class="pre">required</span> <span class="pre">to</span> <span class="pre">user</span> <span class="pre">federation</span> <span class="pre">164bb483-c613-482e-80fe-7f1431308799.&quot;</span></code></p>
 </div></td>
 </tr>
 <tr class="row-odd"><td><div class="ansible-option-cell">
@@ -987,13 +988,13 @@
 </div></td>
 <td><div class="ansible-option-cell"><p>Representation of proposed user federation.</p>
 <p class="ansible-option-line"><span class="ansible-option-returned-bold">Returned:</span> always</p>
-<p class="ansible-option-line ansible-option-sample"><span class="ansible-option-sample-bold">Sample:</span> <a href="#id133"><span class="problematic" id="id134">:ansible-rv-sample-value:`{&quot;config&quot;: {&quot;allowKerberosAuthentication&quot;: &quot;false&quot;, &quot;authType&quot;: &quot;simple&quot;, &quot;batchSizeForSync&quot;: &quot;1000&quot;, &quot;bindCredential&quot;: &quot;\*\*\*\*\*\*\*\*\*\*&quot;, &quot;bindDn&quot;: &quot;cn=directory reader&quot;, &quot;cachePolicy&quot;: &quot;DEFAULT&quot;, &quot;connectionPooling&quot;: &quot;true&quot;, &quot;connectionUrl&quot;: &quot;ldaps://ldap.example.com:636&quot;, &quot;debug&quot;: &quot;false&quot;, &quot;editMode&quot;: &quot;READ\_ONLY&quot;, &quot;enabled&quot;: &quot;true&quot;, &quot;importEnabled&quot;: &quot;true&quot;, &quot;pagination&quot;: &quot;true&quot;, &quot;priority&quot;: &quot;0&quot;, &quot;rdnLDAPAttribute&quot;: &quot;uid&quot;, &quot;searchScope&quot;: &quot;1&quot;, &quot;syncRegistrations&quot;: &quot;false&quot;, &quot;trustEmail&quot;: &quot;false&quot;, &quot;useKerberosForPasswordAuthentication&quot;: &quot;false&quot;, &quot;useTruststoreSpi&quot;: &quot;ldapsOnly&quot;, &quot;userObjectClasses&quot;: &quot;inetOrgPerson, organizationalPerson&quot;, &quot;usernameLDAPAttribute&quot;: &quot;uid&quot;, &quot;usersDn&quot;: &quot;ou=Users,dc=example,dc=com&quot;, &quot;uuidLDAPAttribute&quot;: &quot;entryUUID&quot;, &quot;validatePasswordPolicy&quot;: &quot;false&quot;, &quot;vendor&quot;: &quot;other&quot;}, &quot;name&quot;: &quot;ldap&quot;, &quot;providerId&quot;: &quot;ldap&quot;, &quot;providerType&quot;: &quot;org.keycloak.storage.UserStorageProvider&quot;}`</span></a></p>
+<p class="ansible-option-line ansible-option-sample"><span class="ansible-option-sample-bold">Sample:</span> <code class="ansible-option-sample docutils literal notranslate"><span class="pre">{&quot;config&quot;:</span> <span class="pre">{&quot;allowKerberosAuthentication&quot;:</span> <span class="pre">&quot;false&quot;,</span> <span class="pre">&quot;authType&quot;:</span> <span class="pre">&quot;simple&quot;,</span> <span class="pre">&quot;batchSizeForSync&quot;:</span> <span class="pre">&quot;1000&quot;,</span> <span class="pre">&quot;bindCredential&quot;:</span> <span class="pre">&quot;**********&quot;,</span> <span class="pre">&quot;bindDn&quot;:</span> <span class="pre">&quot;cn=directory</span> <span class="pre">reader&quot;,</span> <span class="pre">&quot;cachePolicy&quot;:</span> <span class="pre">&quot;DEFAULT&quot;,</span> <span class="pre">&quot;connectionPooling&quot;:</span> <span class="pre">&quot;true&quot;,</span> <span class="pre">&quot;connectionUrl&quot;:</span> <span class="pre">&quot;ldaps://ldap.example.com:636&quot;,</span> <span class="pre">&quot;debug&quot;:</span> <span class="pre">&quot;false&quot;,</span> <span class="pre">&quot;editMode&quot;:</span> <span class="pre">&quot;READ_ONLY&quot;,</span> <span class="pre">&quot;enabled&quot;:</span> <span class="pre">&quot;true&quot;,</span> <span class="pre">&quot;importEnabled&quot;:</span> <span class="pre">&quot;true&quot;,</span> <span class="pre">&quot;pagination&quot;:</span> <span class="pre">&quot;true&quot;,</span> <span class="pre">&quot;priority&quot;:</span> <span class="pre">&quot;0&quot;,</span> <span class="pre">&quot;rdnLDAPAttribute&quot;:</span> <span class="pre">&quot;uid&quot;,</span> <span class="pre">&quot;searchScope&quot;:</span> <span class="pre">&quot;1&quot;,</span> <span class="pre">&quot;syncRegistrations&quot;:</span> <span class="pre">&quot;false&quot;,</span> <span class="pre">&quot;trustEmail&quot;:</span> <span class="pre">&quot;false&quot;,</span> <span class="pre">&quot;useKerberosForPasswordAuthentication&quot;:</span> <span class="pre">&quot;false&quot;,</span> <span class="pre">&quot;useTruststoreSpi&quot;:</span> <span class="pre">&quot;ldapsOnly&quot;,</span> <span class="pre">&quot;userObjectClasses&quot;:</span> <span class="pre">&quot;inetOrgPerson,</span> <span class="pre">organizationalPerson&quot;,</span> <span class="pre">&quot;usernameLDAPAttribute&quot;:</span> <span class="pre">&quot;uid&quot;,</span> <span class="pre">&quot;usersDn&quot;:</span> <span class="pre">&quot;ou=Users,dc=example,dc=com&quot;,</span> <span class="pre">&quot;uuidLDAPAttribute&quot;:</span> <span class="pre">&quot;entryUUID&quot;,</span> <span class="pre">&quot;validatePasswordPolicy&quot;:</span> <span class="pre">&quot;false&quot;,</span> <span class="pre">&quot;vendor&quot;:</span> <span class="pre">&quot;other&quot;},</span> <span class="pre">&quot;name&quot;:</span> <span class="pre">&quot;ldap&quot;,</span> <span class="pre">&quot;providerId&quot;:</span> <span class="pre">&quot;ldap&quot;,</span> <span class="pre">&quot;providerType&quot;:</span> <span class="pre">&quot;org.keycloak.storage.UserStorageProvider&quot;}</span></code></p>
 </div></td>
 </tr>
 </tbody>
 </table>
 <section id="authors">
-<h3>Authors<a class="headerlink" href="#authors" title="Permalink to this heading"></a></h3>
+<h3>Authors<a class="headerlink" href="#authors" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Laurent Paumier (&#64;laurpaum)</p></li>
 </ul>

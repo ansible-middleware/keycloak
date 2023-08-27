@@ -30,7 +30,7 @@ Role Defaults
 |`keycloak_quarkus_service_user`| Posix account username | `keycloak` |
 |`keycloak_quarkus_service_group`| Posix account group | `keycloak` |
 |`keycloak_quarkus_service_pidfile`| Pid file path for service | `/run/keycloak.pid` |
-|`keycloak_quarkus_jvm_package`| RHEL java package runtime | `java-11-openjdk-headless` |
+|`keycloak_quarkus_jvm_package`| RHEL java package runtime | `java-17-openjdk-headless` |
 |`keycloak_quarkus_java_home`| JAVA_HOME of installed JRE, leave empty for using specified keycloak_quarkus_jvm_package RPM path | `None` |
 |`keycloak_quarkus_java_opts`| Additional JVM options | `-Xms1024m -Xmx2048m` |
 |`keycloak_quarkus_frontend_url`| Service public URL | `http://localhost:8080/auth` |

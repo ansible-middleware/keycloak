@@ -6,6 +6,22 @@ middleware_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v1.2.8
+======
+
+Minor Changes
+-------------
+
+- keycloak_quarkus: set openjdk 17 as default `#103 <https://github.com/ansible-middleware/keycloak/pull/103>`_
+- keycloak_quarkus: update to version 22.0.1 `#107 <https://github.com/ansible-middleware/keycloak/pull/107>`_
+
+Bugfixes
+--------
+
+- Fix incorrect checks for ``keycloak_jgroups_subnet`` `#98 <https://github.com/ansible-middleware/keycloak/pull/98>`_
+- Undefine ``keycloak_db_valid_conn_sql`` default `#91 <https://github.com/ansible-middleware/keycloak/pull/91>`_
+- Update bindep.txt package python3-devel to support RHEL9 `#105 <https://github.com/ansible-middleware/keycloak/pull/105>`_
+
 v1.2.7
 ======
 

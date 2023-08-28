@@ -260,3 +260,29 @@ releases:
     - 92.yaml
     - 93.yaml
     release_date: '2023-06-19'
+  1.2.8:
+    changes:
+      bugfixes:
+      - 'Fix incorrect checks for ``keycloak_jgroups_subnet`` `#98 <https://github.com/ansible-middleware/keycloak/pull/98>`_
+
+        '
+      - 'Undefine ``keycloak_db_valid_conn_sql`` default `#91 <https://github.com/ansible-middleware/keycloak/pull/91>`_
+
+        '
+      - 'Update bindep.txt package python3-devel to support RHEL9 `#105 <https://github.com/ansible-middleware/keycloak/pull/105>`_
+
+        '
+      minor_changes:
+      - 'keycloak_quarkus: set openjdk 17 as default `#103 <https://github.com/ansible-middleware/keycloak/pull/103>`_
+
+        '
+      - 'keycloak_quarkus: update to version 22.0.1 `#107 <https://github.com/ansible-middleware/keycloak/pull/107>`_
+
+        '
+    fragments:
+    - 103.yaml
+    - 105.yaml
+    - 107.yaml
+    - 91.yaml
+    - 98.yaml
+    release_date: '2023-08-28'

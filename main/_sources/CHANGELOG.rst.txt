@@ -13,6 +13,7 @@ Minor Changes
 -------------
 
 - Update keycloak_quarkus to Keycloak version 22.0.0 `#100 <https://github.com/ansible-middleware/keycloak/pull/100>`_
+- keycloak-quarkus: update to version 22.0.1 `#107 <https://github.com/ansible-middleware/keycloak/pull/107>`_
 - keycloak_quarkus: set openjdk 17 as default `#103 <https://github.com/ansible-middleware/keycloak/pull/103>`_
 
 Bugfixes

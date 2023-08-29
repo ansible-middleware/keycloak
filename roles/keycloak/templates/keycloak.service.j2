@@ -8,8 +8,10 @@ StartLimitBurst={{ keycloak_service_startlimitburst }}
 
 [Service]
 Type=forking
+{% if keycloak_service_runas %}
 User={{ keycloak_service_user }}
 Group={{ keycloak_service_group }}
+{% endif -%}
 EnvironmentFile=-/etc/sysconfig/keycloak
 PIDFile={{ keycloak_service_pidfile }}
 ExecStart={{ keycloak_dest }}/keycloak-service.sh start

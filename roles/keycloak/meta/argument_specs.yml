@@ -74,6 +74,11 @@ argument_specs:
                 default: ""
                 description: "Path to custom template for standalone.xml configuration"
                 type: "str"
+            keycloak_service_runas: 
+                # line 20 of keycloak/defaults/main.yml
+                default: false
+                description: "Enable execution of service as `keycloak_service_user`"
+                type: "bool"
             keycloak_service_user:
                 # line 29 of keycloak/defaults/main.yml
                 default: "keycloak"

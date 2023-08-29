@@ -17,6 +17,7 @@ keycloak_config_standalone_xml: "keycloak.xml"
 keycloak_config_path_to_standalone_xml: "{{ keycloak_jboss_home }}/standalone/configuration/{{ keycloak_config_standalone_xml }}"
 keycloak_config_override_template: ''
 keycloak_config_path_to_properties: "{{ keycloak_jboss_home }}/standalone/configuration/profile.properties"
+keycloak_service_runas: false
 keycloak_service_user: keycloak
 keycloak_service_group: keycloak
 keycloak_service_pidfile: "/run/keycloak/keycloak.pid"

@@ -53,6 +53,15 @@
     group: "{{ keycloak_service_group }}"
     mode: 0750
 
+- name: Create pidfile folder
+  become: yes
+  ansible.builtin.file:
+    dest: "{{ keycloak_service_pidfile | dirname }}"
+    state: directory
+    owner: "{{ keycloak_service_user if keycloak_service_runas else omit }}"
+    group: "{{ keycloak_service_group if keycloak_service_runas else omit }}"
+    mode: 0750
+
 ## check remote archive
 - name: Set download archive path
   ansible.builtin.set_fact:
@@ -191,6 +200,12 @@
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
     recurse: true
+  become: yes
+  changed_when: false
+
+- name: Ensure permissions are correct on existing deploy
+  ansible.builtin.command: chown -R "{{ keycloak_service_user }}:{{ keycloak_service_group }}" "{{ keycloak.home }}"
+  when: keycloak_service_runas
   become: yes
   changed_when: false
 

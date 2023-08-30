@@ -77,7 +77,7 @@ Role Defaults
 |`keycloak_service_startlimitintervalsec`| systemd StartLimitIntervalSec | `300` |
 |`keycloak_service_startlimitburst`| systemd StartLimitBurst | `5` |
 |`keycloak_service_restartsec`| systemd RestartSec | `10s` |
-|`keycloak_service_pidfile`| pid file path for service | `/run/keycloak.pid` |
+|`keycloak_service_pidfile`| pid file path for service | `/run/keycloak/keycloak.pid` |
 |`keycloak_features` | List of `name`/`status` pairs of features (also known as profiles on RH-SSO) to `enable` or `disable`, example: `[ { name: 'docker', status: 'enabled' } ]` | `[]`
 |`keycloak_jvm_package`| RHEL java package runtime | `java-1.8.0-openjdk-headless` |
 |`keycloak_java_home`| JAVA_HOME of installed JRE, leave empty for using specified keycloak_jvm_package RPM path | `None` |

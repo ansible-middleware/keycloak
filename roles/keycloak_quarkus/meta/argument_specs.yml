@@ -61,7 +61,7 @@ argument_specs:
                 type: "str"
             keycloak_quarkus_service_pidfile:
                 # line 18 of defaults/main.yml
-                default: "/run/keycloak.pid"
+                default: "/run/keycloak/keycloak.pid"
                 description: "Pid file path for service"
                 type: "str"
             keycloak_quarkus_configure_firewalld:

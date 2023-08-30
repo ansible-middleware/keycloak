@@ -74,6 +74,11 @@ argument_specs:
                 default: ""
                 description: "Path to custom template for standalone.xml configuration"
                 type: "str"
+            keycloak_service_runas: 
+                # line 20 of keycloak/defaults/main.yml
+                default: false
+                description: "Enable execution of service as `keycloak_service_user`"
+                type: "bool"
             keycloak_service_user:
                 # line 29 of keycloak/defaults/main.yml
                 default: "keycloak"
@@ -86,7 +91,7 @@ argument_specs:
                 type: "str"
             keycloak_service_pidfile:
                 # line 31 of keycloak/defaults/main.yml
-                default: "/run/keycloak.pid"
+                default: "/run/keycloak/keycloak.pid"
                 description: "PID file path for service"
                 type: "str"
             keycloak_features:

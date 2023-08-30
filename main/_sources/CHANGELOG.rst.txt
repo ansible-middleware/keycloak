@@ -9,6 +9,11 @@ This changelog describes changes after version 0.2.6.
 v1.2.9-devel
 ============
 
+Major Changes
+-------------
+
+- Run service as ``keycloak_service_user`` `#106 <https://github.com/ansible-middleware/keycloak/pull/106>`_
+
 v1.2.8
 ======
 

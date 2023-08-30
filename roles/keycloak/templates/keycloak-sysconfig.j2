@@ -8,4 +8,12 @@ KEYCLOAK_HTTPS_PORT={{ keycloak_https_port }}
 KEYCLOAK_MANAGEMENT_HTTP_PORT={{ keycloak_management_http_port }}
 KEYCLOAK_MANAGEMENT_HTTPS_PORT={{ keycloak_management_https_port }}
 JBOSS_PIDFILE='{{ keycloak_service_pidfile }}'
-LAUNCH_JBOSS_IN_BACKGROUND=1
+
+WILDFLY_OPTS=-Djboss.bind.address=${KEYCLOAK_BIND_ADDRESS} \
+        -Djboss.http.port=${KEYCLOAK_HTTP_PORT} \
+        -Djboss.https.port=${KEYCLOAK_HTTPS_PORT} \
+        -Djboss.management.http.port=${KEYCLOAK_MANAGEMENT_HTTP_PORT} \
+        -Djboss.management.https.port=${KEYCLOAK_MANAGEMENT_HTTPS_PORT} \
+        -Djboss.node.name={{ inventory_hostname }} \
+      {% if keycloak_prefer_ipv4 %}-Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Addresses=true {% endif %}\
+      {% if keycloak_config_standalone_xml is defined %}--server-config={{ keycloak_config_standalone_xml }}{% endif %}

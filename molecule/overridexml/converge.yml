@@ -6,6 +6,7 @@
     keycloak_config_override_template: custom.xml.j2
     keycloak_http_port: 8081
     keycloak_management_http_port: 19990
+    keycloak_service_runas: True
   roles:
     - role: keycloak
   tasks:

@@ -243,7 +243,7 @@ argument_specs:
             keycloak_quarkus_proxy_mode:
                 default: 'edge'
                 type: "str"
-                description: "The proxy address forwarding mode if the server is behind a reverse proxy"
+                description: "The proxy address forwarding mode if the server is behind a reverse proxy. Set to 'none' if not using a proxy"
             keycloak_quarkus_start_dev:
                 default: False
                 type: "bool"

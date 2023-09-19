@@ -22,8 +22,8 @@ Role Defaults
 |`keycloak_quarkus_db_enabled`| Enable auto configuration for database backend | `True` if `keycloak_quarkus_ha_enabled` is True, else `False` |
 |`keycloak_quarkus_admin_user`| Administration console user account | `admin` |
 |`keycloak_quarkus_bind_address`| Address for binding service ports | `0.0.0.0` |
-|`keycloak_quarkus_host`| Hostname from where application is reachable by clients | `localhost` |
-|`keycloak_quarkus_port`| Port from where application is reachable by clients | `8080` |
+|`keycloak_quarkus_host`| Hostname for the Keycloak server | `localhost` |
+|`keycloak_quarkus_port`| The port used by the proxy when exposing the hostname | `-1` |
 |`keycloak_quarkus_http_port`| HTTP listening port | `8080` |
 |`keycloak_quarkus_https_port`| TLS HTTP listening port | `8443` |
 |`keycloak_quarkus_ajp_port`| AJP port | `8009` |

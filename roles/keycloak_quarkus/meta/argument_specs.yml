@@ -91,11 +91,11 @@ argument_specs:
                 type: "str"
             keycloak_quarkus_host:
                 default: "localhost"
-                description: "Hostname from where application is reachable by clients"
+                description: "Hostname for the Keycloak server"
                 type: "str"
             keycloak_quarkus_port:
-                default: 8080
-                description: "Port from where application is reachable by clients"
+                default: -1
+                description: "The port used by the proxy when exposing the hostname"
                 type: "int"
             keycloak_quarkus_http_enabled:
                 default: true

@@ -1,0 +1,39 @@
+---
+- name: Verify
+  hosts: all
+  tasks:
+    - name: Populate service facts
+      ansible.builtin.service_facts:
+
+    - name: Check if keycloak service started
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.services["keycloak.service"]["state"] == "running"
+          - ansible_facts.services["keycloak.service"]["status"] == "enabled"
+
+    - name: Set internal envvar
+      ansible.builtin.set_fact:
+        hera_home: "{{ lookup('env', 'HERA_HOME') }}"
+
+    - name: Verify openid config
+      block:
+        - name: Fetch openID config # noqa blocked_modules command-instead-of-module
+          ansible.builtin.shell: |
+            set -o pipefail
+            curl http://localhost:8080/realms/master/.well-known/openid-configuration -k | jq .
+          args:
+            executable: /bin/bash
+          delegate_to: localhost
+          register: openid_config
+          changed_when: False
+        - name: Verify endpoint URLs
+          ansible.builtin.assert:
+            that:
+              - (openid_config.stdout | from_json)["backchannel_authentication_endpoint"] == 'http://localhost:8080/realms/master/protocol/openid-connect/ext/ciba/auth'
+              - (openid_config.stdout | from_json)['issuer'] == 'http://localhost:8080/realms/master'
+              - (openid_config.stdout | from_json)['authorization_endpoint'] == 'http://localhost:8080/realms/master/protocol/openid-connect/auth'
+              - (openid_config.stdout | from_json)['token_endpoint'] == 'http://localhost:8080/realms/master/protocol/openid-connect/token'
+          delegate_to: localhost
+      when:
+        - hera_home is defined
+        - hera_home | length == 0

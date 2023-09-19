@@ -28,6 +28,7 @@ keycloak_quarkus_master_realm: master
 ### Configuration settings
 keycloak_quarkus_bind_address: 0.0.0.0
 keycloak_quarkus_host: localhost
+keycloak_quarkus_port: -1
 keycloak_quarkus_http_enabled: True
 keycloak_quarkus_http_port: 8080
 keycloak_quarkus_https_port: 8443

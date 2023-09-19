@@ -90,10 +90,13 @@ argument_specs:
                 description: "Address for binding service ports"
                 type: "str"
             keycloak_quarkus_host:
-                # line 28 of defaults/main.yml
                 default: "localhost"
-                description: "hostname"
+                description: "Hostname for the Keycloak server"
                 type: "str"
+            keycloak_quarkus_port:
+                default: -1
+                description: "The port used by the proxy when exposing the hostname"
+                type: "int"
             keycloak_quarkus_http_enabled:
                 default: true
                 description: "Enable listener on HTTP port"

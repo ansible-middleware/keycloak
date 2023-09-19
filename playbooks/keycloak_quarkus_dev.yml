@@ -1,14 +1,13 @@
 ---
-- name: Playbook for Keycloak X Hosts with HTTPS enabled
+- name: Playbook for Keycloak X Hosts in develop mode
   hosts: all
   vars:
     keycloak_admin_password: "remembertochangeme"
     keycloak_quarkus_host: localhost
-    keycloak_quarkus_port: 8443
+    keycloak_quarkus_port: 8080
     keycloak_quarkus_http_relative_path: ''
     keycloak_quarkus_log: file
-    keycloak_quarkus_https_enabled: True
-    keycloak_quarkus_key_file: conf/key.pem
-    keycloak_quarkus_cert_file: conf/cert.pem
+    keycloak_quarkus_start_dev: true
+    keycloak_quarkus_proxy_mode: none
   roles:
     - middleware_automation.keycloak.keycloak_quarkus

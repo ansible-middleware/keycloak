@@ -14,6 +14,11 @@ Major Changes
 
 - Run service as ``keycloak_service_user`` `#106 <https://github.com/ansible-middleware/keycloak/pull/106>`_
 
+Minor Changes
+-------------
+
+- keycloak_quarkus: skip proxy config if ``keycloak_quarkus_proxy_mode`` is ``none`` `#109 <https://github.com/ansible-middleware/keycloak/pull/109>`_
+
 v1.2.8
 ======
 

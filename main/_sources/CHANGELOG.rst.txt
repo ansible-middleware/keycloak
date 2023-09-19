@@ -17,6 +17,7 @@ Major Changes
 Minor Changes
 -------------
 
+- keycloak_quarkus: fix admin console redirect when running locally `#111 <https://github.com/ansible-middleware/keycloak/pull/111>`_
 - keycloak_quarkus: skip proxy config if ``keycloak_quarkus_proxy_mode`` is ``none`` `#109 <https://github.com/ansible-middleware/keycloak/pull/109>`_
 
 v1.2.8

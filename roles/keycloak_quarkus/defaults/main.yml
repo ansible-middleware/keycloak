@@ -49,7 +49,7 @@ keycloak_quarkus_db_enabled: "{{ True if keycloak_quarkus_ha_enabled else False 
 keycloak_quarkus_http_relative_path: auth
 keycloak_quarkus_frontend_url: http://localhost:8080/auth
 
-# proxy address forwarding mode if the server is behind a reverse proxy. [edge, reencrypt, passthrough]
+# proxy address forwarding mode if the server is behind a reverse proxy. [none, edge, reencrypt, passthrough]
 keycloak_quarkus_proxy_mode: edge
 
 # disable xa transactions

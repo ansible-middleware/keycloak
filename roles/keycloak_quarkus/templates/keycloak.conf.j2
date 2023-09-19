@@ -34,8 +34,10 @@ cache-config-file=cache-ispn.xml
 cache-stack=tcp
 {% endif %}
 
+{% if keycloak_quarkus_proxy_mode is defined and keycloak_quarkus_proxy_mode != "none" %}
 # Proxy
 proxy={{ keycloak_quarkus_proxy_mode }}
+{% endif %}
 # Do not attach route to cookies and rely on the session affinity capabilities from reverse proxy
 #spi-sticky-session-encoder-infinispan-should-attach-route=false
 

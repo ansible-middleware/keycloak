@@ -1,0 +1,12 @@
+---
+- name: Prepare
+  hosts: all
+  tasks:
+    - name: Install sudo
+      ansible.builtin.yum:
+        name: sudo
+        state: present
+
+    - name: "Display hera_home if defined."
+      ansible.builtin.set_fact:
+        hera_home: "{{ lookup('env', 'HERA_HOME') }}"

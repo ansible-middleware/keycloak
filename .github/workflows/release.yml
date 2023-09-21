@@ -6,9 +6,10 @@ on:
 jobs:
   release:
     uses: ansible-middleware/github-actions/.github/workflows/release.yml@main
-    secrets: inherit
     with:
       collection_fqcn: 'middleware_automation.keycloak'
+    secrets:
+      galaxy_token: ${{ secrets.ANSIBLE_GALAXY_API_KEY }}
 
   dispatch:
     needs: release

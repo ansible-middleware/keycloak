@@ -30,13 +30,13 @@
     - name: Create conf directory # risky-file-permissions in test user account does not exist yet
       ansible.builtin.file:
         state: directory
-        path: /opt/keycloak/keycloak-22.0.1/conf/
+        path: /opt/keycloak/keycloak-22.0.3/conf/
         mode: 0755
 
     - name: Copy certificates
       ansible.builtin.copy:
         src: "{{ item }}"
-        dest: "/opt/keycloak/keycloak-22.0.1/conf/{{ item }}"
+        dest: "/opt/keycloak/keycloak-22.0.3/conf/{{ item }}"
         mode: 0444
       loop:
         - cert.pem

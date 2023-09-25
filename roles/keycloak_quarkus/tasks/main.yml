@@ -52,6 +52,9 @@
     mode: 0775
   become: yes
 
+- name: Flush pending handlers
+  ansible.builtin.meta: flush_handlers
+
 - name: "Start and wait for keycloak service"
   ansible.builtin.include_tasks: start.yml
 

@@ -6,6 +6,26 @@ middleware_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v1.3.0
+======
+
+Major Changes
+-------------
+
+- Run service as ``keycloak_service_user`` `#106 <https://github.com/ansible-middleware/keycloak/pull/106>`_
+
+Minor Changes
+-------------
+
+- keycloak_quarkus: Update Keycloak to version 22.0.3 `#112 <https://github.com/ansible-middleware/keycloak/pull/112>`_
+- keycloak_quarkus: fix admin console redirect when running locally `#111 <https://github.com/ansible-middleware/keycloak/pull/111>`_
+- keycloak_quarkus: skip proxy config if ``keycloak_quarkus_proxy_mode`` is ``none`` `#109 <https://github.com/ansible-middleware/keycloak/pull/109>`_
+
+Bugfixes
+--------
+
+- keycloak_quarkus: fix validation failure upon port configuration change `#113 <https://github.com/ansible-middleware/keycloak/pull/113>`_
+
 v1.2.8
 ======
 

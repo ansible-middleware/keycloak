@@ -15,6 +15,7 @@ health-enabled={{ keycloak_quarkus_health_enabled }}
 # HTTP
 http-enabled={{ keycloak_quarkus_http_enabled }}
 http-port={{ keycloak_quarkus_http_port }}
+http-relative-path={{ keycloak_quarkus_http_relative_path }}
 
 # HTTPS
 https-port={{ keycloak_quarkus_https_port }}
@@ -23,10 +24,15 @@ https-certificate-file={{ keycloak_quarkus_cert_file}}
 https-certificate-key-file={{ keycloak_quarkus_key_file }}
 {% endif %}
 
-# Hostname for the Keycloak server.
+# Client URL configuration
+{% if keycloak_quarkus_frontend_url %}
+hostname-url={{ keycloak_quarkus_frontend_url }}
+{% else %}
 hostname={{ keycloak_quarkus_host }}
 hostname-port={{ keycloak_quarkus_port }}
-hostname-path={{ keycloak_quarkus_http_relative_path }}
+hostname-path={{ keycloak_quarkus_path }}
+{% endif %}
+hostname-admin-url={{ keycloak_quarkus_admin_url }}
 
 # Cluster
 {% if keycloak_quarkus_ha_enabled %}

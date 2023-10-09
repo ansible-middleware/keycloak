@@ -5,7 +5,6 @@
     keycloak_quarkus_admin_pass: "remembertochangeme"
     keycloak_admin_password: "remembertochangeme"
     keycloak_realm: TestRealm
-    keycloak_quarkus_http_relative_path: ''
     keycloak_quarkus_log: file
     keycloak_quarkus_frontend_url: 'http://localhost:8080/'
     keycloak_quarkus_start_dev: True

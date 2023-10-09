@@ -29,6 +29,7 @@ keycloak_quarkus_master_realm: master
 keycloak_quarkus_bind_address: 0.0.0.0
 keycloak_quarkus_host: localhost
 keycloak_quarkus_port: -1
+keycloak_quarkus_path: ''
 keycloak_quarkus_http_enabled: True
 keycloak_quarkus_http_port: 8080
 keycloak_quarkus_https_port: 8443
@@ -47,8 +48,11 @@ keycloak_quarkus_ha_enabled: False
 keycloak_quarkus_db_enabled: "{{ True if keycloak_quarkus_ha_enabled else False }}"
 
 ### keycloak frontend url
-keycloak_quarkus_http_relative_path: auth
-keycloak_quarkus_frontend_url: http://localhost:8080/auth
+keycloak_quarkus_frontend_url: ''
+keycloak_quarkus_admin_url: ''
+
+### path under the application is exposed (set to `auth` for retrocompatibility with pre-quarkus releases)
+keycloak_quarkus_http_relative_path: ''
 
 # proxy address forwarding mode if the server is behind a reverse proxy. [none, edge, reencrypt, passthrough]
 keycloak_quarkus_proxy_mode: edge

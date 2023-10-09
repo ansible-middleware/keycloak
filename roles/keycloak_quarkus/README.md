@@ -24,6 +24,7 @@ Role Defaults
 |`keycloak_quarkus_bind_address`| Address for binding service ports | `0.0.0.0` |
 |`keycloak_quarkus_host`| Hostname for the Keycloak server | `localhost` |
 |`keycloak_quarkus_port`| The port used by the proxy when exposing the hostname | `-1` |
+|`keycloak_quarkus_path`| This should be set if proxy uses a different context-path for Keycloak | |
 |`keycloak_quarkus_http_port`| HTTP listening port | `8080` |
 |`keycloak_quarkus_https_port`| TLS HTTP listening port | `8443` |
 |`keycloak_quarkus_ajp_port`| AJP port | `8009` |
@@ -34,8 +35,9 @@ Role Defaults
 |`keycloak_quarkus_jvm_package`| RHEL java package runtime | `java-17-openjdk-headless` |
 |`keycloak_quarkus_java_home`| JAVA_HOME of installed JRE, leave empty for using specified keycloak_quarkus_jvm_package RPM path | `None` |
 |`keycloak_quarkus_java_opts`| Additional JVM options | `-Xms1024m -Xmx2048m` |
-|`keycloak_quarkus_frontend_url`| Service public URL | `http://localhost:8080/auth` |
-|`keycloak_quarkus_http_relative_path` | Service context path | `auth` |
+|`keycloak_quarkus_frontend_url`| Set the base URL for frontend URLs, including scheme, host, port and path | |
+|`keycloak_quarkus_admin_url`| Set the base URL for accessing the administration console, including scheme, host, port and path | |
+|`keycloak_quarkus_http_relative_path` | Service context path | |
 |`keycloak_quarkus_http_enabled`| Enable listener on HTTP port | `True` |
 |`keycloak_quarkus_https_enabled`| Enable listener on HTTPS port | `False` |
 |`keycloak_quarkus_key_file`| The file path to a private key in PEM format | `{{ keycloak.home }}/conf/server.key.pem` |

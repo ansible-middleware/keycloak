@@ -97,6 +97,10 @@ argument_specs:
                 default: -1
                 description: "The port used by the proxy when exposing the hostname"
                 type: "int"
+            keycloak_quarkus_path:
+                default: ""
+                description: "This should be set if proxy uses a different context-path for Keycloak"
+                type: "str"
             keycloak_quarkus_http_enabled:
                 default: true
                 description: "Enable listener on HTTP port"
@@ -149,14 +153,16 @@ argument_specs:
                 description: "Enable auto configuration for database backend"
                 type: "str"
             keycloak_quarkus_http_relative_path:
-                # line 41 of defaults/main.yml
                 default: "auth"
                 description: "Service context path"
                 type: "str"
             keycloak_quarkus_frontend_url:
-                # line 41 of defaults/main.yml
-                default: "http://localhost:8080/auth"
                 description: "Service public URL"
+                default: ""
+                type: "str"
+            keycloak_quarkus_admin_url:
+                description: "Service URL for the admin console"
+                default: ""
                 type: "str"
             keycloak_quarkus_metrics_enabled:
                 # line 43 of defaults/main.yml

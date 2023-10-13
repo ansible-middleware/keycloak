@@ -37,9 +37,16 @@ Role Defaults
 |`keycloak_quarkus_frontend_url`| Service public URL | `http://localhost:8080/auth` |
 |`keycloak_quarkus_http_relative_path` | Service context path | `auth` |
 |`keycloak_quarkus_http_enabled`| Enable listener on HTTP port | `True` |
-|`keycloak_quarkus_https_enabled`| Enable listener on HTTPS port | `False` |
+|`keycloak_quarkus_https_key_file_enabled`| Enable listener on HTTPS port | `False` |
 |`keycloak_quarkus_key_file`| The file path to a private key in PEM format | `{{ keycloak.home }}/conf/server.key.pem` |
 |`keycloak_quarkus_cert_file`| The file path to a server certificate or certificate chain in PEM format | `{{ keycloak.home }}/conf/server.crt.pem` |
+|`keycloak_quarkus_https_key_store_enabled`| Enable configuration of HTTPS via a key store | `False` |
+|`keycloak_quarkus_key_store_file`| The file pat to the key store | `{{ keycloak.home }}/conf/key_store.p12` |
+|`keycloak_quarkus_key_store_password`| Password for the key store | `""` |
+|`keycloak_quarkus_https_trust_store_enabled`| Enalbe confiugration of a trust store | `False` |
+|`keycloak_quarkus_trust_store_file`| The file pat to the trust store | `{{ keycloak.home }}/conf/trust_store.p12` |
+|`keycloak_quarkus_trust_store_password`| Password for the trust store | `""` |
+
 
 
 * Database configuration

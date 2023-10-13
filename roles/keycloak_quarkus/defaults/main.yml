@@ -2,7 +2,7 @@
 ### Configuration specific to keycloak
 keycloak_quarkus_version: 22.0.3
 keycloak_quarkus_archive: "keycloak-{{ keycloak_quarkus_version }}.zip"
-keycloak_quarkus_download_url: "https://github.com/keycloak/keycloak/releases/download/{{ keycloak_quarkus_version }}/{{ keycloak_quarkus_archive }}"  
+keycloak_quarkus_download_url: "https://github.com/keycloak/keycloak/releases/download/{{ keycloak_quarkus_version }}/{{ keycloak_quarkus_archive }}"
 keycloak_quarkus_installdir: "{{ keycloak_quarkus_dest }}/keycloak-{{ keycloak_quarkus_version }}"
 
 # whether to install from local archive
@@ -37,9 +37,17 @@ keycloak_quarkus_jgroups_port: 7600
 keycloak_quarkus_java_opts: "-Xms1024m -Xmx2048m"
 
 ### TLS/HTTPS configuration
-keycloak_quarkus_https_enabled: False
+keycloak_quarkus_https_key_file_enabled: False
 keycloak_quarkus_key_file: "{{ keycloak.home }}/conf/server.key.pem"
 keycloak_quarkus_cert_file: "{{ keycloak.home }}/conf/server.crt.pem"
+#### key store configuration
+keycloak_quarkus_https_key_store_enabled: False
+keycloak_quarkus_key_store_file: "{{ keycloak.home }}/conf/key_store.p12"
+keycloak_quarkus_key_store_password: ''
+##### trust store configuration
+keycloak_quarkus_https_trust_store_enabled: False
+keycloak_quarkus_trust_store_file: "{{ keycloak.home }}/conf/trust_store.p12"
+keycloak_quarkus_trust_store_password: ''
 
 ### Enable configuration for database backend, clustering and remote caches on infinispan
 keycloak_quarkus_ha_enabled: False

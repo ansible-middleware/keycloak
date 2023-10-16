@@ -16,11 +16,14 @@
         hera_home: "{{ lookup('env', 'HERA_HOME') }}"
 
     - name: Verify openid config
+      when:
+        - hera_home is defined
+        - hera_home | length == 0
       block:
         - name: Fetch openID config # noqa blocked_modules command-instead-of-module
           ansible.builtin.shell: |
             set -o pipefail
-            curl https://instance:8443/realms/master/.well-known/openid-configuration -k | jq .
+            curl -H 'Host: instance' https://localhost:8443/realms/master/.well-known/openid-configuration -k | jq .
           args:
             executable: /bin/bash
           delegate_to: localhost
@@ -34,6 +37,3 @@
               - (openid_config.stdout | from_json)['authorization_endpoint'] == 'https://instance/realms/master/protocol/openid-connect/auth'
               - (openid_config.stdout | from_json)['token_endpoint'] == 'https://instance/realms/master/protocol/openid-connect/token'
           delegate_to: localhost
-      when:
-        - hera_home is defined
-        - hera_home | length == 0

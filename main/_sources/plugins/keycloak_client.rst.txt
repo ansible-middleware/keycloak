@@ -6,23 +6,8 @@
 .. |antsibull-internal-nbsp| unicode:: 0xA0
     :trim:
 
-.. role:: ansible-attribute-support-label
-.. role:: ansible-attribute-support-property
-.. role:: ansible-attribute-support-full
-.. role:: ansible-attribute-support-partial
-.. role:: ansible-attribute-support-none
-.. role:: ansible-attribute-support-na
-.. role:: ansible-option-type
-.. role:: ansible-option-elements
-.. role:: ansible-option-required
-.. role:: ansible-option-versionadded
-.. role:: ansible-option-aliases
-.. role:: ansible-option-choices
-.. role:: ansible-option-choices-default-mark
-.. role:: ansible-option-default-bold
-.. role:: ansible-option-configuration
-.. role:: ansible-option-returned-bold
-.. role:: ansible-option-sample-bold
+.. meta::
+  :antsibull-docs: 2.5.0
 
 .. Anchors
 
@@ -38,7 +23,10 @@ keycloak_client -- Allows administration of Keycloak clients via Keycloak API
 .. Collection note
 
 .. note::
-    This module is part of the `middleware_automation.keycloak collection <https://galaxy.ansible.com/middleware_automation/keycloak>`_.
+    This module is part of the `middleware_automation.keycloak collection <https://galaxy.ansible.com/ui/repo/published/middleware_automation/keycloak/>`_.
+
+    It is not included in ``ansible-core``.
+    To check whether it is installed, run :code:`ansible-galaxy collection list`.
 
     To install it, use: :code:`ansible-galaxy collection install middleware\_automation.keycloak`.
 
@@ -79,12 +67,13 @@ Synopsis
 Parameters
 ----------
 
-.. rst-class:: ansible-option-table
+.. tabularcolumns:: \X{1}{3}\X{2}{3}
 
 .. list-table::
   :width: 100%
   :widths: auto
   :header-rows: 1
+  :class: longtable ansible-option-table
 
   * - Parameter
     - Comments
@@ -106,13 +95,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-admin_url" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: adminUrl`
+        :ansible-option-aliases:`aliases: adminUrl`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
@@ -146,13 +133,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-always_display_in_console" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: alwaysDisplayInConsole`
+        :ansible-option-aliases:`aliases: alwaysDisplayInConsole`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`boolean`
+        :ansible-option-type:`boolean`
 
       :ansible-option-versionadded:`added in middleware\_automation.keycloak 4.7.0`
 
@@ -195,9 +180,9 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-attributes" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`dictionary`
+        :ansible-option-type:`dictionary`
 
       .. raw:: html
 
@@ -219,6 +204,10 @@ Parameters
         <div class="ansible-option-indent"></div><div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="parameter-attributes/jwks.url"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/jwks.url:
 
       .. rst-class:: ansible-option-title
@@ -229,13 +218,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-attributes/jwks.url" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -253,6 +246,10 @@ Parameters
         <div class="ansible-option-indent"></div><div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="parameter-attributes/jwt.credential.certificate"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/jwt.credential.certificate:
 
       .. rst-class:: ansible-option-title
@@ -263,13 +260,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-attributes/jwt.credential.certificate" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -287,6 +288,10 @@ Parameters
         <div class="ansible-option-indent"></div><div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="parameter-attributes/request.object.signature.alg"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/request.object.signature.alg:
 
       .. rst-class:: ansible-option-title
@@ -297,13 +302,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-attributes/request.object.signature.alg" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -321,6 +330,10 @@ Parameters
         <div class="ansible-option-indent"></div><div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="parameter-attributes/saml.authnstatement"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml.authnstatement:
 
       .. rst-class:: ansible-option-title
@@ -331,13 +344,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-attributes/saml.authnstatement" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -355,6 +372,10 @@ Parameters
         <div class="ansible-option-indent"></div><div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="parameter-attributes/saml.client.signature"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml.client.signature:
 
       .. rst-class:: ansible-option-title
@@ -365,13 +386,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-attributes/saml.client.signature" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -389,6 +414,10 @@ Parameters
         <div class="ansible-option-indent"></div><div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="parameter-attributes/saml.encrypt"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml.encrypt:
 
       .. rst-class:: ansible-option-title
@@ -399,13 +428,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-attributes/saml.encrypt" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -423,6 +456,10 @@ Parameters
         <div class="ansible-option-indent"></div><div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="parameter-attributes/saml.force.post.binding"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml.force.post.binding:
 
       .. rst-class:: ansible-option-title
@@ -433,13 +470,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-attributes/saml.force.post.binding" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -457,6 +498,10 @@ Parameters
         <div class="ansible-option-indent"></div><div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="parameter-attributes/saml.onetimeuse.condition"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml.onetimeuse.condition:
 
       .. rst-class:: ansible-option-title
@@ -467,13 +512,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-attributes/saml.onetimeuse.condition" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -491,6 +540,10 @@ Parameters
         <div class="ansible-option-indent"></div><div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="parameter-attributes/saml.server.signature"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml.server.signature:
 
       .. rst-class:: ansible-option-title
@@ -501,13 +554,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-attributes/saml.server.signature" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -525,6 +582,10 @@ Parameters
         <div class="ansible-option-indent"></div><div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="parameter-attributes/saml.server.signature.keyinfo.ext"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml.server.signature.keyinfo.ext:
 
       .. rst-class:: ansible-option-title
@@ -535,13 +596,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-attributes/saml.server.signature.keyinfo.ext" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -559,6 +624,10 @@ Parameters
         <div class="ansible-option-indent"></div><div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="parameter-attributes/saml.signature.algorithm"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml.signature.algorithm:
 
       .. rst-class:: ansible-option-title
@@ -569,13 +638,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-attributes/saml.signature.algorithm" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -593,6 +666,10 @@ Parameters
         <div class="ansible-option-indent"></div><div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="parameter-attributes/saml.signing.certificate"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml.signing.certificate:
 
       .. rst-class:: ansible-option-title
@@ -603,13 +680,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-attributes/saml.signing.certificate" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -627,6 +708,10 @@ Parameters
         <div class="ansible-option-indent"></div><div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="parameter-attributes/saml.signing.private.key"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml.signing.private.key:
 
       .. rst-class:: ansible-option-title
@@ -637,13 +722,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-attributes/saml.signing.private.key" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -661,6 +750,10 @@ Parameters
         <div class="ansible-option-indent"></div><div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="parameter-attributes/saml_assertion_consumer_url_post"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml_assertion_consumer_url_post:
 
       .. rst-class:: ansible-option-title
@@ -671,13 +764,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-attributes/saml_assertion_consumer_url_post" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -695,6 +792,10 @@ Parameters
         <div class="ansible-option-indent"></div><div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="parameter-attributes/saml_assertion_consumer_url_redirect"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml_assertion_consumer_url_redirect:
 
       .. rst-class:: ansible-option-title
@@ -705,13 +806,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-attributes/saml_assertion_consumer_url_redirect" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -729,6 +834,10 @@ Parameters
         <div class="ansible-option-indent"></div><div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="parameter-attributes/saml_force_name_id_format"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml_force_name_id_format:
 
       .. rst-class:: ansible-option-title
@@ -739,13 +848,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-attributes/saml_force_name_id_format" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -763,6 +876,10 @@ Parameters
         <div class="ansible-option-indent"></div><div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="parameter-attributes/saml_name_id_format"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml_name_id_format:
 
       .. rst-class:: ansible-option-title
@@ -773,13 +890,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-attributes/saml_name_id_format" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -797,6 +918,10 @@ Parameters
         <div class="ansible-option-indent"></div><div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="parameter-attributes/saml_signature_canonicalization_method"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml_signature_canonicalization_method:
 
       .. rst-class:: ansible-option-title
@@ -807,13 +932,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-attributes/saml_signature_canonicalization_method" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -831,6 +960,10 @@ Parameters
         <div class="ansible-option-indent"></div><div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="parameter-attributes/saml_single_logout_service_url_post"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml_single_logout_service_url_post:
 
       .. rst-class:: ansible-option-title
@@ -841,13 +974,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-attributes/saml_single_logout_service_url_post" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -865,6 +1002,10 @@ Parameters
         <div class="ansible-option-indent"></div><div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="parameter-attributes/saml_single_logout_service_url_redirect"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml_single_logout_service_url_redirect:
 
       .. rst-class:: ansible-option-title
@@ -875,13 +1016,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-attributes/saml_single_logout_service_url_redirect" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -899,6 +1044,10 @@ Parameters
         <div class="ansible-option-indent"></div><div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="parameter-attributes/use.jwks.url"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/use.jwks.url:
 
       .. rst-class:: ansible-option-title
@@ -909,13 +1058,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-attributes/use.jwks.url" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -933,6 +1086,10 @@ Parameters
         <div class="ansible-option-indent"></div><div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="parameter-attributes/user.info.response.signature.alg"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/user.info.response.signature.alg:
 
       .. rst-class:: ansible-option-title
@@ -943,13 +1100,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-attributes/user.info.response.signature.alg" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -978,9 +1139,9 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-auth_client_id" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
@@ -1016,9 +1177,9 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-auth_client_secret" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
@@ -1052,13 +1213,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-auth_keycloak_url" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: url`
+        :ansible-option-aliases:`aliases: url`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`string` / :ansible-option-required:`required`
+        :ansible-option-type:`string` / :ansible-option-required:`required`
 
       .. raw:: html
 
@@ -1092,13 +1251,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-auth_password" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: password`
+        :ansible-option-aliases:`aliases: password`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
@@ -1130,9 +1287,9 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-auth_realm" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
@@ -1166,13 +1323,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-auth_username" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: username`
+        :ansible-option-aliases:`aliases: username`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
@@ -1206,13 +1361,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-authentication_flow_binding_overrides" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: authenticationFlowBindingOverrides`
+        :ansible-option-aliases:`aliases: authenticationFlowBindingOverrides`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`dictionary`
+        :ansible-option-type:`dictionary`
 
       :ansible-option-versionadded:`added in middleware\_automation.keycloak 3.4.0`
 
@@ -1249,13 +1402,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-authorization_services_enabled" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: authorizationServicesEnabled`
+        :ansible-option-aliases:`aliases: authorizationServicesEnabled`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`boolean`
+        :ansible-option-type:`boolean`
 
       .. raw:: html
 
@@ -1297,13 +1448,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-authorization_settings" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: authorizationSettings`
+        :ansible-option-aliases:`aliases: authorizationSettings`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`dictionary`
+        :ansible-option-type:`dictionary`
 
       .. raw:: html
 
@@ -1337,13 +1486,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-base_url" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: baseUrl`
+        :ansible-option-aliases:`aliases: baseUrl`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
@@ -1377,13 +1524,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-bearer_only" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: bearerOnly`
+        :ansible-option-aliases:`aliases: bearerOnly`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`boolean`
+        :ansible-option-type:`boolean`
 
       .. raw:: html
 
@@ -1425,13 +1570,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-client_authenticator_type" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: clientAuthenticatorType`
+        :ansible-option-aliases:`aliases: clientAuthenticatorType`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
@@ -1473,13 +1616,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-client_id" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: clientId`
+        :ansible-option-aliases:`aliases: clientId`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
@@ -1513,13 +1654,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-client_template" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: clientTemplate`
+        :ansible-option-aliases:`aliases: clientTemplate`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
@@ -1551,9 +1690,9 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-connection_timeout" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`integer`
+        :ansible-option-type:`integer`
 
       :ansible-option-versionadded:`added in middleware\_automation.keycloak 4.5.0`
 
@@ -1594,13 +1733,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-consent_required" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: consentRequired`
+        :ansible-option-aliases:`aliases: consentRequired`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`boolean`
+        :ansible-option-type:`boolean`
 
       .. raw:: html
 
@@ -1642,13 +1779,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-default_client_scopes" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: defaultClientScopes`
+        :ansible-option-aliases:`aliases: defaultClientScopes`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`list` / :ansible-option-elements:`elements=string`
+        :ansible-option-type:`list` / :ansible-option-elements:`elements=string`
 
       :ansible-option-versionadded:`added in middleware\_automation.keycloak 4.7.0`
 
@@ -1685,13 +1820,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-default_roles" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: defaultRoles`
+        :ansible-option-aliases:`aliases: defaultRoles`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`list` / :ansible-option-elements:`elements=string`
+        :ansible-option-type:`list` / :ansible-option-elements:`elements=string`
 
       .. raw:: html
 
@@ -1723,9 +1856,9 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-description" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
@@ -1759,13 +1892,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-direct_access_grants_enabled" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: directAccessGrantsEnabled`
+        :ansible-option-aliases:`aliases: directAccessGrantsEnabled`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`boolean`
+        :ansible-option-type:`boolean`
 
       .. raw:: html
 
@@ -1805,9 +1936,9 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-enabled" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`boolean`
+        :ansible-option-type:`boolean`
 
       .. raw:: html
 
@@ -1849,13 +1980,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-frontchannel_logout" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: frontchannelLogout`
+        :ansible-option-aliases:`aliases: frontchannelLogout`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`boolean`
+        :ansible-option-type:`boolean`
 
       .. raw:: html
 
@@ -1897,13 +2026,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-full_scope_allowed" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: fullScopeAllowed`
+        :ansible-option-aliases:`aliases: fullScopeAllowed`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`boolean`
+        :ansible-option-type:`boolean`
 
       .. raw:: html
 
@@ -1943,9 +2070,9 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-http_agent" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       :ansible-option-versionadded:`added in middleware\_automation.keycloak 5.4.0`
 
@@ -1984,9 +2111,9 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-id" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
@@ -2020,13 +2147,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-implicit_flow_enabled" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: implicitFlowEnabled`
+        :ansible-option-aliases:`aliases: implicitFlowEnabled`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`boolean`
+        :ansible-option-type:`boolean`
 
       .. raw:: html
 
@@ -2066,9 +2191,9 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-name" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
@@ -2102,13 +2227,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-node_re_registration_timeout" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: nodeReRegistrationTimeout`
+        :ansible-option-aliases:`aliases: nodeReRegistrationTimeout`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`integer`
+        :ansible-option-type:`integer`
 
       .. raw:: html
 
@@ -2142,13 +2265,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-not_before" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: notBefore`
+        :ansible-option-aliases:`aliases: notBefore`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`integer`
+        :ansible-option-type:`integer`
 
       .. raw:: html
 
@@ -2182,13 +2303,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-optional_client_scopes" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: optionalClientScopes`
+        :ansible-option-aliases:`aliases: optionalClientScopes`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`list` / :ansible-option-elements:`elements=string`
+        :ansible-option-type:`list` / :ansible-option-elements:`elements=string`
 
       :ansible-option-versionadded:`added in middleware\_automation.keycloak 4.7.0`
 
@@ -2223,9 +2342,9 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-protocol" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
@@ -2267,13 +2386,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-protocol_mappers" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: protocolMappers`
+        :ansible-option-aliases:`aliases: protocolMappers`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`list` / :ansible-option-elements:`elements=dictionary`
+        :ansible-option-type:`list` / :ansible-option-elements:`elements=dictionary`
 
       .. raw:: html
 
@@ -2296,6 +2413,10 @@ Parameters
         <div class="ansibleOptionAnchor" id="parameter-protocol_mappers/config"></div>
         <div class="ansibleOptionAnchor" id="parameter-protocolMappers/config"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocol_mappers/config:
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocolmappers/config:
 
@@ -2307,13 +2428,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-protocol_mappers/config" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`dictionary`
+        :ansible-option-type:`dictionary`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -2332,6 +2457,10 @@ Parameters
         <div class="ansibleOptionAnchor" id="parameter-protocol_mappers/consentRequired"></div>
         <div class="ansibleOptionAnchor" id="parameter-protocolMappers/consentRequired"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocol_mappers/consentrequired:
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocolmappers/consentrequired:
 
@@ -2343,13 +2472,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-protocol_mappers/consentRequired" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`boolean`
+        :ansible-option-type:`boolean`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -2376,6 +2509,10 @@ Parameters
         <div class="ansibleOptionAnchor" id="parameter-protocol_mappers/consentText"></div>
         <div class="ansibleOptionAnchor" id="parameter-protocolMappers/consentText"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocol_mappers/consenttext:
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocolmappers/consenttext:
 
@@ -2387,13 +2524,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-protocol_mappers/consentText" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -2412,6 +2553,10 @@ Parameters
         <div class="ansibleOptionAnchor" id="parameter-protocol_mappers/id"></div>
         <div class="ansibleOptionAnchor" id="parameter-protocolMappers/id"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocol_mappers/id:
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocolmappers/id:
 
@@ -2423,13 +2568,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-protocol_mappers/id" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -2448,6 +2597,10 @@ Parameters
         <div class="ansibleOptionAnchor" id="parameter-protocol_mappers/name"></div>
         <div class="ansibleOptionAnchor" id="parameter-protocolMappers/name"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocol_mappers/name:
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocolmappers/name:
 
@@ -2459,13 +2612,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-protocol_mappers/name" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -2484,6 +2641,10 @@ Parameters
         <div class="ansibleOptionAnchor" id="parameter-protocol_mappers/protocol"></div>
         <div class="ansibleOptionAnchor" id="parameter-protocolMappers/protocol"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocol_mappers/protocol:
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocolmappers/protocol:
 
@@ -2495,13 +2656,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-protocol_mappers/protocol" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -2528,6 +2693,10 @@ Parameters
         <div class="ansibleOptionAnchor" id="parameter-protocol_mappers/protocolMapper"></div>
         <div class="ansibleOptionAnchor" id="parameter-protocolMappers/protocolMapper"></div>
 
+      .. raw:: latex
+
+        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
+
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocol_mappers/protocolmapper:
       .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocolmappers/protocolmapper:
 
@@ -2539,13 +2708,17 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-protocol_mappers/protocolMapper" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
         </div>
+
+      .. raw:: latex
+
+        \end{minipage}
 
     - .. raw:: html
 
@@ -2622,13 +2795,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-public_client" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: publicClient`
+        :ansible-option-aliases:`aliases: publicClient`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`boolean`
+        :ansible-option-type:`boolean`
 
       .. raw:: html
 
@@ -2668,9 +2839,9 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-realm" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
@@ -2708,13 +2879,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-redirect_uris" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: redirectUris`
+        :ansible-option-aliases:`aliases: redirectUris`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`list` / :ansible-option-elements:`elements=string`
+        :ansible-option-type:`list` / :ansible-option-elements:`elements=string`
 
       .. raw:: html
 
@@ -2748,13 +2917,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-registered_nodes" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: registeredNodes`
+        :ansible-option-aliases:`aliases: registeredNodes`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`dictionary`
+        :ansible-option-type:`dictionary`
 
       .. raw:: html
 
@@ -2788,13 +2955,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-registration_access_token" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: registrationAccessToken`
+        :ansible-option-aliases:`aliases: registrationAccessToken`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
@@ -2828,13 +2993,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-root_url" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: rootUrl`
+        :ansible-option-aliases:`aliases: rootUrl`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
@@ -2866,9 +3029,9 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-secret" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
@@ -2902,13 +3065,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-service_accounts_enabled" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: serviceAccountsEnabled`
+        :ansible-option-aliases:`aliases: serviceAccountsEnabled`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`boolean`
+        :ansible-option-type:`boolean`
 
       .. raw:: html
 
@@ -2950,13 +3111,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-standard_flow_enabled" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: standardFlowEnabled`
+        :ansible-option-aliases:`aliases: standardFlowEnabled`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`boolean`
+        :ansible-option-type:`boolean`
 
       .. raw:: html
 
@@ -2996,9 +3155,9 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-state" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
@@ -3044,13 +3203,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-surrogate_auth_required" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: surrogateAuthRequired`
+        :ansible-option-aliases:`aliases: surrogateAuthRequired`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`boolean`
+        :ansible-option-type:`boolean`
 
       .. raw:: html
 
@@ -3090,9 +3247,9 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-token" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       :ansible-option-versionadded:`added in middleware\_automation.keycloak 3.0.0`
 
@@ -3129,13 +3286,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-use_template_config" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: useTemplateConfig`
+        :ansible-option-aliases:`aliases: useTemplateConfig`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`boolean`
+        :ansible-option-type:`boolean`
 
       .. raw:: html
 
@@ -3177,13 +3332,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-use_template_mappers" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: useTemplateMappers`
+        :ansible-option-aliases:`aliases: useTemplateMappers`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`boolean`
+        :ansible-option-type:`boolean`
 
       .. raw:: html
 
@@ -3225,13 +3378,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-use_template_scope" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: useTemplateScope`
+        :ansible-option-aliases:`aliases: useTemplateScope`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`boolean`
+        :ansible-option-type:`boolean`
 
       .. raw:: html
 
@@ -3271,9 +3422,9 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-validate_certs" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`boolean`
+        :ansible-option-type:`boolean`
 
       .. raw:: html
 
@@ -3315,13 +3466,11 @@ Parameters
 
         <a class="ansibleOptionLink" href="#parameter-web_origins" title="Permalink to this option"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-aliases:`aliases: webOrigins`
+        :ansible-option-aliases:`aliases: webOrigins`
 
-      .. rst-class:: ansible-option-type-line
-
-      :ansible-option-type:`list` / :ansible-option-elements:`elements=string`
+        :ansible-option-type:`list` / :ansible-option-elements:`elements=string`
 
       .. raw:: html
 
@@ -3345,12 +3494,13 @@ Parameters
 Attributes
 ----------
 
-.. rst-class:: ansible-option-table
+.. tabularcolumns:: \X{2}{10}\X{3}{10}\X{5}{10}
 
 .. list-table::
   :width: 100%
   :widths: auto
   :header-rows: 1
+  :class: longtable ansible-option-table
 
   * - Attribute
     - Support
@@ -3591,12 +3741,13 @@ Return Values
 -------------
 Common return values are documented :ref:`here <common_return_values>`, the following are the fields unique to this module:
 
-.. rst-class:: ansible-option-table
+.. tabularcolumns:: \X{1}{3}\X{2}{3}
 
 .. list-table::
   :width: 100%
   :widths: auto
   :header-rows: 1
+  :class: longtable ansible-option-table
 
   * - Key
     - Description
@@ -3616,9 +3767,9 @@ Common return values are documented :ref:`here <common_return_values>`, the foll
 
         <a class="ansibleOptionLink" href="#return-end_state" title="Permalink to this return value"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`dictionary`
+        :ansible-option-type:`dictionary`
 
       .. raw:: html
 
@@ -3661,9 +3812,9 @@ Common return values are documented :ref:`here <common_return_values>`, the foll
 
         <a class="ansibleOptionLink" href="#return-existing" title="Permalink to this return value"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`dictionary`
+        :ansible-option-type:`dictionary`
 
       .. raw:: html
 
@@ -3706,9 +3857,9 @@ Common return values are documented :ref:`here <common_return_values>`, the foll
 
         <a class="ansibleOptionLink" href="#return-msg" title="Permalink to this return value"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`string`
+        :ansible-option-type:`string`
 
       .. raw:: html
 
@@ -3751,9 +3902,9 @@ Common return values are documented :ref:`here <common_return_values>`, the foll
 
         <a class="ansibleOptionLink" href="#return-proposed" title="Permalink to this return value"></a>
 
-      .. rst-class:: ansible-option-type-line
+      .. ansible-option-type-line::
 
-      :ansible-option-type:`dictionary`
+        :ansible-option-type:`dictionary`
 
       .. raw:: html
 

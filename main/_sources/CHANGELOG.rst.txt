@@ -6,8 +6,16 @@ middleware_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
-v1.3.0-devel
+v1.3.1-devel
 ============
+
+Minor Changes
+-------------
+
+- Update Keycloak to version 22.0.4 `#117 <https://github.com/ansible-middleware/keycloak/pull/117>`_
+
+v1.3.0
+======
 
 Major Changes
 -------------
@@ -24,7 +32,7 @@ Minor Changes
 Bugfixes
 --------
 
-- Fix validation failure upon port configuration change `#113 <https://github.com/ansible-middleware/keycloak/pull/113>`_
+- keycloak_quarkus: fix validation failure upon port configuration change `#113 <https://github.com/ansible-middleware/keycloak/pull/113>`_
 
 v1.2.8
 ======

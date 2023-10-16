@@ -16,17 +16,6 @@
       delegate_to: localhost
       changed_when: False
 
-    - name: Set /etc/hosts
-      ansible.builtin.lineinfile:
-        dest: /etc/hosts
-        line: "127.0.0.1 instance"
-        state: present
-      delegate_to: localhost
-      become: yes
-      when:
-        - hera_home is defined
-        - hera_home | length == 0
-
     - name: Create conf directory # risky-file-permissions in test user account does not exist yet
       ansible.builtin.file:
         state: directory

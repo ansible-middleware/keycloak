@@ -1,0 +1,49 @@
+---
+- name: Prepare
+  hosts: all
+  tasks:
+    - name: Install sudo
+      ansible.builtin.yum:
+        name: sudo
+        state: present
+
+    - name: "Display hera_home if defined."
+      ansible.builtin.set_fact:
+        hera_home: "{{ lookup('env', 'HERA_HOME') }}"
+
+- name: Prepare proxy
+  hosts: proxy
+  vars:
+    jbcs_mod_cluster_enable: True
+    jbcs_configure_firewalld: False
+    jbcs_offline_install: False
+    jbcs_bind_address: '*'
+    jbcs_proxy_pass:
+      - path: /
+        url: http://instance:8080/
+        reverse_path: /
+        reverse_url: http://instance:8080/
+    external_domain_name: proxy
+    rhn_username: "{{ lookup('env', 'REDHAT_PRODUCT_DOWNLOAD_CLIENT_ID') }}"
+    rhn_password: "{{ lookup('env', 'REDHAT_PRODUCT_DOWNLOAD_CLIENT_SECRET') }}"
+  roles:
+    - middleware_automation.jbcs.jbcs
+  pre_tasks:
+    - name: Create certificate request
+      ansible.builtin.command: openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 365 -nodes -subj '/CN=proxy'
+      delegate_to: localhost
+      changed_when: False
+
+    - name: Copy certificates
+      ansible.builtin.copy:
+        src: "{{ item.name }}"
+        dest: "{{ item.dest }}"
+        mode: 0444
+      become: True
+      loop:
+        - { name: 'cert.pem', dest: '/etc/pki/tls/certs/proxy.crt' }
+        - { name: 'key.pem', dest: '/etc/pki/tls/private/proxy.key' }
+
+    - name: update_ca_trust
+      command: update-ca-trust
+      become: True

@@ -1,8 +1,8 @@
 ---
 collections:
   - name: middleware_automation.common
+  - name: middleware_automation.jbcs
   - name: community.general
   - name: ansible.posix
   - name: community.docker
     version: ">=1.9.1"
-    

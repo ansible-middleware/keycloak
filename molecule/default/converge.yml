@@ -11,6 +11,7 @@
       - host: myhost2
         port: 16668
     keycloak_jboss_port_offset: 10
+    keycloak_log_target: /tmp/keycloak
   roles:
     - role: keycloak
   tasks:

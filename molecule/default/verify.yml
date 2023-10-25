@@ -56,3 +56,31 @@
       ansible.builtin.assert:
         that:
           - (keycloak_query_clients.json | selectattr('clientId','equalto','TestClient') | first)["attributes"]["post.logout.redirect.uris"] == '/public/logout'
+    - name: Check log folder
+      ansible.builtin.stat:
+        path: "/tmp/keycloak"
+      register: keycloak_log_folder
+    - name: Check that keycloak log folder exists and is a link
+      ansible.builtin.assert:
+        that:
+          - keycloak_log_folder.stat.exists
+          - not keycloak_log_folder.stat.isdir
+          - keycloak_log_folder.stat.islnk
+    - name: Check log file
+      ansible.builtin.stat:
+        path: "/tmp/keycloak/server.log"
+      register: keycloak_log_file
+    - name: Check if keycloak file exists
+      ansible.builtin.assert:
+        that:
+          - keycloak_log_file.stat.exists
+          - not keycloak_log_file.stat.isdir
+    - name: Check default log folder
+      ansible.builtin.stat:
+        path: "/var/log/keycloak"
+      register: keycloak_default_log_folder
+      failed_when: false
+    - name: Check that default keycloak log folder doesn't exist
+      ansible.builtin.assert:
+        that:
+          - not keycloak_default_log_folder.stat.exists

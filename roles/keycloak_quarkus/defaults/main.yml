@@ -90,3 +90,4 @@ keycloak_quarkus_log: file
 keycloak_quarkus_log_level: info
 keycloak_quarkus_log_file: data/log/keycloak.log
 keycloak_quarkus_log_format: '%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n'
+keycloak_quarkus_log_target: /var/log/keycloak

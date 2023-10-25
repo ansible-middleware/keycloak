@@ -568,7 +568,6 @@ EXAMPLES = '''
       realm: my-realm
       name: my-federation
       state: absent
-
 '''
 
 RETURN = '''

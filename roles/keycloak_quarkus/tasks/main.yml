@@ -67,6 +67,6 @@
   ansible.builtin.file:
     state: link
     src: "{{ keycloak.log.file | dirname }}"
-    dest: /var/log/keycloak
+    dest: "{{ keycloak_quarkus_log_target }}"
     force: yes
   become: yes

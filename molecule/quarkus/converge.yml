@@ -11,6 +11,7 @@
     keycloak_quarkus_https_enabled: True
     keycloak_quarkus_key_file: "{{ keycloak.home }}/conf/key.pem"
     keycloak_quarkus_cert_file: "{{ keycloak.home }}/conf/cert.pem"
+    keycloak_quarkus_log_target: /tmp/keycloak
   roles:
     - role: keycloak_quarkus
     - role: keycloak_realm

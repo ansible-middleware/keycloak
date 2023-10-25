@@ -243,6 +243,10 @@ argument_specs:
                 default: '%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n'
                 type: "str"
                 description: "Set a format specific to file log entries"
+            keycloak_quarkus_log_target:
+                default: '/var/log/keycloak'
+                type: "str"
+                description: "Set the destination of the keycloak log folder link"
             keycloak_quarkus_proxy_mode:
                 default: 'edge'
                 type: "str"

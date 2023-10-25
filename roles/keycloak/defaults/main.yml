@@ -114,3 +114,6 @@ keycloak_default_jdbc:
     version: 12.2.0
 # role specific vars
 keycloak_no_log: True
+
+### logging configuration
+keycloak_log_target: /var/log/keycloak

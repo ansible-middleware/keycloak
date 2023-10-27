@@ -70,13 +70,11 @@ argument_specs:
                 description: "Ensure firewalld is running and configure keycloak ports"
                 type: "bool"
             keycloak_quarkus_admin_user:
-                # line 22 of defaults/main.yml
                 default: "admin"
                 description: "Administration console user account"
                 type: "str"
             keycloak_quarkus_admin_pass:
-                # line 23 of defaults/main.yml
-                default: ""
+                required: true
                 description: "Password of console admin account"
                 type: "str"
             keycloak_quarkus_master_realm:
@@ -98,13 +96,13 @@ argument_specs:
                 description: "The port used by the proxy when exposing the hostname"
                 type: "int"
             keycloak_quarkus_path:
-                default: ""
+                required: false
                 description: "This should be set if proxy uses a different context-path for Keycloak"
                 type: "str"
             keycloak_quarkus_http_enabled:
                 default: true
                 description: "Enable listener on HTTP port"
-                type: "bool"                
+                type: "bool"
             keycloak_quarkus_http_port:
                 # line 29 of defaults/main.yml
                 default: 8080
@@ -153,16 +151,16 @@ argument_specs:
                 description: "Enable auto configuration for database backend"
                 type: "str"
             keycloak_quarkus_http_relative_path:
-                default: "auth"
+                required: false
                 description: "Service context path"
                 type: "str"
             keycloak_quarkus_frontend_url:
+                required: false
                 description: "Service public URL"
-                default: ""
                 type: "str"
             keycloak_quarkus_admin_url:
+                required: false
                 description: "Service URL for the admin console"
-                default: ""
                 type: "str"
             keycloak_quarkus_metrics_enabled:
                 # line 43 of defaults/main.yml

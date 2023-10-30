@@ -83,12 +83,12 @@ argument_specs:
                 type: "list"
             keycloak_url:
                 # line 14 of keycloak_realm/vars/main.yml
-                default: "http://{{ keycloak_host }}:{{ keycloak_http_port }}"
+                default: "http://{{ keycloak_host }}:{{ keycloak_http_port + ( keycloak_jboss_port_offset | default(0) ) }}"
                 description: "URL for configuration rest calls"
                 type: "str"
             keycloak_management_url:
                 # line 15 of keycloak_realm/vars/main.yml
-                default: "http://{{ keycloak_host }}:{{ keycloak_management_http_port }}"
+                default: "http://{{ keycloak_host }}:{{ keycloak_management_http_port + ( keycloak_jboss_port_offset | default(0) ) }}"
                 description: "URL for management console rest calls"
                 type: "str"
     downstream:

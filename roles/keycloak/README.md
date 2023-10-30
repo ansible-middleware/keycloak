@@ -104,14 +104,15 @@ Role Defaults
 |`keycloak_download_url_9x` | Download URL for keycloak (deprecated) | `https://downloads.jboss.org/keycloak/{{ keycloak_version }}/{{ keycloak_archive }}` |
 |`keycloak_installdir` | Installation path | `{{ keycloak_dest }}/keycloak-{{ keycloak_version }}` |
 |`keycloak_jboss_home` | Installation work directory | `{{ keycloak_rhsso_installdir }}` |
+|`keycloak_jboss_port_offset` | Port offset for the JBoss socket binding | `0` |
 |`keycloak_config_dir` | Path for configuration | `{{ keycloak_jboss_home }}/standalone/configuration` |
 |`keycloak_config_path_to_standalone_xml` | Custom path for configuration | `{{ keycloak_jboss_home }}/standalone/configuration/{{ keycloak_config_standalone_xml }}` |
 |`keycloak_config_override_template` | Path to custom template for standalone.xml configuration | `''` |
 |`keycloak_auth_realm` | Name for rest authentication realm | `master` |
 |`keycloak_auth_client` | Authentication client for configuration REST calls | `admin-cli` |
 |`keycloak_force_install` | Remove pre-existing versions of service | `False` |
-|`keycloak_url` | URL for configuration rest calls | `http://{{ keycloak_host }}:{{ keycloak_http_port }}` |
-|`keycloak_management_url` | URL for management console rest calls | `http://{{ keycloak_host }}:{{ keycloak_management_http_port }}` |
+|`keycloak_url` | URL for configuration rest calls | `http://{{ keycloak_host }}:{{ keycloak_http_port + keycloak_jboss_port_offset }}` |
+|`keycloak_management_url` | URL for management console rest calls | `http://{{ keycloak_host }}:{{ keycloak_management_http_port + keycloak_jboss_port_offset }}` |
 |`keycloak_frontend_url_force` | Force backend requests to use the frontend URL | `False` |
 |`keycloak_db_background_validation` | Enable background validation of database connection | `False` |
 |`keycloak_db_background_validation_millis`| How frequenly the connection pool is validated in the background | `10000` if background validation enabled |

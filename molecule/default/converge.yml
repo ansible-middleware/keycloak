@@ -10,6 +10,7 @@
         port: 16667
       - host: myhost2
         port: 16668
+    keycloak_jboss_port_offset: 10
   roles:
     - role: keycloak
   tasks:

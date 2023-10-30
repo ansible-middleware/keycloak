@@ -674,7 +674,7 @@
             <inet-address value="{{ keycloak_bind_address }}"/>
         </interface>
     </interfaces>
-    <socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">
+    <socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:{{ keycloak_jboss_port_offset }}}">
         <socket-binding name="ajp" port="{{ keycloak_ajp_port }}"/>
         <socket-binding name="http" port="{{ keycloak_http_port }}"/>
         <socket-binding name="https" port="{{ keycloak_https_port }}"/>

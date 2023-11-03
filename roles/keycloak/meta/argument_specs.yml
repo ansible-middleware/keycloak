@@ -356,6 +356,10 @@ argument_specs:
                 required: False
                 description: "Override the subnet match for jgroups cluster formation; if not defined, it will be inferred from local machine route configuration"
                 type: "str"
+            keycloak_log_target:
+                default: '/var/log/keycloak'
+                type: "str"
+                description: "Set the destination of the keycloak log folder link"
     downstream:
         options:
             sso_version:

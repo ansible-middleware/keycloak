@@ -97,6 +97,7 @@ Role Defaults
 |`keycloak_quarkus_log_level`| The log level of the root category or a comma-separated list of individual categories and their levels | `info` |
 |`keycloak_quarkus_log_file`| Set the log file path and filename relative to keycloak home | `data/log/keycloak.log` |
 |`keycloak_quarkus_log_format`| Set a format specific to file log entries | `%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n` |
+|`keycloak_quarkus_log_target`| Set the destination of the keycloak log folder link | `/var/log/keycloak` |
 |`keycloak_quarkus_proxy_mode`| The proxy address forwarding mode if the server is behind a reverse proxy | `edge` |
 |`keycloak_quarkus_start_dev`| Whether to start the service in development mode (start-dev) | `False` |
 |`keycloak_quarkus_transaction_xa_enabled`| Whether to use XA transactions | `True` |

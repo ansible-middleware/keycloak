@@ -117,7 +117,7 @@ Role Defaults
 |`keycloak_db_background_validation_millis`| How frequenly the connection pool is validated in the background | `10000` if background validation enabled |
 |`keycloak_db_background_validate_on_match` | Enable validate on match for database connections | `False` |
 |`keycloak_frontend_url` | frontend URL for keycloak endpoint | `http://localhost:8080/auth/` |
-
+|`keycloak_log_target`| Set the destination of the keycloak log folder link | `/var/log/keycloak` |
 
 
 Role Variables

@@ -34,7 +34,7 @@
   ansible.builtin.file:
     state: link
     src: "{{ keycloak_jboss_home }}/standalone/log"
-    dest: /var/log/keycloak
+    dest: "{{ keycloak_log_target }}"
   become: yes
 
 - name: Set admin credentials and restart if not already created

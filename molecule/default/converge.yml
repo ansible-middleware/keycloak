@@ -10,6 +10,7 @@
         port: 16667
       - host: myhost2
         port: 16668
+    keycloak_log_target: /tmp/keycloak
   roles:
     - role: keycloak
   tasks:

@@ -13,6 +13,7 @@ Minor Changes
 -------------
 
 - Update Keycloak to version 22.0.4 `#117 <https://github.com/ansible-middleware/keycloak/pull/117>`_
+- Update Keycloak to version 22.0.5 `#122 <https://github.com/ansible-middleware/keycloak/pull/122>`_
 
 v1.3.0
 ======

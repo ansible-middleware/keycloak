@@ -12,7 +12,6 @@
         port: 16668
     keycloak_jboss_port_offset: 10
     keycloak_log_target: /tmp/keycloak
-    keycloak_jboss_port_offset: 10
   roles:
     - role: keycloak
   tasks:

@@ -4,8 +4,9 @@
   vars:
     keycloak_admin_password: "remembertochangeme"
     keycloak_jvm_package: java-11-openjdk-headless
-    keycloak_uri: http://localhost:8080
-    keycloak_management_port: http://localhost:9990
+    keycloak_uri: "http://localhost:{{ 8080 + ( keycloak_jboss_port_offset | default(0) ) }}"
+    keycloak_management_port: "http://localhost:{{ 9990 + ( keycloak_jboss_port_offset | default(0) ) }}"
+    keycloak_jboss_port_offset: 10
   tasks:
     - name: Populate service facts
       ansible.builtin.service_facts:

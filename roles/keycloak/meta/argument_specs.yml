@@ -54,6 +54,10 @@ argument_specs:
                 default: "{{ keycloak_installdir }}"
                 description: "Installation work directory"
                 type: "str"
+            keycloak_jboss_port_offset:
+                default: 0
+                description: "Port offset for the JBoss socket binding"
+                type: "int"
             keycloak_config_dir:
                 # line 26 of keycloak/defaults/main.yml
                 default: "{{ keycloak_jboss_home }}/standalone/configuration"
@@ -280,12 +284,12 @@ argument_specs:
                 type: "str"
             keycloak_url:
                 # line 12 of keycloak/vars/main.yml
-                default: "http://{{ keycloak_host }}:{{ keycloak_http_port }}"
+                default: "http://{{ keycloak_host }}:{{ keycloak_http_port + keycloak_jboss_port_offset }}"
                 description: "URL for configuration rest calls"
                 type: "str"
             keycloak_management_url:
                 # line 13 of keycloak/vars/main.yml
-                default: "http://{{ keycloak_host }}:{{ keycloak_management_http_port }}"
+                default: "http://{{ keycloak_host }}:{{ keycloak_management_http_port + keycloak_jboss_port_offset }}"
                 description: "URL for management console rest calls"
                 type: "str"
             keycloak_service_name:

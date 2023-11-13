@@ -7,7 +7,7 @@
     keycloak_realm: TestRealm
     keycloak_quarkus_host: instance
     keycloak_quarkus_log: file
-    keycloak_quarkus_https_enabled: True
+    keycloak_quarkus_https_key_file_enabled: True
     keycloak_quarkus_key_file: "{{ keycloak.home }}/conf/key.pem"
     keycloak_quarkus_cert_file: "{{ keycloak.home }}/conf/cert.pem"
     keycloak_quarkus_log_target: /tmp/keycloak

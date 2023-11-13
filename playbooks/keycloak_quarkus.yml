@@ -7,7 +7,7 @@
     keycloak_quarkus_port: 8443
     keycloak_quarkus_http_relative_path: ''
     keycloak_quarkus_log: file
-    keycloak_quarkus_https_enabled: True
+    keycloak_quarkus_https_key_file_enabled: True
     keycloak_quarkus_key_file: conf/key.pem
     keycloak_quarkus_cert_file: conf/cert.pem
   roles:

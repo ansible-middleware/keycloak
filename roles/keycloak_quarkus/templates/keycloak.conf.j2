@@ -19,9 +19,17 @@ http-relative-path={{ keycloak_quarkus_http_relative_path }}
 
 # HTTPS
 https-port={{ keycloak_quarkus_https_port }}
-{% if keycloak_quarkus_https_enabled %}
+{% if keycloak_quarkus_https_key_file_enabled %}
 https-certificate-file={{ keycloak_quarkus_cert_file}}
 https-certificate-key-file={{ keycloak_quarkus_key_file }}
+{% endif %}
+{% if keycloak_quarkus_https_key_store_enabled %}
+https-key-store-file={{ keycloak_quarkus_key_store_file }}
+https-key-store-password={{ keycloak_quarkus_key_store_password }}
+{% endif %}
+{% if keycloak_quarkus_https_trust_store_enabled %}
+https-trust-store-file={{ keycloak_quarkus_trust_store_file }}
+https-trust-store-password={{ keycloak_quarkus_trust_store_password }}
 {% endif %}
 
 # Client URL configuration

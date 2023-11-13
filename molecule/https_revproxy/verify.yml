@@ -11,29 +11,23 @@
           - ansible_facts.services["keycloak.service"]["state"] == "running"
           - ansible_facts.services["keycloak.service"]["status"] == "enabled"
 
-    - name: Set internal envvar
-      ansible.builtin.set_fact:
-        hera_home: "{{ lookup('env', 'HERA_HOME') }}"
-
     - name: Verify openid config
+      run_once: True
       block:
         - name: Fetch openID config # noqa blocked_modules command-instead-of-module
-          ansible.builtin.shell: |
-            set -o pipefail
-            curl https://localhost:443/realms/master/.well-known/openid-configuration -H "Host: proxy" -k -s | jq .
-          args:
-            executable: /bin/bash
+          ansible.builtin.uri:
+            url: https://localhost:443/realms/master/.well-known/openid-configuration
+            validate_certs: false
+            headers:
+              Host: proxy
           register: openid_config
           changed_when: False
           delegate_to: localhost
         - name: Verify endpoint URLs
           ansible.builtin.assert:
             that:
-              - (openid_config.stdout | from_json)["backchannel_authentication_endpoint"] == 'https://proxy/realms/master/protocol/openid-connect/ext/ciba/auth'
-              - (openid_config.stdout | from_json)['issuer'] == 'https://proxy/realms/master'
-              - (openid_config.stdout | from_json)['authorization_endpoint'] == 'https://proxy/realms/master/protocol/openid-connect/auth'
-              - (openid_config.stdout | from_json)['token_endpoint'] == 'https://proxy/realms/master/protocol/openid-connect/token'
+              - openid_config.json["backchannel_authentication_endpoint"] == 'https://proxy/realms/master/protocol/openid-connect/ext/ciba/auth'
+              - openid_config.json['issuer'] == 'https://proxy/realms/master'
+              - openid_config.json['authorization_endpoint'] == 'https://proxy/realms/master/protocol/openid-connect/auth'
+              - openid_config.json['token_endpoint'] == 'https://proxy/realms/master/protocol/openid-connect/token'
           delegate_to: localhost
-      when:
-        - hera_home is defined
-        - hera_home | length == 0

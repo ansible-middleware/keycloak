@@ -225,7 +225,7 @@
 <td class="text-left"><p>Enable listener on HTTP port</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_https_enabled</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_https_key_file_enabled</span></code></p></td>
 <td class="text-left"><p>Enable listener on HTTPS port</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
@@ -236,6 +236,30 @@
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_cert_file</span></code></p></td>
 <td class="text-left"><p>The file path to a server certificate or certificate chain in PEM format</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">keycloak.home</span> <span class="pre">}}/conf/server.crt.pem</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_https_key_store_enabled</span></code></p></td>
+<td class="text-left"><p>Enable configuration of HTTPS via a key store</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_key_store_file</span></code></p></td>
+<td class="text-left"><p>The file pat to the key store</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">keycloak.home</span> <span class="pre">}}/conf/key_store.p12</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_key_store_password</span></code></p></td>
+<td class="text-left"><p>Password for the key store</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_https_trust_store_enabled</span></code></p></td>
+<td class="text-left"><p>Enalbe confiugration of a trust store</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_trust_store_file</span></code></p></td>
+<td class="text-left"><p>The file pat to the trust store</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">keycloak.home</span> <span class="pre">}}/conf/trust_store.p12</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_trust_store_password</span></code></p></td>
+<td class="text-left"><p>Password for the trust store</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p></td>
 </tr>
 </tbody>
 </table>

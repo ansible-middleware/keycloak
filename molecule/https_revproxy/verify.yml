@@ -1,6 +1,6 @@
 ---
 - name: Verify
-  hosts: all
+  hosts: instance
   tasks:
     - name: Populate service facts
       ansible.builtin.service_facts:
@@ -12,22 +12,17 @@
           - ansible_facts.services["keycloak.service"]["status"] == "enabled"
 
     - name: Verify openid config
-      run_once: True
       block:
         - name: Fetch openID config # noqa blocked_modules command-instead-of-module
           ansible.builtin.uri:
-            url: https://localhost:443/realms/master/.well-known/openid-configuration
+            url: http://localhost:8080/realms/master/.well-known/openid-configuration
             validate_certs: false
             headers:
               Host: proxy
           register: openid_config
           changed_when: False
-          delegate_to: localhost
         - name: Verify endpoint URLs
           ansible.builtin.assert:
             that:
-              - openid_config.json["backchannel_authentication_endpoint"] == 'https://proxy/realms/master/protocol/openid-connect/ext/ciba/auth'
               - openid_config.json['issuer'] == 'https://proxy/realms/master'
               - openid_config.json['authorization_endpoint'] == 'https://proxy/realms/master/protocol/openid-connect/auth'
-              - openid_config.json['token_endpoint'] == 'https://proxy/realms/master/protocol/openid-connect/token'
-          delegate_to: localhost

@@ -152,7 +152,8 @@ argument_specs:
                 type: "str"
             keycloak_quarkus_http_relative_path:
                 required: false
-                description: "Service context path"
+                default: /
+                description: "Set the path relative to / for serving resources. The path must start with a /"
                 type: "str"
             keycloak_quarkus_frontend_url:
                 required: false

@@ -37,7 +37,7 @@ Role Defaults
 |`keycloak_quarkus_java_opts`| Additional JVM options | `-Xms1024m -Xmx2048m` |
 |`keycloak_quarkus_frontend_url`| Set the base URL for frontend URLs, including scheme, host, port and path | |
 |`keycloak_quarkus_admin_url`| Set the base URL for accessing the administration console, including scheme, host, port and path | |
-|`keycloak_quarkus_http_relative_path` | Service context path | |
+|`keycloak_quarkus_http_relative_path` | Set the path relative to / for serving resources. The path must start with a / | `/` |
 |`keycloak_quarkus_http_enabled`| Enable listener on HTTP port | `True` |
 |`keycloak_quarkus_https_enabled`| Enable listener on HTTPS port | `False` |
 |`keycloak_quarkus_key_file`| The file path to a private key in PEM format | `{{ keycloak.home }}/conf/server.key.pem` |

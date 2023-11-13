@@ -20,7 +20,7 @@
         - name: Fetch openID config # noqa blocked_modules command-instead-of-module
           ansible.builtin.shell: |
             set -o pipefail
-            curl https://localhost:443/realms/master/.well-known/openid-configuration -H "Host: proxy" -k | jq .
+            curl https://localhost:443/realms/master/.well-known/openid-configuration -H "Host: proxy" -k -s | jq .
           args:
             executable: /bin/bash
           register: openid_config

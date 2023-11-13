@@ -67,3425 +67,1328 @@ Synopsis
 Parameters
 ----------
 
-.. tabularcolumns:: \X{1}{3}\X{2}{3}
+.. raw:: html
+
+  <table class="colwidths-auto ansible-option-table docutils align-default" style="width: 100%">
+  <thead>
+  <tr class="row-odd">
+    <th class="head"><p>Parameter</p></th>
+    <th class="head"><p>Comments</p></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-admin_url"></div>
+      <div class="ansibleOptionAnchor" id="parameter-adminUrl"></div>
+      <p class="ansible-option-title"><strong>admin_url</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-admin_url" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: adminUrl</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>URL to the admin interface of the client. This is &#x27;adminUrl&#x27; in the Keycloak REST API.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-always_display_in_console"></div>
+      <div class="ansibleOptionAnchor" id="parameter-alwaysDisplayInConsole"></div>
+      <p class="ansible-option-title"><strong>always_display_in_console</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-always_display_in_console" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: alwaysDisplayInConsole</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 4.7.0</em></p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Whether or not to display this client in account console, even if the user does not have an active session.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-attributes"></div>
+      <p class="ansible-option-title"><strong>attributes</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-attributes" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">dictionary</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>A dict of further attributes for this client. This can contain various configuration settings; an example is given in the examples section. While an exhaustive list of permissible options is not available; possible options as of Keycloak 3.4 are listed below. The Keycloak API does not validate whether a given option is appropriate for the protocol used; if specified anyway, Keycloak will simply not use it.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-attributes/jwks.url"></div>
+      <p class="ansible-option-title"><strong>jwks.url</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-attributes/jwks.url" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>For OpenID-Connect clients, URL where client keys in JWK are stored.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-attributes/jwt.credential.certificate"></div>
+      <p class="ansible-option-title"><strong>jwt.credential.certificate</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-attributes/jwt.credential.certificate" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>For OpenID-Connect clients, client certificate for validating JWT issued by client and signed by its key, base64-encoded.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-attributes/request.object.signature.alg"></div>
+      <p class="ansible-option-title"><strong>request.object.signature.alg</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-attributes/request.object.signature.alg" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>For OpenID-Connect clients, JWA algorithm which the client needs to use when sending OIDC request object. One of <code class='docutils literal notranslate'>any</code>, <code class='docutils literal notranslate'>none</code>, <code class='docutils literal notranslate'>RS256</code>.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-attributes/saml.authnstatement"></div>
+      <p class="ansible-option-title"><strong>saml.authnstatement</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-attributes/saml.authnstatement" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>For SAML clients, boolean specifying whether or not a statement containing method and timestamp should be included in the login response.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-attributes/saml.client.signature"></div>
+      <p class="ansible-option-title"><strong>saml.client.signature</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-attributes/saml.client.signature" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>For SAML clients, boolean specifying whether a client signature is required and validated.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-attributes/saml.encrypt"></div>
+      <p class="ansible-option-title"><strong>saml.encrypt</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-attributes/saml.encrypt" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>Boolean specifying whether SAML assertions should be encrypted with the client&#x27;s public key.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-attributes/saml.force.post.binding"></div>
+      <p class="ansible-option-title"><strong>saml.force.post.binding</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-attributes/saml.force.post.binding" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>For SAML clients, boolean specifying whether always to use POST binding for responses.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-attributes/saml.onetimeuse.condition"></div>
+      <p class="ansible-option-title"><strong>saml.onetimeuse.condition</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-attributes/saml.onetimeuse.condition" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>For SAML clients, boolean specifying whether a OneTimeUse condition should be included in login responses.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-attributes/saml.server.signature"></div>
+      <p class="ansible-option-title"><strong>saml.server.signature</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-attributes/saml.server.signature" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>Boolean specifying whether SAML documents should be signed by the realm.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-attributes/saml.server.signature.keyinfo.ext"></div>
+      <p class="ansible-option-title"><strong>saml.server.signature.keyinfo.ext</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-attributes/saml.server.signature.keyinfo.ext" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>For SAML clients, boolean specifying whether REDIRECT signing key lookup should be optimized through inclusion of the signing key id in the SAML Extensions element.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-attributes/saml.signature.algorithm"></div>
+      <p class="ansible-option-title"><strong>saml.signature.algorithm</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-attributes/saml.signature.algorithm" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>Signature algorithm used to sign SAML documents. One of <code class='docutils literal notranslate'>RSA_SHA256</code>, <code class='docutils literal notranslate'>RSA_SHA1</code>, <code class='docutils literal notranslate'>RSA_SHA512</code>, or <code class='docutils literal notranslate'>DSA_SHA1</code>.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-attributes/saml.signing.certificate"></div>
+      <p class="ansible-option-title"><strong>saml.signing.certificate</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-attributes/saml.signing.certificate" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>SAML signing key certificate, base64-encoded.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-attributes/saml.signing.private.key"></div>
+      <p class="ansible-option-title"><strong>saml.signing.private.key</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-attributes/saml.signing.private.key" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>SAML signing key private key, base64-encoded.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-attributes/saml_assertion_consumer_url_post"></div>
+      <p class="ansible-option-title"><strong>saml_assertion_consumer_url_post</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-attributes/saml_assertion_consumer_url_post" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>SAML POST Binding URL for the client&#x27;s assertion consumer service (login responses).</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-attributes/saml_assertion_consumer_url_redirect"></div>
+      <p class="ansible-option-title"><strong>saml_assertion_consumer_url_redirect</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-attributes/saml_assertion_consumer_url_redirect" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>SAML Redirect Binding URL for the client&#x27;s assertion consumer service (login responses).</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-attributes/saml_force_name_id_format"></div>
+      <p class="ansible-option-title"><strong>saml_force_name_id_format</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-attributes/saml_force_name_id_format" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>For SAML clients, Boolean specifying whether to ignore requested NameID subject format and using the configured one instead.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-attributes/saml_name_id_format"></div>
+      <p class="ansible-option-title"><strong>saml_name_id_format</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-attributes/saml_name_id_format" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>For SAML clients, the NameID format to use (one of <code class='docutils literal notranslate'>username</code>, <code class='docutils literal notranslate'>email</code>, <code class='docutils literal notranslate'>transient</code>, or <code class='docutils literal notranslate'>persistent</code>)</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-attributes/saml_signature_canonicalization_method"></div>
+      <p class="ansible-option-title"><strong>saml_signature_canonicalization_method</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-attributes/saml_signature_canonicalization_method" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>SAML signature canonicalization method. This is one of four values, namely <code class='docutils literal notranslate'>http://www.w3.org/2001/10/xml-exc-c14n#</code> for EXCLUSIVE, <code class='docutils literal notranslate'>http://www.w3.org/2001/10/xml-exc-c14n#WithComments</code> for EXCLUSIVE_WITH_COMMENTS, <code class='docutils literal notranslate'>http://www.w3.org/TR/2001/REC-xml-c14n-20010315</code> for INCLUSIVE, and <code class='docutils literal notranslate'>http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments</code> for INCLUSIVE_WITH_COMMENTS.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-attributes/saml_single_logout_service_url_post"></div>
+      <p class="ansible-option-title"><strong>saml_single_logout_service_url_post</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-attributes/saml_single_logout_service_url_post" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>SAML POST binding url for the client&#x27;s single logout service.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-attributes/saml_single_logout_service_url_redirect"></div>
+      <p class="ansible-option-title"><strong>saml_single_logout_service_url_redirect</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-attributes/saml_single_logout_service_url_redirect" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>SAML redirect binding url for the client&#x27;s single logout service.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-attributes/use.jwks.url"></div>
+      <p class="ansible-option-title"><strong>use.jwks.url</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-attributes/use.jwks.url" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>For OpenID-Connect clients, boolean specifying whether to use a JWKS URL to obtain client public keys.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-attributes/user.info.response.signature.alg"></div>
+      <p class="ansible-option-title"><strong>user.info.response.signature.alg</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-attributes/user.info.response.signature.alg" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>For OpenID-Connect clients, JWA algorithm for signed UserInfo-endpoint responses. One of <code class='docutils literal notranslate'>RS256</code> or <code class='docutils literal notranslate'>unsigned</code>.</p>
+    </div></td>
+  </tr>
+
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-auth_client_id"></div>
+      <p class="ansible-option-title"><strong>auth_client_id</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-auth_client_id" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>OpenID Connect <em>client_id</em> to authenticate to the API with.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;admin-cli&#34;</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-auth_client_secret"></div>
+      <p class="ansible-option-title"><strong>auth_client_secret</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-auth_client_secret" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Client Secret to use in conjunction with <em>auth_client_id</em> (if required).</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-auth_keycloak_url"></div>
+      <div class="ansibleOptionAnchor" id="parameter-url"></div>
+      <p class="ansible-option-title"><strong>auth_keycloak_url</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-auth_keycloak_url" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: url</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+        / <span class="ansible-option-required">required</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>URL to the Keycloak instance.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-auth_password"></div>
+      <div class="ansibleOptionAnchor" id="parameter-password"></div>
+      <p class="ansible-option-title"><strong>auth_password</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-auth_password" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: password</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Password to authenticate for API access with.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-auth_realm"></div>
+      <p class="ansible-option-title"><strong>auth_realm</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-auth_realm" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Keycloak realm name to authenticate to for API access.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-auth_username"></div>
+      <div class="ansibleOptionAnchor" id="parameter-username"></div>
+      <p class="ansible-option-title"><strong>auth_username</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-auth_username" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: username</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Username to authenticate for API access with.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-authentication_flow_binding_overrides"></div>
+      <div class="ansibleOptionAnchor" id="parameter-authenticationFlowBindingOverrides"></div>
+      <p class="ansible-option-title"><strong>authentication_flow_binding_overrides</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-authentication_flow_binding_overrides" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: authenticationFlowBindingOverrides</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">dictionary</span>
+      </p>
+      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 3.4.0</em></p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Override realm authentication flow bindings.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-authorization_services_enabled"></div>
+      <div class="ansibleOptionAnchor" id="parameter-authorizationServicesEnabled"></div>
+      <p class="ansible-option-title"><strong>authorization_services_enabled</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-authorization_services_enabled" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: authorizationServicesEnabled</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Are authorization services enabled for this client or not (OpenID connect). This is &#x27;authorizationServicesEnabled&#x27; in the Keycloak REST API.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-authorization_settings"></div>
+      <div class="ansibleOptionAnchor" id="parameter-authorizationSettings"></div>
+      <p class="ansible-option-title"><strong>authorization_settings</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-authorization_settings" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: authorizationSettings</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">dictionary</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>a data structure defining the authorization settings for this client. For reference, please see the Keycloak API docs at <a href='https://www.keycloak.org/docs-api/8.0/rest-api/index.html#_resourceserverrepresentation'>https://www.keycloak.org/docs-api/8.0/rest-api/index.html#_resourceserverrepresentation</a>. This is &#x27;authorizationSettings&#x27; in the Keycloak REST API.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-base_url"></div>
+      <div class="ansibleOptionAnchor" id="parameter-baseUrl"></div>
+      <p class="ansible-option-title"><strong>base_url</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-base_url" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: baseUrl</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Default URL to use when the auth server needs to redirect or link back to the client This is &#x27;baseUrl&#x27; in the Keycloak REST API.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-bearer_only"></div>
+      <div class="ansibleOptionAnchor" id="parameter-bearerOnly"></div>
+      <p class="ansible-option-title"><strong>bearer_only</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-bearer_only" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: bearerOnly</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>The access type of this client is bearer-only. This is &#x27;bearerOnly&#x27; in the Keycloak REST API.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-client_authenticator_type"></div>
+      <div class="ansibleOptionAnchor" id="parameter-clientAuthenticatorType"></div>
+      <p class="ansible-option-title"><strong>client_authenticator_type</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-client_authenticator_type" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: clientAuthenticatorType</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>How do clients authenticate with the auth server? Either <code class='docutils literal notranslate'>client-secret</code> or <code class='docutils literal notranslate'>client-jwt</code> can be chosen. When using <code class='docutils literal notranslate'>client-secret</code>, the module parameter <em>secret</em> can set it, while for <code class='docutils literal notranslate'>client-jwt</code>, you can use the keys <code class='docutils literal notranslate'>use.jwks.url</code>, <code class='docutils literal notranslate'>jwks.url</code>, and <code class='docutils literal notranslate'>jwt.credential.certificate</code> in the <em>attributes</em> module parameter to configure its behavior. This is &#x27;clientAuthenticatorType&#x27; in the Keycloak REST API.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;client-secret&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;client-jwt&#34;</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-client_id"></div>
+      <div class="ansibleOptionAnchor" id="parameter-clientId"></div>
+      <p class="ansible-option-title"><strong>client_id</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-client_id" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: clientId</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Client id of client to be worked on. This is usually an alphanumeric name chosen by you. Either this or <em>id</em> is required. If you specify both, <em>id</em> takes precedence. This is &#x27;clientId&#x27; in the Keycloak REST API.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-client_template"></div>
+      <div class="ansibleOptionAnchor" id="parameter-clientTemplate"></div>
+      <p class="ansible-option-title"><strong>client_template</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-client_template" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: clientTemplate</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Client template to use for this client. If it does not exist this field will silently be dropped. This is &#x27;clientTemplate&#x27; in the Keycloak REST API.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-connection_timeout"></div>
+      <p class="ansible-option-title"><strong>connection_timeout</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-connection_timeout" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">integer</span>
+      </p>
+      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 4.5.0</em></p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Controls the HTTP connections timeout period (in seconds) to Keycloak API.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">10</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-consent_required"></div>
+      <div class="ansibleOptionAnchor" id="parameter-consentRequired"></div>
+      <p class="ansible-option-title"><strong>consent_required</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-consent_required" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: consentRequired</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>If enabled, users have to consent to client access. This is &#x27;consentRequired&#x27; in the Keycloak REST API.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-default_client_scopes"></div>
+      <div class="ansibleOptionAnchor" id="parameter-defaultClientScopes"></div>
+      <p class="ansible-option-title"><strong>default_client_scopes</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-default_client_scopes" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: defaultClientScopes</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">list</span>
+        / <span class="ansible-option-elements">elements=string</span>
+      </p>
+      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 4.7.0</em></p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>List of default client scopes.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-default_roles"></div>
+      <div class="ansibleOptionAnchor" id="parameter-defaultRoles"></div>
+      <p class="ansible-option-title"><strong>default_roles</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-default_roles" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: defaultRoles</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">list</span>
+        / <span class="ansible-option-elements">elements=string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>list of default roles for this client. If the client roles referenced do not exist yet, they will be created. This is &#x27;defaultRoles&#x27; in the Keycloak REST API.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-description"></div>
+      <p class="ansible-option-title"><strong>description</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-description" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Description of the client in Keycloak.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-direct_access_grants_enabled"></div>
+      <div class="ansibleOptionAnchor" id="parameter-directAccessGrantsEnabled"></div>
+      <p class="ansible-option-title"><strong>direct_access_grants_enabled</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-direct_access_grants_enabled" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: directAccessGrantsEnabled</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Are direct access grants enabled for this client or not (OpenID connect). This is &#x27;directAccessGrantsEnabled&#x27; in the Keycloak REST API.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-enabled"></div>
+      <p class="ansible-option-title"><strong>enabled</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-enabled" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Is this client enabled or not?</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-frontchannel_logout"></div>
+      <div class="ansibleOptionAnchor" id="parameter-frontchannelLogout"></div>
+      <p class="ansible-option-title"><strong>frontchannel_logout</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-frontchannel_logout" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: frontchannelLogout</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Is frontchannel logout enabled for this client or not. This is &#x27;frontchannelLogout&#x27; in the Keycloak REST API.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-full_scope_allowed"></div>
+      <div class="ansibleOptionAnchor" id="parameter-fullScopeAllowed"></div>
+      <p class="ansible-option-title"><strong>full_scope_allowed</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-full_scope_allowed" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: fullScopeAllowed</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Is the "Full Scope Allowed" feature set for this client or not. This is &#x27;fullScopeAllowed&#x27; in the Keycloak REST API.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-http_agent"></div>
+      <p class="ansible-option-title"><strong>http_agent</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-http_agent" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 5.4.0</em></p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Configures the HTTP User-Agent header.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;Ansible&#34;</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-id"></div>
+      <p class="ansible-option-title"><strong>id</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-id" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Id of client to be worked on. This is usually an UUID. Either this or <em>client_id</em> is required. If you specify both, this takes precedence.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-implicit_flow_enabled"></div>
+      <div class="ansibleOptionAnchor" id="parameter-implicitFlowEnabled"></div>
+      <p class="ansible-option-title"><strong>implicit_flow_enabled</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-implicit_flow_enabled" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: implicitFlowEnabled</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Enable implicit flow for this client or not (OpenID connect). This is &#x27;implicitFlowEnabled&#x27; in the Keycloak REST API.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-name"></div>
+      <p class="ansible-option-title"><strong>name</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-name" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Name of the client (this is not the same as <em>client_id</em>).</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-node_re_registration_timeout"></div>
+      <div class="ansibleOptionAnchor" id="parameter-nodeReRegistrationTimeout"></div>
+      <p class="ansible-option-title"><strong>node_re_registration_timeout</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-node_re_registration_timeout" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: nodeReRegistrationTimeout</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">integer</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Cluster node re-registration timeout for this client. This is &#x27;nodeReRegistrationTimeout&#x27; in the Keycloak REST API.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-not_before"></div>
+      <div class="ansibleOptionAnchor" id="parameter-notBefore"></div>
+      <p class="ansible-option-title"><strong>not_before</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-not_before" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: notBefore</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">integer</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Revoke any tokens issued before this date for this client (this is a UNIX timestamp). This is &#x27;notBefore&#x27; in the Keycloak REST API.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-optional_client_scopes"></div>
+      <div class="ansibleOptionAnchor" id="parameter-optionalClientScopes"></div>
+      <p class="ansible-option-title"><strong>optional_client_scopes</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-optional_client_scopes" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: optionalClientScopes</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">list</span>
+        / <span class="ansible-option-elements">elements=string</span>
+      </p>
+      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 4.7.0</em></p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>List of optional client scopes.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-protocol"></div>
+      <p class="ansible-option-title"><strong>protocol</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-protocol" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Type of client (either <code class='docutils literal notranslate'>openid-connect</code> or <code class='docutils literal notranslate'>saml</code>.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;openid-connect&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;saml&#34;</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-protocol_mappers"></div>
+      <div class="ansibleOptionAnchor" id="parameter-protocolMappers"></div>
+      <p class="ansible-option-title"><strong>protocol_mappers</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-protocol_mappers" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: protocolMappers</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">list</span>
+        / <span class="ansible-option-elements">elements=dictionary</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>a list of dicts defining protocol mappers for this client. This is &#x27;protocolMappers&#x27; in the Keycloak REST API.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-protocol_mappers/config"></div>
+      <div class="ansibleOptionAnchor" id="parameter-protocolMappers/config"></div>
+      <p class="ansible-option-title"><strong>config</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-protocol_mappers/config" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">dictionary</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>Dict specifying the configuration options for the protocol mapper; the contents differ depending on the value of <em>protocolMapper</em> and are not documented other than by the source of the mappers and its parent class(es). An example is given below. It is easiest to obtain valid config values by dumping an already-existing protocol mapper configuration through check-mode in the <em>existing</em> field.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-protocol_mappers/consentRequired"></div>
+      <div class="ansibleOptionAnchor" id="parameter-protocolMappers/consentRequired"></div>
+      <p class="ansible-option-title"><strong>consentRequired</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-protocol_mappers/consentRequired" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>Specifies whether a user needs to provide consent to a client for this mapper to be active.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-protocol_mappers/consentText"></div>
+      <div class="ansibleOptionAnchor" id="parameter-protocolMappers/consentText"></div>
+      <p class="ansible-option-title"><strong>consentText</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-protocol_mappers/consentText" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>The human-readable name of the consent the user is presented to accept.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-protocol_mappers/id"></div>
+      <div class="ansibleOptionAnchor" id="parameter-protocolMappers/id"></div>
+      <p class="ansible-option-title"><strong>id</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-protocol_mappers/id" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>Usually a UUID specifying the internal ID of this protocol mapper instance.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-protocol_mappers/name"></div>
+      <div class="ansibleOptionAnchor" id="parameter-protocolMappers/name"></div>
+      <p class="ansible-option-title"><strong>name</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-protocol_mappers/name" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>The name of this protocol mapper.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-protocol_mappers/protocol"></div>
+      <div class="ansibleOptionAnchor" id="parameter-protocolMappers/protocol"></div>
+      <p class="ansible-option-title"><strong>protocol</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-protocol_mappers/protocol" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>This is either <code class='docutils literal notranslate'>openid-connect</code> or <code class='docutils literal notranslate'>saml</code>, this specifies for which protocol this protocol mapper. is active.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;openid-connect&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;saml&#34;</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-protocol_mappers/protocolMapper"></div>
+      <div class="ansibleOptionAnchor" id="parameter-protocolMappers/protocolMapper"></div>
+      <p class="ansible-option-title"><strong>protocolMapper</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-protocol_mappers/protocolMapper" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>The Keycloak-internal name of the type of this protocol-mapper. While an exhaustive list is impossible to provide since this may be extended through SPIs by the user of Keycloak, by default Keycloak as of 3.4 ships with at least</p>
+      <p><code class='docutils literal notranslate'>docker-v2-allow-all-mapper</code></p>
+      <p><code class='docutils literal notranslate'>oidc-address-mapper</code></p>
+      <p><code class='docutils literal notranslate'>oidc-full-name-mapper</code></p>
+      <p><code class='docutils literal notranslate'>oidc-group-membership-mapper</code></p>
+      <p><code class='docutils literal notranslate'>oidc-hardcoded-claim-mapper</code></p>
+      <p><code class='docutils literal notranslate'>oidc-hardcoded-role-mapper</code></p>
+      <p><code class='docutils literal notranslate'>oidc-role-name-mapper</code></p>
+      <p><code class='docutils literal notranslate'>oidc-script-based-protocol-mapper</code></p>
+      <p><code class='docutils literal notranslate'>oidc-sha256-pairwise-sub-mapper</code></p>
+      <p><code class='docutils literal notranslate'>oidc-usermodel-attribute-mapper</code></p>
+      <p><code class='docutils literal notranslate'>oidc-usermodel-client-role-mapper</code></p>
+      <p><code class='docutils literal notranslate'>oidc-usermodel-property-mapper</code></p>
+      <p><code class='docutils literal notranslate'>oidc-usermodel-realm-role-mapper</code></p>
+      <p><code class='docutils literal notranslate'>oidc-usersessionmodel-note-mapper</code></p>
+      <p><code class='docutils literal notranslate'>saml-group-membership-mapper</code></p>
+      <p><code class='docutils literal notranslate'>saml-hardcode-attribute-mapper</code></p>
+      <p><code class='docutils literal notranslate'>saml-hardcode-role-mapper</code></p>
+      <p><code class='docutils literal notranslate'>saml-role-list-mapper</code></p>
+      <p><code class='docutils literal notranslate'>saml-role-name-mapper</code></p>
+      <p><code class='docutils literal notranslate'>saml-user-attribute-mapper</code></p>
+      <p><code class='docutils literal notranslate'>saml-user-property-mapper</code></p>
+      <p><code class='docutils literal notranslate'>saml-user-session-note-mapper</code></p>
+      <p>An exhaustive list of available mappers on your installation can be obtained on the admin console by going to Server Info -&gt; Providers and looking under &#x27;protocol-mapper&#x27;.</p>
+    </div></td>
+  </tr>
+
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-public_client"></div>
+      <div class="ansibleOptionAnchor" id="parameter-publicClient"></div>
+      <p class="ansible-option-title"><strong>public_client</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-public_client" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: publicClient</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Is the access type for this client public or not. This is &#x27;publicClient&#x27; in the Keycloak REST API.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-realm"></div>
+      <p class="ansible-option-title"><strong>realm</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-realm" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>The realm to create the client in.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;master&#34;</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-redirect_uris"></div>
+      <div class="ansibleOptionAnchor" id="parameter-redirectUris"></div>
+      <p class="ansible-option-title"><strong>redirect_uris</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-redirect_uris" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: redirectUris</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">list</span>
+        / <span class="ansible-option-elements">elements=string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Acceptable redirect URIs for this client. This is &#x27;redirectUris&#x27; in the Keycloak REST API.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-registered_nodes"></div>
+      <div class="ansibleOptionAnchor" id="parameter-registeredNodes"></div>
+      <p class="ansible-option-title"><strong>registered_nodes</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-registered_nodes" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: registeredNodes</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">dictionary</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>dict of registered cluster nodes (with <code class='docutils literal notranslate'>nodename</code> as the key and last registration time as the value). This is &#x27;registeredNodes&#x27; in the Keycloak REST API.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-registration_access_token"></div>
+      <div class="ansibleOptionAnchor" id="parameter-registrationAccessToken"></div>
+      <p class="ansible-option-title"><strong>registration_access_token</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-registration_access_token" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: registrationAccessToken</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>The registration access token provides access for clients to the client registration service. This is &#x27;registrationAccessToken&#x27; in the Keycloak REST API.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-root_url"></div>
+      <div class="ansibleOptionAnchor" id="parameter-rootUrl"></div>
+      <p class="ansible-option-title"><strong>root_url</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-root_url" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: rootUrl</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Root URL appended to relative URLs for this client. This is &#x27;rootUrl&#x27; in the Keycloak REST API.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-secret"></div>
+      <p class="ansible-option-title"><strong>secret</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-secret" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>When using <em>client_authenticator_type</em> <code class='docutils literal notranslate'>client-secret</code> (the default), you can specify a secret here (otherwise one will be generated if it does not exit). If changing this secret, the module will not register a change currently (but the changed secret will be saved).</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-service_accounts_enabled"></div>
+      <div class="ansibleOptionAnchor" id="parameter-serviceAccountsEnabled"></div>
+      <p class="ansible-option-title"><strong>service_accounts_enabled</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-service_accounts_enabled" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: serviceAccountsEnabled</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Are service accounts enabled for this client or not (OpenID connect). This is &#x27;serviceAccountsEnabled&#x27; in the Keycloak REST API.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-standard_flow_enabled"></div>
+      <div class="ansibleOptionAnchor" id="parameter-standardFlowEnabled"></div>
+      <p class="ansible-option-title"><strong>standard_flow_enabled</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-standard_flow_enabled" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: standardFlowEnabled</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Enable standard flow for this client or not (OpenID connect). This is &#x27;standardFlowEnabled&#x27; in the Keycloak REST API.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-state"></div>
+      <p class="ansible-option-title"><strong>state</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-state" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>State of the client</p>
+      <p>On <code class='docutils literal notranslate'>present</code>, the client will be created (or updated if it exists already).</p>
+      <p>On <code class='docutils literal notranslate'>absent</code>, the client will be removed if it exists</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>&#34;present&#34;</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;absent&#34;</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-surrogate_auth_required"></div>
+      <div class="ansibleOptionAnchor" id="parameter-surrogateAuthRequired"></div>
+      <p class="ansible-option-title"><strong>surrogate_auth_required</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-surrogate_auth_required" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: surrogateAuthRequired</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Whether or not surrogate auth is required. This is &#x27;surrogateAuthRequired&#x27; in the Keycloak REST API.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-token"></div>
+      <p class="ansible-option-title"><strong>token</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-token" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 3.0.0</em></p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Authentication token for Keycloak API.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-use_template_config"></div>
+      <div class="ansibleOptionAnchor" id="parameter-useTemplateConfig"></div>
+      <p class="ansible-option-title"><strong>use_template_config</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-use_template_config" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: useTemplateConfig</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Whether or not to use configuration from the <em>client_template</em>. This is &#x27;useTemplateConfig&#x27; in the Keycloak REST API.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-use_template_mappers"></div>
+      <div class="ansibleOptionAnchor" id="parameter-useTemplateMappers"></div>
+      <p class="ansible-option-title"><strong>use_template_mappers</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-use_template_mappers" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: useTemplateMappers</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Whether or not to use mapper configuration from the <em>client_template</em>. This is &#x27;useTemplateMappers&#x27; in the Keycloak REST API.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-use_template_scope"></div>
+      <div class="ansibleOptionAnchor" id="parameter-useTemplateScope"></div>
+      <p class="ansible-option-title"><strong>use_template_scope</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-use_template_scope" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: useTemplateScope</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Whether or not to use scope configuration from the <em>client_template</em>. This is &#x27;useTemplateScope&#x27; in the Keycloak REST API.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-validate_certs"></div>
+      <p class="ansible-option-title"><strong>validate_certs</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-validate_certs" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Verify TLS certificates (do not disable this in production).</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>true</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-web_origins"></div>
+      <div class="ansibleOptionAnchor" id="parameter-webOrigins"></div>
+      <p class="ansible-option-title"><strong>web_origins</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-web_origins" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: webOrigins</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">list</span>
+        / <span class="ansible-option-elements">elements=string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>List of allowed CORS origins. This is &#x27;webOrigins&#x27; in the Keycloak REST API.</p>
+    </div></td>
+  </tr>
+  </tbody>
+  </table>
 
-.. list-table::
-  :width: 100%
-  :widths: auto
-  :header-rows: 1
-  :class: longtable ansible-option-table
-
-  * - Parameter
-    - Comments
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-admin_url"></div>
-        <div class="ansibleOptionAnchor" id="parameter-adminUrl"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-admin_url:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-adminurl:
-
-      .. rst-class:: ansible-option-title
-
-      **admin_url**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-admin_url" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: adminUrl`
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      URL to the admin interface of the client. This is 'adminUrl' in the Keycloak REST API.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-always_display_in_console"></div>
-        <div class="ansibleOptionAnchor" id="parameter-alwaysDisplayInConsole"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-always_display_in_console:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-alwaysdisplayinconsole:
-
-      .. rst-class:: ansible-option-title
-
-      **always_display_in_console**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-always_display_in_console" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: alwaysDisplayInConsole`
-
-        :ansible-option-type:`boolean`
-
-      :ansible-option-versionadded:`added in middleware\_automation.keycloak 4.7.0`
-
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Whether or not to display this client in account console, even if the user does not have an active session.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-choices:`Choices:`
-
-      - :ansible-option-choices-entry:`false`
-      - :ansible-option-choices-entry:`true`
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-attributes"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes:
-
-      .. rst-class:: ansible-option-title
-
-      **attributes**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-attributes" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`dictionary`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      A dict of further attributes for this client. This can contain various configuration settings; an example is given in the examples section. While an exhaustive list of permissible options is not available; possible options as of Keycloak 3.4 are listed below. The Keycloak API does not validate whether a given option is appropriate for the protocol used; if specified anyway, Keycloak will simply not use it.
-
-
-      .. raw:: html
-
-        </div>
-    
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-attributes/jwks.url"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/jwks.url:
-
-      .. rst-class:: ansible-option-title
-
-      **jwks.url**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-attributes/jwks.url" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      For OpenID-Connect clients, URL where client keys in JWK are stored.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-attributes/jwt.credential.certificate"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/jwt.credential.certificate:
-
-      .. rst-class:: ansible-option-title
-
-      **jwt.credential.certificate**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-attributes/jwt.credential.certificate" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      For OpenID-Connect clients, client certificate for validating JWT issued by client and signed by its key, base64-encoded.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-attributes/request.object.signature.alg"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/request.object.signature.alg:
-
-      .. rst-class:: ansible-option-title
-
-      **request.object.signature.alg**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-attributes/request.object.signature.alg" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      For OpenID-Connect clients, JWA algorithm which the client needs to use when sending OIDC request object. One of \ :literal:`any`\ , \ :literal:`none`\ , \ :literal:`RS256`\ .
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-attributes/saml.authnstatement"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml.authnstatement:
-
-      .. rst-class:: ansible-option-title
-
-      **saml.authnstatement**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-attributes/saml.authnstatement" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      For SAML clients, boolean specifying whether or not a statement containing method and timestamp should be included in the login response.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-attributes/saml.client.signature"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml.client.signature:
-
-      .. rst-class:: ansible-option-title
-
-      **saml.client.signature**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-attributes/saml.client.signature" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      For SAML clients, boolean specifying whether a client signature is required and validated.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-attributes/saml.encrypt"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml.encrypt:
-
-      .. rst-class:: ansible-option-title
-
-      **saml.encrypt**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-attributes/saml.encrypt" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      Boolean specifying whether SAML assertions should be encrypted with the client's public key.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-attributes/saml.force.post.binding"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml.force.post.binding:
-
-      .. rst-class:: ansible-option-title
-
-      **saml.force.post.binding**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-attributes/saml.force.post.binding" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      For SAML clients, boolean specifying whether always to use POST binding for responses.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-attributes/saml.onetimeuse.condition"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml.onetimeuse.condition:
-
-      .. rst-class:: ansible-option-title
-
-      **saml.onetimeuse.condition**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-attributes/saml.onetimeuse.condition" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      For SAML clients, boolean specifying whether a OneTimeUse condition should be included in login responses.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-attributes/saml.server.signature"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml.server.signature:
-
-      .. rst-class:: ansible-option-title
-
-      **saml.server.signature**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-attributes/saml.server.signature" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      Boolean specifying whether SAML documents should be signed by the realm.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-attributes/saml.server.signature.keyinfo.ext"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml.server.signature.keyinfo.ext:
-
-      .. rst-class:: ansible-option-title
-
-      **saml.server.signature.keyinfo.ext**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-attributes/saml.server.signature.keyinfo.ext" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      For SAML clients, boolean specifying whether REDIRECT signing key lookup should be optimized through inclusion of the signing key id in the SAML Extensions element.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-attributes/saml.signature.algorithm"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml.signature.algorithm:
-
-      .. rst-class:: ansible-option-title
-
-      **saml.signature.algorithm**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-attributes/saml.signature.algorithm" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      Signature algorithm used to sign SAML documents. One of \ :literal:`RSA\_SHA256`\ , \ :literal:`RSA\_SHA1`\ , \ :literal:`RSA\_SHA512`\ , or \ :literal:`DSA\_SHA1`\ .
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-attributes/saml.signing.certificate"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml.signing.certificate:
-
-      .. rst-class:: ansible-option-title
-
-      **saml.signing.certificate**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-attributes/saml.signing.certificate" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      SAML signing key certificate, base64-encoded.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-attributes/saml.signing.private.key"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml.signing.private.key:
-
-      .. rst-class:: ansible-option-title
-
-      **saml.signing.private.key**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-attributes/saml.signing.private.key" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      SAML signing key private key, base64-encoded.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-attributes/saml_assertion_consumer_url_post"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml_assertion_consumer_url_post:
-
-      .. rst-class:: ansible-option-title
-
-      **saml_assertion_consumer_url_post**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-attributes/saml_assertion_consumer_url_post" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      SAML POST Binding URL for the client's assertion consumer service (login responses).
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-attributes/saml_assertion_consumer_url_redirect"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml_assertion_consumer_url_redirect:
-
-      .. rst-class:: ansible-option-title
-
-      **saml_assertion_consumer_url_redirect**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-attributes/saml_assertion_consumer_url_redirect" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      SAML Redirect Binding URL for the client's assertion consumer service (login responses).
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-attributes/saml_force_name_id_format"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml_force_name_id_format:
-
-      .. rst-class:: ansible-option-title
-
-      **saml_force_name_id_format**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-attributes/saml_force_name_id_format" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      For SAML clients, Boolean specifying whether to ignore requested NameID subject format and using the configured one instead.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-attributes/saml_name_id_format"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml_name_id_format:
-
-      .. rst-class:: ansible-option-title
-
-      **saml_name_id_format**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-attributes/saml_name_id_format" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      For SAML clients, the NameID format to use (one of \ :literal:`username`\ , \ :literal:`email`\ , \ :literal:`transient`\ , or \ :literal:`persistent`\ )
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-attributes/saml_signature_canonicalization_method"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml_signature_canonicalization_method:
-
-      .. rst-class:: ansible-option-title
-
-      **saml_signature_canonicalization_method**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-attributes/saml_signature_canonicalization_method" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      SAML signature canonicalization method. This is one of four values, namely \ :literal:`http://www.w3.org/2001/10/xml-exc-c14n#`\  for EXCLUSIVE, \ :literal:`http://www.w3.org/2001/10/xml-exc-c14n#WithComments`\  for EXCLUSIVE\_WITH\_COMMENTS, \ :literal:`http://www.w3.org/TR/2001/REC-xml-c14n-20010315`\  for INCLUSIVE, and \ :literal:`http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments`\  for INCLUSIVE\_WITH\_COMMENTS.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-attributes/saml_single_logout_service_url_post"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml_single_logout_service_url_post:
-
-      .. rst-class:: ansible-option-title
-
-      **saml_single_logout_service_url_post**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-attributes/saml_single_logout_service_url_post" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      SAML POST binding url for the client's single logout service.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-attributes/saml_single_logout_service_url_redirect"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/saml_single_logout_service_url_redirect:
-
-      .. rst-class:: ansible-option-title
-
-      **saml_single_logout_service_url_redirect**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-attributes/saml_single_logout_service_url_redirect" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      SAML redirect binding url for the client's single logout service.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-attributes/use.jwks.url"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/use.jwks.url:
-
-      .. rst-class:: ansible-option-title
-
-      **use.jwks.url**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-attributes/use.jwks.url" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      For OpenID-Connect clients, boolean specifying whether to use a JWKS URL to obtain client public keys.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-attributes/user.info.response.signature.alg"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-attributes/user.info.response.signature.alg:
-
-      .. rst-class:: ansible-option-title
-
-      **user.info.response.signature.alg**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-attributes/user.info.response.signature.alg" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      For OpenID-Connect clients, JWA algorithm for signed UserInfo-endpoint responses. One of \ :literal:`RS256`\  or \ :literal:`unsigned`\ .
-
-
-      .. raw:: html
-
-        </div>
-
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-auth_client_id"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-auth_client_id:
-
-      .. rst-class:: ansible-option-title
-
-      **auth_client_id**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-auth_client_id" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      OpenID Connect \ :emphasis:`client\_id`\  to authenticate to the API with.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-default-bold:`Default:` :ansible-option-default:`"admin-cli"`
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-auth_client_secret"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-auth_client_secret:
-
-      .. rst-class:: ansible-option-title
-
-      **auth_client_secret**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-auth_client_secret" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Client Secret to use in conjunction with \ :emphasis:`auth\_client\_id`\  (if required).
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-auth_keycloak_url"></div>
-        <div class="ansibleOptionAnchor" id="parameter-url"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-auth_keycloak_url:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-url:
-
-      .. rst-class:: ansible-option-title
-
-      **auth_keycloak_url**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-auth_keycloak_url" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: url`
-
-        :ansible-option-type:`string` / :ansible-option-required:`required`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      URL to the Keycloak instance.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-auth_password"></div>
-        <div class="ansibleOptionAnchor" id="parameter-password"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-auth_password:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-password:
-
-      .. rst-class:: ansible-option-title
-
-      **auth_password**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-auth_password" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: password`
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Password to authenticate for API access with.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-auth_realm"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-auth_realm:
-
-      .. rst-class:: ansible-option-title
-
-      **auth_realm**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-auth_realm" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Keycloak realm name to authenticate to for API access.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-auth_username"></div>
-        <div class="ansibleOptionAnchor" id="parameter-username"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-auth_username:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-username:
-
-      .. rst-class:: ansible-option-title
-
-      **auth_username**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-auth_username" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: username`
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Username to authenticate for API access with.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-authentication_flow_binding_overrides"></div>
-        <div class="ansibleOptionAnchor" id="parameter-authenticationFlowBindingOverrides"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-authentication_flow_binding_overrides:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-authenticationflowbindingoverrides:
-
-      .. rst-class:: ansible-option-title
-
-      **authentication_flow_binding_overrides**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-authentication_flow_binding_overrides" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: authenticationFlowBindingOverrides`
-
-        :ansible-option-type:`dictionary`
-
-      :ansible-option-versionadded:`added in middleware\_automation.keycloak 3.4.0`
-
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Override realm authentication flow bindings.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-authorization_services_enabled"></div>
-        <div class="ansibleOptionAnchor" id="parameter-authorizationServicesEnabled"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-authorization_services_enabled:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-authorizationservicesenabled:
-
-      .. rst-class:: ansible-option-title
-
-      **authorization_services_enabled**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-authorization_services_enabled" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: authorizationServicesEnabled`
-
-        :ansible-option-type:`boolean`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Are authorization services enabled for this client or not (OpenID connect). This is 'authorizationServicesEnabled' in the Keycloak REST API.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-choices:`Choices:`
-
-      - :ansible-option-choices-entry:`false`
-      - :ansible-option-choices-entry:`true`
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-authorization_settings"></div>
-        <div class="ansibleOptionAnchor" id="parameter-authorizationSettings"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-authorization_settings:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-authorizationsettings:
-
-      .. rst-class:: ansible-option-title
-
-      **authorization_settings**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-authorization_settings" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: authorizationSettings`
-
-        :ansible-option-type:`dictionary`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      a data structure defining the authorization settings for this client. For reference, please see the Keycloak API docs at \ https://www.keycloak.org/docs-api/8.0/rest-api/index.html#_resourceserverrepresentation\ . This is 'authorizationSettings' in the Keycloak REST API.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-base_url"></div>
-        <div class="ansibleOptionAnchor" id="parameter-baseUrl"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-base_url:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-baseurl:
-
-      .. rst-class:: ansible-option-title
-
-      **base_url**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-base_url" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: baseUrl`
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Default URL to use when the auth server needs to redirect or link back to the client This is 'baseUrl' in the Keycloak REST API.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-bearer_only"></div>
-        <div class="ansibleOptionAnchor" id="parameter-bearerOnly"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-bearer_only:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-beareronly:
-
-      .. rst-class:: ansible-option-title
-
-      **bearer_only**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-bearer_only" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: bearerOnly`
-
-        :ansible-option-type:`boolean`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      The access type of this client is bearer-only. This is 'bearerOnly' in the Keycloak REST API.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-choices:`Choices:`
-
-      - :ansible-option-choices-entry:`false`
-      - :ansible-option-choices-entry:`true`
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-client_authenticator_type"></div>
-        <div class="ansibleOptionAnchor" id="parameter-clientAuthenticatorType"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-client_authenticator_type:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-clientauthenticatortype:
-
-      .. rst-class:: ansible-option-title
-
-      **client_authenticator_type**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-client_authenticator_type" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: clientAuthenticatorType`
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      How do clients authenticate with the auth server? Either \ :literal:`client-secret`\  or \ :literal:`client-jwt`\  can be chosen. When using \ :literal:`client-secret`\ , the module parameter \ :emphasis:`secret`\  can set it, while for \ :literal:`client-jwt`\ , you can use the keys \ :literal:`use.jwks.url`\ , \ :literal:`jwks.url`\ , and \ :literal:`jwt.credential.certificate`\  in the \ :emphasis:`attributes`\  module parameter to configure its behavior. This is 'clientAuthenticatorType' in the Keycloak REST API.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-choices:`Choices:`
-
-      - :ansible-option-choices-entry:`"client-secret"`
-      - :ansible-option-choices-entry:`"client-jwt"`
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-client_id"></div>
-        <div class="ansibleOptionAnchor" id="parameter-clientId"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-client_id:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-clientid:
-
-      .. rst-class:: ansible-option-title
-
-      **client_id**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-client_id" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: clientId`
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Client id of client to be worked on. This is usually an alphanumeric name chosen by you. Either this or \ :emphasis:`id`\  is required. If you specify both, \ :emphasis:`id`\  takes precedence. This is 'clientId' in the Keycloak REST API.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-client_template"></div>
-        <div class="ansibleOptionAnchor" id="parameter-clientTemplate"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-client_template:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-clienttemplate:
-
-      .. rst-class:: ansible-option-title
-
-      **client_template**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-client_template" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: clientTemplate`
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Client template to use for this client. If it does not exist this field will silently be dropped. This is 'clientTemplate' in the Keycloak REST API.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-connection_timeout"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-connection_timeout:
-
-      .. rst-class:: ansible-option-title
-
-      **connection_timeout**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-connection_timeout" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`integer`
-
-      :ansible-option-versionadded:`added in middleware\_automation.keycloak 4.5.0`
-
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Controls the HTTP connections timeout period (in seconds) to Keycloak API.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-default-bold:`Default:` :ansible-option-default:`10`
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-consent_required"></div>
-        <div class="ansibleOptionAnchor" id="parameter-consentRequired"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-consent_required:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-consentrequired:
-
-      .. rst-class:: ansible-option-title
-
-      **consent_required**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-consent_required" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: consentRequired`
-
-        :ansible-option-type:`boolean`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      If enabled, users have to consent to client access. This is 'consentRequired' in the Keycloak REST API.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-choices:`Choices:`
-
-      - :ansible-option-choices-entry:`false`
-      - :ansible-option-choices-entry:`true`
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-default_client_scopes"></div>
-        <div class="ansibleOptionAnchor" id="parameter-defaultClientScopes"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-default_client_scopes:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-defaultclientscopes:
-
-      .. rst-class:: ansible-option-title
-
-      **default_client_scopes**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-default_client_scopes" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: defaultClientScopes`
-
-        :ansible-option-type:`list` / :ansible-option-elements:`elements=string`
-
-      :ansible-option-versionadded:`added in middleware\_automation.keycloak 4.7.0`
-
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      List of default client scopes.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-default_roles"></div>
-        <div class="ansibleOptionAnchor" id="parameter-defaultRoles"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-default_roles:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-defaultroles:
-
-      .. rst-class:: ansible-option-title
-
-      **default_roles**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-default_roles" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: defaultRoles`
-
-        :ansible-option-type:`list` / :ansible-option-elements:`elements=string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      list of default roles for this client. If the client roles referenced do not exist yet, they will be created. This is 'defaultRoles' in the Keycloak REST API.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-description"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-description:
-
-      .. rst-class:: ansible-option-title
-
-      **description**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-description" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Description of the client in Keycloak.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-direct_access_grants_enabled"></div>
-        <div class="ansibleOptionAnchor" id="parameter-directAccessGrantsEnabled"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-direct_access_grants_enabled:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-directaccessgrantsenabled:
-
-      .. rst-class:: ansible-option-title
-
-      **direct_access_grants_enabled**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-direct_access_grants_enabled" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: directAccessGrantsEnabled`
-
-        :ansible-option-type:`boolean`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Are direct access grants enabled for this client or not (OpenID connect). This is 'directAccessGrantsEnabled' in the Keycloak REST API.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-choices:`Choices:`
-
-      - :ansible-option-choices-entry:`false`
-      - :ansible-option-choices-entry:`true`
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-enabled"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-enabled:
-
-      .. rst-class:: ansible-option-title
-
-      **enabled**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-enabled" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`boolean`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Is this client enabled or not?
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-choices:`Choices:`
-
-      - :ansible-option-choices-entry:`false`
-      - :ansible-option-choices-entry:`true`
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-frontchannel_logout"></div>
-        <div class="ansibleOptionAnchor" id="parameter-frontchannelLogout"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-frontchannel_logout:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-frontchannellogout:
-
-      .. rst-class:: ansible-option-title
-
-      **frontchannel_logout**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-frontchannel_logout" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: frontchannelLogout`
-
-        :ansible-option-type:`boolean`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Is frontchannel logout enabled for this client or not. This is 'frontchannelLogout' in the Keycloak REST API.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-choices:`Choices:`
-
-      - :ansible-option-choices-entry:`false`
-      - :ansible-option-choices-entry:`true`
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-full_scope_allowed"></div>
-        <div class="ansibleOptionAnchor" id="parameter-fullScopeAllowed"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-full_scope_allowed:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-fullscopeallowed:
-
-      .. rst-class:: ansible-option-title
-
-      **full_scope_allowed**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-full_scope_allowed" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: fullScopeAllowed`
-
-        :ansible-option-type:`boolean`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Is the "Full Scope Allowed" feature set for this client or not. This is 'fullScopeAllowed' in the Keycloak REST API.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-choices:`Choices:`
-
-      - :ansible-option-choices-entry:`false`
-      - :ansible-option-choices-entry:`true`
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-http_agent"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-http_agent:
-
-      .. rst-class:: ansible-option-title
-
-      **http_agent**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-http_agent" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      :ansible-option-versionadded:`added in middleware\_automation.keycloak 5.4.0`
-
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Configures the HTTP User-Agent header.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-default-bold:`Default:` :ansible-option-default:`"Ansible"`
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-id"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-id:
-
-      .. rst-class:: ansible-option-title
-
-      **id**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-id" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Id of client to be worked on. This is usually an UUID. Either this or \ :emphasis:`client\_id`\  is required. If you specify both, this takes precedence.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-implicit_flow_enabled"></div>
-        <div class="ansibleOptionAnchor" id="parameter-implicitFlowEnabled"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-implicit_flow_enabled:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-implicitflowenabled:
-
-      .. rst-class:: ansible-option-title
-
-      **implicit_flow_enabled**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-implicit_flow_enabled" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: implicitFlowEnabled`
-
-        :ansible-option-type:`boolean`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Enable implicit flow for this client or not (OpenID connect). This is 'implicitFlowEnabled' in the Keycloak REST API.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-choices:`Choices:`
-
-      - :ansible-option-choices-entry:`false`
-      - :ansible-option-choices-entry:`true`
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-name"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-name:
-
-      .. rst-class:: ansible-option-title
-
-      **name**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-name" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Name of the client (this is not the same as \ :emphasis:`client\_id`\ ).
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-node_re_registration_timeout"></div>
-        <div class="ansibleOptionAnchor" id="parameter-nodeReRegistrationTimeout"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-node_re_registration_timeout:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-nodereregistrationtimeout:
-
-      .. rst-class:: ansible-option-title
-
-      **node_re_registration_timeout**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-node_re_registration_timeout" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: nodeReRegistrationTimeout`
-
-        :ansible-option-type:`integer`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Cluster node re-registration timeout for this client. This is 'nodeReRegistrationTimeout' in the Keycloak REST API.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-not_before"></div>
-        <div class="ansibleOptionAnchor" id="parameter-notBefore"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-not_before:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-notbefore:
-
-      .. rst-class:: ansible-option-title
-
-      **not_before**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-not_before" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: notBefore`
-
-        :ansible-option-type:`integer`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Revoke any tokens issued before this date for this client (this is a UNIX timestamp). This is 'notBefore' in the Keycloak REST API.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-optional_client_scopes"></div>
-        <div class="ansibleOptionAnchor" id="parameter-optionalClientScopes"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-optional_client_scopes:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-optionalclientscopes:
-
-      .. rst-class:: ansible-option-title
-
-      **optional_client_scopes**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-optional_client_scopes" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: optionalClientScopes`
-
-        :ansible-option-type:`list` / :ansible-option-elements:`elements=string`
-
-      :ansible-option-versionadded:`added in middleware\_automation.keycloak 4.7.0`
-
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      List of optional client scopes.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-protocol"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocol:
-
-      .. rst-class:: ansible-option-title
-
-      **protocol**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-protocol" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Type of client (either \ :literal:`openid-connect`\  or \ :literal:`saml`\ .
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-choices:`Choices:`
-
-      - :ansible-option-choices-entry:`"openid-connect"`
-      - :ansible-option-choices-entry:`"saml"`
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-protocol_mappers"></div>
-        <div class="ansibleOptionAnchor" id="parameter-protocolMappers"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocol_mappers:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocolmappers:
-
-      .. rst-class:: ansible-option-title
-
-      **protocol_mappers**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-protocol_mappers" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: protocolMappers`
-
-        :ansible-option-type:`list` / :ansible-option-elements:`elements=dictionary`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      a list of dicts defining protocol mappers for this client. This is 'protocolMappers' in the Keycloak REST API.
-
-
-      .. raw:: html
-
-        </div>
-    
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-protocol_mappers/config"></div>
-        <div class="ansibleOptionAnchor" id="parameter-protocolMappers/config"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocol_mappers/config:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocolmappers/config:
-
-      .. rst-class:: ansible-option-title
-
-      **config**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-protocol_mappers/config" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`dictionary`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      Dict specifying the configuration options for the protocol mapper; the contents differ depending on the value of \ :emphasis:`protocolMapper`\  and are not documented other than by the source of the mappers and its parent class(es). An example is given below. It is easiest to obtain valid config values by dumping an already-existing protocol mapper configuration through check-mode in the \ :emphasis:`existing`\  field.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-protocol_mappers/consentRequired"></div>
-        <div class="ansibleOptionAnchor" id="parameter-protocolMappers/consentRequired"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocol_mappers/consentrequired:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocolmappers/consentrequired:
-
-      .. rst-class:: ansible-option-title
-
-      **consentRequired**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-protocol_mappers/consentRequired" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`boolean`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      Specifies whether a user needs to provide consent to a client for this mapper to be active.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-choices:`Choices:`
-
-      - :ansible-option-choices-entry:`false`
-      - :ansible-option-choices-entry:`true`
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-protocol_mappers/consentText"></div>
-        <div class="ansibleOptionAnchor" id="parameter-protocolMappers/consentText"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocol_mappers/consenttext:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocolmappers/consenttext:
-
-      .. rst-class:: ansible-option-title
-
-      **consentText**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-protocol_mappers/consentText" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      The human-readable name of the consent the user is presented to accept.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-protocol_mappers/id"></div>
-        <div class="ansibleOptionAnchor" id="parameter-protocolMappers/id"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocol_mappers/id:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocolmappers/id:
-
-      .. rst-class:: ansible-option-title
-
-      **id**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-protocol_mappers/id" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      Usually a UUID specifying the internal ID of this protocol mapper instance.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-protocol_mappers/name"></div>
-        <div class="ansibleOptionAnchor" id="parameter-protocolMappers/name"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocol_mappers/name:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocolmappers/name:
-
-      .. rst-class:: ansible-option-title
-
-      **name**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-protocol_mappers/name" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      The name of this protocol mapper.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-protocol_mappers/protocol"></div>
-        <div class="ansibleOptionAnchor" id="parameter-protocolMappers/protocol"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocol_mappers/protocol:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocolmappers/protocol:
-
-      .. rst-class:: ansible-option-title
-
-      **protocol**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-protocol_mappers/protocol" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      This is either \ :literal:`openid-connect`\  or \ :literal:`saml`\ , this specifies for which protocol this protocol mapper. is active.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-choices:`Choices:`
-
-      - :ansible-option-choices-entry:`"openid-connect"`
-      - :ansible-option-choices-entry:`"saml"`
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-indent"></div><div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-protocol_mappers/protocolMapper"></div>
-        <div class="ansibleOptionAnchor" id="parameter-protocolMappers/protocolMapper"></div>
-
-      .. raw:: latex
-
-        \hspace{0.02\textwidth}\begin{minipage}[t]{0.3\textwidth}
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocol_mappers/protocolmapper:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-protocolmappers/protocolmapper:
-
-      .. rst-class:: ansible-option-title
-
-      **protocolMapper**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-protocol_mappers/protocolMapper" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-      .. raw:: latex
-
-        \end{minipage}
-
-    - .. raw:: html
-
-        <div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-
-      The Keycloak-internal name of the type of this protocol-mapper. While an exhaustive list is impossible to provide since this may be extended through SPIs by the user of Keycloak, by default Keycloak as of 3.4 ships with at least
-
-      \ :literal:`docker-v2-allow-all-mapper`\ 
-
-      \ :literal:`oidc-address-mapper`\ 
-
-      \ :literal:`oidc-full-name-mapper`\ 
-
-      \ :literal:`oidc-group-membership-mapper`\ 
-
-      \ :literal:`oidc-hardcoded-claim-mapper`\ 
-
-      \ :literal:`oidc-hardcoded-role-mapper`\ 
-
-      \ :literal:`oidc-role-name-mapper`\ 
-
-      \ :literal:`oidc-script-based-protocol-mapper`\ 
-
-      \ :literal:`oidc-sha256-pairwise-sub-mapper`\ 
-
-      \ :literal:`oidc-usermodel-attribute-mapper`\ 
-
-      \ :literal:`oidc-usermodel-client-role-mapper`\ 
-
-      \ :literal:`oidc-usermodel-property-mapper`\ 
-
-      \ :literal:`oidc-usermodel-realm-role-mapper`\ 
-
-      \ :literal:`oidc-usersessionmodel-note-mapper`\ 
-
-      \ :literal:`saml-group-membership-mapper`\ 
-
-      \ :literal:`saml-hardcode-attribute-mapper`\ 
-
-      \ :literal:`saml-hardcode-role-mapper`\ 
-
-      \ :literal:`saml-role-list-mapper`\ 
-
-      \ :literal:`saml-role-name-mapper`\ 
-
-      \ :literal:`saml-user-attribute-mapper`\ 
-
-      \ :literal:`saml-user-property-mapper`\ 
-
-      \ :literal:`saml-user-session-note-mapper`\ 
-
-      An exhaustive list of available mappers on your installation can be obtained on the admin console by going to Server Info -\> Providers and looking under 'protocol-mapper'.
-
-
-      .. raw:: html
-
-        </div>
-
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-public_client"></div>
-        <div class="ansibleOptionAnchor" id="parameter-publicClient"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-public_client:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-publicclient:
-
-      .. rst-class:: ansible-option-title
-
-      **public_client**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-public_client" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: publicClient`
-
-        :ansible-option-type:`boolean`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Is the access type for this client public or not. This is 'publicClient' in the Keycloak REST API.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-choices:`Choices:`
-
-      - :ansible-option-choices-entry:`false`
-      - :ansible-option-choices-entry:`true`
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-realm"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-realm:
-
-      .. rst-class:: ansible-option-title
-
-      **realm**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-realm" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      The realm to create the client in.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-default-bold:`Default:` :ansible-option-default:`"master"`
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-redirect_uris"></div>
-        <div class="ansibleOptionAnchor" id="parameter-redirectUris"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-redirect_uris:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-redirecturis:
-
-      .. rst-class:: ansible-option-title
-
-      **redirect_uris**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-redirect_uris" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: redirectUris`
-
-        :ansible-option-type:`list` / :ansible-option-elements:`elements=string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Acceptable redirect URIs for this client. This is 'redirectUris' in the Keycloak REST API.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-registered_nodes"></div>
-        <div class="ansibleOptionAnchor" id="parameter-registeredNodes"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-registered_nodes:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-registerednodes:
-
-      .. rst-class:: ansible-option-title
-
-      **registered_nodes**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-registered_nodes" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: registeredNodes`
-
-        :ansible-option-type:`dictionary`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      dict of registered cluster nodes (with \ :literal:`nodename`\  as the key and last registration time as the value). This is 'registeredNodes' in the Keycloak REST API.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-registration_access_token"></div>
-        <div class="ansibleOptionAnchor" id="parameter-registrationAccessToken"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-registration_access_token:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-registrationaccesstoken:
-
-      .. rst-class:: ansible-option-title
-
-      **registration_access_token**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-registration_access_token" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: registrationAccessToken`
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      The registration access token provides access for clients to the client registration service. This is 'registrationAccessToken' in the Keycloak REST API.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-root_url"></div>
-        <div class="ansibleOptionAnchor" id="parameter-rootUrl"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-root_url:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-rooturl:
-
-      .. rst-class:: ansible-option-title
-
-      **root_url**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-root_url" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: rootUrl`
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Root URL appended to relative URLs for this client. This is 'rootUrl' in the Keycloak REST API.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-secret"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-secret:
-
-      .. rst-class:: ansible-option-title
-
-      **secret**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-secret" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      When using \ :emphasis:`client\_authenticator\_type`\  \ :literal:`client-secret`\  (the default), you can specify a secret here (otherwise one will be generated if it does not exit). If changing this secret, the module will not register a change currently (but the changed secret will be saved).
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-service_accounts_enabled"></div>
-        <div class="ansibleOptionAnchor" id="parameter-serviceAccountsEnabled"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-service_accounts_enabled:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-serviceaccountsenabled:
-
-      .. rst-class:: ansible-option-title
-
-      **service_accounts_enabled**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-service_accounts_enabled" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: serviceAccountsEnabled`
-
-        :ansible-option-type:`boolean`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Are service accounts enabled for this client or not (OpenID connect). This is 'serviceAccountsEnabled' in the Keycloak REST API.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-choices:`Choices:`
-
-      - :ansible-option-choices-entry:`false`
-      - :ansible-option-choices-entry:`true`
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-standard_flow_enabled"></div>
-        <div class="ansibleOptionAnchor" id="parameter-standardFlowEnabled"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-standard_flow_enabled:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-standardflowenabled:
-
-      .. rst-class:: ansible-option-title
-
-      **standard_flow_enabled**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-standard_flow_enabled" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: standardFlowEnabled`
-
-        :ansible-option-type:`boolean`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Enable standard flow for this client or not (OpenID connect). This is 'standardFlowEnabled' in the Keycloak REST API.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-choices:`Choices:`
-
-      - :ansible-option-choices-entry:`false`
-      - :ansible-option-choices-entry:`true`
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-state"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-state:
-
-      .. rst-class:: ansible-option-title
-
-      **state**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-state" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      State of the client
-
-      On \ :literal:`present`\ , the client will be created (or updated if it exists already).
-
-      On \ :literal:`absent`\ , the client will be removed if it exists
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-choices:`Choices:`
-
-      - :ansible-option-choices-entry-default:`"present"` :ansible-option-choices-default-mark:`← (default)`
-      - :ansible-option-choices-entry:`"absent"`
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-surrogate_auth_required"></div>
-        <div class="ansibleOptionAnchor" id="parameter-surrogateAuthRequired"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-surrogate_auth_required:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-surrogateauthrequired:
-
-      .. rst-class:: ansible-option-title
-
-      **surrogate_auth_required**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-surrogate_auth_required" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: surrogateAuthRequired`
-
-        :ansible-option-type:`boolean`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Whether or not surrogate auth is required. This is 'surrogateAuthRequired' in the Keycloak REST API.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-choices:`Choices:`
-
-      - :ansible-option-choices-entry:`false`
-      - :ansible-option-choices-entry:`true`
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-token"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-token:
-
-      .. rst-class:: ansible-option-title
-
-      **token**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-token" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      :ansible-option-versionadded:`added in middleware\_automation.keycloak 3.0.0`
-
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Authentication token for Keycloak API.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-use_template_config"></div>
-        <div class="ansibleOptionAnchor" id="parameter-useTemplateConfig"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-use_template_config:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-usetemplateconfig:
-
-      .. rst-class:: ansible-option-title
-
-      **use_template_config**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-use_template_config" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: useTemplateConfig`
-
-        :ansible-option-type:`boolean`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Whether or not to use configuration from the \ :emphasis:`client\_template`\ . This is 'useTemplateConfig' in the Keycloak REST API.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-choices:`Choices:`
-
-      - :ansible-option-choices-entry:`false`
-      - :ansible-option-choices-entry:`true`
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-use_template_mappers"></div>
-        <div class="ansibleOptionAnchor" id="parameter-useTemplateMappers"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-use_template_mappers:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-usetemplatemappers:
-
-      .. rst-class:: ansible-option-title
-
-      **use_template_mappers**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-use_template_mappers" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: useTemplateMappers`
-
-        :ansible-option-type:`boolean`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Whether or not to use mapper configuration from the \ :emphasis:`client\_template`\ . This is 'useTemplateMappers' in the Keycloak REST API.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-choices:`Choices:`
-
-      - :ansible-option-choices-entry:`false`
-      - :ansible-option-choices-entry:`true`
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-use_template_scope"></div>
-        <div class="ansibleOptionAnchor" id="parameter-useTemplateScope"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-use_template_scope:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-usetemplatescope:
-
-      .. rst-class:: ansible-option-title
-
-      **use_template_scope**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-use_template_scope" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: useTemplateScope`
-
-        :ansible-option-type:`boolean`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Whether or not to use scope configuration from the \ :emphasis:`client\_template`\ . This is 'useTemplateScope' in the Keycloak REST API.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-choices:`Choices:`
-
-      - :ansible-option-choices-entry:`false`
-      - :ansible-option-choices-entry:`true`
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-validate_certs"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-validate_certs:
-
-      .. rst-class:: ansible-option-title
-
-      **validate_certs**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-validate_certs" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`boolean`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Verify TLS certificates (do not disable this in production).
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-choices:`Choices:`
-
-      - :ansible-option-choices-entry:`false`
-      - :ansible-option-choices-entry-default:`true` :ansible-option-choices-default-mark:`← (default)`
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-web_origins"></div>
-        <div class="ansibleOptionAnchor" id="parameter-webOrigins"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-web_origins:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__parameter-weborigins:
-
-      .. rst-class:: ansible-option-title
-
-      **web_origins**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-web_origins" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: webOrigins`
-
-        :ansible-option-type:`list` / :ansible-option-elements:`elements=string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      List of allowed CORS origins. This is 'webOrigins' in the Keycloak REST API.
-
-
-      .. raw:: html
-
-        </div>
 
 
 .. Attributes
@@ -3741,195 +1644,78 @@ Return Values
 -------------
 Common return values are documented :ref:`here <common_return_values>`, the following are the fields unique to this module:
 
-.. tabularcolumns:: \X{1}{3}\X{2}{3}
-
-.. list-table::
-  :width: 100%
-  :widths: auto
-  :header-rows: 1
-  :class: longtable ansible-option-table
-
-  * - Key
-    - Description
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="return-end_state"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__return-end_state:
-
-      .. rst-class:: ansible-option-title
-
-      **end_state**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#return-end_state" title="Permalink to this return value"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`dictionary`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Representation of client after module execution (sample is truncated).
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-returned-bold:`Returned:` on success
-
-      .. rst-class:: ansible-option-line
-      .. rst-class:: ansible-option-sample
-
-      :ansible-option-sample-bold:`Sample:` :ansible-rv-sample-value:`{"adminUrl": "http://www.example.com/admin\_url", "attributes": {"request.object.signature.alg": "RS256"}}`
-
-
-      .. raw:: html
-
-        </div>
-
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="return-existing"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__return-existing:
-
-      .. rst-class:: ansible-option-title
-
-      **existing**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#return-existing" title="Permalink to this return value"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`dictionary`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Representation of existing client (sample is truncated).
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-returned-bold:`Returned:` always
-
-      .. rst-class:: ansible-option-line
-      .. rst-class:: ansible-option-sample
-
-      :ansible-option-sample-bold:`Sample:` :ansible-rv-sample-value:`{"adminUrl": "http://www.example.com/admin\_url", "attributes": {"request.object.signature.alg": "RS256"}}`
-
-
-      .. raw:: html
-
-        </div>
-
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="return-msg"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__return-msg:
-
-      .. rst-class:: ansible-option-title
-
-      **msg**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#return-msg" title="Permalink to this return value"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Message as to what action was taken.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-returned-bold:`Returned:` always
-
-      .. rst-class:: ansible-option-line
-      .. rst-class:: ansible-option-sample
-
-      :ansible-option-sample-bold:`Sample:` :ansible-rv-sample-value:`"Client testclient has been updated"`
-
-
-      .. raw:: html
-
-        </div>
-
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="return-proposed"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__return-proposed:
-
-      .. rst-class:: ansible-option-title
-
-      **proposed**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#return-proposed" title="Permalink to this return value"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`dictionary`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Representation of proposed client.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-returned-bold:`Returned:` always
-
-      .. rst-class:: ansible-option-line
-      .. rst-class:: ansible-option-sample
-
-      :ansible-option-sample-bold:`Sample:` :ansible-rv-sample-value:`{"clientId": "test"}`
-
-
-      .. raw:: html
-
-        </div>
+.. raw:: html
+
+  <table class="colwidths-auto ansible-option-table docutils align-default" style="width: 100%">
+  <thead>
+  <tr class="row-odd">
+    <th class="head"><p>Key</p></th>
+    <th class="head"><p>Description</p></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="return-end_state"></div>
+      <p class="ansible-option-title"><strong>end_state</strong></p>
+      <a class="ansibleOptionLink" href="#return-end_state" title="Permalink to this return value"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">dictionary</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Representation of client after module execution (sample is truncated).</p>
+      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> on success</p>
+      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">{&#34;adminUrl&#34;: &#34;http://www.example.com/admin_url&#34;, &#34;attributes&#34;: {&#34;request.object.signature.alg&#34;: &#34;RS256&#34;}}</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="return-existing"></div>
+      <p class="ansible-option-title"><strong>existing</strong></p>
+      <a class="ansibleOptionLink" href="#return-existing" title="Permalink to this return value"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">dictionary</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Representation of existing client (sample is truncated).</p>
+      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
+      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">{&#34;adminUrl&#34;: &#34;http://www.example.com/admin_url&#34;, &#34;attributes&#34;: {&#34;request.object.signature.alg&#34;: &#34;RS256&#34;}}</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="return-msg"></div>
+      <p class="ansible-option-title"><strong>msg</strong></p>
+      <a class="ansibleOptionLink" href="#return-msg" title="Permalink to this return value"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Message as to what action was taken.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
+      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">&#34;Client testclient has been updated&#34;</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="return-proposed"></div>
+      <p class="ansible-option-title"><strong>proposed</strong></p>
+      <a class="ansibleOptionLink" href="#return-proposed" title="Permalink to this return value"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">dictionary</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Representation of proposed client.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
+      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">{&#34;clientId&#34;: &#34;test&#34;}</code></p>
+    </div></td>
+  </tr>
+  </tbody>
+  </table>
 
 
 

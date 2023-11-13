@@ -70,623 +70,259 @@ Synopsis
 Parameters
 ----------
 
-.. tabularcolumns:: \X{1}{3}\X{2}{3}
+.. raw:: html
+
+  <table class="colwidths-auto ansible-option-table docutils align-default" style="width: 100%">
+  <thead>
+  <tr class="row-odd">
+    <th class="head"><p>Parameter</p></th>
+    <th class="head"><p>Comments</p></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-attributes"></div>
+      <p class="ansible-option-title"><strong>attributes</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-attributes" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">dictionary</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>A dict of key/value pairs to set as custom attributes for the role.</p>
+      <p>Values may be single values (e.g. a string) or a list of strings.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-auth_client_id"></div>
+      <p class="ansible-option-title"><strong>auth_client_id</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-auth_client_id" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>OpenID Connect <em>client_id</em> to authenticate to the API with.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;admin-cli&#34;</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-auth_client_secret"></div>
+      <p class="ansible-option-title"><strong>auth_client_secret</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-auth_client_secret" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Client Secret to use in conjunction with <em>auth_client_id</em> (if required).</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-auth_keycloak_url"></div>
+      <div class="ansibleOptionAnchor" id="parameter-url"></div>
+      <p class="ansible-option-title"><strong>auth_keycloak_url</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-auth_keycloak_url" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: url</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+        / <span class="ansible-option-required">required</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>URL to the Keycloak instance.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-auth_password"></div>
+      <div class="ansibleOptionAnchor" id="parameter-password"></div>
+      <p class="ansible-option-title"><strong>auth_password</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-auth_password" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: password</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Password to authenticate for API access with.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-auth_realm"></div>
+      <p class="ansible-option-title"><strong>auth_realm</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-auth_realm" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Keycloak realm name to authenticate to for API access.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-auth_username"></div>
+      <div class="ansibleOptionAnchor" id="parameter-username"></div>
+      <p class="ansible-option-title"><strong>auth_username</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-auth_username" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: username</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Username to authenticate for API access with.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-client_id"></div>
+      <p class="ansible-option-title"><strong>client_id</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-client_id" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>If the role is a client role, the client id under which it resides.</p>
+      <p>If this parameter is absent, the role is considered a realm role.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-connection_timeout"></div>
+      <p class="ansible-option-title"><strong>connection_timeout</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-connection_timeout" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">integer</span>
+      </p>
+      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 4.5.0</em></p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Controls the HTTP connections timeout period (in seconds) to Keycloak API.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">10</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-description"></div>
+      <p class="ansible-option-title"><strong>description</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-description" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>The role description.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-http_agent"></div>
+      <p class="ansible-option-title"><strong>http_agent</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-http_agent" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 5.4.0</em></p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Configures the HTTP User-Agent header.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;Ansible&#34;</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-name"></div>
+      <p class="ansible-option-title"><strong>name</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-name" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+        / <span class="ansible-option-required">required</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Name of the role.</p>
+      <p>This parameter is required.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-realm"></div>
+      <p class="ansible-option-title"><strong>realm</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-realm" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>The Keycloak realm under which this role resides.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;master&#34;</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-state"></div>
+      <p class="ansible-option-title"><strong>state</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-state" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>State of the role.</p>
+      <p>On <code class='docutils literal notranslate'>present</code>, the role will be created if it does not yet exist, or updated with the parameters you provide.</p>
+      <p>On <code class='docutils literal notranslate'>absent</code>, the role will be removed if it exists.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>&#34;present&#34;</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;absent&#34;</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-token"></div>
+      <p class="ansible-option-title"><strong>token</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-token" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 3.0.0</em></p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Authentication token for Keycloak API.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-validate_certs"></div>
+      <p class="ansible-option-title"><strong>validate_certs</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-validate_certs" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Verify TLS certificates (do not disable this in production).</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>true</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  </tbody>
+  </table>
 
-.. list-table::
-  :width: 100%
-  :widths: auto
-  :header-rows: 1
-  :class: longtable ansible-option-table
-
-  * - Parameter
-    - Comments
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-attributes"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_role_module__parameter-attributes:
-
-      .. rst-class:: ansible-option-title
-
-      **attributes**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-attributes" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`dictionary`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      A dict of key/value pairs to set as custom attributes for the role.
-
-      Values may be single values (e.g. a string) or a list of strings.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-auth_client_id"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_role_module__parameter-auth_client_id:
-
-      .. rst-class:: ansible-option-title
-
-      **auth_client_id**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-auth_client_id" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      OpenID Connect \ :emphasis:`client\_id`\  to authenticate to the API with.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-default-bold:`Default:` :ansible-option-default:`"admin-cli"`
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-auth_client_secret"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_role_module__parameter-auth_client_secret:
-
-      .. rst-class:: ansible-option-title
-
-      **auth_client_secret**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-auth_client_secret" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Client Secret to use in conjunction with \ :emphasis:`auth\_client\_id`\  (if required).
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-auth_keycloak_url"></div>
-        <div class="ansibleOptionAnchor" id="parameter-url"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_role_module__parameter-auth_keycloak_url:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_role_module__parameter-url:
-
-      .. rst-class:: ansible-option-title
-
-      **auth_keycloak_url**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-auth_keycloak_url" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: url`
-
-        :ansible-option-type:`string` / :ansible-option-required:`required`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      URL to the Keycloak instance.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-auth_password"></div>
-        <div class="ansibleOptionAnchor" id="parameter-password"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_role_module__parameter-auth_password:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_role_module__parameter-password:
-
-      .. rst-class:: ansible-option-title
-
-      **auth_password**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-auth_password" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: password`
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Password to authenticate for API access with.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-auth_realm"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_role_module__parameter-auth_realm:
-
-      .. rst-class:: ansible-option-title
-
-      **auth_realm**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-auth_realm" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Keycloak realm name to authenticate to for API access.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-auth_username"></div>
-        <div class="ansibleOptionAnchor" id="parameter-username"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_role_module__parameter-auth_username:
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_role_module__parameter-username:
-
-      .. rst-class:: ansible-option-title
-
-      **auth_username**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-auth_username" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-aliases:`aliases: username`
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Username to authenticate for API access with.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-client_id"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_role_module__parameter-client_id:
-
-      .. rst-class:: ansible-option-title
-
-      **client_id**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-client_id" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      If the role is a client role, the client id under which it resides.
-
-      If this parameter is absent, the role is considered a realm role.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-connection_timeout"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_role_module__parameter-connection_timeout:
-
-      .. rst-class:: ansible-option-title
-
-      **connection_timeout**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-connection_timeout" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`integer`
-
-      :ansible-option-versionadded:`added in middleware\_automation.keycloak 4.5.0`
-
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Controls the HTTP connections timeout period (in seconds) to Keycloak API.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-default-bold:`Default:` :ansible-option-default:`10`
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-description"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_role_module__parameter-description:
-
-      .. rst-class:: ansible-option-title
-
-      **description**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-description" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      The role description.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-http_agent"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_role_module__parameter-http_agent:
-
-      .. rst-class:: ansible-option-title
-
-      **http_agent**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-http_agent" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      :ansible-option-versionadded:`added in middleware\_automation.keycloak 5.4.0`
-
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Configures the HTTP User-Agent header.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-default-bold:`Default:` :ansible-option-default:`"Ansible"`
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-name"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_role_module__parameter-name:
-
-      .. rst-class:: ansible-option-title
-
-      **name**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-name" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string` / :ansible-option-required:`required`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Name of the role.
-
-      This parameter is required.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-realm"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_role_module__parameter-realm:
-
-      .. rst-class:: ansible-option-title
-
-      **realm**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-realm" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      The Keycloak realm under which this role resides.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-default-bold:`Default:` :ansible-option-default:`"master"`
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-state"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_role_module__parameter-state:
-
-      .. rst-class:: ansible-option-title
-
-      **state**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-state" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      State of the role.
-
-      On \ :literal:`present`\ , the role will be created if it does not yet exist, or updated with the parameters you provide.
-
-      On \ :literal:`absent`\ , the role will be removed if it exists.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-choices:`Choices:`
-
-      - :ansible-option-choices-entry-default:`"present"` :ansible-option-choices-default-mark:`← (default)`
-      - :ansible-option-choices-entry:`"absent"`
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-token"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_role_module__parameter-token:
-
-      .. rst-class:: ansible-option-title
-
-      **token**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-token" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      :ansible-option-versionadded:`added in middleware\_automation.keycloak 3.0.0`
-
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Authentication token for Keycloak API.
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-validate_certs"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_role_module__parameter-validate_certs:
-
-      .. rst-class:: ansible-option-title
-
-      **validate_certs**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-validate_certs" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`boolean`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Verify TLS certificates (do not disable this in production).
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-choices:`Choices:`
-
-      - :ansible-option-choices-entry:`false`
-      - :ansible-option-choices-entry-default:`true` :ansible-option-choices-default-mark:`← (default)`
-
-
-      .. raw:: html
-
-        </div>
 
 
 .. Attributes
@@ -883,195 +519,78 @@ Return Values
 -------------
 Common return values are documented :ref:`here <common_return_values>`, the following are the fields unique to this module:
 
-.. tabularcolumns:: \X{1}{3}\X{2}{3}
-
-.. list-table::
-  :width: 100%
-  :widths: auto
-  :header-rows: 1
-  :class: longtable ansible-option-table
-
-  * - Key
-    - Description
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="return-end_state"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_role_module__return-end_state:
-
-      .. rst-class:: ansible-option-title
-
-      **end_state**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#return-end_state" title="Permalink to this return value"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`dictionary`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Representation of role after module execution (sample is truncated).
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-returned-bold:`Returned:` on success
-
-      .. rst-class:: ansible-option-line
-      .. rst-class:: ansible-option-sample
-
-      :ansible-option-sample-bold:`Sample:` :ansible-rv-sample-value:`{"attributes": {}, "clientRole": true, "composite": false, "containerId": "9f03eb61-a826-4771-a9fd-930e06d2d36a", "description": "My updated client test role", "id": "561703dd-0f38-45ff-9a5a-0c978f794547", "name": "myrole"}`
-
-
-      .. raw:: html
-
-        </div>
-
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="return-existing"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_role_module__return-existing:
-
-      .. rst-class:: ansible-option-title
-
-      **existing**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#return-existing" title="Permalink to this return value"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`dictionary`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Representation of existing role.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-returned-bold:`Returned:` always
-
-      .. rst-class:: ansible-option-line
-      .. rst-class:: ansible-option-sample
-
-      :ansible-option-sample-bold:`Sample:` :ansible-rv-sample-value:`{"attributes": {}, "clientRole": true, "composite": false, "containerId": "9f03eb61-a826-4771-a9fd-930e06d2d36a", "description": "My client test role", "id": "561703dd-0f38-45ff-9a5a-0c978f794547", "name": "myrole"}`
-
-
-      .. raw:: html
-
-        </div>
-
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="return-msg"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_role_module__return-msg:
-
-      .. rst-class:: ansible-option-title
-
-      **msg**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#return-msg" title="Permalink to this return value"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Message as to what action was taken.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-returned-bold:`Returned:` always
-
-      .. rst-class:: ansible-option-line
-      .. rst-class:: ansible-option-sample
-
-      :ansible-option-sample-bold:`Sample:` :ansible-rv-sample-value:`"Role myrole has been updated"`
-
-
-      .. raw:: html
-
-        </div>
-
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="return-proposed"></div>
-
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_role_module__return-proposed:
-
-      .. rst-class:: ansible-option-title
-
-      **proposed**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#return-proposed" title="Permalink to this return value"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`dictionary`
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Representation of proposed role.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-returned-bold:`Returned:` always
-
-      .. rst-class:: ansible-option-line
-      .. rst-class:: ansible-option-sample
-
-      :ansible-option-sample-bold:`Sample:` :ansible-rv-sample-value:`{"description": "My updated test description"}`
-
-
-      .. raw:: html
-
-        </div>
+.. raw:: html
+
+  <table class="colwidths-auto ansible-option-table docutils align-default" style="width: 100%">
+  <thead>
+  <tr class="row-odd">
+    <th class="head"><p>Key</p></th>
+    <th class="head"><p>Description</p></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="return-end_state"></div>
+      <p class="ansible-option-title"><strong>end_state</strong></p>
+      <a class="ansibleOptionLink" href="#return-end_state" title="Permalink to this return value"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">dictionary</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Representation of role after module execution (sample is truncated).</p>
+      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> on success</p>
+      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">{&#34;attributes&#34;: {}, &#34;clientRole&#34;: true, &#34;composite&#34;: false, &#34;containerId&#34;: &#34;9f03eb61-a826-4771-a9fd-930e06d2d36a&#34;, &#34;description&#34;: &#34;My updated client test role&#34;, &#34;id&#34;: &#34;561703dd-0f38-45ff-9a5a-0c978f794547&#34;, &#34;name&#34;: &#34;myrole&#34;}</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="return-existing"></div>
+      <p class="ansible-option-title"><strong>existing</strong></p>
+      <a class="ansibleOptionLink" href="#return-existing" title="Permalink to this return value"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">dictionary</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Representation of existing role.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
+      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">{&#34;attributes&#34;: {}, &#34;clientRole&#34;: true, &#34;composite&#34;: false, &#34;containerId&#34;: &#34;9f03eb61-a826-4771-a9fd-930e06d2d36a&#34;, &#34;description&#34;: &#34;My client test role&#34;, &#34;id&#34;: &#34;561703dd-0f38-45ff-9a5a-0c978f794547&#34;, &#34;name&#34;: &#34;myrole&#34;}</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="return-msg"></div>
+      <p class="ansible-option-title"><strong>msg</strong></p>
+      <a class="ansibleOptionLink" href="#return-msg" title="Permalink to this return value"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Message as to what action was taken.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
+      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">&#34;Role myrole has been updated&#34;</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="return-proposed"></div>
+      <p class="ansible-option-title"><strong>proposed</strong></p>
+      <a class="ansibleOptionLink" href="#return-proposed" title="Permalink to this return value"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">dictionary</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Representation of proposed role.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
+      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">{&#34;description&#34;: &#34;My updated test description&#34;}</code></p>
+    </div></td>
+  </tr>
+  </tbody>
+  </table>
 
 
 

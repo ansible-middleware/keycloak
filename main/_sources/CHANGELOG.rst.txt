@@ -12,9 +12,14 @@ v1.3.1-devel
 Minor Changes
 -------------
 
+- Add new parameter for port offset configuration `#124 <https://github.com/ansible-middleware/keycloak/pull/124>`_
 - Update Keycloak to version 22.0.4 `#117 <https://github.com/ansible-middleware/keycloak/pull/117>`_
 - Update Keycloak to version 22.0.5 `#122 <https://github.com/ansible-middleware/keycloak/pull/122>`_
-- feat: jboss port offset configuration `#124 <https://github.com/ansible-middleware/keycloak/pull/124>`_
+
+Breaking Changes / Porting Guide
+--------------------------------
+
+- Add support for more http-related configs `#115 <https://github.com/ansible-middleware/keycloak/pull/115>`_
 
 v1.3.0
 ======

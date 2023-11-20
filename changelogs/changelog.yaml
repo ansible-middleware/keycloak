@@ -315,3 +315,29 @@ releases:
     - 112.yaml
     - 113.yaml
     release_date: '2023-09-25'
+  2.0.0:
+    changes:
+      breaking_changes:
+      - 'Add support for more http-related configs `#115 <https://github.com/ansible-middleware/keycloak/pull/115>`_
+
+        '
+      - 'Update minimum ansible-core version > 2.14 `#119 <https://github.com/ansible-middleware/keycloak/pull/119>`_
+
+        '
+      - 'keycloak_quarkus: enable config of key store and trust store `#116 <https://github.com/ansible-middleware/keycloak/pull/116>`_
+
+        '
+      minor_changes:
+      - 'Add new parameter for port offset configuration `#124 <https://github.com/ansible-middleware/keycloak/pull/124>`_
+
+        '
+      - 'Update Keycloak to version 22.0.5 `#122 <https://github.com/ansible-middleware/keycloak/pull/122>`_
+
+        '
+    fragments:
+    - 115.yaml
+    - 116.yaml
+    - 119.yaml
+    - 122.yaml
+    - 124.yaml
+    release_date: '2023-11-20'

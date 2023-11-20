@@ -6,6 +6,22 @@ middleware_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v2.0.0
+======
+
+Minor Changes
+-------------
+
+- Add new parameter for port offset configuration `#124 <https://github.com/ansible-middleware/keycloak/pull/124>`_
+- Update Keycloak to version 22.0.5 `#122 <https://github.com/ansible-middleware/keycloak/pull/122>`_
+
+Breaking Changes / Porting Guide
+--------------------------------
+
+- Add support for more http-related configs `#115 <https://github.com/ansible-middleware/keycloak/pull/115>`_
+- Update minimum ansible-core version > 2.14 `#119 <https://github.com/ansible-middleware/keycloak/pull/119>`_
+- keycloak_quarkus: enable config of key store and trust store `#116 <https://github.com/ansible-middleware/keycloak/pull/116>`_
+
 v1.3.0
 ======
 

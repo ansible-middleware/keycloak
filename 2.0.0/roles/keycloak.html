@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>keycloak &mdash; Keycloak Ansible Collection  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/antsibull-minimal.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/ansible-basic-sphinx-ext.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="keycloak_quarkus" href="keycloak_quarkus.html" />
+    <link rel="prev" title="Role Index" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Keycloak Ansible Collection
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Ansible Collection - middleware_automation.keycloak</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/index.html">Plugin Index</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Role Index</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">keycloak</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#versions">Versions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#patching">Patching</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#role-defaults">Role Defaults</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#role-variables">Role Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-playbook">Example Playbook</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#license">License</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#author-information">Author Information</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_quarkus.html">keycloak_quarkus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm.html">keycloak_realm</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing.html">Contributor’s Guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releasing.html">Collection Versioning Strategy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../CHANGELOG.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Middleware collections</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/infinispan/">Infinispan / Red Hat Data Grid</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/keycloak/">Keycloak / Red Hat Single Sign-On</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/wildfly/">Wildfly / Red Hat JBoss EAP</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/jws/">Tomcat / Red Hat JWS</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/amq/">ActiveMQ / Red Hat AMQ Broker</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/amq_streams/">Kafka / Red Hat AMQ Streams</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/redhat-csp-download/">Red Hat CSP Download</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/ansible_collections_jcliff/">JCliff</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Keycloak Ansible Collection</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Role Index</a></li>
+      <li class="breadcrumb-item active">keycloak</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/roles/keycloak.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="keycloak">
+<h1>keycloak<a class="headerlink" href="#keycloak" title="Link to this heading"></a></h1>
+<p>Install <a class="reference external" href="https://keycloak.org/">keycloak</a> or <a class="reference external" href="https://access.redhat.com/products/red-hat-single-sign-on">Red Hat Single Sign-On</a> server configurations.</p>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h2>
+<p>This role requires the <code class="docutils literal notranslate"><span class="pre">python3-netaddr</span></code> library installed on the controller node.</p>
+<ul class="simple">
+<li><p>to install via yum/dnf: <code class="docutils literal notranslate"><span class="pre">dnf</span> <span class="pre">install</span> <span class="pre">python3-netaddr</span></code></p></li>
+<li><p>or via pip: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">netaddr==0.8.0</span></code></p></li>
+<li><p>or via the collection: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code></p></li>
+</ul>
+</section>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading"></a></h2>
+<p>The roles depends on:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/ansible-middleware/common">middleware_automation.common</a></p></li>
+<li><p><a class="reference external" href="https://docs.ansible.com/ansible/latest/collections/ansible/posix/index.html">ansible-posix</a></p></li>
+</ul>
+<p>To install all the dependencies via galaxy:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ansible-galaxy collection install -r requirements.yml
+</pre></div>
+</div>
+</section>
+<section id="versions">
+<h2>Versions<a class="headerlink" href="#versions" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>RH-SSO VERSION</p></th>
+<th class="head text-left"><p>Release Date</p></th>
+<th class="head text-left"><p>Keycloak Version</p></th>
+<th class="head text-left"><p>EAP Version</p></th>
+<th class="head text-left"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">7.5.0</span> <span class="pre">GA</span></code></p></td>
+<td class="text-left"><p>September 20, 2021</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">15.0.2</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">7.4.6</span></code></p></td>
+<td class="text-left"><p><a class="reference external" href="https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.5/html/release_notes/index">Release Notes</a></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">7.6.0</span> <span class="pre">GA</span></code></p></td>
+<td class="text-left"><p>June 30, 2022</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">18.0.3</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">7.4.6</span></code></p></td>
+<td class="text-left"><p><a class="reference external" href="https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.6/html-single/release_notes/index">Release Notes</a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="patching">
+<h2>Patching<a class="headerlink" href="#patching" title="Link to this heading"></a></h2>
+<p>When variable <code class="docutils literal notranslate"><span class="pre">keycloak_rhsso_apply_patches</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code> (default: <code class="docutils literal notranslate"><span class="pre">False</span></code>), the role will automatically apply the latest cumulative patch for the selected base version.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>RH-SSO VERSION</p></th>
+<th class="head text-left"><p>Release Date</p></th>
+<th class="head text-left"><p>RH-SSO LATEST CP</p></th>
+<th class="head text-left"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">7.5.0</span> <span class="pre">GA</span></code></p></td>
+<td class="text-left"><p>January 20, 2022</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">7.5.3</span> <span class="pre">GA</span></code></p></td>
+<td class="text-left"><p><a class="reference external" href="https://access.redhat.com/articles/6646321">Release Notes</a></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">7.6.0</span> <span class="pre">GA</span></code></p></td>
+<td class="text-left"><p>November 11, 2022</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">7.6.1</span> <span class="pre">GA</span></code></p></td>
+<td class="text-left"><p><a class="reference external" href="https://access.redhat.com/articles/6982711">Release Notes</a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="role-defaults">
+<h2>Role Defaults<a class="headerlink" href="#role-defaults" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Service configuration</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
+<th class="head text-left"><p>Description</p></th>
+<th class="head text-left"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_ha_enabled</span></code></p></td>
+<td class="text-left"><p>Enable auto configuration for database backend, clustering and remote caches on infinispan</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_ha_discovery</span></code></p></td>
+<td class="text-left"><p>Discovery protocol for HA cluster members</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">JDBC_PING</span></code> if keycloak_db_enabled else <code class="docutils literal notranslate"><span class="pre">TCPPING</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_db_enabled</span></code></p></td>
+<td class="text-left"><p>Enable auto configuration for database backend</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if <code class="docutils literal notranslate"><span class="pre">keycloak_ha_enabled</span></code> is True, else <code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_remote_cache_enabled</span></code></p></td>
+<td class="text-left"><p>Enable remote cache store when in clustered ha configurations</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if <code class="docutils literal notranslate"><span class="pre">keycloak_ha_enabled</span></code> else <code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_admin_user</span></code></p></td>
+<td class="text-left"><p>Administration console user account</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">admin</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_bind_address</span></code></p></td>
+<td class="text-left"><p>Address for binding service ports</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">0.0.0.0</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_management_port_bind_address</span></code></p></td>
+<td class="text-left"><p>Address for binding management ports</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">127.0.0.1</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_host</span></code></p></td>
+<td class="text-left"><p>hostname</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">localhost</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_http_port</span></code></p></td>
+<td class="text-left"><p>HTTP port</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">8080</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_https_port</span></code></p></td>
+<td class="text-left"><p>TLS HTTP port</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">8443</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_ajp_port</span></code></p></td>
+<td class="text-left"><p>AJP port</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">8009</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_jgroups_port</span></code></p></td>
+<td class="text-left"><p>jgroups cluster tcp port</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">7600</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_management_http_port</span></code></p></td>
+<td class="text-left"><p>Management port</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">9990</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_management_https_port</span></code></p></td>
+<td class="text-left"><p>TLS management port</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">9993</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_prefer_ipv4</span></code></p></td>
+<td class="text-left"><p>Prefer IPv4 stack and addresses for port binding</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_config_standalone_xml</span></code></p></td>
+<td class="text-left"><p>filename for configuration</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak.xml</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_user</span></code></p></td>
+<td class="text-left"><p>posix account username</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_group</span></code></p></td>
+<td class="text-left"><p>posix account group</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_restart_always</span></code></p></td>
+<td class="text-left"><p>systemd restart always behavior activation</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_restart_on_failure</span></code></p></td>
+<td class="text-left"><p>systemd restart on-failure behavior activation</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_startlimitintervalsec</span></code></p></td>
+<td class="text-left"><p>systemd StartLimitIntervalSec</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">300</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_startlimitburst</span></code></p></td>
+<td class="text-left"><p>systemd StartLimitBurst</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">5</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_restartsec</span></code></p></td>
+<td class="text-left"><p>systemd RestartSec</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">10s</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_service_pidfile</span></code></p></td>
+<td class="text-left"><p>pid file path for service</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/run/keycloak/keycloak.pid</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_features</span></code></p></td>
+<td class="text-left"><p>List of <code class="docutils literal notranslate"><span class="pre">name</span></code>/<code class="docutils literal notranslate"><span class="pre">status</span></code> pairs of features (also known as profiles on RH-SSO) to <code class="docutils literal notranslate"><span class="pre">enable</span></code> or <code class="docutils literal notranslate"><span class="pre">disable</span></code>, example: <code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">{</span> <span class="pre">name:</span> <span class="pre">'docker',</span> <span class="pre">status:</span> <span class="pre">'enabled'</span> <span class="pre">}</span> <span class="pre">]</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_jvm_package</span></code></p></td>
+<td class="text-left"><p>RHEL java package runtime</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">java-1.8.0-openjdk-headless</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_java_home</span></code></p></td>
+<td class="text-left"><p>JAVA_HOME of installed JRE, leave empty for using specified keycloak_jvm_package RPM path</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_java_opts</span></code></p></td>
+<td class="text-left"><p>Additional JVM options</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">-Xms1024m</span> <span class="pre">-Xmx2048m</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Install options</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
+<th class="head text-left"><p>Description</p></th>
+<th class="head text-left"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_offline_install</span></code></p></td>
+<td class="text-left"><p>perform an offline install</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_download_url</span></code></p></td>
+<td class="text-left"><p>Download URL for keycloak</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">https://github.com/keycloak/keycloak/releases/download/&lt;version&gt;/&lt;archive&gt;</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_version</span></code></p></td>
+<td class="text-left"><p>keycloak.org package version</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">18.0.2</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_dest</span></code></p></td>
+<td class="text-left"><p>Installation root path</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/opt/keycloak</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_download_url</span></code></p></td>
+<td class="text-left"><p>Download URL for keycloak</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">https://github.com/keycloak/keycloak/releases/download/{{</span> <span class="pre">keycloak_version</span> <span class="pre">}}/{{</span> <span class="pre">keycloak_archive</span> <span class="pre">}}</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_configure_firewalld</span></code></p></td>
+<td class="text-left"><p>Ensure firewalld is running and configure keycloak ports</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Miscellaneous configuration</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
+<th class="head text-left"><p>Description</p></th>
+<th class="head text-left"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_archive</span></code></p></td>
+<td class="text-left"><p>keycloak install archive filename</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak-legacy-{{</span> <span class="pre">keycloak_version</span> <span class="pre">}}.zip</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_download_url_9x</span></code></p></td>
+<td class="text-left"><p>Download URL for keycloak (deprecated)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">https://downloads.jboss.org/keycloak/{{</span> <span class="pre">keycloak_version</span> <span class="pre">}}/{{</span> <span class="pre">keycloak_archive</span> <span class="pre">}}</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_installdir</span></code></p></td>
+<td class="text-left"><p>Installation path</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">keycloak_dest</span> <span class="pre">}}/keycloak-{{</span> <span class="pre">keycloak_version</span> <span class="pre">}}</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_jboss_home</span></code></p></td>
+<td class="text-left"><p>Installation work directory</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">keycloak_rhsso_installdir</span> <span class="pre">}}</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_jboss_port_offset</span></code></p></td>
+<td class="text-left"><p>Port offset for the JBoss socket binding</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_config_dir</span></code></p></td>
+<td class="text-left"><p>Path for configuration</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">keycloak_jboss_home</span> <span class="pre">}}/standalone/configuration</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_config_path_to_standalone_xml</span></code></p></td>
+<td class="text-left"><p>Custom path for configuration</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">keycloak_jboss_home</span> <span class="pre">}}/standalone/configuration/{{</span> <span class="pre">keycloak_config_standalone_xml</span> <span class="pre">}}</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_config_override_template</span></code></p></td>
+<td class="text-left"><p>Path to custom template for standalone.xml configuration</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">''</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_auth_realm</span></code></p></td>
+<td class="text-left"><p>Name for rest authentication realm</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">master</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_auth_client</span></code></p></td>
+<td class="text-left"><p>Authentication client for configuration REST calls</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">admin-cli</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_force_install</span></code></p></td>
+<td class="text-left"><p>Remove pre-existing versions of service</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_url</span></code></p></td>
+<td class="text-left"><p>URL for configuration rest calls</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">http://{{</span> <span class="pre">keycloak_host</span> <span class="pre">}}:{{</span> <span class="pre">keycloak_http_port</span> <span class="pre">+</span> <span class="pre">keycloak_jboss_port_offset</span> <span class="pre">}}</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_management_url</span></code></p></td>
+<td class="text-left"><p>URL for management console rest calls</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">http://{{</span> <span class="pre">keycloak_host</span> <span class="pre">}}:{{</span> <span class="pre">keycloak_management_http_port</span> <span class="pre">+</span> <span class="pre">keycloak_jboss_port_offset</span> <span class="pre">}}</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_frontend_url_force</span></code></p></td>
+<td class="text-left"><p>Force backend requests to use the frontend URL</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_db_background_validation</span></code></p></td>
+<td class="text-left"><p>Enable background validation of database connection</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_db_background_validation_millis</span></code></p></td>
+<td class="text-left"><p>How frequenly the connection pool is validated in the background</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">10000</span></code> if background validation enabled</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_db_background_validate_on_match</span></code></p></td>
+<td class="text-left"><p>Enable validate on match for database connections</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_frontend_url</span></code></p></td>
+<td class="text-left"><p>frontend URL for keycloak endpoint</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">http://localhost:8080/auth/</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_log_target</span></code></p></td>
+<td class="text-left"><p>Set the destination of the keycloak log folder link</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/var/log/keycloak</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="role-variables">
+<h2>Role Variables<a class="headerlink" href="#role-variables" title="Link to this heading"></a></h2>
+<p>The following are a set of <em>required</em> variables for the role:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
+<th class="head text-left"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_admin_password</span></code></p></td>
+<td class="text-left"><p>Password for the administration console user account (minimum 12 characters)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_frontend_url</span></code></p></td>
+<td class="text-left"><p>frontend URL for keycloak endpoint</p></td>
+</tr>
+</tbody>
+</table>
+<p>The following parameters are <em>required</em> only when <code class="docutils literal notranslate"><span class="pre">keycloak_ha_enabled</span></code> is True:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
+<th class="head text-left"><p>Description</p></th>
+<th class="head text-left"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_modcluster_enabled</span></code></p></td>
+<td class="text-left"><p>Enable configuration for modcluster subsystem</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if <code class="docutils literal notranslate"><span class="pre">keycloak_ha_enabled</span></code> is True, else <code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_modcluster_url</span></code></p></td>
+<td class="text-left"><p><em>deprecated</em> Host for the modcluster reverse proxy</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">localhost</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_modcluster_port</span></code></p></td>
+<td class="text-left"><p><em>deprecated</em> Port for the modcluster reverse proxy</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">6666</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_modcluster_urls</span></code></p></td>
+<td class="text-left"><p>List of {host,port} dicts for the modcluster reverse proxies</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">[</span> <span class="pre">{</span> <span class="pre">localhost:6666</span> <span class="pre">}</span> <span class="pre">]</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_jdbc_engine</span></code></p></td>
+<td class="text-left"><p>backend database engine when db is enabled: [ postgres, mariadb, sqlserver ]</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">postgres</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_infinispan_url</span></code></p></td>
+<td class="text-left"><p>URL for the infinispan remote-cache server</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">localhost:11122</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_infinispan_user</span></code></p></td>
+<td class="text-left"><p>username for connecting to infinispan</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">supervisor</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_infinispan_pass</span></code></p></td>
+<td class="text-left"><p>password for connecting to infinispan</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">supervisor</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_infinispan_sasl_mechanism</span></code></p></td>
+<td class="text-left"><p>Authentication type</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">SCRAM-SHA-512</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_infinispan_use_ssl</span></code></p></td>
+<td class="text-left"><p>Enable hotrod TLS communication</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_infinispan_trust_store_path</span></code></p></td>
+<td class="text-left"><p>Path to truststore with infinispan server certificate</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/etc/pki/java/cacerts</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_infinispan_trust_store_password</span></code></p></td>
+<td class="text-left"><p>Password for opening truststore</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">changeit</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>The following parameters are <em>required</em> only when <code class="docutils literal notranslate"><span class="pre">keycloak_db_enabled</span></code> is True:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
+<th class="head text-left"><p>Description</p></th>
+<th class="head text-left"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_jdbc_url</span></code></p></td>
+<td class="text-left"><p>URL for the postgres backend database</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">jdbc:postgresql://localhost:5432/keycloak</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_jdbc_driver_version</span></code></p></td>
+<td class="text-left"><p>Version for the JDBC driver to download</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">9.4.1212</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_db_user</span></code></p></td>
+<td class="text-left"><p>username for connecting to postgres</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak-user</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_db_pass</span></code></p></td>
+<td class="text-left"><p>password for connecting to postgres</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak-pass</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>The following variables are <em>optional</em>:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
+<th class="head text-left"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_db_valid_conn_sql</span></code></p></td>
+<td class="text-left"><p>Override the default database connection validation query sql</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_admin_url</span></code></p></td>
+<td class="text-left"><p>Override the default administration endpoint URL</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_jgroups_subnet</span></code></p></td>
+<td class="text-left"><p>Override the subnet match for jgroups cluster formation; if not defined, it will be inferred from local machine route configuration</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="example-playbook">
+<h2>Example Playbook<a class="headerlink" href="#example-playbook" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>The following is an example playbook that makes use of the role to install keycloak from remote:</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">vars</span><span class="p p-Indicator">:</span>
+<span class="w">        </span><span class="nt">keycloak_admin_password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;remembertochangeme&quot;</span>
+<span class="w">  </span><span class="w w-Error">    </span><span class="nt">roles</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">middleware_automation.keycloak.keycloak</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>The following example playbook makes use of the role to install keycloak from the controller node:</p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nn">---</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">collections</span><span class="p p-Indicator">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">middleware_automation.keycloak</span>
+<span class="w">  </span><span class="w w-Error">    </span><span class="nt">tasks</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Include keycloak role</span>
+<span class="w">          </span><span class="nt">include_role</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keycloak</span>
+<span class="w">          </span><span class="nt">vars</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">keycloak_admin_password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;remembertochangeme&quot;</span>
+<span class="w">            </span><span class="nt">keycloak_offline_install</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<span class="w">            </span><span class="c1"># This should be the filename of keycloak archive on Ansible node: keycloak-16.1.0.zip</span>
+</pre></div>
+</div>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Link to this heading"></a></h2>
+<p>Apache License 2.0</p>
+</section>
+<section id="author-information">
+<h2>Author Information<a class="headerlink" href="#author-information" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/guidograzioli">Guido Grazioli</a></p></li>
+<li><p><a class="reference external" href="https://github.com/rpelisse">Romain Pelisse</a></p></li>
+<li><p><a class="reference external" href="https://github.com/motaparthipavankumar">Pavan Kumar Motaparthi</a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Role Index" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="keycloak_quarkus.html" class="btn btn-neutral float-right" title="keycloak_quarkus" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Red Hat, Inc..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

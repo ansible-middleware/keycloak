@@ -6,6 +6,14 @@
     quiet: True
     fail_msg: "The console administrator password is empty or invalid. Please set the keycloak_quarkus_admin_pass variable to a 12+ char long string"
     success_msg: "{{ 'Console administrator password OK' }}"
+    
+- name: Validate relative path
+  ansible.builtin.assert:
+    that:
+      - keycloak_quarkus_http_relative_path is regex('^/.*')
+    quiet: True
+    fail_msg: "the relative path must begin with /"
+    success_msg: "{{ 'relative path OK' }}"
 
 - name: Validate configuration
   ansible.builtin.assert:

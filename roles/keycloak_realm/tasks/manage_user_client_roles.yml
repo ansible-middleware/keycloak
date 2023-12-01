@@ -31,7 +31,7 @@
         containerId: "{{ item.containerId }}"
         name: "{{ item.name }}"
         composite: "{{ item.composite }}"
-    validate_certs: False
+    validate_certs: false
     body_format: json
     headers:
       Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"

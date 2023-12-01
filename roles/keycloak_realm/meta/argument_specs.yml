@@ -94,7 +94,7 @@ argument_specs:
     downstream:
         options:
             sso_version:
-                default: "7.5.0"
+                default: "7.6.0"
                 description: "Red Hat Single Sign-On version"
                 type: "str"
             sso_dest:
@@ -106,10 +106,10 @@ argument_specs:
                 description: "Installation path for Red Hat SSO"
                 type: "str"
             sso_apply_patches:
-                default: False
+                default: false
                 description: "Install Red Hat SSO most recent cumulative patch"
                 type: "bool"
             sso_enable:
-                default: True
+                default: true
                 description: "Enable Red Hat Single Sign-on installation"
                 type: "str"

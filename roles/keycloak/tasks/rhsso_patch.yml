@@ -12,11 +12,11 @@
     path: "{{ patch_archive }}"
   register: patch_archive_path
   when: sso_patch_version is defined
-  become: yes
+  become: true
 
 - name: Perform patch download from RHN via JBossNetwork API
   delegate_to: localhost
-  run_once: yes
+  run_once: true
   when:
     - sso_enable is defined and sso_enable
     - not keycloak_offline_install
@@ -32,21 +32,21 @@
       register: rhn_products
       no_log: "{{ omit_rhn_output | default(true) }}"
       delegate_to: localhost
-      run_once: yes
+      run_once: true
 
     - name: Determine patch versions list
       ansible.builtin.set_fact:
-        filtered_versions: "{{ rhn_products.results | map(attribute='file_path') | select('match', '^[^/]*/rh-sso-.*[0-9]*[.][0-9]*[.][0-9]*.*$') | map('regex_replace','[^/]*/rh-sso-([0-9]*[.][0-9]*[.][0-9]*)-.*','\\1' ) | list | unique }}"
+        filtered_versions: "{{ rhn_products.results | map(attribute='file_path') | select('match', '^[^/]*/rh-sso-.*[0-9]*[.][0-9]*[.][0-9]*.*$') | map('regex_replace', '[^/]*/rh-sso-([0-9]*[.][0-9]*[.][0-9]*)-.*', '\\1') | list | unique }}"
       when: sso_patch_version is not defined or sso_patch_version | length == 0
       delegate_to: localhost
-      run_once: yes
+      run_once: true
 
     - name: Determine latest version
       ansible.builtin.set_fact:
          sso_latest_version: "{{ filtered_versions | middleware_automation.common.version_sort | last }}"
       when: sso_patch_version is not defined or sso_patch_version | length == 0
       delegate_to: localhost
-      run_once: yes
+      run_once: true
 
     - name: Determine install zipfile from search results
       ansible.builtin.set_fact:
@@ -55,7 +55,7 @@
         patch_version: "{{ sso_latest_version }}"
       when: sso_patch_version is not defined or sso_patch_version | length == 0
       delegate_to: localhost
-      run_once: yes
+      run_once: true
 
     - name: "Determine selected patch from supplied version: {{ sso_patch_version }}"
       ansible.builtin.set_fact:
@@ -64,7 +64,7 @@
         patch_version: "{{ sso_patch_version }}"
       when: sso_patch_version is defined
       delegate_to: localhost
-      run_once: yes
+      run_once: true
 
     - name: Download Red Hat Single Sign-On patch
       middleware_automation.common.product_download: # noqa risky-file-permissions delegated, uses controller host user
@@ -74,7 +74,7 @@
         dest: "{{ local_path.stat.path }}/{{ patch_bundle }}"
       no_log: "{{ omit_rhn_output | default(true) }}"
       delegate_to: localhost
-      run_once: yes
+      run_once: true
 
 - name: Set download patch archive path
   ansible.builtin.set_fact:
@@ -84,7 +84,7 @@
   ansible.builtin.stat:
     path: "{{ patch_archive }}"
   register: patch_archive_path
-  become: yes
+  become: true
 
 ## copy and unpack
 - name: Copy patch archive to target nodes
@@ -99,7 +99,7 @@
     - not patch_archive_path.stat.exists
     - local_archive_path.stat is defined
     - local_archive_path.stat.exists
-  become: yes
+  become: true
 
 - name: "Check installed patches"
   ansible.builtin.include_tasks: rhsso_cli.yml
@@ -107,7 +107,7 @@
     query: "patch info"
   args:
     apply:
-      become: yes
+      become: true
       become_user: "{{ keycloak_service_user }}"
 
 - name: "Perform patching"
@@ -122,7 +122,7 @@
         query: "patch apply {{ patch_archive }}"
       args:
         apply:
-          become: yes
+          become: true
           become_user: "{{ keycloak_service_user }}"
 
     - name: "Restart server to ensure patch content is running"
@@ -133,7 +133,7 @@
         - cli_result.rc == 0
       args:
         apply:
-            become: yes
+            become: true
             become_user: "{{ keycloak_service_user }}"
 
     - name: "Wait until {{ keycloak.service_name }} becomes active {{ keycloak.health_url }}"
@@ -150,7 +150,7 @@
         query: "patch info"
       args:
         apply:
-            become: yes
+            become: true
             become_user: "{{ keycloak_service_user }}"
 
     - name: "Verify installed patch version"

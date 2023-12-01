@@ -2,6 +2,7 @@
 - name: "Restart and enable {{ keycloak.service_name }} service"
   ansible.builtin.systemd:
     name: keycloak
-    enabled: yes
+    enabled: true
     state: restarted
-  become: yes
+    daemon_reload: true
+  become: true

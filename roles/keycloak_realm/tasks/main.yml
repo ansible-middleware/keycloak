@@ -4,7 +4,7 @@
     url: "{{ keycloak_url }}{{ keycloak_context }}/realms/master/protocol/openid-connect/token"
     method: POST
     body: "client_id={{ keycloak_auth_client }}&username={{ keycloak_admin_user }}&password={{ keycloak_admin_password }}&grant_type=password"
-    validate_certs: no
+    validate_certs: false
   no_log: "{{ keycloak_no_log | default('True') }}"
   register: keycloak_auth_response
   until: keycloak_auth_response.status == 200
@@ -28,7 +28,7 @@
     url: "{{ keycloak_url }}{{ keycloak_context }}/admin/realms"
     method: POST
     body: "{{ lookup('template', 'realm.json.j2') }}"
-    validate_certs: no
+    validate_certs: false
     body_format: json
     headers:
       Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
@@ -59,7 +59,7 @@
       - item.name is defined and item.name | length > 0
       - (item.client_id is defined and item.client_id | length > 0) or (item.id is defined and item.id | length > 0)
     fail_msg: "For each keycloak client, attributes `name` and either `id` or `client_id` is required"
-    quiet: True
+    quiet: true
   loop: "{{ keycloak_clients | flatten }}"
   loop_control:
     label: "{{ item.name | default('unnamed client') }}"

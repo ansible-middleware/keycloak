@@ -138,12 +138,12 @@ argument_specs:
                 type: "bool"
             keycloak_quarkus_trust_store_file:
                 default: "{{ keycloak.home }}/conf/trust_store.p12"
-                description: "The file pat to the trust store"
+                description: "The file path to the trust store"
                 type: "str"
             keycloak_quarkus_trust_store_password:
-                 default: ""
-                 description: "Password for the trust store"
-                 type: "str"
+                default: ""
+                description: "Password for the trust store"
+                type: "str"
             keycloak_quarkus_https_port:
                 # line 30 of defaults/main.yml
                 default: 8443
@@ -281,10 +281,10 @@ argument_specs:
                 type: "str"
                 description: "The proxy address forwarding mode if the server is behind a reverse proxy. Set to 'none' if not using a proxy"
             keycloak_quarkus_start_dev:
-                default: False
+                default: false
                 type: "bool"
                 description: "Whether to start the service in development mode (start-dev)"
             keycloak_quarkus_transaction_xa_enabled:
-                default: True
+                default: true
                 type: "bool"
                 description: "Enable or disable XA transactions which may not be supported by some DBMS"

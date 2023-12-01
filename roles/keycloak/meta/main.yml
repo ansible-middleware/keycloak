@@ -15,9 +15,9 @@ galaxy_info:
   min_ansible_version: "2.14"
 
   platforms:
-   - name: EL
-     versions:
-     - "8"
+    - name: EL
+      versions:
+        - "8"
 
   galaxy_tags:
     - keycloak

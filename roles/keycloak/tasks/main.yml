@@ -35,7 +35,7 @@
     state: link
     src: "{{ keycloak_jboss_home }}/standalone/log"
     dest: "{{ keycloak_log_target }}"
-  become: yes
+  become: true
 
 - name: Set admin credentials and restart if not already created
   block:
@@ -44,7 +44,7 @@
         url: "{{ keycloak_url }}/auth/realms/master/protocol/openid-connect/token"
         method: POST
         body: "client_id={{ keycloak_auth_client }}&username={{ keycloak_admin_user }}&password={{ keycloak_admin_password }}&grant_type=password"
-        validate_certs: no
+        validate_certs: false
       register: keycloak_auth_response
       until: keycloak_auth_response.status == 200
       retries: 2
@@ -58,8 +58,8 @@
           - "-rmaster"
           - "-u{{ keycloak_admin_user }}"
           - "-p{{ keycloak_admin_password }}"
-      changed_when: yes
-      become: yes
+      changed_when: true
+      become: true
     - name: "Restart {{ keycloak.service_name }}"
       ansible.builtin.include_tasks: tasks/restart_keycloak.yml
     - name: "Wait until {{ keycloak.service_name }} becomes active {{ keycloak.health_url }}"

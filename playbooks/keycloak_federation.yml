@@ -55,14 +55,14 @@
               - TestClient1Admin
               - TestClient1User
             realm: "{{ keycloak_realm }}"
-            public_client: True
+            public_client: true
             web_origins:
               - http://testclient1origin/application
               - http://testclient1origin/other
             users:
-            - username: TestUser
-              password: password
-              client_roles:
-                - client: TestClient1
-                  role: TestClient1User
-                  realm: "{{ keycloak_realm }}"
+              - username: TestUser
+                password: password
+                client_roles:
+                  - client: TestClient1
+                    role: TestClient1User
+                    realm: "{{ keycloak_realm }}"

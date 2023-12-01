@@ -40,7 +40,7 @@ keycloak_clients: []
 keycloak_client_default_roles: []
 
 # if True, create a public client; otherwise, a confidetial client
-keycloak_client_public: True
+keycloak_client_public: true
 
 # allowed web origins for the client
 keycloak_client_web_origins: '+'

@@ -6,19 +6,19 @@
       - firewalld
 
 - name: Enable and start the firewalld service
-  become: yes
+  become: true
   ansible.builtin.systemd:
     name: firewalld
-    enabled: yes
+    enabled: true
     state: started
 
-- name: "Configure firewall for {{ keycloak.service_name }} ports"
-  become: yes
+- name: "Configure firewall ports for {{ keycloak.service_name }}"
+  become: true
   ansible.posix.firewalld:
     port: "{{ item }}"
     permanent: true
     state: enabled
-    immediate: yes
+    immediate: true
   loop:
     - "{{ keycloak_http_port }}/tcp"
     - "{{ keycloak_https_port }}/tcp"

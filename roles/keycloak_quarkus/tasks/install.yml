@@ -11,21 +11,21 @@
     quiet: true
 
 - name: Check for an existing deployment
-  become: yes
+  become: true
   ansible.builtin.stat:
     path: "{{ keycloak.home }}"
   register: existing_deploy
 
 - name: "Create {{ keycloak.service_name }} service user/group"
-  become: yes
+  become: true
   ansible.builtin.user:
     name: "{{ keycloak.service_user }}"
     home: /opt/keycloak
-    system: yes
+    system: true
     create_home: no
 
 - name: "Create {{ keycloak.service_name }} install location"
-  become: yes
+  become: true
   ansible.builtin.file:
     dest: "{{ keycloak_quarkus_dest }}"
     state: directory
@@ -39,7 +39,7 @@
     archive: "{{ keycloak_quarkus_dest }}/{{ keycloak.bundle }}"
 
 - name: Check download archive path
-  become: yes
+  become: true
   ansible.builtin.stat:
     path: "{{ archive }}"
   register: archive_path
@@ -82,23 +82,23 @@
     - not archive_path.stat.exists
     - local_archive_path.stat is defined
     - local_archive_path.stat.exists
-  become: yes
+  become: true
 
 - name: "Check target directory: {{ keycloak.home }}/bin/"
   ansible.builtin.stat:
     path: "{{ keycloak.home }}/bin/"
   register: path_to_workdir
-  become: yes
+  become: true
 
 - name: "Extract Keycloak archive on target"
   ansible.builtin.unarchive:
-    remote_src: yes
+    remote_src: true
     src: "{{ archive }}"
     dest: "{{ keycloak_quarkus_dest }}"
     creates: "{{ keycloak.home }}/bin/"
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
-  become: yes
+  become: true
   when:
     - (not path_to_workdir.stat.exists) or new_version_downloaded.changed
   notify:

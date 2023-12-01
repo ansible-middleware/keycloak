@@ -3,7 +3,7 @@
   ansible.builtin.assert:
     that:
       - keycloak_admin_password | length > 12
-    quiet: True
+    quiet: true
     fail_msg: "The console administrator password is empty or invalid. Please set the keycloak_admin_password variable to a 12+ char long string"
     success_msg: "{{ 'Console administrator password OK' }}"
 
@@ -11,7 +11,7 @@
   ansible.builtin.assert:
     that:
       - (keycloak_ha_enabled and keycloak_db_enabled) or (not keycloak_ha_enabled and keycloak_db_enabled) or (not keycloak_ha_enabled and not keycloak_db_enabled)
-    quiet: True
+    quiet: true
     fail_msg: "Cannot install HA setup without a backend database service. Check keycloak_ha_enabled and keycloak_db_enabled"
     success_msg: "{{ 'Configuring HA' if keycloak_ha_enabled else 'Configuring standalone' }}"
 
@@ -20,7 +20,7 @@
     that:
       - (rhn_username is defined and sso_enable is defined and sso_enable) or not sso_enable is defined or not sso_enable or keycloak_offline_install
       - (rhn_password is defined and sso_enable is defined and sso_enable) or not sso_enable is defined or not sso_enable or keycloak_offline_install
-    quiet: True
+    quiet: true
     fail_msg: "Cannot install Red Hat SSO without RHN credentials. Check rhn_username and rhn_password are defined"
     success_msg: "Installing {{ keycloak_service_desc }}"
 
@@ -31,7 +31,7 @@
       - keycloak_jdbc_url | length > 0
       - keycloak_db_user | length > 0
       - keycloak_db_pass | length > 0
-    quiet: True
+    quiet: true
     fail_msg: "Configuration for the JDBC persistence is invalid or incomplete"
     success_msg: "Configuring JDBC persistence using {{ keycloak_jdbc_engine }} database"
   when: keycloak_db_enabled

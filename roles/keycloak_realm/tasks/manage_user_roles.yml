@@ -3,7 +3,7 @@
   ansible.builtin.uri:
     url: "{{ keycloak_url }}{{ keycloak_context }}/admin/realms/{{ keycloak_realm }}/users?username={{ user.username }}"
     headers:
-      validate_certs: no
+      validate_certs: false
       Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
   register: keycloak_user
 
@@ -12,7 +12,7 @@
     url: "{{ keycloak_url }}{{ keycloak_context }}/realms/master/protocol/openid-connect/token"
     method: POST
     body: "client_id={{ keycloak_auth_client }}&username={{ keycloak_admin_user }}&password={{ keycloak_admin_password }}&grant_type=password"
-    validate_certs: no
+    validate_certs: false
   register: keycloak_auth_response
   no_log: "{{ keycloak_no_log | default('True') }}"
   until: keycloak_auth_response.status == 200

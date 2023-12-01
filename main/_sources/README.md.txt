@@ -66,11 +66,11 @@ For full service configuration details, refer to the [keycloak role README](http
 
 #### Install from controller node (offline)
 
-Making the keycloak zip archive available to the playbook working directory, and setting `keycloak_offline_install` to `True`, allows to skip
+Making the keycloak zip archive available to the playbook working directory, and setting `keycloak_offline_install` to `true`, allows to skip
 the download tasks. The local path for the archive does match the downloaded archive path, so that it is also used as a cache when multiple hosts are provisioned in a cluster.
 
 ```yaml
-keycloak_offline_install: True
+keycloak_offline_install: true
 ```
 
 

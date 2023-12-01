@@ -184,9 +184,9 @@
 <p>For full service configuration details, refer to the <a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak/README.md">keycloak role README</a>.</p>
 <section id="install-from-controller-node-offline">
 <h4>Install from controller node (offline)<a class="headerlink" href="#install-from-controller-node-offline" title="Link to this heading"></a></h4>
-<p>Making the keycloak zip archive available to the playbook working directory, and setting <code class="docutils literal notranslate"><span class="pre">keycloak_offline_install</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code>, allows to skip
+<p>Making the keycloak zip archive available to the playbook working directory, and setting <code class="docutils literal notranslate"><span class="pre">keycloak_offline_install</span></code> to <code class="docutils literal notranslate"><span class="pre">true</span></code>, allows to skip
 the download tasks. The local path for the archive does match the downloaded archive path, so that it is also used as a cache when multiple hosts are provisioned in a cluster.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">keycloak_offline_install</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">keycloak_offline_install</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </pre></div>
 </div>
 <!--start rhn_credentials -->

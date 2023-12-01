@@ -3,17 +3,17 @@
   ansible.builtin.stat:
     path: "{{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_dir }}"
   register: dest_path
-  become: yes
+  become: true
 
 - name: "Set up module dir for JDBC Driver {{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_name }}"
   ansible.builtin.file:
     path: "{{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_dir }}"
     state: directory
-    recurse: yes
+    recurse: true
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
     mode: 0750
-  become: yes
+  become: true
   when:
     - not dest_path.stat.exists
 
@@ -24,7 +24,7 @@
     group: "{{ keycloak_service_group }}"
     owner: "{{ keycloak_service_user }}"
     mode: 0640
-  become: yes
+  become: true
 
 - name: "Deploy module.xml for JDBC Driver"
   ansible.builtin.template:
@@ -33,4 +33,4 @@
     group: "{{ keycloak_service_group }}"
     owner: "{{ keycloak_service_user }}"
     mode: 0640
-  become: yes
+  become: true

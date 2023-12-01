@@ -3,6 +3,6 @@
   hosts: sso
   vars:
     keycloak_admin_password: "remembertochangeme"
-    sso_enable: True
+    sso_enable: true
   roles:
     - middleware_automation.keycloak.keycloak

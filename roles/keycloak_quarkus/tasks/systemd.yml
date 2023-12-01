@@ -4,7 +4,7 @@
     rpm_java_home: "/etc/alternatives/jre_{{ keycloak_quarkus_jvm_package | regex_search('(?<=java-)[0-9.]+') }}"
 
 - name: "Configure sysconfig file for keycloak service"
-  become: yes
+  become: true
   ansible.builtin.template:
     src: keycloak-sysconfig.j2
     dest: /etc/sysconfig/keycloak
@@ -23,13 +23,7 @@
     owner: root
     group: root
     mode: 0644
-  become: yes
+  become: true
   register: systemdunit
   notify:
     - restart keycloak
-
-- name: Reload systemd
-  become: yes
-  ansible.builtin.systemd:
-    daemon_reload: yes
-  when: systemdunit.changed

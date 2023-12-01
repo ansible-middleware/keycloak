@@ -28,7 +28,7 @@
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
     mode: 0644
-  become: yes
+  become: true
   notify:
     - restart keycloak
 
@@ -39,7 +39,7 @@
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
     mode: 0644
-  become: yes
+  become: true
   notify:
     - restart keycloak    
 
@@ -50,7 +50,7 @@
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
     mode: 0775
-  become: yes
+  become: true
 
 - name: Flush pending handlers
   ansible.builtin.meta: flush_handlers
@@ -61,12 +61,12 @@
 - name: Check service status
   ansible.builtin.command: "systemctl status keycloak"
   register: keycloak_service_status
-  changed_when: False
+  changed_when: false
 
 - name: Link default logs directory
   ansible.builtin.file:
     state: link
     src: "{{ keycloak.log.file | dirname }}"
     dest: "{{ keycloak_quarkus_log_target }}"
-    force: yes
-  become: yes
+    force: true
+  become: true

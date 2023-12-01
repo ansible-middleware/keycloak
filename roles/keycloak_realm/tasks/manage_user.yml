@@ -2,7 +2,7 @@
 - name: "Check if User Already Exists"
   ansible.builtin.uri:
     url: "{{ keycloak_url }}{{ keycloak_context }}/admin/realms/{{ keycloak_realm }}/users?username={{ user.username }}"
-    validate_certs: no
+    validate_certs: false
     headers:
       Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
   register: keycloak_user_search_result
@@ -18,7 +18,7 @@
       email: "{{ user.email | default(omit) }}"
       firstName: "{{ user.firstName | default(omit) }}"
       lastName: "{{ user.lastName | default(omit) }}"
-    validate_certs: no
+    validate_certs: false
     body_format: json
     headers:
       Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
@@ -28,7 +28,7 @@
 - name: "Get User"
   ansible.builtin.uri:
     url: "{{ keycloak_url }}{{ keycloak_context }}/admin/realms/{{ keycloak_realm }}/users?username={{ user.username }}"
-    validate_certs: no
+    validate_certs: false
     headers:
       Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
   register: keycloak_user
@@ -41,7 +41,7 @@
       type: password
       temporary: false
       value: "{{ user.password }}"
-    validate_certs: no
+    validate_certs: false
     body_format: json
     status_code:
       - 200

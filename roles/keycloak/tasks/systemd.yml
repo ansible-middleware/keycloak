@@ -1,6 +1,6 @@
 ---
 - name: "Configure {{ keycloak.service_name }} service script wrapper"
-  become: yes
+  become: true
   ansible.builtin.template:
     src: keycloak-service.sh.j2
     dest: "{{ keycloak_dest }}/keycloak-service.sh"
@@ -15,7 +15,7 @@
     rpm_java_home: "/etc/alternatives/jre_{{ keycloak_jvm_package | regex_search('(?<=java-)[0-9.]+') }}"
 
 - name: "Configure sysconfig file for {{ keycloak.service_name }} service"
-  become: yes
+  become: true
   ansible.builtin.template:
     src: keycloak-sysconfig.j2
     dest: /etc/sysconfig/keycloak
@@ -34,20 +34,14 @@
     owner: root
     group: root
     mode: 0644
-  become: yes
+  become: true
   register: systemdunit
   notify:
     - restart keycloak
 
-- name: Reload systemd
-  become: yes
-  ansible.builtin.systemd:
-    daemon_reload: yes
-  when: systemdunit.changed
-
 - name: "Start and wait for {{ keycloak.service_name }} service (first node db)"
   ansible.builtin.include_tasks: start_keycloak.yml
-  run_once: yes
+  run_once: true
   when: keycloak_db_enabled
 
 - name: "Start and wait for {{ keycloak.service_name }} service (remaining nodes)"
@@ -56,7 +50,7 @@
 - name: Check service status
   ansible.builtin.command: "systemctl status keycloak"
   register: keycloak_service_status
-  changed_when: False
+  changed_when: false
 
 - name: Verify service status
   ansible.builtin.assert:

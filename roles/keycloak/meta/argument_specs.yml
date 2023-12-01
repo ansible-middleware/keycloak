@@ -214,7 +214,7 @@ argument_specs:
                 description: "Frontend URL for keycloak endpoints when a reverse proxy is used"
                 type: "str"
             keycloak_frontend_url_force:
-                default: False
+                default: false
                 description: "Force backend requests to use the frontend URL"
                 type: "bool"
             keycloak_infinispan_user:
@@ -337,7 +337,7 @@ argument_specs:
                 description: "Enable remote cache store when in clustered ha configurations"
                 type: "bool"
             keycloak_db_background_validation:
-                default: False
+                default: false
                 description: "Enable background validation of database connection"
                 type: "bool"
             keycloak_db_background_validation_millis:
@@ -345,19 +345,19 @@ argument_specs:
                 description: "How frequenly the connection pool is validated in the background"
                 type: 'int'
             keycloak_db_background_validate_on_match:
-                default: False
+                default: false
                 description: "Enable validate on match for database connections"
                 type: "bool"
             keycloak_db_valid_conn_sql:
-                required: False
+                required: false
                 description: "Override the default database connection validation query sql"
                 type: "str"
             keycloak_admin_url:
-                required: False
+                required: false
                 description: "Override the default administration endpoint URL"
                 type: "str"
             keycloak_jgroups_subnet:
-                required: False
+                required: false
                 description: "Override the subnet match for jgroups cluster formation; if not defined, it will be inferred from local machine route configuration"
                 type: "str"
             keycloak_log_target:
@@ -383,15 +383,15 @@ argument_specs:
                 description: "Installation path for Red Hat SSO"
                 type: "str"
             sso_apply_patches:
-                default: False
+                default: false
                 description: "Install Red Hat SSO most recent cumulative patch"
                 type: "bool"
             sso_enable:
-                default: True
+                default: true
                 description: "Enable Red Hat Single Sign-on installation"
                 type: "str"
             sso_offline_install:
-                default: False
+                default: false
                 description: "Perform an offline install"
                 type: "bool"
             sso_service_name:
@@ -403,7 +403,7 @@ argument_specs:
                 description: "systemd description for Red Hat Single Sign-On"
                 type: "str"
             sso_patch_version:
-                required: False
+                required: false
                 description: "Red Hat Single Sign-On latest cumulative patch version to apply; defaults to latest version when sso_apply_patches is True"
                 type: "str"
             sso_patch_bundle:

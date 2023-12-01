@@ -6,7 +6,7 @@ keycloak_quarkus_download_url: "https://github.com/keycloak/keycloak/releases/do
 keycloak_quarkus_installdir: "{{ keycloak_quarkus_dest }}/keycloak-{{ keycloak_quarkus_version }}"
 
 # whether to install from local archive
-keycloak_quarkus_offline_install: False
+keycloak_quarkus_offline_install: false
 
 ### Install location and service settings
 keycloak_quarkus_jvm_package: java-17-openjdk-headless
@@ -14,11 +14,11 @@ keycloak_quarkus_java_home:
 keycloak_quarkus_dest: /opt/keycloak
 keycloak_quarkus_home: "{{ keycloak_quarkus_installdir }}"
 keycloak_quarkus_config_dir: "{{ keycloak_quarkus_home }}/conf"
-keycloak_quarkus_start_dev: False
+keycloak_quarkus_start_dev: false
 keycloak_quarkus_service_user: keycloak
 keycloak_quarkus_service_group: keycloak
 keycloak_quarkus_service_pidfile: "/run/keycloak/keycloak.pid"
-keycloak_quarkus_configure_firewalld: False
+keycloak_quarkus_configure_firewalld: false
 
 ### administrator console password
 keycloak_quarkus_admin_user: admin
@@ -30,7 +30,7 @@ keycloak_quarkus_bind_address: 0.0.0.0
 keycloak_quarkus_host: localhost
 keycloak_quarkus_port: -1
 keycloak_quarkus_path:
-keycloak_quarkus_http_enabled: True
+keycloak_quarkus_http_enabled: true
 keycloak_quarkus_http_port: 8080
 keycloak_quarkus_https_port: 8443
 keycloak_quarkus_ajp_port: 8009
@@ -38,20 +38,20 @@ keycloak_quarkus_jgroups_port: 7600
 keycloak_quarkus_java_opts: "-Xms1024m -Xmx2048m"
 
 ### TLS/HTTPS configuration
-keycloak_quarkus_https_key_file_enabled: False
+keycloak_quarkus_https_key_file_enabled: false
 keycloak_quarkus_key_file: "{{ keycloak.home }}/conf/server.key.pem"
 keycloak_quarkus_cert_file: "{{ keycloak.home }}/conf/server.crt.pem"
 #### key store configuration
-keycloak_quarkus_https_key_store_enabled: False
+keycloak_quarkus_https_key_store_enabled: false
 keycloak_quarkus_key_store_file: "{{ keycloak.home }}/conf/key_store.p12"
 keycloak_quarkus_key_store_password: ''
 ##### trust store configuration
-keycloak_quarkus_https_trust_store_enabled: False
+keycloak_quarkus_https_trust_store_enabled: false
 keycloak_quarkus_trust_store_file: "{{ keycloak.home }}/conf/trust_store.p12"
 keycloak_quarkus_trust_store_password: ''
 
 ### Enable configuration for database backend, clustering and remote caches on infinispan
-keycloak_quarkus_ha_enabled: False
+keycloak_quarkus_ha_enabled: false
 ### Enable database configuration, must be enabled when HA is configured
 keycloak_quarkus_db_enabled: "{{ True if keycloak_quarkus_ha_enabled else False }}"
 
@@ -67,17 +67,17 @@ keycloak_quarkus_http_relative_path: /
 keycloak_quarkus_proxy_mode: edge
 
 # disable xa transactions
-keycloak_quarkus_transaction_xa_enabled: True
+keycloak_quarkus_transaction_xa_enabled: true
 
-keycloak_quarkus_metrics_enabled: False
-keycloak_quarkus_health_enabled: True
+keycloak_quarkus_metrics_enabled: false
+keycloak_quarkus_health_enabled: true
 
 ### infinispan remote caches access (hotrod)
 keycloak_quarkus_ispn_user: supervisor
 keycloak_quarkus_ispn_pass: supervisor
 keycloak_quarkus_ispn_url: localhost
 keycloak_quarkus_ispn_sasl_mechanism: SCRAM-SHA-512
-keycloak_quarkus_ispn_use_ssl: False
+keycloak_quarkus_ispn_use_ssl: false
 # if ssl is enabled, import ispn server certificate here
 keycloak_quarkus_ispn_trust_store_path: /etc/pki/java/cacerts
 keycloak_quarkus_ispn_trust_store_password: changeit

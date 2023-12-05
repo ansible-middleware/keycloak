@@ -288,3 +288,7 @@ argument_specs:
                 default: true
                 type: "bool"
                 description: "Enable or disable XA transactions which may not be supported by some DBMS"
+            keycloak_quarkus_hostname_strict:
+                default: true
+                type: "bool"
+                description: "Disables dynamically resolving the hostname from request headers. Should always be set to true in production, unless proxy verifies the Host header."

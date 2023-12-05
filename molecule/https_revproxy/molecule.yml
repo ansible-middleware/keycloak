@@ -41,8 +41,6 @@ provisioner:
         ansible_python_interpreter: "{{ ansible_playbook_python }}"
   env:
     ANSIBLE_FORCE_COLOR: "true"
-    REDHAT_PRODUCT_DOWNLOAD_CLIENT_ID: "${PROD_JBOSSNETWORK_API_CLIENTID}"
-    REDHAT_PRODUCT_DOWNLOAD_CLIENT_SECRET: "${PROD_JBOSSNETWORK_API_SECRET}"
 verifier:
   name: ansible
 scenario:

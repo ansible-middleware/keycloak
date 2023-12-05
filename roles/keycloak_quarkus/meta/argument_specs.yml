@@ -292,3 +292,53 @@ argument_specs:
                 default: true
                 type: "bool"
                 description: "Disables dynamically resolving the hostname from request headers. Should always be set to true in production, unless proxy verifies the Host header."
+    downstream:
+        options:
+            rhbk_version:
+                default: "22.0.6"
+                description: "Red Hat Build of Keycloak version"
+                type: "str"
+            rhbk_archive:
+                default: "rhbk-{{ rhbk_version }}.zip"
+                description: "Red Hat Build of Keycloak install archive filename"
+                type: "str"
+            rhbk_dest:
+                default: "/opt/rhbk"
+                description: "Root installation directory"
+                type: "str"
+            rhbk_installdir:
+                default: "{{ rhbk_dest }}/rhbk-{{ rhbk_version.split('.')[0] }}.{{ rhbk_version.split('.')[1] }}"
+                description: "Installation path for Red Hat Build of Keycloak"
+                type: "str"
+            rhbk_apply_patches:
+                default: false
+                description: "Install Red Hat Build of Keycloak most recent cumulative patch"
+                type: "bool"
+            rhbk_enable:
+                default: true
+                description: "Enable Red Hat Build of Keycloak installation"
+                type: "str"
+            rhbk_offline_install:
+                default: false
+                description: "Perform an offline install"
+                type: "bool"
+            rhbk_service_name:
+                default: "rhbk"
+                description: "systemd service name for Red Hat Build of Keycloak"
+                type: "str"
+            rhbk_service_desc:
+                default: "Red Hat Build of Keycloak"
+                description: "systemd description for Red Hat Build of Keycloak"
+                type: "str"
+            rhbk_patch_version:
+                required: false
+                description: "Red Hat Build of Keycloak latest cumulative patch version to apply; defaults to latest version when rhbk_apply_patches is True"
+                type: "str"
+            rhbk_patch_bundle:
+                default: "rhbk-{{ rhbk_patch_version | default('[0-9]+[.][0-9]+[.][0-9]+') }}-patch.zip"
+                description: "Red Hat Build of Keycloak patch archive filename"
+                type: "str"
+            rhbk_product_category:
+                default: "rhbk"
+                description: "JBossNetwork API category for Red Hat Build of Keycloak"
+                type: "str"

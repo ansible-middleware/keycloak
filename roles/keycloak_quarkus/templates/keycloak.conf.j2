@@ -9,11 +9,11 @@ db-password={{ keycloak_quarkus_db_pass }}
 {% endif %}
 
 # Observability
-metrics-enabled={{ keycloak_quarkus_metrics_enabled }}
-health-enabled={{ keycloak_quarkus_health_enabled }}
+metrics-enabled={{ keycloak_quarkus_metrics_enabled | lower }}
+health-enabled={{ keycloak_quarkus_health_enabled | lower }}
 
 # HTTP
-http-enabled={{ keycloak_quarkus_http_enabled }}
+http-enabled={{ keycloak_quarkus_http_enabled | lower }}
 http-port={{ keycloak_quarkus_http_port }}
 http-relative-path={{ keycloak_quarkus_http_relative_path }}
 
@@ -57,7 +57,7 @@ proxy={{ keycloak_quarkus_proxy_mode }}
 #spi-sticky-session-encoder-infinispan-should-attach-route=false
 
 # Transaction
-transaction-xa-enabled={{ keycloak_quarkus_transaction_xa_enabled }}
+transaction-xa-enabled={{ keycloak_quarkus_transaction_xa_enabled | lower }}
 
 # Logging
 #log-format=%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n

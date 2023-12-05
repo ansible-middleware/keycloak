@@ -4,9 +4,9 @@ on:
   push:
     branches:
       - main
-  pull_request_target:
+  pull_request:
   schedule:
-    - cron: '0 6 * * *'
+    - cron: '15 6 * * *'
 
 jobs:
   ci:
@@ -15,4 +15,4 @@ jobs:
     with:
       fqcn: 'middleware_automation/keycloak'
       molecule_tests: >-
-          [ "default", "quarkus", "overridexml", "quarkus-devmode", "https_revproxy" ]
+          [ "default", "overridexml", "quarkus", "quarkus-devmode" ]

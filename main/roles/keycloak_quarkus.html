@@ -266,6 +266,27 @@
 </tbody>
 </table>
 <ul class="simple">
+<li><p>Hostname configuration</p></li>
+</ul>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
+<th class="head text-left"><p>Description</p></th>
+<th class="head text-left"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_http_relative_path</span></code></p></td>
+<td class="text-left"><p>Set the path relative to / for serving resources. The path must start with a /</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_hostname_strict</span></code></p></td>
+<td class="text-left"><p>Disables dynamically resolving the hostname from request headers</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
 <li><p>Database configuration</p></li>
 </ul>
 <table class="docutils align-default">
@@ -479,6 +500,14 @@
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_admin_pass</span></code></p></td>
 <td class="text-left"><p>Password of console admin account</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">yes</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_frontend_url</span></code></p></td>
+<td class="text-left"><p>Base URL for frontend URLs, including scheme, host, port and path</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">no</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_admin_url</span></code></p></td>
+<td class="text-left"><p>Base URL for accessing the administration console, including scheme, host, port and path</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">no</span></code></p></td>
 </tr>
 </tbody>
 </table>

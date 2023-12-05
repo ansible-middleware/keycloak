@@ -57,11 +57,51 @@
     dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
     mode: 0640
   delegate_to: localhost
+  run_once: true
   when:
     - archive_path is defined
     - archive_path.stat is defined
     - not archive_path.stat.exists
     - not keycloak.offline_install
+    - not rhbk_enable is defined or not rhbk_enable
+
+- name: Perform download from RHN using JBoss Network API
+  delegate_to: localhost
+  run_once: true
+  when:
+    - archive_path is defined
+    - archive_path.stat is defined
+    - not archive_path.stat.exists
+    - rhbk_enable is defined and rhbk_enable
+    - not keycloak.offline_install
+  block:
+    - name: Retrieve product download using JBoss Network API
+      middleware_automation.common.product_search:
+        client_id: "{{ rhn_username }}"
+        client_secret: "{{ rhn_password }}"
+        product_type: DISTRIBUTION
+        product_version: "{{ rhbk_version }}"
+        product_category: "{{ rhbk_product_category }}"
+      register: rhn_products
+      no_log: "{{ omit_rhn_output | default(true) }}"
+      delegate_to: localhost
+      run_once: true
+
+    - name: Determine install zipfile from search results
+      ansible.builtin.set_fact:
+        rhn_filtered_products: "{{ rhn_products.results | selectattr('file_path', 'match', '[^/]*/' + rhbk_archive + '$') }}"
+      delegate_to: localhost
+      run_once: true
+
+    - name: Download Red Hat Build of Keycloak
+      middleware_automation.common.product_download: # noqa risky-file-permissions delegated, uses controller host user
+        client_id: "{{ rhn_username }}"
+        client_secret: "{{ rhn_password }}"
+        product_id: "{{ (rhn_filtered_products | first).id }}"
+        dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
+      no_log: "{{ omit_rhn_output | default(true) }}"
+      delegate_to: localhost
+      run_once: true
 
 - name: Check downloaded archive
   ansible.builtin.stat:
@@ -76,7 +116,7 @@
     dest: "{{ archive }}"
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
-    mode: 0750
+    mode: 0640
   register: new_version_downloaded
   when:
     - not archive_path.stat.exists

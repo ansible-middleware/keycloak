@@ -41,6 +41,7 @@ hostname-port={{ keycloak_quarkus_port }}
 hostname-path={{ keycloak_quarkus_path }}
 {% endif %}
 hostname-admin-url={{ keycloak_quarkus_admin_url }}
+hostname-strict={{ keycloak_quarkus_hostname_strict | lower }}
 
 # Cluster
 {% if keycloak_quarkus_ha_enabled %}

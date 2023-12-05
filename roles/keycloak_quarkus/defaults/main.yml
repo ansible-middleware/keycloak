@@ -63,6 +63,10 @@ keycloak_quarkus_admin_url:
 ### (set to `/auth` for retrocompatibility with pre-quarkus releases)
 keycloak_quarkus_http_relative_path: /
 
+# Disables dynamically resolving the hostname from request headers.
+# Should always be set to true in production, unless proxy verifies the Host header.
+keycloak_quarkus_hostname_strict: true
+
 # proxy address forwarding mode if the server is behind a reverse proxy. [none, edge, reencrypt, passthrough]
 keycloak_quarkus_proxy_mode: edge
 

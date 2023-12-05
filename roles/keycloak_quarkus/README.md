@@ -50,6 +50,13 @@ Role Defaults
 |`keycloak_quarkus_trust_store_password`| Password for the trust store | `""` |
 
 
+* Hostname configuration
+
+| Variable | Description | Default |
+|:---------|:------------|:--------|
+|`keycloak_quarkus_http_relative_path`| Set the path relative to / for serving resources. The path must start with a / | `/` |
+|`keycloak_quarkus_hostname_strict`| Disables dynamically resolving the hostname from request headers | `true` |
+
 
 * Database configuration
 
@@ -118,6 +125,8 @@ Role Variables
 | Variable | Description | Required |
 |:---------|:------------|----------|
 |`keycloak_quarkus_admin_pass`| Password of console admin account | `yes` |
+|`keycloak_quarkus_frontend_url`| Base URL for frontend URLs, including scheme, host, port and path | `no` |
+|`keycloak_quarkus_admin_url`| Base URL for accessing the administration console, including scheme, host, port and path | `no` |
 
 
 License

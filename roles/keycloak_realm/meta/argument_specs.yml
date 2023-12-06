@@ -113,3 +113,23 @@ argument_specs:
                 default: true
                 description: "Enable Red Hat Single Sign-on installation"
                 type: "str"
+            rhbk_version:
+                default: "22.0.6"
+                description: "Red Hat Build of Keycloak version"
+                type: "str"
+            rhbk_archive:
+                default: "rhbk-{{ rhbk_version }}.zip"
+                description: "Red Hat Build of Keycloak install archive filename"
+                type: "str"
+            rhbk_dest:
+                default: "/opt/rhbk"
+                description: "Root installation directory"
+                type: "str"
+            rhbk_installdir:
+                default: "{{ rhbk_dest }}/rhbk-{{ rhbk_version.split('.')[0] }}.{{ rhbk_version.split('.')[1] }}"
+                description: "Installation path for Red Hat Build of Keycloak"
+                type: "str"
+            rhbk_enable:
+                default: true
+                description: "Enable Red Hat Build of Keycloak installation"
+                type: "str"

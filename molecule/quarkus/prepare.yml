@@ -1,6 +1,8 @@
 ---
 - name: Prepare
   hosts: all
+  vars:
+    version: "{{ '22.0.6' if rhbk_enable is defined and rhbk_enable else '23.0.1' }}"
   tasks:
     - name: Install sudo
       ansible.builtin.yum:
@@ -19,13 +21,13 @@
     - name: Create conf directory # risky-file-permissions in test user account does not exist yet
       ansible.builtin.file:
         state: directory
-        path: /opt/keycloak/keycloak-23.0.1/conf/
+        path: "/opt/keycloak/keycloak-{{ version }}/conf/"
         mode: 0755
 
     - name: Copy certificates
       ansible.builtin.copy:
         src: "{{ item }}"
-        dest: "/opt/keycloak/keycloak-23.0.1/conf/{{ item }}"
+        dest: "/opt/keycloak/keycloak-{{ version }}/conf/{{ item }}"
         mode: 0444
       loop:
         - cert.pem

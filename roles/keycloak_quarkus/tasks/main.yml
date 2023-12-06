@@ -41,7 +41,7 @@
     mode: 0644
   become: true
   notify:
-    - restart keycloak    
+    - restart keycloak
 
 - name: Ensure logdirectory exists
   ansible.builtin.file:

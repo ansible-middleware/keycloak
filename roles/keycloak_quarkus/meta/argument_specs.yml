@@ -307,7 +307,7 @@ argument_specs:
                 description: "Root installation directory"
                 type: "str"
             rhbk_installdir:
-                default: "{{ rhbk_dest }}/rhbk-{{ rhbk_version.split('.')[0] }}.{{ rhbk_version.split('.')[1] }}"
+                default: "{{ rhbk_dest }}/rhbk-{{ rhbk_version }}"
                 description: "Installation path for Red Hat Build of Keycloak"
                 type: "str"
             rhbk_apply_patches:

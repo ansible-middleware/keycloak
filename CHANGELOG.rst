@@ -6,6 +6,20 @@ middleware_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v2.0.1
+======
+
+Minor Changes
+-------------
+
+- keycloak_quarkus: add hostname-strict parameter `#139 <https://github.com/ansible-middleware/keycloak/pull/139>`_
+- keycloak_quarkus: update to version 23.0.1 `#133 <https://github.com/ansible-middleware/keycloak/pull/133>`_
+
+Bugfixes
+--------
+
+- keycloak_quarkus: template requires lowercase boolean values `#138 <https://github.com/ansible-middleware/keycloak/pull/138>`_
+
 v2.0.0
 ======
 

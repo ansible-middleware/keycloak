@@ -341,3 +341,21 @@ releases:
     - 122.yaml
     - 124.yaml
     release_date: '2023-11-20'
+  2.0.1:
+    changes:
+      bugfixes:
+      - 'keycloak_quarkus: template requires lowercase boolean values `#138 <https://github.com/ansible-middleware/keycloak/pull/138>`_
+
+        '
+      minor_changes:
+      - 'keycloak_quarkus: add hostname-strict parameter `#139 <https://github.com/ansible-middleware/keycloak/pull/139>`_
+
+        '
+      - 'keycloak_quarkus: update to version 23.0.1 `#133 <https://github.com/ansible-middleware/keycloak/pull/133>`_
+
+        '
+    fragments:
+    - 133.yaml
+    - 138.yaml
+    - 139.yaml
+    release_date: '2023-12-07'

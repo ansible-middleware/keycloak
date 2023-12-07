@@ -8,8 +8,8 @@
     keycloak_quarkus_host: instance
     keycloak_quarkus_log: file
     keycloak_quarkus_https_key_file_enabled: True
-    keycloak_quarkus_key_file: "{{ keycloak.home }}/conf/key.pem"
-    keycloak_quarkus_cert_file: "{{ keycloak.home }}/conf/cert.pem"
+    keycloak_quarkus_key_file: "/opt/keycloak/certs/key.pem"
+    keycloak_quarkus_cert_file: "/opt/keycloak/certs/cert.pem"
     keycloak_quarkus_log_target: /tmp/keycloak
   roles:
     - role: keycloak_quarkus

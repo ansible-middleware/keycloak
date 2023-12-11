@@ -6,7 +6,7 @@
 > **_NOTE:_ If you are Red Hat customer, install `redhat.sso` from [Automation Hub](https://console.redhat.com/ansible/ansible-dashboard) as the certified version of this collection.**
 
 <!--end build_status -->
-Collection to install and configure [Keycloak](https://www.keycloak.org/) or [Red Hat Single Sign-On](https://access.redhat.com/products/red-hat-single-sign-on). 
+Collection to install and configure [Keycloak](https://www.keycloak.org/) or [Red Hat Single Sign-On](https://access.redhat.com/products/red-hat-single-sign-on).
 
 <!--start requires_ansible-->
 ## Ansible version compatibility
@@ -56,13 +56,13 @@ A requirement file is provided to install:
 
 
 ### Install Playbook
-
+<!--start rhbk_playbook -->
 * [`playbooks/keycloak.yml`](https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak.yml) installs based on the defined variables (using most defaults).
 
 Both playbooks include the `keycloak` role, with different settings, as described in the following sections.
 
 For full service configuration details, refer to the [keycloak role README](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak/README.md).
-
+<!--end rhbk_playbook -->
 
 #### Install from controller node (offline)
 
@@ -85,7 +85,7 @@ It is possible to perform downloads from alternate sources, using the `keycloak_
 
 ### Example installation command
 
-Execute the following command from the source root directory 
+Execute the following command from the source root directory
 
 ```
 ansible-playbook -i <ansible_hosts> -e @rhn-creds.yml playbooks/keycloak.yml -e keycloak_admin_password=<changeme>
@@ -106,9 +106,9 @@ Note: when deploying clustered configurations, all hosts belonging to the cluste
 
 
 ### Config Playbook
-
+<!--start rhbk_realm_playbook -->
 [`playbooks/keycloak_realm.yml`](https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_realm.yml) creates or updates provided realm, user federation(s), client(s), client role(s) and client user(s).
-
+<!--end rhbk_realm_playbook -->
 
 ### Example configuration command
 
@@ -126,9 +126,9 @@ ansible-playbook -i <ansible_hosts> playbooks/keycloak_realm.yml -e keycloak_adm
   [keycloak]
   localhost ansible_connection=local
   ```
-
+<!--start rhbk_realm_readme -->
 For full configuration details, refer to the [keycloak_realm role README](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak_realm/README.md).
-
+<!--end rhbk_realm_readme -->
 
 <!--start support -->
 <!--end support -->
@@ -137,6 +137,7 @@ For full configuration details, refer to the [keycloak_realm role README](https:
 ## License
 
 Apache License v2.0 or later
-
+<!--start license -->
 See [LICENSE](LICENSE) to view the full text.
+<!--end license -->
 

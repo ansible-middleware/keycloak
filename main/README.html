@@ -177,11 +177,13 @@
 <h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
 <section id="install-playbook">
 <h3>Install Playbook<a class="headerlink" href="#install-playbook" title="Link to this heading"></a></h3>
+<!--start rhbk_playbook -->
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak.yml</span></code></a> installs based on the defined variables (using most defaults).</p></li>
 </ul>
 <p>Both playbooks include the <code class="docutils literal notranslate"><span class="pre">keycloak</span></code> role, with different settings, as described in the following sections.</p>
 <p>For full service configuration details, refer to the <a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak/README.md">keycloak role README</a>.</p>
+<!--end rhbk_playbook -->
 <section id="install-from-controller-node-offline">
 <h4>Install from controller node (offline)<a class="headerlink" href="#install-from-controller-node-offline" title="Link to this heading"></a></h4>
 <p>Making the keycloak zip archive available to the playbook working directory, and setting <code class="docutils literal notranslate"><span class="pre">keycloak_offline_install</span></code> to <code class="docutils literal notranslate"><span class="pre">true</span></code>, allows to skip
@@ -219,7 +221,9 @@ the download tasks. The local path for the archive does match the downloaded arc
 <h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
 <section id="config-playbook">
 <h3>Config Playbook<a class="headerlink" href="#config-playbook" title="Link to this heading"></a></h3>
+<!--start rhbk_realm_playbook -->
 <p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_realm.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak_realm.yml</span></code></a> creates or updates provided realm, user federation(s), client(s), client role(s) and client user(s).</p>
+<!--end rhbk_realm_playbook -->
 </section>
 <section id="example-configuration-command">
 <h3>Example configuration command<a class="headerlink" href="#example-configuration-command" title="Link to this heading"></a></h3>
@@ -237,7 +241,9 @@ the download tasks. The local path for the archive does match the downloaded arc
 </div>
 </li>
 </ul>
+<!--start rhbk_realm_readme -->
 <p>For full configuration details, refer to the <a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak_realm/README.md">keycloak_realm role README</a>.</p>
+<!--end rhbk_realm_readme -->
 <!--start support -->
 <!--end support -->
 </section>
@@ -245,7 +251,9 @@ the download tasks. The local path for the archive does match the downloaded arc
 <section id="license">
 <h2>License<a class="headerlink" href="#license" title="Link to this heading"></a></h2>
 <p>Apache License v2.0 or later</p>
+<!--start license -->
 <p>See <a class="reference internal" href="#LICENSE"><span class="xref myst">LICENSE</span></a> to view the full text.</p>
+<!--end license -->
 </section>
 </section>
 

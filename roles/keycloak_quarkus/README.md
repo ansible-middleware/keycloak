@@ -111,7 +111,6 @@ Role Defaults
 |`keycloak_auth_client` | Authentication client for configuration REST calls | `admin-cli` |
 |`keycloak_force_install` | Remove pre-existing versions of service | `False` |
 |`keycloak_url` | URL for configuration rest calls | `http://{{ keycloak_quarkus_host }}:{{ keycloak_http_port }}` |
-|`keycloak_management_url` | URL for management console rest calls | `http://{{ keycloak_quarkus_host }}:{{ keycloak_management_http_port }}` |
 |`keycloak_quarkus_log`| Enable one or more log handlers in a comma-separated list | `file` |
 |`keycloak_quarkus_log_level`| The log level of the root category or a comma-separated list of individual categories and their levels | `info` |
 |`keycloak_quarkus_log_file`| Set the log file path and filename relative to keycloak home | `data/log/keycloak.log` |

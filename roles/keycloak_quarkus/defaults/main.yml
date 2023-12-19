@@ -19,6 +19,9 @@ keycloak_quarkus_service_user: keycloak
 keycloak_quarkus_service_group: keycloak
 keycloak_quarkus_service_pidfile: "/run/keycloak/keycloak.pid"
 keycloak_quarkus_configure_firewalld: false
+keycloak_quarkus_service_restart_always: false
+keycloak_quarkus_service_restart_on_failure: false
+keycloak_quarkus_service_restartsec: "10s"
 
 ### administrator console password
 keycloak_quarkus_admin_user: admin

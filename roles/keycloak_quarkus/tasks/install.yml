@@ -109,3 +109,9 @@
     msg: "{{ keycloak.home }} already exists and version unchanged, skipping decompression"
   when:
     - (not new_version_downloaded.changed) and path_to_workdir.stat.exists
+
+- name: "Install {{ keycloak_quarkus_jdbc_engine }} JDBC driver"
+  ansible.builtin.include_tasks: jdbc_driver.yml
+  when:
+    - rhbk_enable is defined and rhbk_enable
+    - keycloak_quarkus_default_jdbc[keycloak_quarkus_jdbc_engine].driver_jar_url is defined

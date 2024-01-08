@@ -234,7 +234,7 @@ argument_specs:
             keycloak_quarkus_jdbc_engine:
                 # line 56 of defaults/main.yml
                 default: "postgres"
-                description: "Database engine [mariadb,postres]"
+                description: "Database engine [mariadb,postres,mssql]"
                 type: "str"
             keycloak_quarkus_db_user:
                 # line 58 of defaults/main.yml

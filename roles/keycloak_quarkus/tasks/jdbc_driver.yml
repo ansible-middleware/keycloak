@@ -1,0 +1,12 @@
+---
+
+- name: "Retrieve JDBC Driver from {{ keycloak_jdbc[keycloak_quarkus_jdbc_engine].driver_jar_url }}"
+  ansible.builtin.get_url:
+    url: "{{ keycloak_quarkus_default_jdbc[keycloak_quarkus_jdbc_engine].driver_jar_url }}"
+    dest: "{{ keycloak.home }}/providers"
+    owner: "{{ keycloak.service_user }}"
+    group: "{{ keycloak.service_group }}"
+    mode: 0640
+  become: true
+  notify:
+    - restart keycloak

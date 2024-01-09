@@ -42,6 +42,7 @@ hostname-path={{ keycloak_quarkus_path }}
 {% endif %}
 hostname-admin-url={{ keycloak_quarkus_admin_url }}
 hostname-strict={{ keycloak_quarkus_hostname_strict | lower }}
+hostname-strict-backchannel={{ keycloak_quarkus_hostname_strict_backchannel | lower }}
 
 # Cluster
 {% if keycloak_quarkus_ha_enabled %}

@@ -292,6 +292,10 @@ argument_specs:
                 default: true
                 type: "bool"
                 description: "Disables dynamically resolving the hostname from request headers. Should always be set to true in production, unless proxy verifies the Host header."
+            keycloak_quarkus_hostname_strict_backchannel:
+                default: false
+                type: "bool"
+                description: "By default backchannel URLs are dynamically resolved from request headers to allow internal and external applications. If all applications use the public URL this option should be enabled."
     downstream:
         options:
             rhbk_version:

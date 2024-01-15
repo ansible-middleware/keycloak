@@ -59,6 +59,7 @@ Role Defaults
 |:---------|:------------|:--------|
 |`keycloak_quarkus_http_relative_path`| Set the path relative to / for serving resources. The path must start with a / | `/` |
 |`keycloak_quarkus_hostname_strict`| Disables dynamically resolving the hostname from request headers | `true` |
+|`keycloak_quarkus_hostname_strict_backchannel`| By default backchannel URLs are dynamically resolved from request headers to allow internal and external applications. If all applications use the public URL this option should be enabled. | `false` |
 
 
 * Database configuration

@@ -69,6 +69,18 @@ argument_specs:
                 default: false
                 description: "Ensure firewalld is running and configure keycloak ports"
                 type: "bool"
+            keycloak_service_restart_always:
+                default: false
+                description: "systemd restart always behavior of service; takes precedence over keycloak_service_restart_on_failure if true"
+                type: "bool"
+            keycloak_service_restart_on_failure:
+                default: false
+                description: "systemd restart on-failure behavior of service"
+                type: "bool"
+            keycloak_service_restartsec:
+                default: "10s"
+                description: "systemd RestartSec for service"
+                type: "str"
             keycloak_quarkus_admin_user:
                 default: "admin"
                 description: "Administration console user account"

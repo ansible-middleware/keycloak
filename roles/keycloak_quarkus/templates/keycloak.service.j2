@@ -13,6 +13,13 @@ ExecStart={{ keycloak.home }}/bin/kc.sh start-dev
 ExecStart={{ keycloak.home }}/bin/kc.sh start --log={{ keycloak_quarkus_log }}
 {% endif %}
 User={{ keycloak.service_user }}
+Group={{ keycloak.service_group }}
+{% if keycloak_quarkus_service_restart_always %}
+Restart=always
+{% elif keycloak_quarkus_service_restart_on_failure %}
+Restart=on-failure
+{% endif %}
+RestartSec={{ keycloak_quarkus_service_restartsec }}
 
 [Install]
 WantedBy=multi-user.target

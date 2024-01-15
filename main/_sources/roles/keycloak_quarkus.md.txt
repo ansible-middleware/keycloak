@@ -65,7 +65,7 @@ Role Defaults
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
-|`keycloak_quarkus_jdbc_engine` | Database engine [mariadb,postres] | `postgres` |
+|`keycloak_quarkus_jdbc_engine` | Database engine [mariadb,postres,mssql] | `postgres` |
 |`keycloak_quarkus_db_user` | User for database connection | `keycloak-user` |
 |`keycloak_quarkus_db_pass` | Password for database connection | `keycloak-pass` |
 |`keycloak_quarkus_jdbc_url` | JDBC URL for connecting to database | `jdbc:postgresql://localhost:5432/keycloak` |

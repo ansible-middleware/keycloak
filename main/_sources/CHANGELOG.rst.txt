@@ -9,6 +9,11 @@ This changelog describes changes after version 0.2.6.
 v2.0.2-devel
 ============
 
+Minor Changes
+-------------
+
+- keycloak_quarkus: systemd restart behavior `#145 <https://github.com/ansible-middleware/keycloak/pull/145>`_
+
 Bugfixes
 --------
 

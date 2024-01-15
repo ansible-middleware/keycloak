@@ -31,6 +31,9 @@ Role Defaults
 |`keycloak_quarkus_jgroups_port`| jgroups cluster tcp port | `7600` |
 |`keycloak_quarkus_service_user`| Posix account username | `keycloak` |
 |`keycloak_quarkus_service_group`| Posix account group | `keycloak` |
+|`keycloak_quarkus_service_restart_always`| systemd restart always behavior activation | `False` |
+|`keycloak_quarkus_service_restart_on_failure`| systemd restart on-failure behavior activation | `False` |
+|`keycloak_quarkus_service_restartsec`| systemd RestartSec | `10s` |
 |`keycloak_quarkus_service_pidfile`| Pid file path for service | `/run/keycloak.pid` |
 |`keycloak_quarkus_jvm_package`| RHEL java package runtime | `java-17-openjdk-headless` |
 |`keycloak_quarkus_java_home`| JAVA_HOME of installed JRE, leave empty for using specified keycloak_quarkus_jvm_package RPM path | `None` |
@@ -79,7 +82,7 @@ Role Defaults
 |`keycloak_quarkus_ispn_sasl_mechanism` | Infinispan auth mechanism | `SCRAM-SHA-512` |
 |`keycloak_quarkus_ispn_use_ssl` | Whether infinispan uses TLS connection | `false` |
 |`keycloak_quarkus_ispn_trust_store_path` | Path to infinispan server trust certificate | `/etc/pki/java/cacerts` |
-|`keycloak_quarkus_ispn_trust_store_password` | Password for infinispan certificate keystore | `changeit` | 
+|`keycloak_quarkus_ispn_trust_store_password` | Password for infinispan certificate keystore | `changeit` |
 
 
 * Install options
@@ -87,7 +90,6 @@ Role Defaults
 | Variable | Description | Default |
 |:---------|:------------|:---------|
 |`keycloak_quarkus_offline_install` | Perform an offline install | `False`|
-|`keycloak_quarkus_download_url`| Download URL for keycloak | `https://github.com/keycloak/keycloak/releases/download/<version>/<archive>`| 
 |`keycloak_quarkus_version`| keycloak.org package version | `23.0.1` |
 |`keycloak_quarkus_dest`| Installation root path | `/opt/keycloak` |
 |`keycloak_quarkus_download_url` | Download URL for keycloak | `https://github.com/keycloak/keycloak/releases/download/{{ keycloak_quarkus_version }}/{{ keycloak_quarkus_archive }}` |
@@ -108,7 +110,6 @@ Role Defaults
 |`keycloak_auth_client` | Authentication client for configuration REST calls | `admin-cli` |
 |`keycloak_force_install` | Remove pre-existing versions of service | `False` |
 |`keycloak_url` | URL for configuration rest calls | `http://{{ keycloak_quarkus_host }}:{{ keycloak_http_port }}` |
-|`keycloak_management_url` | URL for management console rest calls | `http://{{ keycloak_quarkus_host }}:{{ keycloak_management_http_port }}` |
 |`keycloak_quarkus_log`| Enable one or more log handlers in a comma-separated list | `file` |
 |`keycloak_quarkus_log_level`| The log level of the root category or a comma-separated list of individual categories and their levels | `info` |
 |`keycloak_quarkus_log_file`| Set the log file path and filename relative to keycloak home | `data/log/keycloak.log` |

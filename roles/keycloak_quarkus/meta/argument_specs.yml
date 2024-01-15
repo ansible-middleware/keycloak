@@ -71,7 +71,7 @@ argument_specs:
                 type: "bool"
             keycloak_service_restart_always:
                 default: false
-                description: "systemd restart always behavior of service"
+                description: "systemd restart always behavior of service; takes precedence over keycloak_service_restart_on_failure if true"
                 type: "bool"
             keycloak_service_restart_on_failure:
                 default: false

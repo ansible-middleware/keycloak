@@ -126,10 +126,10 @@
 <!--start build_status -->
 <p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/actions/workflows/ci.yml"><img alt="Build Status" src="https://github.com/ansible-middleware/keycloak/workflows/CI/badge.svg?branch=main" /></a></p>
 <blockquote>
-<div><p><strong><em>NOTE:</em> If you are Red Hat customer, install <code class="docutils literal notranslate"><span class="pre">redhat.sso</span></code> from <a class="reference external" href="https://console.redhat.com/ansible/ansible-dashboard">Automation Hub</a> as the certified version of this collection.</strong></p>
+<div><p><strong><em>NOTE:</em> If you are Red Hat customer, install <code class="docutils literal notranslate"><span class="pre">redhat.sso</span></code> (for Red Hat Single Sign-On) or <code class="docutils literal notranslate"><span class="pre">redhat.rhbk</span></code> (for Red Hat Build of Keycloak) from <a class="reference external" href="https://console.redhat.com/ansible/ansible-dashboard">Automation Hub</a> as the certified version of this collection.</strong></p>
 </div></blockquote>
 <!--end build_status -->
-<p>Collection to install and configure <a class="reference external" href="https://www.keycloak.org/">Keycloak</a> or <a class="reference external" href="https://access.redhat.com/products/red-hat-single-sign-on">Red Hat Single Sign-On</a>.</p>
+<p>Collection to install and configure <a class="reference external" href="https://www.keycloak.org/">Keycloak</a> or <a class="reference external" href="https://access.redhat.com/products/red-hat-single-sign-on">Red Hat Single Sign-On</a> / <a class="reference external" href="https://access.redhat.com/products/red-hat-build-of-keycloak">Red Hat Build of Keycloak</a>.</p>
 <!--start requires_ansible-->
 <section id="ansible-version-compatibility">
 <h2>Ansible version compatibility<a class="headerlink" href="#ansible-version-compatibility" title="Link to this heading"></a></h2>
@@ -166,7 +166,7 @@
 <section id="included-roles">
 <h3>Included roles<a class="headerlink" href="#included-roles" title="Link to this heading"></a></h3>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak/README.md"><code class="docutils literal notranslate"><span class="pre">keycloak</span></code></a>: role for installing the service.</p></li>
+<li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak/README.md"><code class="docutils literal notranslate"><span class="pre">keycloak</span></code></a>: role for installing the service (keycloak &lt;= 19.0).</p></li>
 <li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak_realm/README.md"><code class="docutils literal notranslate"><span class="pre">keycloak_realm</span></code></a>: role for configuring a realm, user federation(s), clients and users, in an installed service.</p></li>
 <li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak_quarkus/README.md"><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus</span></code></a>: role for installing the quarkus variant of keycloak (&gt;= 17.0.0).</p></li>
 </ul>
@@ -179,7 +179,8 @@
 <h3>Install Playbook<a class="headerlink" href="#install-playbook" title="Link to this heading"></a></h3>
 <!--start rhbk_playbook -->
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak.yml</span></code></a> installs based on the defined variables (using most defaults).</p></li>
+<li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak.yml</span></code></a> installs keycloak legacy based on the defined variables (using most defaults).</p></li>
+<li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_quarkus.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak_quarkus.yml</span></code></a> installs keycloak &gt;= 17 based on the defined variables (using most defaults).</p></li>
 </ul>
 <p>Both playbooks include the <code class="docutils literal notranslate"><span class="pre">keycloak</span></code> role, with different settings, as described in the following sections.</p>
 <p>For full service configuration details, refer to the <a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak/README.md">keycloak role README</a>.</p>

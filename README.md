@@ -3,10 +3,10 @@
 <!--start build_status -->
 [![Build Status](https://github.com/ansible-middleware/keycloak/workflows/CI/badge.svg?branch=main)](https://github.com/ansible-middleware/keycloak/actions/workflows/ci.yml)
 
-> **_NOTE:_ If you are Red Hat customer, install `redhat.sso` from [Automation Hub](https://console.redhat.com/ansible/ansible-dashboard) as the certified version of this collection.**
+> **_NOTE:_ If you are Red Hat customer, install `redhat.sso` (for Red Hat Single Sign-On) or `redhat.rhbk` (for Red Hat Build of Keycloak) from [Automation Hub](https://console.redhat.com/ansible/ansible-dashboard) as the certified version of this collection.**
 
 <!--end build_status -->
-Collection to install and configure [Keycloak](https://www.keycloak.org/) or [Red Hat Single Sign-On](https://access.redhat.com/products/red-hat-single-sign-on).
+Collection to install and configure [Keycloak](https://www.keycloak.org/) or [Red Hat Single Sign-On](https://access.redhat.com/products/red-hat-single-sign-on) / [Red Hat Build of Keycloak](https://access.redhat.com/products/red-hat-build-of-keycloak).
 
 <!--start requires_ansible-->
 ## Ansible version compatibility
@@ -47,7 +47,7 @@ A requirement file is provided to install:
 <!--start roles_paths -->
 ### Included roles
 
-* [`keycloak`](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak/README.md): role for installing the service.
+* [`keycloak`](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak/README.md): role for installing the service (keycloak <= 19.0).
 * [`keycloak_realm`](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak_realm/README.md): role for configuring a realm, user federation(s), clients and users, in an installed service.
 * [`keycloak_quarkus`](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak_quarkus/README.md): role for installing the quarkus variant of keycloak (>= 17.0.0).
 <!--end roles_paths -->
@@ -57,8 +57,9 @@ A requirement file is provided to install:
 
 ### Install Playbook
 <!--start rhbk_playbook -->
-* [`playbooks/keycloak.yml`](https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak.yml) installs based on the defined variables (using most defaults).
-
+* [`playbooks/keycloak.yml`](https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak.yml) installs keycloak legacy based on the defined variables (using most defaults).
+* [`playbooks/keycloak_quarkus.yml`](https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_quarkus.yml) installs keycloak >= 17 based on the defined variables (using most defaults).
+  
 Both playbooks include the `keycloak` role, with different settings, as described in the following sections.
 
 For full service configuration details, refer to the [keycloak role README](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak/README.md).

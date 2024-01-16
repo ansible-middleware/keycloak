@@ -20,6 +20,7 @@ Bugfixes
 --------
 
 - keycloak_quarkus: Use ``keycloak_quarkus_java_opts`` `#154 <https://github.com/ansible-middleware/keycloak/pull/154>`_
+- keycloak_quarkus: allow ports <1024 (e.g. :443) in systemd unit `#150 <https://github.com/ansible-middleware/keycloak/pull/150>`_
 
 v2.0.1
 ======

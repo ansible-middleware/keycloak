@@ -6,8 +6,16 @@ middleware_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
-v2.0.2-devel
+v2.0.3-devel
 ============
+
+Release Summary
+---------------
+
+Internal release, documentation or test changes only.
+
+v2.0.2
+======
 
 Minor Changes
 -------------

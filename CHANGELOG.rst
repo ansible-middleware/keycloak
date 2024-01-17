@@ -6,6 +6,22 @@ middleware_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v2.0.2
+======
+
+Minor Changes
+-------------
+
+- keycloak_quarkus: Add support for sqlserver jdbc driver `#148 <https://github.com/ansible-middleware/keycloak/pull/148>`_
+- keycloak_quarkus: allow configuration of ``hostname-strict-backchannel`` `#152 <https://github.com/ansible-middleware/keycloak/pull/152>`_
+- keycloak_quarkus: systemd restart behavior `#145 <https://github.com/ansible-middleware/keycloak/pull/145>`_
+
+Bugfixes
+--------
+
+- keycloak_quarkus: Use ``keycloak_quarkus_java_opts`` `#154 <https://github.com/ansible-middleware/keycloak/pull/154>`_
+- keycloak_quarkus: allow ports <1024 (e.g. :443) in systemd unit `#150 <https://github.com/ansible-middleware/keycloak/pull/150>`_
+
 v2.0.1
 ======
 

@@ -43,6 +43,17 @@
   notify:
     - restart keycloak
 
+- name: "Configure infinispan config for keycloak service"
+  ansible.builtin.template:
+    src: cache-ispn.xml
+    dest: "{{ keycloak.home }}/conf/cache-ispn.xml"
+    owner: "{{ keycloak.service_user }}"
+    group: "{{ keycloak.service_group }}"
+    mode: 0644
+  become: true
+  notify:
+    - restart keycloak
+
 - name: Ensure logdirectory exists
   ansible.builtin.file:
     state: directory

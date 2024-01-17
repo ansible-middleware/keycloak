@@ -79,7 +79,7 @@ Role Defaults
 |:---------|:------------|:--------|
 |`keycloak_quarkus_ispn_user` | Username for connecting to infinispan | `supervisor` |
 |`keycloak_quarkus_ispn_pass` | Password for connecting to infinispan | `supervisor` |
-|`keycloak_quarkus_ispn_url` | URL for connecting to infinispan | `localhost` |
+|`keycloak_quarkus_ispn_hosts` | host name/port for connecting to infinispan, eg. host1:11222;host2:11222 | `localhost:11222` |
 |`keycloak_quarkus_ispn_sasl_mechanism` | Infinispan auth mechanism | `SCRAM-SHA-512` |
 |`keycloak_quarkus_ispn_use_ssl` | Whether infinispan uses TLS connection | `false` |
 |`keycloak_quarkus_ispn_trust_store_path` | Path to infinispan server trust certificate | `/etc/pki/java/cacerts` |

@@ -218,10 +218,10 @@ argument_specs:
                 default: "supervisor"
                 description: "Password for connecting to infinispan"
                 type: "str"
-            keycloak_quarkus_ispn_url:
+            keycloak_quarkus_ispn_hosts:
                 # line 48 of defaults/main.yml
-                default: "localhost"
-                description: "URL for connecting to infinispan"
+                default: "localhost:11222"
+                description: "host name/port for connecting to infinispan, eg. host1:11222;host2:11222"
                 type: "str"
             keycloak_quarkus_ispn_sasl_mechanism:
                 # line 49 of defaults/main.yml

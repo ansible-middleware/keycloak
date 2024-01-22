@@ -55,8 +55,7 @@ cache-stack=tcp
 # Proxy
 proxy={{ keycloak_quarkus_proxy_mode }}
 {% endif %}
-# Do not attach route to cookies and rely on the session affinity capabilities from reverse proxy
-#spi-sticky-session-encoder-infinispan-should-attach-route=false
+spi-sticky-session-encoder-infinispan-should-attach-route={{ keycloak_quarkus_spi_sticky_session_encoder_infinispan_should_attach_route | d(true) | lower }}
 
 # Transaction
 transaction-xa-enabled={{ keycloak_quarkus_transaction_xa_enabled | lower }}

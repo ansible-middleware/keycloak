@@ -308,6 +308,10 @@ argument_specs:
                 default: false
                 type: "bool"
                 description: "By default backchannel URLs are dynamically resolved from request headers to allow internal and external applications. If all applications use the public URL this option should be enabled."
+            keycloak_quarkus_spi_sticky_session_encoder_infinispan_should_attach_route:
+                default: true
+                type: "bool"
+                description: "If the route should be attached to cookies to reflect the node that owns a particular session. If false, route is not attached to cookies and we rely on the session affinity capabilities from reverse proxy"
     downstream:
         options:
             rhbk_version:

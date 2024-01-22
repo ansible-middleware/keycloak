@@ -79,6 +79,9 @@ keycloak_quarkus_proxy_mode: edge
 # disable xa transactions
 keycloak_quarkus_transaction_xa_enabled: true
 
+# If the route should be attached to cookies to reflect the node that owns a particular session. If false, route is not attached to cookies and we rely on the session affinity capabilities from reverse proxy
+keycloak_quarkus_spi_sticky_session_encoder_infinispan_should_attach_route: true
+
 keycloak_quarkus_metrics_enabled: false
 keycloak_quarkus_health_enabled: true
 

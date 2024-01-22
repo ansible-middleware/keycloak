@@ -21,3 +21,6 @@ quarkus.infinispan-client.trust-store-type=jks
 {% endif %}
 #quarkus.infinispan-client.use-schema-registration=true
 {% endif %}
+quarkus.log.file.rotation.max-file-size={{ keycloak_quarkus_log_max_file_size }}
+quarkus.log.file.rotation.max-backup-index={{ keycloak_quarkus_log_max_backup_index }}
+quarkus.log.file.rotation.file-suffix={{ keycloak_quarkus_log_file_suffix }}

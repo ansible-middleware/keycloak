@@ -292,6 +292,18 @@ argument_specs:
                 default: '/var/log/keycloak'
                 type: "str"
                 description: "Set the destination of the keycloak log folder link"
+            keycloak_quarkus_log_max_file_size:
+                default: 10M
+                type: "str"
+                description: "Set the maximum log file size before a log rotation happens; A size configuration option recognises string in this format (shown as a regular expression): [0-9]+[KkMmGgTtPpEeZzYy]?. If no suffix is given, assume bytes."
+            keycloak_quarkus_log_max_backup_index:
+                default: 10
+                type: "str"
+                description: "Set the maximum number of archived log files to keep"
+            keycloak_quarkus_log_file_suffix:
+                default: '.yyyy-MM-dd.zip'
+                type: "str"
+                description: "Set the log file handler rotation file suffix. When used, the file will be rotated based on its suffix; Note: If the suffix ends with .zip or .gz, the rotation file will also be compressed."
             keycloak_quarkus_proxy_mode:
                 default: 'edge'
                 type: "str"

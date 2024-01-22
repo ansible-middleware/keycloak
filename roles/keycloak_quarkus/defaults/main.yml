@@ -117,3 +117,6 @@ keycloak_quarkus_log_level: info
 keycloak_quarkus_log_file: data/log/keycloak.log
 keycloak_quarkus_log_format: '%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n'
 keycloak_quarkus_log_target: /var/log/keycloak
+keycloak_quarkus_log_max_file_size: 10M
+keycloak_quarkus_log_max_backup_index: 10
+keycloak_quarkus_log_file_suffix: '.yyyy-MM-dd.zip'

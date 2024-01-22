@@ -6,13 +6,13 @@ middleware_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
-v2.0.3-devel
+v2.1.0-devel
 ============
 
-Release Summary
----------------
+Breaking Changes / Porting Guide
+--------------------------------
 
-Internal release, documentation or test changes only.
+- keycloak_quarkus: renamed infinispan host list configuration `#157 <https://github.com/ansible-middleware/keycloak/pull/157>`_
 
 v2.0.2
 ======

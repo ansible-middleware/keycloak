@@ -1,4 +1,4 @@
-# {{ ansible_managed }}
+<!-- {{ ansible_managed }} -->
 <!--
   ~ Copyright 2019 Red Hat, Inc. and/or its affiliates
   ~ and other contributors as indicated by the @author tags.
@@ -21,8 +21,24 @@
         xsi:schemaLocation="urn:infinispan:config:14.0 http://www.infinispan.org/schemas/infinispan-config-14.0.xsd"
         xmlns="urn:infinispan:config:14.0">
 
+{% set stack_expression='' %}
+{% if keycloak_quarkus_ha_enabled and keycloak_quarkus_ha_discovery == 'TCPPING' %}
+{% set stack_expression='stack="tcpping"' %}
+    <jgroups>
+        <stack name="tcpping" extends="tcp">
+            <!-- <TCP external_addr="${env.KC_EXTERNAL_ADDR}" bind_addr="{{ keycloak_quarkus_bind_address }}" bind_port="{{ keycloak_quarkus_jgroups_port }}" /> -->
+            <TCPPING
+                initial_hosts="{{ keycloak_quarkus_cluster_nodes | map(attribute='inventory_host') | join (',') }}"
+                port_range="0"
+                stack.combine="REPLACE"
+                stack.position="MPING"
+            />
+        </stack>
+    </jgroups>
+{% endif %}
+
     <cache-container name="keycloak">
-        <transport lock-timeout="60000"/>
+        <transport lock-timeout="60000" {{ stack_expression }}/>
         <local-cache name="realms" simple-cache="true">
             <encoding>
                 <key media-type="application/x-java-object"/>

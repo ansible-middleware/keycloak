@@ -30,6 +30,7 @@
     mode: 0644
   become: true
   notify:
+    - rebuild keycloak config
     - restart keycloak
 
 - name: "Configure quarkus config for keycloak service"
@@ -43,6 +44,20 @@
   notify:
     - restart keycloak
 
+- name: Create tcpping cluster node list
+  ansible.builtin.set_fact:
+    keycloak_quarkus_cluster_nodes: >
+      {{ keycloak_quarkus_cluster_nodes | default([]) + [
+        {
+          "name": item,
+          "address": 'jgroups-' + item,
+          "inventory_host": hostvars[item].ansible_default_ipv4.address | default(item) + '[' + (keycloak_quarkus_jgroups_port | string) + ']',
+          "value": hostvars[item].ansible_default_ipv4.address | default(item)
+        }
+      ] }}
+  loop: "{{ ansible_play_batch }}"
+  when: keycloak_quarkus_ha_enabled and keycloak_quarkus_ha_discovery == 'TCPPING'
+
 - name: "Configure infinispan config for keycloak service"
   ansible.builtin.template:
     src: cache-ispn.xml
@@ -52,6 +67,7 @@
     mode: 0644
   become: true
   notify:
+    - rebuild keycloak config
     - restart keycloak
 
 - name: Ensure logdirectory exists

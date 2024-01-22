@@ -37,7 +37,7 @@ keycloak_quarkus_http_enabled: true
 keycloak_quarkus_http_port: 8080
 keycloak_quarkus_https_port: 8443
 keycloak_quarkus_ajp_port: 8009
-keycloak_quarkus_jgroups_port: 7600
+keycloak_quarkus_jgroups_port: 7800
 keycloak_quarkus_java_opts: "-Xms1024m -Xmx2048m"
 
 ### TLS/HTTPS configuration
@@ -55,6 +55,7 @@ keycloak_quarkus_trust_store_password: ''
 
 ### Enable configuration for database backend, clustering and remote caches on infinispan
 keycloak_quarkus_ha_enabled: false
+keycloak_quarkus_ha_discovery: "TCPPING"
 ### Enable database configuration, must be enabled when HA is configured
 keycloak_quarkus_db_enabled: "{{ True if keycloak_quarkus_ha_enabled else False }}"
 

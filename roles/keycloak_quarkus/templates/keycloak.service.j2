@@ -10,7 +10,7 @@ PIDFile={{ keycloak_quarkus_service_pidfile }}
 {% if keycloak_quarkus_start_dev %}
 ExecStart={{ keycloak.home }}/bin/kc.sh start-dev
 {% else %}
-ExecStart={{ keycloak.home }}/bin/kc.sh start --log={{ keycloak_quarkus_log }}
+ExecStart={{ keycloak.home }}/bin/kc.sh start --optimized
 {% endif %}
 User={{ keycloak.service_user }}
 Group={{ keycloak.service_group }}

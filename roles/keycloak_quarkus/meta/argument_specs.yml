@@ -168,7 +168,7 @@ argument_specs:
                 type: "int"
             keycloak_quarkus_jgroups_port:
                 # line 32 of defaults/main.yml
-                default: 7600
+                default: 7800
                 description: "jgroups cluster tcp port"
                 type: "int"
             keycloak_quarkus_java_opts:
@@ -181,6 +181,10 @@ argument_specs:
                 default: false
                 description: "Enable auto configuration for database backend, clustering and remote caches on infinispan"
                 type: "bool"
+            keycloak_quarkus_ha_discovery:
+                default: "TCPPING"
+                description: "Discovery protocol for HA cluster members"
+                type: "str"
             keycloak_quarkus_db_enabled:
                 # line 38 of defaults/main.yml
                 default: "{{ True if keycloak_quarkus_ha_enabled else False }}"

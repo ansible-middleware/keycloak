@@ -1,4 +1,8 @@
 ---
+# handler should be invoked anytime a [build configuration](https://www.keycloak.org/server/all-config?f=build) changes
+- name: "Rebuild {{ keycloak.service_name }} config"
+  ansible.builtin.include_tasks: rebuild_config.yml
+  listen: "rebuild keycloak config"
 - name: "Restart {{ keycloak.service_name }}"
   ansible.builtin.include_tasks: restart.yml
   listen: "restart keycloak"

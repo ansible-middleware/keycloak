@@ -85,7 +85,7 @@ keycloak_quarkus_health_enabled: true
 ### infinispan remote caches access (hotrod)
 keycloak_quarkus_ispn_user: supervisor
 keycloak_quarkus_ispn_pass: supervisor
-keycloak_quarkus_ispn_url: localhost
+keycloak_quarkus_ispn_hosts: "localhost:11222"
 keycloak_quarkus_ispn_sasl_mechanism: SCRAM-SHA-512
 keycloak_quarkus_ispn_use_ssl: false
 # if ssl is enabled, import ispn server certificate here

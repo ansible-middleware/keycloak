@@ -9,6 +9,11 @@ This changelog describes changes after version 0.2.6.
 v2.1.0-devel
 ============
 
+Major Changes
+-------------
+
+- Implement infinispan TCPPING discovery protocol `#159 <https://github.com/ansible-middleware/keycloak/pull/159>`_
+
 Breaking Changes / Porting Guide
 --------------------------------
 

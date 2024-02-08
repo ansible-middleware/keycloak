@@ -19,6 +19,7 @@ Role Defaults
 | Variable | Description | Default |
 |:---------|:------------|:--------|
 |`keycloak_quarkus_ha_enabled`| Enable auto configuration for database backend, clustering and remote caches on infinispan | `False` |
+|`keycloak_quarkus_ha_discovery`| Discovery protocol for HA cluster members | `TCPPING` |
 |`keycloak_quarkus_db_enabled`| Enable auto configuration for database backend | `True` if `keycloak_quarkus_ha_enabled` is True, else `False` |
 |`keycloak_quarkus_admin_user`| Administration console user account | `admin` |
 |`keycloak_quarkus_bind_address`| Address for binding service ports | `0.0.0.0` |
@@ -28,7 +29,7 @@ Role Defaults
 |`keycloak_quarkus_http_port`| HTTP listening port | `8080` |
 |`keycloak_quarkus_https_port`| TLS HTTP listening port | `8443` |
 |`keycloak_quarkus_ajp_port`| AJP port | `8009` |
-|`keycloak_quarkus_jgroups_port`| jgroups cluster tcp port | `7600` |
+|`keycloak_quarkus_jgroups_port`| jgroups cluster tcp port | `7800` |
 |`keycloak_quarkus_service_user`| Posix account username | `keycloak` |
 |`keycloak_quarkus_service_group`| Posix account group | `keycloak` |
 |`keycloak_quarkus_service_restart_always`| systemd restart always behavior activation | `False` |

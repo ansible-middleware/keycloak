@@ -117,6 +117,9 @@ Role Defaults
 |`keycloak_quarkus_log_file`| Set the log file path and filename relative to keycloak home | `data/log/keycloak.log` |
 |`keycloak_quarkus_log_format`| Set a format specific to file log entries | `%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n` |
 |`keycloak_quarkus_log_target`| Set the destination of the keycloak log folder link | `/var/log/keycloak` |
+|`keycloak_quarkus_log_max_file_size`| Set the maximum log file size before a log rotation happens; A size configuration option recognises string in this format (shown as a regular expression): `[0-9]+[KkMmGgTtPpEeZzYy]?`. If no suffix is given, assume bytes. | `10M` |
+|`keycloak_quarkus_log_max_backup_index`| Set the maximum number of archived log files to keep" | `10` |
+|`keycloak_quarkus_log_file_suffix`| Set the log file handler rotation file suffix. When used, the file will be rotated based on its suffix; Note: If the suffix ends with `.zip` or `.gz`, the rotation file will also be compressed. | `.yyyy-MM-dd.zip` |
 |`keycloak_quarkus_proxy_mode`| The proxy address forwarding mode if the server is behind a reverse proxy | `edge` |
 |`keycloak_quarkus_start_dev`| Whether to start the service in development mode (start-dev) | `False` |
 |`keycloak_quarkus_transaction_xa_enabled`| Whether to use XA transactions | `True` |

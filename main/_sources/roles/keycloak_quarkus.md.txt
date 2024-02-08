@@ -123,7 +123,7 @@ Role Defaults
 |`keycloak_quarkus_proxy_mode`| The proxy address forwarding mode if the server is behind a reverse proxy | `edge` |
 |`keycloak_quarkus_start_dev`| Whether to start the service in development mode (start-dev) | `False` |
 |`keycloak_quarkus_transaction_xa_enabled`| Whether to use XA transactions | `True` |
-
+|`keycloak_quarkus_spi_sticky_session_encoder_infinispan_should_attach_route`| If the route should be attached to cookies to reflect the node that owns a particular session. If false, route is not attached to cookies and we rely on the session affinity capabilities from reverse proxy | `True` |
 
 Role Variables
 --------------

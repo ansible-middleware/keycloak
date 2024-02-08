@@ -18,6 +18,7 @@ Minor Changes
 -------------
 
 - keycloak_quarkus: Allow configuring log rotate options in quarkus configuration `#161 <https://github.com/ansible-middleware/keycloak/pull/161>`_
+- keycloak_quarkus: ``sticky-session`` for infinispan routes `#163 <https://github.com/ansible-middleware/keycloak/pull/163>`_
 
 Breaking Changes / Porting Guide
 --------------------------------

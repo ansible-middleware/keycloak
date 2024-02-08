@@ -48,7 +48,9 @@ hostname-strict-backchannel={{ keycloak_quarkus_hostname_strict_backchannel | lo
 {% if keycloak_quarkus_ha_enabled %}
 cache=ispn
 cache-config-file=cache-ispn.xml
-cache-stack=tcp
+{% if keycloak_quarkus_ha_enabled and keycloak_quarkus_ha_discovery == 'TCPPING' %}
+# cache-stack=tcp # configured directly in `cache-ispn.xml`
+{% endif %}
 {% endif %}
 
 {% if keycloak_quarkus_proxy_mode is defined and keycloak_quarkus_proxy_mode != "none" %}

@@ -1,0 +1,7 @@
+---
+# cf. https://www.keycloak.org/server/configuration#_optimize_the_keycloak_startup
+- name: "Rebuild {{ keycloak.service_name }} config"
+  ansible.builtin.shell: |
+    {{ keycloak.home }}/bin/kc.sh build
+  become: true
+  changed_when: true

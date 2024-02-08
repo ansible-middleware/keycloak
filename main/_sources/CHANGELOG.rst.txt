@@ -14,6 +14,11 @@ Major Changes
 
 - Implement infinispan TCPPING discovery protocol `#159 <https://github.com/ansible-middleware/keycloak/pull/159>`_
 
+Minor Changes
+-------------
+
+- keycloak_quarkus: Allow configuring log rotate options in quarkus configuration `#161 <https://github.com/ansible-middleware/keycloak/pull/161>`_
+
 Breaking Changes / Porting Guide
 --------------------------------
 

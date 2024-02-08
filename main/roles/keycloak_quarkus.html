@@ -484,15 +484,27 @@
 <td class="text-left"><p>Set the destination of the keycloak log folder link</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/var/log/keycloak</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_proxy_mode</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_log_max_file_size</span></code></p></td>
+<td class="text-left"><p>Set the maximum log file size before a log rotation happens; A size configuration option recognises string in this format (shown as a regular expression): <code class="docutils literal notranslate"><span class="pre">[0-9]+[KkMmGgTtPpEeZzYy]?</span></code>. If no suffix is given, assume bytes.</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">10M</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_log_max_backup_index</span></code></p></td>
+<td class="text-left"><p>Set the maximum number of archived log files to keep”</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">10</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_log_file_suffix</span></code></p></td>
+<td class="text-left"><p>Set the log file handler rotation file suffix. When used, the file will be rotated based on its suffix; Note: If the suffix ends with <code class="docutils literal notranslate"><span class="pre">.zip</span></code> or <code class="docutils literal notranslate"><span class="pre">.gz</span></code>, the rotation file will also be compressed.</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">.yyyy-MM-dd.zip</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_proxy_mode</span></code></p></td>
 <td class="text-left"><p>The proxy address forwarding mode if the server is behind a reverse proxy</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">edge</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_start_dev</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_start_dev</span></code></p></td>
 <td class="text-left"><p>Whether to start the service in development mode (start-dev)</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_transaction_xa_enabled</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_transaction_xa_enabled</span></code></p></td>
 <td class="text-left"><p>Whether to use XA transactions</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
 </tr>

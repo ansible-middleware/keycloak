@@ -32,22 +32,21 @@
   ansible.builtin.set_fact:
     assets_server: "{{ lookup('env','MIDDLEWARE_DOWNLOAD_RELEASE_SERVER_URL') }}"
 
-- name: "Set offline when assets server from env is defined"
-  ansible.builtin.set_fact:
-    sso_offline_install: True
+- name: "Download artefacts only if assets_server is set"
   when:
     - assets_server is defined
     - assets_server | length > 0
+  block:
+    - name: "Set offline when assets server from env is defined"
+      ansible.builtin.set_fact:
+        sso_offline_install: True
 
-- name: "Download and deploy zips from {{ assets_server }}"
-  ansible.builtin.get_url:
-    url: "{{ asset }}"
-    dest: "{{ lookup('env', 'PWD') }}"
-    validate_certs: no
-  delegate_to: localhost
-  loop: "{{ assets }}"
-  loop_control:
-    loop_var: asset
-  when:
-    - assets_server is defined
-    - assets_server | length > 0
+    - name: "Download and deploy zips from {{ assets_server }}"
+      ansible.builtin.get_url:
+        url: "{{ asset }}"
+        dest: "{{ lookup('env', 'PWD') }}"
+        validate_certs: no
+      delegate_to: localhost
+      loop: "{{ assets }}"
+      loop_control:
+        loop_var: asset

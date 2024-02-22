@@ -1,15 +1,6 @@
 ---
 - name: Prepare
   hosts: all
-  tasks:
-    - name: Install sudo
-      ansible.builtin.yum:
-        name:
-          - java-1.8.0-openjdk
-        state: present
-
-- name: Prepare
-  hosts: all
   gather_facts: yes
   vars:
     sudo_pkg_name: sudo
@@ -20,3 +11,12 @@
         assets:
           - "{{ assets_server }}/sso/7.6.0/rh-sso-7.6.0-server-dist.zip"
           - "{{ assets_server }}/sso/7.6.1/rh-sso-7.6.1-patch.zip"
+
+    - name: Install JDK8
+      become: yes
+      ansible.builtin.yum:
+        name:
+          - java-1.8.0-openjdk
+        state: present
+
+

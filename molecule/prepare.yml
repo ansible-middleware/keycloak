@@ -3,9 +3,27 @@
   ansible.builtin.debug:
     msg: "Ansible version is  {{ ansible_version.full }}"
 
-- name: Install sudo
+
+- name: "Ensure {{ sudo_pkg_name }} is installed (if user is root)."
   ansible.builtin.yum:
-    name: 
+    name: "{{ sudo_pkg_name }}"
+  when:
+    - ansible_user_id == 'root'
+
+
+- name: Gather the package facts
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: "Check if {{ sudo_pkg_name }} is installed."
+  ansible.builtin.assert:
+    that:
+      - sudo_pkg_name in ansible_facts.packages
+
+- name: Install sudo
+  become: yes
+  ansible.builtin.yum:
+    name:
       - sudo
       - iproute
     state: present

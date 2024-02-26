@@ -1,6 +1,6 @@
-============================================
-middleware_automation.keycloak Release Notes
-============================================
+=============================================
+middleware\_automation.keycloak Release Notes
+=============================================
 
 .. contents:: Topics
 
@@ -17,6 +17,7 @@ Major Changes
 Minor Changes
 -------------
 
+- Set enable-recovery when xa transactions are enabled `#167 <https://github.com/ansible-middleware/keycloak/pull/167>`_
 - keycloak_quarkus: Allow configuring log rotate options in quarkus configuration `#161 <https://github.com/ansible-middleware/keycloak/pull/161>`_
 - keycloak_quarkus: ``sticky-session`` for infinispan routes `#163 <https://github.com/ansible-middleware/keycloak/pull/163>`_
 
@@ -288,7 +289,6 @@ Release Summary
 
 Minor enhancements, bug and documentation fixes.
 
-
 Major Changes
 -------------
 
@@ -306,4 +306,3 @@ Release Summary
 ---------------
 
 This is the first stable release of the ``middleware_automation.keycloak`` collection.
-

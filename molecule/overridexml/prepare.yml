@@ -1,6 +1,9 @@
 ---
 - name: Prepare
   hosts: all
+  gather_facts: yes
+  vars:
+    sudo_pkg_name: sudo
   tasks:
     - name: "Run preparation common to all scenario"
       ansible.builtin.include_tasks: ../prepare.yml

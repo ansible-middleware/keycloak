@@ -3,9 +3,27 @@
   ansible.builtin.debug:
     msg: "Ansible version is  {{ ansible_version.full }}"
 
-- name: Install sudo
+
+- name: "Ensure {{ sudo_pkg_name }} is installed (if user is root)."
   ansible.builtin.yum:
-    name: 
+    name: "{{ sudo_pkg_name }}"
+  when:
+    - ansible_user_id == 'root'
+
+
+- name: Gather the package facts
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: "Check if {{ sudo_pkg_name }} is installed."
+  ansible.builtin.assert:
+    that:
+      - sudo_pkg_name in ansible_facts.packages
+
+- name: Install sudo
+  become: yes
+  ansible.builtin.yum:
+    name:
       - sudo
       - iproute
     state: present
@@ -14,22 +32,21 @@
   ansible.builtin.set_fact:
     assets_server: "{{ lookup('env','MIDDLEWARE_DOWNLOAD_RELEASE_SERVER_URL') }}"
 
-- name: "Set offline when assets server from env is defined"
-  ansible.builtin.set_fact:
-    sso_offline_install: True
+- name: "Download artefacts only if assets_server is set"
   when:
     - assets_server is defined
     - assets_server | length > 0
+  block:
+    - name: "Set offline when assets server from env is defined"
+      ansible.builtin.set_fact:
+        sso_offline_install: True
 
-- name: "Download and deploy zips from {{ assets_server }}"
-  ansible.builtin.get_url:
-    url: "{{ asset }}"
-    dest: "{{ lookup('env', 'PWD') }}"
-    validate_certs: no
-  delegate_to: localhost
-  loop: "{{ assets }}"
-  loop_control:
-    loop_var: asset
-  when:
-    - assets_server is defined
-    - assets_server | length > 0
+    - name: "Download and deploy zips from {{ assets_server }}"
+      ansible.builtin.get_url:
+        url: "{{ asset }}"
+        dest: "{{ lookup('env', 'PWD') }}"
+        validate_certs: no
+      delegate_to: localhost
+      loop: "{{ assets }}"
+      loop_control:
+        loop_var: asset

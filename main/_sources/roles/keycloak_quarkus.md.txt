@@ -11,7 +11,7 @@ Role Defaults
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
-|`keycloak_quarkus_version`| keycloak.org package version | `23.0.1` |
+|`keycloak_quarkus_version`| keycloak.org package version | `23.0.7` |
 
 
 * Service configuration
@@ -92,7 +92,7 @@ Role Defaults
 | Variable | Description | Default |
 |:---------|:------------|:---------|
 |`keycloak_quarkus_offline_install` | Perform an offline install | `False`|
-|`keycloak_quarkus_version`| keycloak.org package version | `23.0.1` |
+|`keycloak_quarkus_version`| keycloak.org package version | `23.0.7` |
 |`keycloak_quarkus_dest`| Installation root path | `/opt/keycloak` |
 |`keycloak_quarkus_download_url` | Download URL for keycloak | `https://github.com/keycloak/keycloak/releases/download/{{ keycloak_quarkus_version }}/{{ keycloak_quarkus_archive }}` |
 |`keycloak_quarkus_configure_firewalld` | Ensure firewalld is running and configure keycloak ports | `False` |

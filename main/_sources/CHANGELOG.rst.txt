@@ -26,6 +26,11 @@ Breaking Changes / Porting Guide
 
 - keycloak_quarkus: renamed infinispan host list configuration `#157 <https://github.com/ansible-middleware/keycloak/pull/157>`_
 
+Bugfixes
+--------
+
+- keycloak_quarkus: fix custom JAVA_HOME parameter name `#171 <https://github.com/ansible-middleware/keycloak/pull/171>`_
+
 v2.0.2
 ======
 

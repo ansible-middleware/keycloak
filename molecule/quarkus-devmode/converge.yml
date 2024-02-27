@@ -9,6 +9,7 @@
     keycloak_quarkus_frontend_url: 'http://localhost:8080/'
     keycloak_quarkus_start_dev: True
     keycloak_quarkus_proxy_mode: none
+    keycloak_quarkus_java_home: /opt/openjdk/
   roles:
     - role: keycloak_quarkus
     - role: keycloak_realm

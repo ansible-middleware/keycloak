@@ -4,8 +4,17 @@
   tasks:
     - name: Install sudo
       ansible.builtin.yum:
-        name: sudo
+        name:
+          - sudo
+          - java-17-openjdk-headless
         state: present
+
+    - name: Link default logs directory
+      ansible.builtin.file:
+        state: link
+        src: /usr/lib/jvm/jre-17-openjdk
+        dest: /opt/openjdk
+        force: true
 
     - name: "Display hera_home if defined."
       ansible.builtin.set_fact:

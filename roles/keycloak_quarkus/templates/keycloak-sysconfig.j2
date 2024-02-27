@@ -1,6 +1,6 @@
 # {{ ansible_managed }}
 KEYCLOAK_ADMIN={{ keycloak_quarkus_admin_user }}
 KEYCLOAK_ADMIN_PASSWORD='{{ keycloak_quarkus_admin_pass }}'
-PATH={{ keycloak_java_home  | default(keycloak_rpm_java_home, true) }}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-JAVA_HOME={{ keycloak_java_home  | default(keycloak_rpm_java_home, true) }}
+PATH={{ keycloak_quarkus_java_home | default(keycloak_rpm_java_home, true) }}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+JAVA_HOME={{ keycloak_quarkus_java_home | default(keycloak_rpm_java_home, true) }}
 JAVA_OPTS_APPEND={{ keycloak_quarkus_java_opts }}

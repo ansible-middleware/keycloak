@@ -33,6 +33,7 @@
       ansible.builtin.file:
         path: /etc/nginx/tls
         state: directory
+        mode: 0755
     - name: Copy certificates
       ansible.builtin.copy:
         src: "{{ item.name }}"

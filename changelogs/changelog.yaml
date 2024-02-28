@@ -386,3 +386,36 @@ releases:
     - 152.yaml
     - 154.yaml
     release_date: '2024-01-17'
+  2.1.0:
+    changes:
+      breaking_changes:
+      - 'keycloak_quarkus: renamed infinispan host list configuration `#157 <https://github.com/ansible-middleware/keycloak/pull/157>`_
+
+        '
+      bugfixes:
+      - 'keycloak_quarkus: fix custom JAVA_HOME parameter name `#171 <https://github.com/ansible-middleware/keycloak/pull/171>`_
+
+        '
+      major_changes:
+      - 'Implement infinispan TCPPING discovery protocol `#159 <https://github.com/ansible-middleware/keycloak/pull/159>`_
+
+        '
+      minor_changes:
+      - 'Set enable-recovery when xa transactions are enabled `#167 <https://github.com/ansible-middleware/keycloak/pull/167>`_
+
+        '
+      - 'keycloak_quarkus: Allow configuring log rotate options in quarkus configuration
+        `#161 <https://github.com/ansible-middleware/keycloak/pull/161>`_
+
+        '
+      - 'keycloak_quarkus: ``sticky-session`` for infinispan routes `#163 <https://github.com/ansible-middleware/keycloak/pull/163>`_
+
+        '
+    fragments:
+    - 157.yaml
+    - 159.yaml
+    - 161.yaml
+    - 163.yaml
+    - 167.yaml
+    - 171.yaml
+    release_date: '2024-02-28'

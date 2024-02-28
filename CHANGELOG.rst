@@ -1,10 +1,35 @@
-============================================
-middleware_automation.keycloak Release Notes
-============================================
+=============================================
+middleware\_automation.keycloak Release Notes
+=============================================
 
 .. contents:: Topics
 
 This changelog describes changes after version 0.2.6.
+
+v2.1.0
+======
+
+Major Changes
+-------------
+
+- Implement infinispan TCPPING discovery protocol `#159 <https://github.com/ansible-middleware/keycloak/pull/159>`_
+
+Minor Changes
+-------------
+
+- Set enable-recovery when xa transactions are enabled `#167 <https://github.com/ansible-middleware/keycloak/pull/167>`_
+- keycloak_quarkus: Allow configuring log rotate options in quarkus configuration `#161 <https://github.com/ansible-middleware/keycloak/pull/161>`_
+- keycloak_quarkus: ``sticky-session`` for infinispan routes `#163 <https://github.com/ansible-middleware/keycloak/pull/163>`_
+
+Breaking Changes / Porting Guide
+--------------------------------
+
+- keycloak_quarkus: renamed infinispan host list configuration `#157 <https://github.com/ansible-middleware/keycloak/pull/157>`_
+
+Bugfixes
+--------
+
+- keycloak_quarkus: fix custom JAVA_HOME parameter name `#171 <https://github.com/ansible-middleware/keycloak/pull/171>`_
 
 v2.0.2
 ======
@@ -269,7 +294,6 @@ Release Summary
 
 Minor enhancements, bug and documentation fixes.
 
-
 Major Changes
 -------------
 
@@ -287,4 +311,3 @@ Release Summary
 ---------------
 
 This is the first stable release of the ``middleware_automation.keycloak`` collection.
-

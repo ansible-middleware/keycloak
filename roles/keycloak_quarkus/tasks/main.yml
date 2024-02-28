@@ -60,7 +60,7 @@
 
 - name: "Configure infinispan config for keycloak service"
   ansible.builtin.template:
-    src: cache-ispn.xml
+    src: cache-ispn.xml.j2
     dest: "{{ keycloak.home }}/conf/cache-ispn.xml"
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"

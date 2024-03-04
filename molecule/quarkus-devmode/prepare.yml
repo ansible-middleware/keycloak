@@ -1,6 +1,7 @@
 ---
 - name: Prepare
   hosts: all
+  become: yes
   tasks:
     - name: Install sudo
       ansible.builtin.yum:

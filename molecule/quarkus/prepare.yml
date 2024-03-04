@@ -1,9 +1,9 @@
 ---
 - name: Prepare
   hosts: all
-  become: yes
   tasks:
     - name: Install sudo
+      become: yes
       ansible.builtin.yum:
         name: sudo
         state: present
@@ -24,6 +24,7 @@
         mode: 0755
 
     - name: Copy certificates
+      become: yes
       ansible.builtin.copy:
         src: "{{ item }}"
         dest: "/opt/keycloak/certs/{{ item }}"

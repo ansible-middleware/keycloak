@@ -2,20 +2,20 @@
 - name: Prepare
   hosts: all
   tasks:
-    - name: Install sudo
+    - name: "Ensure common prepare phase are set."
+      ansible.builtin.include_tasks: ../prepare.yml
+
+    - name: Install JDK17
+      become: yes
       ansible.builtin.yum:
         name:
-          - sudo
           - java-17-openjdk-headless
         state: present
 
     - name: Link default logs directory
+      become: yes
       ansible.builtin.file:
         state: link
         src: /usr/lib/jvm/jre-17-openjdk
         dest: /opt/openjdk
         force: true
-
-    - name: "Display hera_home if defined."
-      ansible.builtin.set_fact:
-        hera_home: "{{ lookup('env', 'HERA_HOME') }}"

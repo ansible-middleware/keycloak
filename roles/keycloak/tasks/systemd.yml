@@ -1,4 +1,13 @@
 ---
+- name: "Create keycloak install dir"
+  become: true
+  ansible.builtin.file:
+    path: "{{ keycloak_dest }}"
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+
 - name: "Configure {{ keycloak.service_name }} service script wrapper"
   become: true
   ansible.builtin.template:
@@ -12,7 +21,30 @@
 
 - name: Determine JAVA_HOME for selected JVM RPM
   ansible.builtin.set_fact:
+    rpm_java_home: "/lib/jvm/java-{{ keycloak_jvm_package | regex_search('(?<=java-)[0-9.]+') }}-openjdk-arm64"
+    when:
+      - ansible_facts.os_family == 'Debian'
+
+- name: Determine JAVA_HOME for selected JVM RPM
+  ansible.builtin.set_fact:
     rpm_java_home: "/etc/alternatives/jre_{{ keycloak_jvm_package | regex_search('(?<=java-)[0-9.]+') }}"
+    when:
+      - ansible_facts.os_family == 'RedHat'
+
+- name: "Configure sysconfig file for {{ keycloak.service_name }} service"
+  become: true
+  ansible.builtin.template:
+    src: keycloak-sysconfig.j2
+    dest: /etc/default/keycloak
+    owner: root
+    group: root
+    mode: 0644
+  vars:
+    keycloak_rpm_java_home: "{{ rpm_java_home }}"
+  when:
+    - ansible_facts.os_family == "Debian"
+  notify:
+    - restart keycloak
 
 - name: "Configure sysconfig file for {{ keycloak.service_name }} service"
   become: true
@@ -24,6 +56,8 @@
     mode: 0644
   vars:
     keycloak_rpm_java_home: "{{ rpm_java_home }}"
+  when:
+    - ansible_facts.os_family == "RedHat"
   notify:
     - restart keycloak
 

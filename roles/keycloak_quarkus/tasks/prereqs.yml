@@ -29,6 +29,6 @@
     packages_list:
       - "{{ keycloak_quarkus_jvm_package }}"
       - unzip
-      - procps-ng
-      - initscripts
-      - tzdata-java
+      - "{{ 'procps-ng' if ansible_facts.os_family == 'RedHat' else 'procps' }}"
+      - "{{ 'initscripts' if ansible_facts.os_family == 'RedHat' else 'apt' }}" ## install apt as no-op
+      - "{{ 'tzdata-java' if ansible_facts.os_family == 'RedHat' else 'tzdata' }}" ## install apt as no-op

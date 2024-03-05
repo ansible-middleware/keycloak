@@ -4,17 +4,22 @@
   ansible.builtin.include_tasks: prereqs.yml
   tags:
     - prereqs
-
-- name: Include firewall config tasks
-  ansible.builtin.include_tasks: firewalld.yml
-  when: keycloak_quarkus_configure_firewalld
-  tags:
-    - firewall
-
 - name: Include install tasks
   ansible.builtin.include_tasks: install.yml
   tags:
     - install
+
+# OS specific tasks (apt, iptables)
+- include_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+  tags:
+    - unbound
+
+# OS specific tasks (yum/dnf, firewalld)
+- include_tasks: redhat.yml
+  when: ansible_os_family == "RedHat"
+  tags:
+    - unbound
 
 - name: Include systemd tasks
   ansible.builtin.include_tasks: systemd.yml

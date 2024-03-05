@@ -11,6 +11,11 @@ argument_specs:
                 default: "keycloak-legacy-{{ keycloak_version }}.zip"
                 description: "keycloak install archive filename"
                 type: "str"
+            keycloak_configure_iptables:
+                # line 33 of keycloak/defaults/main.yml
+                default: false
+                description: "Ensure iptables is running and configure keycloak ports"
+                type: "bool"
             keycloak_configure_firewalld:
                 # line 33 of keycloak/defaults/main.yml
                 default: false

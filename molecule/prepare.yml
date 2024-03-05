@@ -5,7 +5,7 @@
 
 
 - name: "Ensure {{ sudo_pkg_name }} is installed (if user is root)."
-  ansible.builtin.yum:
+  ansible.builtin.package:
     name: "{{ sudo_pkg_name }}"
   when:
     - ansible_user_id == 'root'
@@ -22,7 +22,7 @@
 
 - name: Install sudo
   become: yes
-  ansible.builtin.yum:
+  ansible.builtin.package:
     name:
       - sudo
       - iproute

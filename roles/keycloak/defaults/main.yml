@@ -8,7 +8,8 @@ keycloak_installdir: "{{ keycloak_dest }}/keycloak-{{ keycloak_version }}"
 keycloak_offline_install: false
 
 ### Install location and service settings
-keycloak_jvm_package: java-1.8.0-openjdk-headless
+keycloak_jvm_package: "{{ 'java-1.8.0-openjdk-headless' if ansible_facts.os_family == 'RedHat' else 'openjdk-8-jdk-headless' }}"
+
 keycloak_java_home:
 keycloak_dest: /opt/keycloak
 keycloak_jboss_home: "{{ keycloak_installdir }}"
@@ -33,6 +34,7 @@ keycloak_service_startlimitburst: "5"
 keycloak_service_restartsec: "10s"
 
 keycloak_configure_firewalld: false
+keycloak_configure_iptables: false
 
 ### administrator console password
 keycloak_admin_password: ''

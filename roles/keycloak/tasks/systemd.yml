@@ -21,7 +21,7 @@
 
 - name: Determine JAVA_HOME for selected JVM RPM
   ansible.builtin.set_fact:
-    rpm_java_home: "/lib/jvm/java-{{ keycloak_jvm_package | regex_search('(?<=java-)[0-9.]+') }}-openjdk-arm64"
+    rpm_java_home: "/lib/jvm/java-{{ keycloak_jvm_package | regex_search('(?<=java-)[0-9.]+') }}-openjdk-{{ 'arm64' if ansible_facts.ansible_architecture == 'aarch64' else 'amd64' }}"
     when:
       - ansible_facts.os_family == 'Debian'
 

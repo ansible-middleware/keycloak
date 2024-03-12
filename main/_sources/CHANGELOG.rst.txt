@@ -9,11 +9,6 @@ This changelog describes changes after version 0.2.6.
 v2.1.1-devel
 ============
 
-Release Summary
----------------
-
-Internal release, documentation or test changes only.
-
 v2.1.0
 ======
 

@@ -4,8 +4,3 @@
   when: keycloak_configure_iptables
   tags:
     - firewall
-
-- name: Include systemd tasks
-  ansible.builtin.include_tasks: systemd.yml
-  tags:
-    - systemd

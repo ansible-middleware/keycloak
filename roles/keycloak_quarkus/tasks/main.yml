@@ -4,19 +4,21 @@
   ansible.builtin.include_tasks: prereqs.yml
   tags:
     - prereqs
+
 - name: Include install tasks
   ansible.builtin.include_tasks: install.yml
   tags:
     - install
+  when: ansible_os_family == "RedHat"
 
-# OS specific tasks (apt, iptables)
-- include_tasks: debian.yml
+- name: Debian specific tasks
+  ansible.builtin.include_tasks: debian.yml
   when: ansible_os_family == "Debian"
   tags:
     - unbound
 
-# OS specific tasks (yum/dnf, firewalld)
-- include_tasks: redhat.yml
+- name: RedHat specific tasks
+  ansible.builtin.include_tasks: redhat.yml
   when: ansible_os_family == "RedHat"
   tags:
     - unbound

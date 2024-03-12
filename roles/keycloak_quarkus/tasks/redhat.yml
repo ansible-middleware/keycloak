@@ -14,3 +14,5 @@
     - install
     - patch
 
+- name: "Include fastpackages"
+  ansible.builtin.include_tasks: fastpackages.yml

@@ -27,6 +27,16 @@
   tags:
     - systemd
 
+- name: Include patch install tasks
+  ansible.builtin.include_tasks: rhsso_patch.yml
+  when:
+    - ansible_os_family == "RedHat"
+    - sso_apply_patches is defined and sso_apply_patches
+    - sso_enable is defined and sso_enable
+  tags:
+    - install
+    - patch
+
 - name: Link default logs directory
   ansible.builtin.file:
     state: link

@@ -9,7 +9,6 @@
           - openjdk-17-jdk-headless
         state: present
         when:
-          - ansible
           - ansible_facts.os_family == 'Debian'
 
     - name: Install sudo
@@ -19,7 +18,6 @@
           - java-17-openjdk-headless
         state: present
         when:
-          - ansible
           - ansible_facts.os_family == 'RedHat'
 
     - name: Link default logs directory

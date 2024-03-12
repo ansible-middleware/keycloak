@@ -29,7 +29,7 @@
         with_fileglob:
           - /usr/lib/jvm/java-17-openjdk*
       when:
-        - ansible_facts.os_family = "Debian"
+        - ansible_facts.os_family == "Debian"
           
     - name: Link default logs directory
       ansible.builtin.file:
@@ -38,7 +38,7 @@
         dest: /opt/openjdk
         force: true
       when:
-        - ansible_facts.os_family = "RedHat"
+        - ansible_facts.os_family == "RedHat"
 
     - name: "Display hera_home if defined."
       ansible.builtin.set_fact:

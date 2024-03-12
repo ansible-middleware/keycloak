@@ -5,7 +5,6 @@
   changed_when: false
   failed_when: false
   when:
-    - packages_list | default([]) | length > 0
     - ansible_facts.os_family == "RedHat"
 
 - name: "Add missing packages to the yum install list"

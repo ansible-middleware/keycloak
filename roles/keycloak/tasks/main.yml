@@ -12,13 +12,13 @@
 
 - name: Debian specific tasks
   ansible.builtin.include_tasks: debian.yml
-  when: ansible_os_family == "Debian"
+  when: ansible_facts.os_family == "Debian"
   tags:
     - unbound
 
 - name: RedHat specific tasks 
   ansible.builtin.include_tasks: redhat.yml
-  when: ansible_os_family == "RedHat"
+  when: ansible_facts.os_family == "RedHat"
   tags:
     - unbound
 
@@ -30,7 +30,7 @@
 - name: Include patch install tasks
   ansible.builtin.include_tasks: rhsso_patch.yml
   when:
-    - ansible_os_family == "RedHat"
+    - ansible_facts.os_family == "RedHat"
     - sso_apply_patches is defined and sso_apply_patches
     - sso_enable is defined and sso_enable
   tags:

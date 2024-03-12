@@ -5,13 +5,13 @@
   changed_when: false
   failed_when: false
   when:
-  - ansible_os_family == "RedHat"
+  - ansible_facts.os_family == "RedHat"
 
 - name: "Add missing packages to the yum install list"
   ansible.builtin.set_fact:
     packages_to_install: "{{ packages_to_install | default([]) + rpm_info.stdout_lines | map('regex_findall', 'package (.+) is not installed$') | default([]) | flatten }}"
   when:
-  - ansible_os_family == "RedHat"
+  - ansible_facts.os_family == "RedHat"
 
 - name: "Install packages: {{ packages_to_install }}"
   become: true
@@ -20,7 +20,7 @@
     state: present
   when:
   - packages_to_install | default([]) | length > 0
-  - ansible_os_family == "RedHat"
+  - ansible_facts.os_family == "RedHat"
 
 - name: "Install packages: {{ packages_list }}"
   become: true
@@ -29,4 +29,4 @@
     state: present
   when:
     - packages_list | default([]) | length > 0
-    - ansible_os_family == "Debian"
+    - ansible_facts.os_family == "Debian"

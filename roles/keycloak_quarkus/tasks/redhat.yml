@@ -5,14 +5,5 @@
   tags:
     - firewall
 
-- name: Include patch install tasks
-  ansible.builtin.include_tasks: rhsso_patch.yml
-  when:
-    - sso_apply_patches is defined and sso_apply_patches
-    - sso_enable is defined and sso_enable
-  tags:
-    - install
-    - patch
-
 - name: "Include fastpackages"
   ansible.builtin.include_tasks: fastpackages.yml

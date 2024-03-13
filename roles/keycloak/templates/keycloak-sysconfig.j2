@@ -1,4 +1,4 @@
-# {{ ansible_managed }}
+{{ ansible_managed | comment }}
 JAVA_OPTS='{{ keycloak_java_opts }}'
 JAVA_HOME={{ keycloak_java_home  | default(keycloak_rpm_java_home, true) }}
 JBOSS_HOME={{ keycloak.home }}

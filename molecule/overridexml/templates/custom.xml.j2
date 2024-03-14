@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-{{ ansible_managed | comment('xml') }}
+<!-- this is a custom file -->
 <server xmlns="urn:jboss:domain:16.0">
     <extensions>
         <extension module="org.jboss.as.clustering.infinispan"/>
@@ -481,7 +481,7 @@
                 <default-provider>default</default-provider>
                 <provider name="default" enabled="true">
                     <properties>
-                        <property name="frontendUrl" value="localhost"/>
+                        <property name="frontendUrl" value="${keycloak.frontendUrl:}"/>
                         <property name="forceBackendUrlToFrontendUrl" value="false"/>
                     </properties>
                 </provider>
@@ -520,7 +520,8 @@
         <subsystem xmlns="urn:jboss:domain:undertow:12.0" default-server="default-server" default-virtual-host="default-host" default-servlet-container="default" default-security-domain="other" statistics-enabled="${wildfly.undertow.statistics-enabled:${wildfly.statistics-enabled:false}}">
             <buffer-cache name="default"/>
             <server name="default-server">
-                <http-listener name="default" socket-binding="http" />
+                <http-listener name="default" socket-binding="http" redirect-socket="https" enable-http2="true"/>
+                <https-listener name="https" socket-binding="https" ssl-context="applicationSSC" enable-http2="true"/>
                 <host name="default-host" alias="localhost">
                     <location name="/" handler="welcome-content"/>
                     <http-invoker http-authentication-factory="application-http-authentication"/>
@@ -549,7 +550,9 @@
     </interfaces>
     <socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">
         <socket-binding name="http" port="8081"/>
+        <socket-binding name="https" port="8443"/>
         <socket-binding name="management-http" interface="management" port="19990"/>
+        <socket-binding name="management-https" interface="management" port="19991"/>
         <socket-binding name="txn-recovery-environment" port="4712"/>
         <socket-binding name="txn-status-manager" port="4713"/>
         <outbound-socket-binding name="mail-smtp">

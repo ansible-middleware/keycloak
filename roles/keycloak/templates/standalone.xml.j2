@@ -539,7 +539,7 @@
             </mail-session>
         </subsystem>
         <subsystem xmlns="urn:wildfly:metrics:1.0" security-enabled="false" exposed-subsystems="*" prefix="${wildfly.metrics.prefix:jboss}"/>
-{% if keycloak_modcluster.enabled %}        
+{% if keycloak_modcluster.enabled %}
         <subsystem xmlns="urn:jboss:domain:modcluster:5.0">
             <proxy name="default" advertise="false" listener="ajp" proxies="{{ ['proxy_'] | product(keycloak_modcluster.reverse_proxy_urls | map(attribute='host')) | map('join') | list | join(' ') }}">
                 <dynamic-load-provider>
@@ -547,7 +547,7 @@
                 </dynamic-load-provider>
             </proxy>
         </subsystem>
-{% endif %}        
+{% endif %}
         <subsystem xmlns="urn:jboss:domain:naming:2.0">
             <remote-naming/>
         </subsystem>
@@ -621,6 +621,6 @@
             <remote-destination host="{{ modcluster.host }}" port="{{ modcluster.port }}"/>
         </outbound-socket-binding>
 {% endfor %}
-{% endif %}        
+{% endif %}
     </socket-binding-group>
 </server>

@@ -11,18 +11,23 @@
       ansible.builtin.set_fact:
         hera_home: "{{ lookup('env', 'HERA_HOME') }}"
 
+    - name: "Ensure common prepare phase are set."
+      ansible.builtin.include_tasks: ../prepare.yml
+
     - name: Create certificate request
       ansible.builtin.command: openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 365 -nodes -subj '/CN=instance'
       delegate_to: localhost
       changed_when: False
 
     - name: Create conf directory # risky-file-permissions in test user account does not exist yet
+      become: yes
       ansible.builtin.file:
         state: directory
         path: "/opt/keycloak/certs/"
         mode: 0755
 
     - name: Copy certificates
+      become: yes
       ansible.builtin.copy:
         src: "{{ item }}"
         dest: "/opt/keycloak/certs/{{ item }}"

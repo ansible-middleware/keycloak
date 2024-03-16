@@ -14,13 +14,13 @@
     - name: Install sudo
       ansible.builtin.yum:
         name:
-          - sudo
           - java-17-openjdk-headless
         state: present
       when:
         - ansible_facts.os_family == 'RedHat'
 
     - name: Link default logs directory
+      become: yes
       ansible.builtin.file:
         state: link
         src: "{{ item }}"
@@ -43,3 +43,4 @@
     - name: "Display hera_home if defined."
       ansible.builtin.set_fact:
         hera_home: "{{ lookup('env', 'HERA_HOME') }}"
+

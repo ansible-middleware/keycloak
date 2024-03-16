@@ -36,7 +36,9 @@
 
     - name: Determine patch versions list
       ansible.builtin.set_fact:
-        filtered_versions: "{{ rhn_products.results | map(attribute='file_path') | select('match', '^[^/]*/rh-sso-.*[0-9]*[.][0-9]*[.][0-9]*.*$') | map('regex_replace', '[^/]*/rh-sso-([0-9]*[.][0-9]*[.][0-9]*)-.*', '\\1') | list | unique }}"
+        filtered_versions: "{{ rhn_products.results | map(attribute='file_path') | \
+                               select('match', '^[^/]*/rh-sso-.*[0-9]*[.][0-9]*[.][0-9]*.*$') | \
+                               map('regex_replace', '[^/]*/rh-sso-([0-9]*[.][0-9]*[.][0-9]*(-[0-9])?)-.*', '\\1') | list | unique }}"
       when: sso_patch_version is not defined or sso_patch_version | length == 0
       delegate_to: localhost
       run_once: true
@@ -70,7 +72,7 @@
       middleware_automation.common.product_download: # noqa risky-file-permissions delegated, uses controller host user
         client_id: "{{ rhn_username }}"
         client_secret: "{{ rhn_password }}"
-        product_id: "{{ (rhn_filtered_products | first).id }}"
+        product_id: "{{ (rhn_filtered_products | sort | last).id }}"
         dest: "{{ local_path.stat.path }}/{{ patch_bundle }}"
       no_log: "{{ omit_rhn_output | default(true) }}"
       delegate_to: localhost
@@ -114,7 +116,7 @@
   when:
     - cli_result is defined
     - cli_result.stdout is defined
-    - patch_version not in cli_result.stdout
+    - patch_version | regex_replace('-[0-9]$', '') not in cli_result.stdout
   block:
     - name: "Apply patch {{ patch_version }} to server"
       ansible.builtin.include_tasks: rhsso_cli.yml

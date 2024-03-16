@@ -3,7 +3,7 @@
   hosts: all
   tasks:
     - name: Install sudo
-      ansible.builtin.yum:
+      ansible.builtin.package:
         name: sudo
         state: present
 

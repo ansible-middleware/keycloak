@@ -3,18 +3,42 @@
   hosts: all
   tasks:
     - name: Install sudo
+      ansible.builtin.apt:
+        name:
+          - sudo
+          - openjdk-17-jdk-headless
+        state: present
+      when:
+        - ansible_facts.os_family == 'Debian'
+
+    - name: Install sudo
       ansible.builtin.yum:
         name:
           - sudo
           - java-17-openjdk-headless
         state: present
+      when:
+        - ansible_facts.os_family == 'RedHat'
 
+    - name: Link default logs directory
+      ansible.builtin.file:
+        state: link
+        src: "{{ item }}"
+        dest: /opt/openjdk
+        force: true
+        with_fileglob:
+          - /usr/lib/jvm/java-17-openjdk*
+      when:
+        - ansible_facts.os_family == "Debian"
+          
     - name: Link default logs directory
       ansible.builtin.file:
         state: link
         src: /usr/lib/jvm/jre-17-openjdk
         dest: /opt/openjdk
         force: true
+      when:
+        - ansible_facts.os_family == "RedHat"
 
     - name: "Display hera_home if defined."
       ansible.builtin.set_fact:

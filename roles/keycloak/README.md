@@ -10,6 +10,7 @@ Requirements
 This role requires the `python3-netaddr` library installed on the controller node.
 
 * to install via yum/dnf: `dnf install python3-netaddr`
+* to install via apt: `apt install python3-netaddr`
 * or via pip: `pip install netaddr==0.8.0`
 * or via the collection: `pip install -r requirements.txt`
 

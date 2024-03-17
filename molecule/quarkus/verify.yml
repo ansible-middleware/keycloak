@@ -49,8 +49,9 @@
           - keycloak_log_folder.stat.exists
           - not keycloak_log_folder.stat.isdir
           - keycloak_log_folder.stat.islnk
-          
+
     - name: Check log file
+      become: yes
       ansible.builtin.stat:
         path: "/tmp/keycloak/keycloak.log"
       register: keycloak_log_file
@@ -62,6 +63,7 @@
           - not keycloak_log_file.stat.isdir
 
     - name: Check default log folder
+      become: yes
       ansible.builtin.stat:
         path: "/var/log/keycloak"
       register: keycloak_default_log_folder

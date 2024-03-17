@@ -3,28 +3,31 @@
   ansible.builtin.debug:
     msg: "Ansible version is  {{ ansible_version.full }}"
 
+- name: "Set package name for sudo"
+  ansible.builtin.set_fact:
+    sudo_pkg_name: sudo
 
 - name: "Ensure {{ sudo_pkg_name }} is installed (if user is root)."
   ansible.builtin.yum:
     name: "{{ sudo_pkg_name }}"
+    state: present
   when:
     - ansible_user_id == 'root'
-
 
 - name: Gather the package facts
   ansible.builtin.package_facts:
     manager: auto
 
-- name: "Check if {{ sudo_pkg_name }} is installed."
+- name: "Check if sudo is installed."
   ansible.builtin.assert:
     that:
       - sudo_pkg_name in ansible_facts.packages
+    fail_msg: "sudo is not installed on target system"
 
-- name: Install sudo
+- name: "Install iproute"
   become: yes
   ansible.builtin.yum:
     name:
-      - sudo
       - iproute
     state: present
 
@@ -36,6 +39,8 @@
   when:
     - assets_server is defined
     - assets_server | length > 0
+    - assets is defined
+    - assets | length > 0
   block:
     - name: "Set offline when assets server from env is defined"
       ansible.builtin.set_fact:

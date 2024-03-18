@@ -1,0 +1,6 @@
+---
+- name: Include firewall config tasks
+  ansible.builtin.include_tasks: firewalld.yml
+  when: keycloak_configure_firewalld
+  tags:
+    - firewall

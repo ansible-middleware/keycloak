@@ -2,6 +2,15 @@
 - name: Prepare
   hosts: all
   tasks:
+    - name: Install sudo
+      ansible.builtin.package:
+        name: sudo
+        state: present
+
+    - name: "Display hera_home if defined."
+      ansible.builtin.set_fact:
+        hera_home: "{{ lookup('env', 'HERA_HOME') }}"
+        
     - name: "Ensure common prepare phase are set."
       ansible.builtin.include_tasks: ../prepare.yml
 

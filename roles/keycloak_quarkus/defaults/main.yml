@@ -9,7 +9,6 @@ keycloak_quarkus_installdir: "{{ keycloak_quarkus_dest }}/keycloak-{{ keycloak_q
 keycloak_quarkus_offline_install: false
 
 ### Install location and service settings
-keycloak_quarkus_jvm_package: "{{ 'java-17-openjdk-headless' if ansible_facts.os_family == 'RedHat' else 'openjdk-17-jdk-headless' }}"
 keycloak_quarkus_java_home:
 keycloak_quarkus_dest: /opt/keycloak
 keycloak_quarkus_home: "{{ keycloak_quarkus_installdir }}"

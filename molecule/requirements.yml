@@ -5,7 +5,7 @@ collections:
   - name: community.general
   - name: ansible.posix
   - name: community.docker
-    version: ">=1.9.1"
+    version: ">=3.8.0"
 
 roles:
   - name: elan.simple_nginx_reverse_proxy

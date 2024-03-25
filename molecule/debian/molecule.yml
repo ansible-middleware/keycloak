@@ -1,0 +1,48 @@
+---
+driver:
+  name: docker
+platforms:
+  - name: instance
+    image: ghcr.io/hspaans/molecule-containers:debian-11
+    pre_build_image: true
+    privileged: true
+    port_bindings:
+      - "8080/tcp"
+      - "8443/tcp"
+      - "8009/tcp"
+    cgroupns_mode: host
+    command: "/lib/systemd/systemd"
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      interpreter_python: auto_silent
+    ssh_connection:
+      pipelining: false
+  playbooks:
+    prepare: prepare.yml
+    converge: converge.yml
+    verify: verify.yml
+  inventory:
+    host_vars:
+      localhost:
+        ansible_python_interpreter: /usr/bin/python3
+  env:
+    ANSIBLE_FORCE_COLOR: "true"
+    ANSIBLE_REMOTE_TMP: /tmp/.ansible/tmp
+verifier:
+  name: ansible
+scenario:
+  test_sequence:
+    - cleanup
+    - destroy
+    - create
+    - prepare
+    - converge
+    - idempotence
+    - side_effect
+    - verify
+    - cleanup
+    - destroy

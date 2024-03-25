@@ -1,0 +1,10 @@
+---
+keycloak_quarkus_varjvm_package: "{{ keycloak_quarkus_jvm_package | default('openjdk-17-jdk-headless') }}"
+keycloak_quarkus_prereq_package_list:
+      - "{{ keycloak_quarkus_varjvm_package  }}"
+      - unzip
+      - procps
+      - apt
+      - tzdata
+keycloak_quarkus_sysconf_file: /etc/default/keycloak
+keycloak_quarkus_pkg_java_home: "/usr/lib/jvm/java-{{ keycloak_quarkus_varjvm_package | regex_search('(?!:openjdk-)[0-9.]+') }}-openjdk-{{ 'arm64' if ansible_architecture == 'aarch64' else 'amd64' }}"

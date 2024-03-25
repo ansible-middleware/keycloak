@@ -2,32 +2,26 @@ argument_specs:
     main:
         options:
             keycloak_quarkus_version:
-                # line 3 of defaults/main.yml
-                default: "17.0.1"
+                default: "23.0.7"
                 description: "keycloak.org package version"
                 type: "str"
             keycloak_quarkus_archive:
-                # line 4 of defaults/main.yml
                 default: "keycloak-{{ keycloak_quarkus_version }}.zip"
                 description: "keycloak install archive filename"
                 type: "str"
             keycloak_quarkus_download_url:
-                # line 5 of defaults/main.yml
                 default: "https://github.com/keycloak/keycloak/releases/download/{{ keycloak_quarkus_version }}/{{ keycloak_quarkus_archive }}"
                 description: "Download URL for keycloak"
                 type: "str"
             keycloak_quarkus_installdir:
-                # line 6 of defaults/main.yml
                 default: "{{ keycloak_quarkus_dest }}/keycloak-{{ keycloak_quarkus_version }}"
                 description: "Installation path"
                 type: "str"
             keycloak_quarkus_offline_install:
-                # line 9 of defaults/main.yml
                 default: false
                 description: "Perform an offline install"
                 type: "bool"
             keycloak_quarkus_jvm_package:
-                # line 12 of defaults/main.yml
                 default: "java-11-openjdk-headless"
                 description: "RHEL java package runtime"
                 type: "str"
@@ -35,37 +29,34 @@ argument_specs:
                 description: "JAVA_HOME of installed JRE, leave empty for using specified keycloak_jvm_package RPM path"
                 type: "str"
             keycloak_quarkus_dest:
-                # line 13 of defaults/main.yml
                 default: "/opt/keycloak"
                 description: "Installation root path"
                 type: "str"
             keycloak_quarkus_home:
-                # line 14 of defaults/main.yml
                 default: "{{ keycloak_quarkus_installdir }}"
                 description: "Installation work directory"
                 type: "str"
             keycloak_quarkus_config_dir:
-                # line 15 of defaults/main.yml
                 default: "{{ keycloak_quarkus_home }}/conf"
                 description: "Path for configuration"
                 type: "str"
             keycloak_quarkus_service_user:
-                # line 16 of defaults/main.yml
                 default: "keycloak"
                 description: "Posix account username"
                 type: "str"
             keycloak_quarkus_service_group:
-                # line 17 of defaults/main.yml
                 default: "keycloak"
                 description: "Posix account group"
                 type: "str"
             keycloak_quarkus_service_pidfile:
-                # line 18 of defaults/main.yml
                 default: "/run/keycloak/keycloak.pid"
                 description: "Pid file path for service"
                 type: "str"
             keycloak_quarkus_configure_firewalld:
-                # line 19 of defaults/main.yml
+                default: false
+                description: "Ensure firewalld is running and configure keycloak ports"
+                type: "bool"
+            keycloak_quarkus_configure_iptables:
                 default: false
                 description: "Ensure firewalld is running and configure keycloak ports"
                 type: "bool"
@@ -90,12 +81,10 @@ argument_specs:
                 description: "Password of console admin account"
                 type: "str"
             keycloak_quarkus_master_realm:
-                # line 24 of defaults/main.yml
                 default: "master"
                 description: "Name for rest authentication realm"
                 type: "str"
             keycloak_quarkus_bind_address:
-                # line 27 of defaults/main.yml
                 default: "0.0.0.0"
                 description: "Address for binding service ports"
                 type: "str"
@@ -116,7 +105,6 @@ argument_specs:
                 description: "Enable listener on HTTP port"
                 type: "bool"
             keycloak_quarkus_http_port:
-                # line 29 of defaults/main.yml
                 default: 8080
                 description: "HTTP port"
                 type: "int"
@@ -157,27 +145,22 @@ argument_specs:
                 description: "Password for the trust store"
                 type: "str"
             keycloak_quarkus_https_port:
-                # line 30 of defaults/main.yml
                 default: 8443
                 description: "HTTPS port"
                 type: "int"
             keycloak_quarkus_ajp_port:
-                # line 31 of defaults/main.yml
                 default: 8009
                 description: "AJP port"
                 type: "int"
             keycloak_quarkus_jgroups_port:
-                # line 32 of defaults/main.yml
                 default: 7800
                 description: "jgroups cluster tcp port"
                 type: "int"
             keycloak_quarkus_java_opts:
-                # line 33 of defaults/main.yml
                 default: "-Xms1024m -Xmx2048m"
                 description: "Additional JVM options"
                 type: "str"
             keycloak_quarkus_ha_enabled:
-                # line 36 of defaults/main.yml
                 default: false
                 description: "Enable auto configuration for database backend, clustering and remote caches on infinispan"
                 type: "bool"
@@ -186,7 +169,6 @@ argument_specs:
                 description: "Discovery protocol for HA cluster members"
                 type: "str"
             keycloak_quarkus_db_enabled:
-                # line 38 of defaults/main.yml
                 default: "{{ True if keycloak_quarkus_ha_enabled else False }}"
                 description: "Enable auto configuration for database backend"
                 type: "str"
@@ -204,7 +186,6 @@ argument_specs:
                 description: "Service URL for the admin console"
                 type: "str"
             keycloak_quarkus_metrics_enabled:
-                # line 43 of defaults/main.yml
                 default: false
                 description: "Whether to enable metrics"
                 type: "bool"
@@ -213,62 +194,50 @@ argument_specs:
                 description: "If the server should expose health check endpoints"
                 type: "bool"
             keycloak_quarkus_ispn_user:
-                # line 46 of defaults/main.yml
                 default: "supervisor"
                 description: "Username for connecting to infinispan"
                 type: "str"
             keycloak_quarkus_ispn_pass:
-                # line 47 of defaults/main.yml
                 default: "supervisor"
                 description: "Password for connecting to infinispan"
                 type: "str"
             keycloak_quarkus_ispn_hosts:
-                # line 48 of defaults/main.yml
                 default: "localhost:11222"
                 description: "host name/port for connecting to infinispan, eg. host1:11222;host2:11222"
                 type: "str"
             keycloak_quarkus_ispn_sasl_mechanism:
-                # line 49 of defaults/main.yml
                 default: "SCRAM-SHA-512"
                 description: "Infinispan auth mechanism"
                 type: "str"
             keycloak_quarkus_ispn_use_ssl:
-                # line 50 of defaults/main.yml
                 default: false
                 description: "Whether infinispan uses TLS connection"
                 type: "bool"
             keycloak_quarkus_ispn_trust_store_path:
-                # line 52 of defaults/main.yml
                 default: "/etc/pki/java/cacerts"
                 description: "Path to infinispan server trust certificate"
                 type: "str"
             keycloak_quarkus_ispn_trust_store_password:
-                # line 53 of defaults/main.yml
                 default: "changeit"
                 description: "Password for infinispan certificate keystore"
                 type: "str"
             keycloak_quarkus_jdbc_engine:
-                # line 56 of defaults/main.yml
                 default: "postgres"
                 description: "Database engine [mariadb,postres,mssql]"
                 type: "str"
             keycloak_quarkus_db_user:
-                # line 58 of defaults/main.yml
                 default: "keycloak-user"
                 description: "User for database connection"
                 type: "str"
             keycloak_quarkus_db_pass:
-                # line 59 of defaults/main.yml
                 default: "keycloak-pass"
                 description: "Password for database connection"
                 type: "str"
             keycloak_quarkus_jdbc_url:
-                # line 60 of defaults/main.yml
                 default: "{{ keycloak_quarkus_default_jdbc[keycloak_quarkus_jdbc_engine].url }}"
                 description: "JDBC URL for connecting to database"
                 type: "str"
             keycloak_quarkus_jdbc_driver_version:
-                # line 61 of defaults/main.yml
                 default: "{{ keycloak_quarkus_default_jdbc[keycloak_quarkus_jdbc_engine].version }}"
                 description: "Version for JDBC driver"
                 type: "str"

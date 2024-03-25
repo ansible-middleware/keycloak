@@ -4,16 +4,10 @@
   ansible.builtin.include_tasks: prereqs.yml
   tags:
     - prereqs
+    - always
 
-- name: Debian specific tasks
-  ansible.builtin.include_tasks: debian.yml
-  when: ansible_facts.os_family == "Debian"
-  tags:
-    - unbound
-
-- name: RedHat specific tasks
-  ansible.builtin.include_tasks: redhat.yml
-  when: ansible_facts.os_family == "RedHat"
+- name: Distro specific tasks
+  ansible.builtin.include_tasks: "{{ ansible_os_family | lower }}.yml"
   tags:
     - unbound
 

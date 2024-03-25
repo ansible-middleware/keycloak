@@ -11,7 +11,7 @@ StartLimitBurst={{ keycloak_service_startlimitburst }}
 User={{ keycloak_service_user }}
 Group={{ keycloak_service_group }}
 {% endif -%}
-EnvironmentFile=-/etc/sysconfig/keycloak
+EnvironmentFile=-{{ keycloak_sysconf_file }}
 PIDFile={{ keycloak_service_pidfile }}
 ExecStart={{ keycloak.home }}/bin/standalone.sh $WILDFLY_OPTS
 WorkingDirectory={{ keycloak.home }}

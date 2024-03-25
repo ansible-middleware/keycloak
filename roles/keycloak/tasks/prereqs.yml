@@ -36,12 +36,20 @@
     success_msg: "Configuring JDBC persistence using {{ keycloak_jdbc_engine }} database"
   when: keycloak_db_enabled
 
+- name: Validate OS family
+  ansible.builtin.assert:
+    that:
+      - ansible_os_family in ["RedHat", "Debian"]
+    quiet: true
+    fail_msg: "Can only install on RedHat or Debian OS families; found {{ ansible_os_family }}"
+    success_msg: "Installing on {{ ansible_os_family }}"
+
+- name: Load OS specific variables
+  ansible.builtin.include_vars: "vars/{{ ansible_os_family | lower }}.yml"
+  tags:
+    - always
+
 - name: Ensure required packages are installed
   ansible.builtin.include_tasks: fastpackages.yml
   vars:
-    packages_list:
-      - "{{ keycloak_jvm_package }}"
-      - unzip
-      - "{{ 'procps-ng' if ansible_facts.os_family == 'RedHat' else 'procps' }}"
-      - "{{ 'initscripts' if ansible_facts.os_family == 'RedHat' else 'apt' }}"
-      - "{{ 'tzdata-java' if ansible_facts.os_family == 'RedHat' else 'tzdata' }}" 
+    packages_list: "{{ keycloak_prereq_package_list }}"

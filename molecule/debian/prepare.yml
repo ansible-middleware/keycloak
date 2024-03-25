@@ -1,0 +1,11 @@
+---
+- name: Prepare
+  hosts: all
+  gather_facts: yes
+  tasks:
+    - name: Install sudo
+      ansible.builtin.apt:
+        name:
+          - sudo
+          - openjdk-17-jdk-headless
+        state: present

@@ -5,7 +5,7 @@ After=network.target
 
 [Service]
 Type=simple
-EnvironmentFile=-/etc/sysconfig/keycloak
+EnvironmentFile=-{{ keycloak_quarkus_sysconf_file }}
 PIDFile={{ keycloak_quarkus_service_pidfile }}
 {% if keycloak_quarkus_start_dev %}
 ExecStart={{ keycloak.home }}/bin/kc.sh start-dev

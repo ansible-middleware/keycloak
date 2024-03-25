@@ -13,7 +13,7 @@
 
 - name: "Install packages: {{ packages_to_install }}"
   become: true
-  ansible.builtin.yum:
+  ansible.builtin.dnf:
     name: "{{ packages_to_install }}"
     state: present
   when:

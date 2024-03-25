@@ -9,6 +9,11 @@ This changelog describes changes after version 0.2.6.
 v2.1.1-devel
 ============
 
+Minor Changes
+-------------
+
+- Use ``keycloak_realm`` as default for sub-entities `#180 <https://github.com/ansible-middleware/keycloak/pull/180>`_
+
 Bugfixes
 --------
 

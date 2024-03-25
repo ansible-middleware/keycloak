@@ -8,4 +8,4 @@ keycloak_quarkus_prereq_package_list:
       - tzdata
 keycloak_quarkus_configure_iptables: True
 keycloak_quarkus_sysconf_file: /etc/default/keycloak
-keycloak_quarkus_pkg_java_home: "/lib/jvm/java-{{ keycloak_quarkus_jvm_package | regex_search('(?!:openjdk-)[0-9.]+') }}-openjdk-{{ 'arm64' if ansible_architecture == 'aarch64' else 'amd64' }}"
+keycloak_quarkus_pkg_java_home: "/usr/lib/jvm/java-{{ keycloak_quarkus_jvm_package | regex_search('(?!:openjdk-)[0-9.]+') }}-openjdk-{{ 'arm64' if ansible_architecture == 'aarch64' else 'amd64' }}"

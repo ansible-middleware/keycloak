@@ -1,0 +1,11 @@
+---
+keycloak_jvm_package: openjdk-11-jdk-headless
+keycloak_prereq_package_list:
+      - "{{ keycloak_jvm_package }}"
+      - unzip
+      - procps
+      - apt
+      - tzdata
+keycloak_configure_iptables: True
+keycloak_sysconf_file: /etc/default/keycloak
+keycloak_pkg_java_home: "/usr/lib/jvm/java-{{ keycloak_jvm_package | regex_search('(?!:openjdk-)[0-9.]+') }}-openjdk-{{ 'arm64' if ansible_architecture == 'aarch64' else 'amd64' }}"

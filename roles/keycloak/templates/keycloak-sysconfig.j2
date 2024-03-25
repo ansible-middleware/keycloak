@@ -1,6 +1,6 @@
 {{ ansible_managed | comment }}
 JAVA_OPTS='{{ keycloak_java_opts }}'
-JAVA_HOME={{ keycloak_java_home  | default(keycloak_rpm_java_home, true) }}
+JAVA_HOME={{ keycloak_java_home | default(keycloak_pkg_java_home, true) }}
 JBOSS_HOME={{ keycloak.home }}
 KEYCLOAK_BIND_ADDRESS={{ keycloak_bind_address }}
 KEYCLOAK_HTTP_PORT={{ keycloak_http_port }}

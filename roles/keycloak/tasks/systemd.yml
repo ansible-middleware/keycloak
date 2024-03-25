@@ -26,29 +26,10 @@
   become: true
   ansible.builtin.template:
     src: keycloak-sysconfig.j2
-    dest: /etc/default/keycloak
+    dest: "{{ keycloak_sysconf_file }}"
     owner: root
     group: root
     mode: 0644
-  vars:
-    keycloak_rpm_java_home: "{{ rpm_java_home }}"
-  when:
-    - ansible_facts.os_family == "Debian"
-  notify:
-    - restart keycloak
-
-- name: "Configure sysconfig file for {{ keycloak.service_name }} service"
-  become: true
-  ansible.builtin.template:
-    src: keycloak-sysconfig.j2
-    dest: /etc/sysconfig/keycloak
-    owner: root
-    group: root
-    mode: 0644
-  vars:
-    keycloak_rpm_java_home: "{{ rpm_java_home }}"
-  when:
-    - ansible_facts.os_family == "RedHat"
   notify:
     - restart keycloak
 

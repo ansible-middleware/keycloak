@@ -1,0 +1,11 @@
+---
+keycloak_jvm_package: java-1.8.0-openjdk-headless
+keycloak_prereq_package_list:
+      - "{{ keycloak_jvm_package }}"
+      - unzip
+      - procps-ng
+      - initscripts
+      - tzdata-java
+keycloak_configure_iptables: False
+keycloak_sysconf_file: /etc/sysconfig/keycloak
+keycloak_pkg_java_home: "/etc/alternatives/jre_{{ keycloak_jvm_package | regex_search('(?<=java-)[0-9.]+') }}"

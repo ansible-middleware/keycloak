@@ -1,7 +1,7 @@
 ---
 - name: Converge
   hosts: all
-  vars: 
+  vars:
     keycloak_admin_password: "remembertochangeme"
     keycloak_jvm_package: java-11-openjdk-headless
     keycloak_modcluster_enabled: True

@@ -1,7 +1,7 @@
 - name: Create client roles
   middleware_automation.keycloak.keycloak_role:
     name: "{{ item }}"
-    realm: "{{ client.realm }}"
+    realm: "{{ client.realm | default(keycloak_realm) }}"
     client_id: "{{ client.name }}"
     auth_client_id: "{{ keycloak_auth_client }}"
     auth_keycloak_url: "{{ keycloak_url }}{{ keycloak_context }}"

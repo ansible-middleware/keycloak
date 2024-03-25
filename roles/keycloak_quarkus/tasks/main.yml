@@ -6,7 +6,7 @@
     - prereqs
     - always
 
-- name: Debian specific tasks
+- name: Distro specific tasks
   ansible.builtin.include_tasks: "{{ ansible_os_family | lower }}.yml"
   tags:
     - unbound

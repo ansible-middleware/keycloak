@@ -1,6 +1,6 @@
 ---
 keycloak_quarkus_jvm_package: openjdk-17-jdk-headless
-keycloak_prereq_package_list:
+keycloak_quarkus_prereq_package_list:
       - "{{ keycloak_quarkus_jvm_package }}"
       - unzip
       - procps

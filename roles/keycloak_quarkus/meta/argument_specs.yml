@@ -156,9 +156,17 @@ argument_specs:
                 default: 7800
                 description: "jgroups cluster tcp port"
                 type: "int"
-            keycloak_quarkus_java_opts:
+            keycloak_quarkus_java_heap_opts:
                 default: "-Xms1024m -Xmx2048m"
-                description: "Additional JVM options"
+                description: "Heap memory JVM setting"
+                type: "str"
+            keycloak_quarkus_java_jvm_opts:
+                default: "-XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.err.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8 -XX:+ExitOnOutOfMemoryError -Djava.security.egd=file:/dev/urandom -XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -XX:FlightRecorderOptions=stackdepth=512"
+                description: "Other JVM settings"
+                type: "str"
+            keycloak_quarkus_java_opts:
+                default: "{{ keycloak_quarkus_java_heap_opts + ' ' + keycloak_quarkus_java_jvm_opts }}"
+                description: "JVM arguments, by default heap_opts + jvm_opts, if overriden it takes precedence over them"
                 type: "str"
             keycloak_quarkus_ha_enabled:
                 default: false

@@ -52,7 +52,7 @@
   pre_tasks:
     - name: "Retrieve assets server from env"
       ansible.builtin.set_fact:
-        assets_server: "{{ lookup('env','MIDDLEWARE_DOWNLOAD_RELEASE_SERVER_URL') }}"
+        assets_server: "{{ lookup('env', 'MIDDLEWARE_DOWNLOAD_RELEASE_SERVER_URL') }}"
 
     - name: "Set offline when assets server from env is defined"
       ansible.builtin.set_fact:

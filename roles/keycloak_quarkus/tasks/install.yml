@@ -50,6 +50,7 @@
     path: "{{ lookup('env', 'PWD') }}"
   register: local_path
   delegate_to: localhost
+  become: false
 
 - name: Download keycloak archive
   ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
@@ -57,6 +58,7 @@
     dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
     mode: 0640
   delegate_to: localhost
+  become: false
   run_once: true
   when:
     - archive_path is defined

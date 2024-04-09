@@ -38,7 +38,9 @@ Role Defaults
 |`keycloak_quarkus_service_pidfile`| Pid file path for service | `/run/keycloak.pid` |
 |`keycloak_quarkus_jvm_package`| RHEL java package runtime | `java-17-openjdk-headless` |
 |`keycloak_quarkus_java_home`| JAVA_HOME of installed JRE, leave empty for using specified keycloak_quarkus_jvm_package RPM path | `None` |
-|`keycloak_quarkus_java_opts`| Additional JVM options | `-Xms1024m -Xmx2048m` |
+|`keycloak_quarkus_java_opts`| Heap memory JVM setting | `-Xms1024m -Xmx2048m` |
+|`keycloak_quarkus_java_jvm_opts`| Other JVM settings | same as keycloak |
+|`keycloak_quarkus_java_opts`| JVM arguments; if overriden, it takes precedence over `keycloak_quarkus_java_*` | `{{ keycloak_quarkus_java_heap_opts + ' ' + keycloak_quarkus_java_jvm_opts }}` |
 |`keycloak_quarkus_frontend_url`| Set the base URL for frontend URLs, including scheme, host, port and path | |
 |`keycloak_quarkus_admin_url`| Set the base URL for accessing the administration console, including scheme, host, port and path | |
 |`keycloak_quarkus_http_relative_path` | Set the path relative to / for serving resources. The path must start with a / | `/` |

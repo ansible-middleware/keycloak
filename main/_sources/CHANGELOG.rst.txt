@@ -19,6 +19,7 @@ Bugfixes
 --------
 
 - Fix permissions on controller-side downloaded artifacts `#184 <https://github.com/ansible-middleware/keycloak/pull/184>`_
+- JVM arguments go in JAVA_OPTS `#186 <https://github.com/ansible-middleware/keycloak/pull/186>`_
 - Utilize comment filter for ``ansible_managed`` annotations `#176 <https://github.com/ansible-middleware/keycloak/pull/176>`_
 
 v2.1.0

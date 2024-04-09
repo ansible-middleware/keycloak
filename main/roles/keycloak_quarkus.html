@@ -224,8 +224,16 @@
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_java_opts</span></code></p></td>
-<td class="text-left"><p>Additional JVM options</p></td>
+<td class="text-left"><p>Heap memory JVM setting</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">-Xms1024m</span> <span class="pre">-Xmx2048m</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_java_jvm_opts</span></code></p></td>
+<td class="text-left"><p>Other JVM settings</p></td>
+<td class="text-left"><p>same as keycloak</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_java_opts</span></code></p></td>
+<td class="text-left"><p>JVM arguments; if overriden, it takes precedence over <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_java_*</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">keycloak_quarkus_java_heap_opts</span> <span class="pre">+</span> <span class="pre">'</span> <span class="pre">'</span> <span class="pre">+</span> <span class="pre">keycloak_quarkus_java_jvm_opts</span> <span class="pre">}}</span></code></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_frontend_url</span></code></p></td>
 <td class="text-left"><p>Set the base URL for frontend URLs, including scheme, host, port and path</p></td>

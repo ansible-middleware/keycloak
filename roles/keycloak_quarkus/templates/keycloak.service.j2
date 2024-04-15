@@ -7,11 +7,15 @@ After=network.target
 Type=simple
 EnvironmentFile=-{{ keycloak_quarkus_sysconf_file }}
 PIDFile={{ keycloak_quarkus_service_pidfile }}
-{% if keycloak_quarkus_start_dev %}
-ExecStart={{ keycloak.home }}/bin/kc.sh start-dev{% if keycloak_quarkus_proxy_headers is defined %} --proxy-headers {{ keycloak_quarkus_proxy_headers }}{% endif -%}{{ '\n' }}
+{% if keycloak_quarkus_start_dev and keycloak_quarkus_proxy_headers is defined %}
+ExecStart={{ keycloak.home }}/bin/kc.sh start-dev --proxy-headers {{ keycloak_quarkus_proxy_headers }}
+{% elif keycloak_quarkus_start_dev and keycloak_quarkus_proxy_headers is not defined %}
+ExecStart={{ keycloak.home }}/bin/kc.sh start-dev
+{% elif not keycloak_quarkus_start_dev and keycloak_quarkus_proxy_headers is defined %}
+ExecStart={{ keycloak.home }}/bin/kc.sh start --optimized --proxy-headers {{ keycloak_quarkus_proxy_headers }}
 {% else -%}
-ExecStart={{ keycloak.home }}/bin/kc.sh start --optimized{% if keycloak_quarkus_proxy_headers is defined %} --proxy-headers {{ keycloak_quarkus_proxy_headers }}{% endif -%}{{ '\n' }}
-{%- endif %}
+ExecStart={{ keycloak.home }}/bin/kc.sh start --optimized
+{% endif %}
 User={{ keycloak.service_user }}
 Group={{ keycloak.service_group }}
 {% if keycloak_quarkus_service_restart_always %}

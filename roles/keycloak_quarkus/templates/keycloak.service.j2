@@ -8,10 +8,10 @@ Type=simple
 EnvironmentFile=-{{ keycloak_quarkus_sysconf_file }}
 PIDFile={{ keycloak_quarkus_service_pidfile }}
 {% if keycloak_quarkus_start_dev %}
-ExecStart={{ keycloak.home }}/bin/kc.sh start-dev
-{% else %}
-ExecStart={{ keycloak.home }}/bin/kc.sh start --optimized
-{% endif %}
+ExecStart={{ keycloak.home }}/bin/kc.sh start-dev{% if keycloak_quarkus_proxy_headers is defined %} --proxy-headers {{ keycloak_quarkus_proxy_headers }}{% endif -%}{{ '\n' }}
+{% else -%}
+ExecStart={{ keycloak.home }}/bin/kc.sh start --optimized{% if keycloak_quarkus_proxy_headers is defined %} --proxy-headers {{ keycloak_quarkus_proxy_headers }}{% endif -%}{{ '\n' }}
+{%- endif %}
 User={{ keycloak.service_user }}
 Group={{ keycloak.service_group }}
 {% if keycloak_quarkus_service_restart_always %}

@@ -6,6 +6,11 @@
     - prereqs
     - always
 
+- name: Check for deprecations
+  ansible.builtin.include_tasks: deprecations.yml
+  tags:
+    - always
+
 - name: Distro specific tasks
   ansible.builtin.include_tasks: "{{ ansible_os_family | lower }}.yml"
   tags:

@@ -1,0 +1,36 @@
+---
+- name: keycloak_quarkus_key_store -> keycloak_quarkus_http_key_store renaming
+  delegate_to: localhost
+  run_once: true
+  when:
+    - keycloak_quarkus_https_key_store_enabled
+  block:
+    - name: Ensure backward compatibility for `keycloak_quarkus_key_store_file`, superseded by `keycloak_quarkus_https_key_store_file`
+      when:
+        - keycloak_quarkus_key_store_file is defined
+        - keycloak_quarkus_key_store_file != ''
+        - keycloak_quarkus_https_key_store_file == keycloak.home + "/conf/key_store.p12" # default value
+      changed_when: true
+      ansible.builtin.set_fact:
+        keycloak_quarkus_https_key_store_file: "{{ keycloak_quarkus_key_store_file }}"
+        deprecated_variable: "keycloak_quarkus_key_store_file" # read in deprecation handler
+      notify:
+        - print deprecation warning
+
+    - name: Flush handlers
+      meta: flush_handlers
+
+    - name: Ensure backward compatibility for `keycloak_quarkus_key_store_password`, superseded by `keycloak_quarkus_https_key_store_password`
+      when:
+        - keycloak_quarkus_key_store_password is defined
+        - keycloak_quarkus_key_store_password != ''
+        - keycloak_quarkus_https_key_store_password == "" # default value
+      changed_when: true
+      ansible.builtin.set_fact:
+        keycloak_quarkus_https_key_store_password: "{{ keycloak_quarkus_key_store_password }}"
+        deprecated_variable: "keycloak_quarkus_key_store_password" # read in deprecation handler
+      notify:
+        - print deprecation warning
+
+    - name: Flush handlers
+      meta: flush_handlers

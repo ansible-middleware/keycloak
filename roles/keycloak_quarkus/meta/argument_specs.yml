@@ -125,22 +125,30 @@ argument_specs:
                 description: "Enable configuration of HTTPS via a key store"
                 type: "bool"
             keycloak_quarkus_key_store_file:
+                default: ""
+                description: "Deprecated, use `keycloak_quarkus_https_key_store_file` instead."
+                type: "str"
+            keycloak_quarkus_key_store_password:
+                default: ""
+                description: "Deprecated, use `keycloak_quarkus_https_key_store_password` instead."
+                type: "str"
+            keycloak_quarkus_https_key_store_file:
                 default: "{{ keycloak.home }}/conf/key_store.p12"
                 description: "The file path to the key store"
                 type: "str"
-            keycloak_quarkus_key_store_password:
+            keycloak_quarkus_https_key_store_password:
                 default: ""
                 description: "Password for the key store"
                 type: "str"
             keycloak_quarkus_https_trust_store_enabled:
                 default: false
-                description: "Enalbe confiugration of a trust store"
+                description: "Enable configuration of the https trust store"
                 type: "bool"
-            keycloak_quarkus_trust_store_file:
+            keycloak_quarkus_https_trust_store_file:
                 default: "{{ keycloak.home }}/conf/trust_store.p12"
                 description: "The file path to the trust store"
                 type: "str"
-            keycloak_quarkus_trust_store_password:
+            keycloak_quarkus_https_trust_store_password:
                 default: ""
                 description: "Password for the trust store"
                 type: "str"

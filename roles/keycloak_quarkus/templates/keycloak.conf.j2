@@ -5,7 +5,16 @@
 db={{ keycloak_quarkus_jdbc_engine }}
 db-url={{ keycloak_quarkus_jdbc_url }}
 db-username={{ keycloak_quarkus_db_user }}
+{% if not keycloak.config_key_store_enabled %}
 db-password={{ keycloak_quarkus_db_pass }}
+{% endif %}
+{% endif %}
+
+{% if keycloak.config_key_store_enabled %}
+# Config store
+config-keystore={{ keycloak_quarkus_config_key_store_file }}
+config-keystore-password={{ keycloak_quarkus_config_key_store_password }}
+config-keystore-type=PKCS12
 {% endif %}
 
 # Observability

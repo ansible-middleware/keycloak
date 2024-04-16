@@ -152,6 +152,14 @@ argument_specs:
                 default: ""
                 description: "Password for the trust store"
                 type: "str"
+            keycloak_quarkus_config_key_store_file:
+                default: "{{ keycloak.home }}/conf/conf_store.p12"
+                description: "Path to the configuration key store; only used if `keycloak_quarkus_keystore_password` is not empty"
+                type: "str"
+            keycloak_quarkus_config_key_store_password:
+                default: ""
+                description: "Password of the configuration key store; if non-empty, `keycloak_quarkus_db_pass` will be saved to the key store at `keycloak_quarkus_config_key_store_file` (instead of being written to the configuration file in clear text"
+                type: "str"
             keycloak_quarkus_https_port:
                 default: 8443
                 description: "HTTPS port"

@@ -26,6 +26,12 @@
   tags:
     - systemd
 
+- name: Include configuration key store tasks
+  when: keycloak.config_key_store_enabled
+  ansible.builtin.include_tasks: config_store.yml
+  tags:
+    - install
+
 - name: "Configure config for keycloak service"
   ansible.builtin.template:
     src: keycloak.conf.j2

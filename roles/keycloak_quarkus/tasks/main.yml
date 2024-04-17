@@ -73,7 +73,7 @@
 - name: Ensure logdirectory exists
   ansible.builtin.file:
     state: directory
-    path:  "{{ keycloak.log.file | dirname }}"
+    path: "{{ keycloak.log.file | dirname }}"
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
     mode: '0775'

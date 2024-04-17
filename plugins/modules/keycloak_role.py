@@ -142,14 +142,14 @@ EXAMPLES = '''
     auth_password: PASSWORD
     name: my-new-role
     attributes:
-        attrib1: value1
-        attrib2: value2
-        attrib3:
-            - with
-            - numerous
-            - individual
-            - list
-            - items
+      attrib1: value1
+      attrib2: value2
+      attrib3:
+        - with
+        - numerous
+        - individual
+        - list
+        - items
   delegate_to: localhost
 '''
 

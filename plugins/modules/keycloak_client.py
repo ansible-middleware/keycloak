@@ -637,7 +637,7 @@ EXAMPLES = '''
       - test01
       - test02
     authentication_flow_binding_overrides:
-        browser: 4c90336b-bf1d-4b87-916d-3677ba4e5fbb
+      browser: 4c90336b-bf1d-4b87-916d-3677ba4e5fbb
     protocol_mappers:
       - config:
           access.token.claim: true

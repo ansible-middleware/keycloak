@@ -475,99 +475,99 @@ author:
 '''
 
 EXAMPLES = '''
-  - name: Create LDAP user federation
-    middleware_automation.keycloak.keycloak_user_federation:
-      auth_keycloak_url: https://keycloak.example.com/auth
-      auth_realm: master
-      auth_username: admin
-      auth_password: password
-      realm: my-realm
-      name: my-ldap
-      state: present
-      provider_id: ldap
-      provider_type: org.keycloak.storage.UserStorageProvider
-      config:
-        priority: 0
-        enabled: true
-        cachePolicy: DEFAULT
-        batchSizeForSync: 1000
-        editMode: READ_ONLY
-        importEnabled: true
-        syncRegistrations: false
-        vendor: other
-        usernameLDAPAttribute: uid
-        rdnLDAPAttribute: uid
-        uuidLDAPAttribute: entryUUID
-        userObjectClasses: inetOrgPerson, organizationalPerson
-        connectionUrl: ldaps://ldap.example.com:636
-        usersDn: ou=Users,dc=example,dc=com
-        authType: simple
-        bindDn: cn=directory reader
-        bindCredential: password
-        searchScope: 1
-        validatePasswordPolicy: false
-        trustEmail: false
-        useTruststoreSpi: ldapsOnly
-        connectionPooling: true
-        pagination: true
-        allowKerberosAuthentication: false
-        debug: false
-        useKerberosForPasswordAuthentication: false
-      mappers:
-        - name: "full name"
-          providerId: "full-name-ldap-mapper"
-          providerType: "org.keycloak.storage.ldap.mappers.LDAPStorageMapper"
-          config:
-            ldap.full.name.attribute: cn
-            read.only: true
-            write.only: false
+- name: Create LDAP user federation
+  middleware_automation.keycloak.keycloak_user_federation:
+    auth_keycloak_url: https://keycloak.example.com/auth
+    auth_realm: master
+    auth_username: admin
+    auth_password: password
+    realm: my-realm
+    name: my-ldap
+    state: present
+    provider_id: ldap
+    provider_type: org.keycloak.storage.UserStorageProvider
+    config:
+    priority: 0
+    enabled: true
+    cachePolicy: DEFAULT
+    batchSizeForSync: 1000
+    editMode: READ_ONLY
+    importEnabled: true
+    syncRegistrations: false
+    vendor: other
+    usernameLDAPAttribute: uid
+    rdnLDAPAttribute: uid
+    uuidLDAPAttribute: entryUUID
+    userObjectClasses: inetOrgPerson, organizationalPerson
+    connectionUrl: ldaps://ldap.example.com:636
+    usersDn: ou=Users,dc=example,dc=com
+    authType: simple
+    bindDn: cn=directory reader
+    bindCredential: password
+    searchScope: 1
+    validatePasswordPolicy: false
+    trustEmail: false
+    useTruststoreSpi: ldapsOnly
+    connectionPooling: true
+    pagination: true
+    allowKerberosAuthentication: false
+    debug: false
+    useKerberosForPasswordAuthentication: false
+    mappers:
+    - name: "full name"
+        providerId: "full-name-ldap-mapper"
+        providerType: "org.keycloak.storage.ldap.mappers.LDAPStorageMapper"
+        config:
+        ldap.full.name.attribute: cn
+        read.only: true
+        write.only: false
 
-  - name: Create Kerberos user federation
-    middleware_automation.keycloak.keycloak_user_federation:
-      auth_keycloak_url: https://keycloak.example.com/auth
-      auth_realm: master
-      auth_username: admin
-      auth_password: password
-      realm: my-realm
-      name: my-kerberos
-      state: present
-      provider_id: kerberos
-      provider_type: org.keycloak.storage.UserStorageProvider
-      config:
-        priority: 0
-        enabled: true
-        cachePolicy: DEFAULT
-        kerberosRealm: EXAMPLE.COM
-        serverPrincipal: HTTP/host.example.com@EXAMPLE.COM
-        keyTab: keytab
-        allowPasswordAuthentication: false
-        updateProfileFirstLogin: false
+- name: Create Kerberos user federation
+  middleware_automation.keycloak.keycloak_user_federation:
+    auth_keycloak_url: https://keycloak.example.com/auth
+    auth_realm: master
+    auth_username: admin
+    auth_password: password
+    realm: my-realm
+    name: my-kerberos
+    state: present
+    provider_id: kerberos
+    provider_type: org.keycloak.storage.UserStorageProvider
+    config:
+    priority: 0
+    enabled: true
+    cachePolicy: DEFAULT
+    kerberosRealm: EXAMPLE.COM
+    serverPrincipal: HTTP/host.example.com@EXAMPLE.COM
+    keyTab: keytab
+    allowPasswordAuthentication: false
+    updateProfileFirstLogin: false
 
-  - name: Create sssd user federation
-    middleware_automation.keycloak.keycloak_user_federation:
-      auth_keycloak_url: https://keycloak.example.com/auth
-      auth_realm: master
-      auth_username: admin
-      auth_password: password
-      realm: my-realm
-      name: my-sssd
-      state: present
-      provider_id: sssd
-      provider_type: org.keycloak.storage.UserStorageProvider
-      config:
-        priority: 0
-        enabled: true
-        cachePolicy: DEFAULT
+- name: Create sssd user federation
+  middleware_automation.keycloak.keycloak_user_federation:
+    auth_keycloak_url: https://keycloak.example.com/auth
+    auth_realm: master
+    auth_username: admin
+    auth_password: password
+    realm: my-realm
+    name: my-sssd
+    state: present
+    provider_id: sssd
+    provider_type: org.keycloak.storage.UserStorageProvider
+    config:
+    priority: 0
+    enabled: true
+    cachePolicy: DEFAULT
 
-  - name: Delete user federation
-    middleware_automation.keycloak.keycloak_user_federation:
-      auth_keycloak_url: https://keycloak.example.com/auth
-      auth_realm: master
-      auth_username: admin
-      auth_password: password
-      realm: my-realm
-      name: my-federation
-      state: absent
+- name: Delete user federation
+  middleware_automation.keycloak.keycloak_user_federation:
+    auth_keycloak_url: https://keycloak.example.com/auth
+    auth_realm: master
+    auth_username: admin
+    auth_password: password
+    realm: my-realm
+    name: my-federation
+    state: absent
 '''
 
 RETURN = '''

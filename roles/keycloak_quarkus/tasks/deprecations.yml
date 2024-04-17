@@ -1,5 +1,5 @@
 ---
-- name: keycloak_quarkus_key_store -> keycloak_quarkus_http_key_store renaming
+- name: Check deprecation keycloak_quarkus_key_store -> keycloak_quarkus_http_key_store
   delegate_to: localhost
   run_once: true
   when:
@@ -18,7 +18,7 @@
         - print deprecation warning
 
     - name: Flush handlers
-      meta: flush_handlers
+      ansible.builtin.meta: flush_handlers
 
     - name: Ensure backward compatibility for `keycloak_quarkus_key_store_password`, superseded by `keycloak_quarkus_https_key_store_password`
       when:
@@ -33,4 +33,4 @@
         - print deprecation warning
 
     - name: Flush handlers
-      meta: flush_handlers
+      ansible.builtin.meta: flush_handlers

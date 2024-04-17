@@ -26,14 +26,14 @@ keycloak_admin_password: ''
 # and users is a list of account, see below for the format definition
 # an empty name will skip the creation of the client
 #
-#keycloak_clients:
-#  - name: ''
-#    roles: "{{ keycloak_client_default_roles }}"
-#    realm: "{{ keycloak_realm }}"
-#    public_client: "{{ keycloak_client_public }}"
-#    web_origins: "{{ keycloak_client_web_origins }}"
-#    redirect_uris: "{{ keycloak_client_redirect_uris }}"
-#    users: "{{ keycloak_client_users }}"
+# keycloak_clients:
+#   - name: ''
+#     roles: "{{ keycloak_client_default_roles }}"
+#     realm: "{{ keycloak_realm }}"
+#     public_client: "{{ keycloak_client_public }}"
+#     web_origins: "{{ keycloak_client_web_origins }}"
+#     redirect_uris: "{{ keycloak_client_redirect_uris }}"
+#     users: "{{ keycloak_client_users }}"
 keycloak_clients: []
 
 # list of roles to create in the client

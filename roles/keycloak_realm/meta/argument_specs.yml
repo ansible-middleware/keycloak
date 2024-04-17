@@ -10,7 +10,7 @@ argument_specs:
                 # line 5 of keycloak_realm/defaults/main.yml
                 default: "/auth"
                 description: "Context path for rest calls"
-                type: "str"                
+                type: "str"
             keycloak_http_port:
                 # line 4 of keycloak_realm/defaults/main.yml
                 default: 8080

@@ -25,7 +25,7 @@
     fail_msg: "sudo is not installed on target system"
 
 - name: "Install iproute"
-  become: yes
+  become: true
   ansible.builtin.yum:
     name:
       - iproute
@@ -33,7 +33,7 @@
 
 - name: "Retrieve assets server from env"
   ansible.builtin.set_fact:
-    assets_server: "{{ lookup('env','MIDDLEWARE_DOWNLOAD_RELEASE_SERVER_URL') }}"
+    assets_server: "{{ lookup('env', 'MIDDLEWARE_DOWNLOAD_RELEASE_SERVER_URL') }}"
 
 - name: "Download artefacts only if assets_server is set"
   when:
@@ -51,6 +51,7 @@
         url: "{{ asset }}"
         dest: "{{ lookup('env', 'PWD') }}"
         validate_certs: no
+        mode: '0644'
       delegate_to: localhost
       loop: "{{ assets }}"
       loop_control:

@@ -4,7 +4,7 @@
     that:
       - keycloak_quarkus_admin_pass | length > 12
     quiet: true
-    fail_msg: "The console administrator password is empty or invalid. Please set the keycloak_quarkus_admin_pass variable to a 12+ char long string"
+    fail_msg: "The console administrator password is empty or invalid. Please set the keycloak_quarkus_admin_pass to a 12+ char long string"
     success_msg: "{{ 'Console administrator password OK' }}"
 
 - name: Validate relative path
@@ -12,15 +12,17 @@
     that:
       - keycloak_quarkus_http_relative_path is regex('^/.*')
     quiet: true
-    fail_msg: "the relative path must begin with /"
-    success_msg: "{{ 'relative path OK' }}"
+    fail_msg: "The relative path for keycloak_quarkus_http_relative_path must begin with /"
+    success_msg: "{{ 'Relative path OK' }}"
 
 - name: Validate configuration
   ansible.builtin.assert:
     that:
-      - (keycloak_quarkus_ha_enabled and keycloak_quarkus_db_enabled) or (not keycloak_quarkus_ha_enabled and keycloak_quarkus_db_enabled) or (not keycloak_quarkus_ha_enabled and not keycloak_quarkus_db_enabled)
+      - (keycloak_quarkus_ha_enabled and keycloak_quarkus_db_enabled) or
+        (not keycloak_quarkus_ha_enabled and keycloak_quarkus_db_enabled) or
+        (not keycloak_quarkus_ha_enabled and not keycloak_quarkus_db_enabled)
     quiet: true
-    fail_msg: "Cannot install HA setup without a backend database service. Check keycloak_quarkus_ha_enabled and keycloak_quarkus_db_enabled"
+    fail_msg: "HA setup requires a backend database service. Check keycloak_quarkus_ha_enabled and keycloak_quarkus_db_enabled"
     success_msg: "{{ 'Configuring HA' if keycloak_quarkus_ha_enabled else 'Configuring standalone' }}"
 
 - name: Validate OS family

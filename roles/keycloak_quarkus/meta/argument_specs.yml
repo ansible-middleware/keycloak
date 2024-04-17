@@ -161,7 +161,10 @@ argument_specs:
                 description: "Heap memory JVM setting"
                 type: "str"
             keycloak_quarkus_java_jvm_opts:
-                default: "-XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.err.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8 -XX:+ExitOnOutOfMemoryError -Djava.security.egd=file:/dev/urandom -XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -XX:FlightRecorderOptions=stackdepth=512"
+                default: >
+                  -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.err.encoding=UTF-8
+                  -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8 -XX:+ExitOnOutOfMemoryError -Djava.security.egd=file:/dev/urandom -XX:+UseParallelGC
+                  -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -XX:FlightRecorderOptions=stackdepth=512
                 description: "Other JVM settings"
                 type: "str"
             keycloak_quarkus_java_opts:
@@ -272,7 +275,9 @@ argument_specs:
             keycloak_quarkus_log_max_file_size:
                 default: 10M
                 type: "str"
-                description: "Set the maximum log file size before a log rotation happens; A size configuration option recognises string in this format (shown as a regular expression): [0-9]+[KkMmGgTtPpEeZzYy]?. If no suffix is given, assume bytes."
+                description: >
+                  Set the maximum log file size before a log rotation happens; A size configuration option recognises string in this format (shown as a regular
+                  expression): [0-9]+[KkMmGgTtPpEeZzYy]?. If no suffix is given, assume bytes.
             keycloak_quarkus_log_max_backup_index:
                 default: 10
                 type: "str"
@@ -280,7 +285,9 @@ argument_specs:
             keycloak_quarkus_log_file_suffix:
                 default: '.yyyy-MM-dd.zip'
                 type: "str"
-                description: "Set the log file handler rotation file suffix. When used, the file will be rotated based on its suffix; Note: If the suffix ends with .zip or .gz, the rotation file will also be compressed."
+                description: >
+                  Set the log file handler rotation file suffix. When used, the file will be rotated based on its suffix. Note: If the suffix ends
+                  with .zip or .gz, the rotation file will also be compressed.
             keycloak_quarkus_proxy_mode:
                 default: 'edge'
                 type: "str"
@@ -300,15 +307,21 @@ argument_specs:
             keycloak_quarkus_hostname_strict:
                 default: true
                 type: "bool"
-                description: "Disables dynamically resolving the hostname from request headers. Should always be set to true in production, unless proxy verifies the Host header."
+                description: >
+                  Disables dynamically resolving the hostname from request headers. Should always be set to true in production, unless
+                  proxy verifies the Host header.
             keycloak_quarkus_hostname_strict_backchannel:
                 default: false
                 type: "bool"
-                description: "By default backchannel URLs are dynamically resolved from request headers to allow internal and external applications. If all applications use the public URL this option should be enabled."
+                description: >
+                  By default backchannel URLs are dynamically resolved from request headers to allow internal and external applications. If all
+                  applications use the public URL this option should be enabled.
             keycloak_quarkus_spi_sticky_session_encoder_infinispan_should_attach_route:
                 default: true
                 type: "bool"
-                description: "If the route should be attached to cookies to reflect the node that owns a particular session. If false, route is not attached to cookies and we rely on the session affinity capabilities from reverse proxy"
+                description: >
+                  If the route should be attached to cookies to reflect the node that owns a particular session. If false, route is not attached to cookies
+                  and we rely on the session affinity capabilities from reverse proxy
     downstream:
         options:
             rhbk_version:

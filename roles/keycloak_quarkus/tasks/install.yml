@@ -132,7 +132,7 @@
   register: path_to_workdir
   become: true
 
-- name: "Extract Keycloak archive on target"
+- name: "Extract Keycloak archive on target" # noqa no-handler need to run this here
   ansible.builtin.unarchive:
     remote_src: true
     src: "{{ archive }}"

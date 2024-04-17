@@ -11,7 +11,7 @@ Role Defaults
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
-|`keycloak_quarkus_version`| keycloak.org package version | `23.0.7` |
+|`keycloak_quarkus_version`| keycloak.org package version | `24.0.3` |
 
 
 * Service configuration

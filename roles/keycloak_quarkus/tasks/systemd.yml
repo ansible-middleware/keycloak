@@ -6,7 +6,7 @@
     dest: "{{ keycloak_quarkus_sysconf_file }}"
     owner: root
     group: root
-    mode: 0644
+    mode: '0640'
   vars:
     keycloak_pkg_java_home: "{{ keycloak_quarkus_pkg_java_home }}"
   notify:
@@ -18,7 +18,7 @@
     dest: /etc/systemd/system/keycloak.service
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   become: true
   register: systemdunit
   notify:

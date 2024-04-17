@@ -6,7 +6,7 @@
     dest: "{{ keycloak.home }}/providers"
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
-    mode: 0640
+    mode: '0640'
   become: true
   notify:
     - restart keycloak

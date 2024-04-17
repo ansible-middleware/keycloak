@@ -311,7 +311,7 @@ argument_specs:
             keycloak_quarkus_proxy_headers:
                 default: ""
                 type: "str"
-                description: "Parse reverse proxy headers (`forwarded` or `xforwardedPassword`), overrides the deprecated keycloak_quarkus_proxy_mode argument"
+                description: "Parse reverse proxy headers (`forwarded` or `xforwarded`), overrides the deprecated keycloak_quarkus_proxy_mode argument"
             keycloak_quarkus_start_dev:
                 default: false
                 type: "bool"

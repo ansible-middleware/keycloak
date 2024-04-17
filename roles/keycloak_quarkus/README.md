@@ -56,7 +56,7 @@ Role Defaults
 |`keycloak_quarkus_https_trust_store_enabled`| Enable configuration of the https trust store | `False` |
 |`keycloak_quarkus_https_trust_store_file`| The file path to the trust store | `{{ keycloak.home }}/conf/trust_store.p12` |
 |`keycloak_quarkus_https_trust_store_password`| Password for the trust store | `""` |
-|`keycloak_quarkus_proxy_headers`| Parse reverse proxy headers (`forwarded` or `xforwardedPassword`) | `""` |
+|`keycloak_quarkus_proxy_headers`| Parse reverse proxy headers (`forwarded` or `xforwarded`) | `""` |
 |`keycloak_quarkus_config_key_store_file`| Path to the configuration key store; only used if `keycloak_quarkus_keystore_password` is not empty  | `{{ keycloak.home }}/conf/conf_store.p12` if `keycloak_quarkus_keystore_password`!='', else '' |
 |`keycloak_quarkus_config_key_store_password`| Password of the configuration key store; if non-empty, `keycloak_quarkus_db_pass` will be saved to the key store at `keycloak_quarkus_config_key_store_file` (instead of being written to the configuration file in clear text | `""` |
 

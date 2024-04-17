@@ -42,3 +42,17 @@
   ansible.builtin.include_tasks: fastpackages.yml
   vars:
     packages_list: "{{ keycloak_quarkus_prereq_package_list }}"
+
+- name: "Validate keytool"
+  when: keycloak.config_key_store_enabled
+  block:
+    - name: "Attempt to run keytool"
+      changed_when: false
+      ansible.builtin.command: keytool -help
+      register: keytool_check
+      ignore_errors: true
+
+    - name: "Fail when no keytool found"
+      when: keytool_check.rc != 0
+      ansible.builtin.fail:
+        msg: "keytool NOT found in the PATH, but is required for setting up the configuration key store"

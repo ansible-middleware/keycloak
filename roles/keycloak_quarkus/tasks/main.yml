@@ -6,6 +6,11 @@
     - prereqs
     - always
 
+- name: Check for deprecations
+  ansible.builtin.include_tasks: deprecations.yml
+  tags:
+    - always
+
 - name: Distro specific tasks
   ansible.builtin.include_tasks: "{{ ansible_os_family | lower }}.yml"
   tags:
@@ -20,6 +25,12 @@
   ansible.builtin.include_tasks: systemd.yml
   tags:
     - systemd
+
+- name: Include configuration key store tasks
+  when: keycloak.config_key_store_enabled
+  ansible.builtin.include_tasks: config_store.yml
+  tags:
+    - install
 
 - name: "Configure config for keycloak service"
   ansible.builtin.template:

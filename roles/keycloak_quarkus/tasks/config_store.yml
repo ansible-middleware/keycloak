@@ -1,0 +1,52 @@
+---
+- name: "Initialize configuration key store variables to be written"
+  ansible.builtin.set_fact:
+    store_items:
+      - key: "kc.db-password"
+        value: "{{ keycloak_quarkus_db_pass }}"
+
+- name: "Initialize empty configuration key store"
+  become: true
+  # keytool doesn't allow creating an empty key store, so this is a hacky way around it
+  ansible.builtin.shell: |
+    set -o nounset   # abort on unbound variable
+    set -o pipefail  # do not hide errors within pipes
+    set -o errexit   # abort on nonzero exit status
+
+    echo dummy | keytool -noprompt -importpass -alias dummy -keystore {{ keycloak_quarkus_config_key_store_file | quote }} -storepass {{ keycloak_quarkus_config_key_store_password | quote }} -storetype PKCS12
+    keytool -delete -alias dummy -keystore {{ keycloak_quarkus_config_key_store_file | quote }} -storepass {{ keycloak_quarkus_config_key_store_password | quote }}
+  args:
+    creates: "{{ keycloak_quarkus_config_key_store_file }}"
+
+- name: "Set configuration key store using keytool"
+  ansible.builtin.shell: |
+    set -o nounset   # abort on unbound variable
+    set -o pipefail  # do not hide errors within pipes
+
+    keytool -list -alias {{ item.key | quote }} -keystore {{ keycloak_quarkus_config_key_store_file | quote }} -storepass {{ keycloak_quarkus_config_key_store_password | quote }}
+    retVal=$?
+
+    set -o errexit   # abort on nonzero exit status
+
+    if [ $retVal -eq 0 ]; then
+      # value is already in keystore, but keytool has no replace function: delete and re-create instead
+      # note that we can not read whether the value has changed either[^1], so we need to override it
+      # [^1]: https://stackoverflow.com/a/37491400
+      keytool -delete -alias {{ item.key | quote }} -keystore {{ keycloak_quarkus_config_key_store_file | quote }} -storepass {{ keycloak_quarkus_config_key_store_password | quote }}
+    fi
+
+    echo {{ item.value | quote }} | keytool -noprompt -importpass -alias {{ item.key | quote }} -keystore {{ keycloak_quarkus_config_key_store_file | quote }} -storepass {{ keycloak_quarkus_config_key_store_password | quote }} -storetype PKCS12
+  with_items: "{{ store_items }}"
+  no_log: true
+  become: true
+  changed_when: true
+  notify:
+    - restart keycloak
+
+- name: "Set owner of configuration key store {{ keycloak_quarkus_config_key_store_file }}"
+  ansible.builtin.file:
+    path: "{{ keycloak_quarkus_config_key_store_file }}"
+    owner: "{{ keycloak.service_user }}"
+    group: "{{ keycloak.service_group }}"
+    mode: '0400'
+  become: true

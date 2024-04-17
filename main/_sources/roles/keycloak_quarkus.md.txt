@@ -54,7 +54,7 @@ Role Defaults
 |`keycloak_quarkus_https_trust_store_enabled`| Enalbe confiugration of a trust store | `False` |
 |`keycloak_quarkus_trust_store_file`| The file pat to the trust store | `{{ keycloak.home }}/conf/trust_store.p12` |
 |`keycloak_quarkus_trust_store_password`| Password for the trust store | `""` |
-
+|`keycloak_quarkus_proxy_headers`| Parse reverse proxy headers (`forwarded` or `xforwardedPassword`) | `""` |
 
 * Hostname configuration
 

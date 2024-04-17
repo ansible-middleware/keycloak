@@ -12,6 +12,7 @@ v2.1.1-devel
 Minor Changes
 -------------
 
+- Add reverse ``proxy_headers`` config, supersedes ``proxy_mode`` `#187 <https://github.com/ansible-middleware/keycloak/pull/187>`_
 - Ubuntu compatibility `#178 <https://github.com/ansible-middleware/keycloak/pull/178>`_
 - Use ``keycloak_realm`` as default for sub-entities `#180 <https://github.com/ansible-middleware/keycloak/pull/180>`_
 

@@ -38,7 +38,7 @@ Role Defaults
 |`keycloak_quarkus_service_pidfile`| Pid file path for service | `/run/keycloak.pid` |
 |`keycloak_quarkus_jvm_package`| RHEL java package runtime | `java-17-openjdk-headless` |
 |`keycloak_quarkus_java_home`| JAVA_HOME of installed JRE, leave empty for using specified keycloak_quarkus_jvm_package RPM path | `None` |
-|`keycloak_quarkus_java_opts`| Heap memory JVM setting | `-Xms1024m -Xmx2048m` |
+|`keycloak_quarkus_java_heap_opts`| Heap memory JVM setting | `-Xms1024m -Xmx2048m` |
 |`keycloak_quarkus_java_jvm_opts`| Other JVM settings | same as keycloak |
 |`keycloak_quarkus_java_opts`| JVM arguments; if overriden, it takes precedence over `keycloak_quarkus_java_*` | `{{ keycloak_quarkus_java_heap_opts + ' ' + keycloak_quarkus_java_jvm_opts }}` |
 |`keycloak_quarkus_frontend_url`| Set the base URL for frontend URLs, including scheme, host, port and path | |
@@ -49,12 +49,17 @@ Role Defaults
 |`keycloak_quarkus_key_file`| The file path to a private key in PEM format | `{{ keycloak.home }}/conf/server.key.pem` |
 |`keycloak_quarkus_cert_file`| The file path to a server certificate or certificate chain in PEM format | `{{ keycloak.home }}/conf/server.crt.pem` |
 |`keycloak_quarkus_https_key_store_enabled`| Enable configuration of HTTPS via a key store | `False` |
-|`keycloak_quarkus_key_store_file`| The file pat to the key store | `{{ keycloak.home }}/conf/key_store.p12` |
-|`keycloak_quarkus_key_store_password`| Password for the key store | `""` |
-|`keycloak_quarkus_https_trust_store_enabled`| Enalbe confiugration of a trust store | `False` |
-|`keycloak_quarkus_trust_store_file`| The file pat to the trust store | `{{ keycloak.home }}/conf/trust_store.p12` |
-|`keycloak_quarkus_trust_store_password`| Password for the trust store | `""` |
-|`keycloak_quarkus_proxy_headers`| Parse reverse proxy headers (`forwarded` or `xforwardedPassword`) | `""` |
+|`keycloak_quarkus_key_store_file`| Deprecated, use `keycloak_quarkus_https_key_store_file` instead. ||
+|`keycloak_quarkus_key_store_password`| Deprecated, use `keycloak_quarkus_https_key_store_password` instead.||
+|`keycloak_quarkus_https_key_store_file`| The file path to the key store | `{{ keycloak.home }}/conf/key_store.p12` |
+|`keycloak_quarkus_https_key_store_password`| Password for the key store | `""` |
+|`keycloak_quarkus_https_trust_store_enabled`| Enable configuration of the https trust store | `False` |
+|`keycloak_quarkus_https_trust_store_file`| The file path to the trust store | `{{ keycloak.home }}/conf/trust_store.p12` |
+|`keycloak_quarkus_https_trust_store_password`| Password for the trust store | `""` |
+|`keycloak_quarkus_proxy_headers`| Parse reverse proxy headers (`forwarded` or `xforwarded`) | `""` |
+|`keycloak_quarkus_config_key_store_file`| Path to the configuration key store; only used if `keycloak_quarkus_keystore_password` is not empty  | `{{ keycloak.home }}/conf/conf_store.p12` if `keycloak_quarkus_keystore_password`!='', else '' |
+|`keycloak_quarkus_config_key_store_password`| Password of the configuration key store; if non-empty, `keycloak_quarkus_db_pass` will be saved to the key store at `keycloak_quarkus_config_key_store_file` (instead of being written to the configuration file in clear text | `""` |
+
 
 * Hostname configuration
 

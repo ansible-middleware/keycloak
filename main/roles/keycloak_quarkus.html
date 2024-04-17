@@ -224,7 +224,7 @@
 <td class="text-left"><p>JAVA_HOME of installed JRE, leave empty for using specified keycloak_quarkus_jvm_package RPM path</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_java_opts</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_java_heap_opts</span></code></p></td>
 <td class="text-left"><p>Heap memory JVM setting</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">-Xms1024m</span> <span class="pre">-Xmx2048m</span></code></p></td>
 </tr>
@@ -269,27 +269,43 @@
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_key_store_file</span></code></p></td>
-<td class="text-left"><p>The file pat to the key store</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">keycloak.home</span> <span class="pre">}}/conf/key_store.p12</span></code></p></td>
+<td class="text-left"><p>Deprecated, use <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_https_key_store_file</span></code> instead.</p></td>
+<td class="text-left"><p></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_key_store_password</span></code></p></td>
+<td class="text-left"><p>Deprecated, use <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_https_key_store_password</span></code> instead.</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_https_key_store_file</span></code></p></td>
+<td class="text-left"><p>The file path to the key store</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">keycloak.home</span> <span class="pre">}}/conf/key_store.p12</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_https_key_store_password</span></code></p></td>
 <td class="text-left"><p>Password for the key store</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_https_trust_store_enabled</span></code></p></td>
-<td class="text-left"><p>Enalbe confiugration of a trust store</p></td>
+<td class="text-left"><p>Enable configuration of the https trust store</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_trust_store_file</span></code></p></td>
-<td class="text-left"><p>The file pat to the trust store</p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_https_trust_store_file</span></code></p></td>
+<td class="text-left"><p>The file path to the trust store</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">keycloak.home</span> <span class="pre">}}/conf/trust_store.p12</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_trust_store_password</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_https_trust_store_password</span></code></p></td>
 <td class="text-left"><p>Password for the trust store</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_proxy_headers</span></code></p></td>
-<td class="text-left"><p>Parse reverse proxy headers (<code class="docutils literal notranslate"><span class="pre">forwarded</span></code> or <code class="docutils literal notranslate"><span class="pre">xforwardedPassword</span></code>)</p></td>
+<td class="text-left"><p>Parse reverse proxy headers (<code class="docutils literal notranslate"><span class="pre">forwarded</span></code> or <code class="docutils literal notranslate"><span class="pre">xforwarded</span></code>)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_config_key_store_file</span></code></p></td>
+<td class="text-left"><p>Path to the configuration key store; only used if <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_keystore_password</span></code> is not empty</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">keycloak.home</span> <span class="pre">}}/conf/conf_store.p12</span></code> if <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_keystore_password</span></code>!=’’, else ‘’</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_config_key_store_password</span></code></p></td>
+<td class="text-left"><p>Password of the configuration key store; if non-empty, <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_db_pass</span></code> will be saved to the key store at <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_config_key_store_file</span></code> (instead of being written to the configuration file in clear text</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p></td>
 </tr>
 </tbody>

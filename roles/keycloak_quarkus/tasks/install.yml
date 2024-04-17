@@ -22,7 +22,7 @@
     name: "{{ keycloak.service_user }}"
     home: /opt/keycloak
     system: true
-    create_home: no
+    create_home: false
 
 - name: "Create {{ keycloak.service_name }} install location"
   become: true

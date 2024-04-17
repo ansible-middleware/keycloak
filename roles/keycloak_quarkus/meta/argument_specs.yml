@@ -347,7 +347,7 @@ argument_specs:
             rhbk_enable:
                 default: true
                 description: "Enable Red Hat Build of Keycloak installation"
-                type: "str"
+                type: "bool"
             rhbk_offline_install:
                 default: false
                 description: "Perform an offline install"

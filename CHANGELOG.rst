@@ -6,6 +6,24 @@ middleware\_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v2.1.1
+======
+
+Minor Changes
+-------------
+
+- Add reverse ``proxy_headers`` config, supersedes ``proxy_mode`` `#187 <https://github.com/ansible-middleware/keycloak/pull/187>`_
+- Debian/Ubuntu compatibility `#178 <https://github.com/ansible-middleware/keycloak/pull/178>`_
+- Use ``keycloak_realm`` as default for sub-entities `#180 <https://github.com/ansible-middleware/keycloak/pull/180>`_
+
+Bugfixes
+--------
+
+- Fix permissions on controller-side downloaded artifacts `#184 <https://github.com/ansible-middleware/keycloak/pull/184>`_
+- JVM args moved to ``JAVA_OPTS`` envvar (instead of JAVA_OPTS_APPEND) `#186 <https://github.com/ansible-middleware/keycloak/pull/186>`_
+- Unrelax configuration file permissions `#191 <https://github.com/ansible-middleware/keycloak/pull/191>`_
+- Utilize comment filter for ``ansible_managed`` annotations `#176 <https://github.com/ansible-middleware/keycloak/pull/176>`_
+
 v2.1.0
 ======
 

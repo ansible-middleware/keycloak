@@ -419,3 +419,38 @@ releases:
     - 167.yaml
     - 171.yaml
     release_date: '2024-02-28'
+  2.1.1:
+    changes:
+      bugfixes:
+      - 'Fix permissions on controller-side downloaded artifacts `#184 <https://github.com/ansible-middleware/keycloak/pull/184>`_
+
+        '
+      - 'JVM args moved to ``JAVA_OPTS`` envvar (instead of JAVA_OPTS_APPEND) `#186
+        <https://github.com/ansible-middleware/keycloak/pull/186>`_
+
+        '
+      - 'Unrelax configuration file permissions `#191 <https://github.com/ansible-middleware/keycloak/pull/191>`_
+
+        '
+      - 'Utilize comment filter for ``ansible_managed`` annotations `#176 <https://github.com/ansible-middleware/keycloak/pull/176>`_
+
+        '
+      minor_changes:
+      - 'Add reverse ``proxy_headers`` config, supersedes ``proxy_mode`` `#187 <https://github.com/ansible-middleware/keycloak/pull/187>`_
+
+        '
+      - 'Debian/Ubuntu compatibility `#178 <https://github.com/ansible-middleware/keycloak/pull/178>`_
+
+        '
+      - 'Use ``keycloak_realm`` as default for sub-entities `#180 <https://github.com/ansible-middleware/keycloak/pull/180>`_
+
+        '
+    fragments:
+    - 176.yaml
+    - 178.yaml
+    - 180.yaml
+    - 184.yaml
+    - 186.yaml
+    - 187.yaml
+    - 191.yaml
+    release_date: '2024-04-17'

@@ -514,13 +514,13 @@ EXAMPLES = '''
     debug: false
     useKerberosForPasswordAuthentication: false
     mappers:
-    - name: "full name"
+      - name: "full name"
         providerId: "full-name-ldap-mapper"
         providerType: "org.keycloak.storage.ldap.mappers.LDAPStorageMapper"
         config:
-        ldap.full.name.attribute: cn
-        read.only: true
-        write.only: false
+          ldap.full.name.attribute: cn
+          read.only: true
+          write.only: false
 
 - name: Create Kerberos user federation
   middleware_automation.keycloak.keycloak_user_federation:

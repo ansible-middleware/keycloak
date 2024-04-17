@@ -10,8 +10,11 @@ db-password={{ keycloak_quarkus_db_pass }}
 {% endif %}
 {% endif %}
 
-{% if keycloak_quarkus_hostname_strict_https -%}
-hostname-strict-https={{ keycloak_quarkus_hostname_strict_https }}
+{% if keycloak_quarkus_hostname_strict_https and keycloak_quarkus_hostname_strict_https is sameas true -%}
+hostname-strict-https=true
+{% endif -%}
+{% if keycloak_quarkus_hostname_strict_https and keycloak_quarkus_hostname_strict_https is sameas false -%}
+hostname-strict-https=false
 {% endif -%}
 
 {% if keycloak.config_key_store_enabled %}

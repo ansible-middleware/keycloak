@@ -29,11 +29,12 @@ Welcome to Keycloak Collection documentation
    :maxdepth: 2
    :caption: Middleware collections
 
-   Infinispan / Red Hat Data Grid <https://ansible-middleware.github.io/infinispan/>
-   Keycloak / Red Hat Single Sign-On <https://ansible-middleware.github.io/keycloak/>
-   Wildfly / Red Hat JBoss EAP <https://ansible-middleware.github.io/wildfly/>
-   Tomcat / Red Hat JWS <https://ansible-middleware.github.io/jws/>
-   ActiveMQ / Red Hat AMQ Broker <https://ansible-middleware.github.io/amq/>
-   Kafka / Red Hat AMQ Streams <https://ansible-middleware.github.io/amq_streams/>
-   Red Hat CSP Download <https://ansible-middleware.github.io/redhat-csp-download/>
-   JCliff <https://ansible-middleware.github.io/ansible_collections_jcliff/>
+   Infinispan / Red Hat Data Grid <https://ansible-middleware.github.io/infinispan/main/>
+   Keycloak / Red Hat Single Sign-On <https://ansible-middleware.github.io/keycloak/main/>
+   Wildfly / Red Hat JBoss EAP <https://ansible-middleware.github.io/wildfly/main/>
+   Tomcat / Red Hat JWS <https://ansible-middleware.github.io/jws/main/>
+   ActiveMQ / Red Hat AMQ Broker <https://ansible-middleware.github.io/amq/main/>
+   Kafka / Red Hat AMQ Streams <https://ansible-middleware.github.io/amq_streams/main/>
+   Ansible Middleware utilities <https://ansible-middleware.github.io/common/main/>
+   Red Hat CSP Download <https://ansible-middleware.github.io/redhat-csp-download/main/>
+   JCliff <https://ansible-middleware.github.io/ansible_collections_jcliff/main/>

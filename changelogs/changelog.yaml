@@ -454,3 +454,5 @@ releases:
     - 187.yaml
     - 191.yaml
     release_date: '2024-04-17'
+  2.1.2:
+    release_date: '2024-04-17'

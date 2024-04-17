@@ -30,11 +30,11 @@
         src: "{{ item }}"
         dest: /opt/openjdk
         force: true
-        with_fileglob:
-          - /usr/lib/jvm/java-17-openjdk*
+      with_fileglob:
+        - /usr/lib/jvm/java-17-openjdk*
       when:
         - ansible_facts.os_family == "Debian"
-          
+
     - name: Link default logs directory
       ansible.builtin.file:
         state: link

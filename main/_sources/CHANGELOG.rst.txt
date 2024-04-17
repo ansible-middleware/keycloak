@@ -12,10 +12,20 @@ v2.2.0-devel
 Major Changes
 -------------
 
-- #188: add support for configuration key store `#189 <https://github.com/ansible-middleware/keycloak/pull/189>`_
+- Add support for configuration key store `#189 <https://github.com/ansible-middleware/keycloak/pull/189>`_
+
+Minor Changes
+-------------
+
+- Update keycloak to 24.0 `#194 <https://github.com/ansible-middleware/keycloak/pull/194>`_
 
 v2.1.2
 ======
+
+Release Summary
+---------------
+
+Internal release, documentation or test changes only.
 
 v2.1.1
 ======
@@ -282,6 +292,11 @@ Minor Changes
 
 v1.0.4
 ======
+
+Release Summary
+---------------
+
+Internal release, documentation or test changes only.
 
 v1.0.3
 ======

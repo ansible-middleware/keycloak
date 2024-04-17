@@ -1,16 +1,4 @@
 ---
-- name: "Check if keytool exists in path"
-  block:
-    - name: "Attempt to run keytool"
-      ansible.builtin.command: keytool -help
-      register: keytool_check
-      ignore_errors: true
-
-    - name: "Fail when no keytool found"
-      when: keytool_check.rc != 0
-      ansible.builtin.fail:
-        msg: "keytool NOT found in the PATH, but is required for setting up the configuration key store"
-
 - name: "Initialize configuration key store variables to be written"
   ansible.builtin.set_fact:
     store_items:

@@ -1365,13 +1365,13 @@ To check whether it is installed, run <code class="code docutils literal notrans
 <span class="w">    </span><span class="nt">debug</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">    </span><span class="nt">useKerberosForPasswordAuthentication</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">    </span><span class="nt">mappers</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;full</span><span class="nv"> </span><span class="s">name&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;full</span><span class="nv"> </span><span class="s">name&quot;</span>
 <span class="w">        </span><span class="nt">providerId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;full-name-ldap-mapper&quot;</span>
 <span class="w">        </span><span class="nt">providerType</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;org.keycloak.storage.ldap.mappers.LDAPStorageMapper&quot;</span>
 <span class="w">        </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">ldap.full.name.attribute</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cn</span>
-<span class="w">        </span><span class="nt">read.only</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">        </span><span class="nt">write.only</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">          </span><span class="nt">ldap.full.name.attribute</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cn</span>
+<span class="w">          </span><span class="nt">read.only</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">write.only</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Create Kerberos user federation</span>
 <span class="w">  </span><span class="nt">middleware_automation.keycloak.keycloak_user_federation</span><span class="p">:</span>

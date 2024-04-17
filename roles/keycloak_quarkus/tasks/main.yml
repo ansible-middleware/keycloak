@@ -27,7 +27,7 @@
     dest: "{{ keycloak.home }}/conf/keycloak.conf"
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
-    mode: 0644
+    mode: '0640'
   become: true
   notify:
     - rebuild keycloak config
@@ -39,7 +39,7 @@
     dest: "{{ keycloak.home }}/conf/quarkus.properties"
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
-    mode: 0644
+    mode: '0640'
   become: true
   notify:
     - restart keycloak
@@ -64,7 +64,7 @@
     dest: "{{ keycloak.home }}/conf/cache-ispn.xml"
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
-    mode: 0644
+    mode: '0640'
   become: true
   notify:
     - rebuild keycloak config
@@ -76,7 +76,7 @@
     path:  "{{ keycloak.log.file | dirname }}"
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
-    mode: 0775
+    mode: '0775'
   become: true
 
 - name: Flush pending handlers

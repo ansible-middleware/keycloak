@@ -31,7 +31,7 @@
     state: directory
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
-    mode: 0750
+    mode: '0750'
 
 ## check remote archive
 - name: Set download archive path
@@ -56,7 +56,7 @@
   ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
     url: "{{ keycloak_quarkus_download_url }}"
     dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
-    mode: 0640
+    mode: '0640'
   delegate_to: localhost
   become: false
   run_once: true
@@ -118,7 +118,7 @@
     dest: "{{ archive }}"
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
-    mode: 0640
+    mode: '0640'
   register: new_version_downloaded
   when:
     - not archive_path.stat.exists

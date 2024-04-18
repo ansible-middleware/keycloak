@@ -82,3 +82,11 @@ log={{ keycloak_quarkus_log }}
 log-level={{ keycloak.log.level }}
 log-file={{ keycloak.log.file }}
 log-file-format={{ keycloak.log.format }}
+
+# Vault
+{% if keycloak_quarkus_ks_vault_enabled %}
+vault=keystore
+vault-file={{ keycloak_quarkus_ks_vault_file }}
+vault-type={{ keycloak_quarkus_ks_vault_type }}
+vault-pass={{ keycloak_quarkus_ks_vault_pass }}
+{% endif %}

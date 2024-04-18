@@ -76,13 +76,10 @@
         that:
           - not keycloak_default_log_folder.stat.exists
 
-    - name: Read content of logs
-      ansible.builtin.slurp:
-        src: /tmp/keycloak/keycloak.log
+    - name: Verify vault SPI in logfile
+      ansible.builtin.shell: |
+        set -o pipefail
+        zgrep 'Configured KeystoreVaultProviderFactory with the keystore file' /opt/keycloak/keycloak-*/data/log/keycloak.log*zip
+      changed_when: false
+      failed_when: slurped_log.rc != 0
       register: slurped_log
-
-    - name: Verify keystore vault loaded
-      ansible.builtin.assert:
-        that:
-          - "'Configured KeystoreVaultProviderFactory with the keystore file' in slurped_log.content | b64decode"
-        fail_msg: "Service failed to use keystore vault correctly"

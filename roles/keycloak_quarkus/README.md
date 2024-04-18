@@ -7,14 +7,14 @@ Install [keycloak](https://keycloak.org/) >= 20.0.0 (quarkus) server configurati
 Role Defaults
 -------------
 
-* Installation options
+#### Installation options
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
 |`keycloak_quarkus_version`| keycloak.org package version | `24.0.3` |
 
 
-* Service configuration
+#### Service configuration
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
@@ -61,7 +61,7 @@ Role Defaults
 |`keycloak_quarkus_config_key_store_password`| Password of the configuration key store; if non-empty, `keycloak_quarkus_db_pass` will be saved to the key store at `keycloak_quarkus_config_key_store_file` (instead of being written to the configuration file in clear text | `""` |
 
 
-* Hostname configuration
+#### Hostname configuration
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
@@ -70,7 +70,7 @@ Role Defaults
 |`keycloak_quarkus_hostname_strict_backchannel`| By default backchannel URLs are dynamically resolved from request headers to allow internal and external applications. If all applications use the public URL this option should be enabled. | `false` |
 
 
-* Database configuration
+#### Database configuration
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
@@ -81,7 +81,7 @@ Role Defaults
 |`keycloak_quarkus_jdbc_driver_version` | Version for JDBC driver | `9.4.1212` |
 
 
-* Remote caches configuration
+#### Remote caches configuration
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
@@ -94,7 +94,7 @@ Role Defaults
 |`keycloak_quarkus_ispn_trust_store_password` | Password for infinispan certificate keystore | `changeit` |
 
 
-* Install options
+#### Install options
 
 | Variable | Description | Default |
 |:---------|:------------|:---------|
@@ -105,7 +105,7 @@ Role Defaults
 |`keycloak_quarkus_configure_firewalld` | Ensure firewalld is running and configure keycloak ports | `False` |
 
 
-* Miscellaneous configuration
+#### Miscellaneous configuration
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
@@ -132,6 +132,16 @@ Role Defaults
 |`keycloak_quarkus_transaction_xa_enabled`| Whether to use XA transactions | `True` |
 |`keycloak_quarkus_spi_sticky_session_encoder_infinispan_should_attach_route`| If the route should be attached to cookies to reflect the node that owns a particular session. If false, route is not attached to cookies and we rely on the session affinity capabilities from reverse proxy | `True` |
 
+
+#### Vault SPI
+
+| Variable | Description | Default |
+|:---------|:------------|:--------|
+|`keycloak_quarkus_ks_vault_enabled`| Whether to enable the vault SPI | `false` |
+|`keycloak_quarkus_ks_vault_file`| The keystore path for the vault SPI | `{{ keycloak_quarkus_config_dir }}/keystore.p12` |
+|`keycloak_quarkus_ks_vault_type`| Type of the keystore used for the vault SPI | `PKCS12` |
+
+
 Role Variables
 --------------
 
@@ -140,6 +150,7 @@ Role Variables
 |`keycloak_quarkus_admin_pass`| Password of console admin account | `yes` |
 |`keycloak_quarkus_frontend_url`| Base URL for frontend URLs, including scheme, host, port and path | `no` |
 |`keycloak_quarkus_admin_url`| Base URL for accessing the administration console, including scheme, host, port and path | `no` |
+|`keycloak_quarkus_ks_vault_pass`| The password for accessing the keystore vault SPI | `no` |
 
 
 License

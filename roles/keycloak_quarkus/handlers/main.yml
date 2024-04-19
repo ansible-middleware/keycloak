@@ -3,11 +3,13 @@
 - name: "Rebuild {{ keycloak.service_name }} config"
   ansible.builtin.include_tasks: rebuild_config.yml
   listen: "rebuild keycloak config"
+
 - name: "Restart {{ keycloak.service_name }}"
   ansible.builtin.include_tasks: restart.yml
   listen: "restart keycloak"
+
 - name: "Print deprecation warning"
   ansible.builtin.fail:
     msg: "Deprecation warning: you are using the deprecated variable '{{ deprecated_variable | d('NotSet') }}', check docs on how to upgrade."
-  ignore_errors: True
+  ignore_errors: true
   listen: "print deprecation warning"

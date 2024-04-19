@@ -21,7 +21,12 @@
         path: "/opt/keycloak/certs/"
         mode: 0755
 
-    - name: Copy certificates
+    - name: Create vault keystore
+      ansible.builtin.command: keytool -importpass -alias TestRealm_testalias -keystore keystore.p12 -storepass keystorepassword
+      delegate_to: localhost
+      changed_when: False
+
+    - name: Copy certificates and vault
       become: yes
       ansible.builtin.copy:
         src: "{{ item }}"
@@ -30,3 +35,4 @@
       loop:
         - cert.pem
         - key.pem
+        - keystore.p12

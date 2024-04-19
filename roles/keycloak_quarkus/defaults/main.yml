@@ -135,3 +135,9 @@ keycloak_quarkus_log_target: /var/log/keycloak
 keycloak_quarkus_log_max_file_size: 10M
 keycloak_quarkus_log_max_backup_index: 10
 keycloak_quarkus_log_file_suffix: '.yyyy-MM-dd.zip'
+
+# keystore-based vault
+keycloak_quarkus_ks_vault_enabled: false
+keycloak_quarkus_ks_vault_file: "{{ keycloak_quarkus_config_dir }}/keystore.p12"
+keycloak_quarkus_ks_vault_type: PKCS12
+keycloak_quarkus_ks_vault_pass:

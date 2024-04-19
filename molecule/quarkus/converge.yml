@@ -1,16 +1,20 @@
 ---
 - name: Converge
   hosts: all
-  vars: 
+  vars:
     keycloak_quarkus_admin_pass: "remembertochangeme"
     keycloak_admin_password: "remembertochangeme"
     keycloak_realm: TestRealm
     keycloak_quarkus_host: instance
     keycloak_quarkus_log: file
-    keycloak_quarkus_https_key_file_enabled: True
+    keycloak_quarkus_log_level: debug
+    keycloak_quarkus_https_key_file_enabled: true
     keycloak_quarkus_key_file: "/opt/keycloak/certs/key.pem"
     keycloak_quarkus_cert_file: "/opt/keycloak/certs/cert.pem"
     keycloak_quarkus_log_target: /tmp/keycloak
+    keycloak_quarkus_ks_vault_enabled: true
+    keycloak_quarkus_ks_vault_file: "/opt/keycloak/certs/keystore.p12"
+    keycloak_quarkus_ks_vault_pass: keystorepassword
   roles:
     - role: keycloak_quarkus
     - role: keycloak_realm

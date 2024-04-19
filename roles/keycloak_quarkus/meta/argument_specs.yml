@@ -338,6 +338,12 @@ argument_specs:
                 description: >
                   If the route should be attached to cookies to reflect the node that owns a particular session. If false, route is not attached to cookies
                   and we rely on the session affinity capabilities from reverse proxy
+            keycloak_quarkus_hostname_strict_https:
+                type: "bool"
+                description: >
+                  By default, Keycloak requires running using TLS/HTTPS. If the service MUST run without TLS/HTTPS, then set
+                  this option to "true"
+
     downstream:
         options:
             rhbk_version:

@@ -65,6 +65,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#role-variables">Role Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#role-custom-facts">Role custom facts</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#license">License</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#author-information">Author Information</a></li>
 </ul>
@@ -604,6 +605,22 @@
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_ks_vault_pass</span></code></p></td>
 <td class="text-left"><p>The password for accessing the keystore vault SPI</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">no</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="role-custom-facts">
+<h2>Role custom facts<a class="headerlink" href="#role-custom-facts" title="Link to this heading"></a></h2>
+<p>The role uses the following <a class="reference external" href="https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_vars_facts.html#adding-custom-facts">custom facts</a> found in <code class="docutils literal notranslate"><span class="pre">/etc/ansible/facts.d/keycloak.fact</span></code> (and thus identified by the <code class="docutils literal notranslate"><span class="pre">ansible_local.keycloak.</span></code> prefix):</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
+<th class="head text-left"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">general.bootstrapped</span></code></p></td>
+<td class="text-left"><p>A custom fact indicating whether this role has been used for bootstrapping keycloak on the respective host before; set to <code class="docutils literal notranslate"><span class="pre">false</span></code> (e.g., when starting off with a new, empty database) ensures that the initial admin user as defined by <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_admin_user[_pass]</span></code> gets created</p></td>
 </tr>
 </tbody>
 </table>

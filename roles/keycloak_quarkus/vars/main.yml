@@ -15,3 +15,4 @@ keycloak: # noqa var-naming this is an internal dict of interpolated values
     file: "{{ keycloak_quarkus_home }}/{{ keycloak_quarkus_log_file }}"
     level: "{{ keycloak_quarkus_log_level }}"
     format: "{{ keycloak_quarkus_log_format }}"
+  bootstrap_mnemonic: "# ansible-middleware/keycloak: bootstrapped"

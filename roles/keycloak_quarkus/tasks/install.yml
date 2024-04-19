@@ -33,6 +33,13 @@
     group: "{{ keycloak.service_group }}"
     mode: '0750'
 
+- name: Create directory for ansible custom facts
+  become: true
+  ansible.builtin.file:
+    state: directory
+    recurse: true
+    path: /etc/ansible/facts.d
+
 ## check remote archive
 - name: Set download archive path
   ansible.builtin.set_fact:

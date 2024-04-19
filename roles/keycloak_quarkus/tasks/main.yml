@@ -96,11 +96,6 @@
 - name: "Start and wait for keycloak service"
   ansible.builtin.include_tasks: start.yml
 
-- name: Check service status
-  ansible.builtin.command: "systemctl status keycloak"
-  register: keycloak_service_status
-  changed_when: false
-
 - name: Link default logs directory
   ansible.builtin.file:
     state: link
@@ -108,3 +103,21 @@
     dest: "{{ keycloak_quarkus_log_target }}"
     force: true
   become: true
+
+- name: Check service status
+  ansible.builtin.systemd_service:
+    name: "{{ keycloak.service_name }}"
+  register: keycloak_service_status
+  changed_when: false
+
+- name: "Trigger bootstrapped notification: remove `keycloak_quarkus_admin_user[_pass]` env vars"
+  when:
+    - not ansible_local.keycloak.general.bootstrapped | default(false) | bool # it was not bootstrapped prior to the current role's execution
+    - keycloak_service_status.status.ActiveState == "active"                  # but it is now
+  ansible.builtin.assert: { that: true, quiet: true }
+  changed_when: true
+  notify:
+    - bootstrapped
+
+- name: Flush pending handlers
+  ansible.builtin.meta: flush_handlers

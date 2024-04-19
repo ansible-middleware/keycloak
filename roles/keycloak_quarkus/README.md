@@ -152,6 +152,14 @@ Role Variables
 |`keycloak_quarkus_admin_url`| Base URL for accessing the administration console, including scheme, host, port and path | `no` |
 |`keycloak_quarkus_ks_vault_pass`| The password for accessing the keystore vault SPI | `no` |
 
+Role custom facts
+-----------------
+
+The role uses the following [custom facts](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_vars_facts.html#adding-custom-facts) found in `/etc/ansible/facts.d/keycloak.fact` (and thus identified by the `ansible_local.keycloak.` prefix):
+
+| Variable | Description |
+|:---------|:------------|
+|`general.bootstrapped` | A custom fact indicating whether this role has been used for bootstrapping keycloak on the respective host before; set to `false` (e.g., when starting off with a new, empty database) ensures that the initial admin user as defined by `keycloak_quarkus_admin_user[_pass]` gets created |
 
 License
 -------

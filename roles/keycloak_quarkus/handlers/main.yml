@@ -3,7 +3,9 @@
 - name: "Rebuild {{ keycloak.service_name }} config"
   ansible.builtin.include_tasks: rebuild_config.yml
   listen: "rebuild keycloak config"
-
+- name: "Bootstrapped"
+  ansible.builtin.include_tasks: bootstrapped.yml
+  listen: bootstrapped
 - name: "Restart {{ keycloak.service_name }}"
   ansible.builtin.include_tasks: restart.yml
   listen: "restart keycloak"

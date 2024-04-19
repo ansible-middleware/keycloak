@@ -53,7 +53,17 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Role Index</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="keycloak.html">keycloak</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">keycloak_quarkus</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#role-defaults">Role Defaults</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#role-defaults">Role Defaults</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#installation-options">Installation options</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#service-configuration">Service configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hostname-configuration">Hostname configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#database-configuration">Database configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#remote-caches-configuration">Remote caches configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#install-options">Install options</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#miscellaneous-configuration">Miscellaneous configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vault-spi">Vault SPI</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#role-variables">Role Variables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#license">License</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#author-information">Author Information</a></li>
@@ -116,9 +126,8 @@
 <p>Install <a class="reference external" href="https://keycloak.org/">keycloak</a> &gt;= 20.0.0 (quarkus) server configurations.</p>
 <section id="role-defaults">
 <h2>Role Defaults<a class="headerlink" href="#role-defaults" title="Link to this heading"></a></h2>
-<ul class="simple">
-<li><p>Installation options</p></li>
-</ul>
+<section id="installation-options">
+<h3>Installation options<a class="headerlink" href="#installation-options" title="Link to this heading"></a></h3>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
@@ -133,9 +142,9 @@
 </tr>
 </tbody>
 </table>
-<ul class="simple">
-<li><p>Service configuration</p></li>
-</ul>
+</section>
+<section id="service-configuration">
+<h3>Service configuration<a class="headerlink" href="#service-configuration" title="Link to this heading"></a></h3>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
@@ -310,9 +319,9 @@
 </tr>
 </tbody>
 </table>
-<ul class="simple">
-<li><p>Hostname configuration</p></li>
-</ul>
+</section>
+<section id="hostname-configuration">
+<h3>Hostname configuration<a class="headerlink" href="#hostname-configuration" title="Link to this heading"></a></h3>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
@@ -335,9 +344,9 @@
 </tr>
 </tbody>
 </table>
-<ul class="simple">
-<li><p>Database configuration</p></li>
-</ul>
+</section>
+<section id="database-configuration">
+<h3>Database configuration<a class="headerlink" href="#database-configuration" title="Link to this heading"></a></h3>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
@@ -368,9 +377,9 @@
 </tr>
 </tbody>
 </table>
-<ul class="simple">
-<li><p>Remote caches configuration</p></li>
-</ul>
+</section>
+<section id="remote-caches-configuration">
+<h3>Remote caches configuration<a class="headerlink" href="#remote-caches-configuration" title="Link to this heading"></a></h3>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
@@ -409,9 +418,9 @@
 </tr>
 </tbody>
 </table>
-<ul class="simple">
-<li><p>Install options</p></li>
-</ul>
+</section>
+<section id="install-options">
+<h3>Install options<a class="headerlink" href="#install-options" title="Link to this heading"></a></h3>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
@@ -442,9 +451,9 @@
 </tr>
 </tbody>
 </table>
-<ul class="simple">
-<li><p>Miscellaneous configuration</p></li>
-</ul>
+</section>
+<section id="miscellaneous-configuration">
+<h3>Miscellaneous configuration<a class="headerlink" href="#miscellaneous-configuration" title="Link to this heading"></a></h3>
 <table class="docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
@@ -544,6 +553,32 @@
 </tbody>
 </table>
 </section>
+<section id="vault-spi">
+<h3>Vault SPI<a class="headerlink" href="#vault-spi" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
+<th class="head text-left"><p>Description</p></th>
+<th class="head text-left"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_ks_vault_enabled</span></code></p></td>
+<td class="text-left"><p>Whether to enable the vault SPI</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_ks_vault_file</span></code></p></td>
+<td class="text-left"><p>The keystore path for the vault SPI</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">keycloak_quarkus_config_dir</span> <span class="pre">}}/keystore.p12</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_ks_vault_type</span></code></p></td>
+<td class="text-left"><p>Type of the keystore used for the vault SPI</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">PKCS12</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
 <section id="role-variables">
 <h2>Role Variables<a class="headerlink" href="#role-variables" title="Link to this heading"></a></h2>
 <table class="docutils align-default">
@@ -564,6 +599,10 @@
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_admin_url</span></code></p></td>
 <td class="text-left"><p>Base URL for accessing the administration console, including scheme, host, port and path</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">no</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_ks_vault_pass</span></code></p></td>
+<td class="text-left"><p>The password for accessing the keystore vault SPI</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">no</span></code></p></td>
 </tr>
 </tbody>

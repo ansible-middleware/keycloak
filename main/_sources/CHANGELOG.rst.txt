@@ -17,6 +17,7 @@ Major Changes
 Minor Changes
 -------------
 
+- Keystore based vault SPI `#196 <https://github.com/ansible-middleware/keycloak/pull/196>`_
 - Update keycloak to 24.0 `#194 <https://github.com/ansible-middleware/keycloak/pull/194>`_
 
 v2.1.2

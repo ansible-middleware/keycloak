@@ -10,6 +10,7 @@
         that:
           - ansible_facts.services["keycloak.service"]["state"] == "running"
           - ansible_facts.services["keycloak.service"]["status"] == "enabled"
+        fail_msg: "Service not running"
 
     - name: Set internal envvar
       ansible.builtin.set_fact:
@@ -40,7 +41,7 @@
 
     - name: Check log folder
       ansible.builtin.stat:
-        path: "/tmp/keycloak"
+        path: /tmp/keycloak
       register: keycloak_log_folder
 
     - name: Check that keycloak log folder exists and is a link
@@ -49,11 +50,12 @@
           - keycloak_log_folder.stat.exists
           - not keycloak_log_folder.stat.isdir
           - keycloak_log_folder.stat.islnk
+        fail_msg: "Service log symlink not correctly created"
 
     - name: Check log file
       become: yes
       ansible.builtin.stat:
-        path: "/tmp/keycloak/keycloak.log"
+        path: /tmp/keycloak/keycloak.log
       register: keycloak_log_file
 
     - name: Check if keycloak file exists
@@ -65,7 +67,7 @@
     - name: Check default log folder
       become: yes
       ansible.builtin.stat:
-        path: "/var/log/keycloak"
+        path: /var/log/keycloak
       register: keycloak_default_log_folder
       failed_when: false
 
@@ -73,3 +75,11 @@
       ansible.builtin.assert:
         that:
           - not keycloak_default_log_folder.stat.exists
+
+    - name: Verify vault SPI in logfile
+      ansible.builtin.shell: |
+        set -o pipefail
+        zgrep 'Configured KeystoreVaultProviderFactory with the keystore file' /opt/keycloak/keycloak-*/data/log/keycloak.log*zip
+      changed_when: false
+      failed_when: slurped_log.rc != 0
+      register: slurped_log

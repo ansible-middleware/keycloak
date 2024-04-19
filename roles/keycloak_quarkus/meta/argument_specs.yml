@@ -340,10 +340,26 @@ argument_specs:
                   and we rely on the session affinity capabilities from reverse proxy
             keycloak_quarkus_hostname_strict_https:
                 type: "bool"
+                required: false
                 description: >
                   By default, Keycloak requires running using TLS/HTTPS. If the service MUST run without TLS/HTTPS, then set
                   this option to "true"
-
+            keycloak_quarkus_ks_vault_enabled:
+                default: false
+                type: "bool"
+                description: "Whether to enable vault SPI"
+            keycloak_quarkus_ks_vault_file:
+                default: "{{ keycloak_quarkus_config_dir }}/keystore.p12"
+                type: "str"
+                description: "The keystore path for the vault SPI"
+            keycloak_quarkus_ks_vault_type:
+                default: "PKCS12"
+                type: "str"
+                description: "Type of the keystore used for the vault SPI"
+            keycloak_quarkus_ks_vault_pass:
+                required: false
+                type: "str"
+                description: "The password for accessing the keystore vault SPI"
     downstream:
         options:
             rhbk_version:

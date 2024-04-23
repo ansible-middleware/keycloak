@@ -48,10 +48,6 @@ argument_specs:
                 default: "keycloak"
                 description: "Posix account group"
                 type: "str"
-            keycloak_quarkus_service_pidfile:
-                default: "/run/keycloak/keycloak.pid"
-                description: "Pid file path for service"
-                type: "str"
             keycloak_quarkus_configure_firewalld:
                 default: false
                 description: "Ensure firewalld is running and configure keycloak ports"
@@ -360,6 +356,22 @@ argument_specs:
                 required: false
                 type: "str"
                 description: "The password for accessing the keystore vault SPI"
+            keycloak_quarkus_systemd_wait_for_port:
+                description: 'Whether systemd unit should wait for keycloak port before returning'
+                default: "{{ keycloak_quarkus_ha_enabled }}"
+                type: "bool"
+            keycloak_quarkus_systemd_wait_for_log:
+                description: 'Whether systemd unit should wait for service to be up in logs'
+                default: false
+                type: "bool"
+            keycloak_quarkus_systemd_wait_for_timeout:
+                description: "How long to wait for service to be alive (seconds)"
+                default: 60
+                type: 'int'
+            keycloak_quarkus_systemd_wait_for_delay:
+                description: "Activation delay for service systemd unit (seconds)"
+                default: 10
+                type: 'int'
     downstream:
         options:
             rhbk_version:

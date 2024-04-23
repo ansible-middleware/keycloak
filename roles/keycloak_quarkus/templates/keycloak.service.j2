@@ -4,9 +4,7 @@ Description=Keycloak Server
 After=network.target
 
 [Service]
-Type=simple
 EnvironmentFile=-{{ keycloak_quarkus_sysconf_file }}
-PIDFile={{ keycloak_quarkus_service_pidfile }}
 {% if keycloak_quarkus_start_dev %}
 ExecStart={{ keycloak.home }}/bin/kc.sh start-dev
 {% else %}
@@ -14,14 +12,21 @@ ExecStart={{ keycloak.home }}/bin/kc.sh start --optimized
 {% endif %}
 User={{ keycloak.service_user }}
 Group={{ keycloak.service_group }}
+SuccessExitStatus=0 143
 {% if keycloak_quarkus_service_restart_always %}
 Restart=always
 {% elif keycloak_quarkus_service_restart_on_failure %}
 Restart=on-failure
 {% endif %}
 RestartSec={{ keycloak_quarkus_service_restartsec }}
-{% if keycloak_quarkus_http_port|int < 1024 or keycloak_quarkus_https_port|int < 1024 %}
+{% if keycloak_quarkus_http_port | int < 1024 or keycloak_quarkus_https_port | int < 1024 %}
 AmbientCapabilities=CAP_NET_BIND_SERVICE
+{% endif %}
+{% if keycloak_quarkus_systemd_wait_for_port %}
+ExecStartPost=/usr/bin/timeout {{ keycloak_quarkus_systemd_wait_for_timeout }} sh -c 'while ! ss -H -t -l -n sport = :{{ keycloak_quarkus_https_port }} | grep -q "^LISTEN.*:{{ keycloak_quarkus_https_port }}"; do sleep 1; done && /bin/sleep {{ keycloak_quarkus_systemd_wait_for_delay }}'
+{% endif %}
+{% if keycloak_quarkus_systemd_wait_for_log %}
+ExecStartPost=/usr/bin/timeout {{ keycloak_quarkus_systemd_wait_for_timeout }} sh -c 'cat {{ keycloak.log.file }} | sed "/Profile.*activated/ q" && /bin/sleep {{ keycloak_quarkus_systemd_wait_for_delay }}'
 {% endif %}
 
 [Install]

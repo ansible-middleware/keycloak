@@ -24,7 +24,9 @@
     - name: Create vault keystore
       ansible.builtin.command: keytool -importpass -alias TestRealm_testalias -keystore keystore.p12 -storepass keystorepassword
       delegate_to: localhost
+      register: keytool_cmd
       changed_when: False
+      failed_when: not 'already exists' in keytool_cmd.stdout and keytool_cmd.rc != 0
 
     - name: Copy certificates and vault
       become: yes

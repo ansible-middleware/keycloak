@@ -15,6 +15,10 @@
     keycloak_quarkus_ks_vault_enabled: true
     keycloak_quarkus_ks_vault_file: "/opt/keycloak/certs/keystore.p12"
     keycloak_quarkus_ks_vault_pass: keystorepassword
+    keycloak_quarkus_systemd_wait_for_port: true
+    keycloak_quarkus_systemd_wait_for_timeout: 20
+    keycloak_quarkus_systemd_wait_for_delay: 2
+    keycloak_quarkus_systemd_wait_for_log: true
   roles:
     - role: keycloak_quarkus
     - role: keycloak_realm

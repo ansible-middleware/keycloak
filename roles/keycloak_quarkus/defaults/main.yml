@@ -16,7 +16,6 @@ keycloak_quarkus_config_dir: "{{ keycloak_quarkus_home }}/conf"
 keycloak_quarkus_start_dev: false
 keycloak_quarkus_service_user: keycloak
 keycloak_quarkus_service_group: keycloak
-keycloak_quarkus_service_pidfile: "/run/keycloak/keycloak.pid"
 keycloak_quarkus_service_restart_always: false
 keycloak_quarkus_service_restart_on_failure: false
 keycloak_quarkus_service_restartsec: "10s"
@@ -66,7 +65,11 @@ keycloak_quarkus_config_key_store_password: ''
 keycloak_quarkus_ha_enabled: false
 keycloak_quarkus_ha_discovery: "TCPPING"
 ### Enable database configuration, must be enabled when HA is configured
-keycloak_quarkus_db_enabled: "{{ True if keycloak_quarkus_ha_enabled else False }}"
+keycloak_quarkus_db_enabled: "{{ keycloak_quarkus_ha_enabled }}"
+keycloak_quarkus_systemd_wait_for_port: "{{ keycloak_quarkus_ha_enabled }}"
+keycloak_quarkus_systemd_wait_for_log: false
+keycloak_quarkus_systemd_wait_for_timeout: 60
+keycloak_quarkus_systemd_wait_for_delay: 10
 
 ### keycloak frontend url
 keycloak_quarkus_frontend_url:

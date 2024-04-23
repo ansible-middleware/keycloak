@@ -1,5 +1,6 @@
 ---
 - name: "Restart and enable {{ keycloak.service_name }} service"
+  throttle: 1
   ansible.builtin.systemd:
     name: keycloak
     enabled: true

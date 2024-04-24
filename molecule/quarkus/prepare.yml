@@ -15,7 +15,7 @@
       changed_when: False
 
     - name: Create conf directory # risky-file-permissions in test user account does not exist yet
-      become: yes
+      become: true
       ansible.builtin.file:
         state: directory
         path: "/opt/keycloak/certs/"
@@ -25,6 +25,7 @@
       ansible.builtin.package:
         name: java-17-openjdk-headless
         state: present
+      become: true
 
     - name: Create vault keystore
       ansible.builtin.command: keytool -importpass -alias TestRealm_testalias -keystore keystore.p12 -storepass keystorepassword
@@ -34,7 +35,7 @@
       failed_when: not 'already exists' in keytool_cmd.stdout and keytool_cmd.rc != 0
 
     - name: Copy certificates and vault
-      become: yes
+      become: true
       ansible.builtin.copy:
         src: "{{ item }}"
         dest: "/opt/keycloak/certs/{{ item }}"

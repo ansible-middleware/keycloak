@@ -12,15 +12,16 @@ Role Defaults
 | Variable | Description | Default |
 |:---------|:------------|:--------|
 |`keycloak_quarkus_version`| keycloak.org package version | `24.0.3` |
+|`keycloak_quarkus_offline_install` | Perform an offline install | `False`|
+|`keycloak_quarkus_version`| keycloak.org package version | `23.0.7` |
+|`keycloak_quarkus_dest`| Installation root path | `/opt/keycloak` |
+|`keycloak_quarkus_download_url` | Download URL for keycloak | `https://github.com/keycloak/keycloak/releases/download/{{ keycloak_quarkus_version }}/{{ keycloak_quarkus_archive }}` |
 
 
 #### Service configuration
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
-|`keycloak_quarkus_ha_enabled`| Enable auto configuration for database backend, clustering and remote caches on infinispan | `False` |
-|`keycloak_quarkus_ha_discovery`| Discovery protocol for HA cluster members | `TCPPING` |
-|`keycloak_quarkus_db_enabled`| Enable auto configuration for database backend | `True` if `keycloak_quarkus_ha_enabled` is True, else `False` |
 |`keycloak_quarkus_admin_user`| Administration console user account | `admin` |
 |`keycloak_quarkus_bind_address`| Address for binding service ports | `0.0.0.0` |
 |`keycloak_quarkus_host`| Hostname for the Keycloak server | `localhost` |
@@ -29,13 +30,11 @@ Role Defaults
 |`keycloak_quarkus_http_port`| HTTP listening port | `8080` |
 |`keycloak_quarkus_https_port`| TLS HTTP listening port | `8443` |
 |`keycloak_quarkus_ajp_port`| AJP port | `8009` |
-|`keycloak_quarkus_jgroups_port`| jgroups cluster tcp port | `7800` |
 |`keycloak_quarkus_service_user`| Posix account username | `keycloak` |
 |`keycloak_quarkus_service_group`| Posix account group | `keycloak` |
 |`keycloak_quarkus_service_restart_always`| systemd restart always behavior activation | `False` |
 |`keycloak_quarkus_service_restart_on_failure`| systemd restart on-failure behavior activation | `False` |
 |`keycloak_quarkus_service_restartsec`| systemd RestartSec | `10s` |
-|`keycloak_quarkus_service_pidfile`| Pid file path for service | `/run/keycloak.pid` |
 |`keycloak_quarkus_jvm_package`| RHEL java package runtime | `java-17-openjdk-headless` |
 |`keycloak_quarkus_java_home`| JAVA_HOME of installed JRE, leave empty for using specified keycloak_quarkus_jvm_package RPM path | `None` |
 |`keycloak_quarkus_java_heap_opts`| Heap memory JVM setting | `-Xms1024m -Xmx2048m` |
@@ -57,8 +56,24 @@ Role Defaults
 |`keycloak_quarkus_https_trust_store_file`| The file path to the trust store | `{{ keycloak.home }}/conf/trust_store.p12` |
 |`keycloak_quarkus_https_trust_store_password`| Password for the trust store | `""` |
 |`keycloak_quarkus_proxy_headers`| Parse reverse proxy headers (`forwarded` or `xforwarded`) | `""` |
-|`keycloak_quarkus_config_key_store_file`| Path to the configuration key store; only used if `keycloak_quarkus_keystore_password` is not empty  | `{{ keycloak.home }}/conf/conf_store.p12` if `keycloak_quarkus_keystore_password`!='', else '' |
-|`keycloak_quarkus_config_key_store_password`| Password of the configuration key store; if non-empty, `keycloak_quarkus_db_pass` will be saved to the key store at `keycloak_quarkus_config_key_store_file` (instead of being written to the configuration file in clear text | `""` |
+|`keycloak_quarkus_config_key_store_file`| Path to the configuration key store; only used if `keycloak_quarkus_keystore_password` is not empty  | `{{ keycloak.home }}/conf/conf_store.p12` if `keycloak_quarkus_keystore_password != ''`, else `''` |
+|`keycloak_quarkus_config_key_store_password`| Password of the configuration keystore; if non-empty, `keycloak_quarkus_db_pass` will be saved to the keystore at `keycloak_quarkus_config_key_store_file` instead of being written to the configuration file in clear text | `""` |
+|`keycloak_quarkus_configure_firewalld` | Ensure firewalld is running and configure keycloak ports | `False` |
+|`keycloak_quarkus_configure_iptables` | Ensure iptables is configured for keycloak ports | `False` |
+
+
+#### High-availability
+
+| Variable | Description | Default |
+|:---------|:------------|:--------|
+|`keycloak_quarkus_ha_enabled`| Enable auto configuration for database backend, clustering and remote caches on infinispan | `False` |
+|`keycloak_quarkus_ha_discovery`| Discovery protocol for HA cluster members | `TCPPING` |
+|`keycloak_quarkus_db_enabled`| Enable auto configuration for database backend | `True` if `keycloak_quarkus_ha_enabled` is True, else `False` |
+|`keycloak_quarkus_jgroups_port`| jgroups cluster tcp port | `7800` |
+|`keycloak_quarkus_systemd_wait_for_port` | Whether systemd unit should wait for keycloak port before returning | `{{ keycloak_quarkus_ha_enabled }}` |
+|`keycloak_quarkus_systemd_wait_for_log` | Whether systemd unit should wait for service to be up in logs | `false` |
+|`keycloak_quarkus_systemd_wait_for_timeout`| How long to wait for service to be alive (seconds) | `60` |
+|`keycloak_quarkus_systemd_wait_for_delay`| Activation delay for service systemd unit (seconds) | `10` |
 
 
 #### Hostname configuration
@@ -92,17 +107,6 @@ Role Defaults
 |`keycloak_quarkus_ispn_use_ssl` | Whether infinispan uses TLS connection | `false` |
 |`keycloak_quarkus_ispn_trust_store_path` | Path to infinispan server trust certificate | `/etc/pki/java/cacerts` |
 |`keycloak_quarkus_ispn_trust_store_password` | Password for infinispan certificate keystore | `changeit` |
-
-
-#### Install options
-
-| Variable | Description | Default |
-|:---------|:------------|:---------|
-|`keycloak_quarkus_offline_install` | Perform an offline install | `False`|
-|`keycloak_quarkus_version`| keycloak.org package version | `23.0.7` |
-|`keycloak_quarkus_dest`| Installation root path | `/opt/keycloak` |
-|`keycloak_quarkus_download_url` | Download URL for keycloak | `https://github.com/keycloak/keycloak/releases/download/{{ keycloak_quarkus_version }}/{{ keycloak_quarkus_archive }}` |
-|`keycloak_quarkus_configure_firewalld` | Ensure firewalld is running and configure keycloak ports | `False` |
 
 
 #### Miscellaneous configuration

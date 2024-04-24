@@ -21,6 +21,11 @@
         path: "/opt/keycloak/certs/"
         mode: 0755
 
+    - name: Make sure a jre is available (for keytool to prepare keystore)
+      ansible.builtin.package:
+        name: java-17-openjdk-headless
+        state: present
+
     - name: Create vault keystore
       ansible.builtin.command: keytool -importpass -alias TestRealm_testalias -keystore keystore.p12 -storepass keystorepassword
       delegate_to: localhost

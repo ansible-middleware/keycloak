@@ -44,7 +44,7 @@
     packages_list: "{{ keycloak_quarkus_prereq_package_list }}"
 
 - name: "Validate keytool"
-  when: keycloak.config_key_store_enabled
+  when: keycloak_quarkus_config_key_store_password | length > 0
   block:
     - name: "Attempt to run keytool"
       changed_when: false

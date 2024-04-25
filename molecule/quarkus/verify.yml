@@ -53,7 +53,7 @@
         fail_msg: "Service log symlink not correctly created"
 
     - name: Check log file
-      become: yes
+      become: true
       ansible.builtin.stat:
         path: /tmp/keycloak/keycloak.log
       register: keycloak_log_file
@@ -77,6 +77,7 @@
           - not keycloak_default_log_folder.stat.exists
 
     - name: Verify vault SPI in logfile
+      become: true
       ansible.builtin.shell: |
         set -o pipefail
         zgrep 'Configured KeystoreVaultProviderFactory with the keystore file' /opt/keycloak/keycloak-*/data/log/keycloak.log*zip

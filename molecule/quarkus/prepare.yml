@@ -22,10 +22,14 @@
         mode: 0755
 
     - name: Make sure a jre is available (for keytool to prepare keystore)
+      delegate_to: localhost
       ansible.builtin.package:
-        name: java-17-openjdk-headless
+        name:
+          - java-17-openjdk-headless
+          - openjdk-17-jdk-headless
         state: present
       become: true
+      failed_when: false
 
     - name: Create vault keystore
       ansible.builtin.command: keytool -importpass -alias TestRealm_testalias -keystore keystore.p12 -storepass keystorepassword

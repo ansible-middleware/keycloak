@@ -32,29 +32,6 @@
   tags:
     - install
 
-- name: "Configure config for keycloak service"
-  ansible.builtin.template:
-    src: keycloak.conf.j2
-    dest: "{{ keycloak.home }}/conf/keycloak.conf"
-    owner: "{{ keycloak.service_user }}"
-    group: "{{ keycloak.service_group }}"
-    mode: '0640'
-  become: true
-  notify:
-    - rebuild keycloak config
-    - restart keycloak
-
-- name: "Configure quarkus config for keycloak service"
-  ansible.builtin.template:
-    src: quarkus.properties.j2
-    dest: "{{ keycloak.home }}/conf/quarkus.properties"
-    owner: "{{ keycloak.service_user }}"
-    group: "{{ keycloak.service_group }}"
-    mode: '0640'
-  become: true
-  notify:
-    - restart keycloak
-
 - name: Create tcpping cluster node list
   ansible.builtin.set_fact:
     keycloak_quarkus_cluster_nodes: >
@@ -69,14 +46,18 @@
   loop: "{{ ansible_play_batch }}"
   when: keycloak_quarkus_ha_enabled and keycloak_quarkus_ha_discovery == 'TCPPING'
 
-- name: "Configure infinispan config for keycloak service"
+- name: "Configure config files for keycloak service"
   ansible.builtin.template:
-    src: cache-ispn.xml.j2
-    dest: "{{ keycloak.home }}/conf/cache-ispn.xml"
+    src: "{{ item }}.j2"
+    dest: "{{ keycloak.home }}/conf/{{ item }}"
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
     mode: '0640'
   become: true
+  loop:
+    - keycloak.conf
+    - quarkus.properties
+    - cache-ispn.xml
   notify:
     - rebuild keycloak config
     - restart keycloak

@@ -12,7 +12,7 @@ v2.2.0-devel
 Major Changes
 -------------
 
-- Add support for configuration key store `#189 <https://github.com/ansible-middleware/keycloak/pull/189>`_
+- Support java keystore for configuration of sensitive options `#189 <https://github.com/ansible-middleware/keycloak/pull/189>`_
 
 Minor Changes
 -------------

@@ -1,6 +1,6 @@
 ---
-- name: Verify valid parameters for download credentials when specified
-  fail:
+- name: "Verify valid parameters for download credentials when specified"
+  ansible.builtin.fail:
     msg: >-
       When JDBC driver download credentials are set, both the username and the password MUST be set
     when:

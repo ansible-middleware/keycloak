@@ -19,6 +19,16 @@
     keycloak_quarkus_systemd_wait_for_timeout: 20
     keycloak_quarkus_systemd_wait_for_delay: 2
     keycloak_quarkus_systemd_wait_for_log: true
+    keycloak_quarkus_providers:
+      - id: http-client
+        spi: connections
+        default: true
+        restart: true
+        properties:
+          - key: default-connection-pool-size
+            value: 10
+      - id: spid-saml
+        url: https://github.com/italia/spid-keycloak-provider/releases/download/24.0.2/spid-provider.jar
   roles:
     - role: keycloak_quarkus
     - role: keycloak_realm

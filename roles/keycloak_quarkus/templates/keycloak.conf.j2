@@ -97,3 +97,14 @@ vault-file={{ keycloak_quarkus_ks_vault_file }}
 vault-type={{ keycloak_quarkus_ks_vault_type }}
 vault-pass={{ keycloak_quarkus_ks_vault_pass }}
 {% endif %}
+
+
+# Providers
+{% for provider in keycloak_quarkus_providers %}
+{% if provider.default is defined and provider.default %}
+spi-{{ provider.spi }}-provider={{ provider.id }}
+{% endif %}
+{% if provider.properties is defined %}{% for property in provider.properties %}
+spi-{{ provider.spi }}-{{ provider.id }}-{{ property.key }}={{ property.value }}
+{% endfor %}{% endif %}
+{% endfor %}

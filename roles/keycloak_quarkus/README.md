@@ -145,6 +145,33 @@ Role Defaults
 |`keycloak_quarkus_ks_vault_type`| Type of the keystore used for the vault SPI | `PKCS12` |
 
 
+#### Configuring providers
+
+| Variable | Description | Default |
+|:---------|:------------|:--------|
+|`keycloak_quarkus_providers`| List of provider definitions; see below | `[]` |
+
+Provider definition:
+
+```yaml
+keycloak_quarkus_providers:
+  - id: http-client                         # required
+    spi: connections                        # required if url is not specified
+    default: true                           # optional, whether to set default for spi, default false
+    restart: true                           # optional, whether to restart, default true
+    url: https://.../.../custom_spi.jar     # optional, url for download
+    properties:                             # optional, list of key-values
+      - key: default-connection-pool-size
+        value: 10
+```
+
+the definition above will generate the following build command:
+
+```
+bin/kc.sh build --spi-connections-provider=http-client --spi-connections-http-client-default-connection-pool-size=10
+```
+
+
 Role Variables
 --------------
 

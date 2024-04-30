@@ -20,6 +20,7 @@ Minor Changes
 - Add ``wait_for_port`` and ``wait_for_log`` systemd unit logic `#199 <https://github.com/ansible-middleware/keycloak/pull/199>`_
 - Keystore-based vault SPI configuration `#196 <https://github.com/ansible-middleware/keycloak/pull/196>`_
 - New ``keycloak_quarkus_hostname_strict_https`` parameter `#195 <https://github.com/ansible-middleware/keycloak/pull/195>`_
+- Providers config and custom providers `#201 <https://github.com/ansible-middleware/keycloak/pull/201>`_
 - Remove administrator credentials from files once keycloak is bootstrapped `#197 <https://github.com/ansible-middleware/keycloak/pull/197>`_
 - Update keycloak to 24.0 `#194 <https://github.com/ansible-middleware/keycloak/pull/194>`_
 

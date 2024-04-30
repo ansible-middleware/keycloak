@@ -144,3 +144,5 @@ keycloak_quarkus_ks_vault_enabled: false
 keycloak_quarkus_ks_vault_file: "{{ keycloak_quarkus_config_dir }}/keystore.p12"
 keycloak_quarkus_ks_vault_type: PKCS12
 keycloak_quarkus_ks_vault_pass:
+
+keycloak_quarkus_providers: []

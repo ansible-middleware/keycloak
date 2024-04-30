@@ -372,6 +372,10 @@ argument_specs:
                 description: "Activation delay for service systemd unit (seconds)"
                 default: 10
                 type: 'int'
+            keycloak_quarkus_providers:
+                description: "List of provider definition dicts: { 'id': str, 'spi': str, 'url': str, 'default': bool, 'properties': list of key/value }"
+                default: []
+                type: "list"
             keycloak_quarkus_jdbc_download_url:
                 description: "Override the default Maven Central download URL for the JDBC driver"
                 type: "str"

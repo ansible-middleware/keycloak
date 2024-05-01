@@ -18,6 +18,7 @@ Minor Changes
 -------------
 
 - Add ``wait_for_port`` and ``wait_for_log`` systemd unit logic `#199 <https://github.com/ansible-middleware/keycloak/pull/199>`_
+- Customize jdbc driver downloads, optional authentication `#202 <https://github.com/ansible-middleware/keycloak/pull/202>`_
 - Keystore-based vault SPI configuration `#196 <https://github.com/ansible-middleware/keycloak/pull/196>`_
 - New ``keycloak_quarkus_hostname_strict_https`` parameter `#195 <https://github.com/ansible-middleware/keycloak/pull/195>`_
 - Providers config and custom providers `#201 <https://github.com/ansible-middleware/keycloak/pull/201>`_

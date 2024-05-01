@@ -6,6 +6,25 @@ middleware\_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v2.2.0
+======
+
+Major Changes
+-------------
+
+- Support java keystore for configuration of sensitive options `#189 <https://github.com/ansible-middleware/keycloak/pull/189>`_
+
+Minor Changes
+-------------
+
+- Add ``wait_for_port`` and ``wait_for_log`` systemd unit logic `#199 <https://github.com/ansible-middleware/keycloak/pull/199>`_
+- Customize jdbc driver downloads, optional authentication `#202 <https://github.com/ansible-middleware/keycloak/pull/202>`_
+- Keystore-based vault SPI configuration `#196 <https://github.com/ansible-middleware/keycloak/pull/196>`_
+- New ``keycloak_quarkus_hostname_strict_https`` parameter `#195 <https://github.com/ansible-middleware/keycloak/pull/195>`_
+- Providers config and custom providers `#201 <https://github.com/ansible-middleware/keycloak/pull/201>`_
+- Remove administrator credentials from files once keycloak is bootstrapped `#197 <https://github.com/ansible-middleware/keycloak/pull/197>`_
+- Update keycloak to 24.0 `#194 <https://github.com/ansible-middleware/keycloak/pull/194>`_
+
 v2.1.2
 ======
 
@@ -13,7 +32,6 @@ Release Summary
 ---------------
 
 Internal release, documentation or test changes only.
-
 
 v2.1.1
 ======
@@ -285,7 +303,6 @@ Release Summary
 ---------------
 
 Internal release, documentation or test changes only.
-
 
 v1.0.3
 ======

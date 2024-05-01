@@ -464,3 +464,42 @@ releases:
 
         '
     release_date: '2024-04-17'
+  2.2.0:
+    changes:
+      major_changes:
+      - 'Support java keystore for configuration of sensitive options `#189 <https://github.com/ansible-middleware/keycloak/pull/189>`_
+
+        '
+      minor_changes:
+      - 'Add ``wait_for_port`` and ``wait_for_log`` systemd unit logic `#199 <https://github.com/ansible-middleware/keycloak/pull/199>`_
+
+        '
+      - 'Customize jdbc driver downloads, optional authentication `#202 <https://github.com/ansible-middleware/keycloak/pull/202>`_
+
+        '
+      - 'Keystore-based vault SPI configuration `#196 <https://github.com/ansible-middleware/keycloak/pull/196>`_
+
+        '
+      - 'New ``keycloak_quarkus_hostname_strict_https`` parameter `#195 <https://github.com/ansible-middleware/keycloak/pull/195>`_
+
+        '
+      - 'Providers config and custom providers `#201 <https://github.com/ansible-middleware/keycloak/pull/201>`_
+
+        '
+      - 'Remove administrator credentials from files once keycloak is bootstrapped
+        `#197 <https://github.com/ansible-middleware/keycloak/pull/197>`_
+
+        '
+      - 'Update keycloak to 24.0 `#194 <https://github.com/ansible-middleware/keycloak/pull/194>`_
+
+        '
+    fragments:
+    - 189.yaml
+    - 194.yaml
+    - 195.yaml
+    - 196.yaml
+    - 197.yaml
+    - 199.yaml
+    - 201.yaml
+    - 202.yaml
+    release_date: '2024-05-01'

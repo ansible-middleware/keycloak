@@ -316,6 +316,19 @@ argument_specs:
                 default: '/var/log/keycloak'
                 type: "str"
                 description: "Set the destination of the keycloak log folder link"
+            keycloak_jdbc_download_url:
+                description: "Override the default Maven Central download URL for the JDBC driver"
+                type: "str"
+            keycloak_jdbc_download_user:
+                description: "Set a username with which to authenticate when downloading JDBC drivers from an alternative location"
+                type: "str"
+            keycloak_jdbc_download_pass:
+                description: "Set a password with which to authenticate when downloading JDBC drivers from an alternative location (requires keycloak_jdbc_download_user)"
+                type: "str"
+            keycloak_jdbc_download_validate_certs:
+                default: true
+                description: "Allow the option to ignore invalid certificates when downloading JDBC drivers from a custom URL"
+                type: "bool"
     downstream:
         options:
             sso_version:

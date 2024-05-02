@@ -4,15 +4,16 @@
     msg: >-
       When JDBC driver download credentials are set, both the username and the password MUST be set
   when:
-    - (keycloak_jdbc_download_user is undefined and keycloak_jdbc_download_pass is not undefined) or (keycloak_jdbc_download_pass is undefined and keycloak_jdbc_download_user is not undefined)
+    - (keycloak_quarkus_jdbc_download_user is undefined and keycloak_quarkus_jdbc_download_pass is not undefined) or (keycloak_quarkus_jdbc_download_pass is undefined and keycloak_quarkus_jdbc_download_user is not undefined)
 - name: "Retrieve JDBC Driver from {{ keycloak_jdbc_download_user | default(keycloak_quarkus_default_jdbc[keycloak_quarkus_jdbc_engine].driver_jar_url) }}"
   ansible.builtin.get_url:
-    url: "{{ keycloak_jdbc_download_url | default(keycloak_quarkus_default_jdbc[keycloak_quarkus_jdbc_engine].driver_jar_url) }}"
+    url: "{{ keycloak_quarkus_jdbc_download_url | default(keycloak_quarkus_default_jdbc[keycloak_quarkus_jdbc_engine].driver_jar_url) }}"
     dest: "{{ keycloak.home }}/providers"
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
-    url_username: "{{ keycloak_jdbc_download_user | default(omit) }}"
-    url_password: "{{ keycloak_jdbc_download_pass | default(omit) }}"
+    url_username: "{{ keycloak_quarkus_jdbc_download_user | default(omit) }}"
+    url_password: "{{ keycloak_quarkus_jdbc_download_pass | default(omit) }}"
+    validate_certs: "{{ keycloak_quarkus_jdbc_download_validate_certs | default(omit) }}"
     mode: '0640'
   become: true
   notify:

@@ -16,6 +16,12 @@
   become: true
   when:
     - not dest_path.stat.exists
+- name: "Verify valid parameters for download credentials when specified"
+  ansible.builtin.fail:
+    msg: >-
+      When JDBC driver download credentials are set, both the username and the password MUST be set
+  when:
+    - (keycloak_jdbc_download_user is undefined and keycloak_jdbc_download_pass is not undefined) or (keycloak_jdbc_download_pass is undefined and keycloak_jdbc_download_user is not undefined)
 
 - name: "Retrieve JDBC Driver from {{ keycloak_jdbc[keycloak_jdbc_engine].driver_jar_url }}"
   ansible.builtin.get_url:
@@ -23,6 +29,9 @@
     dest: "{{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_dir }}/{{ keycloak_jdbc[keycloak_jdbc_engine].driver_jar_filename }}"
     group: "{{ keycloak_service_group }}"
     owner: "{{ keycloak_service_user }}"
+    url_username: "{{ keycloak_jdbc_download_user | default(omit) }}"
+    url_password: "{{ keycloak_jdbc_download_pass | default(omit) }}"
+    validate_certs: "{{ keycloak_jdbc_download_validate_certs | default(omit) }}"
     mode: 0640
   become: true
 

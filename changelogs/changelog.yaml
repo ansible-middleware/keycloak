@@ -503,3 +503,14 @@ releases:
     - 201.yaml
     - 202.yaml
     release_date: '2024-05-01'
+  2.2.1:
+    changes:
+      bugfixes:
+      - 'JDBC provider: fix clause in argument validation `#204 <https://github.com/ansible-middleware/keycloak/pull/204>`_
+
+        '
+      release_summary: Internal release, documentation or test changes only.
+    fragments:
+    - 204.yaml
+    - v2.2.1-devel_summary.yaml
+    release_date: '2024-05-02'

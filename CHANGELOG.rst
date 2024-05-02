@@ -6,6 +6,19 @@ middleware\_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v2.2.1
+======
+
+Release Summary
+---------------
+
+Internal release, documentation or test changes only.
+
+Bugfixes
+--------
+
+- JDBC provider: fix clause in argument validation `#204 <https://github.com/ansible-middleware/keycloak/pull/204>`_
+
 v2.2.0
 ======
 

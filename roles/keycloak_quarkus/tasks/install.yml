@@ -159,6 +159,32 @@
   when:
     - (not new_version_downloaded.changed) and path_to_workdir.stat.exists
 
+- name: "Copy private key to target"
+  ansible.builtin.copy:
+    src: "{{ keycloak_quarkus_key_file_src }}"
+    dest: "{{ keycloak_quarkus_key_file }}"
+    owner: "{{ keycloak.service_user }}"
+    group: "{{ keycloak.service_group }}"
+    mode: 0640
+  become: true
+  when:
+    - keycloak_quarkus_https_key_file_enabled is defined and keycloak_quarkus_https_key_file_enabled
+    - keycloak_quarkus_key_file_copy_enabled is defined and keycloak_quarkus_key_file_copy_enabled
+    - keycloak_quarkus_key_file_src | length > 0
+
+- name: "Copy certificate to target"
+  ansible.builtin.copy:
+    src: "{{ keycloak_quarkus_cert_file_src }}"
+    dest: "{{ keycloak_quarkus_cert_file }}"
+    owner: "{{ keycloak.service_user }}"
+    group: "{{ keycloak.service_group }}"
+    mode: 0644
+  become: true
+  when:
+    - keycloak_quarkus_https_key_file_enabled is defined and keycloak_quarkus_https_key_file_enabled
+    - keycloak_quarkus_cert_file_copy_enabled is defined and keycloak_quarkus_cert_file_copy_enabled
+    - keycloak_quarkus_cert_file_src | length > 0
+
 - name: "Install {{ keycloak_quarkus_jdbc_engine }} JDBC driver"
   ansible.builtin.include_tasks: jdbc_driver.yml
   when:

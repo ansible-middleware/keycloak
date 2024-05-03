@@ -57,6 +57,7 @@
     path: "{{ lookup('env', 'PWD') }}"
   register: local_path
   delegate_to: localhost
+  run_once: true
   become: false
 
 - name: Download keycloak archive
@@ -108,15 +109,20 @@
         client_secret: "{{ rhn_password }}"
         product_id: "{{ (rhn_filtered_products | first).id }}"
         dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
+        mode: '0640'
+        owner: "{{ lookup('env', 'USER') | default(omit) }}"
       no_log: "{{ omit_rhn_output | default(true) }}"
       delegate_to: localhost
       run_once: true
+      become: false
 
 - name: Check downloaded archive
   ansible.builtin.stat:
     path: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
   register: local_archive_path
   delegate_to: localhost
+  become: false
+  run_once: true
 
 ## copy and unpack
 - name: Copy archive to target nodes

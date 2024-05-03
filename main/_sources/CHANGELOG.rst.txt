@@ -12,7 +12,12 @@ v2.2.2-devel
 Minor Changes
 -------------
 
-- jdbc_download and validate_certs params update `#207 <https://github.com/ansible-middleware/keycloak/pull/207>`_
+- Validate certs parameter for JDBC driver downloads `#207 <https://github.com/ansible-middleware/keycloak/pull/207>`_
+
+Bugfixes
+--------
+
+- Turn off controller privilege escalation `#209 <https://github.com/ansible-middleware/keycloak/pull/209>`_
 
 v2.2.1
 ======

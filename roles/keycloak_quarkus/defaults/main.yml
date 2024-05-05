@@ -48,7 +48,7 @@ keycloak_quarkus_java_opts: "{{ keycloak_quarkus_java_heap_opts + ' ' + keycloak
 ### TLS/HTTPS configuration
 keycloak_quarkus_https_key_file_enabled: false
 keycloak_quarkus_key_file_copy_enabled: false
-keycloak_quarkus_key_file_src: ""
+keycloak_quarkus_key_content: ""
 keycloak_quarkus_key_file: "/etc/pki/tls/private/server.key.pem"
 keycloak_quarkus_cert_file_copy_enabled: false
 keycloak_quarkus_cert_file_src: ""

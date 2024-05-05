@@ -161,7 +161,7 @@
 
 - name: "Copy private key to target"
   ansible.builtin.copy:
-    src: "{{ keycloak_quarkus_key_file_src }}"
+    content: "{{ keycloak_quarkus_key_content }}"
     dest: "{{ keycloak_quarkus_key_file }}"
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
@@ -170,7 +170,7 @@
   when:
     - keycloak_quarkus_https_key_file_enabled is defined and keycloak_quarkus_https_key_file_enabled
     - keycloak_quarkus_key_file_copy_enabled is defined and keycloak_quarkus_key_file_copy_enabled
-    - keycloak_quarkus_key_file_src | length > 0
+    - keycloak_quarkus_key_content | length > 0
 
 - name: "Copy certificate to target"
   ansible.builtin.copy:

@@ -10,7 +10,7 @@
     keycloak_quarkus_log_level: debug
     keycloak_quarkus_https_key_file_enabled: true
     keycloak_quarkus_key_file_copy_enabled: true
-    keycloak_quarkus_key_file_src: key.pem
+    keycloak_quarkus_key_content: "{{ lookup('file', 'key.pem') }}"
     keycloak_quarkus_cert_file_copy_enabled: true
     keycloak_quarkus_cert_file_src: cert.pem
     keycloak_quarkus_log_target: /tmp/keycloak

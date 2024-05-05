@@ -45,7 +45,7 @@ Role Defaults
 |`keycloak_quarkus_http_enabled`| Enable listener on HTTP port | `True` |
 |`keycloak_quarkus_https_key_file_enabled`| Enable listener on HTTPS port | `False` |
 |`keycloak_quarkus_key_file_copy_enabled`| Enable copy of key file to target host | `False` |
-|`keycloak_quarkus_key_file_src`| Set the source file path | `""` |
+|`keycloak_quarkus_key_content`| Content of the TLS private key. Use `"{{ lookup('file', 'server.key.pem') }}"` to lookup a file. | `""` |
 |`keycloak_quarkus_key_file`| The file path to a private key in PEM format | `/etc/pki/tls/private/server.key.pem` |
 |`keycloak_quarkus_cert_file_copy_enabled`| Enable copy of cert file to target host | `False`|
 |`keycloak_quarkus_cert_file_src`| Set the source file path | `""` |

@@ -112,9 +112,9 @@ argument_specs:
                 default: false
                 description: "Enable copy of key file to target host"
                 type: "bool"
-            keycloak_quarkus_key_file_src:
+            keycloak_quarkus_key_content:
                 default: ""
-                description: "Set the source file path"
+                description: "Content of the TLS private key"
                 type: "str"
             keycloak_quarkus_key_file:
                 default: "/etc/pki/tls/private/server.key.pem"

@@ -14,11 +14,11 @@
       delegate_to: localhost
       changed_when: False
 
-    - name: Create conf directory # risky-file-permissions in test user account does not exist yet
+    - name: Create vault directory
       become: true
       ansible.builtin.file:
         state: directory
-        path: "/opt/keycloak/certs/"
+        path: "/opt/keycloak/vault"
         mode: 0755
 
     - name: Make sure a jre is available (for keytool to prepare keystore)
@@ -39,10 +39,6 @@
     - name: Copy certificates and vault
       become: true
       ansible.builtin.copy:
-        src: "{{ item }}"
-        dest: "/opt/keycloak/certs/{{ item }}"
+        src: keystore.p12
+        dest: /opt/keycloak/vault/keystore.p12
         mode: 0444
-      loop:
-        - cert.pem
-        - key.pem
-        - keystore.p12

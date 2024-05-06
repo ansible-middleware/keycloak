@@ -44,8 +44,12 @@ Role Defaults
 |`keycloak_quarkus_http_relative_path` | Set the path relative to / for serving resources. The path must start with a / | `/` |
 |`keycloak_quarkus_http_enabled`| Enable listener on HTTP port | `True` |
 |`keycloak_quarkus_https_key_file_enabled`| Enable listener on HTTPS port | `False` |
-|`keycloak_quarkus_key_file`| The file path to a private key in PEM format | `{{ keycloak.home }}/conf/server.key.pem` |
-|`keycloak_quarkus_cert_file`| The file path to a server certificate or certificate chain in PEM format | `{{ keycloak.home }}/conf/server.crt.pem` |
+|`keycloak_quarkus_key_file_copy_enabled`| Enable copy of key file to target host | `False` |
+|`keycloak_quarkus_key_content`| Content of the TLS private key. Use `"{{ lookup('file', 'server.key.pem') }}"` to lookup a file. | `""` |
+|`keycloak_quarkus_key_file`| The file path to a private key in PEM format | `/etc/pki/tls/private/server.key.pem` |
+|`keycloak_quarkus_cert_file_copy_enabled`| Enable copy of cert file to target host | `False`|
+|`keycloak_quarkus_cert_file_src`| Set the source file path | `""` |
+|`keycloak_quarkus_cert_file`| The file path to a server certificate or certificate chain in PEM format | `/etc/pki/tls/certs/server.crt.pem` |
 |`keycloak_quarkus_https_key_store_enabled`| Enable configuration of HTTPS via a key store | `False` |
 |`keycloak_quarkus_key_store_file`| Deprecated, use `keycloak_quarkus_https_key_store_file` instead. ||
 |`keycloak_quarkus_key_store_password`| Deprecated, use `keycloak_quarkus_https_key_store_password` instead.||

@@ -12,6 +12,7 @@ v2.2.2-devel
 Minor Changes
 -------------
 
+- Copying of key material for TLS configuration `#210 <https://github.com/ansible-middleware/keycloak/pull/210>`_
 - Validate certs parameter for JDBC driver downloads `#207 <https://github.com/ansible-middleware/keycloak/pull/207>`_
 
 Bugfixes

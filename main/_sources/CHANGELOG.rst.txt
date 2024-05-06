@@ -9,11 +9,6 @@ This changelog describes changes after version 0.2.6.
 v2.2.2
 ======
 
-Release Summary
----------------
-
-Internal release, documentation or test changes only.
-
 Minor Changes
 -------------
 
@@ -24,6 +19,7 @@ Bugfixes
 --------
 
 - Turn off controller privilege escalation `#209 <https://github.com/ansible-middleware/keycloak/pull/209>`_
+- ``kc.sh build`` uses configured jdk `#211 <https://github.com/ansible-middleware/keycloak/pull/211>`_
 
 v2.2.1
 ======

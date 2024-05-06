@@ -110,7 +110,6 @@
         product_id: "{{ (rhn_filtered_products | first).id }}"
         dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
         mode: '0640'
-        owner: "{{ lookup('env', 'USER') | default(omit) }}"
       no_log: "{{ omit_rhn_output | default(true) }}"
       delegate_to: localhost
       run_once: true

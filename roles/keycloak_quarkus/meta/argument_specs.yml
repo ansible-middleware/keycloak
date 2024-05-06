@@ -108,12 +108,28 @@ argument_specs:
                 default: false
                 description: "Enable configuration of HTTPS via files in PEM format"
                 type: "bool"
+            keycloak_quarkus_key_file_copy_enabled:
+                default: false
+                description: "Enable copy of key file to target host"
+                type: "bool"
+            keycloak_quarkus_key_content:
+                default: ""
+                description: "Content of the TLS private key"
+                type: "str"
             keycloak_quarkus_key_file:
-                default: "{{ keycloak.home }}/conf/server.key.pem"
+                default: "/etc/pki/tls/private/server.key.pem"
                 description: "The file path to a private key in PEM format"
                 type: "str"
+            keycloak_quarkus_cert_file_copy_enabled:
+                default: false
+                description: "Enable copy of cert file to target host"
+                type: "bool"
+            keycloak_quarkus_cert_file_src:
+                default: ""
+                description: "Set the source file path"
+                type: "str"
             keycloak_quarkus_cert_file:
-                default: "{{ keycloak.home }}/conf/server.crt.pem"
+                default: "/etc/pki/tls/certs/server.crt.pem"
                 description: "The file path to a server certificate or certificate chain in PEM format"
                 type: "str"
             keycloak_quarkus_https_key_store_enabled:

@@ -514,3 +514,21 @@ releases:
     - 204.yaml
     - v2.2.1-devel_summary.yaml
     release_date: '2024-05-02'
+  2.2.2:
+    changes:
+      bugfixes:
+      - 'Turn off controller privilege escalation `#209 <https://github.com/ansible-middleware/keycloak/pull/209>`_
+
+        '
+      minor_changes:
+      - 'Copying of key material for TLS configuration `#210 <https://github.com/ansible-middleware/keycloak/pull/210>`_
+
+        '
+      - 'Validate certs parameter for JDBC driver downloads `#207 <https://github.com/ansible-middleware/keycloak/pull/207>`_
+
+        '
+    fragments:
+    - 207.yaml
+    - 209.yaml
+    - 210.yaml
+    release_date: '2024-05-06'

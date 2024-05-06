@@ -6,6 +6,20 @@ middleware\_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v2.2.2
+======
+
+Minor Changes
+-------------
+
+- Copying of key material for TLS configuration `#210 <https://github.com/ansible-middleware/keycloak/pull/210>`_
+- Validate certs parameter for JDBC driver downloads `#207 <https://github.com/ansible-middleware/keycloak/pull/207>`_
+
+Bugfixes
+--------
+
+- Turn off controller privilege escalation `#209 <https://github.com/ansible-middleware/keycloak/pull/209>`_
+
 v2.2.1
 ======
 

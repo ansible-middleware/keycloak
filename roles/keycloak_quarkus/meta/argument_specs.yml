@@ -408,7 +408,7 @@ argument_specs:
     downstream:
         options:
             rhbk_version:
-                default: "22.0.10"
+                default: "24.0.3"
                 description: "Red Hat Build of Keycloak version"
                 type: "str"
             rhbk_archive:

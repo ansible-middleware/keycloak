@@ -170,7 +170,7 @@
     dest: "{{ keycloak_quarkus_key_file }}"
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
-    mode: 0640
+    mode: '0640'
   become: true
   when:
     - keycloak_quarkus_https_key_file_enabled is defined and keycloak_quarkus_https_key_file_enabled
@@ -183,7 +183,7 @@
     dest: "{{ keycloak_quarkus_cert_file }}"
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
-    mode: 0644
+    mode: '0644'
   become: true
   when:
     - keycloak_quarkus_https_key_file_enabled is defined and keycloak_quarkus_https_key_file_enabled

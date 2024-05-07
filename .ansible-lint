@@ -28,7 +28,6 @@ warn_list:
   - name[casing]
   - fqcn[action]
   - schema[meta]
-  - var-naming[no-role-prefix]
   - key-order[task]
   - blocked_modules
 
@@ -36,6 +35,7 @@ skip_list:
   - vars_should_not_be_used
   - file_is_small_enough
   - name[template]
+  - var-naming[no-role-prefix]
 
 use_default_rules: true
 parseable: true

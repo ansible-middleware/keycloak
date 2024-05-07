@@ -6,6 +6,7 @@ keycloak_prereq_package_list:
       - procps
       - apt
       - tzdata
-keycloak_configure_iptables: True
+keycloak_configure_iptables: true
 keycloak_sysconf_file: /etc/default/keycloak
-keycloak_pkg_java_home: "/usr/lib/jvm/java-{{ keycloak_varjvm_package | regex_search('(?!:openjdk-)[0-9.]+') }}-openjdk-{{ 'arm64' if ansible_architecture == 'aarch64' else 'amd64' }}"
+keycloak_pkg_java_home: "/usr/lib/jvm/java-{{ keycloak_varjvm_package | \
+                         regex_search('(?!:openjdk-)[0-9.]+') }}-openjdk-{{ 'arm64' if ansible_architecture == 'aarch64' else 'amd64' }}"

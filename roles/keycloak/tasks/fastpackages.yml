@@ -8,7 +8,8 @@
 
 - name: "Add missing packages to the yum install list"
   ansible.builtin.set_fact:
-    packages_to_install: "{{ packages_to_install | default([]) + rpm_info.stdout_lines | map('regex_findall', 'package (.+) is not installed$') | default([]) | flatten }}"
+    packages_to_install: "{{ packages_to_install | default([]) + rpm_info.stdout_lines | \
+                          map('regex_findall', 'package (.+) is not installed$') | default([]) | flatten }}"
   when: ansible_facts.os_family == "RedHat"
 
 - name: "Install packages: {{ packages_to_install }}"
@@ -17,8 +18,8 @@
     name: "{{ packages_to_install }}"
     state: present
   when:
-  - packages_to_install | default([]) | length > 0
-  - ansible_facts.os_family == "RedHat"
+    - packages_to_install | default([]) | length > 0
+    - ansible_facts.os_family == "RedHat"
 
 - name: "Install packages: {{ packages_list }}"
   become: true

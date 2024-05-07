@@ -4,13 +4,16 @@
     that:
       - keycloak_admin_password | length > 12
     quiet: true
-    fail_msg: "The console administrator password is empty or invalid. Please set the keycloak_admin_password variable to a 12+ char long string"
+    fail_msg: >
+      The console administrator password is empty or invalid. Please set the keycloak_admin_password variable to a 12+ char long string
     success_msg: "{{ 'Console administrator password OK' }}"
 
 - name: Validate configuration
   ansible.builtin.assert:
-    that:
-      - (keycloak_ha_enabled and keycloak_db_enabled) or (not keycloak_ha_enabled and keycloak_db_enabled) or (not keycloak_ha_enabled and not keycloak_db_enabled)
+    that: >
+      (keycloak_ha_enabled and keycloak_db_enabled) or
+      (not keycloak_ha_enabled and keycloak_db_enabled) or
+      (not keycloak_ha_enabled and not keycloak_db_enabled)
     quiet: true
     fail_msg: "Cannot install HA setup without a backend database service. Check keycloak_ha_enabled and keycloak_db_enabled"
     success_msg: "{{ 'Configuring HA' if keycloak_ha_enabled else 'Configuring standalone' }}"

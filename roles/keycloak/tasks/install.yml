@@ -41,8 +41,8 @@
   ansible.builtin.user:
     name: "{{ keycloak_service_user }}"
     home: /opt/keycloak
-    system: yes
-    create_home: no
+    system: true
+    create_home: false
 
 - name: "Create install location for {{ keycloak.service_name }}"
   become: true
@@ -51,7 +51,7 @@
     state: directory
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
-    mode: 0750
+    mode: '0750'
 
 - name: Create pidfile folder
   become: true
@@ -60,7 +60,7 @@
     state: directory
     owner: "{{ keycloak_service_user if keycloak_service_runas else omit }}"
     group: "{{ keycloak_service_group if keycloak_service_runas else omit }}"
-    mode: 0750
+    mode: '0750'
 
 ## check remote archive
 - name: Set download archive path
@@ -84,7 +84,7 @@
   ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
     url: "{{ keycloak_download_url }}"
     dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
-    mode: 0644
+    mode: '0644'
   delegate_to: localhost
   run_once: true
   when:
@@ -136,7 +136,7 @@
   ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
     url: "{{ keycloak_rhsso_download_url }}"
     dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
-    mode: 0644
+    mode: '0644'
   delegate_to: localhost
   run_once: true
   when:
@@ -160,7 +160,7 @@
     dest: "{{ archive }}"
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
-    mode: 0640
+    mode: '0640'
   register: new_version_downloaded
   when:
     - not archive_path.stat.exists
@@ -221,7 +221,7 @@
     dest: "{{ keycloak_config_path_to_standalone_xml }}"
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
-    mode: 0640
+    mode: '0640'
   notify:
     - restart keycloak
   when: keycloak_config_override_template | length > 0
@@ -233,7 +233,7 @@
     dest: "{{ keycloak_config_path_to_standalone_xml }}"
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
-    mode: 0640
+    mode: '0640'
   notify:
     - restart keycloak
   when:
@@ -261,7 +261,7 @@
     dest: "{{ keycloak_config_path_to_standalone_xml }}"
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
-    mode: 0640
+    mode: '0640'
   notify:
     - restart keycloak
   when:
@@ -276,7 +276,7 @@
     dest: "{{ keycloak_config_path_to_standalone_xml }}"
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
-    mode: 0640
+    mode: '0640'
   notify:
     - restart keycloak
   when:
@@ -291,7 +291,7 @@
     dest: "{{ keycloak_config_path_to_properties }}"
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
-    mode: 0640
+    mode: '0640'
   notify:
     - restart keycloak
   when: keycloak_features | length > 0

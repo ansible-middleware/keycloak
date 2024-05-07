@@ -6,6 +6,14 @@ middleware\_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v2.2.3-devel
+============
+
+Bugfixes
+--------
+
+- ``kc.sh build`` uses configured jdk `#211 <https://github.com/ansible-middleware/keycloak/pull/211>`_
+
 v2.2.2
 ======
 
@@ -19,7 +27,6 @@ Bugfixes
 --------
 
 - Turn off controller privilege escalation `#209 <https://github.com/ansible-middleware/keycloak/pull/209>`_
-- ``kc.sh build`` uses configured jdk `#211 <https://github.com/ansible-middleware/keycloak/pull/211>`_
 
 v2.2.1
 ======

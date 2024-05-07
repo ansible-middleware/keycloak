@@ -6,7 +6,7 @@
     dest: "{{ keycloak_dest }}/keycloak-service.sh"
     owner: root
     group: root
-    mode: 0755
+    mode: '0755'
   notify:
     - restart keycloak
 
@@ -17,7 +17,7 @@
     dest: "{{ keycloak_sysconf_file }}"
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   notify:
     - restart keycloak
 
@@ -27,7 +27,7 @@
     dest: /etc/systemd/system/keycloak.service
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
   become: true
   register: systemdunit
   notify:

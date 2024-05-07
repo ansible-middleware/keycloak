@@ -86,7 +86,9 @@ argument_specs:
                 type: "str"
             keycloak_features:
                 default: "[]"
-                description: "List of `name`/`status` pairs of features (also known as profiles on RH-SSO) to `enable` or `disable`, example: `[ { name: 'docker', status: 'enabled' } ]`"
+                description: >
+                  List of `name`/`status` pairs of features (also known as profiles on RH-SSO) to `enable` or `disable`,
+                  example: `[ { name: 'docker', status: 'enabled' } ]`
                 type: "list"
             keycloak_bind_address:
                 default: "0.0.0.0"
@@ -310,7 +312,8 @@ argument_specs:
                 type: "str"
             keycloak_jgroups_subnet:
                 required: false
-                description: "Override the subnet match for jgroups cluster formation; if not defined, it will be inferred from local machine route configuration"
+                description: >
+                  Override the subnet match for jgroups cluster formation; if not defined, it will be inferred from local machine route configuration
                 type: "str"
             keycloak_log_target:
                 default: '/var/log/keycloak'
@@ -323,7 +326,8 @@ argument_specs:
                 description: "Set a username with which to authenticate when downloading JDBC drivers from an alternative location"
                 type: "str"
             keycloak_jdbc_download_pass:
-                description: "Set a password with which to authenticate when downloading JDBC drivers from an alternative location (requires keycloak_jdbc_download_user)"
+                description: >
+                  Set a password with which to authenticate when downloading JDBC drivers from an alternative location (requires keycloak_jdbc_download_user)
                 type: "str"
             keycloak_jdbc_download_validate_certs:
                 default: true

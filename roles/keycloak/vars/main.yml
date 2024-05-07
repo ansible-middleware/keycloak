@@ -13,7 +13,8 @@ keycloak:
   service_name: "{{ keycloak_service_name }}"
   health_url: "{{ keycloak_management_url }}/health"
   cli_path: "{{ keycloak_jboss_home }}/bin/jboss-cli.sh"
-  config_template_source: "{{ keycloak_config_override_template if keycloak_config_override_template | length > 0 else 'standalone-ha.xml.j2' if keycloak_remote_cache_enabled else 'standalone.xml.j2' }}"
+  config_template_source: "{{ keycloak_config_override_template if keycloak_config_override_template | length > 0 \
+                              else 'standalone-ha.xml.j2' if keycloak_remote_cache_enabled else 'standalone.xml.j2' }}"
   features: "{{ keycloak_features }}"
 
 # database
@@ -26,7 +27,8 @@ keycloak_jdbc:
     driver_module_dir: "{{ keycloak_jboss_home }}/modules/org/postgresql/main"
     driver_version: "{{ keycloak_jdbc_driver_version }}"
     driver_jar_filename: "postgresql-{{ keycloak_jdbc_driver_version }}.jar"
-    driver_jar_url: "https://repo.maven.apache.org/maven2/org/postgresql/postgresql/{{ keycloak_jdbc_driver_version }}/postgresql-{{ keycloak_jdbc_driver_version }}.jar"
+    driver_jar_url: >
+      {{ keycloak_maven_central }}org/postgresql/postgresql/{{ keycloak_jdbc_driver_version }}/postgresql-{{ keycloak_jdbc_driver_version }}.jar
     connection_url: "{{ keycloak_jdbc_url }}"
     db_user: "{{ keycloak_db_user }}"
     db_password: "{{ keycloak_db_pass }}"
@@ -46,7 +48,8 @@ keycloak_jdbc:
     driver_module_dir: "{{ keycloak_jboss_home }}/modules/org/mariadb/main"
     driver_version: "{{ keycloak_jdbc_driver_version }}"
     driver_jar_filename: "mariadb-java-client-{{ keycloak_jdbc_driver_version }}.jar"
-    driver_jar_url: "https://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/{{ keycloak_jdbc_driver_version }}/mariadb-java-client-{{ keycloak_jdbc_driver_version }}.jar"
+    driver_jar_url: >
+      {{ keycloak_maven_central }}org/mariadb/jdbc/mariadb-java-client/{{ keycloak_jdbc_driver_version }}/mariadb-java-client-{{ keycloak_jdbc_driver_version }}.jar
     connection_url: "{{ keycloak_jdbc_url }}"
     db_user: "{{ keycloak_db_user }}"
     db_password: "{{ keycloak_db_pass }}"
@@ -67,7 +70,8 @@ keycloak_jdbc:
     driver_module_dir: "{{ keycloak_jboss_home }}/modules/com/microsoft/sqlserver/main"
     driver_version: "{{ keycloak_jdbc_driver_version }}"
     driver_jar_filename: "mssql-java-client-{{ keycloak_jdbc_driver_version }}.jar"
-    driver_jar_url: "https://repo1.maven.org/maven2/com/microsoft/sqlserver/mssql-jdbc/{{ keycloak_jdbc_driver_version }}.jre11/mssql-jdbc-{{ keycloak_jdbc_driver_version }}.jre11.jar" # e.g., https://repo1.maven.org/maven2/com/microsoft/sqlserver/mssql-jdbc/12.2.0.jre11/mssql-jdbc-12.2.0.jre11.jar
+    driver_jar_url: >
+      {{ keycloak_maven_central }}com/microsoft/sqlserver/mssql-jdbc/{{ keycloak_jdbc_driver_version }}.jre11/mssql-jdbc-{{ keycloak_jdbc_driver_version }}.jre11.jar
     connection_url: "{{ keycloak_jdbc_url }}"
     db_user: "{{ keycloak_db_user }}"
     db_password: "{{ keycloak_db_pass }}"
@@ -102,3 +106,5 @@ keycloak_remotecache:
   use_ssl: "{{ keycloak_infinispan_use_ssl }}"
   trust_store_path: "{{ keycloak_infinispan_trust_store_path }}"
   trust_store_password: "{{ keycloak_infinispan_trust_store_password }}"
+
+keycloak_maven_central: https://repo1.maven.org/maven2/

@@ -12,7 +12,7 @@
     recurse: true
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
-    mode: 0750
+    mode: '0750'
   become: true
   when:
     - not dest_path.stat.exists
@@ -20,8 +20,9 @@
   ansible.builtin.fail:
     msg: >-
       When JDBC driver download credentials are set, both the username and the password MUST be set
-  when:
-    - (keycloak_jdbc_download_user is undefined and keycloak_jdbc_download_pass is not undefined) or (keycloak_jdbc_download_pass is undefined and keycloak_jdbc_download_user is not undefined)
+  when: >
+    (keycloak_jdbc_download_user is undefined and keycloak_jdbc_download_pass is not undefined) or
+    (keycloak_jdbc_download_pass is undefined and keycloak_jdbc_download_user is not undefined)
 
 - name: "Retrieve JDBC Driver from {{ keycloak_jdbc[keycloak_jdbc_engine].driver_jar_url }}"
   ansible.builtin.get_url:
@@ -32,7 +33,7 @@
     url_username: "{{ keycloak_jdbc_download_user | default(omit) }}"
     url_password: "{{ keycloak_jdbc_download_pass | default(omit) }}"
     validate_certs: "{{ keycloak_jdbc_download_validate_certs | default(omit) }}"
-    mode: 0640
+    mode: '0640'
   become: true
 
 - name: "Deploy module.xml for JDBC Driver"
@@ -41,5 +42,5 @@
     dest: "{{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_dir }}/module.xml"
     group: "{{ keycloak_service_group }}"
     owner: "{{ keycloak_service_user }}"
-    mode: 0640
+    mode: '0640'
   become: true

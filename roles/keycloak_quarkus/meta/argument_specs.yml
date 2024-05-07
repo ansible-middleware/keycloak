@@ -170,7 +170,9 @@ argument_specs:
                 type: "str"
             keycloak_quarkus_config_key_store_password:
                 default: ""
-                description: "Password of the configuration key store; if non-empty, `keycloak_quarkus_db_pass` will be saved to the key store at `keycloak_quarkus_config_key_store_file` (instead of being written to the configuration file in clear text"
+                description: >
+                  Password of the configuration key store; if non-empty, `keycloak_quarkus_db_pass` will be saved to the key store
+                  at `keycloak_quarkus_config_key_store_file` (instead of being written to the configuration file in clear text)
                 type: "str"
             keycloak_quarkus_https_port:
                 default: 8443
@@ -399,7 +401,9 @@ argument_specs:
                 description: "Set a username with which to authenticate when downloading JDBC drivers from an alternative location"
                 type: "str"
             keycloak_quarkus_jdbc_download_pass:
-                description: "Set a password with which to authenticate when downloading JDBC drivers from an alternative location (requires keycloak_quarkus_jdbc_download_user)"
+                description: >
+                  Set a password with which to authenticate when downloading JDBC drivers from an alternative location
+                  (requires `keycloak_quarkus_jdbc_download_user``)
                 type: "str"
             keycloak_quarkus_jdbc_download_validate_certs:
                 default: true

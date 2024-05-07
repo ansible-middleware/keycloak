@@ -3,9 +3,11 @@
   ansible.builtin.fail:
     msg: >-
       When JDBC driver download credentials are set, both the username and the password MUST be set
-  when:
-    - (keycloak_quarkus_jdbc_download_user is undefined and keycloak_quarkus_jdbc_download_pass is not undefined) or (keycloak_quarkus_jdbc_download_pass is undefined and keycloak_quarkus_jdbc_download_user is not undefined)
-- name: "Retrieve JDBC Driver from {{ keycloak_jdbc_download_user | default(keycloak_quarkus_default_jdbc[keycloak_quarkus_jdbc_engine].driver_jar_url) }}"
+  when: >
+    (keycloak_quarkus_jdbc_download_user is undefined and keycloak_quarkus_jdbc_download_pass is not undefined) or
+    (keycloak_quarkus_jdbc_download_pass is undefined and keycloak_quarkus_jdbc_download_user is not undefined)
+
+- name: "Retrieve JDBC Driver from {{ keycloak_jdbc_download_url | default(keycloak_quarkus_default_jdbc[keycloak_quarkus_jdbc_engine].driver_jar_url) }}"
   ansible.builtin.get_url:
     url: "{{ keycloak_quarkus_jdbc_download_url | default(keycloak_quarkus_default_jdbc[keycloak_quarkus_jdbc_engine].driver_jar_url) }}"
     dest: "{{ keycloak.home }}/providers"

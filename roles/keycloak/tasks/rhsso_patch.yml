@@ -45,7 +45,7 @@
 
     - name: Determine latest version
       ansible.builtin.set_fact:
-         sso_latest_version: "{{ filtered_versions | middleware_automation.common.version_sort | last }}"
+        sso_latest_version: "{{ filtered_versions | middleware_automation.common.version_sort | last }}"
       when: sso_patch_version is not defined or sso_patch_version | length == 0
       delegate_to: localhost
       run_once: true
@@ -95,7 +95,7 @@
     dest: "{{ patch_archive }}"
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
-    mode: 0640
+    mode: '0640'
   register: new_version_downloaded
   when:
     - not patch_archive_path.stat.exists
@@ -135,8 +135,8 @@
         - cli_result.rc == 0
       args:
         apply:
-            become: true
-            become_user: "{{ keycloak_service_user }}"
+          become: true
+          become_user: "{{ keycloak_service_user }}"
 
     - name: "Wait until {{ keycloak.service_name }} becomes active {{ keycloak.health_url }}"
       ansible.builtin.uri:
@@ -152,8 +152,8 @@
         query: "patch info"
       args:
         apply:
-            become: true
-            become_user: "{{ keycloak_service_user }}"
+          become: true
+          become_user: "{{ keycloak_service_user }}"
 
     - name: "Verify installed patch version"
       ansible.builtin.assert:

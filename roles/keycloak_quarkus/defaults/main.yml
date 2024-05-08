@@ -130,9 +130,9 @@ keycloak_quarkus_default_jdbc:
     version: 2.7.4
   mssql:
     url: 'jdbc:sqlserver://localhost:1433;databaseName=keycloak;'
-    version: 12.2.0
-    driver_jar_url: "https://repo1.maven.org/maven2/com/microsoft/sqlserver/mssql-jdbc/12.2.0.jre11/mssql-jdbc-12.2.0.jre11.jar"
-    # cf. https://access.redhat.com/documentation/en-us/red_hat_build_of_keycloak/22.0/html/server_guide/db-#db-installing-the-microsoft-sql-server-driver
+    version: 12.4.2
+    driver_jar_url: "https://repo1.maven.org/maven2/com/microsoft/sqlserver/mssql-jdbc/12.4.2.jre11/mssql-jdbc-12.4.2.jre11.jar"
+    # cf. https://access.redhat.com/documentation/en-us/red_hat_build_of_keycloak/24.0/html/server_guide/db-#db-installing-the-microsoft-sql-server-driver
 ### logging configuration
 keycloak_quarkus_log: file
 keycloak_quarkus_log_level: info

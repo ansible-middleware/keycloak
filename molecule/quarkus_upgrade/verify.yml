@@ -11,8 +11,8 @@
     - name: Check if keycloak service started
       ansible.builtin.assert:
         that:
-          - ansible_facts.services["rhbk.service"]["state"] == "running"
-          - ansible_facts.services["rhbk.service"]["status"] == "enabled"
+          - ansible_facts.services["keycloak.service"]["state"] == "running"
+          - ansible_facts.services["keycloak.service"]["status"] == "enabled"
 
     - name: Verify we are running on requested jvm
       ansible.builtin.shell: |

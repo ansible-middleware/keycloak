@@ -1,0 +1,43 @@
+---
+dependency:
+  name: galaxy
+  options:
+    requirements-file: molecule/requirements.yml
+driver:
+  name: docker
+platforms:
+  - name: instance
+    image: registry.access.redhat.com/ubi9/ubi-init:latest
+    command: "/usr/sbin/init"
+    pre_build_image: true
+    privileged: true
+    port_bindings:
+      - 8080:8080
+    published_ports:
+      - 0.0.0.0:8080:8080/TCP
+provisioner:
+  name: ansible
+  playbooks:
+    prepare: prepare.yml
+    converge: converge.yml
+    verify: verify.yml
+  inventory:
+    host_vars:
+      localhost:
+        ansible_python_interpreter: "{{ ansible_playbook_python }}"
+verifier:
+  name: ansible
+scenario:
+  test_sequence:
+    - dependency
+    - cleanup
+    - destroy
+    - syntax
+    - create
+    - prepare
+    - converge
+    - idempotence
+    - side_effect
+    - verify
+    - cleanup
+    - destroy

@@ -1,0 +1,9 @@
+---
+- name: Converge
+  hosts: all
+  vars_files:
+    - vars.yml
+  vars:
+    keycloak_quarkus_version: 24.0.3
+  roles:
+    - role: keycloak_quarkus

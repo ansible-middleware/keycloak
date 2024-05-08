@@ -5,7 +5,7 @@
     - vars.yml
   vars:
     sudo_pkg_name: sudo
-    keycloak_quarkus_version: 22.0.10
+    keycloak_quarkus_version: 23.0.7
   pre_tasks:
     - name: Install sudo
       ansible.builtin.apt:

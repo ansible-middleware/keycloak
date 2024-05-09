@@ -1,0 +1,52 @@
+---
+- name: Prepare
+  hosts: all
+  vars_files:
+    - vars.yml
+  vars:
+    sudo_pkg_name: sudo
+    keycloak_quarkus_version: 23.0.7
+  pre_tasks:
+    - name: Install sudo
+      ansible.builtin.apt:
+        name:
+          - sudo
+          - openjdk-17-jdk-headless
+        state: present
+      when:
+        - ansible_facts.os_family == 'Debian'
+
+    - name: "Ensure common prepare phase are set."
+      ansible.builtin.include_tasks: ../prepare.yml
+
+    - name: Display Ansible version
+      ansible.builtin.debug:
+        msg: "Ansible version is {{ ansible_version.full }}"
+
+    - name: "Ensure {{ sudo_pkg_name }} is installed (if user is root)."
+      ansible.builtin.dnf:
+        name: "{{ sudo_pkg_name }}"
+      when:
+        - ansible_user_id == 'root'
+
+    - name: Gather the package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: "Check if {{ sudo_pkg_name }} is installed."
+      ansible.builtin.assert:
+        that:
+          - sudo_pkg_name in ansible_facts.packages
+
+    - name: Create certificate request
+      ansible.builtin.command: openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 365 -nodes -subj '/CN=instance'
+      delegate_to: localhost
+      changed_when: false
+  roles:
+    - role: keycloak_quarkus
+  post_tasks:
+    - name: "Delete custom fact"
+      ansible.builtin.file:
+        path: /etc/ansible/facts.d/keycloak.fact
+        state: absent
+      become: true

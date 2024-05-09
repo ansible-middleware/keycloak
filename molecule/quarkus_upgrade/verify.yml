@@ -1,0 +1,32 @@
+---
+- name: Verify
+  hosts: instance
+  vars:
+    keycloak_quarkus_admin_password: "remembertochangeme"
+    keycloak_quarkus_port: http://localhost:8080
+  tasks:
+    - name: Populate service facts
+      ansible.builtin.service_facts:
+
+    - name: Check if keycloak service started
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.services["keycloak.service"]["state"] == "running"
+          - ansible_facts.services["keycloak.service"]["status"] == "enabled"
+
+    - name: Verify we are running on requested jvm
+      ansible.builtin.shell: |
+        set -eo pipefail
+        ps -ef | grep 'etc/alternatives/.*17' | grep -v grep
+      changed_when: false
+
+    - name: Verify token api call
+      ansible.builtin.uri:
+        url: "{{ keycloak_quarkus_port }}/realms/master/protocol/openid-connect/token"
+        method: POST
+        body: "client_id=admin-cli&username=admin&password={{ keycloak_quarkus_admin_password }}&grant_type=password"
+        validate_certs: no
+      register: keycloak_auth_response
+      until: keycloak_auth_response.status == 200
+      retries: 2
+      delay: 2

@@ -185,6 +185,16 @@ Role Variables
 |`keycloak_quarkus_frontend_url`| Base URL for frontend URLs, including scheme, host, port and path | `no` |
 |`keycloak_quarkus_admin_url`| Base URL for accessing the administration console, including scheme, host, port and path | `no` |
 |`keycloak_quarkus_ks_vault_pass`| The password for accessing the keystore vault SPI | `no` |
+|`keycloak_quarkus_alternate_download_url`| Alternate location with optional authentication for downloading RHBK | `no` |
+|`keycloak_quarkus_download_user`| Optional username for http authentication  | `no*` |
+|`keycloak_quarkus_download_pass`| Optional password for http authentication | `no*` |
+|`keycloak_quarkus_download_validate_certs`| Whether to validate certs for URL `keycloak_quarkus_alternate_download_url` | `no` |
+|`keycloak_quarkus_jdbc_download_user`| Optional username for http authentication | `no*` |
+|`keycloak_quarkus_jdbc_download_pass`| Optional password for http authentication | `no*` |
+|`keycloak_quarkus_jdbc_download_validate_certs`| Whether to validate certs for URL `keycloak_quarkus_download_validate_certs` | `no` |
+
+`*` username/password authentication credentials must be both declared or both undefined
+
 
 Role custom facts
 -----------------

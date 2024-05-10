@@ -115,6 +115,25 @@
       run_once: true
       become: false
 
+- name: Perform download of RHBK from alternate download location
+  delegate_to: localhost
+  run_once: true
+  become: false
+  when:
+    - archive_path is defined
+    - archive_path.stat is defined
+    - not archive_path.stat.exists
+    - rhbk_enable is defined and rhbk_enable
+    - not keycloak.offline_install
+    - keycloak_quarkus_alternate_download_url is defined
+  ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
+    url: "{{ keycloak_quarkus_alternate_download_url }}"
+    dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
+    mode: '0640'
+    url_username: "{{ keycloak_quarkus_download_user | default(omit) }}"
+    url_password: "{{ keycloak_quarkus_download_pass | default(omit) }}"
+    validate_certs: "{{ keycloak_quarkus_download_validate_certs | default(omit) }}"
+
 - name: Check downloaded archive
   ansible.builtin.stat:
     path: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"

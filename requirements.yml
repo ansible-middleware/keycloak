@@ -2,3 +2,4 @@
 collections:
   - name: middleware_automation.common
   - name: ansible.posix
+  - name: community.general # for `maven_artifact`

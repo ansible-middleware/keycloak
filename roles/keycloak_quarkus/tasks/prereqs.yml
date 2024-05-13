@@ -61,9 +61,9 @@
   ansible.builtin.assert:
     that:
       - item.id is defined and item.id | length > 0
-      - (item.spi is defined and item.spi | length > 0) or (item.url is defined and item.url | length > 0)
+      - (item.spi is defined and item.spi | length > 0) or (item.url is defined and item.url | length > 0) or (item.maven is defined and item.maven.repository_url is defined and item.maven.repository_url | length > 0 and item.maven.group_id is defined and item.maven.group_id | length > 0 and item.maven.artifact_id is defined and item.maven.artifact_id | length > 0)
     quiet: true
-    fail_msg: "Providers definition is incorrect; `id` and one of `spi` or `url` are mandatory. `key` and `value` are mandatory for each property"
+    fail_msg: "Providers definition is incorrect; `id` and one of `spi`, `url`, or `maven` are mandatory. `key` and `value` are mandatory for each property"
   loop: "{{ keycloak_quarkus_providers }}"
 
 - name: "Validate policies"

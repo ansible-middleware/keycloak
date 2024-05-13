@@ -1,6 +1,7 @@
 #################################################
-# python dependencies required to be installed 
+# python dependencies required to be installed
 # on the controller host with:
 # pip install -r requirements.txt
 #
 netaddr
+lxml # for community.general.maven_artifact

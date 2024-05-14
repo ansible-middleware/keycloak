@@ -391,7 +391,7 @@ argument_specs:
                 default: 10
                 type: 'int'
             keycloak_quarkus_providers:
-                description: "List of provider definition dicts: { 'id': str, 'spi': str, 'url': str, 'default': bool, 'properties': list of key/value TODO:add maven}"
+                description: "List of provider definition dicts: { 'id': str, 'spi': str, 'url': str, 'local_path': str, 'maven': { 'repository_url': str, 'group_id': str, 'artifact_id': str, 'version': str, 'username': str, optional, 'password': str, optional }, 'default': bool, 'properties': list of key/value }"
                 default: []
                 type: "list"
             keycloak_quarkus_supported_policy_types:

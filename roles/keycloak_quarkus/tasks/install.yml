@@ -256,6 +256,17 @@
   when: item.maven is defined
   no_log: "{{ item.maven.password is defined and item.maven.password | length > 0 | default(false) }}"
 
+- name: "Upload local SPIs"
+  ansible.builtin.copy:
+    src: "{{ item.local_path}}"
+    dest: "{{ keycloak.home }}/providers/{{ item.id }}.jar"
+    owner: "{{ keycloak.service_user }}"
+    group: "{{ keycloak.service_group }}"
+    mode: '0640'
+  become: true
+  loop: "{{ keycloak_quarkus_providers }}"
+  when: item.local_path is defined
+
 - name: Ensure required folder structure for policies exists
   ansible.builtin.file:
     path: "{{ keycloak.home }}/data/{{ item | lower }}"

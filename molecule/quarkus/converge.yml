@@ -39,6 +39,8 @@
           version: 24.0.4 # optional
           # username: myUser # optional
           # password: myPAT # optional
+      # - id: my-static-theme
+      #   local_path: /tmp/my-static-theme.jar
     keycloak_quarkus_policies:
       - name: "xato-net-10-million-passwords.txt"
         url: "https://github.com/danielmiessler/SecLists/raw/master/Passwords/xato-net-10-million-passwords.txt"

@@ -34,3 +34,20 @@
 
     - name: Flush handlers
       ansible.builtin.meta: flush_handlers
+
+# https://access.redhat.com/documentation/en-us/red_hat_build_of_keycloak/24.0/html-single/upgrading_guide/index#deprecated_literal_proxy_literal_option
+- name: Check deprecation of keycloak_quarkus_proxy_mode
+  delegate_to: localhost
+  run_once: true
+  when:
+    - keycloak_quarkus_proxy_mode is defined
+    - keycloak_quarkus_proxy_headers is defined and keycloak_quarkus_proxy_headers | length == 0
+    - keycloak_quarkus_version.split('.') | first | int >= 24
+  changed_when: true
+  ansible.builtin.set_fact:
+    deprecated_variable: "keycloak_quarkus_proxy_mode" # read in deprecation handler
+  notify:
+    - print deprecation warning
+
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers

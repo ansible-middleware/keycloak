@@ -44,6 +44,7 @@ keycloak_quarkus_java_jvm_opts: "-XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m
   -Djava.security.egd=file:/dev/urandom -XX:+UseParallelGC -XX:GCTimeRatio=4
   -XX:AdaptiveSizePolicyWeight=90 -XX:FlightRecorderOptions=stackdepth=512"
 keycloak_quarkus_java_opts: "{{ keycloak_quarkus_java_heap_opts + ' ' + keycloak_quarkus_java_jvm_opts }}"
+keycloak_quarkus_additional_env_vars: []
 
 ### TLS/HTTPS configuration
 keycloak_quarkus_https_key_file_enabled: false

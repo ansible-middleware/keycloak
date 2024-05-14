@@ -75,3 +75,13 @@
     quiet: true
     fail_msg: "Policy definition is incorrect: `name` and one of `url` are mandatory, `type` needs to be left empty or one of {{ keycloak_quarkus_supported_policy_types }}."
   loop: "{{ keycloak_quarkus_policies }}"
+
+- name: "Validate additional env variables"
+  ansible.builtin.assert:
+    that:
+      - item.key is defined and item.key | length > 0
+      - item.value is defined and item.value | length > 0
+    quiet: true
+    fail_msg: "Additional env variable definition is incorrect: `key` and `value` are mandatory."
+  no_log: true
+  loop: "{{ keycloak_quarkus_additional_env_vars }}"

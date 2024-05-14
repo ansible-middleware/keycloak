@@ -8,3 +8,8 @@ KEYCLOAK_ADMIN_PASSWORD='{{ keycloak_quarkus_admin_pass }}'
 PATH={{ keycloak_quarkus_java_home | default(keycloak_sys_pkg_java_home, true) }}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 JAVA_HOME={{ keycloak_quarkus_java_home | default(keycloak_sys_pkg_java_home, true) }}
 JAVA_OPTS={{ keycloak_quarkus_java_opts }}
+
+# Custom ENV variables
+{% for env in keycloak_quarkus_additional_env_vars %}
+{{ env.key }}={{ env.value }}
+{% endfor %}

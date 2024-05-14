@@ -201,6 +201,10 @@ argument_specs:
                 default: "{{ keycloak_quarkus_java_heap_opts + ' ' + keycloak_quarkus_java_jvm_opts }}"
                 description: "JVM arguments, by default heap_opts + jvm_opts, if overriden it takes precedence over them"
                 type: "str"
+            keycloak_quarkus_additional_env_vars:
+                default: "[]"
+                description: "List of additional env variables of { key: str, value: str} to be put in sysconfig file"
+                type: "list"
             keycloak_quarkus_ha_enabled:
                 default: false
                 description: "Enable auto configuration for database backend, clustering and remote caches on infinispan"

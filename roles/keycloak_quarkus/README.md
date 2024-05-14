@@ -176,6 +176,22 @@ bin/kc.sh build --spi-connections-provider=http-client --spi-connections-http-cl
 ```
 
 
+#### Configuring policies
+
+| Variable | Description | Default |
+|:---------|:------------|:--------|
+|`keycloak_quarkus_policies`| List of policy definitions; see below | `[]` |
+
+Provider definition:
+
+```yaml
+keycloak_quarkus_policies:
+  - name: xato-net-10-million-passwords.txt                                                                # required, resulting file name
+    url: https://github.com/danielmiessler/SecLists/raw/master/Passwords/xato-net-10-million-passwords.txt # required, url for download
+    type: password-blacklists                                                                              # optional, defaults to `password-blacklists`; supported values: [`password-blacklists`]
+```
+
+
 Role Variables
 --------------
 

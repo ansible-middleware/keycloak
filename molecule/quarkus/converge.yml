@@ -31,6 +31,12 @@
             value: 10
       - id: spid-saml
         url: https://github.com/italia/spid-keycloak-provider/releases/download/24.0.2/spid-provider.jar
+    keycloak_quarkus_policies:
+      - name: "xato-net-10-million-passwords.txt"
+        url: "https://github.com/danielmiessler/SecLists/raw/master/Passwords/xato-net-10-million-passwords.txt"
+      - name: "xato-net-10-million-passwords-10.txt"
+        url: "https://github.com/danielmiessler/SecLists/raw/master/Passwords/xato-net-10-million-passwords-10.txt"
+        type: password-blacklists
   roles:
     - role: keycloak_quarkus
     - role: keycloak_realm

@@ -150,3 +150,5 @@ keycloak_quarkus_ks_vault_type: PKCS12
 keycloak_quarkus_ks_vault_pass:
 
 keycloak_quarkus_providers: []
+keycloak_quarkus_policies: []
+keycloak_quarkus_supported_policy_types: ['password-blacklists']

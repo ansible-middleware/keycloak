@@ -1,9 +1,38 @@
 ---
-- name: "Restart and enable {{ keycloak.service_name }} service"
+- name: Ensure only one service at a time gets rebooted, to ensure replication of distributed ispn caches
   throttle: 1
-  ansible.builtin.systemd:
-    name: keycloak
-    enabled: true
-    state: restarted
-    daemon_reload: true
-  become: true
+  block:
+    - name: "Restart and enable {{ keycloak.service_name }} service on first host"
+      ansible.builtin.systemd:
+        name: "{{ keycloak.service_name }}"
+        enabled: true
+        state: restarted
+        daemon_reload: true
+      become: true
+      delegate_to: "{{ ansible_play_hosts | first }}"
+      run_once: true
+
+    - name: "Wait until {{ keycloak.service_name }} service becomes active {{ keycloak.health_url }}"
+      ansible.builtin.uri:
+        url: "{{ keycloak.health_url }}"
+      register: keycloak_status
+      until: keycloak_status.status == 200
+      retries: 25
+      delay: 10
+      delegate_to: "{{ ansible_play_hosts | first }}"
+      run_once: true
+
+    - name: Pause to give distributed ispn caches time to (re-)replicate back onto first host
+      ansible.builtin.pause:
+        seconds: 15
+      when:
+        - rhbk_ha_enabled
+
+    - name: "Restart and enable {{ keycloak.service_name }} service on all other hosts"
+      ansible.builtin.systemd:
+        name: "{{ keycloak.service_name }}"
+        enabled: true
+        state: restarted
+        daemon_reload: true
+      become: true
+      when: inventory_hostname != ansible_play_hosts | first

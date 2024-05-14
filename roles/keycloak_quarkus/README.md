@@ -21,7 +21,6 @@ The roles depends on:
 
 * [middleware_automation.common](https://github.com/ansible-middleware/common)
 * [ansible-posix](https://docs.ansible.com/ansible/latest/collections/ansible/posix/index.html)
-* [community.general](https://docs.ansible.com/ansible/latest/collections/community/general/index.html)
 
 To install all the dependencies via galaxy:
 
@@ -180,9 +179,9 @@ Role Defaults
 
 Providers support different sources:
 
-* `url`: http download for SPIs not requiring authentication
-* `maven`: maven download for SPIs hosted publicly on Apache Maven Central or private Maven repositories like Github Maven requiring authentication
-* `local_path`: static SPIs to be uploaded
+* `url`: http download for providers not requiring authentication
+* `maven`: maven download for providers hosted publicly on Apache Maven Central or private Maven repositories like Github Maven requiring authentication
+* `local_path`: static providers to be uploaded
 
 Provider definition:
 

@@ -229,7 +229,7 @@
 
 # this requires the `lxml` package to be installed; we redirect this step to localhost such that we do need to install it on the remote hosts
 - name: "Download custom providers to localhost using maven"
-  community.general.maven_artifact:
+  middleware_automation.common.maven_artifact:
     repository_url: "{{ item.maven.repository_url }}"
     group_id: "{{ item.maven.group_id }}"
     artifact_id: "{{ item.maven.artifact_id }}"
@@ -244,7 +244,7 @@
   no_log: "{{ item.maven.password is defined and item.maven.password | length > 0 | default(false) }}"
   notify: "{{ ['rebuild keycloak config', 'restart keycloak'] if not item.restart is defined or not item.restart else [] }}"
 
-- name: "Upload local maven SPIs"
+- name: "Upload local maven providers"
   ansible.builtin.copy:
     src: "{{ local_path.stat.path }}/{{ item.id }}.jar"
     dest: "{{ keycloak.home }}/providers/{{ item.id }}.jar"
@@ -256,7 +256,7 @@
   when: item.maven is defined
   no_log: "{{ item.maven.password is defined and item.maven.password | length > 0 | default(false) }}"
 
-- name: "Upload local SPIs"
+- name: "Upload local providers"
   ansible.builtin.copy:
     src: "{{ item.local_path}}"
     dest: "{{ keycloak.home }}/providers/{{ item.id }}.jar"

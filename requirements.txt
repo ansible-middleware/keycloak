@@ -4,4 +4,4 @@
 # pip install -r requirements.txt
 #
 netaddr
-lxml # for community.general.maven_artifact
+lxml # for middleware_automation.common.maven_artifact

@@ -12,6 +12,7 @@ v2.2.3-devel
 Minor Changes
 -------------
 
+- Add support for policy files `#225 <https://github.com/ansible-middleware/keycloak/pull/225>`_
 - Download from alternate URL with optional http authentication `#220 <https://github.com/ansible-middleware/keycloak/pull/220>`_
 - Update Keycloak to version 24.0.4 `#218 <https://github.com/ansible-middleware/keycloak/pull/218>`_
 

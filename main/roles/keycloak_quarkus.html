@@ -63,6 +63,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#miscellaneous-configuration">Miscellaneous configuration</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#vault-spi">Vault SPI</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#configuring-providers">Configuring providers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuring-policies">Configuring policies</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#role-variables">Role Variables</a></li>
@@ -638,6 +639,30 @@
 </div>
 <p>the definition above will generate the following build command:</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">bin/kc.sh build --spi-connections-provider=http-client --spi-connections-http-client-default-connection-pool-size=10</span>
+</pre></div>
+</div>
+</section>
+<section id="configuring-policies">
+<h3>Configuring policies<a class="headerlink" href="#configuring-policies" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
+<th class="head text-left"><p>Description</p></th>
+<th class="head text-left"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_policies</span></code></p></td>
+<td class="text-left"><p>List of policy definitions; see below</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Provider definition:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">keycloak_quarkus_policies</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xato-net-10-million-passwords.txt</span><span class="w">                                                                </span><span class="c1"># required, resulting file name</span>
+<span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/danielmiessler/SecLists/raw/master/Passwords/xato-net-10-million-passwords.txt</span><span class="w"> </span><span class="c1"># required, url for download</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">password-blacklists</span><span class="w">                                                                              </span><span class="c1"># optional, defaults to `password-blacklists`; supported values: [`password-blacklists`]</span>
 </pre></div>
 </div>
 </section>

@@ -69,9 +69,8 @@ cache-config-file=cache-ispn.xml
 {% endif %}
 {% endif %}
 
-{% if keycloak_quarkus_proxy_headers is defined and keycloak_quarkus_proxy_headers != "none" %}
-# Proxy
-proxy-headers={{ keycloak_quarkus_proxy_headers }}
+{% if keycloak_quarkus_proxy_headers | length > 0 %}
+proxy-headers={{ keycloak_quarkus_proxy_headers | lower }}
 {% elif keycloak_quarkus_proxy_mode is defined and keycloak_quarkus_proxy_mode != "none" %}
 # Deprecated Proxy configuration
 proxy={{ keycloak_quarkus_proxy_mode }}

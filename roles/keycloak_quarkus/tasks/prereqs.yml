@@ -65,3 +65,13 @@
     quiet: true
     fail_msg: "Providers definition is incorrect; `id` and one of `spi` or `url` are mandatory. `key` and `value` are mandatory for each property"
   loop: "{{ keycloak_quarkus_providers }}"
+
+- name: "Validate policies"
+  ansible.builtin.assert:
+    that:
+      - item.name is defined and item.name | length > 0
+      - item.url is defined and item.url | length > 0
+      - item.type is not defined or item.type | lower in keycloak_quarkus_supported_policy_types
+    quiet: true
+    fail_msg: "Policy definition is incorrect: `name` and one of `url` are mandatory, `type` needs to be left empty or one of {{ keycloak_quarkus_supported_policy_types }}."
+  loop: "{{ keycloak_quarkus_policies }}"

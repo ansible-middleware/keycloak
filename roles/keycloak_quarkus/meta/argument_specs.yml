@@ -394,6 +394,14 @@ argument_specs:
                 description: "List of provider definition dicts: { 'id': str, 'spi': str, 'url': str, 'default': bool, 'properties': list of key/value }"
                 default: []
                 type: "list"
+            keycloak_quarkus_supported_policy_types:
+                description: "List of str of supported policy types"
+                default: ['password-blacklists']
+                type: "list"
+            keycloak_quarkus_policies:
+                description: "List of policy definition dicts: { 'name': str, 'url': str, 'type': str }"
+                default: []
+                type: "list"
             keycloak_quarkus_jdbc_download_url:
                 description: "Override the default Maven Central download URL for the JDBC driver"
                 type: "str"

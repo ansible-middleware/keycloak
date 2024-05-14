@@ -226,3 +226,25 @@
   loop: "{{ keycloak_quarkus_providers }}"
   when: item.url is defined and item.url | length > 0
   notify: "{{ ['rebuild keycloak config', 'restart keycloak'] if not item.restart is defined or not item.restart else [] }}"
+
+- name: Ensure required folder structure for policies exits
+  ansible.builtin.file:
+    path: "{{ keycloak.home }}/data/{{ item | lower }}"
+    state: directory
+    owner: "{{ keycloak.service_user }}"
+    group: "{{ keycloak.service_group }}"
+    mode: '0750'
+  become: true
+  loop: "{{ keycloak_quarkus_supported_policy_types }}"
+
+- name: "Install custom policies"
+  ansible.builtin.get_url:
+    url: "{{ item.url }}"
+    dest: "{{ keycloak.home }}/data/{{ item.type|default(keycloak_quarkus_supported_policy_types | first) | lower }}/{{ item.name }}"
+    owner: "{{ keycloak.service_user }}"
+    group: "{{ keycloak.service_group }}"
+    mode: '0640'
+  become: true
+  loop: "{{ keycloak_quarkus_policies }}"
+  when: item.url is defined and item.url | length > 0
+  notify: "restart keycloak"

@@ -69,13 +69,12 @@ cache-config-file=cache-ispn.xml
 {% endif %}
 {% endif %}
 
-{% if keycloak_quarkus_proxy_mode is defined and keycloak_quarkus_proxy_mode != "none" %}
-# Deprecated Proxy configuration
-proxy={{ keycloak_quarkus_proxy_mode }}
-{% endif %}
 {% if keycloak_quarkus_proxy_headers is defined and keycloak_quarkus_proxy_headers != "none" %}
 # Proxy
 proxy-headers={{ keycloak_quarkus_proxy_headers }}
+{% elif keycloak_quarkus_proxy_mode is defined and keycloak_quarkus_proxy_mode != "none" %}
+# Deprecated Proxy configuration
+proxy={{ keycloak_quarkus_proxy_mode }}
 {% endif %}
 
 spi-sticky-session-encoder-infinispan-should-attach-route={{ keycloak_quarkus_spi_sticky_session_encoder_infinispan_should_attach_route | d(true) | lower }}

@@ -4,6 +4,28 @@ keycloak_quarkus
 Install [keycloak](https://keycloak.org/) >= 20.0.0 (quarkus) server configurations.
 
 
+Requirements
+------------
+
+This role requires the `python3-netaddr` and `lxml` library installed on the controller node.
+
+* to install via yum/dnf: `dnf install python3-netaddr python3-lxml`
+* to install via apt: `apt install python3-netaddr python3-lxml`
+* or via the collection: `pip install -r requirements.txt`
+
+
+Dependencies
+------------
+
+The roles depends on:
+
+* [middleware_automation.common](https://github.com/ansible-middleware/common)
+* [ansible-posix](https://docs.ansible.com/ansible/latest/collections/ansible/posix/index.html)
+
+To install all the dependencies via galaxy:
+
+    ansible-galaxy collection install -r requirements.yml
+
 Role Defaults
 -------------
 
@@ -156,15 +178,29 @@ Role Defaults
 |:---------|:------------|:--------|
 |`keycloak_quarkus_providers`| List of provider definitions; see below | `[]` |
 
+Providers support different sources:
+
+* `url`: http download for providers not requiring authentication
+* `maven`: maven download for providers hosted publicly on Apache Maven Central or private Maven repositories like Github Maven requiring authentication
+* `local_path`: static providers to be uploaded
+
 Provider definition:
 
 ```yaml
 keycloak_quarkus_providers:
-  - id: http-client                         # required
-    spi: connections                        # required if url is not specified
+  - id: http-client                         # required; "{{ id }}.jar" identifies the file name on RHBK
+    spi: connections                        # required if neither url, local_path nor maven are specified; required for setting properties
     default: true                           # optional, whether to set default for spi, default false
     restart: true                           # optional, whether to restart, default true
-    url: https://.../.../custom_spi.jar     # optional, url for download
+    url: https://.../.../custom_spi.jar     # optional, url for download via http
+    local_path: my_theme_spi.jar            # optional, path on local controller for SPI to be uploaded
+    maven:                                  # optional, for download using maven
+      repository_url: https://maven.pkg.github.com/OWNER/REPOSITORY # optional, maven repo url
+      group_id:  my.group                   # optional, maven group id
+      artifact_id: artifact                 # optional, maven artifact id
+      version: 24.0.4                       # optional, defaults to latest
+      username:  user                       # optional, cf. https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry#authenticating-to-github-packages
+      password: pat                         # optional, provide a PAT for accessing Github's Apache Maven registry
     properties:                             # optional, list of key-values
       - key: default-connection-pool-size
         value: 10

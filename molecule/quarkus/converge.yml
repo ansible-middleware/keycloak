@@ -31,6 +31,16 @@
             value: 10
       - id: spid-saml
         url: https://github.com/italia/spid-keycloak-provider/releases/download/24.0.2/spid-provider.jar
+      - id: keycloak-kerberos-federation
+        maven:
+          repository_url: https://repo1.maven.org/maven2/ # https://mvnrepository.com/artifact/org.keycloak/keycloak-kerberos-federation/24.0.4
+          group_id: org.keycloak
+          artifact_id: keycloak-kerberos-federation
+          version: 24.0.4 # optional
+          # username: myUser # optional
+          # password: myPAT # optional
+      # - id: my-static-theme
+      #   local_path: /tmp/my-static-theme.jar
     keycloak_quarkus_policies:
       - name: "xato-net-10-million-passwords.txt"
         url: "https://github.com/danielmiessler/SecLists/raw/master/Passwords/xato-net-10-million-passwords.txt"

@@ -215,7 +215,7 @@
     - rhbk_enable is defined and rhbk_enable
     - keycloak_quarkus_default_jdbc[keycloak_quarkus_jdbc_engine].driver_jar_url is defined
 
-- name: "Download custom providers"
+- name: "Download custom providers via http"
   ansible.builtin.get_url:
     url: "{{ item.url }}"
     dest: "{{ keycloak.home }}/providers/{{ item.id }}.jar"
@@ -227,7 +227,47 @@
   when: item.url is defined and item.url | length > 0
   notify: "{{ ['rebuild keycloak config', 'restart keycloak'] if not item.restart is defined or not item.restart else [] }}"
 
-- name: Ensure required folder structure for policies exits
+# this requires the `lxml` package to be installed; we redirect this step to localhost such that we do need to install it on the remote hosts
+- name: "Download custom providers to localhost using maven"
+  middleware_automation.common.maven_artifact:
+    repository_url: "{{ item.maven.repository_url }}"
+    group_id: "{{ item.maven.group_id }}"
+    artifact_id: "{{ item.maven.artifact_id }}"
+    version: "{{ item.maven.version | default(omit) }}"
+    username: "{{ item.maven.username | default(omit) }}"
+    password: "{{ item.maven.password | default(omit) }}"
+    dest: "{{ local_path.stat.path }}/{{ item.id }}.jar"
+  delegate_to: "localhost"
+  run_once: true
+  loop: "{{ keycloak_quarkus_providers }}"
+  when: item.maven is defined
+  no_log: "{{ item.maven.password is defined and item.maven.password | length > 0 | default(false) }}"
+  notify: "{{ ['rebuild keycloak config', 'restart keycloak'] if not item.restart is defined or not item.restart else [] }}"
+
+- name: "Upload local maven providers"
+  ansible.builtin.copy:
+    src: "{{ local_path.stat.path }}/{{ item.id }}.jar"
+    dest: "{{ keycloak.home }}/providers/{{ item.id }}.jar"
+    owner: "{{ keycloak.service_user }}"
+    group: "{{ keycloak.service_group }}"
+    mode: '0640'
+  become: true
+  loop: "{{ keycloak_quarkus_providers }}"
+  when: item.maven is defined
+  no_log: "{{ item.maven.password is defined and item.maven.password | length > 0 | default(false) }}"
+
+- name: "Upload local providers"
+  ansible.builtin.copy:
+    src: "{{ item.local_path}}"
+    dest: "{{ keycloak.home }}/providers/{{ item.id }}.jar"
+    owner: "{{ keycloak.service_user }}"
+    group: "{{ keycloak.service_group }}"
+    mode: '0640'
+  become: true
+  loop: "{{ keycloak_quarkus_providers }}"
+  when: item.local_path is defined
+
+- name: Ensure required folder structure for policies exists
   ansible.builtin.file:
     path: "{{ keycloak.home }}/data/{{ item | lower }}"
     state: directory

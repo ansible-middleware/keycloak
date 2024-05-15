@@ -9,6 +9,11 @@ This changelog describes changes after version 0.2.6.
 v2.2.3-devel
 ============
 
+Major Changes
+-------------
+
+- Allow for custom providers hosted on maven repositories `#223 <https://github.com/ansible-middleware/keycloak/pull/223>`_
+
 Minor Changes
 -------------
 

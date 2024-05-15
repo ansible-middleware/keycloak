@@ -53,6 +53,8 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Role Index</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="keycloak.html">keycloak</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">keycloak_quarkus</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dependencies">Dependencies</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#role-defaults">Role Defaults</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#installation-options">Installation options</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#service-configuration">Service configuration</a></li>
@@ -127,6 +129,27 @@
   <section id="keycloak-quarkus">
 <h1>keycloak_quarkus<a class="headerlink" href="#keycloak-quarkus" title="Link to this heading"></a></h1>
 <p>Install <a class="reference external" href="https://keycloak.org/">keycloak</a> &gt;= 20.0.0 (quarkus) server configurations.</p>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h2>
+<p>This role requires the <code class="docutils literal notranslate"><span class="pre">python3-netaddr</span></code> and <code class="docutils literal notranslate"><span class="pre">lxml</span></code> library installed on the controller node.</p>
+<ul class="simple">
+<li><p>to install via yum/dnf: <code class="docutils literal notranslate"><span class="pre">dnf</span> <span class="pre">install</span> <span class="pre">python3-netaddr</span> <span class="pre">python3-lxml</span></code></p></li>
+<li><p>to install via apt: <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span> <span class="pre">python3-netaddr</span> <span class="pre">python3-lxml</span></code></p></li>
+<li><p>or via the collection: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code></p></li>
+</ul>
+</section>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading"></a></h2>
+<p>The roles depends on:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/ansible-middleware/common">middleware_automation.common</a></p></li>
+<li><p><a class="reference external" href="https://docs.ansible.com/ansible/latest/collections/ansible/posix/index.html">ansible-posix</a></p></li>
+</ul>
+<p>To install all the dependencies via galaxy:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>ansible-galaxy collection install -r requirements.yml
+</pre></div>
+</div>
+</section>
 <section id="role-defaults">
 <h2>Role Defaults<a class="headerlink" href="#role-defaults" title="Link to this heading"></a></h2>
 <section id="installation-options">
@@ -629,13 +652,27 @@
 </tr>
 </tbody>
 </table>
+<p>Providers support different sources:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">url</span></code>: http download for providers not requiring authentication</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">maven</span></code>: maven download for providers hosted publicly on Apache Maven Central or private Maven repositories like Github Maven requiring authentication</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">local_path</span></code>: static providers to be uploaded</p></li>
+</ul>
 <p>Provider definition:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">keycloak_quarkus_providers</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http-client</span><span class="w">                         </span><span class="c1"># required</span>
-<span class="w">    </span><span class="nt">spi</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">connections</span><span class="w">                        </span><span class="c1"># required if url is not specified</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http-client</span><span class="w">                         </span><span class="c1"># required; &quot;{{ id }}.jar&quot; identifies the file name on RHBK</span>
+<span class="w">    </span><span class="nt">spi</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">connections</span><span class="w">                        </span><span class="c1"># required if neither url, local_path nor maven are specified; required for setting properties</span>
 <span class="w">    </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">                           </span><span class="c1"># optional, whether to set default for spi, default false</span>
 <span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">                           </span><span class="c1"># optional, whether to restart, default true</span>
-<span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://.../.../custom_spi.jar</span><span class="w">     </span><span class="c1"># optional, url for download</span>
+<span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://.../.../custom_spi.jar</span><span class="w">     </span><span class="c1"># optional, url for download via http</span>
+<span class="w">    </span><span class="nt">local_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my_theme_spi.jar</span><span class="w">            </span><span class="c1"># optional, path on local controller for SPI to be uploaded</span>
+<span class="w">    </span><span class="nt">maven</span><span class="p">:</span><span class="w">                                  </span><span class="c1"># optional, for download using maven</span>
+<span class="w">      </span><span class="nt">repository_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://maven.pkg.github.com/OWNER/REPOSITORY</span><span class="w"> </span><span class="c1"># optional, maven repo url</span>
+<span class="w">      </span><span class="nt">group_id</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">my.group</span><span class="w">                   </span><span class="c1"># optional, maven group id</span>
+<span class="w">      </span><span class="nt">artifact_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">artifact</span><span class="w">                 </span><span class="c1"># optional, maven artifact id</span>
+<span class="w">      </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">24.0.4</span><span class="w">                       </span><span class="c1"># optional, defaults to latest</span>
+<span class="w">      </span><span class="nt">username</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">user</span><span class="w">                       </span><span class="c1"># optional, cf. https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry#authenticating-to-github-packages</span>
+<span class="w">      </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pat</span><span class="w">                         </span><span class="c1"># optional, provide a PAT for accessing Github&#39;s Apache Maven registry</span>
 <span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w">                             </span><span class="c1"># optional, list of key-values</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default-connection-pool-size</span>
 <span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>

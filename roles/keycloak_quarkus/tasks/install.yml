@@ -258,7 +258,7 @@
 
 - name: "Upload local providers"
   ansible.builtin.copy:
-    src: "{{ item.local_path}}"
+    src: "{{ item.local_path }}"
     dest: "{{ keycloak.home }}/providers/{{ item.id }}.jar"
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
@@ -280,7 +280,7 @@
 - name: "Install custom policies"
   ansible.builtin.get_url:
     url: "{{ item.url }}"
-    dest: "{{ keycloak.home }}/data/{{ item.type|default(keycloak_quarkus_supported_policy_types | first) | lower }}/{{ item.name }}"
+    dest: "{{ keycloak.home }}/data/{{ item.type | default(keycloak_quarkus_supported_policy_types | first) | lower }}/{{ item.name }}"
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
     mode: '0640'

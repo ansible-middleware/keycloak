@@ -59,11 +59,18 @@
 
 - name: "Validate providers"
   ansible.builtin.assert:
-    that:
-      - item.id is defined and item.id | length > 0
-      - (item.spi is defined and item.spi | length > 0) or (item.url is defined and item.url | length > 0) or (item.maven is defined and item.maven.repository_url is defined and item.maven.repository_url | length > 0 and item.maven.group_id is defined and item.maven.group_id | length > 0 and item.maven.artifact_id is defined and item.maven.artifact_id | length > 0) or (item.local_path is defined and item.local_path | length > 0)
+    that: >
+      item.id is defined and item.id | length > 0 and
+      ( (item.spi is defined and item.spi | length > 0) or
+        (item.url is defined and item.url | length > 0) or
+        ( item.maven is defined and item.maven.repository_url is defined and item.maven.repository_url | length > 0 and
+          item.maven.group_id is defined and item.maven.group_id | length > 0 and
+          item.maven.artifact_id is defined and item.maven.artifact_id | length > 0) or
+        (item.local_path is defined and item.local_path | length > 0)
+      )
     quiet: true
-    fail_msg: "Providers definition is incorrect; `id` and one of `spi`, `url`, `local_path`, or `maven` are mandatory. `key` and `value` are mandatory for each property"
+    fail_msg: >
+      Providers definition incorrect; `id` and one of `spi`, `url`, `local_path`, or `maven` are mandatory. `key` and `value` are mandatory for each property
   loop: "{{ keycloak_quarkus_providers }}"
 
 - name: "Validate policies"
@@ -73,7 +80,8 @@
       - item.url is defined and item.url | length > 0
       - item.type is not defined or item.type | lower in keycloak_quarkus_supported_policy_types
     quiet: true
-    fail_msg: "Policy definition is incorrect: `name` and one of `url` are mandatory, `type` needs to be left empty or one of {{ keycloak_quarkus_supported_policy_types }}."
+    fail_msg: >
+      Policy definition is incorrect: `name` and one of `url` are mandatory, `type` needs to be left empty or one of {{ keycloak_quarkus_supported_policy_types }}.
   loop: "{{ keycloak_quarkus_policies }}"
 
 - name: "Validate additional env variables"

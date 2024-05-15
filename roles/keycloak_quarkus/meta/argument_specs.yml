@@ -399,7 +399,13 @@ argument_specs:
                 default: 10
                 type: 'int'
             keycloak_quarkus_providers:
-                description: "List of provider definition dicts: { 'id': str, 'spi': str, 'url': str, 'local_path': str, 'maven': { 'repository_url': str, 'group_id': str, 'artifact_id': str, 'version': str, 'username': str, optional, 'password': str, optional }, 'default': bool, 'properties': list of key/value }"
+                description: >
+                  List of provider definition dicts: { 'id': str, 'spi': str, 'url': str, 'local_path': str,
+                  'maven': {
+                    'repository_url': str, 'group_id': str, 'artifact_id': str, 'version': str, 'username': str, optional, 'password': str, optional
+                  },
+                  'default': bool,
+                  'properties': list of key/value }
                 default: []
                 type: "list"
             keycloak_quarkus_supported_policy_types:
@@ -425,6 +431,20 @@ argument_specs:
                 default: true
                 description: "Allow the option to ignore invalid certificates when downloading JDBC drivers from a custom URL"
                 type: "bool"
+            keycloak_quarkus_restart_health_check:
+                default: "{{ keycloak_quarkus_ha_enabled }}"
+                description: "Whether to wait on successful health check after restart"
+                type: "bool"
+            keycloak_quarkus_restart_strategy:
+                description: >
+                  Strategy task file for restarting in HA, one of [ 'serial', 'none', 'verify_first' ] below, or path to
+                  file when providing custom strategy
+                default: "restart/serial.yml"
+                type: "str"
+            keycloak_quarkus_restart_pause:
+                description: "Seconds to wait between restarts in HA strategy"
+                default: 15
+                type: int
     downstream:
         options:
             rhbk_version:

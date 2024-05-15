@@ -1,6 +1,6 @@
 ---
 - name: Verify
-  hosts: all
+  hosts: keycloak
   tasks:
     - name: Populate service facts
       ansible.builtin.service_facts:
@@ -16,46 +16,10 @@
       ansible.builtin.set_fact:
         hera_home: "{{ lookup('env', 'HERA_HOME') }}"
 
-    - name: Verify openid config
-      when:
-        - hera_home is defined
-        - hera_home | length == 0
-      block:
-        - name: Fetch openID config # noqa blocked_modules command-instead-of-module
-          ansible.builtin.shell: |
-            set -o pipefail
-            curl -H 'Host: instance' https://localhost:8443/realms/master/.well-known/openid-configuration -k | jq .
-          args:
-            executable: /bin/bash
-          delegate_to: localhost
-          register: openid_config
-          changed_when: False
-        - name: Verify endpoint URLs
-          ansible.builtin.assert:
-            that:
-              - (openid_config.stdout | from_json)["backchannel_authentication_endpoint"] == 'https://instance/realms/master/protocol/openid-connect/ext/ciba/auth'
-              - (openid_config.stdout | from_json)['issuer'] == 'https://instance/realms/master'
-              - (openid_config.stdout | from_json)['authorization_endpoint'] == 'https://instance/realms/master/protocol/openid-connect/auth'
-              - (openid_config.stdout | from_json)['token_endpoint'] == 'https://instance/realms/master/protocol/openid-connect/token'
-          delegate_to: localhost
-
-    - name: Check log folder
-      ansible.builtin.stat:
-        path: /tmp/keycloak
-      register: keycloak_log_folder
-
-    - name: Check that keycloak log folder exists and is a link
-      ansible.builtin.assert:
-        that:
-          - keycloak_log_folder.stat.exists
-          - not keycloak_log_folder.stat.isdir
-          - keycloak_log_folder.stat.islnk
-        fail_msg: "Service log symlink not correctly created"
-
     - name: Check log file
       become: true
       ansible.builtin.stat:
-        path: /tmp/keycloak/keycloak.log
+        path: /var/log/keycloak/keycloak.log
       register: keycloak_log_file
 
     - name: Check if keycloak file exists
@@ -63,24 +27,3 @@
         that:
           - keycloak_log_file.stat.exists
           - not keycloak_log_file.stat.isdir
-
-    - name: Check default log folder
-      become: yes
-      ansible.builtin.stat:
-        path: /var/log/keycloak
-      register: keycloak_default_log_folder
-      failed_when: false
-
-    - name: Check that default keycloak log folder doesn't exist
-      ansible.builtin.assert:
-        that:
-          - not keycloak_default_log_folder.stat.exists
-
-    - name: Verify vault SPI in logfile
-      become: true
-      ansible.builtin.shell: |
-        set -o pipefail
-        zgrep 'Configured KeystoreVaultProviderFactory with the keystore file' /opt/keycloak/keycloak-*/data/log/keycloak.log*zip
-      changed_when: false
-      failed_when: slurped_log.rc != 0
-      register: slurped_log

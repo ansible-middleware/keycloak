@@ -26,7 +26,7 @@
       ansible.builtin.pause:
         seconds: 15
       when:
-        - rhbk_ha_enabled
+        - keycloak_quarkus_ha_enabled
 
     - name: "Restart and enable {{ keycloak.service_name }} service on all other hosts"
       ansible.builtin.systemd:

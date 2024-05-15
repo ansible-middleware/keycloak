@@ -433,12 +433,12 @@ argument_specs:
                 type: "bool"
             keycloak_quarkus_restart_health_check:
                 default: "{{ keycloak_quarkus_ha_enabled }}"
-                description: "Whether to wait on successful health check after restart"
+                description: "Whether to wait for successful health check after restart"
                 type: "bool"
             keycloak_quarkus_restart_strategy:
                 description: >
-                  Strategy task file for restarting in HA, one of [ 'serial', 'none', 'verify_first' ] below, or path to
-                  file when providing custom strategy
+                  Strategy task file for restarting in HA, one of restart/[ 'serial', 'none', 'serial_then_parallel' ].yml, or path to
+                  file when providing custom strategy; when keycloak_quarkus_ha_enabled and keycloak_quarkus_restart_health_check == true
                 default: "restart/serial.yml"
                 type: "str"
             keycloak_quarkus_restart_pause:

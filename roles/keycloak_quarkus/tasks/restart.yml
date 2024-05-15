@@ -15,3 +15,9 @@
   retries: 25
   delay: 10
   when: keycloak_quarkus_restart_health_check
+
+- name: Pause to give distributed ispn caches time to (re-)replicate back onto first host
+  ansible.builtin.pause:
+    seconds: "{{ keycloak_quarkus_restart_pause }}"
+  when:
+    - keycloak_quarkus_ha_enabled

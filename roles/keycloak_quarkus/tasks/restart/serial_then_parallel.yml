@@ -1,5 +1,5 @@
 ---
-- name: Verify first restarted service with health URL, then rest in parallel
+- name: Verify first restarted service with health URL, then rest restart in parallel
   block:
     - name: "Restart and enable {{ keycloak.service_name }} service on first host"
       ansible.builtin.systemd:
@@ -28,7 +28,10 @@
         - keycloak_quarkus_ha_enabled
 
     - name: "Restart and enable {{ keycloak.service_name }} service on other hosts"
-      ansible.builtin.include_tasks: ../restart.yml
-      delegate_to: "{{ item }}"
-      loop: "{{ ansible_play_hosts }}"
+      ansible.builtin.systemd:
+        name: "{{ keycloak.service_name }}"
+        enabled: true
+        state: restarted
+        daemon_reload: true
+      become: true
       when: inventory_hostname != ansible_play_hosts | first

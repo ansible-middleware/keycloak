@@ -3,6 +3,9 @@
   throttle: 1
   loop: "{{ ansible_play_hosts }}"
   block:
-    - name: "Restart and enable {{ keycloak.service_name }} service on first host"
-      ansible.builtin.include_tasks: ../restart.yml
-      delegate_to: "{{ item }}"
+    - name: "Restart and enable {{ keycloak.service_name }} service on {{ item }}"
+      ansible.builtin.include_tasks:
+        file: ../restart.yml
+        apply:
+          delegate_to: "{{ item }}"
+          run_once: true

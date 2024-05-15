@@ -101,6 +101,9 @@ Role Defaults
 |`keycloak_quarkus_systemd_wait_for_log` | Whether systemd unit should wait for service to be up in logs | `false` |
 |`keycloak_quarkus_systemd_wait_for_timeout`| How long to wait for service to be alive (seconds) | `60` |
 |`keycloak_quarkus_systemd_wait_for_delay`| Activation delay for service systemd unit (seconds) | `10` |
+|`keycloak_quarkus_restart_strategy`| Strategy task file for restarting in HA (one of provided restart/['serial.yml','none.yml','serial_then_parallel.yml']) or path to file when providing custom strategy | `restart/serial.yml` |
+|`keycloak_quarkus_restart_health_check`| Whether to wait for successful health check after restart | `{{ keycloak_quarkus_ha_enabled }}` |
+|`keycloak_quarkus_restart_pause`| Seconds to wait between restarts in HA strategy | `15` |
 
 
 #### Hostname configuration

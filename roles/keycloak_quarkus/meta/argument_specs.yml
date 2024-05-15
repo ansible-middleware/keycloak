@@ -104,6 +104,10 @@ argument_specs:
                 default: 8080
                 description: "HTTP port"
                 type: "int"
+            keycloak_quarkus_health_check_url_path:
+                default: "realms/master/.well-known/openid-configuration"
+                description: "Path to the health check endpoint; scheme, host and keycloak_quarkus_http_relative_path will be prepended automatically"
+                type: "str"
             keycloak_quarkus_https_key_file_enabled:
                 default: false
                 description: "Enable configuration of HTTPS via files in PEM format"

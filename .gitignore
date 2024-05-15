@@ -12,3 +12,4 @@ docs/_build/
 *.retry
 changelogs/.plugin-cache.yaml
 *.pem
+*.key

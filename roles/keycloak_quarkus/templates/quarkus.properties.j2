@@ -1,6 +1,6 @@
 {{ ansible_managed | comment }}
 {% if keycloak_quarkus_ha_enabled %}
-{% if not rhbk_enable or keycloak_quarkus_version.split('.')[0]|int < 22 %}
+{% if keycloak_quarkus_version.split('.')[0] | int < 22 %}
 quarkus.infinispan-client.server-list={{ keycloak_quarkus_ispn_hosts }}
 quarkus.infinispan-client.auth-username={{ keycloak_quarkus_ispn_user }}
 quarkus.infinispan-client.auth-password={{ keycloak_quarkus_ispn_pass }}

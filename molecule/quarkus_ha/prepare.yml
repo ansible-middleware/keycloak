@@ -1,0 +1,44 @@
+---
+- name: Prepare
+  hosts: keycloak
+  tasks:
+    - name: "Display hera_home if defined."
+      ansible.builtin.set_fact:
+        hera_home: "{{ lookup('env', 'HERA_HOME') }}"
+
+    - name: "Ensure common prepare phase are set."
+      ansible.builtin.include_tasks: ../prepare.yml
+
+    - name: Create certificate request
+      ansible.builtin.command: "openssl req -x509 -newkey rsa:4096 -keyout {{ inventory_hostname }}.key -out {{ inventory_hostname }}.pem -sha256 -days 365 -nodes -subj '/CN={{ inventory_hostname }}'"
+      delegate_to: localhost
+      changed_when: False
+
+    - name: Create vault directory
+      become: true
+      ansible.builtin.file:
+        state: directory
+        path: "/opt/keycloak/vault"
+        mode: 0755
+
+    - name: Make sure a jre is available (for keytool to prepare keystore)
+      delegate_to: localhost
+      ansible.builtin.package:
+        name: "{{ 'java-17-openjdk-headless' if hera_home | length > 0 else 'openjdk-17-jdk-headless' }}"
+        state: present
+      become: true
+      failed_when: false
+
+    - name: Create vault keystore
+      ansible.builtin.command: keytool -importpass -alias TestRealm_testalias -keystore keystore.p12 -storepass keystorepassword
+      delegate_to: localhost
+      register: keytool_cmd
+      changed_when: False
+      failed_when: not 'already exists' in keytool_cmd.stdout and keytool_cmd.rc != 0
+
+    - name: Copy certificates and vault
+      become: true
+      ansible.builtin.copy:
+        src: keystore.p12
+        dest: /opt/keycloak/vault/keystore.p12
+        mode: 0444

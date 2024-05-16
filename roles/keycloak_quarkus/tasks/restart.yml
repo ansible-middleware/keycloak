@@ -12,9 +12,9 @@
     url: "{{ keycloak.health_url }}"
   register: keycloak_status
   until: keycloak_status.status == 200
-  retries: 25
-  delay: 10
-  when: keycloak_quarkus_restart_health_check
+  retries: "{{ keycloak_quarkus_restart_health_check_reries }}"
+  delay: "{{ keycloak_quarkus_restart_health_check_delay }}"
+  when: internal_force_health_check | default(keycloak_quarkus_restart_health_check)
 
 - name: Pause to give distributed ispn caches time to (re-)replicate back onto first host
   ansible.builtin.pause:

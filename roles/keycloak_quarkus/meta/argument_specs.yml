@@ -445,6 +445,14 @@ argument_specs:
                 description: "Seconds to wait between restarts in HA strategy"
                 default: 15
                 type: int
+            keycloak_quarkus_restart_health_check_delay:
+                description: "Seconds to let pass before starting healch checks"
+                default: 10
+                type: 'int'
+            keycloak_quarkus_restart_health_check_reries:
+                description: "Number of attempts for successful health check before failing"
+                default: 25
+                type: 'int'
     downstream:
         options:
             rhbk_version:

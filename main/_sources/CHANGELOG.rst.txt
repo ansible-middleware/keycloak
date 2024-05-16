@@ -13,6 +13,7 @@ Major Changes
 -------------
 
 - Allow for custom providers hosted on maven repositories `#223 <https://github.com/ansible-middleware/keycloak/pull/223>`_
+- Restart handler strategy behaviour `#231 <https://github.com/ansible-middleware/keycloak/pull/231>`_
 
 Minor Changes
 -------------

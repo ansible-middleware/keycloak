@@ -456,7 +456,7 @@ argument_specs:
     downstream:
         options:
             rhbk_version:
-                default: "24.0.4"
+                default: "24.0.3"
                 description: "Red Hat Build of Keycloak version"
                 type: "str"
             rhbk_archive:
@@ -482,6 +482,10 @@ argument_specs:
             rhbk_offline_install:
                 default: false
                 description: "Perform an offline install"
+                type: "bool"
+            keycloak_quarkus_show_deprecation_warnings:
+                default: true
+                description: "Whether deprecation warnings should be shown"
                 type: "bool"
             rhbk_service_name:
                 default: "rhbk"

@@ -10,7 +10,7 @@
         - keycloak_quarkus_key_store_file is defined
         - keycloak_quarkus_key_store_file != ''
         - keycloak_quarkus_https_key_store_file == keycloak.home + "/conf/key_store.p12" # default value
-      changed_when: true
+      changed_when: keycloak_quarkus_show_deprecation_warnings
       ansible.builtin.set_fact:
         keycloak_quarkus_https_key_store_file: "{{ keycloak_quarkus_key_store_file }}"
         deprecated_variable: "keycloak_quarkus_key_store_file" # read in deprecation handler
@@ -25,7 +25,7 @@
         - keycloak_quarkus_key_store_password is defined
         - keycloak_quarkus_key_store_password != ''
         - keycloak_quarkus_https_key_store_password == "" # default value
-      changed_when: true
+      changed_when: keycloak_quarkus_show_deprecation_warnings
       ansible.builtin.set_fact:
         keycloak_quarkus_https_key_store_password: "{{ keycloak_quarkus_key_store_password }}"
         deprecated_variable: "keycloak_quarkus_key_store_password" # read in deprecation handler
@@ -34,3 +34,20 @@
 
     - name: Flush handlers
       ansible.builtin.meta: flush_handlers
+
+# https://access.redhat.com/documentation/en-us/red_hat_build_of_keycloak/24.0/html-single/upgrading_guide/index#deprecated_literal_proxy_literal_option
+- name: Check deprecation of keycloak_quarkus_proxy_mode
+  when:
+    - keycloak_quarkus_proxy_mode is defined
+    - keycloak_quarkus_proxy_headers is defined and keycloak_quarkus_proxy_headers | length == 0
+    - keycloak_quarkus_version.split('.') | first | int >= 24
+  delegate_to: localhost
+  run_once: true
+  changed_when: keycloak_quarkus_show_deprecation_warnings
+  ansible.builtin.set_fact:
+    deprecated_variable: "keycloak_quarkus_proxy_mode" # read in deprecation handler
+  notify:
+    - print deprecation warning
+
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers

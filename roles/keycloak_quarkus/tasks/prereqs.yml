@@ -93,3 +93,10 @@
     fail_msg: "Additional env variable definition is incorrect: `key` and `value` are mandatory."
   no_log: true
   loop: "{{ keycloak_quarkus_additional_env_vars }}"
+
+- name: "Validate proxy-headers"
+  ansible.builtin.assert:
+    that:
+      - keycloak_quarkus_proxy_headers | lower in ['', 'forwarded', 'xforwarded']
+    quiet: true
+    fail_msg: "keycloak_quarkus_proxy_headers must be either '', 'forwarded' or 'xforwarded'"

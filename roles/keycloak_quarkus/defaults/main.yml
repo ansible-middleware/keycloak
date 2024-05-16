@@ -8,6 +8,8 @@ keycloak_quarkus_installdir: "{{ keycloak_quarkus_dest }}/keycloak-{{ keycloak_q
 # whether to install from local archive
 keycloak_quarkus_offline_install: false
 
+keycloak_quarkus_show_deprecation_warnings: true
+
 ### Install location and service settings
 keycloak_quarkus_java_home:
 keycloak_quarkus_dest: /opt/keycloak
@@ -91,7 +93,10 @@ keycloak_quarkus_hostname_strict: true
 # If all applications use the public URL this option should be enabled.
 keycloak_quarkus_hostname_strict_backchannel: false
 
-# proxy address forwarding mode if the server is behind a reverse proxy. [none, edge, reencrypt, passthrough]
+# The proxy headers that should be accepted by the server. ['', 'forwarded', 'xforwarded']
+keycloak_quarkus_proxy_headers: ""
+
+# deprecated: proxy address forwarding mode if the server is behind a reverse proxy. [none, edge, reencrypt, passthrough]
 keycloak_quarkus_proxy_mode: edge
 
 # disable xa transactions

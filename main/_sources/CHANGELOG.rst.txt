@@ -22,6 +22,7 @@ Minor Changes
 - Allow to add extra custom env vars in sysconfig file `#229 <https://github.com/ansible-middleware/keycloak/pull/229>`_
 - Download from alternate URL with optional http authentication `#220 <https://github.com/ansible-middleware/keycloak/pull/220>`_
 - Update Keycloak to version 24.0.4 `#218 <https://github.com/ansible-middleware/keycloak/pull/218>`_
+- ``proxy-header`` enhancement `#227 <https://github.com/ansible-middleware/keycloak/pull/227>`_
 
 Bugfixes
 --------

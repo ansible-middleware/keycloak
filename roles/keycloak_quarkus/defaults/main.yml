@@ -8,6 +8,8 @@ keycloak_quarkus_installdir: "{{ keycloak_quarkus_dest }}/keycloak-{{ keycloak_q
 # whether to install from local archive
 keycloak_quarkus_offline_install: false
 
+keycloak_quarkus_show_deprecation_warnings: true
+
 ### Install location and service settings
 keycloak_quarkus_java_home:
 keycloak_quarkus_dest: /opt/keycloak

@@ -483,6 +483,10 @@ argument_specs:
                 default: false
                 description: "Perform an offline install"
                 type: "bool"
+            keycloak_quarkus_show_deprecation_warnings:
+                default: true
+                description: "Whether deprecation warnings should be shown"
+                type: "bool"
             rhbk_service_name:
                 default: "rhbk"
                 description: "systemd service name for Red Hat Build of Keycloak"

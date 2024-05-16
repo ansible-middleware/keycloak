@@ -1,7 +1,8 @@
 ---
 - name: Converge
   hosts: all
-  vars: 
+  vars:
+    keycloak_quarkus_show_deprecation_warnings: false
     keycloak_quarkus_admin_pass: "remembertochangeme"
     keycloak_admin_password: "remembertochangeme"
     keycloak_realm: TestRealm

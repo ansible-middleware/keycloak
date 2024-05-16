@@ -1,0 +1,29 @@
+---
+- name: Verify
+  hosts: keycloak
+  tasks:
+    - name: Populate service facts
+      ansible.builtin.service_facts:
+
+    - name: Check if keycloak service started
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.services["keycloak.service"]["state"] == "running"
+          - ansible_facts.services["keycloak.service"]["status"] == "enabled"
+        fail_msg: "Service not running"
+
+    - name: Set internal envvar
+      ansible.builtin.set_fact:
+        hera_home: "{{ lookup('env', 'HERA_HOME') }}"
+
+    - name: Check log file
+      become: true
+      ansible.builtin.stat:
+        path: /var/log/keycloak/keycloak.log
+      register: keycloak_log_file
+
+    - name: Check if keycloak file exists
+      ansible.builtin.assert:
+        that:
+          - keycloak_log_file.stat.exists
+          - not keycloak_log_file.stat.isdir

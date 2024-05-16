@@ -1,9 +1,23 @@
 ---
 - name: "Restart and enable {{ keycloak.service_name }} service"
-  throttle: 1
   ansible.builtin.systemd:
-    name: keycloak
+    name: "{{ keycloak.service_name }}"
     enabled: true
     state: restarted
     daemon_reload: true
   become: true
+
+- name: "Wait until {{ keycloak.service_name }} service becomes active {{ keycloak.health_url }}"
+  ansible.builtin.uri:
+    url: "{{ keycloak.health_url }}"
+  register: keycloak_status
+  until: keycloak_status.status == 200
+  retries: "{{ keycloak_quarkus_restart_health_check_reries }}"
+  delay: "{{ keycloak_quarkus_restart_health_check_delay }}"
+  when: internal_force_health_check | default(keycloak_quarkus_restart_health_check)
+
+- name: Pause to give distributed ispn caches time to (re-)replicate back onto first host
+  ansible.builtin.pause:
+    seconds: "{{ keycloak_quarkus_restart_pause }}"
+  when:
+    - keycloak_quarkus_ha_enabled

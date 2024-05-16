@@ -1,0 +1,20 @@
+---
+- name: Verify first restarted service with health URL, then rest restart in parallel
+  block:
+    - name: "Restart and enable {{ keycloak.service_name }} service on initial host"
+      ansible.builtin.include_tasks:
+        file: restart.yml
+        apply:
+          delegate_to: "{{ ansible_play_hosts | first }}"
+          run_once: true
+      vars:
+        internal_force_health_check: true
+
+    - name: "Restart and enable {{ keycloak.service_name }} service on other hosts"
+      ansible.builtin.systemd:
+        name: "{{ keycloak.service_name }}"
+        enabled: true
+        state: restarted
+        daemon_reload: true
+      become: true
+      when: inventory_hostname != ansible_play_hosts | first

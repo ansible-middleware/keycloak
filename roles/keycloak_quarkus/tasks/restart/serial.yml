@@ -1,0 +1,11 @@
+---
+- name: "Restart services in serial, with optional healtch check (keycloak_quarkus_restart_health_check)"
+  throttle: 1
+  block:
+    - name: "Restart and enable {{ keycloak.service_name }} service on {{ item }}"
+      ansible.builtin.include_tasks:
+        file: restart.yml
+        apply:
+          delegate_to: "{{ item }}"
+          run_once: true
+      loop: "{{ ansible_play_hosts }}"

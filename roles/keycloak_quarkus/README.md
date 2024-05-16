@@ -66,6 +66,7 @@ Role Defaults
 |`keycloak_quarkus_admin_url`| Set the base URL for accessing the administration console, including scheme, host, port and path | |
 |`keycloak_quarkus_http_relative_path` | Set the path relative to / for serving resources. The path must start with a / | `/` |
 |`keycloak_quarkus_http_enabled`| Enable listener on HTTP port | `True` |
+|`keycloak_quarkus_health_check_url_path`| Path to the health check endpoint; scheme, host and keycloak_quarkus_http_relative_path will be prepended automatically | `realms/master/.well-known/openid-configuration` |
 |`keycloak_quarkus_https_key_file_enabled`| Enable listener on HTTPS port | `False` |
 |`keycloak_quarkus_key_file_copy_enabled`| Enable copy of key file to target host | `False` |
 |`keycloak_quarkus_key_content`| Content of the TLS private key. Use `"{{ lookup('file', 'server.key.pem') }}"` to lookup a file. | `""` |
@@ -100,6 +101,11 @@ Role Defaults
 |`keycloak_quarkus_systemd_wait_for_log` | Whether systemd unit should wait for service to be up in logs | `false` |
 |`keycloak_quarkus_systemd_wait_for_timeout`| How long to wait for service to be alive (seconds) | `60` |
 |`keycloak_quarkus_systemd_wait_for_delay`| Activation delay for service systemd unit (seconds) | `10` |
+|`keycloak_quarkus_restart_strategy`| Strategy task file for restarting in HA (one of provided restart/['serial.yml','none.yml','serial_then_parallel.yml']) or path to file when providing custom strategy | `restart/serial.yml` |
+|`keycloak_quarkus_restart_health_check`| Whether to wait for successful health check after restart | `{{ keycloak_quarkus_ha_enabled }}` |
+|`keycloak_quarkus_restart_health_check_delay`| Seconds to let pass before starting healch checks | `10` |
+|`keycloak_quarkus_restart_health_check_reries`| Number of attempts for successful health check before failing | `25` |
+|`keycloak_quarkus_restart_pause`| Seconds to wait between restarts in HA strategy | `15` |
 
 
 #### Hostname configuration

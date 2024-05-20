@@ -6,6 +6,29 @@ middleware\_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v2.3.0
+======
+
+Major Changes
+-------------
+
+- Allow for custom providers hosted on maven repositories `#223 <https://github.com/ansible-middleware/keycloak/pull/223>`_
+- Restart handler strategy behaviour `#231 <https://github.com/ansible-middleware/keycloak/pull/231>`_
+
+Minor Changes
+-------------
+
+- Add support for policy files `#225 <https://github.com/ansible-middleware/keycloak/pull/225>`_
+- Allow to add extra custom env vars in sysconfig file `#229 <https://github.com/ansible-middleware/keycloak/pull/229>`_
+- Download from alternate URL with optional http authentication `#220 <https://github.com/ansible-middleware/keycloak/pull/220>`_
+- Update Keycloak to version 24.0.4 `#218 <https://github.com/ansible-middleware/keycloak/pull/218>`_
+- ``proxy-header`` enhancement `#227 <https://github.com/ansible-middleware/keycloak/pull/227>`_
+
+Bugfixes
+--------
+
+- ``kc.sh build`` uses configured jdk `#211 <https://github.com/ansible-middleware/keycloak/pull/211>`_
+
 v2.2.2
 ======
 

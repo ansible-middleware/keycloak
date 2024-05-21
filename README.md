@@ -100,7 +100,7 @@ ansible-playbook -i <ansible_hosts> -e @rhn-creds.yml playbooks/keycloak.yml -e 
   localhost ansible_connection=local
   ```
 
-Note: when deploying clustered configurations, all hosts belonging to the cluster must be present in ansible_play_batch; ie. they must be targeted by the same ansible-playbook execution.
+Note: when deploying clustered configurations, all hosts belonging to the cluster must be present in `ansible_play_batch`; ie. they must be targeted by the same ansible-playbook execution.
 
 
 ## Configuration

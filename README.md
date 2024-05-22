@@ -11,7 +11,7 @@ Collection to install and configure [Keycloak](https://www.keycloak.org/) or [Re
 <!--start requires_ansible-->
 ## Ansible version compatibility
 
-This collection has been tested against following Ansible versions: **>=2.14.0**.
+This collection has been tested against following Ansible versions: **>=2.15.0**.
 
 Plugins and modules within a collection may be tested with only specific Ansible versions. A collection may contain metadata that identifies these versions.
 <!--end requires_ansible-->
@@ -100,7 +100,7 @@ ansible-playbook -i <ansible_hosts> -e @rhn-creds.yml playbooks/keycloak.yml -e 
   localhost ansible_connection=local
   ```
 
-Note: when deploying clustered configurations, all hosts belonging to the cluster must be present in ansible_play_batch; ie. they must be targeted by the same ansible-playbook execution.
+Note: when deploying clustered configurations, all hosts belonging to the cluster must be present in `ansible_play_batch`; ie. they must be targeted by the same ansible-playbook execution.
 
 
 ## Configuration

@@ -6,8 +6,16 @@ middleware\_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
-v2.3.0-devel
+v2.3.1-devel
 ============
+
+Major Changes
+-------------
+
+- Update minimum ansible-core version > 2.15 `#232 <https://github.com/ansible-middleware/keycloak/pull/232>`_
+
+v2.3.0
+======
 
 Major Changes
 -------------

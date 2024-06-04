@@ -12,6 +12,7 @@ v2.3.1-devel
 Major Changes
 -------------
 
+- Enable by default health check on restart `#234 <https://github.com/ansible-middleware/keycloak/pull/234>`_
 - Update minimum ansible-core version > 2.15 `#232 <https://github.com/ansible-middleware/keycloak/pull/232>`_
 
 v2.3.0

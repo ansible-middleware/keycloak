@@ -571,3 +571,16 @@ releases:
     - 229.yaml
     - 231.yaml
     release_date: '2024-05-20'
+  2.4.0:
+    changes:
+      major_changes:
+      - 'Enable by default health check on restart `#234 <https://github.com/ansible-middleware/keycloak/pull/234>`_
+
+        '
+      - 'Update minimum ansible-core version > 2.15 `#232 <https://github.com/ansible-middleware/keycloak/pull/232>`_
+
+        '
+    fragments:
+    - 232.yaml
+    - 234.yaml
+    release_date: '2024-06-04'

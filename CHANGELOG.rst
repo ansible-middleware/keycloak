@@ -6,6 +6,15 @@ middleware\_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v2.4.0
+======
+
+Major Changes
+-------------
+
+- Enable by default health check on restart `#234 <https://github.com/ansible-middleware/keycloak/pull/234>`_
+- Update minimum ansible-core version > 2.15 `#232 <https://github.com/ansible-middleware/keycloak/pull/232>`_
+
 v2.3.0
 ======
 

@@ -161,7 +161,7 @@ keycloak_quarkus_supported_policy_types: ['password-blacklists']
 
 # files in restart directory (one of [ 'serial', 'none', 'serial_then_parallel' ]), or path to file when providing custom strategy
 keycloak_quarkus_restart_strategy: restart/serial.yml
-keycloak_quarkus_restart_health_check: "{{ keycloak_quarkus_ha_enabled }}"
+keycloak_quarkus_restart_health_check: true
 keycloak_quarkus_restart_health_check_delay: 10
 keycloak_quarkus_restart_health_check_reries: 25
 keycloak_quarkus_restart_pause: 15

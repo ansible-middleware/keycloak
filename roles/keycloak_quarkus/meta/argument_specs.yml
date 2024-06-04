@@ -432,7 +432,7 @@ argument_specs:
                 description: "Allow the option to ignore invalid certificates when downloading JDBC drivers from a custom URL"
                 type: "bool"
             keycloak_quarkus_restart_health_check:
-                default: "{{ keycloak_quarkus_ha_enabled }}"
+                default: true
                 description: "Whether to wait for successful health check after restart"
                 type: "bool"
             keycloak_quarkus_restart_strategy:

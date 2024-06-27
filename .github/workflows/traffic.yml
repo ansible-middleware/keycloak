@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: "traffic"
+          ref: "gh-pages"
     
       - name: GitHub traffic 
         uses: sangonzal/repository-traffic-action@v.0.1.6
@@ -23,4 +23,4 @@ jobs:
           author_name: Ansible Middleware
           message: "GitHub traffic"
           add: "./traffic/*"
-          ref: "traffic"
+          ref: "gh-pages"

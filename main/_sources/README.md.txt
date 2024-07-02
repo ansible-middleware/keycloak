@@ -6,8 +6,9 @@
 > **_NOTE:_ If you are Red Hat customer, install `redhat.sso` (for Red Hat Single Sign-On) or `redhat.rhbk` (for Red Hat Build of Keycloak) from [Automation Hub](https://console.redhat.com/ansible/ansible-dashboard) as the certified version of this collection.**
 
 <!--end build_status -->
+<!--start description -->
 Collection to install and configure [Keycloak](https://www.keycloak.org/) or [Red Hat Single Sign-On](https://access.redhat.com/products/red-hat-single-sign-on) / [Red Hat Build of Keycloak](https://access.redhat.com/products/red-hat-build-of-keycloak).
-
+<!--end description -->
 <!--start requires_ansible-->
 ## Ansible version compatibility
 
@@ -39,6 +40,7 @@ collections:
 The keycloak collection also depends on the following python packages to be present on the controller host:
 
 * netaddr
+* lxml
 
 A requirement file is provided to install:
 

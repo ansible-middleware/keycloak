@@ -130,7 +130,9 @@
 <div><p><strong><em>NOTE:</em> If you are Red Hat customer, install <code class="docutils literal notranslate"><span class="pre">redhat.sso</span></code> (for Red Hat Single Sign-On) or <code class="docutils literal notranslate"><span class="pre">redhat.rhbk</span></code> (for Red Hat Build of Keycloak) from <a class="reference external" href="https://console.redhat.com/ansible/ansible-dashboard">Automation Hub</a> as the certified version of this collection.</strong></p>
 </div></blockquote>
 <!--end build_status -->
+<!--start description -->
 <p>Collection to install and configure <a class="reference external" href="https://www.keycloak.org/">Keycloak</a> or <a class="reference external" href="https://access.redhat.com/products/red-hat-single-sign-on">Red Hat Single Sign-On</a> / <a class="reference external" href="https://access.redhat.com/products/red-hat-build-of-keycloak">Red Hat Build of Keycloak</a>.</p>
+<!--end description -->
 <!--start requires_ansible-->
 <section id="ansible-version-compatibility">
 <h2>Ansible version compatibility<a class="headerlink" href="#ansible-version-compatibility" title="Link to this heading"></a></h2>
@@ -157,6 +159,7 @@
 <p>The keycloak collection also depends on the following python packages to be present on the controller host:</p>
 <ul class="simple">
 <li><p>netaddr</p></li>
+<li><p>lxml</p></li>
 </ul>
 <p>A requirement file is provided to install:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pip install -r requirements.txt

@@ -584,3 +584,9 @@ releases:
     - 232.yaml
     - 234.yaml
     release_date: '2024-06-04'
+  2.4.1:
+    changes:
+      release_summary: Internal release, documentation or test changes only.
+    fragments:
+    - v2.4.1-devel_summary.yaml
+    release_date: '2024-07-02'

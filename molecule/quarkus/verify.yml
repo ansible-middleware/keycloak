@@ -89,7 +89,7 @@
 
     - name: Verify token api call
       ansible.builtin.uri:
-        url: "https://localhost:8443/realms/master/protocol/openid-connect/token"
+        url: "https://instance:8443/realms/master/protocol/openid-connect/token"
         method: POST
         body: "client_id=admin-cli&username=admin&password={{ keycloak_admin_password }}&grant_type=password"
         validate_certs: no
@@ -100,7 +100,7 @@
 
     - name: "Get Clients"
       ansible.builtin.uri:
-        url: "https://localhost:8443/admin/realms/TestRealm/clients"
+        url: "https://instance:8443/admin/realms/TestRealm/clients"
         headers:
           validate_certs: false
           Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
@@ -112,7 +112,7 @@
 
     - name: "Get Client {{ keycloak_client_uuid }}"
       ansible.builtin.uri:
-        url: "https://localhost:8443/admin/realms/TestRealm/clients/{{ keycloak_client_uuid }}"
+        url: "https://instance:8443/admin/realms/TestRealm/clients/{{ keycloak_client_uuid }}"
         headers:
           validate_certs: false
           Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
@@ -120,7 +120,7 @@
 
     - name: "Get Client roles"
       ansible.builtin.uri:
-        url: "https://localhost:8443/admin/realms/TestRealm/clients/{{ keycloak_client_uuid }}/roles"
+        url: "https://instance:8443/admin/realms/TestRealm/clients/{{ keycloak_client_uuid }}/roles"
         headers:
           validate_certs: false
           Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"

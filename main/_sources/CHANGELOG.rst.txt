@@ -9,6 +9,11 @@ This changelog describes changes after version 0.2.6.
 v2.4.2-devel
 ============
 
+Bugfixes
+--------
+
+- Add wait_for_port number parameter `#237 <https://github.com/ansible-middleware/keycloak/pull/237>`_
+
 v2.4.1
 ======
 

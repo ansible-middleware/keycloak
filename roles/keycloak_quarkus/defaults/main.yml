@@ -74,6 +74,7 @@ keycloak_quarkus_ha_discovery: "TCPPING"
 ### Enable database configuration, must be enabled when HA is configured
 keycloak_quarkus_db_enabled: "{{ keycloak_quarkus_ha_enabled }}"
 keycloak_quarkus_systemd_wait_for_port: "{{ keycloak_quarkus_ha_enabled }}"
+keycloak_quarkus_systemd_wait_for_port_number: "{{ keycloak_quarkus_https_port }}"
 keycloak_quarkus_systemd_wait_for_log: false
 keycloak_quarkus_systemd_wait_for_timeout: 60
 keycloak_quarkus_systemd_wait_for_delay: 10

@@ -386,6 +386,10 @@ argument_specs:
                 description: 'Whether systemd unit should wait for keycloak port before returning'
                 default: "{{ keycloak_quarkus_ha_enabled }}"
                 type: "bool"
+            keycloak_quarkus_systemd_wait_for_port_number:
+                default: "{{ keycloak_quarkus_https_port }}"
+                description: "The port the systemd unit should wait for, by default the https port"
+                type: "int"
             keycloak_quarkus_systemd_wait_for_log:
                 description: 'Whether systemd unit should wait for service to be up in logs'
                 default: false

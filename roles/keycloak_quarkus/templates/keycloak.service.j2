@@ -23,7 +23,7 @@ RestartSec={{ keycloak_quarkus_service_restartsec }}
 AmbientCapabilities=CAP_NET_BIND_SERVICE
 {% endif %}
 {% if keycloak_quarkus_systemd_wait_for_port %}
-ExecStartPost=/usr/bin/timeout {{ keycloak_quarkus_systemd_wait_for_timeout }} sh -c 'while ! ss -H -t -l -n sport = :{{ keycloak_quarkus_https_port }} | grep -q "^LISTEN.*:{{ keycloak_quarkus_https_port }}"; do sleep 1; done && /bin/sleep {{ keycloak_quarkus_systemd_wait_for_delay }}'
+ExecStartPost=/usr/bin/timeout {{ keycloak_quarkus_systemd_wait_for_timeout }} sh -c 'while ! ss -H -t -l -n sport = :{{ keycloak_quarkus_systemd_wait_for_port_number }} | grep -q "^LISTEN.*:{{ keycloak_quarkus_systemd_wait_for_port_number }}"; do sleep 1; done && /bin/sleep {{ keycloak_quarkus_systemd_wait_for_delay }}'
 {% endif %}
 {% if keycloak_quarkus_systemd_wait_for_log %}
 ExecStartPost=/usr/bin/timeout {{ keycloak_quarkus_systemd_wait_for_timeout }} sh -c 'cat {{ keycloak.log.file }} | sed "/Profile.*activated/ q" && /bin/sleep {{ keycloak_quarkus_systemd_wait_for_delay }}'

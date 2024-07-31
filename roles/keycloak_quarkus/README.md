@@ -98,6 +98,7 @@ Role Defaults
 |`keycloak_quarkus_db_enabled`| Enable auto configuration for database backend | `True` if `keycloak_quarkus_ha_enabled` is True, else `False` |
 |`keycloak_quarkus_jgroups_port`| jgroups cluster tcp port | `7800` |
 |`keycloak_quarkus_systemd_wait_for_port` | Whether systemd unit should wait for keycloak port before returning | `{{ keycloak_quarkus_ha_enabled }}` |
+|`keycloak_quarkus_systemd_wait_for_port_number`| Which port the systemd unit should wait for | `{{ keycloak_quarkus_https_port }}` |
 |`keycloak_quarkus_systemd_wait_for_log` | Whether systemd unit should wait for service to be up in logs | `false` |
 |`keycloak_quarkus_systemd_wait_for_timeout`| How long to wait for service to be alive (seconds) | `60` |
 |`keycloak_quarkus_systemd_wait_for_delay`| Activation delay for service systemd unit (seconds) | `10` |

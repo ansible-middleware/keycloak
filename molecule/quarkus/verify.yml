@@ -1,6 +1,8 @@
 ---
 - name: Verify
   hosts: all
+  vars:
+     keycloak_admin_password: "remembertochangeme"
   tasks:
     - name: Populate service facts
       ansible.builtin.service_facts:
@@ -84,3 +86,42 @@
       changed_when: false
       failed_when: slurped_log.rc != 0
       register: slurped_log
+
+    - name: Verify token api call
+      ansible.builtin.uri:
+        url: "https://instance:8443/realms/master/protocol/openid-connect/token"
+        method: POST
+        body: "client_id=admin-cli&username=admin&password={{ keycloak_admin_password }}&grant_type=password"
+        validate_certs: no
+      register: keycloak_auth_response
+      until: keycloak_auth_response.status == 200
+      retries: 2
+      delay: 2
+
+    - name: "Get Clients"
+      ansible.builtin.uri:
+        url: "https://instance:8443/admin/realms/TestRealm/clients"
+        headers:
+          validate_certs: false
+          Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
+      register: keycloak_clients
+
+    - name: Get client uuid
+      ansible.builtin.set_fact:
+        keycloak_client_uuid: "{{ ((keycloak_clients.json | selectattr('clientId', '==', 'TestClient')) | first).id }}"
+
+    - name: "Get Client {{ keycloak_client_uuid }}"
+      ansible.builtin.uri:
+        url: "https://instance:8443/admin/realms/TestRealm/clients/{{ keycloak_client_uuid }}"
+        headers:
+          validate_certs: false
+          Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
+      register: keycloak_test_client
+
+    - name: "Get Client roles"
+      ansible.builtin.uri:
+        url: "https://instance:8443/admin/realms/TestRealm/clients/{{ keycloak_client_uuid }}/roles"
+        headers:
+          validate_certs: false
+          Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
+      register: keycloak_test_client_roles

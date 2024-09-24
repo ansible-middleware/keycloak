@@ -34,6 +34,7 @@ warn_list:
 skip_list:
   - vars_should_not_be_used
   - file_is_small_enough
+  - file_has_valid_name
   - name[template]
   - var-naming[no-role-prefix]
 

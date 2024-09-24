@@ -15,6 +15,7 @@ keycloak_quarkus_java_home:
 keycloak_quarkus_dest: /opt/keycloak
 keycloak_quarkus_home: "{{ keycloak_quarkus_installdir }}"
 keycloak_quarkus_config_dir: "{{ keycloak_quarkus_home }}/conf"
+keycloak_quarkus_download_path: "{{ lookup('env', 'PWD') }}"
 keycloak_quarkus_start_dev: false
 keycloak_quarkus_service_user: keycloak
 keycloak_quarkus_service_group: keycloak

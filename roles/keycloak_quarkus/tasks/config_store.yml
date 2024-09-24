@@ -8,7 +8,7 @@
 - name: "Initialize empty configuration key store"
   become: true
   # keytool doesn't allow creating an empty key store, so this is a hacky way around it
-  ansible.builtin.shell: |
+  ansible.builtin.shell: | # noqa blocked_modules shell is necessary here
     set -o nounset   # abort on unbound variable
     set -o pipefail  # do not hide errors within pipes
     set -o errexit   # abort on nonzero exit status
@@ -19,7 +19,7 @@
     creates: "{{ keycloak_quarkus_config_key_store_file }}"
 
 - name: "Set configuration key store using keytool"
-  ansible.builtin.shell: |
+  ansible.builtin.shell: | # noqa blocked_modules shell is necessary here
     set -o nounset   # abort on unbound variable
     set -o pipefail  # do not hide errors within pipes
 
@@ -36,7 +36,7 @@
     fi
 
     echo {{ item.value | quote }} | keytool -noprompt -importpass -alias {{ item.key | quote }} -keystore {{ keycloak_quarkus_config_key_store_file | quote }} -storepass {{ keycloak_quarkus_config_key_store_password | quote }} -storetype PKCS12
-  with_items: "{{ store_items }}"
+  loop: "{{ store_items }}"
   no_log: true
   become: true
   changed_when: true

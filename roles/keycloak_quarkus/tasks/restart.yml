@@ -16,7 +16,7 @@
   delay: "{{ keycloak_quarkus_restart_health_check_delay }}"
   when: internal_force_health_check | default(keycloak_quarkus_restart_health_check)
 
-- name: Pause to give distributed ispn caches time to (re-)replicate back onto first host
+- name: Wait to give distributed ispn caches time to (re-)replicate back onto first host
   ansible.builtin.pause:
     seconds: "{{ keycloak_quarkus_restart_pause }}"
   when:

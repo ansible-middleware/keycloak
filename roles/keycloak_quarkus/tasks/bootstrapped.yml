@@ -1,5 +1,5 @@
 ---
-- name: Write ansible custom facts
+- name: Save ansible custom facts
   become: true
   ansible.builtin.template:
     src: keycloak.fact.j2
@@ -8,7 +8,7 @@
   vars:
     bootstrapped: true
 
-- name: Re-read custom facts
+- name: Refresh custom facts
   ansible.builtin.setup:
     filter: ansible_local
 

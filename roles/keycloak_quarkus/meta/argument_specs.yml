@@ -56,15 +56,15 @@ argument_specs:
                 default: false
                 description: "Ensure firewalld is running and configure keycloak ports"
                 type: "bool"
-            keycloak_service_restart_always:
+            keycloak_quarkus_service_restart_always:
                 default: false
                 description: "systemd restart always behavior of service; takes precedence over keycloak_service_restart_on_failure if true"
                 type: "bool"
-            keycloak_service_restart_on_failure:
+            keycloak_quarkus_service_restart_on_failure:
                 default: false
                 description: "systemd restart on-failure behavior of service"
                 type: "bool"
-            keycloak_service_restartsec:
+            keycloak_quarkus_service_restartsec:
                 default: "10s"
                 description: "systemd RestartSec for service"
                 type: "str"
@@ -457,6 +457,14 @@ argument_specs:
                 description: "Number of attempts for successful health check before failing"
                 default: 25
                 type: 'int'
+            keycloak_quarkus_show_deprecation_warnings:
+                default: true
+                description: "Whether or not deprecation warnings should be shown"
+                type: "bool"
+            keycloak_quarkus_download_path:
+                description: "Path local to controller for offline/download of install archives"
+                default: "{{ lookup('env', 'PWD') }}"
+                type: "str"
     downstream:
         options:
             rhbk_version:
@@ -486,10 +494,6 @@ argument_specs:
             rhbk_offline_install:
                 default: false
                 description: "Perform an offline install"
-                type: "bool"
-            keycloak_quarkus_show_deprecation_warnings:
-                default: true
-                description: "Whether deprecation warnings should be shown"
                 type: "bool"
             rhbk_service_name:
                 default: "rhbk"

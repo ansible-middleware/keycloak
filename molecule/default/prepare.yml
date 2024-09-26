@@ -12,18 +12,18 @@
           - "{{ assets_server }}/sso/7.6.0/rh-sso-7.6.0-server-dist.zip"
           - "{{ assets_server }}/sso/7.6.1/rh-sso-7.6.1-patch.zip"
 
-    - name: Install JDK8
-      become: yes
-      ansible.builtin.yum:
-        name:
-          - java-1.8.0-openjdk
-        state: present
-      when: ansible_facts['os_family'] == "RedHat"
+    - name: Create controller directory for downloads
+      ansible.builtin.file: # noqa risky-file-permissions delegated, uses controller host user
+        path: /tmp/keycloak
+        state: directory
+        mode: '0750'
+      delegate_to: localhost
+      run_once: true
 
-    - name: Install JDK8
-      become: yes
-      ansible.builtin.apt:
-        name:
-          - openjdk-8-jdk
-        state: present
-      when: ansible_facts['os_family'] == "Debian"
+    - name: Download keycloak archive to controller directory
+      ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
+        url: https://github.com/keycloak/keycloak/releases/download/24.0.4/keycloak-24.0.4.zip
+        dest: /tmp/keycloak
+        mode: '0640'
+      delegate_to: localhost
+      run_once: true

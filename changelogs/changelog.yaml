@@ -590,3 +590,17 @@ releases:
     fragments:
     - v2.4.1-devel_summary.yaml
     release_date: '2024-07-02'
+  2.4.2:
+    changes:
+      bugfixes:
+      - 'Add wait_for_port number parameter `#237 <https://github.com/ansible-middleware/keycloak/pull/237>`_
+
+        '
+      minor_changes:
+      - 'New parameter ``keycloak_quarkus_download_path``  `#239 <https://github.com/ansible-middleware/keycloak/pull/239>`_
+
+        '
+    fragments:
+    - 237.yaml
+    - 239.yaml
+    release_date: '2024-09-26'

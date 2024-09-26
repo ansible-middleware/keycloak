@@ -6,6 +6,19 @@ middleware\_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v2.4.2
+======
+
+Minor Changes
+-------------
+
+- New parameter ``keycloak_quarkus_download_path``  `#239 <https://github.com/ansible-middleware/keycloak/pull/239>`_
+
+Bugfixes
+--------
+
+- Add wait_for_port number parameter `#237 <https://github.com/ansible-middleware/keycloak/pull/237>`_
+
 v2.4.1
 ======
 

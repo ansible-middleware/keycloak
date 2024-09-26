@@ -12,14 +12,14 @@
     - name: Create certificate request
       ansible.builtin.command: openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 365 -nodes -subj '/CN=instance'
       delegate_to: localhost
-      changed_when: False
+      changed_when: false
 
     - name: Create vault directory
       become: true
       ansible.builtin.file:
         state: directory
         path: "/opt/keycloak/vault"
-        mode: 0755
+        mode: '0755'
 
     - name: Make sure a jre is available (for keytool to prepare keystore)
       delegate_to: localhost
@@ -41,4 +41,4 @@
       ansible.builtin.copy:
         src: keystore.p12
         dest: /opt/keycloak/vault/keystore.p12
-        mode: 0444
+        mode: '0444'

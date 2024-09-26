@@ -8,6 +8,7 @@
       - keycloak_quarkus_archive is defined
       - keycloak_quarkus_download_url is defined
       - keycloak_quarkus_version is defined
+      - local_path is defined
     quiet: true
 
 - name: Check for an existing deployment
@@ -52,14 +53,6 @@
   register: archive_path
 
 ## download to controller
-- name: Check local download archive path
-  ansible.builtin.stat:
-    path: "{{ lookup('env', 'PWD') }}"
-  register: local_path
-  delegate_to: localhost
-  run_once: true
-  become: false
-
 - name: Download keycloak archive
   ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
     url: "{{ keycloak_quarkus_download_url }}"
@@ -244,7 +237,7 @@
   no_log: "{{ item.maven.password is defined and item.maven.password | length > 0 | default(false) }}"
   notify: "{{ ['rebuild keycloak config', 'restart keycloak'] if not item.restart is defined or not item.restart else [] }}"
 
-- name: "Upload local maven providers"
+- name: "Copy maven providers"
   ansible.builtin.copy:
     src: "{{ local_path.stat.path }}/{{ item.id }}.jar"
     dest: "{{ keycloak.home }}/providers/{{ item.id }}.jar"
@@ -256,7 +249,7 @@
   when: item.maven is defined
   no_log: "{{ item.maven.password is defined and item.maven.password | length > 0 | default(false) }}"
 
-- name: "Upload local providers"
+- name: "Copy providers"
   ansible.builtin.copy:
     src: "{{ item.local_path }}"
     dest: "{{ keycloak.home }}/providers/{{ item.id }}.jar"

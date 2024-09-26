@@ -43,10 +43,50 @@
   vars:
     packages_list: "{{ keycloak_quarkus_prereq_package_list }}"
 
+- name: Check local download archive path
+  ansible.builtin.stat:
+    path: "{{ keycloak_quarkus_download_path }}"
+  register: local_path
+  delegate_to: localhost
+  run_once: true
+  become: false
+
+- name: Validate local download path
+  ansible.builtin.assert:
+    that:
+      - local_path.stat.exists
+      - local_path.stat.readable
+      - keycloak_quarkus_offline_install or local_path.stat.writeable
+    quiet: true
+    fail_msg: "Defined controller path for downloading resources is incorrect or unreadable: {{ keycloak_quarkus_download_path }}"
+    success_msg: "Will download resource to controller path: {{ keycloak_quarkus_download_path }}"
+  delegate_to: localhost
+  run_once: true
+
+- name: Check downloaded archive if offline
+  ansible.builtin.stat:
+    path: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
+  when: keycloak_quarkus_offline_install
+  register: local_archive_path_check
+  delegate_to: localhost
+  run_once: true
+
+- name: Validate local downloaded archive if offline
+  ansible.builtin.assert:
+    that:
+      - local_archive_path_check.stat.exists
+      - local_archive_path_check.stat.readable
+    quiet: true
+    fail_msg: "Configured for offline install but install archive not found at: {{ local_path.stat.path }}/{{ keycloak.bundle }}"
+    success_msg: "Will install offline with expected archive: {{ local_path.stat.path }}/{{ keycloak.bundle }}"
+  when: keycloak_quarkus_offline_install
+  delegate_to: localhost
+  run_once: true
+
 - name: "Validate keytool"
   when: keycloak_quarkus_config_key_store_password | length > 0
   block:
-    - name: "Attempt to run keytool"
+    - name: "Check run keytool"
       changed_when: false
       ansible.builtin.command: keytool -help
       register: keytool_check

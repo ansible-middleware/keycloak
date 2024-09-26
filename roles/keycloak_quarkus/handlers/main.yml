@@ -10,7 +10,7 @@
   ansible.builtin.include_tasks:
     file: "{{ keycloak_quarkus_restart_strategy if keycloak_quarkus_ha_enabled else 'restart.yml' }}"
   listen: "restart keycloak"
-- name: "Print deprecation warning"
+- name: "Display deprecation warning"
   ansible.builtin.fail:
     msg: "Deprecation warning: you are using the deprecated variable '{{ deprecated_variable | d('NotSet') }}', check docs on how to upgrade."
   failed_when: false

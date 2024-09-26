@@ -1,5 +1,0 @@
-Role Index
-==========
-
- * :doc:`keycloak`
- * :doc:`keycloak_realm`

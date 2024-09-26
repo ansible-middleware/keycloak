@@ -13,3 +13,4 @@ docs/_build/
 changelogs/.plugin-cache.yaml
 *.pem
 *.key
+*.p12

@@ -58,8 +58,8 @@
       - local_path.stat.readable
       - keycloak_quarkus_offline_install or local_path.stat.writeable
     quiet: true
-    fail_msg: "Defined controller path for downloading resource is incorrect: {{ keycloak_quarkus_download_path }}"
-    success_msg: "Will download resource to controller path: {{ local_path.stat.path }}"
+    fail_msg: "Defined controller path for downloading resources is incorrect or unreadable: {{ keycloak_quarkus_download_path }}"
+    success_msg: "Will download resource to controller path: {{ keycloak_quarkus_download_path }}"
   delegate_to: localhost
   run_once: true
 
@@ -77,8 +77,8 @@
       - local_archive_path_check.stat.exists
       - local_archive_path_check.stat.readable
     quiet: true
-    fail_msg: "Configured for offline install but install archive not found at: {{ local_archive_path_check.stat.path }}"
-    success_msg: "Will install offline with expected archive: {{ local_archive_path_check.stat.path }}"
+    fail_msg: "Configured for offline install but install archive not found at: {{ local_path.stat.path }}/{{ keycloak.bundle }}"
+    success_msg: "Will install offline with expected archive: {{ local_path.stat.path }}/{{ keycloak.bundle }}"
   when: keycloak_quarkus_offline_install
   delegate_to: localhost
   run_once: true

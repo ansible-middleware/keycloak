@@ -30,6 +30,7 @@ warn_list:
   - schema[meta]
   - key-order[task]
   - blocked_modules
+  - run-once[task]
 
 skip_list:
   - vars_should_not_be_used

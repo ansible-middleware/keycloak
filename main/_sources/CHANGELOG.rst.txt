@@ -9,6 +9,11 @@ This changelog describes changes after version 0.2.6.
 v2.4.2-devel
 ============
 
+Minor Changes
+-------------
+
+- New parameter ``keycloak_quarkus_download_path``  `#239 <https://github.com/ansible-middleware/keycloak/pull/239>`_
+
 Bugfixes
 --------
 

@@ -1,4 +1,3 @@
-
 .. Document meta
 
 :orphan:
@@ -7,7 +6,7 @@
     :trim:
 
 .. meta::
-  :antsibull-docs: 2.12.0
+  :antsibull-docs: 2.14.0
 
 .. Anchors
 
@@ -51,7 +50,7 @@ Synopsis
 .. Description
 
 - This module allows you to add, remove or modify Keycloak user federations via the Keycloak REST API. It requires access to the REST API via OpenID Connect; the user connecting and the client being used must have the requisite access rights. In a default Keycloak installation, admin-cli and an admin user would work, as would a separate client definition with the scope tailored to your needs and a user having the expected roles.
-- The names of module options are snake\_cased versions of the camelCase ones found in the Keycloak API and its documentation at \ https://www.keycloak.org/docs-api/20.0.2/rest-api/index.html\ .
+- The names of module options are snake\_cased versions of the camelCase ones found in the Keycloak API and its documentation at \ `https://www.keycloak.org/docs-api/20.0.2/rest-api/index.html <https://www.keycloak.org/docs-api/20.0.2/rest-api/index.html>`__.
 
 
 .. Aliases
@@ -1276,7 +1275,7 @@ Attributes
 
         <div class="ansible-option-cell">
 
-      Can run in \ :literal:`check\_mode`\  and return changed status prediction without modifying target.
+      Can run in :literal:`check\_mode` and return changed status prediction without modifying target.
 
 
       .. raw:: html
@@ -1318,7 +1317,7 @@ Attributes
 
         <div class="ansible-option-cell">
 
-      Will return details on what has changed (or possibly needs changing in \ :literal:`check\_mode`\ ), when in diff mode.
+      Will return details on what has changed (or possibly needs changing in :literal:`check\_mode`\ ), when in diff mode.
 
 
       .. raw:: html
@@ -1340,7 +1339,6 @@ Examples
 
 .. code-block:: yaml+jinja
 
-    
     - name: Create LDAP user federation
       middleware_automation.keycloak.keycloak_user_federation:
         auth_keycloak_url: https://keycloak.example.com/auth
@@ -1434,7 +1432,6 @@ Examples
         realm: my-realm
         name: my-federation
         state: absent
-
 
 
 
@@ -1538,4 +1535,3 @@ Authors
 
 
 .. Parsing errors
-

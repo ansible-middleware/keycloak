@@ -1,4 +1,3 @@
-
 .. Document meta
 
 :orphan:
@@ -7,7 +6,7 @@
     :trim:
 
 .. meta::
-  :antsibull-docs: 2.12.0
+  :antsibull-docs: 2.14.0
 
 .. Anchors
 
@@ -48,7 +47,7 @@ Synopsis
 .. Description
 
 - This module allows the administration of Keycloak clients via the Keycloak REST API. It requires access to the REST API via OpenID Connect; the user connecting and the client being used must have the requisite access rights. In a default Keycloak installation, admin-cli and an admin user would work, as would a separate client definition with the scope tailored to your needs and a user having the expected roles.
-- The names of module options are snake\_cased versions of the camelCase ones found in the Keycloak API and its documentation at \ https://www.keycloak.org/docs-api/8.0/rest-api/index.html\ . Aliases are provided so camelCased versions can be used as well.
+- The names of module options are snake\_cased versions of the camelCase ones found in the Keycloak API and its documentation at \ `https://www.keycloak.org/docs-api/8.0/rest-api/index.html <https://www.keycloak.org/docs-api/8.0/rest-api/index.html>`__. Aliases are provided so camelCased versions can be used as well.
 - The Keycloak API does not always sanity check inputs e.g. you can set SAML-specific settings on an OpenID Connect client for instance and vice versa. Be careful. If you do not specify a setting, usually a sensible default is chosen.
 
 
@@ -1443,7 +1442,7 @@ Attributes
 
         <div class="ansible-option-cell">
 
-      Can run in \ :literal:`check\_mode`\  and return changed status prediction without modifying target.
+      Can run in :literal:`check\_mode` and return changed status prediction without modifying target.
 
 
       .. raw:: html
@@ -1485,7 +1484,7 @@ Attributes
 
         <div class="ansible-option-cell">
 
-      Will return details on what has changed (or possibly needs changing in \ :literal:`check\_mode`\ ), when in diff mode.
+      Will return details on what has changed (or possibly needs changing in :literal:`check\_mode`\ ), when in diff mode.
 
 
       .. raw:: html
@@ -1507,7 +1506,6 @@ Examples
 
 .. code-block:: yaml+jinja
 
-    
     - name: Create or update Keycloak client (minimal example), authentication with credentials
       middleware_automation.keycloak.keycloak_client:
         auth_keycloak_url: https://auth.example.com/auth
@@ -1634,7 +1632,6 @@ Examples
 
 
 
-
 .. Facts
 
 
@@ -1735,4 +1732,3 @@ Authors
 
 
 .. Parsing errors
-

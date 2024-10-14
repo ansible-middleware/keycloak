@@ -60,8 +60,8 @@ A requirement file is provided to install:
 
 ### Install Playbook
 <!--start rhbk_playbook -->
-* [`playbooks/keycloak.yml`](https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak.yml) installs keycloak legacy based on the defined variables (using most defaults).
 * [`playbooks/keycloak_quarkus.yml`](https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_quarkus.yml) installs keycloak >= 17 based on the defined variables (using most defaults).
+* [`playbooks/keycloak.yml`](https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak.yml) installs keycloak legacy based on the defined variables (using most defaults).
 
 Both playbooks include the `keycloak` role, with different settings, as described in the following sections.
 

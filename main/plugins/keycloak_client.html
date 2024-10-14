@@ -1,30 +1,28 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta content="2.14.0" name="antsibull-docs" />
+<meta content="2.15.0" name="antsibull-docs" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>keycloak_client – Allows administration of Keycloak clients via Keycloak API &mdash; Keycloak Ansible Collection  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=5707b69d" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/antsibull-minimal.css" />
       <link rel="stylesheet" type="text/css" href="../_static/ansible-basic-sphinx-ext.css" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
-        <script src="../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="keycloak_role – Allows administration of Keycloak roles via Keycloak API" href="keycloak_role.html" />
+    <link rel="next" title="keycloak_realm – Allows administration of Keycloak realm via Keycloak API" href="keycloak_realm.html" />
     <link rel="prev" title="Plugin Index" href="index.html" /> 
 </head>
 
@@ -62,32 +60,30 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm.html">keycloak_realm – Allows administration of Keycloak realm via Keycloak API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_role.html">keycloak_role – Allows administration of Keycloak roles via Keycloak API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_user_federation.html">keycloak_user_federation – Allows administration of Keycloak user federations via Keycloak API</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../roles/index.html">Role Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHANGELOG.html">Changelog</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Developer documentation</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../developing.html">Developing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing.html#contributor-s-guidelines">Contributor’s Guidelines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../testing.html">Testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../developing.html">Contributor’s Guidelines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../releasing.html">Collection Versioning Strategy</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">General</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releasing.html">Releasing</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Middleware collections</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/infinispan/main/">Infinispan / Red Hat Data Grid</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/keycloak/main/">Keycloak / Red Hat Single Sign-On</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/infinispan/main/">Infinispan / Red Hat Data Grid</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/wildfly/main/">Wildfly / Red Hat JBoss EAP</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/jws/main/">Tomcat / Red Hat JWS</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/amq/main/">ActiveMQ / Red Hat AMQ Broker</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/amq_streams/main/">Kafka / Red Hat AMQ Streams</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/common/main/">Ansible Middleware utilities</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/redhat-csp-download/main/">Red Hat CSP Download</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/ansible_collections_jcliff/main/">JCliff</a></li>
 </ul>
 
@@ -239,7 +235,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     </p>
   </div></td>
   <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-    <p>For OpenID-Connect clients, JWA algorithm which the client needs to use when sending OIDC request object. One of <code class='docutils literal notranslate'>any</code>, <code class='docutils literal notranslate'>none</code>, <code class='docutils literal notranslate'>RS256</code>.</p>
+    <p>For OpenID-Connect clients, JWA algorithm which the client needs to use when sending OIDC request object. One of <code class="ansible-value literal notranslate">any</code>, <code class="ansible-value literal notranslate">none</code>, <code class="ansible-value literal notranslate">RS256</code>.</p>
   </div></td>
 </tr>
 <tr class="row-even">
@@ -343,7 +339,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     </p>
   </div></td>
   <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-    <p>Signature algorithm used to sign SAML documents. One of <code class='docutils literal notranslate'>RSA_SHA256</code>, <code class='docutils literal notranslate'>RSA_SHA1</code>, <code class='docutils literal notranslate'>RSA_SHA512</code>, or <code class='docutils literal notranslate'>DSA_SHA1</code>.</p>
+    <p>Signature algorithm used to sign SAML documents. One of <code class="ansible-value literal notranslate">RSA_SHA256</code>, <code class="ansible-value literal notranslate">RSA_SHA1</code>, <code class="ansible-value literal notranslate">RSA_SHA512</code>, or <code class="ansible-value literal notranslate">DSA_SHA1</code>.</p>
   </div></td>
 </tr>
 <tr class="row-even">
@@ -421,7 +417,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     </p>
   </div></td>
   <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-    <p>For SAML clients, the NameID format to use (one of <code class='docutils literal notranslate'>username</code>, <code class='docutils literal notranslate'>email</code>, <code class='docutils literal notranslate'>transient</code>, or <code class='docutils literal notranslate'>persistent</code>)</p>
+    <p>For SAML clients, the NameID format to use (one of <code class="ansible-value literal notranslate">username</code>, <code class="ansible-value literal notranslate">email</code>, <code class="ansible-value literal notranslate">transient</code>, or <code class="ansible-value literal notranslate">persistent</code>)</p>
   </div></td>
 </tr>
 <tr class="row-even">
@@ -434,7 +430,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     </p>
   </div></td>
   <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-    <p>SAML signature canonicalization method. This is one of four values, namely <code class='docutils literal notranslate'>http://www.w3.org/2001/10/xml-exc-c14n#</code> for EXCLUSIVE, <code class='docutils literal notranslate'>http://www.w3.org/2001/10/xml-exc-c14n#WithComments</code> for EXCLUSIVE_WITH_COMMENTS, <code class='docutils literal notranslate'>http://www.w3.org/TR/2001/REC-xml-c14n-20010315</code> for INCLUSIVE, and <code class='docutils literal notranslate'>http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments</code> for INCLUSIVE_WITH_COMMENTS.</p>
+    <p>SAML signature canonicalization method. This is one of four values, namely <code class="ansible-value literal notranslate">http://www.w3.org/2001/10/xml-exc-c14n#</code> for EXCLUSIVE, <code class="ansible-value literal notranslate">http://www.w3.org/2001/10/xml-exc-c14n#WithComments</code> for EXCLUSIVE_WITH_COMMENTS, <code class="ansible-value literal notranslate">http://www.w3.org/TR/2001/REC-xml-c14n-20010315</code> for INCLUSIVE, and <code class="ansible-value literal notranslate">http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments</code> for INCLUSIVE_WITH_COMMENTS.</p>
   </div></td>
 </tr>
 <tr class="row-odd">
@@ -486,7 +482,41 @@ To check whether it is installed, run <code class="code docutils literal notrans
     </p>
   </div></td>
   <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-    <p>For OpenID-Connect clients, JWA algorithm for signed UserInfo-endpoint responses. One of <code class='docutils literal notranslate'>RS256</code> or <code class='docutils literal notranslate'>unsigned</code>.</p>
+    <p>For OpenID-Connect clients, JWA algorithm for signed UserInfo-endpoint responses. One of <code class="ansible-value literal notranslate">RS256</code> or <code class="ansible-value literal notranslate">unsigned</code>.</p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-attributes/x509.allow.regex.pattern.comparison"></div>
+    <p class="ansible-option-title"><strong>x509.allow.regex.pattern.comparison</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-attributes/x509.allow.regex.pattern.comparison" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">boolean</span>
+    </p>
+    <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 9.5.0</em></p>
+  </div></td>
+  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+    <p>For OpenID-Connect clients, boolean specifying whether to allow <code class='docutils literal notranslate'>x509.subjectdn</code> as regular expression.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+    <ul class="simple">
+      <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+      <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+    </ul>
+
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-attributes/x509.subjectdn"></div>
+    <p class="ansible-option-title"><strong>x509.subjectdn</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-attributes/x509.subjectdn" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+    <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 9.5.0</em></p>
+  </div></td>
+  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+    <p>For OpenID-Connect clients, subject which will be used to authenticate the client.</p>
   </div></td>
 </tr>
 
@@ -593,6 +623,78 @@ To check whether it is installed, run <code class="code docutils literal notrans
   </div></td>
 </tr>
 <tr class="row-even">
+  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-authentication_flow_binding_overrides/browser"></div>
+    <div class="ansibleOptionAnchor" id="parameter-authenticationFlowBindingOverrides/browser"></div>
+    <p class="ansible-option-title"><strong>browser</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-authentication_flow_binding_overrides/browser" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+    <p>Flow ID of the browser authentication flow.</p>
+    <p><code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-authentication_flow_binding_overrides/browser"><span class="std std-ref"><span class="pre">authentication_flow_binding_overrides.browser</span></span></a></strong></code> and <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-authentication_flow_binding_overrides/browser_name"><span class="std std-ref"><span class="pre">authentication_flow_binding_overrides.browser_name</span></span></a></strong></code> are mutually exclusive.</p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-authentication_flow_binding_overrides/browser_name"></div>
+    <div class="ansibleOptionAnchor" id="parameter-authenticationFlowBindingOverrides/browser_name"></div>
+    <div class="ansibleOptionAnchor" id="parameter-authentication_flow_binding_overrides/browserName"></div>
+    <div class="ansibleOptionAnchor" id="parameter-authenticationFlowBindingOverrides/browserName"></div>
+    <p class="ansible-option-title"><strong>browser_name</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-authentication_flow_binding_overrides/browser_name" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: browserName</span></p>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+    <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 9.1.0</em></p>
+  </div></td>
+  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+    <p>Flow name of the browser authentication flow.</p>
+    <p><code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-authentication_flow_binding_overrides/browser"><span class="std std-ref"><span class="pre">authentication_flow_binding_overrides.browser</span></span></a></strong></code> and <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-authentication_flow_binding_overrides/browser_name"><span class="std std-ref"><span class="pre">authentication_flow_binding_overrides.browser_name</span></span></a></strong></code> are mutually exclusive.</p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-authentication_flow_binding_overrides/direct_grant"></div>
+    <div class="ansibleOptionAnchor" id="parameter-authenticationFlowBindingOverrides/direct_grant"></div>
+    <div class="ansibleOptionAnchor" id="parameter-authentication_flow_binding_overrides/directGrant"></div>
+    <div class="ansibleOptionAnchor" id="parameter-authenticationFlowBindingOverrides/directGrant"></div>
+    <p class="ansible-option-title"><strong>direct_grant</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-authentication_flow_binding_overrides/direct_grant" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: directGrant</span></p>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+    <p>Flow ID of the direct grant authentication flow.</p>
+    <p><code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-authentication_flow_binding_overrides/direct_grant"><span class="std std-ref"><span class="pre">authentication_flow_binding_overrides.direct_grant</span></span></a></strong></code> and <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-authentication_flow_binding_overrides/direct_grant_name"><span class="std std-ref"><span class="pre">authentication_flow_binding_overrides.direct_grant_name</span></span></a></strong></code> are mutually exclusive.</p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-authentication_flow_binding_overrides/direct_grant_name"></div>
+    <div class="ansibleOptionAnchor" id="parameter-authenticationFlowBindingOverrides/direct_grant_name"></div>
+    <div class="ansibleOptionAnchor" id="parameter-authentication_flow_binding_overrides/directGrantName"></div>
+    <div class="ansibleOptionAnchor" id="parameter-authenticationFlowBindingOverrides/directGrantName"></div>
+    <p class="ansible-option-title"><strong>direct_grant_name</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-authentication_flow_binding_overrides/direct_grant_name" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: directGrantName</span></p>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+    <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 9.1.0</em></p>
+  </div></td>
+  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+    <p>Flow name of the direct grant authentication flow.</p>
+    <p><code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-authentication_flow_binding_overrides/direct_grant"><span class="std std-ref"><span class="pre">authentication_flow_binding_overrides.direct_grant</span></span></a></strong></code> and <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-authentication_flow_binding_overrides/direct_grant_name"><span class="std std-ref"><span class="pre">authentication_flow_binding_overrides.direct_grant_name</span></span></a></strong></code> are mutually exclusive.</p>
+  </div></td>
+</tr>
+
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-authorization_services_enabled"></div>
     <div class="ansibleOptionAnchor" id="parameter-authorizationServicesEnabled"></div>
@@ -676,11 +778,13 @@ To check whether it is installed, run <code class="code docutils literal notrans
     </p>
   </div></td>
   <td><div class="ansible-option-cell">
-    <p>How do clients authenticate with the auth server? Either <code class='docutils literal notranslate'>client-secret</code> or <code class='docutils literal notranslate'>client-jwt</code> can be chosen. When using <code class='docutils literal notranslate'>client-secret</code>, the module parameter <em>secret</em> can set it, while for <code class='docutils literal notranslate'>client-jwt</code>, you can use the keys <code class='docutils literal notranslate'>use.jwks.url</code>, <code class='docutils literal notranslate'>jwks.url</code>, and <code class='docutils literal notranslate'>jwt.credential.certificate</code> in the <em>attributes</em> module parameter to configure its behavior. This is &#x27;clientAuthenticatorType&#x27; in the Keycloak REST API.</p>
+    <p>How do clients authenticate with the auth server? Either <code class="ansible-value literal notranslate">client-secret</code>, <code class="ansible-value literal notranslate">client-jwt</code>, or <code class="ansible-value literal notranslate">client-x509</code> can be chosen. When using <code class="ansible-value literal notranslate">client-secret</code>, the module parameter <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-secret"><span class="std std-ref"><span class="pre">secret</span></span></a></strong></code> can set it, for <code class="ansible-value literal notranslate">client-jwt</code>, you can use the keys <code class='docutils literal notranslate'>use.jwks.url</code>, <code class='docutils literal notranslate'>jwks.url</code>, and <code class='docutils literal notranslate'>jwt.credential.certificate</code> in the <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-attributes"><span class="std std-ref"><span class="pre">attributes</span></span></a></strong></code> module parameter to configure its behavior. For <code class="ansible-value literal notranslate">client-x509</code> you can use the keys <code class='docutils literal notranslate'>x509.allow.regex.pattern.comparison</code> and <code class='docutils literal notranslate'>x509.subjectdn</code> in the <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-attributes"><span class="std std-ref"><span class="pre">attributes</span></span></a></strong></code> module parameter to configure which certificate(s) to accept.</p>
+    <p>This is &#x27;clientAuthenticatorType&#x27; in the Keycloak REST API.</p>
     <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
     <ul class="simple">
       <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;client-secret&#34;</code></p></li>
       <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;client-jwt&#34;</code></p></li>
+      <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;client-x509&#34;</code></p></li>
     </ul>
 
   </div></td>
@@ -697,7 +801,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     </p>
   </div></td>
   <td><div class="ansible-option-cell">
-    <p>Client id of client to be worked on. This is usually an alphanumeric name chosen by you. Either this or <em>id</em> is required. If you specify both, <em>id</em> takes precedence. This is &#x27;clientId&#x27; in the Keycloak REST API.</p>
+    <p>Client id of client to be worked on. This is usually an alphanumeric name chosen by you. Either this or <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-id"><span class="std std-ref"><span class="pre">id</span></span></a></strong></code> is required. If you specify both, <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-id"><span class="std std-ref"><span class="pre">id</span></span></a></strong></code> takes precedence. This is &#x27;clientId&#x27; in the Keycloak REST API.</p>
   </div></td>
 </tr>
 <tr class="row-even">
@@ -904,7 +1008,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     </p>
   </div></td>
   <td><div class="ansible-option-cell">
-    <p>Id of client to be worked on. This is usually an UUID. Either this or <em>client_id</em> is required. If you specify both, this takes precedence.</p>
+    <p>Id of client to be worked on. This is usually an UUID. Either this or <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-client_id"><span class="std std-ref"><span class="pre">client_id</span></span></a></strong></code> is required. If you specify both, this takes precedence.</p>
   </div></td>
 </tr>
 <tr class="row-even">
@@ -938,7 +1042,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     </p>
   </div></td>
   <td><div class="ansible-option-cell">
-    <p>Name of the client (this is not the same as <em>client_id</em>).</p>
+    <p>Name of the client (this is not the same as <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-client_id"><span class="std std-ref"><span class="pre">client_id</span></span></a></strong></code>).</p>
   </div></td>
 </tr>
 <tr class="row-even">
@@ -998,11 +1102,14 @@ To check whether it is installed, run <code class="code docutils literal notrans
     </p>
   </div></td>
   <td><div class="ansible-option-cell">
-    <p>Type of client (either <code class='docutils literal notranslate'>openid-connect</code> or <code class='docutils literal notranslate'>saml</code>.</p>
+    <p>Type of client.</p>
+    <p>At creation only, default value will be <code class="ansible-value literal notranslate">openid-connect</code> if <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-protocol"><span class="std std-ref"><span class="pre">protocol</span></span></a></strong></code> is omitted.</p>
+    <p>The <code class="ansible-value literal notranslate">docker-v2</code> value was added in community.general 8.6.0.</p>
     <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
     <ul class="simple">
       <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;openid-connect&#34;</code></p></li>
       <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;saml&#34;</code></p></li>
+      <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;docker-v2&#34;</code></p></li>
     </ul>
 
   </div></td>
@@ -1034,7 +1141,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     </p>
   </div></td>
   <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-    <p>Dict specifying the configuration options for the protocol mapper; the contents differ depending on the value of <em>protocolMapper</em> and are not documented other than by the source of the mappers and its parent class(es). An example is given below. It is easiest to obtain valid config values by dumping an already-existing protocol mapper configuration through check-mode in the <em>existing</em> field.</p>
+    <p>Dict specifying the configuration options for the protocol mapper; the contents differ depending on the value of <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-protocol_mappers/protocolMapper"><span class="std std-ref"><span class="pre">protocol_mappers[].protocolMapper</span></span></a></strong></code> and are not documented other than by the source of the mappers and its parent class(es). An example is given below. It is easiest to obtain valid config values by dumping an already-existing protocol mapper configuration through check-mode in the <code class="ansible-return-value literal notranslate"><a class="reference internal" href="#return-existing"><span class="std std-ref"><span class="pre">existing</span></span></a></code> field.</p>
   </div></td>
 </tr>
 <tr class="row-even">
@@ -1110,11 +1217,12 @@ To check whether it is installed, run <code class="code docutils literal notrans
     </p>
   </div></td>
   <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-    <p>This is either <code class='docutils literal notranslate'>openid-connect</code> or <code class='docutils literal notranslate'>saml</code>, this specifies for which protocol this protocol mapper. is active.</p>
+    <p>This specifies for which protocol this protocol mapper is active.</p>
     <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
     <ul class="simple">
       <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;openid-connect&#34;</code></p></li>
       <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;saml&#34;</code></p></li>
+      <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;docker-v2&#34;</code></p></li>
     </ul>
 
   </div></td>
@@ -1130,29 +1238,29 @@ To check whether it is installed, run <code class="code docutils literal notrans
     </p>
   </div></td>
   <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-    <p>The Keycloak-internal name of the type of this protocol-mapper. While an exhaustive list is impossible to provide since this may be extended through SPIs by the user of Keycloak, by default Keycloak as of 3.4 ships with at least</p>
-    <p><code class='docutils literal notranslate'>docker-v2-allow-all-mapper</code></p>
-    <p><code class='docutils literal notranslate'>oidc-address-mapper</code></p>
-    <p><code class='docutils literal notranslate'>oidc-full-name-mapper</code></p>
-    <p><code class='docutils literal notranslate'>oidc-group-membership-mapper</code></p>
-    <p><code class='docutils literal notranslate'>oidc-hardcoded-claim-mapper</code></p>
-    <p><code class='docutils literal notranslate'>oidc-hardcoded-role-mapper</code></p>
-    <p><code class='docutils literal notranslate'>oidc-role-name-mapper</code></p>
-    <p><code class='docutils literal notranslate'>oidc-script-based-protocol-mapper</code></p>
-    <p><code class='docutils literal notranslate'>oidc-sha256-pairwise-sub-mapper</code></p>
-    <p><code class='docutils literal notranslate'>oidc-usermodel-attribute-mapper</code></p>
-    <p><code class='docutils literal notranslate'>oidc-usermodel-client-role-mapper</code></p>
-    <p><code class='docutils literal notranslate'>oidc-usermodel-property-mapper</code></p>
-    <p><code class='docutils literal notranslate'>oidc-usermodel-realm-role-mapper</code></p>
-    <p><code class='docutils literal notranslate'>oidc-usersessionmodel-note-mapper</code></p>
-    <p><code class='docutils literal notranslate'>saml-group-membership-mapper</code></p>
-    <p><code class='docutils literal notranslate'>saml-hardcode-attribute-mapper</code></p>
-    <p><code class='docutils literal notranslate'>saml-hardcode-role-mapper</code></p>
-    <p><code class='docutils literal notranslate'>saml-role-list-mapper</code></p>
-    <p><code class='docutils literal notranslate'>saml-role-name-mapper</code></p>
-    <p><code class='docutils literal notranslate'>saml-user-attribute-mapper</code></p>
-    <p><code class='docutils literal notranslate'>saml-user-property-mapper</code></p>
-    <p><code class='docutils literal notranslate'>saml-user-session-note-mapper</code></p>
+    <p>The Keycloak-internal name of the type of this protocol-mapper. While an exhaustive list is impossible to provide since this may be extended through SPIs by the user of Keycloak, by default Keycloak as of 3.4 ships with at least:</p>
+    <p><code class="ansible-value literal notranslate">docker-v2-allow-all-mapper</code></p>
+    <p><code class="ansible-value literal notranslate">oidc-address-mapper</code></p>
+    <p><code class="ansible-value literal notranslate">oidc-full-name-mapper</code></p>
+    <p><code class="ansible-value literal notranslate">oidc-group-membership-mapper</code></p>
+    <p><code class="ansible-value literal notranslate">oidc-hardcoded-claim-mapper</code></p>
+    <p><code class="ansible-value literal notranslate">oidc-hardcoded-role-mapper</code></p>
+    <p><code class="ansible-value literal notranslate">oidc-role-name-mapper</code></p>
+    <p><code class="ansible-value literal notranslate">oidc-script-based-protocol-mapper</code></p>
+    <p><code class="ansible-value literal notranslate">oidc-sha256-pairwise-sub-mapper</code></p>
+    <p><code class="ansible-value literal notranslate">oidc-usermodel-attribute-mapper</code></p>
+    <p><code class="ansible-value literal notranslate">oidc-usermodel-client-role-mapper</code></p>
+    <p><code class="ansible-value literal notranslate">oidc-usermodel-property-mapper</code></p>
+    <p><code class="ansible-value literal notranslate">oidc-usermodel-realm-role-mapper</code></p>
+    <p><code class="ansible-value literal notranslate">oidc-usersessionmodel-note-mapper</code></p>
+    <p><code class="ansible-value literal notranslate">saml-group-membership-mapper</code></p>
+    <p><code class="ansible-value literal notranslate">saml-hardcode-attribute-mapper</code></p>
+    <p><code class="ansible-value literal notranslate">saml-hardcode-role-mapper</code></p>
+    <p><code class="ansible-value literal notranslate">saml-role-list-mapper</code></p>
+    <p><code class="ansible-value literal notranslate">saml-role-name-mapper</code></p>
+    <p><code class="ansible-value literal notranslate">saml-user-attribute-mapper</code></p>
+    <p><code class="ansible-value literal notranslate">saml-user-property-mapper</code></p>
+    <p><code class="ansible-value literal notranslate">saml-user-session-note-mapper</code></p>
     <p>An exhaustive list of available mappers on your installation can be obtained on the admin console by going to Server Info -&gt; Providers and looking under &#x27;protocol-mapper&#x27;.</p>
   </div></td>
 </tr>
@@ -1263,7 +1371,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     </p>
   </div></td>
   <td><div class="ansible-option-cell">
-    <p>When using <em>client_authenticator_type</em> <code class='docutils literal notranslate'>client-secret</code> (the default), you can specify a secret here (otherwise one will be generated if it does not exit). If changing this secret, the module will not register a change currently (but the changed secret will be saved).</p>
+    <p>When using <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-client_authenticator_type"><span class="std std-ref"><span class="pre">client_authenticator_type=client-secret</span></span></a></code> (the default), you can specify a secret here (otherwise one will be generated if it does not exit). If changing this secret, the module will not register a change currently (but the changed secret will be saved).</p>
   </div></td>
 </tr>
 <tr class="row-odd">
@@ -1319,8 +1427,8 @@ To check whether it is installed, run <code class="code docutils literal notrans
   </div></td>
   <td><div class="ansible-option-cell">
     <p>State of the client</p>
-    <p>On <code class='docutils literal notranslate'>present</code>, the client will be created (or updated if it exists already).</p>
-    <p>On <code class='docutils literal notranslate'>absent</code>, the client will be removed if it exists</p>
+    <p>On <code class="ansible-value literal notranslate">present</code>, the client will be created (or updated if it exists already).</p>
+    <p>On <code class="ansible-value literal notranslate">absent</code>, the client will be removed if it exists</p>
     <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
     <ul class="simple">
       <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>&#34;present&#34;</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
@@ -1376,7 +1484,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     </p>
   </div></td>
   <td><div class="ansible-option-cell">
-    <p>Whether or not to use configuration from the <em>client_template</em>. This is &#x27;useTemplateConfig&#x27; in the Keycloak REST API.</p>
+    <p>Whether or not to use configuration from the <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-client_template"><span class="std std-ref"><span class="pre">client_template</span></span></a></strong></code>. This is &#x27;useTemplateConfig&#x27; in the Keycloak REST API.</p>
     <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
     <ul class="simple">
       <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
@@ -1397,7 +1505,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     </p>
   </div></td>
   <td><div class="ansible-option-cell">
-    <p>Whether or not to use mapper configuration from the <em>client_template</em>. This is &#x27;useTemplateMappers&#x27; in the Keycloak REST API.</p>
+    <p>Whether or not to use mapper configuration from the <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-client_template"><span class="std std-ref"><span class="pre">client_template</span></span></a></strong></code>. This is &#x27;useTemplateMappers&#x27; in the Keycloak REST API.</p>
     <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
     <ul class="simple">
       <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
@@ -1418,7 +1526,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     </p>
   </div></td>
   <td><div class="ansible-option-cell">
-    <p>Whether or not to use scope configuration from the <em>client_template</em>. This is &#x27;useTemplateScope&#x27; in the Keycloak REST API.</p>
+    <p>Whether or not to use scope configuration from the <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-client_template"><span class="std std-ref"><span class="pre">client_template</span></span></a></strong></code>. This is &#x27;useTemplateScope&#x27; in the Keycloak REST API.</p>
     <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
     <ul class="simple">
       <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
@@ -1529,6 +1637,22 @@ To check whether it is installed, run <code class="code docutils literal notrans
 <span class="w">  </span><span class="nt">delegate_to</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span>
 
 
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Create or update a Keycloak client (minimal example), with x509 authentication</span>
+<span class="w">  </span><span class="nt">middleware_automation.keycloak.keycloak_client</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">auth_client_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin-cli</span>
+<span class="w">    </span><span class="nt">auth_keycloak_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://auth.example.com/auth</span>
+<span class="w">    </span><span class="nt">auth_realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class="w">    </span><span class="nt">auth_username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">USERNAME</span>
+<span class="w">    </span><span class="nt">auth_password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PASSWORD</span>
+<span class="w">    </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
+<span class="w">    </span><span class="nt">client_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span>
+<span class="w">    </span><span class="nt">client_authenticator_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">client-x509</span>
+<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">x509.subjectdn</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;CN=client&quot;</span>
+<span class="w">      </span><span class="nt">x509.allow.regex.pattern.comparison</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+
+
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Create or update a Keycloak client (with all the bells and whistles)</span>
 <span class="w">  </span><span class="nt">middleware_automation.keycloak.keycloak_client</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">auth_client_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin-cli</span>
@@ -1579,7 +1703,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test01</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test02</span>
 <span class="w">    </span><span class="nt">authentication_flow_binding_overrides</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">browser</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4c90336b-bf1d-4b87-916d-3677ba4e5fbb</span>
+<span class="w">        </span><span class="nt">browser</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4c90336b-bf1d-4b87-916d-3677ba4e5fbb</span>
 <span class="w">    </span><span class="nt">protocol_mappers</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">config</span><span class="p">:</span>
 <span class="w">          </span><span class="nt">access.token.claim</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
@@ -1707,7 +1831,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="Plugin Index" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="keycloak_role.html" class="btn btn-neutral float-right" title="keycloak_role – Allows administration of Keycloak roles via Keycloak API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="keycloak_realm.html" class="btn btn-neutral float-right" title="keycloak_realm – Allows administration of Keycloak realm via Keycloak API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

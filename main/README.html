@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
@@ -6,20 +8,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ansible Collection - middleware_automation.keycloak &mdash; Keycloak Ansible Collection  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5707b69d" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/antsibull-minimal.css" />
       <link rel="stylesheet" type="text/css" href="_static/ansible-basic-sphinx-ext.css" />
 
   
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=5929fcd5"></script>
-        <script src="_static/doctools.js?v=9a2dae69"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -74,27 +72,24 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="plugins/index.html">Plugin Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="roles/index.html">Role Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">Changelog</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Developer documentation</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="developing.html">Developing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developing.html#contributor-s-guidelines">Contributor’s Guidelines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="testing.html">Testing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="developing.html">Contributor’s Guidelines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="releasing.html">Collection Versioning Strategy</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">General</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releasing.html">Releasing</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Middleware collections</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/infinispan/main/">Infinispan / Red Hat Data Grid</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/keycloak/main/">Keycloak / Red Hat Single Sign-On</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/infinispan/main/">Infinispan / Red Hat Data Grid</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/wildfly/main/">Wildfly / Red Hat JBoss EAP</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/jws/main/">Tomcat / Red Hat JWS</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/amq/main/">ActiveMQ / Red Hat AMQ Broker</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/amq_streams/main/">Kafka / Red Hat AMQ Streams</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/common/main/">Ansible Middleware utilities</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/redhat-csp-download/main/">Red Hat CSP Download</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/ansible_collections_jcliff/main/">JCliff</a></li>
 </ul>
 
@@ -127,7 +122,7 @@
 <!--start build_status -->
 <p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/actions/workflows/ci.yml"><img alt="Build Status" src="https://github.com/ansible-middleware/keycloak/workflows/CI/badge.svg?branch=main" /></a></p>
 <blockquote>
-<div><p><strong><em>NOTE:</em> If you are Red Hat customer, install <code class="docutils literal notranslate"><span class="pre">redhat.sso</span></code> (for Red Hat Single Sign-On) or <code class="docutils literal notranslate"><span class="pre">redhat.rhbk</span></code> (for Red Hat Build of Keycloak) from <a class="reference external" href="https://console.redhat.com/ansible/ansible-dashboard">Automation Hub</a> as the certified version of this collection.</strong></p>
+<div><p><strong><em>NOTE:</em> If you are Red Hat customer, install <code class="docutils literal notranslate"><span class="pre">redhat.rhbk</span></code> (for Red Hat Build of Keycloak) or <code class="docutils literal notranslate"><span class="pre">redhat.sso</span></code> (for Red Hat Single Sign-On) from <a class="reference external" href="https://console.redhat.com/ansible/ansible-dashboard">Automation Hub</a> as the certified version of this collection.</strong></p>
 </div></blockquote>
 <!--end build_status -->
 <!--start description -->
@@ -170,9 +165,9 @@
 <section id="included-roles">
 <h3>Included roles<a class="headerlink" href="#included-roles" title="Link to this heading"></a></h3>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak/README.md"><code class="docutils literal notranslate"><span class="pre">keycloak</span></code></a>: role for installing the service (keycloak &lt;= 19.0).</p></li>
-<li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak_realm/README.md"><code class="docutils literal notranslate"><span class="pre">keycloak_realm</span></code></a>: role for configuring a realm, user federation(s), clients and users, in an installed service.</p></li>
-<li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak_quarkus/README.md"><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus</span></code></a>: role for installing the quarkus variant of keycloak (&gt;= 17.0.0).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus</span></code>: role for installing keycloak (&gt;= 19.0.0, quarkus based).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm</span></code>: role for configuring a realm, user federation(s), clients and users, in an installed service.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak</span></code>: role for installing legacy keycloak (&lt;= 19.0, wildfly based).</p></li>
 </ul>
 <!--end roles_paths -->
 </section>
@@ -183,8 +178,8 @@
 <h3>Install Playbook<a class="headerlink" href="#install-playbook" title="Link to this heading"></a></h3>
 <!--start rhbk_playbook -->
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak.yml</span></code></a> installs keycloak legacy based on the defined variables (using most defaults).</p></li>
 <li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_quarkus.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak_quarkus.yml</span></code></a> installs keycloak &gt;= 17 based on the defined variables (using most defaults).</p></li>
+<li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak.yml</span></code></a> installs keycloak legacy based on the defined variables (using most defaults).</p></li>
 </ul>
 <p>Both playbooks include the <code class="docutils literal notranslate"><span class="pre">keycloak</span></code> role, with different settings, as described in the following sections.</p>
 <p>For full service configuration details, refer to the <a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak/README.md">keycloak role README</a>.</p>

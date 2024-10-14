@@ -19,7 +19,7 @@ Role Defaults
 |`keycloak_management_http_port`| Management port | `9990` |
 |`keycloak_auth_client`| Authentication client for configuration REST calls | `admin-cli` |
 |`keycloak_client_public`| Configure a public realm client | `True` |
-|`keycloak_client_web_origins`| Web origins for realm client | `+` |
+|`keycloak_client_web_origins`| Web origins for realm client | `/*` |
 |`keycloak_url`| URL for configuration rest calls | `http://{{ keycloak_host }}:{{ keycloak_http_port }}` |
 |`keycloak_management_url`| URL for management console rest calls | `http://{{ keycloak_host }}:{{ keycloak_management_http_port }}` |
 

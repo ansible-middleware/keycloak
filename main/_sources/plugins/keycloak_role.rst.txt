@@ -6,7 +6,7 @@
     :trim:
 
 .. meta::
-  :antsibull-docs: 2.14.0
+  :antsibull-docs: 2.15.0
 
 .. Anchors
 
@@ -195,6 +195,93 @@ Parameters
   </tr>
   <tr class="row-even">
     <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-composite"></div>
+      <p class="ansible-option-title"><strong>composite</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-composite" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 7.1.0</em></p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>If <code class="ansible-value literal notranslate">true</code>, the role is a composition of other realm and/or client role.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>false</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-composites"></div>
+      <p class="ansible-option-title"><strong>composites</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-composites" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">list</span>
+        / <span class="ansible-option-elements">elements=dictionary</span>
+      </p>
+      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 7.1.0</em></p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>List of roles to include to the composite realm role.</p>
+      <p>If the composite role is a client role, the <code class='docutils literal notranslate'>clientId</code> (not ID of the client) must be specified.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">[]</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-composites/client_id"></div>
+      <div class="ansibleOptionAnchor" id="parameter-composites/clientId"></div>
+      <p class="ansible-option-title"><strong>client_id</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-composites/client_id" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: clientId</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>Client ID if the role is a client role. Do not include this option for a REALM role.</p>
+      <p>Use the client ID you can see in the Keycloak console, not the technical ID of the client.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-composites/name"></div>
+      <p class="ansible-option-title"><strong>name</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-composites/name" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+        / <span class="ansible-option-required">required</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>Name of the role. This can be the name of a REALM role or a client role.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-composites/state"></div>
+      <p class="ansible-option-title"><strong>state</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-composites/state" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>Create the composite if present, remove it if absent.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>&#34;present&#34;</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;absent&#34;</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-connection_timeout"></div>
       <p class="ansible-option-title"><strong>connection_timeout</strong></p>
       <a class="ansibleOptionLink" href="#parameter-connection_timeout" title="Permalink to this option"></a>
@@ -208,7 +295,7 @@ Parameters
       <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">10</code></p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-description"></div>
       <p class="ansible-option-title"><strong>description</strong></p>
@@ -221,7 +308,7 @@ Parameters
       <p>The role description.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-http_agent"></div>
       <p class="ansible-option-title"><strong>http_agent</strong></p>
@@ -236,7 +323,7 @@ Parameters
       <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;Ansible&#34;</code></p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-name"></div>
       <p class="ansible-option-title"><strong>name</strong></p>
@@ -251,7 +338,7 @@ Parameters
       <p>This parameter is required.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-realm"></div>
       <p class="ansible-option-title"><strong>realm</strong></p>
@@ -265,7 +352,7 @@ Parameters
       <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;master&#34;</code></p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-state"></div>
       <p class="ansible-option-title"><strong>state</strong></p>
@@ -276,8 +363,8 @@ Parameters
     </div></td>
     <td><div class="ansible-option-cell">
       <p>State of the role.</p>
-      <p>On <code class='docutils literal notranslate'>present</code>, the role will be created if it does not yet exist, or updated with the parameters you provide.</p>
-      <p>On <code class='docutils literal notranslate'>absent</code>, the role will be removed if it exists.</p>
+      <p>On <code class="ansible-value literal notranslate">present</code>, the role will be created if it does not yet exist, or updated with the parameters you provide.</p>
+      <p>On <code class="ansible-value literal notranslate">absent</code>, the role will be removed if it exists.</p>
       <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>&#34;present&#34;</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
@@ -286,7 +373,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-token"></div>
       <p class="ansible-option-title"><strong>token</strong></p>
@@ -300,7 +387,7 @@ Parameters
       <p>Authentication token for Keycloak API.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-validate_certs"></div>
       <p class="ansible-option-title"><strong>validate_certs</strong></p>
@@ -495,14 +582,14 @@ Examples
         auth_password: PASSWORD
         name: my-new-role
         attributes:
-          attrib1: value1
-          attrib2: value2
-          attrib3:
-            - with
-            - numerous
-            - individual
-            - list
-            - items
+            attrib1: value1
+            attrib2: value2
+            attrib3:
+                - with
+                - numerous
+                - individual
+                - list
+                - items
       delegate_to: localhost
 
 

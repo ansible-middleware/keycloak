@@ -7,36 +7,39 @@
     keycloak_realm: TestRealm
     keycloak_quarkus_log: file
     keycloak_quarkus_frontend_url: 'http://localhost:8080/'
-    keycloak_quarkus_start_dev: True
+    keycloak_quarkus_start_dev: true
     keycloak_quarkus_proxy_mode: none
-    keycloak_client_default_roles:
-      - TestRoleAdmin
-      - TestRoleUser
-    keycloak_client_users:
-      - username: TestUser
-        password: password
-        client_roles:
-          - client: TestClient
-            role: TestRoleUser
-      - username: TestAdmin
-        password: password
-        client_roles:
-          - client: TestClient
-            role: TestRoleUser
-          - client: TestClient
-            role: TestRoleAdmin
-    keycloak_clients:
-      - name: TestClient
-        roles: "{{ keycloak_client_default_roles }}"
-        public_client: "{{ keycloak_client_public }}"
-        web_origins: "{{ keycloak_client_web_origins }}"
-        users: "{{ keycloak_client_users }}"
-        client_id: TestClient
-        attributes:
-          post.logout.redirect.uris: '/public/logout'
   roles:
     - role: keycloak_quarkus
     - role: keycloak_realm
-      keycloak_realm: TestRealm
-      keycloak_admin_password: "remembertochangeme"
       keycloak_context: ''
+      keycloak_client_default_roles:
+        - TestRoleAdmin
+        - TestRoleUser
+      keycloak_client_users:
+        - username: TestUser
+          password: password
+          client_roles:
+            - client: TestClient
+              role: TestRoleUser
+              realm: "{{ keycloak_realm }}"
+        - username: TestAdmin
+          password: password
+          client_roles:
+            - client: TestClient
+              role: TestRoleUser
+              realm: "{{ keycloak_realm }}"
+            - client: TestClient
+              role: TestRoleAdmin
+              realm: "{{ keycloak_realm }}"
+      keycloak_realm: TestRealm
+      keycloak_clients:
+        - name: TestClient
+          roles: "{{ keycloak_client_default_roles }}"
+          realm: "{{ keycloak_realm }}"
+          public_client: "{{ keycloak_client_public }}"
+          web_origins: "{{ keycloak_client_web_origins }}"
+          users: "{{ keycloak_client_users }}"
+          client_id: TestClient
+          attributes:
+            post.logout.redirect.uris: '/public/logout'

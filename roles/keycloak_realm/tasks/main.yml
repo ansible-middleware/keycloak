@@ -82,7 +82,7 @@
     base_url: "{{ item.base_url | default('') }}"
     enabled: "{{ item.enabled | default(True) }}"
     redirect_uris: "{{ item.redirect_uris | default(omit) }}"
-    web_origins: "{{ item.web_origins | default('+') }}"
+    web_origins: "{{ item.web_origins | default(omit) }}"
     bearer_only: "{{ item.bearer_only | default(omit) }}"
     standard_flow_enabled: "{{ item.standard_flow_enabled | default(omit) }}"
     implicit_flow_enabled: "{{ item.implicit_flow_enabled | default(omit) }}"
@@ -92,7 +92,7 @@
     protocol: "{{ item.protocol | default(omit) }}"
     attributes: "{{ item.attributes | default(omit) }}"
     state: present
-  no_log: "{{ keycloak_no_log | default('True') }}"
+  no_log: "{{ keycloak_no_log | default('false') }}"
   register: create_client_result
   loop: "{{ keycloak_clients | flatten }}"
   when: (item.name is defined and item.client_id is defined) or (item.name is defined and item.id is defined)

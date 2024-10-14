@@ -43,7 +43,7 @@ keycloak_client_default_roles: []
 keycloak_client_public: true
 
 # allowed web origins for the client
-keycloak_client_web_origins: '+'
+keycloak_client_web_origins: '/*'
 
 # list of user and role mappings to create in the client
 # Each user has the form:

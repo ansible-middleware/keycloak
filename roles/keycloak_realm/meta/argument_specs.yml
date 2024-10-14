@@ -53,7 +53,7 @@ argument_specs:
                 type: "bool"
             keycloak_client_web_origins:
                 # line 42 of keycloak_realm/defaults/main.yml
-                default: "+"
+                default: "/*"
                 description: "Web origins for realm client"
                 type: "str"
             keycloak_client_users:

@@ -9,7 +9,7 @@
     keycloak_quarkus_log: file
     keycloak_quarkus_log_level: debug
     keycloak_quarkus_log_target: /tmp/keycloak
-    keycloak_quarkus_start_dev: True
+    keycloak_quarkus_start_dev: true
     keycloak_quarkus_proxy_mode: none
     keycloak_quarkus_offline_install: true
     keycloak_quarkus_download_path: /tmp/keycloak/
@@ -17,9 +17,6 @@
     - role: keycloak_quarkus
     - role: keycloak_realm
       keycloak_context: ''
-      keycloak_client_default_roles:
-        - TestRoleAdmin
-        - TestRoleUser
       keycloak_client_users:
         - username: TestUser
           password: password
@@ -39,7 +36,6 @@
       keycloak_realm: TestRealm
       keycloak_clients:
         - name: TestClient
-          roles: "{{ keycloak_client_default_roles }}"
           realm: "{{ keycloak_realm }}"
           public_client: "{{ keycloak_client_public }}"
           web_origins: "{{ keycloak_client_web_origins }}"

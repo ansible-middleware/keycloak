@@ -1,6 +1,6 @@
-=============================================
-middleware\_automation.keycloak Release Notes
-=============================================
+=============
+Release Notes
+=============
 
 .. contents:: Topics
 

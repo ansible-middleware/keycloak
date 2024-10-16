@@ -37,7 +37,7 @@
           repository_url: https://repo1.maven.org/maven2/ # https://mvnrepository.com/artifact/org.keycloak/keycloak-kerberos-federation/24.0.4
           group_id: org.keycloak
           artifact_id: keycloak-kerberos-federation
-          version: 24.0.4 # optional
+          version: 24.0.5 # optional
           # username: myUser # optional
           # password: myPAT # optional
       # - id: my-static-theme

@@ -22,7 +22,7 @@
 
     - name: Download keycloak archive to controller directory
       ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
-        url: https://github.com/keycloak/keycloak/releases/download/24.0.4/keycloak-24.0.4.zip
+        url: https://github.com/keycloak/keycloak/releases/download/24.0.5/keycloak-24.0.5.zip
         dest: /tmp/keycloak
         mode: '0640'
       delegate_to: localhost

@@ -1,10 +1,18 @@
-=============
-Release Notes
-=============
+=============================================
+middleware\_automation.keycloak Release Notes
+=============================================
 
 .. contents:: Topics
 
 This changelog describes changes after version 0.2.6.
+
+v2.4.3
+======
+
+Minor Changes
+-------------
+
+- Update keycloak to 24.0.5 `#241 <https://github.com/ansible-middleware/keycloak/pull/241>`_
 
 v2.4.2
 ======

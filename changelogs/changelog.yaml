@@ -604,3 +604,12 @@ releases:
     - 237.yaml
     - 239.yaml
     release_date: '2024-09-26'
+  2.4.3:
+    changes:
+      minor_changes:
+      - 'Update keycloak to 24.0.5 `#241 <https://github.com/ansible-middleware/keycloak/pull/241>`_
+
+        '
+    fragments:
+    - 241.yaml
+    release_date: '2024-10-16'

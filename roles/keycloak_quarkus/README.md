@@ -33,7 +33,7 @@ Role Defaults
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
-|`keycloak_quarkus_version`| keycloak.org package version | `24.0.4` |
+|`keycloak_quarkus_version`| keycloak.org package version | `24.0.5` |
 |`keycloak_quarkus_offline_install` | Perform an offline install | `False`|
 |`keycloak_quarkus_dest`| Installation root path | `/opt/keycloak` |
 |`keycloak_quarkus_download_url` | Download URL for keycloak | `https://github.com/keycloak/keycloak/releases/download/{{ keycloak_quarkus_version }}/{{ keycloak_quarkus_archive }}` |
@@ -207,7 +207,7 @@ keycloak_quarkus_providers:
       repository_url: https://maven.pkg.github.com/OWNER/REPOSITORY # optional, maven repo url
       group_id:  my.group                   # optional, maven group id
       artifact_id: artifact                 # optional, maven artifact id
-      version: 24.0.4                       # optional, defaults to latest
+      version: 24.0.5                       # optional, defaults to latest
       username:  user                       # optional, cf. https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry#authenticating-to-github-packages
       password: pat                         # optional, provide a PAT for accessing Github's Apache Maven registry
     properties:                             # optional, list of key-values

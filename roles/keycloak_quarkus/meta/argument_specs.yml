@@ -2,7 +2,7 @@ argument_specs:
     main:
         options:
             keycloak_quarkus_version:
-                default: "24.0.4"
+                default: "24.0.5"
                 description: "keycloak.org package version"
                 type: "str"
             keycloak_quarkus_archive:

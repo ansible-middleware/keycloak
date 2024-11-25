@@ -6,8 +6,16 @@ middleware\_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
-v2.4.3-devel
+v2.4.4-devel
 ============
+
+Bugfixes
+--------
+
+- Rebuild config and restart service for local providers `#250 <https://github.com/ansible-middleware/keycloak/pull/250>`_
+
+v2.4.3
+======
 
 Minor Changes
 -------------

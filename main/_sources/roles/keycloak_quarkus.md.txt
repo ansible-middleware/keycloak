@@ -200,7 +200,7 @@ keycloak_quarkus_providers:
   - id: http-client                         # required; "{{ id }}.jar" identifies the file name on RHBK
     spi: connections                        # required if neither url, local_path nor maven are specified; required for setting properties
     default: true                           # optional, whether to set default for spi, default false
-    restart: true                           # optional, whether to restart, default true
+    restart: true                           # optional, whether to rebuild config and restart the service after deploying, default true
     url: https://.../.../custom_spi.jar     # optional, url for download via http
     local_path: my_theme_spi.jar            # optional, path on local controller for SPI to be uploaded
     maven:                                  # optional, for download using maven

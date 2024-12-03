@@ -1,0 +1,14 @@
+---
+- name: "Update Access token lifespan"
+  ansible.builtin.uri:
+    url: "{{ keycloak_url }}{{ keycloak_context }}/admin/realms/{{ keycloak_realm }}"
+    method: PUT
+    body:
+      accessTokenLifespan: 300
+    validate_certs: false
+    body_format: json
+    status_code:
+      - 200
+      - 204
+    headers:
+      Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"

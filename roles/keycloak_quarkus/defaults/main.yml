@@ -1,6 +1,6 @@
 ---
 ### Configuration specific to keycloak
-keycloak_quarkus_version: 24.0.5
+keycloak_quarkus_version: 26.0.7
 keycloak_quarkus_archive: "keycloak-{{ keycloak_quarkus_version }}.zip"
 keycloak_quarkus_download_url: "https://github.com/keycloak/keycloak/releases/download/{{ keycloak_quarkus_version }}/{{ keycloak_quarkus_archive }}"
 keycloak_quarkus_installdir: "{{ keycloak_quarkus_dest }}/keycloak-{{ keycloak_quarkus_version }}"

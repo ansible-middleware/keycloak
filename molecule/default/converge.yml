@@ -5,7 +5,7 @@
     keycloak_quarkus_show_deprecation_warnings: false
     keycloak_quarkus_bootstrap_admin_password: "remembertochangeme"
     keycloak_quarkus_bootstrap_admin_user: "remembertochangeme"
-    keycloak_quarkus_host: instance
+    keycloak_quarkus_hostname: http://instance
     keycloak_quarkus_log: file
     keycloak_quarkus_log_level: debug
     keycloak_quarkus_log_target: /tmp/keycloak

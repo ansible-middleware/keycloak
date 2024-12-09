@@ -6,7 +6,7 @@
     keycloak_quarkus_bootstrap_admin_password: "remembertochangeme"
     keycloak_quarkus_bootstrap_admin_user: "remembertochangeme"
     keycloak_realm: TestRealm
-    keycloak_quarkus_host: instance
+    keycloak_quarkus_hostname: http://instance
     keycloak_quarkus_log: file
     keycloak_quarkus_http_enabled: True
     keycloak_quarkus_http_port: 8080

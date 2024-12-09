@@ -84,17 +84,19 @@ argument_specs:
                 default: "0.0.0.0"
                 description: "Address for binding service ports"
                 type: "str"
+            keycloak_quarkus_hostname:
+                description: >-
+                    Address at which is the server exposed.
+                    Can be a full URL, or just a hostname. When only hostname is provided, scheme, port and context path are resolved from the request.
+                type: "str"
             keycloak_quarkus_host:
-                default: "localhost"
-                description: "Hostname for the Keycloak server"
+                description: "Deprecated in v26, use keycloak_quarkus_hostname instead."
                 type: "str"
             keycloak_quarkus_port:
-                default: -1
-                description: "The port used by the proxy when exposing the hostname"
+                description: "Deprecated in v26, use keycloak_quarkus_hostname instead."
                 type: "int"
             keycloak_quarkus_path:
-                required: false
-                description: "This should be set if proxy uses a different context-path for Keycloak"
+                description: "Deprecated in v26, use keycloak_quarkus_hostname instead."
                 type: "str"
             keycloak_quarkus_http_enabled:
                 default: true
@@ -228,11 +230,15 @@ argument_specs:
                 type: "str"
             keycloak_quarkus_frontend_url:
                 required: false
-                description: "Service public URL"
+                description: "Deprecated in v26, use keycloak_quarkus_hostname instead."
+                type: "str"
+            keycloak_quarkus_admin:
+                required: false
+                description: "Service URL for the admin console"
                 type: "str"
             keycloak_quarkus_admin_url:
                 required: false
-                description: "Service URL for the admin console"
+                description: "Deprecated in v26, use keycloak_quarkus_admin instead."
                 type: "str"
             keycloak_quarkus_metrics_enabled:
                 default: false
@@ -348,24 +354,18 @@ argument_specs:
                 description: >
                   Disables dynamically resolving the hostname from request headers. Should always be set to true in production, unless
                   proxy verifies the Host header.
-            keycloak_quarkus_hostname_strict_backchannel:
+            keycloak_quarkus_hostname_backchannel_dynamic:
                 default: false
                 type: "bool"
                 description: >
-                  By default backchannel URLs are dynamically resolved from request headers to allow internal and external applications. If all
-                  applications use the public URL this option should be enabled.
+                    Enables dynamic resolving of backchannel URLs, including hostname, scheme, port and context path.
+                    Set to true if your application accesses Keycloak via a private network. If set to true, hostname option needs to be specified as a full URL.
             keycloak_quarkus_spi_sticky_session_encoder_infinispan_should_attach_route:
                 default: true
                 type: "bool"
                 description: >
                   If the route should be attached to cookies to reflect the node that owns a particular session. If false, route is not attached to cookies
                   and we rely on the session affinity capabilities from reverse proxy
-            keycloak_quarkus_hostname_strict_https:
-                type: "bool"
-                required: false
-                description: >
-                  By default, Keycloak requires running using TLS/HTTPS. If the service MUST run without TLS/HTTPS, then set
-                  this option to "true"
             keycloak_quarkus_ks_vault_enabled:
                 default: false
                 type: "bool"

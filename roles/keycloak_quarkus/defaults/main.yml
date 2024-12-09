@@ -33,9 +33,6 @@ keycloak_quarkus_master_realm: master
 
 ### Configuration settings
 keycloak_quarkus_bind_address: 0.0.0.0
-keycloak_quarkus_host: localhost
-keycloak_quarkus_port: -1
-keycloak_quarkus_path:
 keycloak_quarkus_http_enabled: true
 keycloak_quarkus_http_port: 8080
 keycloak_quarkus_https_port: 8443
@@ -81,8 +78,8 @@ keycloak_quarkus_systemd_wait_for_timeout: 60
 keycloak_quarkus_systemd_wait_for_delay: 10
 
 ### keycloak frontend url
-keycloak_quarkus_frontend_url:
-keycloak_quarkus_admin_url:
+keycloak_quarkus_hostname:
+keycloak_quarkus_admin:
 
 ### Set the path relative to / for serving resources. The path must start with a /
 ### (set to `/auth` for retrocompatibility with pre-quarkus releases)
@@ -91,9 +88,9 @@ keycloak_quarkus_http_relative_path: /
 # Disables dynamically resolving the hostname from request headers.
 # Should always be set to true in production, unless proxy verifies the Host header.
 keycloak_quarkus_hostname_strict: true
-# By default backchannel URLs are dynamically resolved from request headers to allow internal and external applications.
-# If all applications use the public URL this option should be enabled.
-keycloak_quarkus_hostname_strict_backchannel: false
+# Enables dynamic resolving of backchannel URLs, including hostname, scheme, port and context path.
+# Set to true if your application accesses Keycloak via a private network. If set to true, keycloak_quarkus_hostname option needs to be specified as a full URL.
+keycloak_quarkus_hostname_backchannel_dynamic: false
 
 # The proxy headers that should be accepted by the server. ['', 'forwarded', 'xforwarded']
 keycloak_quarkus_proxy_headers: ""

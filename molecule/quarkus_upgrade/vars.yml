@@ -2,7 +2,7 @@
 keycloak_quarkus_offline_install: false
 keycloak_quarkus_bootstrap_admin_password: "remembertochangeme"
 keycloak_quarkus_realm: TestRealm
-keycloak_quarkus_host: instance
+keycloak_quarkus_hostname: http://instance
 keycloak_quarkus_log: file
 keycloak_quarkus_https_key_file_enabled: true
 keycloak_quarkus_log_target: /tmp/keycloak

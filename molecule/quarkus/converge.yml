@@ -6,7 +6,7 @@
     keycloak_quarkus_bootstrap_admin_password: "remembertochangeme"
     keycloak_quarkus_bootstrap_admin_user: "remembertochangeme"
     keycloak_realm: TestRealm
-    keycloak_quarkus_host: instance
+    keycloak_quarkus_hostname: http://instance
     keycloak_quarkus_log: file
     keycloak_quarkus_log_level: debug # needed for the verify step
     keycloak_quarkus_https_key_file_enabled: true

@@ -47,9 +47,9 @@ Role Defaults
 |`keycloak_quarkus_bootstrap_admin_user`| Administration console user account | `admin` |
 |`keycloak_quarkus_admin_user`| Deprecated, use `keycloak_quarkus_bootstrap_admin_user` instead. | |
 |`keycloak_quarkus_bind_address`| Address for binding service ports | `0.0.0.0` |
-|`keycloak_quarkus_host`| Hostname for the Keycloak server | `localhost` |
-|`keycloak_quarkus_port`| The port used by the proxy when exposing the hostname | `-1` |
-|`keycloak_quarkus_path`| This should be set if proxy uses a different context-path for Keycloak | |
+|`keycloak_quarkus_host`| Deprecated, use `keycloak_quarkus_hostname` instead. | |
+|`keycloak_quarkus_port`| Deprecated, use `keycloak_quarkus_hostname` instead. | |
+|`keycloak_quarkus_path`| Deprecated, use `keycloak_quarkus_hostname` instead. | |
 |`keycloak_quarkus_http_port`| HTTP listening port | `8080` |
 |`keycloak_quarkus_https_port`| TLS HTTP listening port | `8443` |
 |`keycloak_quarkus_ajp_port`| AJP port | `8009` |
@@ -64,8 +64,10 @@ Role Defaults
 |`keycloak_quarkus_java_jvm_opts`| Other JVM settings | same as keycloak |
 |`keycloak_quarkus_java_opts`| JVM arguments; if overridden, it takes precedence over `keycloak_quarkus_java_*` | `{{ keycloak_quarkus_java_heap_opts + ' ' + keycloak_quarkus_java_jvm_opts }}` |
 |`keycloak_quarkus_additional_env_vars` | List of additional env variables of { key: str, value: str} to be put in sysconfig file | `[]` |
-|`keycloak_quarkus_frontend_url`| Set the base URL for frontend URLs, including scheme, host, port and path | |
-|`keycloak_quarkus_admin_url`| Set the base URL for accessing the administration console, including scheme, host, port and path | |
+|`keycloak_quarkus_hostname`| Address at which is the server exposed. Can be a full URL, or just a hostname. When only hostname is provided, scheme, port and context path are resolved from the request. | |
+|`keycloak_quarkus_frontend_url`| Deprecated, use `keycloak_quarkus_hostname` instead. | |
+|`keycloak_quarkus_admin`| Set the base URL for accessing the administration console, including scheme, host, port and path | |
+|`keycloak_quarkus_admin_url`| Deprecated, use `keycloak_quarkus_admin` instead. | |
 |`keycloak_quarkus_http_relative_path` | Set the path relative to / for serving resources. The path must start with a / | `/` |
 |`keycloak_quarkus_http_enabled`| Enable listener on HTTP port | `True` |
 |`keycloak_quarkus_health_check_url_path`| Path to the health check endpoint; scheme, host and keycloak_quarkus_http_relative_path will be prepended automatically | `realms/master/.well-known/openid-configuration` |
@@ -117,7 +119,8 @@ Role Defaults
 |:---------|:------------|:--------|
 |`keycloak_quarkus_http_relative_path`| Set the path relative to / for serving resources. The path must start with a / | `/` |
 |`keycloak_quarkus_hostname_strict`| Disables dynamically resolving the hostname from request headers | `true` |
-|`keycloak_quarkus_hostname_strict_backchannel`| By default backchannel URLs are dynamically resolved from request headers to allow internal and external applications. If all applications use the public URL this option should be enabled. | `false` |
+|`keycloak_quarkus_hostname_backchannel_dynamic`| Enables dynamic resolving of backchannel URLs, including hostname, scheme, port and context path. Set to true if your application accesses Keycloak via a private network. If set to true, hostname option needs to be specified as a full URL. | `false` |
+|`keycloak_quarkus_hostname_strict_backchannel`| Deprecated, use (the inverted!)`keycloak_quarkus_hostname_backchannel_dynamic` instead. |  |
 
 
 #### Database configuration
@@ -157,7 +160,6 @@ Role Defaults
 |`keycloak_quarkus_master_realm` | Name for rest authentication realm | `master` |
 |`keycloak_auth_client` | Authentication client for configuration REST calls | `admin-cli` |
 |`keycloak_force_install` | Remove pre-existing versions of service | `False` |
-|`keycloak_url` | URL for configuration rest calls | `http://{{ keycloak_quarkus_host }}:{{ keycloak_http_port }}` |
 |`keycloak_quarkus_log`| Enable one or more log handlers in a comma-separated list | `file` |
 |`keycloak_quarkus_log_level`| The log level of the root category or a comma-separated list of individual categories and their levels | `info` |
 |`keycloak_quarkus_log_file`| Set the log file path and filename relative to keycloak home | `data/log/keycloak.log` |

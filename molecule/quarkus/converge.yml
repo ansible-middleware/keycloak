@@ -3,8 +3,8 @@
   hosts: all
   vars:
     keycloak_quarkus_show_deprecation_warnings: false
-    keycloak_quarkus_admin_pass: "remembertochangeme"
-    keycloak_admin_password: "remembertochangeme"
+    keycloak_quarkus_bootstrap_admin_password: "remembertochangeme"
+    keycloak_quarkus_bootstrap_admin_user: "remembertochangeme"
     keycloak_realm: TestRealm
     keycloak_quarkus_host: instance
     keycloak_quarkus_log: file

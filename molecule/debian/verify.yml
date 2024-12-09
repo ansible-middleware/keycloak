@@ -2,7 +2,7 @@
 - name: Verify
   hosts: all
   vars:
-    keycloak_admin_password: "remembertochangeme"
+    keycloak_quarkus_bootstrap_admin_user: "remembertochangeme"
     keycloak_uri: "http://localhost:{{ 8080 + ( keycloak_jboss_port_offset | default(0) ) }}"
     keycloak_management_port: "http://localhost:{{ 9990 + ( keycloak_jboss_port_offset | default(0) ) }}"
     keycloak_jboss_port_offset: 10

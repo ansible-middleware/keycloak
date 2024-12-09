@@ -68,13 +68,13 @@ argument_specs:
                 default: "10s"
                 description: "systemd RestartSec for service"
                 type: "str"
-            keycloak_quarkus_admin_user:
+            keycloak_quarkus_bootstrap_admin_user:
                 default: "admin"
-                description: "Administration console user account"
+                description: "Administration user account, only for bootstrapping"
                 type: "str"
-            keycloak_quarkus_admin_pass:
+            keycloak_quarkus_bootstrap_admin_password:
                 required: true
-                description: "Password of console admin account"
+                description: "Password of admin account, only for bootstrapping"
                 type: "str"
             keycloak_quarkus_master_realm:
                 default: "master"

@@ -44,7 +44,8 @@ Role Defaults
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
-|`keycloak_quarkus_admin_user`| Administration console user account | `admin` |
+|`keycloak_quarkus_bootstrap_admin_user`| Administration console user account | `admin` |
+|`keycloak_quarkus_admin_user`| Deprecated, use `keycloak_quarkus_bootstrap_admin_user` instead. | |
 |`keycloak_quarkus_bind_address`| Address for binding service ports | `0.0.0.0` |
 |`keycloak_quarkus_host`| Hostname for the Keycloak server | `localhost` |
 |`keycloak_quarkus_port`| The port used by the proxy when exposing the hostname | `-1` |
@@ -243,7 +244,8 @@ Role Variables
 
 | Variable | Description | Required |
 |:---------|:------------|----------|
-|`keycloak_quarkus_admin_pass`| Password of console admin account | `yes` |
+|`keycloak_quarkus_bootstrap_admin_password`| Password of console admin account | `yes` |
+|`keycloak_quarkus_admin_pass`| Deprecated, use `keycloak_quarkus_bootstrap_admin_password` instead. | |
 |`keycloak_quarkus_frontend_url`| Base URL for frontend URLs, including scheme, host, port and path | `no` |
 |`keycloak_quarkus_admin_url`| Base URL for accessing the administration console, including scheme, host, port and path | `no` |
 |`keycloak_quarkus_ks_vault_pass`| The password for accessing the keystore vault SPI | `no` |
@@ -265,7 +267,7 @@ The role uses the following [custom facts](https://docs.ansible.com/ansible/late
 
 | Variable | Description |
 |:---------|:------------|
-|`general.bootstrapped` | A custom fact indicating whether this role has been used for bootstrapping keycloak on the respective host before; set to `false` (e.g., when starting off with a new, empty database) ensures that the initial admin user as defined by `keycloak_quarkus_admin_user[_pass]` gets created |
+|`general.bootstrapped` | A custom fact indicating whether this role has been used for bootstrapping keycloak on the respective host before; set to `false` (e.g., when starting off with a new, empty database) ensures that the initial admin user as defined by `keycloak_quarkus_bootstrap_admin_user[_password]` gets created |
 
 License
 -------

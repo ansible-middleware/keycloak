@@ -27,8 +27,8 @@ keycloak_quarkus_configure_firewalld: false
 keycloak_quarkus_configure_iptables: false
 
 ### administrator console password
-keycloak_quarkus_admin_user: admin
-keycloak_quarkus_admin_pass:
+keycloak_quarkus_bootstrap_admin_user: admin
+keycloak_quarkus_bootstrap_admin_password:
 keycloak_quarkus_master_realm: master
 
 ### Configuration settings

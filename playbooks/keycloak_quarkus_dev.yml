@@ -3,7 +3,7 @@
   hosts: all
   vars:
     keycloak_admin_password: "remembertochangeme"
-    keycloak_quarkus_host: localhost
+    keycloak_quarkus_hostname: http://localhost
     keycloak_quarkus_port: 8080
     keycloak_quarkus_log: file
     keycloak_quarkus_start_dev: true

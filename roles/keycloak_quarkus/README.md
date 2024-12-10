@@ -52,6 +52,7 @@ Role Defaults
 |`keycloak_quarkus_path`| Deprecated, use `keycloak_quarkus_hostname` instead. | |
 |`keycloak_quarkus_http_port`| HTTP listening port | `8080` |
 |`keycloak_quarkus_https_port`| TLS HTTP listening port | `8443` |
+|`keycloak_quarkus_http_management_port`| Port of the management interface. Relevant only when something is exposed on the management interface - see the guide for details. | `9000` |
 |`keycloak_quarkus_ajp_port`| AJP port | `8009` |
 |`keycloak_quarkus_service_user`| Posix account username | `keycloak` |
 |`keycloak_quarkus_service_group`| Posix account group | `keycloak` |
@@ -69,6 +70,7 @@ Role Defaults
 |`keycloak_quarkus_admin`| Set the base URL for accessing the administration console, including scheme, host, port and path | |
 |`keycloak_quarkus_admin_url`| Deprecated, use `keycloak_quarkus_admin` instead. | |
 |`keycloak_quarkus_http_relative_path` | Set the path relative to / for serving resources. The path must start with a / | `/` |
+|`keycloak_quarkus_http_management_relative_path` | Set the path relative to / for serving resources from management interface. The path must start with a /. If not given, the value is inherited from HTTP options. Relevant only when something is exposed on the management interface - see the guide for details. | `/` |
 |`keycloak_quarkus_http_enabled`| Enable listener on HTTP port | `True` |
 |`keycloak_quarkus_health_check_url_path`| Path to the health check endpoint; scheme, host and keycloak_quarkus_http_relative_path will be prepended automatically | `realms/master/.well-known/openid-configuration` |
 |`keycloak_quarkus_https_key_file_enabled`| Enable listener on HTTPS port | `False` |
@@ -152,7 +154,7 @@ Role Defaults
 | Variable | Description | Default |
 |:---------|:------------|:--------|
 |`keycloak_quarkus_metrics_enabled`| Whether to enable metrics | `False` |
-|`keycloak_quarkus_health_enabled`| If the server should expose health check endpoints | `True` |
+|`keycloak_quarkus_health_enabled`| If the server should expose health check endpoints on the management interface | `True` |
 |`keycloak_quarkus_archive` | keycloak install archive filename | `keycloak-{{ keycloak_quarkus_version }}.zip` |
 |`keycloak_quarkus_installdir` | Installation path | `{{ keycloak_quarkus_dest }}/keycloak-{{ keycloak_quarkus_version }}` |
 |`keycloak_quarkus_home` | Installation work directory | `{{ keycloak_quarkus_installdir }}` |

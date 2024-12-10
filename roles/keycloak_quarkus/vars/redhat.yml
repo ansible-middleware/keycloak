@@ -1,5 +1,5 @@
 ---
-keycloak_quarkus_varjvm_package: "{{ keycloak_quarkus_jvm_package | default('java-17-openjdk-headless') }}"
+keycloak_quarkus_varjvm_package: "{{ keycloak_quarkus_jvm_package | default('java-21-openjdk-headless') }}"
 keycloak_quarkus_prereq_package_list:
       - "{{ keycloak_quarkus_varjvm_package }}"
       - unzip

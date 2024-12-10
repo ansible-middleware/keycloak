@@ -7,14 +7,17 @@
     keycloak_quarkus_bootstrap_admin_user: "remembertochangeme"
     keycloak_realm: TestRealm
     keycloak_quarkus_log: file
-    keycloak_quarkus_frontend_url: 'http://localhost:8080/'
+    keycloak_quarkus_hostname: 'http://localhost:8080'
     keycloak_quarkus_start_dev: True
     keycloak_quarkus_proxy_mode: none
     keycloak_quarkus_java_home: /opt/openjdk/
   roles:
     - role: keycloak_quarkus
     - role: keycloak_realm
+      keycloak_url: "{{ keycloak_quarkus_hostname }}"
       keycloak_context: ''
+      keycloak_admin_user: "{{ keycloak_quarkus_bootstrap_admin_user }}"
+      keycloak_admin_password: "{{ keycloak_quarkus_bootstrap_admin_password }}"
       keycloak_client_default_roles:
         - TestRoleAdmin
         - TestRoleUser

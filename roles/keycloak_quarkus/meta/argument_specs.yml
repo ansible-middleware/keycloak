@@ -108,7 +108,7 @@ argument_specs:
                 type: "int"
             keycloak_quarkus_health_check_url_path:
                 default: "realms/master/.well-known/openid-configuration"
-                description: "Path to the health check endpoint; scheme, host and keycloak_quarkus_http_relative_path will be prepended automatically"
+                description: "Path to the health check endpoint; scheme, hostname will be prepended automatically"
                 type: "str"
             keycloak_quarkus_https_key_file_enabled:
                 default: false
@@ -184,6 +184,10 @@ argument_specs:
                 default: 8443
                 description: "HTTPS port"
                 type: "int"
+            keycloak_quarkus_http_management_port:
+                default: 9000
+                description: "Port of the management interface. Relevant only when something is exposed on the management interface - see the guide for details."
+                type: "int"
             keycloak_quarkus_ajp_port:
                 default: 8009
                 description: "AJP port"
@@ -228,6 +232,10 @@ argument_specs:
                 default: /
                 description: "Set the path relative to / for serving resources. The path must start with a /"
                 type: "str"
+            keycloak_quarkus_http_management_relative_path:
+                required: false
+                description: "Set the path relative to / for serving resources from management interface. The path must start with a /. If not given, the value is inherited from HTTP options. Relevant only when something is exposed on the management interface - see the guide for details."
+                type: "str"
             keycloak_quarkus_frontend_url:
                 required: false
                 description: "Deprecated in v26, use keycloak_quarkus_hostname instead."
@@ -246,7 +254,7 @@ argument_specs:
                 type: "bool"
             keycloak_quarkus_health_enabled:
                 default: true
-                description: "If the server should expose health check endpoints"
+                description: "If the server should expose health check endpoints on the management interface"
                 type: "bool"
             keycloak_quarkus_ispn_user:
                 default: "supervisor"

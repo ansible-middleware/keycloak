@@ -22,8 +22,16 @@ health-enabled={{ keycloak_quarkus_health_enabled | lower }}
 
 # HTTP
 http-enabled={{ keycloak_quarkus_http_enabled | lower }}
+{% if keycloak_quarkus_http_enabled %}
 http-port={{ keycloak_quarkus_http_port }}
+{% endif %}
 http-relative-path={{ keycloak_quarkus_http_relative_path }}
+
+# Management
+http-management-port={{ keycloak_quarkus_http_management_port }}
+{% if keycloak_quarkus_http_management_relative_path is defined and keycloak_quarkus_http_management_relative_path | length > 0 %}
+http-management-relative-path={{ keycloak_quarkus_http_management_relative_path }}
+{% endif %}
 
 # HTTPS
 https-port={{ keycloak_quarkus_https_port }}

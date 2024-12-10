@@ -17,7 +17,7 @@
     - name: Verify we are running on requested jvm
       ansible.builtin.shell: |
         set -eo pipefail
-        ps -ef | grep 'etc/alternatives/.*17' | grep -v grep
+        ps -ef | grep 'etc/alternatives/.*21' | grep -v grep
       changed_when: false
 
     - name: Verify token api call

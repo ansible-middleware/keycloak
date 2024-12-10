@@ -22,7 +22,7 @@ argument_specs:
                 description: "Perform an offline install"
                 type: "bool"
             keycloak_quarkus_jvm_package:
-                default: "java-11-openjdk-headless"
+                default: "java-21-openjdk-headless"
                 description: "RHEL java package runtime"
                 type: "str"
             keycloak_quarkus_java_home:
@@ -479,7 +479,7 @@ argument_specs:
     downstream:
         options:
             rhbk_version:
-                default: "26.0.6"
+                default: "26.0.7"
                 description: "Red Hat Build of Keycloak version"
                 type: "str"
             rhbk_archive:

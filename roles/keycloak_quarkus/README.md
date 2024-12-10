@@ -59,7 +59,7 @@ Role Defaults
 |`keycloak_quarkus_service_restart_always`| systemd restart always behavior activation | `False` |
 |`keycloak_quarkus_service_restart_on_failure`| systemd restart on-failure behavior activation | `False` |
 |`keycloak_quarkus_service_restartsec`| systemd RestartSec | `10s` |
-|`keycloak_quarkus_jvm_package`| RHEL java package runtime | `java-17-openjdk-headless` |
+|`keycloak_quarkus_jvm_package`| RHEL java package runtime | `java-21-openjdk-headless` |
 |`keycloak_quarkus_java_home`| JAVA_HOME of installed JRE, leave empty for using specified keycloak_quarkus_jvm_package RPM path | `None` |
 |`keycloak_quarkus_java_heap_opts`| Heap memory JVM setting | `-Xms1024m -Xmx2048m` |
 |`keycloak_quarkus_java_jvm_opts`| Other JVM settings | same as keycloak |

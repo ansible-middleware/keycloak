@@ -2,7 +2,8 @@
 - name: Verify
   hosts: all
   vars:
-     keycloak_quarkus_bootstrap_admin_user: "remembertochangeme"
+    keycloak_quarkus_bootstrap_admin_password: "remembertochangeme"
+    keycloak_quarkus_bootstrap_admin_user: "remembertochangeme"
   tasks:
     - name: Populate service facts
       ansible.builtin.service_facts:
@@ -35,10 +36,10 @@
         - name: Verify endpoint URLs
           ansible.builtin.assert:
             that:
-              - (openid_config.stdout | from_json)["backchannel_authentication_endpoint"] == 'https://instance/realms/master/protocol/openid-connect/ext/ciba/auth'
-              - (openid_config.stdout | from_json)['issuer'] == 'https://instance/realms/master'
-              - (openid_config.stdout | from_json)['authorization_endpoint'] == 'https://instance/realms/master/protocol/openid-connect/auth'
-              - (openid_config.stdout | from_json)['token_endpoint'] == 'https://instance/realms/master/protocol/openid-connect/token'
+              - (openid_config.stdout | from_json)["backchannel_authentication_endpoint"] == 'https://instance:8443/realms/master/protocol/openid-connect/ext/ciba/auth'
+              - (openid_config.stdout | from_json)['issuer'] == 'https://instance:8443/realms/master'
+              - (openid_config.stdout | from_json)['authorization_endpoint'] == 'https://instance:8443/realms/master/protocol/openid-connect/auth'
+              - (openid_config.stdout | from_json)['token_endpoint'] == 'https://instance:8443/realms/master/protocol/openid-connect/token'
           delegate_to: localhost
 
     - name: Check log folder
@@ -91,7 +92,7 @@
       ansible.builtin.uri:
         url: "https://instance:8443/realms/master/protocol/openid-connect/token"
         method: POST
-        body: "client_id=admin-cli&username=admin&password={{ keycloak_quarkus_bootstrap_admin_user }}&grant_type=password"
+        body: "client_id=admin-cli&username={{ keycloak_quarkus_bootstrap_admin_user }}&password={{ keycloak_quarkus_bootstrap_admin_password}}&grant_type=password"
         validate_certs: no
       register: keycloak_auth_response
       until: keycloak_auth_response.status == 200

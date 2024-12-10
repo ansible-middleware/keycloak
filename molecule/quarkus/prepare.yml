@@ -24,7 +24,7 @@
     - name: Make sure a jre is available (for keytool to prepare keystore)
       delegate_to: localhost
       ansible.builtin.package:
-        name: "{{ 'java-17-openjdk-headless' if hera_home | length > 0 else 'openjdk-17-jdk-headless' }}"
+        name: "{{ 'java-21-openjdk-headless' if hera_home | length > 0 else 'openjdk-21-jdk-headless' }}"
         state: present
       become: true
       failed_when: false

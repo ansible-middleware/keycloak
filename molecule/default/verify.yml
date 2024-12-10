@@ -2,6 +2,7 @@
 - name: Verify
   hosts: all
   vars:
+    keycloak_quarkus_bootstrap_admin_password: "remembertochangeme"
     keycloak_quarkus_bootstrap_admin_user: "remembertochangeme"
     keycloak_uri: "http://localhost:8080"
   tasks:
@@ -16,7 +17,7 @@
       ansible.builtin.uri:
         url: "{{ keycloak_uri }}/realms/master/protocol/openid-connect/token"
         method: POST
-        body: "client_id=admin-cli&username=admin&password={{ keycloak_quarkus_bootstrap_admin_user }}&grant_type=password"
+        body: "client_id=admin-cli&username={{ keycloak_quarkus_bootstrap_admin_user }}&password={{ keycloak_quarkus_bootstrap_admin_user }}&grant_type=password"
         validate_certs: no
       register: keycloak_auth_response
       until: keycloak_auth_response.status == 200

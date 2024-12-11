@@ -91,6 +91,10 @@ argument_specs:
                 default: "http://{{ keycloak_host }}:{{ keycloak_management_http_port + ( keycloak_jboss_port_offset | default(0) ) }}"
                 description: "URL for management console rest calls"
                 type: "str"
+            keycloak_no_log:
+                default: true
+                type: "bool"
+                description: "True if sensitive output (=no_log) should not be logged"
     downstream:
         options:
             sso_version:

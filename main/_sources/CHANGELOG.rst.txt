@@ -9,6 +9,11 @@ This changelog describes changes after version 0.2.6.
 v2.4.4-devel
 ============
 
+Minor Changes
+-------------
+
+- Add theme cache invalidation handler `#252 <https://github.com/ansible-middleware/keycloak/pull/252>`_
+
 Bugfixes
 --------
 

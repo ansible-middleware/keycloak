@@ -16,6 +16,8 @@
     - role: keycloak_realm
       keycloak_url: "{{ keycloak_quarkus_hostname }}"
       keycloak_context: ''
+      keycloak_admin_user: "{{ keycloak_quarkus_bootstrap_admin_user }}"
+      keycloak_admin_password: "{{ keycloak_quarkus_bootstrap_admin_password }}"
       keycloak_client_default_roles:
         - TestRoleAdmin
         - TestRoleUser

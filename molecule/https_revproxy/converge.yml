@@ -5,7 +5,6 @@
     keycloak_quarkus_show_deprecation_warnings: false
     keycloak_quarkus_bootstrap_admin_password: "remembertochangeme"
     keycloak_quarkus_bootstrap_admin_user: "remembertochangeme"
-    keycloak_realm: TestRealm
     keycloak_quarkus_hostname: http://instance:8080
     keycloak_quarkus_log: file
     keycloak_quarkus_http_enabled: True

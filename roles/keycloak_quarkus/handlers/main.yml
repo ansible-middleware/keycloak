@@ -1,4 +1,7 @@
 ---
+- name: "Invalidate {{ keycloak.service_name }} theme cache"
+  ansible.builtin.include_tasks: invalidate_theme_cache.yml
+  listen: "invalidate keycloak theme cache"
 # handler should be invoked anytime a [build configuration](https://www.keycloak.org/server/all-config?f=build) changes
 - name: "Rebuild {{ keycloak.service_name }} config"
   ansible.builtin.include_tasks: rebuild_config.yml

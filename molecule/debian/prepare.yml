@@ -7,5 +7,5 @@
       ansible.builtin.apt:
         name:
           - sudo
-          - openjdk-17-jdk-headless
+          - openjdk-21-jdk-headless
         state: present

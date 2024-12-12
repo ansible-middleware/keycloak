@@ -12,7 +12,7 @@
     enabled: true
     state: started
 
-- name: "Configure firewall for {{ keycloak.service_name }} ports"
+- name: "Configure firewall for {{ keycloak.service_name }} http port"
   become: true
   ansible.posix.firewalld:
     port: "{{ item }}"
@@ -21,5 +21,16 @@
     immediate: true
   loop:
     - "{{ keycloak_quarkus_http_port }}/tcp"
+  when: keycloak_quarkus_http_enabled | bool
+
+- name: "Configure firewall for {{ keycloak.service_name }} ports"
+  become: true
+  ansible.posix.firewalld:
+    port: "{{ item }}"
+    permanent: true
+    state: enabled
+    immediate: true
+  loop:
     - "{{ keycloak_quarkus_https_port }}/tcp"
+    - "{{ keycloak_quarkus_http_management_port }}/tcp"
     - "{{ keycloak_quarkus_jgroups_port }}/tcp"

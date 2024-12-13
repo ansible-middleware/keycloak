@@ -72,7 +72,8 @@ Role Defaults
 |`keycloak_quarkus_http_relative_path` | Set the path relative to / for serving resources. The path must start with a / | `/` |
 |`keycloak_quarkus_http_management_relative_path` | Set the path relative to / for serving resources from management interface. The path must start with a /. If not given, the value is inherited from HTTP options. Relevant only when something is exposed on the management interface - see the guide for details. | `/` |
 |`keycloak_quarkus_http_enabled`| Enable listener on HTTP port | `True` |
-|`keycloak_quarkus_health_check_url_path`| Path to the health check endpoint; scheme, host and keycloak_quarkus_http_relative_path will be prepended automatically | `realms/master/.well-known/openid-configuration` |
+|`keycloak_quarkus_health_check_url`| Full URL (including scheme, host, path, fragment etc.) used for health check endpoint; keycloak_quarkus_hostname will NOT be prepended; helpful when health checks should happen against http port, but keycloak_quarkus_hostname uses https scheme per default | `` |
+|`keycloak_quarkus_health_check_url_path`| Path to the health check endpoint; keycloak_quarkus_hostname will be prepended automatically; Note that keycloak_quarkus_health_check_url takes precedence over this property | `realms/master/.well-known/openid-configuration` |
 |`keycloak_quarkus_https_key_file_enabled`| Enable listener on HTTPS port | `False` |
 |`keycloak_quarkus_key_file_copy_enabled`| Enable copy of key file to target host | `False` |
 |`keycloak_quarkus_key_content`| Content of the TLS private key. Use `"{{ lookup('file', 'server.key.pem') }}"` to lookup a file. | `""` |

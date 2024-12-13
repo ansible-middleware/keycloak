@@ -106,9 +106,12 @@ argument_specs:
                 default: 8080
                 description: "HTTP port"
                 type: "int"
+            keycloak_quarkus_health_check_url:
+                description: "Full URL (including scheme, host, path, fragment etc.) used for health check endpoint; keycloak_quarkus_hostname will NOT be prepended; helpful when health checks should happen against http port, but keycloak_quarkus_hostname uses https scheme per default"
+                type: "str"
             keycloak_quarkus_health_check_url_path:
                 default: "realms/master/.well-known/openid-configuration"
-                description: "Path to the health check endpoint; scheme, hostname will be prepended automatically"
+                description: "Path to the health check endpoint; keycloak_quarkus_hostname will be prepended automatically; Note that keycloak_quarkus_health_check_url takes precedence over this property"
                 type: "str"
             keycloak_quarkus_https_key_file_enabled:
                 default: false

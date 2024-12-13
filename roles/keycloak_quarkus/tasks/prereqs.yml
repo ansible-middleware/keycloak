@@ -2,18 +2,27 @@
 - name: Validate admin console password
   ansible.builtin.assert:
     that:
-      - keycloak_quarkus_admin_pass | length > 12
+      - keycloak_quarkus_bootstrap_admin_password | length > 12
     quiet: true
-    fail_msg: "The console administrator password is empty or invalid. Please set the keycloak_quarkus_admin_pass to a 12+ char long string"
+    fail_msg: "The console administrator password is empty or invalid. Please set the keycloak_quarkus_bootstrap_admin_password to a 12+ char long string"
     success_msg: "{{ 'Console administrator password OK' }}"
 
-- name: Validate relative path
+- name: Validate http_relative_path
   ansible.builtin.assert:
     that:
       - keycloak_quarkus_http_relative_path is regex('^/.*')
     quiet: true
     fail_msg: "The relative path for keycloak_quarkus_http_relative_path must begin with /"
     success_msg: "{{ 'Relative path OK' }}"
+
+- name: Validate http_management_relative_path
+  ansible.builtin.assert:
+    that:
+      - keycloak_quarkus_http_management_relative_path is regex('^/.*')
+    quiet: true
+    fail_msg: "The relative path for keycloak_quarkus_http_management_relative_path must begin with /"
+    success_msg: "{{ 'Relative mgmt path OK' }}"
+  when: keycloak_quarkus_http_management_relative_path is defined
 
 - name: Validate configuration
   ansible.builtin.assert:

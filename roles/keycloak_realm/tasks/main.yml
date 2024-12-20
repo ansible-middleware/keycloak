@@ -15,6 +15,7 @@
   ansible.builtin.uri:
     url: "{{ keycloak_url }}{{ keycloak_context }}/admin/realms/{{ keycloak_realm }}"
     method: GET
+    validate_certs: false
     status_code:
       - 200
       - 404

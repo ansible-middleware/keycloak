@@ -3,6 +3,7 @@
   ansible.builtin.uri:
     url: "{{ keycloak_url }}{{ keycloak_context }}/admin/realms/{{ client_role.realm | default(keycloak_realm) }}"
     method: GET
+    validate_certs: false
     status_code:
       - 200
     headers:
@@ -16,6 +17,7 @@
           default(keycloak_realm) }}/users/{{ (keycloak_user.json | first).id }}/role-mappings/clients/{{ (create_client_result.results | \
           selectattr('end_state.clientId', 'equalto', client_role.client) | list | first).end_state.id }}/available"
     method: GET
+    validate_certs: false
     status_code:
       - 200
     headers:

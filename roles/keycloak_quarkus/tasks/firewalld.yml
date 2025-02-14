@@ -6,14 +6,14 @@
       - firewalld
 
 - name: Enable and start the firewalld service
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   ansible.builtin.systemd:
     name: firewalld
     enabled: true
     state: started
 
 - name: "Configure firewall for {{ keycloak.service_name }} ports"
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   ansible.posix.firewalld:
     port: "{{ item }}"
     permanent: true

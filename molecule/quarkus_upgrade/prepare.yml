@@ -49,4 +49,4 @@
       ansible.builtin.file:
         path: /etc/ansible/facts.d/keycloak.fact
         state: absent
-      become: true
+      become: "{{ keycloak_install_requires_become | default(true) }}"

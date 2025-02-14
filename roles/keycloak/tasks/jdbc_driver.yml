@@ -3,7 +3,7 @@
   ansible.builtin.stat:
     path: "{{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_dir }}"
   register: dest_path
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
 
 - name: "Set up module dir for JDBC Driver {{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_name }}"
   ansible.builtin.file:
@@ -13,7 +13,7 @@
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
     mode: '0750'
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   when:
     - not dest_path.stat.exists
 - name: "Verify valid parameters for download credentials when specified"
@@ -34,7 +34,7 @@
     url_password: "{{ keycloak_jdbc_download_pass | default(omit) }}"
     validate_certs: "{{ keycloak_jdbc_download_validate_certs | default(omit) }}"
     mode: '0640'
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
 
 - name: "Deploy module.xml for JDBC Driver"
   ansible.builtin.template:
@@ -43,4 +43,4 @@
     group: "{{ keycloak_service_group }}"
     owner: "{{ keycloak_service_user }}"
     mode: '0640'
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"

@@ -15,7 +15,7 @@
       changed_when: false
 
     - name: Create vault directory
-      become: true
+      become: "{{ keycloak_install_requires_become | default(true) }}"
       ansible.builtin.file:
         state: directory
         path: "/opt/keycloak/vault"
@@ -26,7 +26,7 @@
       ansible.builtin.package:
         name: "{{ 'java-17-openjdk-headless' if hera_home | length > 0 else 'openjdk-17-jdk-headless' }}"
         state: present
-      become: true
+      become: "{{ keycloak_install_requires_become | default(true) }}"
       failed_when: false
 
     - name: Create vault keystore
@@ -37,7 +37,7 @@
       failed_when: not 'already exists' in keytool_cmd.stdout and keytool_cmd.rc != 0
 
     - name: Copy certificates and vault
-      become: true
+      become: "{{ keycloak_install_requires_become | default(true) }}"
       ansible.builtin.copy:
         src: keystore.p12
         dest: /opt/keycloak/vault/keystore.p12

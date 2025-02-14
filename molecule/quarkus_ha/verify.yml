@@ -17,7 +17,7 @@
         hera_home: "{{ lookup('env', 'HERA_HOME') }}"
 
     - name: Check log file
-      become: true
+      become: "{{ keycloak_install_requires_become | default(true) }}"
       ansible.builtin.stat:
         path: /var/log/keycloak/keycloak.log
       register: keycloak_log_file

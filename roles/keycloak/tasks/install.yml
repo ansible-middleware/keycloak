@@ -11,7 +11,7 @@
     quiet: true
 
 - name: Check for an existing deployment
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   ansible.builtin.stat:
     path: "{{ keycloak_jboss_home }}"
   register: existing_deploy
@@ -20,24 +20,24 @@
   when: existing_deploy.stat.exists and keycloak_force_install | bool
   block:
     - name: "Stop the old {{ keycloak.service_name }} service"
-      become: true
+      become: "{{ keycloak_install_requires_become | default(true) }}"
       failed_when: false
       ansible.builtin.systemd:
         name: keycloak
         state: stopped
     - name: "Remove the old {{ keycloak.service_name }} deployment"
-      become: true
+      become: "{{ keycloak_install_requires_become | default(true) }}"
       ansible.builtin.file:
         path: "{{ keycloak_jboss_home }}"
         state: absent
 
 - name: Check for an existing deployment after possible forced removal
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   ansible.builtin.stat:
     path: "{{ keycloak_jboss_home }}"
 
 - name: "Create service user/group for {{ keycloak.service_name }}"
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   ansible.builtin.user:
     name: "{{ keycloak_service_user }}"
     home: /opt/keycloak
@@ -45,7 +45,7 @@
     create_home: false
 
 - name: "Create install location for {{ keycloak.service_name }}"
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   ansible.builtin.file:
     dest: "{{ keycloak_dest }}"
     state: directory
@@ -54,7 +54,7 @@
     mode: '0750'
 
 - name: Create pidfile folder
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   ansible.builtin.file:
     dest: "{{ keycloak_service_pidfile | dirname }}"
     state: directory
@@ -68,7 +68,7 @@
     archive: "{{ keycloak_dest }}/{{ keycloak.bundle }}"
 
 - name: Check download archive path
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   ansible.builtin.stat:
     path: "{{ archive }}"
   register: archive_path
@@ -166,13 +166,13 @@
     - not archive_path.stat.exists
     - local_archive_path.stat is defined
     - local_archive_path.stat.exists
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
 
 - name: "Check target directory: {{ keycloak.home }}"
   ansible.builtin.stat:
     path: "{{ keycloak.home }}"
   register: path_to_workdir
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
 
 - name: "Extract {{ keycloak_service_desc }} archive on target"
   ansible.builtin.unarchive:
@@ -182,7 +182,7 @@
     creates: "{{ keycloak.home }}"
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   when:
     - new_version_downloaded.changed or not path_to_workdir.stat.exists
   notify:
@@ -200,13 +200,13 @@
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
     recurse: true
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   changed_when: false
 
 - name: Ensure permissions are correct on existing deploy
   ansible.builtin.command: chown -R "{{ keycloak_service_user }}:{{ keycloak_service_group }}" "{{ keycloak.home }}"
   when: keycloak_service_runas
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   changed_when: false
 
 # driver and configuration
@@ -215,7 +215,7 @@
   when: keycloak_jdbc[keycloak_jdbc_engine].enabled
 
 - name: "Deploy custom {{ keycloak.service_name }} config to {{ keycloak_config_path_to_standalone_xml }} from {{ keycloak_config_override_template }}"
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   ansible.builtin.template:
     src: "templates/{{ keycloak_config_override_template }}"
     dest: "{{ keycloak_config_path_to_standalone_xml }}"
@@ -227,7 +227,7 @@
   when: keycloak_config_override_template | length > 0
 
 - name: "Deploy standalone {{ keycloak.service_name }} config to {{ keycloak_config_path_to_standalone_xml }}"
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   ansible.builtin.template:
     src: templates/standalone.xml.j2
     dest: "{{ keycloak_config_path_to_standalone_xml }}"
@@ -255,7 +255,7 @@
   when: keycloak_ha_enabled and keycloak_ha_discovery == 'TCPPING'
 
 - name: "Deploy HA {{ keycloak.service_name }} config to {{ keycloak_config_path_to_standalone_xml }}"
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   ansible.builtin.template:
     src: templates/standalone-ha.xml.j2
     dest: "{{ keycloak_config_path_to_standalone_xml }}"
@@ -270,7 +270,7 @@
     - keycloak_config_override_template | length == 0
 
 - name: "Deploy HA {{ keycloak.service_name }} config with infinispan remote cache store to {{ keycloak_config_path_to_standalone_xml }}"
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   ansible.builtin.template:
     src: templates/standalone-infinispan.xml.j2
     dest: "{{ keycloak_config_path_to_standalone_xml }}"
@@ -285,7 +285,7 @@
     - keycloak_config_override_template | length == 0
 
 - name: "Deploy profile.properties file to {{ keycloak_config_path_to_properties }}"
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   ansible.builtin.template:
     src: keycloak-profile.properties.j2
     dest: "{{ keycloak_config_path_to_properties }}"

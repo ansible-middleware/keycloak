@@ -5,7 +5,7 @@
     enabled: true
     state: restarted
     daemon_reload: true
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
 
 - name: "Wait until {{ keycloak.service_name }} service becomes active {{ keycloak.health_url }}"
   ansible.builtin.uri:

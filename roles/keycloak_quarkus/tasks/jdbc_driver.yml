@@ -17,6 +17,6 @@
     url_password: "{{ keycloak_quarkus_jdbc_download_pass | default(omit) }}"
     validate_certs: "{{ keycloak_quarkus_jdbc_download_validate_certs | default(omit) }}"
     mode: '0640'
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   notify:
     - restart keycloak

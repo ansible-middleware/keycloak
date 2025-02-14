@@ -8,4 +8,4 @@
   ansible.builtin.file:
     path: "{{ keycloak.home }}/data/tmp/kc-gzip-cache"
     state: absent
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"

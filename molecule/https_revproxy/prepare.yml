@@ -39,11 +39,11 @@
         src: "{{ item.name }}"
         dest: "{{ item.dest }}"
         mode: 0444
-      become: true
+      become: "{{ keycloak_install_requires_become | default(true) }}"
       loop:
         - { name: 'cert.pem', dest: '/etc/nginx/tls/certificate.crt' }
         - { name: 'key.pem', dest: '/etc/nginx/tls/certificate.key' }
     - name: Update CA trust
       ansible.builtin.command: update-ca-trust
       changed_when: false
-      become: true
+      become: "{{ keycloak_install_requires_become | default(true) }}"

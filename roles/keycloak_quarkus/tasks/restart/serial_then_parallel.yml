@@ -16,5 +16,5 @@
         enabled: true
         state: restarted
         daemon_reload: true
-      become: true
+      become: "{{ keycloak_install_requires_become | default(true) }}"
       when: inventory_hostname != ansible_play_hosts | first

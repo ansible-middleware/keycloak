@@ -11,9 +11,10 @@ on:
 
 jobs:
   ci:
-    uses: ansible-middleware/github-actions/.github/workflows/ci.yml@main
+    uses: ansible-middleware/github-actions/.github/workflows/ci.yml@rootperm
     secrets: inherit
     with:
       fqcn: 'middleware_automation/keycloak'
+      root_permission_varname: 'keycloak_install_requires_become'
       molecule_tests: >-
         [ "default", "overridexml", "https_revproxy", "quarkus", "quarkus-devmode", "quarkus_upgrade", "debian", "quarkus_ha" ]

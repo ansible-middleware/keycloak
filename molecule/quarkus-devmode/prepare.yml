@@ -15,7 +15,7 @@
       ansible.builtin.include_tasks: ../prepare.yml
 
     - name: Install JDK17
-      become: yes
+      become: "{{ keycloak_install_requires_become | default(true) }}"
       ansible.builtin.yum:
         name:
           - java-17-openjdk-headless
@@ -24,7 +24,7 @@
         - ansible_facts.os_family == 'RedHat'
 
     - name: Link default logs directory
-      become: yes
+      become: "{{ keycloak_install_requires_become | default(true) }}"
       ansible.builtin.file:
         state: link
         src: "{{ item }}"

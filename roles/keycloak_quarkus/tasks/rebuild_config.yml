@@ -6,5 +6,5 @@
   environment:
     PATH: "{{ keycloak_quarkus_java_home | default(keycloak_quarkus_pkg_java_home, true) }}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
     JAVA_HOME: "{{ keycloak_quarkus_java_home | default(keycloak_quarkus_pkg_java_home, true) }}"
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   changed_when: true

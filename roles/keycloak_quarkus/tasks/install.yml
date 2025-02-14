@@ -12,13 +12,13 @@
     quiet: true
 
 - name: Check for an existing deployment
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   ansible.builtin.stat:
     path: "{{ keycloak.home }}"
   register: existing_deploy
 
 - name: "Create {{ keycloak.service_name }} service user/group"
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   ansible.builtin.user:
     name: "{{ keycloak.service_user }}"
     home: /opt/keycloak
@@ -26,7 +26,7 @@
     create_home: false
 
 - name: "Create {{ keycloak.service_name }} install location"
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   ansible.builtin.file:
     dest: "{{ keycloak_quarkus_dest }}"
     state: directory
@@ -35,7 +35,7 @@
     mode: '0750'
 
 - name: Create directory for ansible custom facts
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   ansible.builtin.file:
     state: directory
     recurse: true
@@ -47,7 +47,7 @@
     archive: "{{ keycloak_quarkus_dest }}/{{ keycloak.bundle }}"
 
 - name: Check download archive path
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   ansible.builtin.stat:
     path: "{{ archive }}"
   register: archive_path
@@ -148,13 +148,13 @@
     - not archive_path.stat.exists
     - local_archive_path.stat is defined
     - local_archive_path.stat.exists
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
 
 - name: "Check target directory: {{ keycloak.home }}/bin/"
   ansible.builtin.stat:
     path: "{{ keycloak.home }}/bin/"
   register: path_to_workdir
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
 
 - name: "Extract Keycloak archive on target" # noqa no-handler need to run this here
   ansible.builtin.unarchive:
@@ -164,7 +164,7 @@
     creates: "{{ keycloak.home }}/bin/"
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   when:
     - (not path_to_workdir.stat.exists) or new_version_downloaded.changed
   notify:
@@ -183,7 +183,7 @@
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
     mode: '0640'
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   when:
     - keycloak_quarkus_https_key_file_enabled is defined and keycloak_quarkus_https_key_file_enabled
     - keycloak_quarkus_key_file_copy_enabled is defined and keycloak_quarkus_key_file_copy_enabled
@@ -196,7 +196,7 @@
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
     mode: '0644'
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   when:
     - keycloak_quarkus_https_key_file_enabled is defined and keycloak_quarkus_https_key_file_enabled
     - keycloak_quarkus_cert_file_copy_enabled is defined and keycloak_quarkus_cert_file_copy_enabled
@@ -215,7 +215,7 @@
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
     mode: '0640'
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   loop: "{{ keycloak_quarkus_providers }}"
   when: item.url is defined and item.url | length > 0
   notify: "{{ ['invalidate keycloak theme cache', 'rebuild keycloak config', 'restart keycloak'] if not item.restart is defined or item.restart else [] }}"
@@ -244,7 +244,7 @@
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
     mode: '0640'
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   loop: "{{ keycloak_quarkus_providers }}"
   when: item.maven is defined
   no_log: "{{ item.maven.password is defined and item.maven.password | length > 0 | default(false) }}"
@@ -256,7 +256,7 @@
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
     mode: '0640'
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   loop: "{{ keycloak_quarkus_providers }}"
   when: item.local_path is defined
   notify: "{{ ['invalidate keycloak theme cache', 'rebuild keycloak config', 'restart keycloak'] if not item.restart is defined or item.restart else [] }}"
@@ -268,7 +268,7 @@
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
     mode: '0750'
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   loop: "{{ keycloak_quarkus_supported_policy_types }}"
 
 - name: "Install custom policies"
@@ -278,7 +278,7 @@
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
     mode: '0640'
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   loop: "{{ keycloak_quarkus_policies }}"
   when: item.url is defined and item.url | length > 0
   notify: "restart keycloak"

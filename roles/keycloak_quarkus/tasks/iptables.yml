@@ -6,7 +6,7 @@
       - iptables
 
 - name: "Configure firewall ports for {{ keycloak.service_name }}"
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   ansible.builtin.iptables:
     destination_port: "{{ item }}"
     action: "insert"

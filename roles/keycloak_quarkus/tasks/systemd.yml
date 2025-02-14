@@ -1,6 +1,6 @@
 ---
 - name: "Configure sysconfig file for {{ keycloak.service_name }} service"
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   ansible.builtin.template:
     src: keycloak-sysconfig.j2
     dest: "{{ keycloak_quarkus_sysconf_file }}"
@@ -19,7 +19,7 @@
     owner: root
     group: root
     mode: '0644'
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   register: systemdunit
   notify:
     - restart keycloak

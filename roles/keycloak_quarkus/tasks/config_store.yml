@@ -6,7 +6,7 @@
         value: "{{ keycloak_quarkus_db_pass }}"
 
 - name: "Initialize empty configuration key store"
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   # keytool doesn't allow creating an empty key store, so this is a hacky way around it
   ansible.builtin.shell: | # noqa blocked_modules shell is necessary here
     set -o nounset   # abort on unbound variable
@@ -38,7 +38,7 @@
     echo {{ item.value | quote }} | keytool -noprompt -importpass -alias {{ item.key | quote }} -keystore {{ keycloak_quarkus_config_key_store_file | quote }} -storepass {{ keycloak_quarkus_config_key_store_password | quote }} -storetype PKCS12
   loop: "{{ store_items }}"
   no_log: true
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   changed_when: true
   notify:
     - restart keycloak
@@ -49,4 +49,4 @@
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
     mode: '0400'
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"

@@ -35,7 +35,7 @@
     state: link
     src: "{{ keycloak_jboss_home }}/standalone/log"
     dest: "{{ keycloak_log_target }}"
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
 
 - name: Set admin credentials and restart if not already created
   block:
@@ -59,7 +59,7 @@
           - "-u{{ keycloak_admin_user }}"
           - "-p{{ keycloak_admin_password }}"
       changed_when: true
-      become: true
+      become: "{{ keycloak_install_requires_become | default(true) }}"
     - name: "Restart {{ keycloak.service_name }}"
       ansible.builtin.include_tasks: tasks/restart_keycloak.yml
     - name: "Wait until {{ keycloak.service_name }} becomes active {{ keycloak.health_url }}"

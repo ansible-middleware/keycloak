@@ -25,7 +25,7 @@
     fail_msg: "sudo is not installed on target system"
 
 - name: "Install iproute"
-  become: true
+  become: "{{ keycloak_install_requires_become | default(true) }}"
   ansible.builtin.yum:
     name:
       - iproute

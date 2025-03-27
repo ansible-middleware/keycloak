@@ -24,13 +24,6 @@
       - sudo_pkg_name in ansible_facts.packages
     fail_msg: "sudo is not installed on target system"
 
-- name: "Install iproute"
-  become: true
-  ansible.builtin.yum:
-    name:
-      - iproute
-    state: present
-
 - name: "Retrieve assets server from env"
   ansible.builtin.set_fact:
     assets_server: "{{ lookup('env', 'MIDDLEWARE_DOWNLOAD_RELEASE_SERVER_URL') }}"

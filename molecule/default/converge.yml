@@ -13,6 +13,13 @@
     keycloak_quarkus_proxy_mode: none
     keycloak_quarkus_offline_install: true
     keycloak_quarkus_download_path: /tmp/keycloak/
+  pre_tasks:
+    - name: "Install iproute"
+      become: true
+      ansible.builtin.dnf:
+        name:
+          - iproute
+        state: present
   roles:
     - role: keycloak_quarkus
     - role: keycloak_realm

@@ -106,7 +106,7 @@
 - name: "Check installed patches"
   ansible.builtin.include_tasks: rhsso_cli.yml
   vars:
-    query: "patch info"
+    cli_query: "patch info"
   args:
     apply:
       become: true
@@ -121,7 +121,7 @@
     - name: "Apply patch {{ patch_version }} to server"
       ansible.builtin.include_tasks: rhsso_cli.yml
       vars:
-        query: "patch apply {{ patch_archive }}"
+        cli_query: "patch apply {{ patch_archive }}"
       args:
         apply:
           become: true
@@ -130,7 +130,7 @@
     - name: "Restart server to ensure patch content is running"
       ansible.builtin.include_tasks: rhsso_cli.yml
       vars:
-        query: "shutdown --restart"
+        cli_query: "shutdown --restart"
       when:
         - cli_result.rc == 0
       args:
@@ -149,7 +149,7 @@
     - name: "Query installed patch after restart"
       ansible.builtin.include_tasks: rhsso_cli.yml
       vars:
-        query: "patch info"
+        cli_query: "patch info"
       args:
         apply:
           become: true

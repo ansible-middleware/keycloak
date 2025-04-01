@@ -17,6 +17,7 @@ Minor Changes
 Bugfixes
 --------
 
+- Access token lifespan is too short for ansible run `#251 <https://github.com/ansible-middleware/keycloak/pull/251>`_
 - Rebuild config and restart service for local providers `#250 <https://github.com/ansible-middleware/keycloak/pull/250>`_
 
 v2.4.3

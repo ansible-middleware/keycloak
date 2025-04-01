@@ -12,6 +12,15 @@
           - "{{ assets_server }}/sso/7.6.0/rh-sso-7.6.0-server-dist.zip"
           - "{{ assets_server }}/sso/7.6.1/rh-sso-7.6.1-patch.zip"
 
+    - debug:
+        var: ansible_python_version
+
+    - debug:
+        msg: "{{ ansible_facts.packages[item] }}"
+      loop: "{{ ansible_facts.packages | select('search', regex) }}"
+      vars:
+        regex: 'python*'
+
     - name: Create controller directory for downloads
       ansible.builtin.file: # noqa risky-file-permissions delegated, uses controller host user
         path: /tmp/keycloak

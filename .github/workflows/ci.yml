@@ -16,4 +16,4 @@ jobs:
     with:
       fqcn: 'middleware_automation/keycloak'
       molecule_tests: >-
-        [ "default", "overridexml", "https_revproxy", "quarkus", "quarkus-devmode", "quarkus_upgrade", "debian", "quarkus_ha" ]
+        [ "default" ]

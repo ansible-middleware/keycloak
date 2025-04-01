@@ -7,6 +7,9 @@ platforms:
     pre_build_image: true
     privileged: true
     command: "/usr/sbin/init"
+    networks:
+      - name: "mymongo"
+    network_mode: "mymongo"
     port_bindings:
       - "8080/tcp"
       - "8443/tcp"

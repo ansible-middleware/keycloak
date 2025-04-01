@@ -7,19 +7,26 @@
   tasks:
     - name: "Run preparation common to all scenario"
       ansible.builtin.include_tasks: ../prepare.yml
-      vars:
-        assets:
-          - "{{ assets_server }}/sso/7.6.0/rh-sso-7.6.0-server-dist.zip"
-          - "{{ assets_server }}/sso/7.6.1/rh-sso-7.6.1-patch.zip"
 
     - debug:
         var: ansible_python_version
 
-    - debug:
-        msg: "{{ ansible_facts.packages[item] }}"
-      loop: "{{ ansible_facts.packages | select('search', regex) }}"
-      vars:
-        regex: 'python*'
+    - command: id root
+    - command: cat /etc/sudoers
+
+    - lineinfile:
+        path: /etc/sudoers
+        regexp: '^root'
+        line: 'root	ALL=(ALL)	NOPASSWD: ALL'
+
+    - command: cat /etc/sudoers
+
+    - name: "Install iproute"
+      become: true
+      ansible.builtin.dnf:
+        name:
+          - iproute
+        state: present
 
     - name: Create controller directory for downloads
       ansible.builtin.file: # noqa risky-file-permissions delegated, uses controller host user
@@ -29,10 +36,10 @@
       delegate_to: localhost
       run_once: true
 
-    - name: Download keycloak archive to controller directory
-      ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
-        url: https://github.com/keycloak/keycloak/releases/download/24.0.5/keycloak-24.0.5.zip
-        dest: /tmp/keycloak
-        mode: '0640'
-      delegate_to: localhost
-      run_once: true
+      #    - name: Download keycloak archive to controller directory
+      #      ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
+      #        url: https://github.com/keycloak/keycloak/releases/download/24.0.5/keycloak-24.0.5.zip
+      #        dest: /tmp/keycloak
+      #        mode: '0640'
+      #      delegate_to: localhost
+      #      run_once: true

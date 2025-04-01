@@ -2,12 +2,12 @@
 - name: Ensure required params for CLI have been provided
   ansible.builtin.assert:
     that:
-      - query is defined
+      - cli_query is defined
     fail_msg: "Missing required parameters to execute CLI."
     quiet: true
 
-- name: "Execute CLI query: {{ query }}"
+- name: "Execute CLI query: {{ cli_query }}"
   ansible.builtin.command: >
-    {{ keycloak.cli_path }} --connect --command='{{ query }}' --controller={{ keycloak_host }}:{{ keycloak_management_http_port }}
+    {{ keycloak.cli_path }} --connect --command='{{ cli_query }}' --controller={{ keycloak_host }}:{{ keycloak_management_http_port }}
   changed_when: false
   register: cli_result

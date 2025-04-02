@@ -10,18 +10,10 @@ db-password={{ keycloak_quarkus_db_pass }}
 {% endif %}
 {% endif %}
 
-{% if keycloak_quarkus_hostname_strict_https is defined and keycloak_quarkus_hostname_strict_https is sameas true -%}
-hostname-strict-https=true
-{% endif -%}
-{% if keycloak_quarkus_hostname_strict_https is defined and keycloak_quarkus_hostname_strict_https is sameas false -%}
-hostname-strict-https=false
-{% endif -%}
-
 {% if keycloak.config_key_store_enabled %}
 # Config store
 config-keystore={{ keycloak_quarkus_config_key_store_file }}
 config-keystore-password={{ keycloak_quarkus_config_key_store_password }}
-config-keystore-type=PKCS12
 {% endif %}
 
 # Observability
@@ -30,8 +22,16 @@ health-enabled={{ keycloak_quarkus_health_enabled | lower }}
 
 # HTTP
 http-enabled={{ keycloak_quarkus_http_enabled | lower }}
+{% if keycloak_quarkus_http_enabled %}
 http-port={{ keycloak_quarkus_http_port }}
+{% endif %}
 http-relative-path={{ keycloak_quarkus_http_relative_path }}
+
+# Management
+http-management-port={{ keycloak_quarkus_http_management_port }}
+{% if keycloak_quarkus_http_management_relative_path is defined and keycloak_quarkus_http_management_relative_path | length > 0 %}
+http-management-relative-path={{ keycloak_quarkus_http_management_relative_path }}
+{% endif %}
 
 # HTTPS
 https-port={{ keycloak_quarkus_https_port }}
@@ -49,16 +49,10 @@ https-trust-store-password={{ keycloak_quarkus_https_trust_store_password }}
 {% endif %}
 
 # Client URL configuration
-{% if keycloak_quarkus_frontend_url %}
-hostname-url={{ keycloak_quarkus_frontend_url }}
-{% else %}
-hostname={{ keycloak_quarkus_host }}
-hostname-port={{ keycloak_quarkus_port }}
-hostname-path={{ keycloak_quarkus_path }}
-{% endif %}
-hostname-admin-url={{ keycloak_quarkus_admin_url }}
+hostname={{ keycloak_quarkus_hostname }}
+hostname-admin={{ keycloak_quarkus_admin }}
 hostname-strict={{ keycloak_quarkus_hostname_strict | lower }}
-hostname-strict-backchannel={{ keycloak_quarkus_hostname_strict_backchannel | lower }}
+hostname-backchannel-dynamic={{ keycloak_quarkus_hostname_backchannel_dynamic | lower }}
 
 # Cluster
 {% if keycloak_quarkus_ha_enabled %}

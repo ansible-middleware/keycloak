@@ -2,7 +2,7 @@ argument_specs:
     main:
         options:
             keycloak_quarkus_version:
-                default: "24.0.5"
+                default: "26.0.7"
                 description: "keycloak.org package version"
                 type: "str"
             keycloak_quarkus_archive:
@@ -22,7 +22,7 @@ argument_specs:
                 description: "Perform an offline install"
                 type: "bool"
             keycloak_quarkus_jvm_package:
-                default: "java-11-openjdk-headless"
+                default: "java-21-openjdk-headless"
                 description: "RHEL java package runtime"
                 type: "str"
             keycloak_quarkus_java_home:
@@ -68,13 +68,13 @@ argument_specs:
                 default: "10s"
                 description: "systemd RestartSec for service"
                 type: "str"
-            keycloak_quarkus_admin_user:
+            keycloak_quarkus_bootstrap_admin_user:
                 default: "admin"
-                description: "Administration console user account"
+                description: "Administration user account, only for bootstrapping"
                 type: "str"
-            keycloak_quarkus_admin_pass:
+            keycloak_quarkus_bootstrap_admin_password:
                 required: true
-                description: "Password of console admin account"
+                description: "Password of admin account, only for bootstrapping"
                 type: "str"
             keycloak_quarkus_master_realm:
                 default: "master"
@@ -84,17 +84,19 @@ argument_specs:
                 default: "0.0.0.0"
                 description: "Address for binding service ports"
                 type: "str"
+            keycloak_quarkus_hostname:
+                description: >-
+                    Address at which is the server exposed.
+                    Can be a full URL, or just a hostname. When only hostname is provided, scheme, port and context path are resolved from the request.
+                type: "str"
             keycloak_quarkus_host:
-                default: "localhost"
-                description: "Hostname for the Keycloak server"
+                description: "Deprecated in v26, use keycloak_quarkus_hostname instead."
                 type: "str"
             keycloak_quarkus_port:
-                default: -1
-                description: "The port used by the proxy when exposing the hostname"
+                description: "Deprecated in v26, use keycloak_quarkus_hostname instead."
                 type: "int"
             keycloak_quarkus_path:
-                required: false
-                description: "This should be set if proxy uses a different context-path for Keycloak"
+                description: "Deprecated in v26, use keycloak_quarkus_hostname instead."
                 type: "str"
             keycloak_quarkus_http_enabled:
                 default: true
@@ -104,9 +106,12 @@ argument_specs:
                 default: 8080
                 description: "HTTP port"
                 type: "int"
+            keycloak_quarkus_health_check_url:
+                description: "Full URL (including scheme, host, path, fragment etc.) used for health check endpoint; keycloak_quarkus_hostname will NOT be prepended; helpful when health checks should happen against http port, but keycloak_quarkus_hostname uses https scheme per default"
+                type: "str"
             keycloak_quarkus_health_check_url_path:
                 default: "realms/master/.well-known/openid-configuration"
-                description: "Path to the health check endpoint; scheme, host and keycloak_quarkus_http_relative_path will be prepended automatically"
+                description: "Path to the health check endpoint; keycloak_quarkus_hostname will be prepended automatically; Note that keycloak_quarkus_health_check_url takes precedence over this property"
                 type: "str"
             keycloak_quarkus_https_key_file_enabled:
                 default: false
@@ -182,6 +187,10 @@ argument_specs:
                 default: 8443
                 description: "HTTPS port"
                 type: "int"
+            keycloak_quarkus_http_management_port:
+                default: 9000
+                description: "Port of the management interface. Relevant only when something is exposed on the management interface - see the guide for details."
+                type: "int"
             keycloak_quarkus_ajp_port:
                 default: 8009
                 description: "AJP port"
@@ -226,13 +235,21 @@ argument_specs:
                 default: /
                 description: "Set the path relative to / for serving resources. The path must start with a /"
                 type: "str"
+            keycloak_quarkus_http_management_relative_path:
+                required: false
+                description: "Set the path relative to / for serving resources from management interface. The path must start with a /. If not given, the value is inherited from HTTP options. Relevant only when something is exposed on the management interface - see the guide for details."
+                type: "str"
             keycloak_quarkus_frontend_url:
                 required: false
-                description: "Service public URL"
+                description: "Deprecated in v26, use keycloak_quarkus_hostname instead."
+                type: "str"
+            keycloak_quarkus_admin:
+                required: false
+                description: "Service URL for the admin console"
                 type: "str"
             keycloak_quarkus_admin_url:
                 required: false
-                description: "Service URL for the admin console"
+                description: "Deprecated in v26, use keycloak_quarkus_admin instead."
                 type: "str"
             keycloak_quarkus_metrics_enabled:
                 default: false
@@ -240,7 +257,7 @@ argument_specs:
                 type: "bool"
             keycloak_quarkus_health_enabled:
                 default: true
-                description: "If the server should expose health check endpoints"
+                description: "If the server should expose health check endpoints on the management interface"
                 type: "bool"
             keycloak_quarkus_ispn_user:
                 default: "supervisor"
@@ -348,24 +365,18 @@ argument_specs:
                 description: >
                   Disables dynamically resolving the hostname from request headers. Should always be set to true in production, unless
                   proxy verifies the Host header.
-            keycloak_quarkus_hostname_strict_backchannel:
+            keycloak_quarkus_hostname_backchannel_dynamic:
                 default: false
                 type: "bool"
                 description: >
-                  By default backchannel URLs are dynamically resolved from request headers to allow internal and external applications. If all
-                  applications use the public URL this option should be enabled.
+                    Enables dynamic resolving of backchannel URLs, including hostname, scheme, port and context path.
+                    Set to true if your application accesses Keycloak via a private network. If set to true, hostname option needs to be specified as a full URL.
             keycloak_quarkus_spi_sticky_session_encoder_infinispan_should_attach_route:
                 default: true
                 type: "bool"
                 description: >
                   If the route should be attached to cookies to reflect the node that owns a particular session. If false, route is not attached to cookies
                   and we rely on the session affinity capabilities from reverse proxy
-            keycloak_quarkus_hostname_strict_https:
-                type: "bool"
-                required: false
-                description: >
-                  By default, Keycloak requires running using TLS/HTTPS. If the service MUST run without TLS/HTTPS, then set
-                  this option to "true"
             keycloak_quarkus_ks_vault_enabled:
                 default: false
                 type: "bool"
@@ -468,7 +479,7 @@ argument_specs:
     downstream:
         options:
             rhbk_version:
-                default: "24.0.3"
+                default: "26.0.7"
                 description: "Red Hat Build of Keycloak version"
                 type: "str"
             rhbk_archive:

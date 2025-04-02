@@ -3,10 +3,10 @@
   hosts: all
   vars:
     keycloak_quarkus_show_deprecation_warnings: false
-    keycloak_quarkus_admin_pass: "remembertochangeme"
-    keycloak_admin_password: "remembertochangeme"
+    keycloak_quarkus_bootstrap_admin_password: "remembertochangeme"
+    keycloak_quarkus_bootstrap_admin_user: "remembertochangeme"
     keycloak_realm: TestRealm
-    keycloak_quarkus_host: instance
+    keycloak_quarkus_hostname: https://instance:8443
     keycloak_quarkus_log: file
     keycloak_quarkus_log_level: debug # needed for the verify step
     keycloak_quarkus_https_key_file_enabled: true
@@ -37,7 +37,7 @@
           repository_url: https://repo1.maven.org/maven2/ # https://mvnrepository.com/artifact/org.keycloak/keycloak-kerberos-federation/24.0.4
           group_id: org.keycloak
           artifact_id: keycloak-kerberos-federation
-          version: 24.0.5 # optional
+          version: 26.0.7 # optional
           # username: myUser # optional
           # password: myPAT # optional
       # - id: my-static-theme
@@ -51,7 +51,10 @@
   roles:
     - role: keycloak_quarkus
     - role: keycloak_realm
+      keycloak_url: "{{ keycloak_quarkus_hostname }}"
       keycloak_context: ''
+      keycloak_admin_user: "{{ keycloak_quarkus_bootstrap_admin_user }}"
+      keycloak_admin_password: "{{ keycloak_quarkus_bootstrap_admin_password }}"
       keycloak_client_default_roles:
         - TestRoleAdmin
         - TestRoleUser

@@ -1,7 +1,7 @@
 {{ ansible_managed | comment }}
 {% if not ansible_local.keycloak.general.bootstrapped | default(false) | bool %}
-KEYCLOAK_ADMIN={{ keycloak_quarkus_admin_user }}
-KEYCLOAK_ADMIN_PASSWORD='{{ keycloak_quarkus_admin_pass }}'
+KC_BOOTSTRAP_ADMIN_USERNAME={{ keycloak_quarkus_bootstrap_admin_user }}
+KC_BOOTSTRAP_ADMIN_PASSWORD='{{ keycloak_quarkus_bootstrap_admin_password }}'
 {% else %}
 {{ keycloak.bootstrap_mnemonic }}
 {% endif %}

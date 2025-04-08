@@ -13,8 +13,10 @@ platforms:
     privileged: true
     port_bindings:
       - 8080:8080
+      - "9000/tcp"
     published_ports:
       - 0.0.0.0:8080:8080/TCP
+      - 0.0.0.0:9000:9000/TCP
 provisioner:
   name: ansible
   playbooks:

@@ -11,6 +11,7 @@ platforms:
       - "8080/tcp"
       - "8443/tcp"
       - "8009/tcp"
+      - "9000/tcp"
 provisioner:
   name: ansible
   config_options:

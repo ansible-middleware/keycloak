@@ -11,6 +11,7 @@ platforms:
       - "8080/tcp"
       - "8443/tcp"
       - "8009/tcp"
+      - "9000/tcp"
     published_ports:
       - 0.0.0.0:8443:8443/tcp
 provisioner:

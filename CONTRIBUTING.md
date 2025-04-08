@@ -24,7 +24,7 @@ virtualenv $PATH_TO_DEV_VIRTUALENV
 # activate the virtual env
 source $PATH_TO_DEV_VIRTUALENV/bin/activate
 # install ansible and tools onto the virtualenv
-pip install yamllint 'molecule>=6.0' 'molecule-plugins[docker]' 'ansible-core>=2.15' ansible-lint
+pip install yamllint 'molecule>=6.0' 'molecule-plugins[docker]' 'ansible-core>=2.16' ansible-lint
 # install collection dependencies
 ansible-galaxy collection install -r requirements.yml
 # install python dependencies

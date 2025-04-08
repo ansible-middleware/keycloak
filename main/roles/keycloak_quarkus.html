@@ -161,7 +161,7 @@
 <tbody>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_version</span></code></p></td>
 <td class="text-left"><p>keycloak.org package version</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">24.0.5</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">26.0.7</span></code></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_offline_install</span></code></p></td>
 <td class="text-left"><p>Perform an offline install</p></td>
@@ -192,33 +192,41 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_admin_user</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_bootstrap_admin_user</span></code></p></td>
 <td class="text-left"><p>Administration console user account</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">admin</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_bind_address</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_admin_user</span></code></p></td>
+<td class="text-left"><p>Deprecated, use <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_bootstrap_admin_user</span></code> instead.</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_bind_address</span></code></p></td>
 <td class="text-left"><p>Address for binding service ports</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">0.0.0.0</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_host</span></code></p></td>
-<td class="text-left"><p>Hostname for the Keycloak server</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">localhost</span></code></p></td>
-</tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_port</span></code></p></td>
-<td class="text-left"><p>The port used by the proxy when exposing the hostname</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">-1</span></code></p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_path</span></code></p></td>
-<td class="text-left"><p>This should be set if proxy uses a different context-path for Keycloak</p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_host</span></code></p></td>
+<td class="text-left"><p>Deprecated, use <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_hostname</span></code> instead.</p></td>
 <td class="text-left"><p></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_http_port</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_port</span></code></p></td>
+<td class="text-left"><p>Deprecated, use <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_hostname</span></code> instead.</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_path</span></code></p></td>
+<td class="text-left"><p>Deprecated, use <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_hostname</span></code> instead.</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_http_port</span></code></p></td>
 <td class="text-left"><p>HTTP listening port</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">8080</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_https_port</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_https_port</span></code></p></td>
 <td class="text-left"><p>TLS HTTP listening port</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">8443</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_http_management_port</span></code></p></td>
+<td class="text-left"><p>Port of the management interface. Relevant only when something is exposed on the management interface - see the guide for details.</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">9000</span></code></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_ajp_port</span></code></p></td>
 <td class="text-left"><p>AJP port</p></td>
@@ -246,7 +254,7 @@
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_jvm_package</span></code></p></td>
 <td class="text-left"><p>RHEL java package runtime</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">java-17-openjdk-headless</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">java-21-openjdk-headless</span></code></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_java_home</span></code></p></td>
 <td class="text-left"><p>JAVA_HOME of installed JRE, leave empty for using specified keycloak_quarkus_jvm_package RPM path</p></td>
@@ -268,24 +276,40 @@
 <td class="text-left"><p>List of additional env variables of { key: str, value: str} to be put in sysconfig file</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_frontend_url</span></code></p></td>
-<td class="text-left"><p>Set the base URL for frontend URLs, including scheme, host, port and path</p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_hostname</span></code></p></td>
+<td class="text-left"><p>Address at which is the server exposed. Can be a full URL, or just a hostname. When only hostname is provided, scheme, port and context path are resolved from the request.</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_frontend_url</span></code></p></td>
+<td class="text-left"><p>Deprecated, use <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_hostname</span></code> instead.</p></td>
+<td class="text-left"><p></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_admin</span></code></p></td>
+<td class="text-left"><p>Set the base URL for accessing the administration console, including scheme, host, port and path</p></td>
 <td class="text-left"><p></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_admin_url</span></code></p></td>
-<td class="text-left"><p>Set the base URL for accessing the administration console, including scheme, host, port and path</p></td>
+<td class="text-left"><p>Deprecated, use <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_admin</span></code> instead.</p></td>
 <td class="text-left"><p></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_http_relative_path</span></code></p></td>
 <td class="text-left"><p>Set the path relative to / for serving resources. The path must start with a /</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_http_enabled</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_http_management_relative_path</span></code></p></td>
+<td class="text-left"><p>Set the path relative to / for serving resources from management interface. The path must start with a /. If not given, the value is inherited from HTTP options. Relevant only when something is exposed on the management interface - see the guide for details.</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_http_enabled</span></code></p></td>
 <td class="text-left"><p>Enable listener on HTTP port</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
 </tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_health_check_url</span></code></p></td>
+<td class="text-left"><p>Full URL (including scheme, host, path, fragment etc.) used for health check endpoint; keycloak_quarkus_hostname will NOT be prepended; helpful when health checks should happen against http port, but keycloak_quarkus_hostname uses https scheme per default</p></td>
+<td class="text-left"><p>``</p></td>
+</tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_health_check_url_path</span></code></p></td>
-<td class="text-left"><p>Path to the health check endpoint; scheme, host and keycloak_quarkus_http_relative_path will be prepended automatically</p></td>
+<td class="text-left"><p>Path to the health check endpoint; keycloak_quarkus_hostname will be prepended automatically; Note that keycloak_quarkus_health_check_url takes precedence over this property</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">realms/master/.well-known/openid-configuration</span></code></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_https_key_file_enabled</span></code></p></td>
@@ -458,9 +482,13 @@
 <td class="text-left"><p>Disables dynamically resolving the hostname from request headers</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_hostname_strict_backchannel</span></code></p></td>
-<td class="text-left"><p>By default backchannel URLs are dynamically resolved from request headers to allow internal and external applications. If all applications use the public URL this option should be enabled.</p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_hostname_backchannel_dynamic</span></code></p></td>
+<td class="text-left"><p>Enables dynamic resolving of backchannel URLs, including hostname, scheme, port and context path. Set to true if your application accesses Keycloak via a private network. If set to true, hostname option needs to be specified as a full URL.</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_hostname_strict_backchannel</span></code></p></td>
+<td class="text-left"><p>Deprecated, use (the inverted!)<code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_hostname_backchannel_dynamic</span></code> instead.</p></td>
+<td class="text-left"><p></p></td>
 </tr>
 </tbody>
 </table>
@@ -554,7 +582,7 @@
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_health_enabled</span></code></p></td>
-<td class="text-left"><p>If the server should expose health check endpoints</p></td>
+<td class="text-left"><p>If the server should expose health check endpoints on the management interface</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_archive</span></code></p></td>
@@ -585,59 +613,55 @@
 <td class="text-left"><p>Remove pre-existing versions of service</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_url</span></code></p></td>
-<td class="text-left"><p>URL for configuration rest calls</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">http://{{</span> <span class="pre">keycloak_quarkus_host</span> <span class="pre">}}:{{</span> <span class="pre">keycloak_http_port</span> <span class="pre">}}</span></code></p></td>
-</tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_log</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_log</span></code></p></td>
 <td class="text-left"><p>Enable one or more log handlers in a comma-separated list</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">file</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_log_level</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_log_level</span></code></p></td>
 <td class="text-left"><p>The log level of the root category or a comma-separated list of individual categories and their levels</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">info</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_log_file</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_log_file</span></code></p></td>
 <td class="text-left"><p>Set the log file path and filename relative to keycloak home</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">data/log/keycloak.log</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_log_format</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_log_format</span></code></p></td>
 <td class="text-left"><p>Set a format specific to file log entries</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%d{yyyy-MM-dd</span> <span class="pre">HH:mm:ss,SSS}</span> <span class="pre">%-5p</span> <span class="pre">[%c]</span> <span class="pre">(%t)</span> <span class="pre">%s%e%n</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_log_target</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_log_target</span></code></p></td>
 <td class="text-left"><p>Set the destination of the keycloak log folder link</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/var/log/keycloak</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_log_max_file_size</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_log_max_file_size</span></code></p></td>
 <td class="text-left"><p>Set the maximum log file size before a log rotation happens; A size configuration option recognises string in this format (shown as a regular expression): <code class="docutils literal notranslate"><span class="pre">[0-9]+[KkMmGgTtPpEeZzYy]?</span></code>. If no suffix is given, assume bytes.</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">10M</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_log_max_backup_index</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_log_max_backup_index</span></code></p></td>
 <td class="text-left"><p>Set the maximum number of archived log files to keep”</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">10</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_log_file_suffix</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_log_file_suffix</span></code></p></td>
 <td class="text-left"><p>Set the log file handler rotation file suffix. When used, the file will be rotated based on its suffix; Note: If the suffix ends with <code class="docutils literal notranslate"><span class="pre">.zip</span></code> or <code class="docutils literal notranslate"><span class="pre">.gz</span></code>, the rotation file will also be compressed.</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">.yyyy-MM-dd.zip</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_proxy_mode</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_proxy_mode</span></code></p></td>
 <td class="text-left"><p>The proxy address forwarding mode if the server is behind a reverse proxy</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">edge</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_start_dev</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_start_dev</span></code></p></td>
 <td class="text-left"><p>Whether to start the service in development mode (start-dev)</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_transaction_xa_enabled</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_transaction_xa_enabled</span></code></p></td>
 <td class="text-left"><p>Whether to use XA transactions</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_spi_sticky_session_encoder_infinispan_should_attach_route</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_spi_sticky_session_encoder_infinispan_should_attach_route</span></code></p></td>
 <td class="text-left"><p>If the route should be attached to cookies to reflect the node that owns a particular session. If false, route is not attached to cookies and we rely on the session affinity capabilities from reverse proxy</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_show_deprecation_warnings</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_show_deprecation_warnings</span></code></p></td>
 <td class="text-left"><p>Whether deprecation warnings should be shown</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
 </tr>
@@ -751,47 +775,51 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_admin_pass</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_bootstrap_admin_password</span></code></p></td>
 <td class="text-left"><p>Password of console admin account</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">yes</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_frontend_url</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_admin_pass</span></code></p></td>
+<td class="text-left"><p>Deprecated, use <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_bootstrap_admin_password</span></code> instead.</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_frontend_url</span></code></p></td>
 <td class="text-left"><p>Base URL for frontend URLs, including scheme, host, port and path</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">no</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_admin_url</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_admin_url</span></code></p></td>
 <td class="text-left"><p>Base URL for accessing the administration console, including scheme, host, port and path</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">no</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_ks_vault_pass</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_ks_vault_pass</span></code></p></td>
 <td class="text-left"><p>The password for accessing the keystore vault SPI</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">no</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_alternate_download_url</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_alternate_download_url</span></code></p></td>
 <td class="text-left"><p>Alternate location with optional authentication for downloading RHBK</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">no</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_download_user</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_download_user</span></code></p></td>
 <td class="text-left"><p>Optional username for http authentication</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">no*</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_download_pass</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_download_pass</span></code></p></td>
 <td class="text-left"><p>Optional password for http authentication</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">no*</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_download_validate_certs</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_download_validate_certs</span></code></p></td>
 <td class="text-left"><p>Whether to validate certs for URL <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_alternate_download_url</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">no</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_jdbc_download_user</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_jdbc_download_user</span></code></p></td>
 <td class="text-left"><p>Optional username for http authentication</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">no*</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_jdbc_download_pass</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_jdbc_download_pass</span></code></p></td>
 <td class="text-left"><p>Optional password for http authentication</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">no*</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_jdbc_download_validate_certs</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_jdbc_download_validate_certs</span></code></p></td>
 <td class="text-left"><p>Whether to validate certs for URL <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_download_validate_certs</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">no</span></code></p></td>
 </tr>
@@ -810,7 +838,7 @@
 </thead>
 <tbody>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">general.bootstrapped</span></code></p></td>
-<td class="text-left"><p>A custom fact indicating whether this role has been used for bootstrapping keycloak on the respective host before; set to <code class="docutils literal notranslate"><span class="pre">false</span></code> (e.g., when starting off with a new, empty database) ensures that the initial admin user as defined by <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_admin_user[_pass]</span></code> gets created</p></td>
+<td class="text-left"><p>A custom fact indicating whether this role has been used for bootstrapping keycloak on the respective host before; set to <code class="docutils literal notranslate"><span class="pre">false</span></code> (e.g., when starting off with a new, empty database) ensures that the initial admin user as defined by <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_bootstrap_admin_user[_password]</span></code> gets created</p></td>
 </tr>
 </tbody>
 </table>

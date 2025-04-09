@@ -65,6 +65,7 @@ provisioner:
         ansible_python_interpreter: "{{ ansible_playbook_python }}"
   env:
     ANSIBLE_FORCE_COLOR: "true"
+    PYTHONHTTPSVERIFY: 0
 verifier:
   name: ansible
 scenario:

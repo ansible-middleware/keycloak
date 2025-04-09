@@ -102,8 +102,8 @@
     - name: "Get Clients"
       ansible.builtin.uri:
         url: "https://instance:8443/admin/realms/TestRealm/clients"
+        validate_certs: false
         headers:
-          validate_certs: false
           Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
       register: keycloak_clients
 
@@ -114,15 +114,15 @@
     - name: "Get Client {{ keycloak_client_uuid }}"
       ansible.builtin.uri:
         url: "https://instance:8443/admin/realms/TestRealm/clients/{{ keycloak_client_uuid }}"
+        validate_certs: false
         headers:
-          validate_certs: false
           Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
       register: keycloak_test_client
 
     - name: "Get Client roles"
       ansible.builtin.uri:
         url: "https://instance:8443/admin/realms/TestRealm/clients/{{ keycloak_client_uuid }}/roles"
+        validate_certs: false
         headers:
-          validate_certs: false
           Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
       register: keycloak_test_client_roles

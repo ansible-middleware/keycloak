@@ -3,7 +3,7 @@ driver:
   name: docker
 platforms:
   - name: instance
-    image: registry.access.redhat.com/ubi8/ubi-init:latest
+    image: registry.access.redhat.com/ubi9/ubi-init:latest
     pre_build_image: true
     privileged: true
     command: "/usr/sbin/init"

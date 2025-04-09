@@ -22,6 +22,7 @@
     keycloak_quarkus_systemd_wait_for_timeout: 20
     keycloak_quarkus_systemd_wait_for_delay: 2
     keycloak_quarkus_systemd_wait_for_log: true
+    keycloak_quarkus_restart_health_check: false # would fail because of self-signed cert
     keycloak_quarkus_providers:
       - id: http-client
         spi: connections

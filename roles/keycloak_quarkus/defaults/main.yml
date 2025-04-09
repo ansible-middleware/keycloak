@@ -163,5 +163,5 @@ keycloak_quarkus_supported_policy_types: ['password-blacklists']
 keycloak_quarkus_restart_strategy: restart/serial.yml
 keycloak_quarkus_restart_health_check: true
 keycloak_quarkus_restart_health_check_delay: 10
-keycloak_quarkus_restart_health_check_reries: 25
+keycloak_quarkus_restart_health_check_retries: 25
 keycloak_quarkus_restart_pause: 15

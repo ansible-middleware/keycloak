@@ -14,3 +14,4 @@
   until: keycloak_status.status == 200
   retries: 25
   delay: 10
+  when: internal_force_health_check | default(keycloak_quarkus_restart_health_check)

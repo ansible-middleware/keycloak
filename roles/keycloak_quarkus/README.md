@@ -112,7 +112,7 @@ Role Defaults
 |`keycloak_quarkus_restart_strategy`| Strategy task file for restarting in HA (one of provided restart/['serial.yml','none.yml','serial_then_parallel.yml']) or path to file when providing custom strategy | `restart/serial.yml` |
 |`keycloak_quarkus_restart_health_check`| Whether to wait for successful health check after restart | `true` |
 |`keycloak_quarkus_restart_health_check_delay`| Seconds to let pass before starting healch checks | `10` |
-|`keycloak_quarkus_restart_health_check_reries`| Number of attempts for successful health check before failing | `25` |
+|`keycloak_quarkus_restart_health_check_retries`| Number of attempts for successful health check before failing | `25` |
 |`keycloak_quarkus_restart_pause`| Seconds to wait between restarts in HA strategy | `15` |
 
 

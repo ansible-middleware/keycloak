@@ -464,7 +464,7 @@ argument_specs:
                 description: "Seconds to let pass before starting healch checks"
                 default: 10
                 type: 'int'
-            keycloak_quarkus_restart_health_check_reries:
+            keycloak_quarkus_restart_health_check_retries:
                 description: "Number of attempts for successful health check before failing"
                 default: 25
                 type: 'int'

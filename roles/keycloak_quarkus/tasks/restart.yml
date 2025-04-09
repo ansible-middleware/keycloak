@@ -12,7 +12,7 @@
     url: "{{ keycloak.health_url }}"
   register: keycloak_status
   until: keycloak_status.status == 200
-  retries: "{{ keycloak_quarkus_restart_health_check_reries }}"
+  retries: "{{ keycloak_quarkus_restart_health_check_retries }}"
   delay: "{{ keycloak_quarkus_restart_health_check_delay }}"
   when: internal_force_health_check | default(keycloak_quarkus_restart_health_check)
 

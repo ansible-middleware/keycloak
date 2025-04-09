@@ -6,7 +6,7 @@ middleware\_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
-v2.4.4-devel
+v3.0.0-devel
 ============
 
 Minor Changes
@@ -17,6 +17,7 @@ Minor Changes
 Breaking Changes / Porting Guide
 --------------------------------
 
+- Bump major and ansible-core versions `#266 <https://github.com/ansible-middleware/keycloak/pull/266>`_
 - Role support for keycloak/RHBK v26 `#254 <https://github.com/ansible-middleware/keycloak/pull/254>`_
 
 Bugfixes
@@ -24,6 +25,11 @@ Bugfixes
 
 - Access token lifespan is too short for ansible run `#251 <https://github.com/ansible-middleware/keycloak/pull/251>`_
 - Rebuild config and restart service for local providers `#250 <https://github.com/ansible-middleware/keycloak/pull/250>`_
+
+New Modules
+-----------
+
+- middleware_automation.keycloak.keycloak_realm - Allows administration of Keycloak realm via Keycloak API
 
 v2.4.3
 ======

@@ -54,3 +54,7 @@ keycloak_client_users: []
 
 ### List of Keycloak User Federation
 keycloak_user_federation: []
+
+# other settings
+keycloak_url: "http://{{ keycloak_host }}:{{ keycloak_http_port + (keycloak_jboss_port_offset | default(0)) }}"
+keycloak_management_url: "http://{{ keycloak_host }}:{{ keycloak_management_http_port + (keycloak_jboss_port_offset | default(0)) }}"

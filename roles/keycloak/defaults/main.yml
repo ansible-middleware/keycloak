@@ -118,3 +118,7 @@ keycloak_no_log: true
 
 ### logging configuration
 keycloak_log_target: /var/log/keycloak
+
+# locations
+keycloak_url: "http://{{ keycloak_host }}:{{ keycloak_http_port + keycloak_jboss_port_offset }}"
+keycloak_management_url: "http://{{ keycloak_host }}:{{ keycloak_management_http_port + keycloak_jboss_port_offset }}"

@@ -2,7 +2,7 @@
 - name: Playbook for Keycloak X Hosts in develop mode
   hosts: all
   vars:
-    keycloak_admin_password: "remembertochangeme"
+    keycloak_quarkus_bootstrap_admin_password: "remembertochangeme"
     keycloak_quarkus_hostname: http://localhost
     keycloak_quarkus_port: 8080
     keycloak_quarkus_log: file

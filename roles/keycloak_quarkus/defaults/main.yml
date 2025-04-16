@@ -120,12 +120,12 @@ keycloak_quarkus_ispn_trust_store_path: /etc/pki/java/cacerts
 keycloak_quarkus_ispn_trust_store_password: changeit
 
 ### database backend engine: values [ 'postgres', 'mariadb' ]
-keycloak_quarkus_jdbc_engine: postgres
+keycloak_quarkus_db_engine: postgres
 ### database backend credentials
 keycloak_quarkus_db_user: keycloak-user
 keycloak_quarkus_db_pass: keycloak-pass
-keycloak_quarkus_jdbc_url: "{{ keycloak_quarkus_default_jdbc[keycloak_quarkus_jdbc_engine].url }}"
-keycloak_quarkus_jdbc_driver_version: "{{ keycloak_quarkus_default_jdbc[keycloak_quarkus_jdbc_engine].version }}"
+keycloak_quarkus_db_url: "{{ keycloak_quarkus_default_jdbc[keycloak_quarkus_db_engine].url }}"
+keycloak_quarkus_db_driver_version: "{{ keycloak_quarkus_default_jdbc[keycloak_quarkus_db_engine].version }}"
 # override the variables above, following defaults show minimum supported versions
 keycloak_quarkus_default_jdbc:
   postgres:

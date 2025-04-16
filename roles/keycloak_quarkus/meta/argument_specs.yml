@@ -287,7 +287,7 @@ argument_specs:
                 default: "changeit"
                 description: "Password for infinispan certificate keystore"
                 type: "str"
-            keycloak_quarkus_jdbc_engine:
+            keycloak_quarkus_db_engine:
                 default: "postgres"
                 description: "Database engine [mariadb,postres,mssql]"
                 type: "str"
@@ -299,12 +299,12 @@ argument_specs:
                 default: "keycloak-pass"
                 description: "Password for database connection"
                 type: "str"
-            keycloak_quarkus_jdbc_url:
-                default: "{{ keycloak_quarkus_default_jdbc[keycloak_quarkus_jdbc_engine].url }}"
+            keycloak_quarkus_db_url:
+                default: "{{ keycloak_quarkus_default_jdbc[keycloak_quarkus_db_engine].url }}"
                 description: "JDBC URL for connecting to database"
                 type: "str"
-            keycloak_quarkus_jdbc_driver_version:
-                default: "{{ keycloak_quarkus_default_jdbc[keycloak_quarkus_jdbc_engine].version }}"
+            keycloak_quarkus_db_driver_version:
+                default: "{{ keycloak_quarkus_default_jdbc[keycloak_quarkus_db_engine].version }}"
                 description: "Version for JDBC driver"
                 type: "str"
             keycloak_quarkus_log:

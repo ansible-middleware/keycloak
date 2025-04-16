@@ -130,14 +130,14 @@ Role Defaults
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
-|`keycloak_quarkus_jdbc_engine` | Database engine [mariadb,postres,mssql] | `postgres` |
+|`keycloak_quarkus_db_engine` | Database engine [mariadb,postres,mssql] | `postgres` |
 |`keycloak_quarkus_db_user` | User for database connection | `keycloak-user` |
 |`keycloak_quarkus_db_pass` | Password for database connection | `keycloak-pass` |
-|`keycloak_quarkus_jdbc_url` | JDBC URL for connecting to database | `jdbc:postgresql://localhost:5432/keycloak` |
-|`keycloak_quarkus_jdbc_driver_version` | Version for JDBC driver | `9.4.1212` |
+|`keycloak_quarkus_db_url` | JDBC URL for connecting to database | `jdbc:postgresql://localhost:5432/keycloak` |
+|`keycloak_quarkus_db_driver_version` | Version for JDBC engine driver | `9.4.1212` |
 
 
-#### Remote caches configuration
+#### Cache configuration
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|

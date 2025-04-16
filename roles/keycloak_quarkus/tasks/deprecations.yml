@@ -145,5 +145,18 @@
   notify:
     - print deprecation warning
 
+- name: Check deprecation of keycloak_quarkus_bind_address -> keycloak_quarkus_http_host
+  when:
+    - keycloak_quarkus_bind_address is defined
+    - keycloak_quarkus_bind_address != '0.0.0.0'
+  delegate_to: localhost
+  run_once: true
+  changed_when: keycloak_quarkus_show_deprecation_warnings
+  ansible.builtin.set_fact:
+    keycloak_quarkus_http_host: "{{ keycloak_quarkus_bind_address }}"
+    deprecated_variable: "keycloak_quarkus_bind_address" # read in deprecation handler
+  notify:
+    - print deprecation warning
+  
 - name: Flush handlers
   ansible.builtin.meta: flush_handlers

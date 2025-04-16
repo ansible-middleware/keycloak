@@ -82,7 +82,7 @@ argument_specs:
                 type: "str"
             keycloak_quarkus_bind_address:
                 default: "0.0.0.0"
-                description: "Address for binding service ports"
+                description: "Deprecated, use `keycloak_quarkus_http_host`"
                 type: "str"
             keycloak_quarkus_hostname:
                 description: >-
@@ -102,6 +102,10 @@ argument_specs:
                 default: true
                 description: "Enable listener on HTTP port"
                 type: "bool"
+            keycloak_quarkus_http_host:
+                default: '0.0.0.0'
+                description: "HTTP host, address for binding service ports"
+                type: "str"
             keycloak_quarkus_http_port:
                 default: 8080
                 description: "HTTP port"

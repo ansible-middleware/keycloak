@@ -191,10 +191,6 @@ argument_specs:
                 default: 9000
                 description: "Port of the management interface. Relevant only when something is exposed on the management interface - see the guide for details."
                 type: "int"
-            keycloak_quarkus_ajp_port:
-                default: 8009
-                description: "AJP port"
-                type: "int"
             keycloak_quarkus_jgroups_port:
                 default: 7800
                 description: "jgroups cluster tcp port"

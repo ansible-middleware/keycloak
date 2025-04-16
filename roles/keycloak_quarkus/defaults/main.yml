@@ -37,7 +37,6 @@ keycloak_quarkus_http_enabled: true
 keycloak_quarkus_http_port: 8080
 keycloak_quarkus_https_port: 8443
 keycloak_quarkus_http_management_port: 9000
-keycloak_quarkus_ajp_port: 8009
 keycloak_quarkus_jgroups_port: 7800
 keycloak_quarkus_java_heap_opts: "-Xms1024m -Xmx2048m"
 keycloak_quarkus_java_jvm_opts: "-XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8

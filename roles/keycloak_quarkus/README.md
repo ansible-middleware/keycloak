@@ -53,7 +53,6 @@ Role Defaults
 |`keycloak_quarkus_http_port`| HTTP listening port | `8080` |
 |`keycloak_quarkus_https_port`| TLS HTTP listening port | `8443` |
 |`keycloak_quarkus_http_management_port`| Port of the management interface. Relevant only when something is exposed on the management interface - see the guide for details. | `9000` |
-|`keycloak_quarkus_ajp_port`| AJP port | `8009` |
 |`keycloak_quarkus_service_user`| Posix account username | `keycloak` |
 |`keycloak_quarkus_service_group`| Posix account group | `keycloak` |
 |`keycloak_quarkus_service_restart_always`| systemd restart always behavior activation | `False` |

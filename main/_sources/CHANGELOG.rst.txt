@@ -19,6 +19,7 @@ Breaking Changes / Porting Guide
 --------------------------------
 
 - Bump major and ansible-core versions `#266 <https://github.com/ansible-middleware/keycloak/pull/266>`_
+- Rename parameters to follow upstream `#270 <https://github.com/ansible-middleware/keycloak/pull/270>`_
 - Role support for keycloak v26 `#254 <https://github.com/ansible-middleware/keycloak/pull/254>`_
 
 Bugfixes

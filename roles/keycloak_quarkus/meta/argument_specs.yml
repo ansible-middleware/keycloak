@@ -255,34 +255,26 @@ argument_specs:
                 default: true
                 description: "If the server should expose health check endpoints on the management interface"
                 type: "bool"
-            keycloak_quarkus_ispn_user:
+            keycloak_quarkus_cache_remote_username:
                 default: "supervisor"
                 description: "Username for connecting to infinispan"
                 type: "str"
-            keycloak_quarkus_ispn_pass:
+            keycloak_quarkus_cache_remote_password:
                 default: "supervisor"
                 description: "Password for connecting to infinispan"
                 type: "str"
-            keycloak_quarkus_ispn_hosts:
+            keycloak_quarkus_cache_remote_host:
                 default: "localhost:11222"
                 description: "host name/port for connecting to infinispan, eg. host1:11222;host2:11222"
                 type: "str"
-            keycloak_quarkus_ispn_sasl_mechanism:
+            keycloak_quarkus_cache_remote_sasl_mechanism:
                 default: "SCRAM-SHA-512"
                 description: "Infinispan auth mechanism"
                 type: "str"
-            keycloak_quarkus_ispn_use_ssl:
+            keycloak_quarkus_cache_remote_tls_enabled:
                 default: false
                 description: "Whether infinispan uses TLS connection"
                 type: "bool"
-            keycloak_quarkus_ispn_trust_store_path:
-                default: "/etc/pki/java/cacerts"
-                description: "Path to infinispan server trust certificate"
-                type: "str"
-            keycloak_quarkus_ispn_trust_store_password:
-                default: "changeit"
-                description: "Password for infinispan certificate keystore"
-                type: "str"
             keycloak_quarkus_db_engine:
                 default: "postgres"
                 description: "Database engine [mariadb,postres,mssql]"

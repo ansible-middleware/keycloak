@@ -191,10 +191,6 @@ argument_specs:
                 default: 9000
                 description: "Port of the management interface. Relevant only when something is exposed on the management interface - see the guide for details."
                 type: "int"
-            keycloak_quarkus_ajp_port:
-                default: 8009
-                description: "AJP port"
-                type: "int"
             keycloak_quarkus_jgroups_port:
                 default: 7800
                 description: "jgroups cluster tcp port"
@@ -243,13 +239,13 @@ argument_specs:
                 required: false
                 description: "Deprecated in v26, use keycloak_quarkus_hostname instead."
                 type: "str"
-            keycloak_quarkus_admin:
+            keycloak_quarkus_hostname_admin:
                 required: false
                 description: "Service URL for the admin console"
                 type: "str"
             keycloak_quarkus_admin_url:
                 required: false
-                description: "Deprecated in v26, use keycloak_quarkus_admin instead."
+                description: "Deprecated in v26, use keycloak_quarkus_hostname_admin instead."
                 type: "str"
             keycloak_quarkus_metrics_enabled:
                 default: false
@@ -259,35 +255,27 @@ argument_specs:
                 default: true
                 description: "If the server should expose health check endpoints on the management interface"
                 type: "bool"
-            keycloak_quarkus_ispn_user:
+            keycloak_quarkus_cache_remote_username:
                 default: "supervisor"
                 description: "Username for connecting to infinispan"
                 type: "str"
-            keycloak_quarkus_ispn_pass:
+            keycloak_quarkus_cache_remote_password:
                 default: "supervisor"
                 description: "Password for connecting to infinispan"
                 type: "str"
-            keycloak_quarkus_ispn_hosts:
+            keycloak_quarkus_cache_remote_host:
                 default: "localhost:11222"
                 description: "host name/port for connecting to infinispan, eg. host1:11222;host2:11222"
                 type: "str"
-            keycloak_quarkus_ispn_sasl_mechanism:
+            keycloak_quarkus_cache_remote_sasl_mechanism:
                 default: "SCRAM-SHA-512"
                 description: "Infinispan auth mechanism"
                 type: "str"
-            keycloak_quarkus_ispn_use_ssl:
+            keycloak_quarkus_cache_remote_tls_enabled:
                 default: false
                 description: "Whether infinispan uses TLS connection"
                 type: "bool"
-            keycloak_quarkus_ispn_trust_store_path:
-                default: "/etc/pki/java/cacerts"
-                description: "Path to infinispan server trust certificate"
-                type: "str"
-            keycloak_quarkus_ispn_trust_store_password:
-                default: "changeit"
-                description: "Password for infinispan certificate keystore"
-                type: "str"
-            keycloak_quarkus_jdbc_engine:
+            keycloak_quarkus_db_engine:
                 default: "postgres"
                 description: "Database engine [mariadb,postres,mssql]"
                 type: "str"
@@ -299,12 +287,12 @@ argument_specs:
                 default: "keycloak-pass"
                 description: "Password for database connection"
                 type: "str"
-            keycloak_quarkus_jdbc_url:
-                default: "{{ keycloak_quarkus_default_jdbc[keycloak_quarkus_jdbc_engine].url }}"
+            keycloak_quarkus_db_url:
+                default: "{{ keycloak_quarkus_default_jdbc[keycloak_quarkus_db_engine].url }}"
                 description: "JDBC URL for connecting to database"
                 type: "str"
-            keycloak_quarkus_jdbc_driver_version:
-                default: "{{ keycloak_quarkus_default_jdbc[keycloak_quarkus_jdbc_engine].version }}"
+            keycloak_quarkus_db_driver_version:
+                default: "{{ keycloak_quarkus_default_jdbc[keycloak_quarkus_db_engine].version }}"
                 description: "Version for JDBC driver"
                 type: "str"
             keycloak_quarkus_log:

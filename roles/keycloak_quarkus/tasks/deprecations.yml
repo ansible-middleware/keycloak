@@ -86,16 +86,16 @@
     - print deprecation warning
 
 # https://docs.redhat.com/en/documentation/red_hat_build_of_keycloak/26.0/html-single/upgrading_guide/index#new_hostname_options
-- name: Check deprecation of keycloak_quarkus_admin_url -> keycloak_quarkus_admin
+- name: Check deprecation of keycloak_quarkus_admin_url -> keycloak_quarkus_hostname_admin
   when:
-    - keycloak_quarkus_admin is not defined
+    - keycloak_quarkus_hostname_admin is not defined
     - keycloak_quarkus_admin_url is defined
     - keycloak_quarkus_admin_url != ''
   delegate_to: localhost
   run_once: true
   changed_when: keycloak_quarkus_show_deprecation_warnings
   ansible.builtin.set_fact:
-    keycloak_quarkus_admin: "{{ keycloak_quarkus_admin_url }}"
+    keycloak_quarkus_hostname_admin: "{{ keycloak_quarkus_admin_url }}"
     deprecated_variable: "keycloak_quarkus_admin_url" # read in deprecation handler
   notify:
     - print deprecation warning

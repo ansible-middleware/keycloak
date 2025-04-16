@@ -50,10 +50,6 @@ Role Defaults
 |`keycloak_quarkus_host`| Deprecated, use `keycloak_quarkus_hostname` instead. | |
 |`keycloak_quarkus_port`| Deprecated, use `keycloak_quarkus_hostname` instead. | |
 |`keycloak_quarkus_path`| Deprecated, use `keycloak_quarkus_hostname` instead. | |
-|`keycloak_quarkus_http_port`| HTTP listening port | `8080` |
-|`keycloak_quarkus_https_port`| TLS HTTP listening port | `8443` |
-|`keycloak_quarkus_http_management_port`| Port of the management interface. Relevant only when something is exposed on the management interface - see the guide for details. | `9000` |
-|`keycloak_quarkus_ajp_port`| AJP port | `8009` |
 |`keycloak_quarkus_service_user`| Posix account username | `keycloak` |
 |`keycloak_quarkus_service_group`| Posix account group | `keycloak` |
 |`keycloak_quarkus_service_restart_always`| systemd restart always behavior activation | `False` |
@@ -65,30 +61,10 @@ Role Defaults
 |`keycloak_quarkus_java_jvm_opts`| Other JVM settings | same as keycloak |
 |`keycloak_quarkus_java_opts`| JVM arguments; if overridden, it takes precedence over `keycloak_quarkus_java_*` | `{{ keycloak_quarkus_java_heap_opts + ' ' + keycloak_quarkus_java_jvm_opts }}` |
 |`keycloak_quarkus_additional_env_vars` | List of additional env variables of { key: str, value: str} to be put in sysconfig file | `[]` |
-|`keycloak_quarkus_hostname`| Address at which is the server exposed. Can be a full URL, or just a hostname. When only hostname is provided, scheme, port and context path are resolved from the request. | |
 |`keycloak_quarkus_frontend_url`| Deprecated, use `keycloak_quarkus_hostname` instead. | |
-|`keycloak_quarkus_admin`| Set the base URL for accessing the administration console, including scheme, host, port and path | |
-|`keycloak_quarkus_admin_url`| Deprecated, use `keycloak_quarkus_admin` instead. | |
-|`keycloak_quarkus_http_relative_path` | Set the path relative to / for serving resources. The path must start with a / | `/` |
-|`keycloak_quarkus_http_management_relative_path` | Set the path relative to / for serving resources from management interface. The path must start with a /. If not given, the value is inherited from HTTP options. Relevant only when something is exposed on the management interface - see the guide for details. | `/` |
-|`keycloak_quarkus_http_enabled`| Enable listener on HTTP port | `True` |
+|`keycloak_quarkus_admin_url`| Deprecated, use `keycloak_quarkus_hostname_admin` instead. | |
 |`keycloak_quarkus_health_check_url`| Full URL (including scheme, host, path, fragment etc.) used for health check endpoint; keycloak_quarkus_hostname will NOT be prepended; helpful when health checks should happen against http port, but keycloak_quarkus_hostname uses https scheme per default | `` |
 |`keycloak_quarkus_health_check_url_path`| Path to the health check endpoint; keycloak_quarkus_hostname will be prepended automatically; Note that keycloak_quarkus_health_check_url takes precedence over this property | `realms/master/.well-known/openid-configuration` |
-|`keycloak_quarkus_https_key_file_enabled`| Enable listener on HTTPS port | `False` |
-|`keycloak_quarkus_key_file_copy_enabled`| Enable copy of key file to target host | `False` |
-|`keycloak_quarkus_key_content`| Content of the TLS private key. Use `"{{ lookup('file', 'server.key.pem') }}"` to lookup a file. | `""` |
-|`keycloak_quarkus_key_file`| The file path to a private key in PEM format | `/etc/pki/tls/private/server.key.pem` |
-|`keycloak_quarkus_cert_file_copy_enabled`| Enable copy of cert file to target host | `False`|
-|`keycloak_quarkus_cert_file_src`| Set the source file path | `""` |
-|`keycloak_quarkus_cert_file`| The file path to a server certificate or certificate chain in PEM format | `/etc/pki/tls/certs/server.crt.pem` |
-|`keycloak_quarkus_https_key_store_enabled`| Enable configuration of HTTPS via a key store | `False` |
-|`keycloak_quarkus_key_store_file`| Deprecated, use `keycloak_quarkus_https_key_store_file` instead. ||
-|`keycloak_quarkus_key_store_password`| Deprecated, use `keycloak_quarkus_https_key_store_password` instead.||
-|`keycloak_quarkus_https_key_store_file`| The file path to the key store | `{{ keycloak.home }}/conf/key_store.p12` |
-|`keycloak_quarkus_https_key_store_password`| Password for the key store | `""` |
-|`keycloak_quarkus_https_trust_store_enabled`| Enable configuration of the https trust store | `False` |
-|`keycloak_quarkus_https_trust_store_file`| The file path to the trust store | `{{ keycloak.home }}/conf/trust_store.p12` |
-|`keycloak_quarkus_https_trust_store_password`| Password for the trust store | `""` |
 |`keycloak_quarkus_proxy_headers`| Parse reverse proxy headers (`forwarded` or `xforwarded`) | `""` |
 |`keycloak_quarkus_config_key_store_file`| Path to the configuration key store; only used if `keycloak_quarkus_keystore_password` is not empty  | `{{ keycloak.home }}/conf/conf_store.p12` if `keycloak_quarkus_keystore_password != ''`, else `''` |
 |`keycloak_quarkus_config_key_store_password`| Password of the configuration keystore; if non-empty, `keycloak_quarkus_db_pass` will be saved to the keystore at `keycloak_quarkus_config_key_store_file` instead of being written to the configuration file in clear text | `""` |
@@ -120,34 +96,74 @@ Role Defaults
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
-|`keycloak_quarkus_http_relative_path`| Set the path relative to / for serving resources. The path must start with a / | `/` |
+|`keycloak_quarkus_hostname`| Address at which is the server exposed. Can be a full URL, or just a hostname. When only hostname is provided, scheme, port and context path are resolved from the request. | |
+|`keycloak_quarkus_hostname_admin`| Set the base URL for accessing the administration console, including scheme, host, port and path | |
 |`keycloak_quarkus_hostname_strict`| Disables dynamically resolving the hostname from request headers | `true` |
 |`keycloak_quarkus_hostname_backchannel_dynamic`| Enables dynamic resolving of backchannel URLs, including hostname, scheme, port and context path. Set to true if your application accesses Keycloak via a private network. If set to true, hostname option needs to be specified as a full URL. | `false` |
 |`keycloak_quarkus_hostname_strict_backchannel`| Deprecated, use (the inverted!)`keycloak_quarkus_hostname_backchannel_dynamic` instead. |  |
+
+
+#### HTTP(S) configuration
+| Variable | Description | Default |
+|:---------|:------------|:--------|
+|`keycloak_quarkus_http_relative_path`| Set the path relative to / for serving resources. The path must start with a / | `/` |
+|`keycloak_quarkus_http_port`| HTTP listening port | `8080` |
+|`keycloak_quarkus_https_port`| TLS HTTP listening port | `8443` |
+|`keycloak_quarkus_http_management_port`| Port of the management interface. Relevant only when something is exposed on the management interface - see the guide for details. | `9000` |
+|`keycloak_quarkus_https_key_store_file`| The file path to the key store | `{{ keycloak.home }}/conf/key_store.p12` |
+|`keycloak_quarkus_https_key_store_password`| Password for the key store | `""` |
+|`keycloak_quarkus_https_trust_store_enabled`| Enable configuration of the https trust store | `False` |
+|`keycloak_quarkus_https_trust_store_file`| The file path to the trust store | `{{ keycloak.home }}/conf/trust_store.p12` |
+|`keycloak_quarkus_https_trust_store_password`| Password for the trust store | `""` |
+|`keycloak_quarkus_https_key_file_enabled`| Enable listener on HTTPS port | `False` |
+|`keycloak_quarkus_key_file_copy_enabled`| Enable copy of key file to target host | `False` |
+|`keycloak_quarkus_key_content`| Content of the TLS private key. Use `"{{ lookup('file', 'server.key.pem') }}"` to lookup a file. | `""` |
+|`keycloak_quarkus_key_file`| The file path to a private key in PEM format | `/etc/pki/tls/private/server.key.pem` |
+|`keycloak_quarkus_cert_file_copy_enabled`| Enable copy of cert file to target host | `False`|
+|`keycloak_quarkus_cert_file_src`| Set the source file path | `""` |
+|`keycloak_quarkus_cert_file`| The file path to a server certificate or certificate chain in PEM format | `/etc/pki/tls/certs/server.crt.pem` |
+|`keycloak_quarkus_https_key_store_enabled`| Enable configuration of HTTPS via a key store | `False` |
+|`keycloak_quarkus_key_store_file`| Deprecated, use `keycloak_quarkus_https_key_store_file` instead. ||
+|`keycloak_quarkus_key_store_password`| Deprecated, use `keycloak_quarkus_https_key_store_password` instead.||
+|`keycloak_quarkus_http_relative_path` | Set the path relative to / for serving resources. The path must start with a / | `/` |
+|`keycloak_quarkus_http_management_relative_path` | Set the path relative to / for serving resources from management interface. The path must start with a /. If not given, the value is inherited from HTTP options. Relevant only when something is exposed on the management interface - see the guide for details. | `/` |
+|`keycloak_quarkus_http_enabled`| Enable listener on HTTP port | `True` |
 
 
 #### Database configuration
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
-|`keycloak_quarkus_jdbc_engine` | Database engine [mariadb,postres,mssql] | `postgres` |
+|`keycloak_quarkus_db_engine` | Database engine [mariadb,postres,mssql] | `postgres` |
 |`keycloak_quarkus_db_user` | User for database connection | `keycloak-user` |
 |`keycloak_quarkus_db_pass` | Password for database connection | `keycloak-pass` |
-|`keycloak_quarkus_jdbc_url` | JDBC URL for connecting to database | `jdbc:postgresql://localhost:5432/keycloak` |
-|`keycloak_quarkus_jdbc_driver_version` | Version for JDBC driver | `9.4.1212` |
+|`keycloak_quarkus_db_url` | JDBC URL for connecting to database | `jdbc:postgresql://localhost:5432/keycloak` |
+|`keycloak_quarkus_db_driver_version` | Version for JDBC engine driver | `9.4.1212` |
 
 
-#### Remote caches configuration
+#### Cache configuration
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
-|`keycloak_quarkus_ispn_user` | Username for connecting to infinispan | `supervisor` |
-|`keycloak_quarkus_ispn_pass` | Password for connecting to infinispan | `supervisor` |
-|`keycloak_quarkus_ispn_hosts` | host name/port for connecting to infinispan, eg. host1:11222;host2:11222 | `localhost:11222` |
-|`keycloak_quarkus_ispn_sasl_mechanism` | Infinispan auth mechanism | `SCRAM-SHA-512` |
-|`keycloak_quarkus_ispn_use_ssl` | Whether infinispan uses TLS connection | `false` |
-|`keycloak_quarkus_ispn_trust_store_path` | Path to infinispan server trust certificate | `/etc/pki/java/cacerts` |
-|`keycloak_quarkus_ispn_trust_store_password` | Password for infinispan certificate keystore | `changeit` |
+|`keycloak_quarkus_cache_remote_username` | Username for connecting to infinispan | `supervisor` |
+|`keycloak_quarkus_cache_remote_password` | Password for connecting to infinispan | `supervisor` |
+|`keycloak_quarkus_cache_remote_host` | host name/port for connecting to infinispan, eg. host1:11222;host2:11222 | `localhost:11222` |
+|`keycloak_quarkus_cache_remote_sasl_mechanism` | Infinispan auth mechanism | `SCRAM-SHA-512` |
+|`keycloak_quarkus_cache_remote_tls_enabled` | Whether infinispan uses TLS connection | `false` |
+
+
+#### Logging configuration
+
+| Variable | Description | Default |
+|:---------|:------------|:--------|
+|`keycloak_quarkus_log`| Enable one or more log handlers in a comma-separated list | `file` |
+|`keycloak_quarkus_log_level`| The log level of the root category or a comma-separated list of individual categories and their levels | `info` |
+|`keycloak_quarkus_log_file`| Set the log file path and filename relative to keycloak home | `data/log/keycloak.log` |
+|`keycloak_quarkus_log_format`| Set a format specific to file log entries | `%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n` |
+|`keycloak_quarkus_log_target`| Set the destination of the keycloak log folder link | `/var/log/keycloak` |
+|`keycloak_quarkus_log_max_file_size`| Set the maximum log file size before a log rotation happens; A size configuration option recognises string in this format (shown as a regular expression): `[0-9]+[KkMmGgTtPpEeZzYy]?`. If no suffix is given, assume bytes. | `10M` |
+|`keycloak_quarkus_log_max_backup_index`| Set the maximum number of archived log files to keep" | `10` |
+|`keycloak_quarkus_log_file_suffix`| Set the log file handler rotation file suffix. When used, the file will be rotated based on its suffix; Note: If the suffix ends with `.zip` or `.gz`, the rotation file will also be compressed. | `.yyyy-MM-dd.zip` |
 
 
 #### Miscellaneous configuration
@@ -163,14 +179,6 @@ Role Defaults
 |`keycloak_quarkus_master_realm` | Name for rest authentication realm | `master` |
 |`keycloak_auth_client` | Authentication client for configuration REST calls | `admin-cli` |
 |`keycloak_force_install` | Remove pre-existing versions of service | `False` |
-|`keycloak_quarkus_log`| Enable one or more log handlers in a comma-separated list | `file` |
-|`keycloak_quarkus_log_level`| The log level of the root category or a comma-separated list of individual categories and their levels | `info` |
-|`keycloak_quarkus_log_file`| Set the log file path and filename relative to keycloak home | `data/log/keycloak.log` |
-|`keycloak_quarkus_log_format`| Set a format specific to file log entries | `%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n` |
-|`keycloak_quarkus_log_target`| Set the destination of the keycloak log folder link | `/var/log/keycloak` |
-|`keycloak_quarkus_log_max_file_size`| Set the maximum log file size before a log rotation happens; A size configuration option recognises string in this format (shown as a regular expression): `[0-9]+[KkMmGgTtPpEeZzYy]?`. If no suffix is given, assume bytes. | `10M` |
-|`keycloak_quarkus_log_max_backup_index`| Set the maximum number of archived log files to keep" | `10` |
-|`keycloak_quarkus_log_file_suffix`| Set the log file handler rotation file suffix. When used, the file will be rotated based on its suffix; Note: If the suffix ends with `.zip` or `.gz`, the rotation file will also be compressed. | `.yyyy-MM-dd.zip` |
 |`keycloak_quarkus_proxy_mode`| The proxy address forwarding mode if the server is behind a reverse proxy | `edge` |
 |`keycloak_quarkus_start_dev`| Whether to start the service in development mode (start-dev) | `False` |
 |`keycloak_quarkus_transaction_xa_enabled`| Whether to use XA transactions | `True` |
@@ -178,7 +186,7 @@ Role Defaults
 |`keycloak_quarkus_show_deprecation_warnings`| Whether deprecation warnings should be shown | `True` |
 
 
-#### Vault SPI
+#### Vault configuration
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
@@ -251,8 +259,6 @@ Role Variables
 |:---------|:------------|----------|
 |`keycloak_quarkus_bootstrap_admin_password`| Password of console admin account | `yes` |
 |`keycloak_quarkus_admin_pass`| Deprecated, use `keycloak_quarkus_bootstrap_admin_password` instead. | |
-|`keycloak_quarkus_frontend_url`| Base URL for frontend URLs, including scheme, host, port and path | `no` |
-|`keycloak_quarkus_admin_url`| Base URL for accessing the administration console, including scheme, host, port and path | `no` |
 |`keycloak_quarkus_ks_vault_pass`| The password for accessing the keystore vault SPI | `no` |
 |`keycloak_quarkus_alternate_download_url`| Alternate location with optional authentication for downloading RHBK | `no` |
 |`keycloak_quarkus_download_user`| Optional username for http authentication  | `no*` |

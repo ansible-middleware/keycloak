@@ -2,8 +2,8 @@
 
 {% if keycloak_quarkus_db_enabled %}
 # Database
-db={{ keycloak_quarkus_jdbc_engine }}
-db-url={{ keycloak_quarkus_jdbc_url }}
+db={{ keycloak_quarkus_db_engine }}
+db-url={{ keycloak_quarkus_db_url }}
 db-username={{ keycloak_quarkus_db_user }}
 {% if not keycloak.config_key_store_enabled %}
 db-password={{ keycloak_quarkus_db_pass }}
@@ -50,7 +50,7 @@ https-trust-store-password={{ keycloak_quarkus_https_trust_store_password }}
 
 # Client URL configuration
 hostname={{ keycloak_quarkus_hostname }}
-hostname-admin={{ keycloak_quarkus_admin }}
+hostname-admin={{ keycloak_quarkus_hostname_admin }}
 hostname-strict={{ keycloak_quarkus_hostname_strict | lower }}
 hostname-backchannel-dynamic={{ keycloak_quarkus_hostname_backchannel_dynamic | lower }}
 

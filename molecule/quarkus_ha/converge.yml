@@ -24,6 +24,6 @@
     keycloak_quarkus_restart_strategy: restart/serial.yml
     keycloak_quarkus_db_user: keycloak
     keycloak_quarkus_db_pass: mysecretpass
-    keycloak_quarkus_jdbc_url: jdbc:postgresql://postgres:5432/keycloak
+    keycloak_quarkus_db_url: jdbc:postgresql://postgres:5432/keycloak
   roles:
     - role: keycloak_quarkus

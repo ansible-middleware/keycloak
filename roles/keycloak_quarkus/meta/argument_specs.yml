@@ -239,13 +239,13 @@ argument_specs:
                 required: false
                 description: "Deprecated in v26, use keycloak_quarkus_hostname instead."
                 type: "str"
-            keycloak_quarkus_admin:
+            keycloak_quarkus_hostname_admin:
                 required: false
                 description: "Service URL for the admin console"
                 type: "str"
             keycloak_quarkus_admin_url:
                 required: false
-                description: "Deprecated in v26, use keycloak_quarkus_admin instead."
+                description: "Deprecated in v26, use keycloak_quarkus_hostname_admin instead."
                 type: "str"
             keycloak_quarkus_metrics_enabled:
                 default: false

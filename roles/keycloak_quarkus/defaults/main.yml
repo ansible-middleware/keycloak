@@ -79,7 +79,7 @@ keycloak_quarkus_systemd_wait_for_delay: 10
 
 ### keycloak frontend url
 keycloak_quarkus_hostname:
-keycloak_quarkus_admin:
+keycloak_quarkus_hostname_admin:
 
 ### Set the path relative to / for serving resources. The path must start with a /
 ### (set to `/auth` for retrocompatibility with pre-quarkus releases)

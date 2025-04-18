@@ -20,13 +20,14 @@ Breaking Changes / Porting Guide
 
 - Bump major and ansible-core versions `#266 <https://github.com/ansible-middleware/keycloak/pull/266>`_
 - Rename parameters to follow upstream `#270 <https://github.com/ansible-middleware/keycloak/pull/270>`_
-- Role support for keycloak v26 `#254 <https://github.com/ansible-middleware/keycloak/pull/254>`_
+- Update for keycloak v26 `#254 <https://github.com/ansible-middleware/keycloak/pull/254>`_
 
 Bugfixes
 --------
 
 - Access token lifespan is too short for ansible run `#251 <https://github.com/ansible-middleware/keycloak/pull/251>`_
 - Rebuild config and restart service for local providers `#250 <https://github.com/ansible-middleware/keycloak/pull/250>`_
+- Rename and honour parameter ``keycloak_quarkus_http_host`` `#271 <https://github.com/ansible-middleware/keycloak/pull/271>`_
 
 New Modules
 -----------

@@ -26,7 +26,7 @@
 {% set stack_expression='stack="tcpping"' %}
     <jgroups>
         <stack name="tcpping" extends="tcp">
-            <!-- <TCP external_addr="${env.KC_EXTERNAL_ADDR}" bind_addr="{{ keycloak_quarkus_bind_address }}" bind_port="{{ keycloak_quarkus_jgroups_port }}" /> -->
+            <!-- <TCP external_addr="${env.KC_EXTERNAL_ADDR}" bind_addr="{{ keycloak_quarkus_http_host }}" bind_port="{{ keycloak_quarkus_jgroups_port }}" /> -->
             <TCPPING
                 initial_hosts="{{ keycloak_quarkus_cluster_nodes | map(attribute='inventory_host') | join (',') }}"
                 port_range="0"

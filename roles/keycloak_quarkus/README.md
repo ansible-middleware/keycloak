@@ -46,7 +46,7 @@ Role Defaults
 |:---------|:------------|:--------|
 |`keycloak_quarkus_bootstrap_admin_user`| Administration console user account | `admin` |
 |`keycloak_quarkus_admin_user`| Deprecated, use `keycloak_quarkus_bootstrap_admin_user` instead. | |
-|`keycloak_quarkus_bind_address`| Address for binding service ports | `0.0.0.0` |
+|`keycloak_quarkus_bind_address`| Deprecated, use `keycloak_quarkus_http_host` instead |  `0.0.0.0` |
 |`keycloak_quarkus_host`| Deprecated, use `keycloak_quarkus_hostname` instead. | |
 |`keycloak_quarkus_port`| Deprecated, use `keycloak_quarkus_hostname` instead. | |
 |`keycloak_quarkus_path`| Deprecated, use `keycloak_quarkus_hostname` instead. | |
@@ -107,6 +107,7 @@ Role Defaults
 | Variable | Description | Default |
 |:---------|:------------|:--------|
 |`keycloak_quarkus_http_relative_path`| Set the path relative to / for serving resources. The path must start with a / | `/` |
+|`keycloak_quarkus_http_host`| The http host, ie. the address used to bind the service |  `0.0.0.0` |
 |`keycloak_quarkus_http_port`| HTTP listening port | `8080` |
 |`keycloak_quarkus_https_port`| TLS HTTP listening port | `8443` |
 |`keycloak_quarkus_http_management_port`| Port of the management interface. Relevant only when something is exposed on the management interface - see the guide for details. | `9000` |

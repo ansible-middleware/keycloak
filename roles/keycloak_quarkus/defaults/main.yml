@@ -32,7 +32,8 @@ keycloak_quarkus_bootstrap_admin_password:
 keycloak_quarkus_master_realm: master
 
 ### Configuration settings
-keycloak_quarkus_bind_address: 0.0.0.0
+keycloak_quarkus_bind_address: 0.0.0.0 # deprecated use keycloak_quarkus_http_host
+keycloak_quarkus_http_host: 0.0.0.0
 keycloak_quarkus_http_enabled: true
 keycloak_quarkus_http_port: 8080
 keycloak_quarkus_https_port: 8443

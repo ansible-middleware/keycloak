@@ -2,9 +2,6 @@
 # cf. https://www.keycloak.org/server/configuration#_optimize_the_keycloak_startup
 - name: "Rebuild {{ keycloak.service_name }} config"
   ansible.builtin.shell: | # noqa blocked_modules shell is necessary here
-    {{ keycloak.home }}/bin/kc.sh build
-  environment:
-    PATH: "{{ keycloak_quarkus_java_home | default(keycloak_quarkus_pkg_java_home, true) }}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-    JAVA_HOME: "{{ keycloak_quarkus_java_home | default(keycloak_quarkus_pkg_java_home, true) }}"
+    env -i bash -c "set -a ; source {{ keycloak_quarkus_sysconf_file }} ; {{ keycloak.home }}/bin/kc.sh build "
   become: true
   changed_when: true

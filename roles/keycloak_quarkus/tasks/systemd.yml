@@ -22,4 +22,5 @@
   become: true
   register: systemdunit
   notify:
+    - rebuild keycloak config
     - restart keycloak

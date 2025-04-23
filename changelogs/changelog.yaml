@@ -613,3 +613,50 @@ releases:
     fragments:
     - 241.yaml
     release_date: '2024-10-16'
+  3.0.0:
+    changes:
+      breaking_changes:
+      - 'Bump major and ansible-core versions `#266 <https://github.com/ansible-middleware/keycloak/pull/266>`_
+
+        '
+      - 'Rename parameters to follow upstream `#270 <https://github.com/ansible-middleware/keycloak/pull/270>`_
+
+        '
+      - 'Update for keycloak v26 `#254 <https://github.com/ansible-middleware/keycloak/pull/254>`_
+
+        '
+      bugfixes:
+      - 'Access token lifespan is too short for ansible run `#251 <https://github.com/ansible-middleware/keycloak/pull/251>`_
+
+        '
+      - 'Load environment vars during kc rebuild `#274 <https://github.com/ansible-middleware/keycloak/pull/274>`_
+
+        '
+      - 'Rebuild config and restart service for local providers `#250 <https://github.com/ansible-middleware/keycloak/pull/250>`_
+
+        '
+      - 'Rename and honour parameter ``keycloak_quarkus_http_host`` `#271 <https://github.com/ansible-middleware/keycloak/pull/271>`_
+
+        '
+      minor_changes:
+      - 'Add theme cache invalidation handler `#252 <https://github.com/ansible-middleware/keycloak/pull/252>`_
+
+        '
+      - 'keycloak_realm: change url variables to defaults `#268 <https://github.com/ansible-middleware/keycloak/pull/268>`_
+
+        '
+    fragments:
+    - 250.yaml
+    - 251.yaml
+    - 252.yaml
+    - 254.yaml
+    - 266.yaml
+    - 268.yaml
+    - 270.yaml
+    - 271.yaml
+    - 274.yaml
+    modules:
+    - description: Allows administration of Keycloak realm via Keycloak API
+      name: keycloak_realm
+      namespace: ''
+    release_date: '2025-04-23'

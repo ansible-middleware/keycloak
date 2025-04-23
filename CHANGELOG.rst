@@ -6,6 +6,35 @@ middleware\_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v3.0.0
+======
+
+Minor Changes
+-------------
+
+- Add theme cache invalidation handler `#252 <https://github.com/ansible-middleware/keycloak/pull/252>`_
+- keycloak_realm: change url variables to defaults `#268 <https://github.com/ansible-middleware/keycloak/pull/268>`_
+
+Breaking Changes / Porting Guide
+--------------------------------
+
+- Bump major and ansible-core versions `#266 <https://github.com/ansible-middleware/keycloak/pull/266>`_
+- Rename parameters to follow upstream `#270 <https://github.com/ansible-middleware/keycloak/pull/270>`_
+- Update for keycloak v26 `#254 <https://github.com/ansible-middleware/keycloak/pull/254>`_
+
+Bugfixes
+--------
+
+- Access token lifespan is too short for ansible run `#251 <https://github.com/ansible-middleware/keycloak/pull/251>`_
+- Load environment vars during kc rebuild `#274 <https://github.com/ansible-middleware/keycloak/pull/274>`_
+- Rebuild config and restart service for local providers `#250 <https://github.com/ansible-middleware/keycloak/pull/250>`_
+- Rename and honour parameter ``keycloak_quarkus_http_host`` `#271 <https://github.com/ansible-middleware/keycloak/pull/271>`_
+
+New Modules
+-----------
+
+- middleware_automation.keycloak.keycloak_realm - Allows administration of Keycloak realm via Keycloak API
+
 v2.4.3
 ======
 

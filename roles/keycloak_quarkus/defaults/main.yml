@@ -110,14 +110,12 @@ keycloak_quarkus_metrics_enabled: false
 keycloak_quarkus_health_enabled: true
 
 ### infinispan remote caches access (hotrod)
-keycloak_quarkus_ispn_user: supervisor
-keycloak_quarkus_ispn_pass: supervisor
-keycloak_quarkus_ispn_hosts: "localhost:11222"
-keycloak_quarkus_ispn_sasl_mechanism: SCRAM-SHA-512
-keycloak_quarkus_ispn_use_ssl: false
-# if ssl is enabled, import ispn server certificate here
-keycloak_quarkus_ispn_trust_store_path: /etc/pki/java/cacerts
-keycloak_quarkus_ispn_trust_store_password: changeit
+keycloak_quarkus_cache_remote_username: supervisor
+keycloak_quarkus_cache_remote_password: supervisor
+keycloak_quarkus_cache_remote_host: "localhost:11222"
+keycloak_quarkus_cache_remote_tls_enabled: false
+keycloak_quarkus_cache_remote_sasl_mechanism: SCRAM-SHA-512
+
 
 ### database backend engine: values [ 'postgres', 'mariadb' ]
 keycloak_quarkus_db_engine: postgres

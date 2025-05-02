@@ -1,22 +1,22 @@
 {{ ansible_managed | comment }}
 {% if keycloak_quarkus_ha_enabled %}
 {% if keycloak_quarkus_version.split('.')[0] | int < 22 %}
-quarkus.infinispan-client.server-list={{ keycloak_quarkus_ispn_hosts }}
-quarkus.infinispan-client.auth-username={{ keycloak_quarkus_ispn_user }}
-quarkus.infinispan-client.auth-password={{ keycloak_quarkus_ispn_pass }}
+quarkus.infinispan-client.server-list={{ keycloak_quarkus_cache_remote_host }}
+quarkus.infinispan-client.auth-username={{ keycloak_quarkus_cache_remote_username }}
+quarkus.infinispan-client.auth-password={{ keycloak_quarkus_cache_remote_password }}
 {% else %}
-quarkus.infinispan-client.hosts={{ keycloak_quarkus_ispn_hosts }}
-quarkus.infinispan-client.username={{ keycloak_quarkus_ispn_user }}
-quarkus.infinispan-client.password={{ keycloak_quarkus_ispn_pass }}
+quarkus.infinispan-client.hosts={{ keycloak_quarkus_cache_remote_host }}
+quarkus.infinispan-client.username={{ keycloak_quarkus_cache_remote_username }}
+quarkus.infinispan-client.password={{ keycloak_quarkus_cache_remote_password }}
 {% endif %}
 quarkus.infinispan-client.client-intelligence=HASH_DISTRIBUTION_AWARE
 quarkus.infinispan-client.use-auth=true
 quarkus.infinispan-client.auth-realm=default
 quarkus.infinispan-client.auth-server-name=infinispan
-quarkus.infinispan-client.sasl-mechanism={{ keycloak_quarkus_ispn_sasl_mechanism }}
-{% if keycloak_quarkus_ispn_use_ssl %}
-quarkus.infinispan-client.trust-store={{ keycloak_quarkus_ispn_trust_store_path }}
-quarkus.infinispan-client.trust-store-password={{ keycloak_quarkus_ispn_trust_store_password }}
+quarkus.infinispan-client.sasl-mechanism={{ keycloak_quarkus_cache_remote_sasl_mechanism }}
+{% if keycloak_quarkus_cache_remote_tls_enabled %}
+quarkus.infinispan-client.trust-store={{ keycloak_quarkus_https_trust_store_file }}
+quarkus.infinispan-client.trust-store-password={{ keycloak_quarkus_https_trust_store_password }}
 quarkus.infinispan-client.trust-store-type=jks
 {% endif %}
 #quarkus.infinispan-client.use-schema-registration=true

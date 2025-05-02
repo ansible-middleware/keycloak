@@ -6,6 +6,19 @@ middleware\_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v3.0.1
+======
+
+Minor Changes
+-------------
+
+- Version update to 26.0.8 / rhbk 26.0.11 `#277 <https://github.com/ansible-middleware/keycloak/pull/277>`_
+
+Bugfixes
+--------
+
+- Trigger rebuild handler on envvars file change `#276 <https://github.com/ansible-middleware/keycloak/pull/276>`_
+
 v3.0.0
 ======
 

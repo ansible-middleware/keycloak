@@ -5,6 +5,9 @@
     - vars.yml
   vars:
     keycloak_quarkus_show_deprecation_warnings: false
+    keycloak_quarkus_additional_env_vars:
+      - key: KC_FEATURES_DISABLED
+        value: ciba,device-flow,impersonation,kerberos,docker
     keycloak_quarkus_version: 26.0.7
   roles:
     - role: keycloak_quarkus

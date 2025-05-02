@@ -10,6 +10,7 @@
   vars:
     keycloak_sys_pkg_java_home: "{{ keycloak_quarkus_pkg_java_home }}"
   notify:
+    - rebuild keycloak config
     - restart keycloak
 
 - name: "Configure systemd unit file for keycloak service"

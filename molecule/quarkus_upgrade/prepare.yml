@@ -5,7 +5,10 @@
     - vars.yml
   vars:
     sudo_pkg_name: sudo
-    keycloak_quarkus_version: 24.0.5
+    keycloak_quarkus_version: 26.0.4
+    keycloak_quarkus_additional_env_vars:
+      - key: KC_FEATURES_DISABLED
+        value: impersonation,kerberos
   pre_tasks:
     - name: Install sudo
       ansible.builtin.apt:
@@ -44,6 +47,7 @@
       changed_when: false
   roles:
     - role: keycloak_quarkus
+
   post_tasks:
     - name: "Delete custom fact"
       ansible.builtin.file:

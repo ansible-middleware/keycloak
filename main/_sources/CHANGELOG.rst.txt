@@ -9,10 +9,10 @@ This changelog describes changes after version 0.2.6.
 v3.0.1-devel
 ============
 
-Release Summary
----------------
+Bugfixes
+--------
 
-Internal release, documentation or test changes only.
+- Trigger rebuild handler on envvars file change `#276 <https://github.com/ansible-middleware/keycloak/pull/276>`_
 
 v3.0.0
 ======

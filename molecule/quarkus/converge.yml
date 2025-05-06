@@ -36,6 +36,9 @@
             value: 10
       - id: spid-saml
         url: https://github.com/italia/spid-keycloak-provider/releases/download/24.0.2/spid-provider.jar
+      - id: spid-saml-w-checksum
+        url: https://github.com/italia/spid-keycloak-provider/releases/download/24.0.2/spid-provider.jar
+        checksum: sha256:fbb50e73739d7a6d35b5bff611b1c01668b29adf6f6259624b95e466a305f377
       - id: keycloak-kerberos-federation
         maven:
           repository_url: https://repo1.maven.org/maven2/ # https://mvnrepository.com/artifact/org.keycloak/keycloak-kerberos-federation/24.0.4

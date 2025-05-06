@@ -215,6 +215,7 @@
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
     mode: '0640'
+    checksum: "{{ item.checksum | default(omit) }}"
   become: true
   loop: "{{ keycloak_quarkus_providers }}"
   when: item.url is defined and item.url | length > 0
@@ -244,6 +245,7 @@
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
     mode: '0640'
+    checksum: "{{ item.checksum | default(omit) }}"
   become: true
   loop: "{{ keycloak_quarkus_providers }}"
   when: item.maven is defined

@@ -753,6 +753,10 @@
 <span class="w">    </span><span class="nt">properties</span><span class="p">:</span><span class="w">                             </span><span class="c1"># optional, list of key-values</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default-connection-pool-size</span>
 <span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">    </span><span class="nt">checksum</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sha256:D98291AC[...]B6DC7B97</span><span class="w">  </span><span class="c1"># optional, checksum used to verify integrity:</span>
+<span class="w">                                            </span><span class="c1">#  for `url` SPIs, use format: &lt;algorithm&gt;:&lt;checksum|url&gt;, cf. &lt;https://docs.ansible.com/ansible/latest/collections/ansible/builtin/get_url_module.html#parameter-checksum&gt;;</span>
+<span class="w">                                            </span><span class="c1">#  for `local_path` SPIs, use SHA1 format &lt;https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html#parameter-checksum&gt;</span>
+<span class="w">                                            </span><span class="c1">#  for `maven` SPIs, this field is ignored since maven has integrity verification methods enabled by default</span>
 </pre></div>
 </div>
 <p>the definition above will generate the following build command:</p>

@@ -228,6 +228,10 @@ keycloak_quarkus_providers:
     properties:                             # optional, list of key-values
       - key: default-connection-pool-size
         value: 10
+    checksum: sha256:D98291AC[...]B6DC7B97  # optional, checksum used to verify integrity:
+                                            #  for `url` SPIs, use format: <algorithm>:<checksum|url>, cf. <https://docs.ansible.com/ansible/latest/collections/ansible/builtin/get_url_module.html#parameter-checksum>;
+                                            #  for `local_path` SPIs, use SHA1 format <https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html#parameter-checksum>
+                                            #  for `maven` SPIs, this field is ignored since maven has integrity verification methods enabled by default
 ```
 
 the definition above will generate the following build command:

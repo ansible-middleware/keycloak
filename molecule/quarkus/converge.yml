@@ -23,6 +23,7 @@
     keycloak_quarkus_systemd_wait_for_delay: 2
     keycloak_quarkus_systemd_wait_for_log: true
     keycloak_quarkus_restart_health_check: false # would fail because of self-signed cert
+    keycloak_quarkus_version: 26.2.0
     keycloak_quarkus_additional_env_vars:
       - key: KC_FEATURES_DISABLED
         value: impersonation,kerberos
@@ -50,10 +51,10 @@
       # - id: my-static-theme
       #   local_path: /tmp/my-static-theme.jar
     keycloak_quarkus_policies:
-      - name: "xato-net-10-million-passwords.txt"
-        url: "https://github.com/danielmiessler/SecLists/raw/master/Passwords/xato-net-10-million-passwords.txt"
-      - name: "xato-net-10-million-passwords-10.txt"
-        url: "https://github.com/danielmiessler/SecLists/raw/master/Passwords/xato-net-10-million-passwords-10.txt"
+      - name: "cain-and-abel.txt"
+        url: "https://github.com/danielmiessler/SecLists/raw/master/Passwords/Software/cain-and-abel.txt"
+      - name: "john-the-ripper.txt"
+        url: "https://github.com/danielmiessler/SecLists/raw/master/Passwords/Software/john-the-ripper.txt"
         type: password-blacklists
   roles:
     - role: keycloak_quarkus

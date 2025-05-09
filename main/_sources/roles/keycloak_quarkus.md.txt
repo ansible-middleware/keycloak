@@ -251,9 +251,9 @@ Provider definition:
 
 ```yaml
 keycloak_quarkus_policies:
-  - name: xato-net-10-million-passwords.txt                                                                # required, resulting file name
-    url: https://github.com/danielmiessler/SecLists/raw/master/Passwords/xato-net-10-million-passwords.txt # required, url for download
-    type: password-blacklists                                                                              # optional, defaults to `password-blacklists`; supported values: [`password-blacklists`]
+  - name: john-the-ripper.txt                                                                          # required, resulting file name
+    url: https://github.com/danielmiessler/SecLists/raw/master/Passwords/Software/john-the-ripper.txt  # required, url for download
+    type: password-blacklists                                                                          # optional, defaults to `password-blacklists`; supported values: [`password-blacklists`]
 ```
 
 

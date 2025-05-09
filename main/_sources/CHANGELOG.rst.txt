@@ -9,6 +9,11 @@ This changelog describes changes after version 0.2.6.
 v3.0.2-devel
 ============
 
+Minor Changes
+-------------
+
+- New ``checksum`` property for keycloak_quarkus_providers `#280 <https://github.com/ansible-middleware/keycloak/pull/280>`_
+
 v3.0.1
 ======
 

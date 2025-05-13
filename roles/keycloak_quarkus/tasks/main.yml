@@ -39,8 +39,8 @@
         {
           "name": item,
           "address": 'jgroups-' + item,
-          "inventory_host": hostvars[item].ansible_default_ipv4.address | default(item) + '[' + (keycloak_quarkus_jgroups_port | string) + ']',
-          "value": hostvars[item].ansible_default_ipv4.address | default(item)
+          "inventory_host": hostvars[item].keycloak_quarkus_jgroups_ip | default(item) + '[' + (keycloak_quarkus_jgroups_port | string) + ']',
+          "value": hostvars[item].keycloak_quarkus_jgroups_ip | default(item)
         }
       ] }}
   loop: "{{ ansible_play_batch }}"

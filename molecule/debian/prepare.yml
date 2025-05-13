@@ -10,3 +10,8 @@
           # - openjdk-21-jdk-headless # this is not available in ghcr.io/hspaans/molecule-containers:debian-11 (neither in debian-12) since the images are using outdated package sources
           - openjdk-17-jdk-headless
         state: present
+    - name: "Install iproute2"
+      ansible.builtin.apt:
+        name:
+          - iproute2
+        state: present

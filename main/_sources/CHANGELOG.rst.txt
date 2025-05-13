@@ -13,6 +13,7 @@ Minor Changes
 -------------
 
 - New ``checksum`` property for keycloak_quarkus_providers `#280 <https://github.com/ansible-middleware/keycloak/pull/280>`_
+- New parameter to set the jgroups host IP address `#281 <https://github.com/ansible-middleware/keycloak/pull/281>`_
 
 v3.0.1
 ======

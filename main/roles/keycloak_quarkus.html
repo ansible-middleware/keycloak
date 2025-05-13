@@ -323,47 +323,51 @@
 <td class="text-left"><p>Enable auto configuration for database backend</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_ha_enabled</span></code> is True, else <code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_jgroups_port</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_jgroups_ip</span></code></p></td>
+<td class="text-left"><p>Host jgroups IP.  If changing this variable you must make sure it is always set for all hosts in your cluster.</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">ansible_default_ipv4.address</span> <span class="pre">}}</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_jgroups_port</span></code></p></td>
 <td class="text-left"><p>jgroups cluster tcp port</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">7800</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_systemd_wait_for_port</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_systemd_wait_for_port</span></code></p></td>
 <td class="text-left"><p>Whether systemd unit should wait for keycloak port before returning</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">keycloak_quarkus_ha_enabled</span> <span class="pre">}}</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_systemd_wait_for_port_number</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_systemd_wait_for_port_number</span></code></p></td>
 <td class="text-left"><p>Which port the systemd unit should wait for</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">keycloak_quarkus_https_port</span> <span class="pre">}}</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_systemd_wait_for_log</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_systemd_wait_for_log</span></code></p></td>
 <td class="text-left"><p>Whether systemd unit should wait for service to be up in logs</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_systemd_wait_for_timeout</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_systemd_wait_for_timeout</span></code></p></td>
 <td class="text-left"><p>How long to wait for service to be alive (seconds)</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">60</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_systemd_wait_for_delay</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_systemd_wait_for_delay</span></code></p></td>
 <td class="text-left"><p>Activation delay for service systemd unit (seconds)</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">10</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_restart_strategy</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_restart_strategy</span></code></p></td>
 <td class="text-left"><p>Strategy task file for restarting in HA (one of provided restart/[‘serial.yml’,’none.yml’,’serial_then_parallel.yml’]) or path to file when providing custom strategy</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">restart/serial.yml</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_restart_health_check</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_restart_health_check</span></code></p></td>
 <td class="text-left"><p>Whether to wait for successful health check after restart</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_restart_health_check_delay</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_restart_health_check_delay</span></code></p></td>
 <td class="text-left"><p>Seconds to let pass before starting healch checks</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">10</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_restart_health_check_retries</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_restart_health_check_retries</span></code></p></td>
 <td class="text-left"><p>Number of attempts for successful health check before failing</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">25</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_restart_pause</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_restart_pause</span></code></p></td>
 <td class="text-left"><p>Seconds to wait between restarts in HA strategy</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">15</span></code></p></td>
 </tr>

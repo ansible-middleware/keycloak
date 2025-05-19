@@ -70,7 +70,7 @@ keycloak_quarkus_config_key_store_password: ''
 
 ### Enable configuration for database backend, clustering and remote caches on infinispan
 keycloak_quarkus_ha_enabled: false
-keycloak_quarkus_ha_discovery: "TCPPING"
+keycloak_quarkus_ha_discovery: "JDBCPING"
 ### Enable database configuration, must be enabled when HA is configured
 keycloak_quarkus_db_enabled: "{{ keycloak_quarkus_ha_enabled }}"
 keycloak_quarkus_systemd_wait_for_port: "{{ keycloak_quarkus_ha_enabled }}"

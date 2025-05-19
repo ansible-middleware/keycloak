@@ -22,7 +22,8 @@
         xmlns="urn:infinispan:config:15.0">
 
 {% set stack_expression='' %}
-{% if keycloak_quarkus_ha_enabled and keycloak_quarkus_ha_discovery == 'TCPPING' %}
+{% if keycloak_quarkus_ha_enabled %}
+{% if keycloak_quarkus_ha_discovery == 'TCPPING' %}
 {% set stack_expression='stack="tcpping"' %}
     <jgroups>
         <stack name="tcpping" extends="tcp">
@@ -35,6 +36,9 @@
             />
         </stack>
     </jgroups>
+{% elif keycloak_quarkus_ha_discovery == 'JDBCPING' %}
+{% set stack_expression='stack="JDBC_PING2"' %}
+{% endif %}
 {% endif %}
 
     <cache-container name="keycloak">
@@ -91,6 +95,14 @@
                 <value media-type="application/x-java-object"/>
             </encoding>
             <expiration max-idle="3600000"/>
+            <memory max-count="1000"/>
+        </local-cache>
+        <local-cache name="crl" simple-cache="true">
+            <encoding>
+                <key media-type="application/x-java-object"/>
+                <value media-type="application/x-java-object"/>
+            </encoding>
+            <expiration lifespan="-1"/>
             <memory max-count="1000"/>
         </local-cache>
         <distributed-cache name="actionTokens" owners="2">

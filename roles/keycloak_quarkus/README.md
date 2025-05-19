@@ -77,7 +77,7 @@ Role Defaults
 | Variable | Description | Default |
 |:---------|:------------|:--------|
 |`keycloak_quarkus_ha_enabled`| Enable auto configuration for database backend, clustering and remote caches on infinispan | `False` |
-|`keycloak_quarkus_ha_discovery`| Discovery protocol for HA cluster members | `TCPPING` |
+|`keycloak_quarkus_ha_discovery`| Discovery protocol for HA cluster members | `JDBCPING` |
 |`keycloak_quarkus_db_enabled`| Enable auto configuration for database backend | `True` if `keycloak_quarkus_ha_enabled` is True, else `False` |
 |`keycloak_quarkus_jgroups_ip`| Host jgroups IP.  If changing this variable you must make sure it is always set for all hosts in your cluster. | `{{ ansible_default_ipv4.address }}` |
 |`keycloak_quarkus_jgroups_port`| jgroups cluster tcp port | `7800` |

@@ -1,6 +1,6 @@
 ---
 ### Configuration specific to keycloak
-keycloak_quarkus_version: 26.0.8
+keycloak_quarkus_version: 26.2.4
 keycloak_quarkus_archive: "keycloak-{{ keycloak_quarkus_version }}.zip"
 keycloak_quarkus_download_url: "https://github.com/keycloak/keycloak/releases/download/{{ keycloak_quarkus_version }}/{{ keycloak_quarkus_archive }}"
 keycloak_quarkus_installdir: "{{ keycloak_quarkus_dest }}/keycloak-{{ keycloak_quarkus_version }}"
@@ -70,7 +70,7 @@ keycloak_quarkus_config_key_store_password: ''
 
 ### Enable configuration for database backend, clustering and remote caches on infinispan
 keycloak_quarkus_ha_enabled: false
-keycloak_quarkus_ha_discovery: "TCPPING"
+keycloak_quarkus_ha_discovery: "JDBCPING"
 ### Enable database configuration, must be enabled when HA is configured
 keycloak_quarkus_db_enabled: "{{ keycloak_quarkus_ha_enabled }}"
 keycloak_quarkus_systemd_wait_for_port: "{{ keycloak_quarkus_ha_enabled }}"
@@ -125,19 +125,19 @@ keycloak_quarkus_db_user: keycloak-user
 keycloak_quarkus_db_pass: keycloak-pass
 keycloak_quarkus_db_url: "{{ keycloak_quarkus_default_jdbc[keycloak_quarkus_db_engine].url }}"
 keycloak_quarkus_db_driver_version: "{{ keycloak_quarkus_default_jdbc[keycloak_quarkus_db_engine].version }}"
-# override the variables above, following defaults show minimum supported versions
+# override the variables above, following defaults show recommended version as per
+# https://access.redhat.com/articles/7033107
 keycloak_quarkus_default_jdbc:
   postgres:
     url: 'jdbc:postgresql://localhost:5432/keycloak'
-    version: 9.4.1212
+    version: 42.7.5
   mariadb:
     url: 'jdbc:mariadb://localhost:3306/keycloak'
-    version: 2.7.4
+    version: 3.5.2
   mssql:
     url: 'jdbc:sqlserver://localhost:1433;databaseName=keycloak;'
     version: 12.8.1
     driver_jar_url: "https://repo1.maven.org/maven2/com/microsoft/sqlserver/mssql-jdbc/12.8.1.jre11/mssql-jdbc-12.8.1.jre11.jar"
-    # cf. https://docs.redhat.com/en/documentation/red_hat_build_of_keycloak/26.0/html-single/server_configuration_guide/index#db-installing-the-microsoft-sql-server-driver
 ### logging configuration
 keycloak_quarkus_log: file
 keycloak_quarkus_log_level: info

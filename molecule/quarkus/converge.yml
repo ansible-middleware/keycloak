@@ -23,7 +23,7 @@
     keycloak_quarkus_systemd_wait_for_delay: 2
     keycloak_quarkus_systemd_wait_for_log: true
     keycloak_quarkus_restart_health_check: false # would fail because of self-signed cert
-    keycloak_quarkus_version: 26.2.0
+    keycloak_quarkus_version: 26.2.4
     keycloak_quarkus_additional_env_vars:
       - key: KC_FEATURES_DISABLED
         value: impersonation,kerberos
@@ -45,7 +45,7 @@
           repository_url: https://repo1.maven.org/maven2/ # https://mvnrepository.com/artifact/org.keycloak/keycloak-kerberos-federation/24.0.4
           group_id: org.keycloak
           artifact_id: keycloak-kerberos-federation
-          version: 26.0.7 # optional
+          version: 26.2.4 # optional
           # username: myUser # optional
           # password: myPAT # optional
       # - id: my-static-theme

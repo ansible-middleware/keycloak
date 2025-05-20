@@ -6,14 +6,23 @@ on:
       - main
   pull_request:
   workflow_dispatch:
+    inputs:
+      debug_verbosity:
+        description: 'ANSIBLE_VERBOSITY envvar value'
+        required: false
   schedule:
     - cron: '15 6 * * *'
 
 jobs:
   ci:
-    uses: ansible-middleware/github-actions/.github/workflows/ci.yml@main
+    uses: ansible-middleware/github-actions/.github/workflows/cish.yml@main
     secrets: inherit
     with:
       fqcn: 'middleware_automation/keycloak'
+      debug_verbosity: "${{ github.event.inputs.debug_verbosity }}"
       molecule_tests: >-
-        [ "default", "overridexml", "https_revproxy", "quarkus", "quarkus-devmode", "quarkus_upgrade", "debian", "quarkus_ha" ]
+        [ "default", "debian", "quarkus_ha", "quarkus_ha_remote" ]
+      podman_tests_current: >-
+        [ "default", "quarkus", "quarkus-devmode", "quarkus_upgrade" ]
+      podman_tests_next: >-
+        [ "default", "quarkus", "quarkus-devmode", "quarkus_upgrade" ]

@@ -236,7 +236,6 @@
   loop: "{{ keycloak_quarkus_providers }}"
   when: item.maven is defined
   no_log: "{{ item.maven.password is defined and item.maven.password | length > 0 | default(false) }}"
-  notify: "{{ ['invalidate keycloak theme cache', 'rebuild keycloak config', 'restart keycloak'] if not item.restart is defined or item.restart else [] }}"
 
 - name: "Copy maven providers"
   ansible.builtin.copy:
@@ -250,6 +249,7 @@
   loop: "{{ keycloak_quarkus_providers }}"
   when: item.maven is defined
   no_log: "{{ item.maven.password is defined and item.maven.password | length > 0 | default(false) }}"
+  notify: "{{ ['invalidate keycloak theme cache', 'rebuild keycloak config', 'restart keycloak'] if not item.restart is defined or item.restart else [] }}"
 
 - name: "Copy local providers"
   ansible.builtin.copy:

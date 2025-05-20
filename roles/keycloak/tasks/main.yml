@@ -1,22 +1,38 @@
 ---
 # tasks file for keycloak
 - name: Check prerequisites
-  ansible.builtin.include_tasks: prereqs.yml
+  ansible.builtin.include_tasks:
+    file: prereqs.yml
+    apply:
+      tags:
+        - prereqs
   tags:
     - prereqs
 
 - name: Distro specific tasks
-  ansible.builtin.include_tasks: "{{ ansible_os_family | lower }}.yml"
+  ansible.builtin.include_tasks:
+    file: "{{ ansible_os_family | lower }}.yml"
+    apply:
+      tags:
+        - unbound
   tags:
     - unbound
 
 - name: Include install tasks
-  ansible.builtin.include_tasks: install.yml
+  ansible.builtin.include_tasks:
+    file: install.yml
+    apply:
+      tags:
+        - install
   tags:
     - install
 
 - name: Include systemd tasks
-  ansible.builtin.include_tasks: systemd.yml
+  ansible.builtin.include_tasks:
+    file: systemd.yml
+    apply:
+      tags:
+        - systemd
   tags:
     - systemd
 

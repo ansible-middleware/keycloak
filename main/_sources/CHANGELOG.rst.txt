@@ -16,6 +16,11 @@ Minor Changes
 - New parameter to set the jgroups host IP address `#281 <https://github.com/ansible-middleware/keycloak/pull/281>`_
 - Update keycloak/RHBK to v26.2.4 `#283 <https://github.com/ansible-middleware/keycloak/pull/283>`_
 
+Bugfixes
+--------
+
+- Run config rebuild after SPI providers update `#285 <https://github.com/ansible-middleware/keycloak/pull/285>`_
+
 v3.0.1
 ======
 

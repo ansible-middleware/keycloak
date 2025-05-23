@@ -1,6 +1,6 @@
 ---
 driver:
-  name: docker
+  name: podman
 platforms:
   - name: instance
     image: registry.access.redhat.com/ubi9/ubi-init:latest
@@ -32,6 +32,8 @@ provisioner:
   env:
     ANSIBLE_FORCE_COLOR: "true"
     PYTHONHTTPSVERIFY: 0
+    PROXY: "${PROXY}"
+    NO_PROXY: "${NO_PROXY}"
 verifier:
   name: ansible
 scenario:

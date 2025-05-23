@@ -1,0 +1,29 @@
+---
+- name: Converge
+  hosts: keycloak
+  vars:
+    keycloak_quarkus_show_deprecation_warnings: false
+    keycloak_quarkus_bootstrap_admin_password: "remembertochangeme"
+    keycloak_quarkus_bootstrap_admin_user: "remembertochangeme"
+    keycloak_quarkus_hostname: "http://{{ inventory_hostname }}:8080"
+    keycloak_quarkus_log: file
+    keycloak_quarkus_log_level: info
+    keycloak_quarkus_https_key_file_enabled: true
+    keycloak_quarkus_key_file_copy_enabled: true
+    keycloak_quarkus_key_content: "{{ lookup('file', inventory_hostname + '.key') }}"
+    keycloak_quarkus_cert_file_copy_enabled: true
+    keycloak_quarkus_cert_file_src: "{{ inventory_hostname }}.pem"
+    keycloak_quarkus_ks_vault_enabled: true
+    keycloak_quarkus_ks_vault_file: "/opt/keycloak/vault/keystore.p12"
+    keycloak_quarkus_ks_vault_pass: keystorepassword
+    keycloak_quarkus_systemd_wait_for_port: true
+    keycloak_quarkus_systemd_wait_for_timeout: 20
+    keycloak_quarkus_systemd_wait_for_delay: 2
+    keycloak_quarkus_systemd_wait_for_log: true
+    keycloak_quarkus_ha_enabled: true
+    keycloak_quarkus_restart_strategy: restart/serial.yml
+    keycloak_quarkus_db_user: keycloak
+    keycloak_quarkus_db_pass: mysecretpass
+    keycloak_quarkus_db_url: jdbc:postgresql://postgres:5432/keycloak
+  roles:
+    - role: keycloak_quarkus

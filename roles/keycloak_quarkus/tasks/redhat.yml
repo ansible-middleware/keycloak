@@ -1,6 +1,10 @@
 ---
 - name: Include firewall config tasks
-  ansible.builtin.include_tasks: firewalld.yml
+  ansible.builtin.include_tasks:
+    file: firewalld.yml
+    apply:
+      tags:
+        - firewall
   when: keycloak_quarkus_configure_firewalld
   tags:
     - firewall

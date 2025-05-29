@@ -2,20 +2,7 @@
 driver:
   name: docker
 platforms:
-  - name: instance1
-    image: registry.access.redhat.com/ubi9/ubi-init:latest
-    pre_build_image: true
-    privileged: true
-    command: "/usr/sbin/init"
-    groups:
-      - keycloak
-    networks:
-      - name: rhbk
-    port_bindings:
-      - "8080/tcp"
-      - "8443/tcp"
-      - "9000/tcp"
-  - name: instance2
+  - name: keycloak1
     image: registry.access.redhat.com/ubi9/ubi-init:latest
     pre_build_image: true
     privileged: true
@@ -29,17 +16,6 @@ platforms:
       - "8443/tcp"
       - "9000/tcp"
   - name: infinispan1
-    image: registry.access.redhat.com/ubi9/ubi-init:latest
-    pre_build_image: true
-    privileged: true
-    command: "/usr/sbin/init"
-    groups:
-      - infinispan
-    networks:
-      - name: rhbk
-    port_bindings:
-      - "11222/tcp"
-  - name: infinispan2
     image: registry.access.redhat.com/ubi9/ubi-init:latest
     pre_build_image: true
     privileged: true

@@ -1,5 +1,21 @@
 ---
 - name: Converge
+  hosts: infinispan
+  roles:
+    - role: middleware_automation.infinispan.infinispan
+      infinispan_service_name: infinispan
+      infinispan_supervisor_password: remembertochangeme
+      infinispan_keycloak_caches: true
+      infinispan_keycloak_persistence: False
+      infinispan_jdbc_engine: postgres
+      infinispan_jdbc_url: jdbc:postgresql://postgres:5432/keycloak
+      infinispan_jdbc_driver_version: 9.4.1212
+      infinispan_jdbc_user: keycloak
+      infinispan_jdbc_pass: mysecretpass
+      infinispan_users:
+        - { name: 'testuser', password: 'test', roles: 'observer' }
+
+- name: Converge
   hosts: keycloak
   vars:
     keycloak_quarkus_show_deprecation_warnings: false
@@ -25,5 +41,9 @@
     keycloak_quarkus_db_user: keycloak
     keycloak_quarkus_db_pass: mysecretpass
     keycloak_quarkus_db_url: jdbc:postgresql://postgres:5432/keycloak
+    keycloak_quarkus_cache_remote_username: supervisor
+    keycloak_quarkus_cache_remote_password: remembertochangeme
+    keycloak_quarkus_cache_remote_host: "infinispan1:11222"
+    keycloak_quarkus_cache_remote_tls_enabled: false
   roles:
     - role: keycloak_quarkus

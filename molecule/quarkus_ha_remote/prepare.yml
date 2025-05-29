@@ -1,6 +1,6 @@
 ---
 - name: Prepare
-  hosts: keycloak
+  hosts: 'keycloak:infinispan'
   tasks:
     - name: "Display hera_home if defined."
       ansible.builtin.set_fact:

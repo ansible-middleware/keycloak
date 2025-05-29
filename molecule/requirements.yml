@@ -2,6 +2,7 @@
 collections:
   - name: middleware_automation.common
   - name: middleware_automation.jbcs
+  - name: middleware_automation.infinispan
   - name: community.general
   - name: ansible.posix
   - name: community.docker

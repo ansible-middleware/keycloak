@@ -1,6 +1,6 @@
 ---
 - name: Prepare
-  hosts: all
+  hosts: 'keycloak:infinispan'
   tasks:
     - name: "Display hera_home if defined."
       ansible.builtin.set_fact:
@@ -10,21 +10,21 @@
       ansible.builtin.include_tasks: ../prepare.yml
 
     - name: Create certificate request
-      ansible.builtin.command: openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 365 -nodes -subj '/CN=instance'
+      ansible.builtin.command: "openssl req -x509 -newkey rsa:4096 -keyout {{ inventory_hostname }}.key -out {{ inventory_hostname }}.pem -sha256 -days 365 -nodes -subj '/CN={{ inventory_hostname }}'"
       delegate_to: localhost
-      changed_when: false
+      changed_when: False
 
     - name: Create vault directory
       become: true
       ansible.builtin.file:
         state: directory
         path: "/opt/keycloak/vault"
-        mode: '0755'
+        mode: 0755
 
     - name: Make sure a jre is available (for keytool to prepare keystore)
       delegate_to: localhost
       ansible.builtin.package:
-        name: java-21-openjdk-headless
+        name: "{{ 'java-17-openjdk-headless' if hera_home | length > 0 else 'openjdk-17-jdk-headless' }}"
         state: present
       become: true
       failed_when: false
@@ -41,4 +41,4 @@
       ansible.builtin.copy:
         src: keystore.p12
         dest: /opt/keycloak/vault/keystore.p12
-        mode: '0444'
+        mode: 0444

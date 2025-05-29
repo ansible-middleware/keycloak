@@ -21,8 +21,8 @@ jobs:
       fqcn: 'middleware_automation/keycloak'
       debug_verbosity: "${{ github.event.inputs.debug_verbosity }}"
       molecule_tests: >-
-        [ "debian", "quarkus_ha", "quarkus_ha_remote" ]
+        [ "debian", "quarkus", "quarkus_ha", "quarkus_ha_remote" ]
       podman_tests_current: >-
-        [ "default", "quarkus", "quarkus_devmode", "quarkus_upgrade" ]
+        [ "default", "quarkus_devmode", "quarkus_upgrade" ]
       podman_tests_next: >-
-        [ "default", "quarkus", "quarkus_devmode", "quarkus_upgrade" ]
+        [ "default", "quarkus_devmode", "quarkus_upgrade" ]

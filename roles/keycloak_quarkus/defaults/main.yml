@@ -52,7 +52,7 @@ keycloak_quarkus_jgroups_opts: >
   -Djgroups.bind.address={{ keycloak_quarkus_jgroups_bind_address }}
   -Djgroups.external_port={{ keycloak_quarkus_jgroups_external_port }}
   -Djgroups.external_addr={{ keycloak_quarkus_jgroups_external_addr }}
-keycloak_quarkus_java_opts: "{{ ' '.join(keycloak_quarkus_jgroups_opts, keycloak_quarkus_java_heap_opts, keycloak_quarkus_java_jvm_opts }}"
+keycloak_quarkus_java_opts: "{{ ' '.join((keycloak_quarkus_jgroups_opts, keycloak_quarkus_java_heap_opts, keycloak_quarkus_java_jvm_opts)) }}"
 keycloak_quarkus_additional_env_vars: []
 
 ### TLS/HTTPS configuration
@@ -93,7 +93,7 @@ keycloak_quarkus_hostname_admin:
 ### Set the path relative to / for serving resources. The path must start with a /
 ### (set to `/auth` for retrocompatibility with pre-quarkus releases)
 keycloak_quarkus_http_relative_path: /
-f
+
 # Disables dynamically resolving the hostname from request headers.
 # Should always be set to true in production, unless proxy verifies the Host header.
 keycloak_quarkus_hostname_strict: true

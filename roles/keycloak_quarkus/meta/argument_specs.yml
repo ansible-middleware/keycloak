@@ -195,14 +195,6 @@ argument_specs:
                 default: 9000
                 description: "Port of the management interface. Relevant only when something is exposed on the management interface - see the guide for details."
                 type: "int"
-            keycloak_quarkus_jgroups_ip:
-                default: "{{ ansible_default_ipv4.address }}"
-                description: Host jgroups IP.  If changing this variable you must make sure it is always set for all hosts in your cluster.
-                type: "str"
-            keycloak_quarkus_jgroups_port:
-                default: 7800
-                description: "jgroups cluster tcp port"
-                type: "int"
             keycloak_quarkus_java_heap_opts:
                 default: "-Xms1024m -Xmx2048m"
                 description: "Heap memory JVM setting"
@@ -215,7 +207,7 @@ argument_specs:
                 description: "Other JVM settings"
                 type: "str"
             keycloak_quarkus_java_opts:
-                default: "{{ keycloak_quarkus_java_heap_opts + ' ' + keycloak_quarkus_java_jvm_opts }}"
+                default: "{{ ' '.join((keycloak_quarkus_jgroups_opts, keycloak_quarkus_java_heap_opts, keycloak_quarkus_java_jvm_opts)) }}"
                 description: "JVM arguments, by default heap_opts + jvm_opts, if overriden it takes precedence over them"
                 type: "str"
             keycloak_quarkus_additional_env_vars:
@@ -471,6 +463,90 @@ argument_specs:
             keycloak_quarkus_download_path:
                 description: "Path local to controller for offline/download of install archives"
                 default: "{{ lookup('env', 'PWD') }}"
+                type: "str"
+            keycloak_quarkus_cache_metrics_enabled:
+                description: 'Enable histograms for metrics for the embedded caches'
+                default: false
+                type: 'bool'
+            keycloak_quarkus_cache_embedded_authorization_max_count:
+                description: 'The maximum number of entries that can be stored in-memory by the authorization cache'
+                required: false
+                type: "int"
+            keycloak_quarkus_cache_embedded_client_sessions_max_count:
+                description: 'The maximum number of entries that can be stored in-memory by the clientSessions cache'
+                required: false
+                type: "int"
+            keycloak_quarkus_cache_embedded_crl_max_count:
+                description: 'The maximum number of entries that can be stored in-memory by the crl cache'
+                required: false
+                type: "int"
+            keycloak_quarkus_cache_embedded_keys_max_count:
+                description: 'The maximum number of entries that can be stored in-memory by the keys cache'
+                required: false
+                type: "int"
+            keycloak_quarkus_cache_embedded_offline_client_sessions_max_count:
+                description: 'The maximum number of entries that can be stored in-memory by the offlineClientSessions cache'
+                required: false
+                type: "int"
+            keycloak_quarkus_cache_embedded_offline_sessions_max_count:
+                description: 'The maximum number of entries that can be stored in-memory by the offlineSessions cache'
+                required: false
+                type: "int"
+            keycloak_quarkus_cache_embedded_realms_max_count:
+                description: 'The maximum number of entries that can be stored in-memory by the realms cache'
+                required: false
+                type: "int"
+            keycloak_quarkus_cache_embedded_sessions_max_count:
+                description: 'The maximum number of entries that can be stored in-memory by the sessions cache'
+                required: false
+                type: "int"
+            keycloak_quarkus_cache_embedded_users_max_count:
+                description: 'The maximum number of entries that can be stored in-memory by the users cache'
+                required: false
+                type: 'int'
+            keycloak_quarkus_cache_embedded_mtls_enabled:
+                description: 'Encrypts the network communication between Keycloak servers'
+                default: true
+                type: 'bool'
+            keycloak_quarkus_cache_embedded_mtls_key_store_file:
+                description: 'The Keystore file path'
+                default: "{{ keycloak.home }}/conf/cache_key_store.p12"
+                type: "str"
+            keycloak_quarkus_cache_embedded_mtls_key_store_password:
+                description: 'The password to access the Keystore'
+                default: ''
+                type: "str"
+            keycloak_quarkus_cache_embedded_mtls_rotation_interval_days:
+                description: 'Rotation period in days of automatic JGroups MTLS certificates'
+                default: 30
+                type: 'int'
+            keycloak_quarkus_cache_embedded_mtls_trust_store_file:
+                description: 'The Truststore file path'
+                default: "{{ keycloak.home }}/conf/cache_trust_store.p12"
+                type: "str"
+            keycloak_quarkus_cache_embedded_mtls_trust_store_password:
+                description: 'The password to access the Truststore.'
+                default: ''
+                type: "str"
+            keycloak_quarkus_jgroups_port: 
+                description: 'jgroups bind port'
+                default: 7800
+                type: "int"
+            keycloak_quarkus_jgroups_bind_address:
+                description: 'jgroups bind address'
+                default: "{{ ansible_default_ipv4.address }}"
+                type: "str"
+            keycloak_quarkus_jgroups_external_addr:
+                description: 'IP address that other instances in the Keycloak should use to contact this node'
+                default: "{{ keycloak_quarkus_jgroups_bind_address }}"
+                type: "str"
+            keycloak_quarkus_jgroups_external_port: 
+                description: 'Port that other instances in the Keycloak cluster should use to contact this node'
+                default: "{{ keycloak_quarkus_jgroups_port }}"
+                type: "int"
+            keycloak_quarkus_jgroups_opts:
+                description: "JVM arguments for jgroups configuration"
+                default: "-Djgroups.bind.address={{ keycloak_quarkus_jgroups_bind_address }} -Djgroups.external_port={{ keycloak_quarkus_jgroups_external_port }} -Djgroups.external_addr={{ keycloak_quarkus_jgroups_external_addr }}"
                 type: "str"
     downstream:
         options:

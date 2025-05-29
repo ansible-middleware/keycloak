@@ -11,6 +11,8 @@
     keycloak_quarkus_start_dev: True
     keycloak_quarkus_proxy_mode: none
     keycloak_quarkus_java_home: /opt/openjdk/
+    keycloak_quarkus_java_heap_opts: "-Xms640m -Xmx640m"
+
   roles:
     - role: keycloak_quarkus
     - role: keycloak_realm

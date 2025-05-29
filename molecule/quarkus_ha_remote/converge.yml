@@ -45,5 +45,10 @@
     keycloak_quarkus_cache_remote_password: remembertochangeme
     keycloak_quarkus_cache_remote_host: "infinispan1:11222"
     keycloak_quarkus_cache_remote_tls_enabled: false
+    keycloak_quarkus_additional_env_vars:
+      - key: KC_FEATURES
+        value: clusterless
+      - key: KC_FEATURES_DISABLED
+        value: persistent-user-sessions
   roles:
     - role: keycloak_quarkus

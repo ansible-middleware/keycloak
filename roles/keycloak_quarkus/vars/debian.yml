@@ -1,5 +1,5 @@
 ---
-keycloak_quarkus_varjvm_package: "{{ keycloak_quarkus_jvm_package | default('openjdk-17-jdk-headless') }}"
+keycloak_quarkus_varjvm_package: "{{ keycloak_quarkus_jvm_package | default('openjdk-21-jdk-headless') }}"
 keycloak_quarkus_prereq_package_list:
       - "{{ keycloak_quarkus_varjvm_package }}"
       - bash

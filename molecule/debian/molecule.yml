@@ -3,7 +3,7 @@ driver:
   name: docker
 platforms:
   - name: instance
-    image: ghcr.io/hspaans/molecule-containers:debian-11
+    image: ghcr.io/hspaans/molecule-containers:debian-13
     pre_build_image: true
     privileged: true
     port_bindings:

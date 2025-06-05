@@ -38,14 +38,21 @@ keycloak_quarkus_http_enabled: true
 keycloak_quarkus_http_port: 8080
 keycloak_quarkus_https_port: 8443
 keycloak_quarkus_http_management_port: 9000
-keycloak_quarkus_jgroups_ip: "{{ ansible_default_ipv4.address }}"
 keycloak_quarkus_jgroups_port: 7800
+keycloak_quarkus_jgroups_bind_address: "{{ ansible_default_ipv4.address }}"
+keycloak_quarkus_jgroups_external_addr: "{{ keycloak_quarkus_jgroups_bind_address }}"
+keycloak_quarkus_jgroups_external_port: "{{ keycloak_quarkus_jgroups_port }}"
 keycloak_quarkus_java_heap_opts: "-Xms1024m -Xmx2048m"
-keycloak_quarkus_java_jvm_opts: "-XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8
+keycloak_quarkus_java_jvm_opts: >
+  -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8
   -Dsun.err.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8 -XX:+ExitOnOutOfMemoryError
   -Djava.security.egd=file:/dev/urandom -XX:+UseParallelGC -XX:GCTimeRatio=4
-  -XX:AdaptiveSizePolicyWeight=90 -XX:FlightRecorderOptions=stackdepth=512"
-keycloak_quarkus_java_opts: "{{ keycloak_quarkus_java_heap_opts + ' ' + keycloak_quarkus_java_jvm_opts }}"
+  -XX:AdaptiveSizePolicyWeight=90 -XX:FlightRecorderOptions=stackdepth=512
+keycloak_quarkus_jgroups_opts: >
+  -Djgroups.bind.address={{ keycloak_quarkus_jgroups_bind_address }}
+  -Djgroups.external_port={{ keycloak_quarkus_jgroups_external_port }}
+  -Djgroups.external_addr={{ keycloak_quarkus_jgroups_external_addr }}
+keycloak_quarkus_java_opts: "{{ ' '.join((keycloak_quarkus_jgroups_opts, keycloak_quarkus_java_heap_opts, keycloak_quarkus_java_jvm_opts)) }}"
 keycloak_quarkus_additional_env_vars: []
 
 ### TLS/HTTPS configuration
@@ -110,10 +117,33 @@ keycloak_quarkus_spi_sticky_session_encoder_infinispan_should_attach_route: true
 keycloak_quarkus_metrics_enabled: false
 keycloak_quarkus_health_enabled: true
 
+### caches; must read: https://www.keycloak.org/2024/12/storing-sessions-in-kc26
+### embedded caches
+# https://www.keycloak.org/server/caching
+keycloak_quarkus_cache_metrics_enabled: false
+keycloak_quarkus_cache_embedded_authorization_max_count:
+keycloak_quarkus_cache_embedded_client_sessions_max_count:
+keycloak_quarkus_cache_embedded_crl_max_count:
+keycloak_quarkus_cache_embedded_keys_max_count:
+keycloak_quarkus_cache_embedded_offline_client_sessions_max_count:
+keycloak_quarkus_cache_embedded_offline_sessions_max_count:
+keycloak_quarkus_cache_embedded_realms_max_count:
+keycloak_quarkus_cache_embedded_sessions_max_count:
+keycloak_quarkus_cache_embedded_users_max_count:
+keycloak_quarkus_cache_embedded_mtls_enabled: true
+keycloak_quarkus_cache_embedded_mtls_key_store_file: "{{ keycloak.home }}/conf/cache_key_store.p12"
+keycloak_quarkus_cache_embedded_mtls_key_store_password: ''
+keycloak_quarkus_cache_embedded_mtls_rotation_interval_days: 30
+keycloak_quarkus_cache_embedded_mtls_trust_store_file: "{{ keycloak.home }}/conf/cache_trust_store.p12"
+keycloak_quarkus_cache_embedded_mtls_trust_store_password: ''
+
 ### infinispan remote caches access (hotrod)
+# https://www.keycloak.org/server/caching#_remote_cache
+keycloak_quarkus_cache_remote: false
 keycloak_quarkus_cache_remote_username: supervisor
 keycloak_quarkus_cache_remote_password: supervisor
-keycloak_quarkus_cache_remote_host: "localhost:11222"
+keycloak_quarkus_cache_remote_host: localhost
+keycloak_quarkus_cache_remote_port: 11222
 keycloak_quarkus_cache_remote_tls_enabled: false
 keycloak_quarkus_cache_remote_sasl_mechanism: SCRAM-SHA-512
 

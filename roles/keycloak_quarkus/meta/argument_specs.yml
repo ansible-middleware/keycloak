@@ -255,6 +255,10 @@ argument_specs:
                 default: true
                 description: "If the server should expose health check endpoints on the management interface"
                 type: "bool"
+            keycloak_quarkus_cache_remote:
+                description: "Whether to connect to remote cache infinispan server"
+                default: false
+                type: 'bool'
             keycloak_quarkus_cache_remote_username:
                 default: "supervisor"
                 description: "Username for connecting to infinispan"
@@ -264,8 +268,12 @@ argument_specs:
                 description: "Password for connecting to infinispan"
                 type: "str"
             keycloak_quarkus_cache_remote_host:
-                default: "localhost:11222"
-                description: "host name/port for connecting to infinispan, eg. host1:11222;host2:11222"
+                default: "localhost"
+                description: "Hostname for connecting to infinispan"
+                type: "str"
+            keycloak_quarkus_cache_remote_port:
+                default: "11222"
+                description: "Port for connecting to infinispan"
                 type: "str"
             keycloak_quarkus_cache_remote_sasl_mechanism:
                 default: "SCRAM-SHA-512"

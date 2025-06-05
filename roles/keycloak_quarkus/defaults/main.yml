@@ -139,9 +139,11 @@ keycloak_quarkus_cache_embedded_mtls_trust_store_password: ''
 
 ### infinispan remote caches access (hotrod)
 # https://www.keycloak.org/server/caching#_remote_cache
+keycloak_quarkus_cache_remote: false
 keycloak_quarkus_cache_remote_username: supervisor
 keycloak_quarkus_cache_remote_password: supervisor
-keycloak_quarkus_cache_remote_host: "localhost:11222"
+keycloak_quarkus_cache_remote_host: localhost
+keycloak_quarkus_cache_remote_port: 11222
 keycloak_quarkus_cache_remote_tls_enabled: false
 keycloak_quarkus_cache_remote_sasl_mechanism: SCRAM-SHA-512
 

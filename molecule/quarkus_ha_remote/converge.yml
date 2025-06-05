@@ -12,6 +12,7 @@
       infinispan_jdbc_driver_version: 9.4.1212
       infinispan_jdbc_user: keycloak
       infinispan_jdbc_pass: mysecretpass
+      infinispan_bind_address: "{{ ansible_default_ipv4.address }}"
       infinispan_users:
         - { name: 'testuser', password: 'test', roles: 'observer' }
 
@@ -41,9 +42,11 @@
     keycloak_quarkus_db_user: keycloak
     keycloak_quarkus_db_pass: mysecretpass
     keycloak_quarkus_db_url: jdbc:postgresql://postgres:5432/keycloak
+    keycloak_quarkus_cache_remote: true
     keycloak_quarkus_cache_remote_username: supervisor
     keycloak_quarkus_cache_remote_password: remembertochangeme
-    keycloak_quarkus_cache_remote_host: "infinispan1:11222"
+    keycloak_quarkus_cache_remote_host: "infinispan1"
+    keycloak_quarkus_cache_remote_port: 11222
     keycloak_quarkus_cache_remote_tls_enabled: false
     keycloak_quarkus_additional_env_vars:
       - key: KC_FEATURES

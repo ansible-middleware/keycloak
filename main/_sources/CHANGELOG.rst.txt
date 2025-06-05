@@ -20,6 +20,7 @@ Bugfixes
 --------
 
 - Run config rebuild after SPI providers update `#285 <https://github.com/ansible-middleware/keycloak/pull/285>`_
+- Use jdk21 as default in debian `#289 <https://github.com/ansible-middleware/keycloak/pull/289>`_
 
 v3.0.1
 ======

@@ -147,9 +147,11 @@ Role Defaults
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
+|`keycloak_quarkus_cache_remote` | Whether to connect to remote cache infinispan server | `false` |
 |`keycloak_quarkus_cache_remote_username` | Username for connecting to infinispan | `supervisor` |
 |`keycloak_quarkus_cache_remote_password` | Password for connecting to infinispan | `supervisor` |
-|`keycloak_quarkus_cache_remote_host` | host name/port for connecting to infinispan, eg. host1:11222;host2:11222 | `localhost:11222` |
+|`keycloak_quarkus_cache_remote_host` | Hostname for connecting to infinispan | `localhost` |
+|`keycloak_quarkus_cache_remote_port`| Port for connecting to infinispan | `11222` |
 |`keycloak_quarkus_cache_remote_sasl_mechanism` | Infinispan auth mechanism | `SCRAM-SHA-512` |
 |`keycloak_quarkus_cache_remote_tls_enabled` | Whether infinispan uses TLS connection | `false` |
 

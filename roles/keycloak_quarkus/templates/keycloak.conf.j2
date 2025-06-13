@@ -59,8 +59,12 @@ hostname-backchannel-dynamic={{ keycloak_quarkus_hostname_backchannel_dynamic | 
 {% if keycloak_quarkus_ha_enabled %}
 cache=ispn
 cache-config-file=cache-ispn.xml
-{% if keycloak_quarkus_ha_enabled and keycloak_quarkus_ha_discovery == 'TCPPING' %}
-# cache-stack=tcp # configured directly in `cache-ispn.xml`
+{% if keycloak_quarkus_cache_remote %}
+cache-remote-username={{ keycloak_quarkus_cache_remote_username }}
+cache-remote-password={{ keycloak_quarkus_cache_remote_password }}
+cache-remote-host={{ keycloak_quarkus_cache_remote_host }}
+cache-remote-port={{ keycloak_quarkus_cache_remote_port }}
+cache-remote-tls-enabled={{ keycloak_quarkus_cache_remote_tls_enabled | lower }}
 {% endif %}
 {% endif %}
 

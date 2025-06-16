@@ -22,6 +22,7 @@
         xmlns="urn:infinispan:config:15.0">
 
 {% set stack_expression='' %}
+{% if keycloak_quarkus_version is version_compare('26.2.0', '<') %}
 {% if keycloak_quarkus_ha_enabled %}
 {% if keycloak_quarkus_ha_discovery == 'TCPPING' %}
 {% set stack_expression='stack="tcpping"' %}
@@ -38,6 +39,7 @@
     </jgroups>
 {% elif keycloak_quarkus_ha_discovery == 'JDBCPING' %}
 {% set stack_expression='stack="JDBC_PING2"' %}
+{% endif %}
 {% endif %}
 {% endif %}
 

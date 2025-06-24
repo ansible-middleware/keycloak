@@ -182,7 +182,7 @@ Role Defaults
 |`keycloak_quarkus_config_dir` | Path for configuration | `{{ keycloak_quarkus_home }}/conf` |
 |`keycloak_quarkus_master_realm` | Name for rest authentication realm | `master` |
 |`keycloak_auth_client` | Authentication client for configuration REST calls | `admin-cli` |
-|`keycloak_force_install` | Remove pre-existing versions of service | `False` |
+|`keycloak_quarkus_force_install` | Remove pre-existing versions of service | `False` |
 |`keycloak_quarkus_proxy_mode`| The proxy address forwarding mode if the server is behind a reverse proxy | `edge` |
 |`keycloak_quarkus_start_dev`| Whether to start the service in development mode (start-dev) | `False` |
 |`keycloak_quarkus_transaction_xa_enabled`| Whether to use XA transactions | `True` |

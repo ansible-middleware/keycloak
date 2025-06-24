@@ -194,3 +194,5 @@ keycloak_quarkus_restart_health_check: true
 keycloak_quarkus_restart_health_check_delay: 10
 keycloak_quarkus_restart_health_check_retries: 25
 keycloak_quarkus_restart_pause: 15
+
+keycloak_quarkus_force_install: false

@@ -77,6 +77,7 @@
     - not archive_path.stat.exists
     - rhbk_enable is defined and rhbk_enable
     - not keycloak.offline_install
+    - keycloak_quarkus_alternate_download_url is undefined
   block:
     - name: Retrieve product download using JBoss Network API
       middleware_automation.common.product_search:

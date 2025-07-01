@@ -20,6 +20,7 @@ Minor Changes
 Bugfixes
 --------
 
+- Fix alternate download location being ignored (JBossNeworkAPI always used) `#298 <https://github.com/ansible-middleware/keycloak/pull/298>`_
 - Run config rebuild after SPI providers update `#285 <https://github.com/ansible-middleware/keycloak/pull/285>`_
 - Use jdk21 as default in debian `#289 <https://github.com/ansible-middleware/keycloak/pull/289>`_
 

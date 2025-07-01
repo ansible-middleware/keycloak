@@ -23,6 +23,7 @@ Bugfixes
 - Fix alternate download location being ignored (JBossNeworkAPI always used) `#298 <https://github.com/ansible-middleware/keycloak/pull/298>`_
 - Run config rebuild after SPI providers update `#285 <https://github.com/ansible-middleware/keycloak/pull/285>`_
 - Use jdk21 as default in debian `#289 <https://github.com/ansible-middleware/keycloak/pull/289>`_
+- keycloak_realm: federation default provider type should be a string `#302 <https://github.com/ansible-middleware/keycloak/pull/302>`_
 
 v3.0.1
 ======

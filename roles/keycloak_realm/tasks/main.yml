@@ -46,7 +46,7 @@
     name: "{{ item.name }}"
     state: present
     provider_id: "{{ item.provider_id }}"
-    provider_type: "{{ item.provider_type | default(org.keycloak.storage.UserStorageProvider) }}"
+    provider_type: "{{ item.provider_type | default('org.keycloak.storage.UserStorageProvider') }}"
     config: "{{ item.config }}"
     mappers: "{{ item.mappers | default(omit) }}"
   no_log: "{{ keycloak_no_log | default('True') }}"

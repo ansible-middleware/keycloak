@@ -6,6 +6,26 @@ middleware\_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v3.0.2
+======
+
+Minor Changes
+-------------
+
+- New ``checksum`` property for keycloak_quarkus_providers `#280 <https://github.com/ansible-middleware/keycloak/pull/280>`_
+- New parameter to set the jgroups host IP address `#281 <https://github.com/ansible-middleware/keycloak/pull/281>`_
+- Session storage / distributed caches `#287 <https://github.com/ansible-middleware/keycloak/pull/287>`_
+- Update keycloak/RHBK to v26.2.4 `#283 <https://github.com/ansible-middleware/keycloak/pull/283>`_
+
+Bugfixes
+--------
+
+- Fix ``keycloak_quarkus_force_install`` parameter being ignored by install `#296 <https://github.com/ansible-middleware/keycloak/pull/296>`_
+- Fix alternate download location being ignored (JBossNeworkAPI always used) `#298 <https://github.com/ansible-middleware/keycloak/pull/298>`_
+- Run config rebuild after SPI providers update `#285 <https://github.com/ansible-middleware/keycloak/pull/285>`_
+- Use jdk21 as default in debian `#289 <https://github.com/ansible-middleware/keycloak/pull/289>`_
+- keycloak_realm: federation default provider type should be a string `#302 <https://github.com/ansible-middleware/keycloak/pull/302>`_
+
 v3.0.1
 ======
 

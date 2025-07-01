@@ -72,6 +72,10 @@ argument_specs:
                 default: "admin"
                 description: "Administration user account, only for bootstrapping"
                 type: "str"
+            keycloak_quarkus_force_install:
+                default: false
+                description: "Remove pre-existing versions of service"
+                type: "bool"
             keycloak_quarkus_bootstrap_admin_password:
                 required: true
                 description: "Password of admin account, only for bootstrapping"

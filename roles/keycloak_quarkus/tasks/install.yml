@@ -17,6 +17,27 @@
     path: "{{ keycloak.home }}"
   register: existing_deploy
 
+- name: Stop and restart if existing deployment exists and install forced
+  when: existing_deploy.stat.exists and keycloak_quarkus_force_install | bool
+  block:
+    - name: "Stop the old {{ keycloak.service_name }} service"
+      become: true
+      failed_when: false
+      ansible.builtin.systemd:
+        name: keycloak
+        state: stopped
+    - name: "Remove the old {{ keycloak.service_name }} deployment"
+      become: true
+      ansible.builtin.file:
+        path: "{{ keycloak_quarkus_home }}"
+        state: absent
+
+- name: Check for an existing deployment after possible forced removal
+  become: true
+  ansible.builtin.stat:
+    path: "{{ keycloak_quarkus_home }}"
+  register: existing_deploy
+
 - name: "Create {{ keycloak.service_name }} service user/group"
   become: true
   ansible.builtin.user:

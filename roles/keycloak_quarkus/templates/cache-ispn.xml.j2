@@ -21,28 +21,8 @@
         xsi:schemaLocation="urn:infinispan:config:15.0 http://www.infinispan.org/schemas/infinispan-config-15.0.xsd"
         xmlns="urn:infinispan:config:15.0">
 
-{% set stack_expression='' %}
-{% if keycloak_quarkus_ha_enabled %}
-{% if keycloak_quarkus_ha_discovery == 'TCPPING' %}
-{% set stack_expression='stack="tcpping"' %}
-    <jgroups>
-        <stack name="tcpping" extends="tcp">
-            <!-- <TCP external_addr="${env.KC_EXTERNAL_ADDR}" bind_addr="{{ keycloak_quarkus_http_host }}" bind_port="{{ keycloak_quarkus_jgroups_port }}" /> -->
-            <TCPPING
-                initial_hosts="{{ keycloak_quarkus_cluster_nodes | map(attribute='inventory_host') | join (',') }}"
-                port_range="0"
-                stack.combine="REPLACE"
-                stack.position="MPING"
-            />
-        </stack>
-    </jgroups>
-{% elif keycloak_quarkus_ha_discovery == 'JDBCPING' %}
-{% set stack_expression='stack="JDBC_PING2"' %}
-{% endif %}
-{% endif %}
-
     <cache-container name="keycloak">
-        <transport lock-timeout="60000" {{ stack_expression }}/>
+        <transport lock-timeout="60000"/>
         <local-cache name="realms" simple-cache="true">
             <encoding>
                 <key media-type="application/x-java-object"/>

@@ -1,11 +1,11 @@
 {{ ansible_managed | comment }}
 {% if keycloak_quarkus_ha_enabled %}
 {% if keycloak_quarkus_version.split('.')[0] | int < 22 %}
-quarkus.infinispan-client.server-list={{ keycloak_quarkus_cache_remote_host }}
+quarkus.infinispan-client.server-list={{ keycloak_quarkus_cache_remote_host }}:{{ keycloak_quarkus_cache_remote_port }}
 quarkus.infinispan-client.auth-username={{ keycloak_quarkus_cache_remote_username }}
 quarkus.infinispan-client.auth-password={{ keycloak_quarkus_cache_remote_password }}
 {% else %}
-quarkus.infinispan-client.hosts={{ keycloak_quarkus_cache_remote_host }}
+quarkus.infinispan-client.hosts={{ keycloak_quarkus_cache_remote_host }}:{{ keycloak_quarkus_cache_remote_port }}
 quarkus.infinispan-client.username={{ keycloak_quarkus_cache_remote_username }}
 quarkus.infinispan-client.password={{ keycloak_quarkus_cache_remote_password }}
 {% endif %}

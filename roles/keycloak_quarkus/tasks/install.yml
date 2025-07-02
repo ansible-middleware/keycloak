@@ -280,6 +280,7 @@
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
     mode: '0640'
+    remote_src: "{{ item.remote | default(false) }}"
   become: true
   loop: "{{ keycloak_quarkus_providers }}"
   when: item.local_path is defined

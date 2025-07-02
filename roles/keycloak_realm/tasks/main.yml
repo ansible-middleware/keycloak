@@ -76,6 +76,7 @@
     default_roles: "{{ item.roles | default(omit) }}"
     client_id: "{{ item.client_id | default(omit) }}"
     id: "{{ item.id | default(omit) }}"
+    secret: "{{ item.secret | default(omit) }}"
     name: "{{ item.name | default(omit) }}"
     description: "{{ item.description | default(omit) }}"
     root_url: "{{ item.root_url | default('') }}"

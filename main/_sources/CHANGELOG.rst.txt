@@ -9,11 +9,6 @@ This changelog describes changes after version 0.2.6.
 v3.0.3-devel
 ============
 
-Minor Changes
--------------
-
-- Allow to install provider jars from remote paths `#303 <https://github.com/ansible-middleware/keycloak/pull/303>`_
-
 Bugfixes
 --------
 

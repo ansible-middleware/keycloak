@@ -221,7 +221,6 @@ keycloak_quarkus_providers:
     restart: true                           # optional, whether to rebuild config and restart the service after deploying, default true
     url: https://.../.../custom_spi.jar     # optional, url for download via http
     local_path: my_theme_spi.jar            # optional, path on local controller for SPI to be uploaded
-    remote: true                            # optional, whether to copy from localhost or remotely, see https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html#parameter-remote_src, default false
     maven:                                  # optional, for download using maven
       repository_url: https://maven.pkg.github.com/OWNER/REPOSITORY # optional, maven repo url
       group_id:  my.group                   # optional, maven group id

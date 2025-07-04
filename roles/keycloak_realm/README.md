@@ -74,6 +74,7 @@ Refer to [docs](https://docs.ansible.com/ansible/latest/collections/community/ge
     - name: <name of the client>
       id: <id of the client>
       client_id: <id of the client>
+      secret: <secret of the client (Optional)>
       roles: <keycloak_client_default_roles>
       realm: <name of the realm that contains the client>
       public_client: <true for public, false for confidential>

@@ -6,8 +6,21 @@ middleware\_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
-v3.0.2-devel
+v3.0.3-devel
 ============
+
+Minor Changes
+-------------
+
+- Allow to install provider jars from remote paths `#303 <https://github.com/ansible-middleware/keycloak/pull/303>`_
+
+Bugfixes
+--------
+
+- keycloak_realm: allow secret in keycloak_clients `#304 <https://github.com/ansible-middleware/keycloak/pull/304>`_
+
+v3.0.2
+======
 
 Minor Changes
 -------------

@@ -11,6 +11,5 @@
     keycloak_quarkus_http_port: 8080
     keycloak_quarkus_proxy_mode: edge
     keycloak_quarkus_http_relative_path: /
-    keycloak_quarkus_health_check_url: http://proxy:8080/realms/master/.well-known/openid-configuration
   roles:
     - role: keycloak_quarkus

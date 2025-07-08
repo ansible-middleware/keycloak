@@ -1,10 +1,12 @@
 ---
+keycloak_quarkus_effective_health_path: "{{ 'health/ready' if keycloak_quarkus_health_enabled | bool else keycloak_quarkus_health_check_url_path }}"
+keycloak_quarkus_hostname_stripped: "{{ keycloak_quarkus_hostname | regex_replace('(:\\d+)(?=/|$)', '') }}"
 keycloak: # noqa var-naming this is an internal dict of interpolated values
   home: "{{ keycloak_quarkus_home }}"
   config_dir: "{{ keycloak_quarkus_config_dir }}"
   bundle: "{{ keycloak_quarkus_archive }}"
   service_name: "keycloak"
-  health_url: "{{ keycloak_quarkus_health_check_url | default(keycloak_quarkus_hostname ~ '/' ~ (keycloak_quarkus_health_check_url_path | default('realms/master/.well-known/openid-configuration'))) }}"
+  health_url: "{{ keycloak_quarkus_health_check_url | default(((('https://' ~ keycloak_quarkus_hostname_stripped ~ ':' ~ keycloak_quarkus_http_health_port) if not (keycloak_quarkus_hostname.startswith('http://') or keycloak_quarkus_hostname.startswith('https://')) else keycloak_quarkus_hostname_stripped ~ ':' ~ keycloak_quarkus_http_health_port) ~ keycloak_quarkus_http_relative_path ~ keycloak_quarkus_effective_health_path), true) }}"
   cli_path: "{{ keycloak_quarkus_home }}/bin/kcadm.sh"
   service_user: "{{ keycloak_quarkus_service_user }}"
   service_group: "{{ keycloak_quarkus_service_group }}"

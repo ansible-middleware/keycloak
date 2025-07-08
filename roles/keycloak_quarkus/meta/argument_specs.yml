@@ -259,6 +259,10 @@ argument_specs:
                 default: true
                 description: "If the server should expose health check endpoints on the management interface"
                 type: "bool"
+            keycloak_quarkus_http_health_port:
+                default: 9000
+                description: "Port used for the health endpoint when health checks are enabled. This is typically different from the main HTTP port."
+                type: "int"
             keycloak_quarkus_cache_remote:
                 description: "Whether to connect to remote cache infinispan server"
                 default: false

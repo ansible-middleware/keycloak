@@ -9,6 +9,11 @@ This changelog describes changes after version 0.2.6.
 v3.0.3-devel
 ============
 
+Major Changes
+-------------
+
+- Update to keycloak 26.3.0 `#293 <https://github.com/ansible-middleware/keycloak/pull/293>`_
+
 Minor Changes
 -------------
 

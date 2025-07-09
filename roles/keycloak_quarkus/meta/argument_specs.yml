@@ -2,7 +2,7 @@ argument_specs:
     main:
         options:
             keycloak_quarkus_version:
-                default: "26.2.4"
+                default: "26.3.0"
                 description: "keycloak.org package version"
                 type: "str"
             keycloak_quarkus_archive:
@@ -540,7 +540,7 @@ argument_specs:
                 description: 'The password to access the Truststore.'
                 default: ''
                 type: "str"
-            keycloak_quarkus_jgroups_port: 
+            keycloak_quarkus_jgroups_port:
                 description: 'jgroups bind port'
                 default: 7800
                 type: "int"
@@ -552,7 +552,7 @@ argument_specs:
                 description: 'IP address that other instances in the Keycloak should use to contact this node'
                 default: "{{ keycloak_quarkus_jgroups_bind_address }}"
                 type: "str"
-            keycloak_quarkus_jgroups_external_port: 
+            keycloak_quarkus_jgroups_external_port:
                 description: 'Port that other instances in the Keycloak cluster should use to contact this node'
                 default: "{{ keycloak_quarkus_jgroups_port }}"
                 type: "int"
@@ -563,7 +563,7 @@ argument_specs:
     downstream:
         options:
             rhbk_version:
-                default: "26.2.4"
+                default: "26.2.5"
                 description: "Red Hat Build of Keycloak version"
                 type: "str"
             rhbk_archive:

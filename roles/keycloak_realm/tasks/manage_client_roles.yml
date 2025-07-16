@@ -2,7 +2,7 @@
   middleware_automation.keycloak.keycloak_role:
     name: "{{ item }}"
     realm: "{{ client.realm | default(keycloak_realm) }}"
-    client_id: "{{ client.name }}"
+    client_id: "{{ client.client_id }}"
     auth_client_id: "{{ keycloak_auth_client }}"
     auth_keycloak_url: "{{ keycloak_url }}{{ keycloak_context }}"
     auth_realm: "{{ keycloak_auth_realm }}"

@@ -183,7 +183,7 @@ argument_specs:
                 type: "str"
             keycloak_quarkus_config_key_store_file:
                 default: "{{ keycloak.home }}/conf/conf_store.p12"
-                description: "Path to the configuration key store; only used if `keycloak_quarkus_keystore_password` is not empty"
+                description: "Path to the configuration key store; only used if `keycloak_quarkus_config_key_store_password` is not empty"
                 type: "str"
             keycloak_quarkus_config_key_store_password:
                 default: ""

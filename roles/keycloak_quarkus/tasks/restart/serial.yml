@@ -2,7 +2,7 @@
 - name: "Restart services in serial, with optional healtch check (keycloak_quarkus_restart_health_check)"
   throttle: 1
   block:
-    - name: "Restart and enable {{ keycloak.service_name }} service on {{ item }}"
+    - name: "Restart and enable {{ keycloak.service_name }} service"
       ansible.builtin.include_tasks:
         file: restart.yml
         apply:

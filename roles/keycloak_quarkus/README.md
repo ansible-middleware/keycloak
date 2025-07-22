@@ -98,7 +98,7 @@ Role Defaults
 | Variable | Description | Default |
 |:---------|:------------|:--------|
 |`keycloak_quarkus_hostname`| Address at which is the server exposed. Can be a full URL, or just a hostname. When only hostname is provided, scheme, port and context path are resolved from the request. | |
-|`keycloak_quarkus_hostname_admin`| Set the base URL for accessing the administration console, including scheme, host, port and path | |
+|`keycloak_quarkus_hostname_admin`| Set the base URL for accessing the administration console, including scheme, host, port and path | `` |
 |`keycloak_quarkus_hostname_strict`| Disables dynamically resolving the hostname from request headers | `true` |
 |`keycloak_quarkus_hostname_backchannel_dynamic`| Enables dynamic resolving of backchannel URLs, including hostname, scheme, port and context path. Set to true if your application accesses Keycloak via a private network. If set to true, hostname option needs to be specified as a full URL. | `false` |
 |`keycloak_quarkus_hostname_strict_backchannel`| Deprecated, use (the inverted!)`keycloak_quarkus_hostname_backchannel_dynamic` instead. |  |

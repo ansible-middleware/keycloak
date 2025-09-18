@@ -66,7 +66,7 @@ Role Defaults
 |`keycloak_quarkus_health_check_url`| Full URL (including scheme, host, path, fragment etc.) used for health check endpoint; keycloak_quarkus_hostname will NOT be prepended; helpful when health checks should happen against http port, but keycloak_quarkus_hostname uses https scheme per default | `` |
 |`keycloak_quarkus_health_check_url_path`| Path to the health check endpoint; keycloak_quarkus_hostname will be prepended automatically; Note that keycloak_quarkus_health_check_url takes precedence over this property | `realms/master/.well-known/openid-configuration` |
 |`keycloak_quarkus_proxy_headers`| Parse reverse proxy headers (`forwarded` or `xforwarded`) | `""` |
-|`keycloak_quarkus_config_key_store_file`| Path to the configuration key store; only used if `keycloak_quarkus_keystore_password` is not empty  | `{{ keycloak.home }}/conf/conf_store.p12` if `keycloak_quarkus_keystore_password != ''`, else `''` |
+|`keycloak_quarkus_config_key_store_file`| Path to the configuration key store; only used if `keycloak_quarkus_config_key_store_password` is not empty  | `{{ keycloak.home }}/conf/conf_store.p12` if `keycloak_quarkus_config_key_store_password != ''`, else `''` |
 |`keycloak_quarkus_config_key_store_password`| Password of the configuration keystore; if non-empty, `keycloak_quarkus_db_pass` will be saved to the keystore at `keycloak_quarkus_config_key_store_file` instead of being written to the configuration file in clear text | `""` |
 |`keycloak_quarkus_configure_firewalld` | Ensure firewalld is running and configure keycloak ports | `False` |
 |`keycloak_quarkus_configure_iptables` | Ensure iptables is configured for keycloak ports | `False` |

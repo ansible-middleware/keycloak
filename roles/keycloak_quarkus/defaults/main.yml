@@ -116,6 +116,8 @@ keycloak_quarkus_spi_sticky_session_encoder_infinispan_should_attach_route: true
 
 keycloak_quarkus_metrics_enabled: false
 keycloak_quarkus_health_enabled: true
+keycloak_quarkus_health_check_url_path: "realms/master/.well-known/openid-configuration"
+keycloak_quarkus_http_health_port: 9000
 
 ### caches; must read: https://www.keycloak.org/2024/12/storing-sessions-in-kc26
 ### embedded caches

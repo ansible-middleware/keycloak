@@ -6,7 +6,7 @@
     :trim:
 
 .. meta::
-  :antsibull-docs: 2.18.0
+  :antsibull-docs: 2.21.0
 
 .. Anchors
 
@@ -687,7 +687,6 @@ Authors
 ~~~~~~~
 
 - Laurent Paumier (@laurpaum)
-
 
 
 .. Extra links

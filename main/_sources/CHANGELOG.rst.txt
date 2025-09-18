@@ -13,6 +13,7 @@ Major Changes
 -------------
 
 - Update to keycloak 26.3.0 `#293 <https://github.com/ansible-middleware/keycloak/pull/293>`_
+- ansible-core 2.19 compatibility `#310 <https://github.com/ansible-middleware/keycloak/pull/310>`_
 
 Minor Changes
 -------------

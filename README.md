@@ -1,7 +1,7 @@
 # Ansible Collection - middleware_automation.keycloak
 
 <!--start build_status -->
-[![Build Status](https://github.com/ansible-middleware/keycloak/workflows/CI/badge.svg?branch=main)](https://github.com/ansible-middleware/keycloak/actions/workflows/ci.yml)
+[![Build Status](https://github.com/ansible-middleware/keycloak/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/ansible-middleware/keycloak/actions/workflows/ci.yml)
 
 > **_NOTE:_ If you are Red Hat customer, install `redhat.rhbk` (for Red Hat Build of Keycloak) or `redhat.sso` (for Red Hat Single Sign-On) from [Automation Hub](https://console.redhat.com/ansible/ansible-dashboard) as the certified version of this collection.**
 

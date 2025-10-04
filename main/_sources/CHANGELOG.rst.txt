@@ -24,6 +24,7 @@ Minor Changes
 Bugfixes
 --------
 
+- keycloak collection CI label is showing no status `#312 <https://github.com/ansible-middleware/keycloak/pull/312>`_
 - keycloak_realm: allow secret in keycloak_clients `#304 <https://github.com/ansible-middleware/keycloak/pull/304>`_
 
 v3.0.2

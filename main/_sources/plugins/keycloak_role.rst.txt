@@ -27,7 +27,7 @@ keycloak_role -- Allows administration of Keycloak roles via Keycloak API
     It is not included in ``ansible-core``.
     To check whether it is installed, run :code:`ansible-galaxy collection list`.
 
-    To install it, use: :code:`ansible-galaxy collection install middleware\_automation.keycloak`.
+    To install it, use: :code:`ansible\-galaxy collection install middleware\_automation.keycloak`.
 
     To use it in a playbook, specify: :code:`middleware_automation.keycloak.keycloak_role`.
 
@@ -49,9 +49,9 @@ Synopsis
 
 .. Description
 
-- This module allows you to add, remove or modify Keycloak roles via the Keycloak REST API. It requires access to the REST API via OpenID Connect; the user connecting and the client being used must have the requisite access rights. In a default Keycloak installation, admin-cli and an admin user would work, as would a separate client definition with the scope tailored to your needs and a user having the expected roles.
-- The names of module options are snake\_cased versions of the camelCase ones found in the Keycloak API and its documentation at \ `https://www.keycloak.org/docs-api/8.0/rest-api/index.html <https://www.keycloak.org/docs-api/8.0/rest-api/index.html>`__.
-- Attributes are multi-valued in the Keycloak API. All attributes are lists of individual values and will be returned that way by this module. You may pass single values for attributes when calling the module, and this will be translated into a list suitable for the API.
+- This module allows you to add, remove or modify Keycloak roles via the Keycloak REST API. It requires access to the REST API via OpenID Connect; the user connecting and the client being used must have the requisite access rights. In a default Keycloak installation, admin\-cli and an admin user would work, as would a separate client definition with the scope tailored to your needs and a user having the expected roles.
+- The names of module options are snake\_cased versions of the camelCase ones found in the Keycloak API and its documentation at \ `https://www.keycloak.org/docs\-api/8.0/rest\-api/index.html <https://www.keycloak.org/docs-api/8.0/rest-api/index.html>`__.
+- Attributes are multi\-valued in the Keycloak API. All attributes are lists of individual values and will be returned that way by this module. You may pass single values for attributes when calling the module, and this will be translated into a list suitable for the API.
 
 
 .. Aliases

@@ -44,7 +44,7 @@ The following variables are available for creating clients:
 |`keycloak_client_users` | List of user/role mappings for a client | `[]` |
 
 
-The following variable are available for creating user federation:
+The following variables are available for creating user federation:
 
 | Variable | Description | Default |
 |:---------|:------------|:---------|

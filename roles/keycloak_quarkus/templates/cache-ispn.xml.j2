@@ -45,6 +45,8 @@
 
     <cache-container name="keycloak">
         <transport lock-timeout="60000" {{ stack_expression }}/>
+{# https://docs.redhat.com/en/documentation/red_hat_build_of_keycloak/26.4/html-single/upgrading_guide/index#cache_configuration_removed_from_cache_ispn_xml #}
+{% if keycloak_quarkus_version is version_compare('26.4.0', '<') %}
         <local-cache name="realms" simple-cache="true">
             <encoding>
                 <key media-type="application/x-java-object"/>
@@ -115,5 +117,6 @@
             <expiration max-idle="-1" lifespan="-1" interval="300000"/>
             <memory max-count="-1"/>
         </distributed-cache>
+{% endif %}
     </cache-container>
 </infinispan>

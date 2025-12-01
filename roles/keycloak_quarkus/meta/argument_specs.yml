@@ -2,7 +2,7 @@ argument_specs:
     main:
         options:
             keycloak_quarkus_version:
-                default: "26.3.0"
+                default: "26.4.7"
                 description: "keycloak.org package version"
                 type: "str"
             keycloak_quarkus_archive:
@@ -563,7 +563,7 @@ argument_specs:
     downstream:
         options:
             rhbk_version:
-                default: "26.2.5"
+                default: "26.4.7"
                 description: "Red Hat Build of Keycloak version"
                 type: "str"
             rhbk_archive:

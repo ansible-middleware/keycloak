@@ -149,14 +149,14 @@ keycloak_quarkus_db_driver_version: "{{ keycloak_quarkus_default_jdbc[keycloak_q
 keycloak_quarkus_default_jdbc:
   postgres:
     url: 'jdbc:postgresql://localhost:5432/keycloak'
-    version: 42.7.5
+    version: 42.7.7
   mariadb:
     url: 'jdbc:mariadb://localhost:3306/keycloak'
     version: 3.5.2
   mssql:
     url: 'jdbc:sqlserver://localhost:1433;databaseName=keycloak;'
-    version: 12.8.1
-    driver_jar_url: "https://repo1.maven.org/maven2/com/microsoft/sqlserver/mssql-jdbc/12.8.1.jre11/mssql-jdbc-12.8.1.jre11.jar"
+    version: 13.2.0
+    driver_jar_url: "https://repo1.maven.org/maven2/com/microsoft/sqlserver/mssql-jdbc/13.2.0.jre11/mssql-jdbc-13.2.0.jre11.jar"
 ### logging configuration
 keycloak_quarkus_log: file
 keycloak_quarkus_log_level: info

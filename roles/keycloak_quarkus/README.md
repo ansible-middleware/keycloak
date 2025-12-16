@@ -161,6 +161,7 @@ Role Defaults
 |`keycloak_quarkus_cache_remote_port`| Port for connecting to infinispan | `11222` |
 |`keycloak_quarkus_cache_remote_sasl_mechanism` | Infinispan auth mechanism | `SCRAM-SHA-512` |
 |`keycloak_quarkus_cache_remote_tls_enabled` | Whether infinispan uses TLS connection | `false` |
+|`keycloak_quarkus_cache_embedded_properties` | Embedded cache properties | `` |
 
 
 #### Logging configuration

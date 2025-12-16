@@ -6,6 +6,28 @@ middleware\_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v3.0.3
+======
+
+Major Changes
+-------------
+
+- Update to keycloak 26.3.0 `#293 <https://github.com/ansible-middleware/keycloak/pull/293>`_
+- ansible-core 2.19 compatibility `#310 <https://github.com/ansible-middleware/keycloak/pull/310>`_
+
+Minor Changes
+-------------
+
+- Allow to install provider jars from remote paths `#303 <https://github.com/ansible-middleware/keycloak/pull/303>`_
+- Declared proxy_mode as deprecated, updated quarkus and realm readme `#306 <https://github.com/ansible-middleware/keycloak/pull/306>`_
+- Fix config_key_store_file description to match variable name `#308 <https://github.com/ansible-middleware/keycloak/pull/308>`_
+
+Bugfixes
+--------
+
+- keycloak collection CI label is showing no status `#312 <https://github.com/ansible-middleware/keycloak/pull/312>`_
+- keycloak_realm: allow secret in keycloak_clients `#304 <https://github.com/ansible-middleware/keycloak/pull/304>`_
+
 v3.0.2
 ======
 

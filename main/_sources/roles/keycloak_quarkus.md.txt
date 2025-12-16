@@ -60,7 +60,7 @@ Role Defaults
 |`keycloak_quarkus_java_heap_opts`| Heap memory JVM setting | `-Xms1024m -Xmx2048m` |
 |`keycloak_quarkus_java_jvm_opts`| Other JVM settings | same as keycloak |
 |`keycloak_quarkus_java_opts`| JVM arguments; if overridden, it takes precedence over `keycloak_quarkus_java_*` | `{{ keycloak_quarkus_java_heap_opts + ' ' + keycloak_quarkus_java_jvm_opts }}` |
-|`keycloak_quarkus_additional_env_vars` | List of additional env variables of { key: str, value: str} to be put in sysconfig file | `[]` |
+|`keycloak_quarkus_additional_env_vars` | List of additional env variables of { key: str, value: str} to be put in sysconfig file, see https://www.keycloak.org/server/all-config | `[]` |
 |`keycloak_quarkus_frontend_url`| Deprecated, use `keycloak_quarkus_hostname` instead. | |
 |`keycloak_quarkus_admin_url`| Deprecated, use `keycloak_quarkus_hostname_admin` instead. | |
 |`keycloak_quarkus_health_check_url`| Full URL (including scheme, host, path, fragment etc.) used for health check endpoint; keycloak_quarkus_hostname will NOT be prepended; helpful when health checks should happen against http port, but keycloak_quarkus_hostname uses https scheme per default | `` |
@@ -166,7 +166,7 @@ Role Defaults
 |`keycloak_quarkus_log_format`| Set a format specific to file log entries | `%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n` |
 |`keycloak_quarkus_log_target`| Set the destination of the keycloak log folder link | `/var/log/keycloak` |
 |`keycloak_quarkus_log_max_file_size`| Set the maximum log file size before a log rotation happens; A size configuration option recognises string in this format (shown as a regular expression): `[0-9]+[KkMmGgTtPpEeZzYy]?`. If no suffix is given, assume bytes. | `10M` |
-|`keycloak_quarkus_log_max_backup_index`| Set the maximum number of archived log files to keep" | `10` |
+|`keycloak_quarkus_log_max_backup_index`| Set the maximum number of archived log files to keep | `10` |
 |`keycloak_quarkus_log_file_suffix`| Set the log file handler rotation file suffix. When used, the file will be rotated based on its suffix; Note: If the suffix ends with `.zip` or `.gz`, the rotation file will also be compressed. | `.yyyy-MM-dd.zip` |
 
 
@@ -183,7 +183,7 @@ Role Defaults
 |`keycloak_quarkus_master_realm` | Name for rest authentication realm | `master` |
 |`keycloak_auth_client` | Authentication client for configuration REST calls | `admin-cli` |
 |`keycloak_quarkus_force_install` | Remove pre-existing versions of service | `False` |
-|`keycloak_quarkus_proxy_mode`| The proxy address forwarding mode if the server is behind a reverse proxy | `edge` |
+|`keycloak_quarkus_proxy_mode`| The proxy address forwarding mode if the server is behind a reverse proxy (deprecated) | `none` |
 |`keycloak_quarkus_start_dev`| Whether to start the service in development mode (start-dev) | `False` |
 |`keycloak_quarkus_transaction_xa_enabled`| Whether to use XA transactions | `True` |
 |`keycloak_quarkus_spi_sticky_session_encoder_infinispan_should_attach_route`| If the route should be attached to cookies to reflect the node that owns a particular session. If false, route is not attached to cookies and we rely on the session affinity capabilities from reverse proxy | `True` |

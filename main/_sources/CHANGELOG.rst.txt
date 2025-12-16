@@ -19,6 +19,7 @@ Minor Changes
 -------------
 
 - Allow to install provider jars from remote paths `#303 <https://github.com/ansible-middleware/keycloak/pull/303>`_
+- Declared proxy_mode as deprecated, updated quarkus and realm readme `#306 <https://github.com/ansible-middleware/keycloak/pull/306>`_
 - Fix config_key_store_file description to match variable name `#308 <https://github.com/ansible-middleware/keycloak/pull/308>`_
 
 Bugfixes

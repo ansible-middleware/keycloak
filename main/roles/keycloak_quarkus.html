@@ -259,7 +259,7 @@
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">keycloak_quarkus_java_heap_opts</span> <span class="pre">+</span> <span class="pre">'</span> <span class="pre">'</span> <span class="pre">+</span> <span class="pre">keycloak_quarkus_java_jvm_opts</span> <span class="pre">}}</span></code></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_additional_env_vars</span></code></p></td>
-<td class="text-left"><p>List of additional env variables of { key: str, value: str} to be put in sysconfig file</p></td>
+<td class="text-left"><p>List of additional env variables of { key: str, value: str} to be put in sysconfig file, see https://www.keycloak.org/server/all-config</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_frontend_url</span></code></p></td>
@@ -621,7 +621,7 @@
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">10M</span></code></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_log_max_backup_index</span></code></p></td>
-<td class="text-left"><p>Set the maximum number of archived log files to keep”</p></td>
+<td class="text-left"><p>Set the maximum number of archived log files to keep</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">10</span></code></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_log_file_suffix</span></code></p></td>
@@ -678,8 +678,8 @@
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_proxy_mode</span></code></p></td>
-<td class="text-left"><p>The proxy address forwarding mode if the server is behind a reverse proxy</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">edge</span></code></p></td>
+<td class="text-left"><p>The proxy address forwarding mode if the server is behind a reverse proxy (deprecated)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">none</span></code></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_start_dev</span></code></p></td>
 <td class="text-left"><p>Whether to start the service in development mode (start-dev)</p></td>

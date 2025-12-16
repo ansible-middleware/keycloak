@@ -560,6 +560,14 @@ argument_specs:
                 description: "JVM arguments for jgroups configuration"
                 default: "-Djgroups.bind.address={{ keycloak_quarkus_jgroups_bind_address }} -Djgroups.external_port={{ keycloak_quarkus_jgroups_external_port }} -Djgroups.external_addr={{ keycloak_quarkus_jgroups_external_addr }}"
                 type: "str"
+            keycloak_quarkus_cache_managed_infinispan_config:
+                description: "Manage infinispan configuration"
+                default: "{{ keycloak_quarkus_version is version('26.4.0', '<') }}"
+                type: bool
+            keycloak_quarkus_cache_infinispan_template:
+                description: "Infinispan cache template file"
+                default: "cache-ispn.xml"
+                type: str
     downstream:
         options:
             rhbk_version:

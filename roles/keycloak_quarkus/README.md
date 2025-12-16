@@ -132,6 +132,13 @@ Role Defaults
 |`keycloak_quarkus_http_enabled`| Enable listener on HTTP port | `True` |
 
 
+#### Infinispan configuration
+
+| Variable                                           | Description                     | Default                                                      |
+| :------------------------------------------------- | :------------------------------ | :----------------------------------------------------------- |
+| `keycloak_quarkus_cache_managed_infinispan_config` | Manage infinispan configuration | `"{{ keycloak_quarkus_version is version('26.4.0', '<') }}"` |
+| `keycloak_quarkus_cache_infinispan_template`       | Infinispan cache template file  | `cache-ispn.xml`                                             |
+
 #### Database configuration
 
 | Variable | Description | Default |

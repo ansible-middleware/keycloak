@@ -70,6 +70,11 @@
   loop: "{{ ansible_play_batch }}"
   when: keycloak_quarkus_ha_enabled and keycloak_quarkus_ha_discovery == 'TCPPING'
 
+
+- name: Determine the config files
+  ansible.builtin.set_fact:
+    keycloak_quarkus_config_files: "{{ ['keycloak.conf', 'quarkus.properties'] + (keycloak_quarkus_cache_managed_infinispan_config | ternary([keycloak_quarkus_cache_infinispan_template], [])) }}"
+
 - name: "Configure config files for keycloak service"
   ansible.builtin.template:
     src: "{{ item }}.j2"
@@ -78,10 +83,7 @@
     group: "{{ keycloak.service_group }}"
     mode: '0640'
   become: true
-  loop:
-    - keycloak.conf
-    - quarkus.properties
-    - cache-ispn.xml
+  loop: "{{ keycloak_quarkus_config_files }}" 
   notify:
     - rebuild keycloak config
     - restart keycloak

@@ -105,7 +105,7 @@ keycloak_quarkus_hostname_backchannel_dynamic: false
 keycloak_quarkus_proxy_headers: ""
 
 # deprecated: proxy address forwarding mode if the server is behind a reverse proxy. [none, edge, reencrypt, passthrough]
-keycloak_quarkus_proxy_mode: edge
+keycloak_quarkus_proxy_mode: none
 
 # disable xa transactions
 keycloak_quarkus_transaction_xa_enabled: true

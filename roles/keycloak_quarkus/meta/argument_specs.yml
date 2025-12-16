@@ -344,9 +344,9 @@ argument_specs:
                   Set the log file handler rotation file suffix. When used, the file will be rotated based on its suffix. Note: If the suffix ends
                   with .zip or .gz, the rotation file will also be compressed.
             keycloak_quarkus_proxy_mode:
-                default: 'edge'
+                default: 'none'
                 type: "str"
-                description: "The proxy address forwarding mode if the server is behind a reverse proxy. Set to 'none' if not using a proxy"
+                description: "The proxy address forwarding mode if the server is behind a reverse proxy. Set to 'none' as it is deprecated according to Keycloak documentation"
             keycloak_quarkus_proxy_headers:
                 default: ""
                 type: "str"

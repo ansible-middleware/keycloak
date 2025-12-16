@@ -66,6 +66,7 @@ cache-remote-host={{ keycloak_quarkus_cache_remote_host }}
 cache-remote-port={{ keycloak_quarkus_cache_remote_port }}
 cache-remote-tls-enabled={{ keycloak_quarkus_cache_remote_tls_enabled | lower }}
 {% endif %}
+{{ keycloak_quarkus_cache_embedded_properties }}
 {% endif %}
 
 {% if keycloak_quarkus_proxy_headers | length > 0 %}

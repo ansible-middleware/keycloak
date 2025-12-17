@@ -7,6 +7,11 @@
     daemon_reload: true
   become: true
 
+- name: "Fail if health check URL does not use port 9000 while health is enabled"
+  ansible.builtin.fail:
+    msg: "When `keycloak_quarkus_health_enabled` is true, the health check URL must use port 9000. Current URL: {{ keycloak_quarkus_health_check_url }}"
+  when: keycloak_quarkus_health_enabled | bool and keycloak_quarkus_health_check_url is defined and (keycloak_quarkus_health_check_url | regex_search(':(\\d+)', '\\1') | int) != 9000
+
 - name: "Wait until {{ keycloak.service_name }} service becomes active {{ keycloak.health_url }}"
   ansible.builtin.uri:
     url: "{{ keycloak.health_url }}"

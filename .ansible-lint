@@ -40,4 +40,3 @@ skip_list:
   - var-naming[no-role-prefix]
 
 use_default_rules: true
-parseable: true

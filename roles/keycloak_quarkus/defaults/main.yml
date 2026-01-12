@@ -1,6 +1,6 @@
 ---
 ### Configuration specific to keycloak
-keycloak_quarkus_version: 26.3.0
+keycloak_quarkus_version: 26.4.7
 keycloak_quarkus_archive: "keycloak-{{ keycloak_quarkus_version }}.zip"
 keycloak_quarkus_download_url: "https://github.com/keycloak/keycloak/releases/download/{{ keycloak_quarkus_version }}/{{ keycloak_quarkus_archive }}"
 keycloak_quarkus_installdir: "{{ keycloak_quarkus_dest }}/keycloak-{{ keycloak_quarkus_version }}"
@@ -117,25 +117,14 @@ keycloak_quarkus_spi_sticky_session_encoder_infinispan_should_attach_route: true
 keycloak_quarkus_metrics_enabled: false
 keycloak_quarkus_health_enabled: true
 
+### infinispan; must read: https://forum.keycloak.org/t/keycloak-26-4-7-ha/31202
+keycloak_quarkus_cache_managed_infinispan_config: "{{ keycloak_quarkus_version is version('26.4.0', '<') }}"
+keycloak_quarkus_cache_infinispan_template: cache-ispn.xml
+
 ### caches; must read: https://www.keycloak.org/2024/12/storing-sessions-in-kc26
 ### embedded caches
 # https://www.keycloak.org/server/caching
-keycloak_quarkus_cache_metrics_enabled: false
-keycloak_quarkus_cache_embedded_authorization_max_count:
-keycloak_quarkus_cache_embedded_client_sessions_max_count:
-keycloak_quarkus_cache_embedded_crl_max_count:
-keycloak_quarkus_cache_embedded_keys_max_count:
-keycloak_quarkus_cache_embedded_offline_client_sessions_max_count:
-keycloak_quarkus_cache_embedded_offline_sessions_max_count:
-keycloak_quarkus_cache_embedded_realms_max_count:
-keycloak_quarkus_cache_embedded_sessions_max_count:
-keycloak_quarkus_cache_embedded_users_max_count:
-keycloak_quarkus_cache_embedded_mtls_enabled: true
-keycloak_quarkus_cache_embedded_mtls_key_store_file: "{{ keycloak.home }}/conf/cache_key_store.p12"
-keycloak_quarkus_cache_embedded_mtls_key_store_password: ''
-keycloak_quarkus_cache_embedded_mtls_rotation_interval_days: 30
-keycloak_quarkus_cache_embedded_mtls_trust_store_file: "{{ keycloak.home }}/conf/cache_trust_store.p12"
-keycloak_quarkus_cache_embedded_mtls_trust_store_password: ''
+keycloak_quarkus_cache_embedded_properties: ""
 
 ### infinispan remote caches access (hotrod)
 # https://www.keycloak.org/server/caching#_remote_cache
@@ -160,14 +149,14 @@ keycloak_quarkus_db_driver_version: "{{ keycloak_quarkus_default_jdbc[keycloak_q
 keycloak_quarkus_default_jdbc:
   postgres:
     url: 'jdbc:postgresql://localhost:5432/keycloak'
-    version: 42.7.5
+    version: 42.7.7
   mariadb:
     url: 'jdbc:mariadb://localhost:3306/keycloak'
     version: 3.5.2
   mssql:
     url: 'jdbc:sqlserver://localhost:1433;databaseName=keycloak;'
-    version: 12.8.1
-    driver_jar_url: "https://repo1.maven.org/maven2/com/microsoft/sqlserver/mssql-jdbc/12.8.1.jre11/mssql-jdbc-12.8.1.jre11.jar"
+    version: 13.2.0
+    driver_jar_url: "https://repo1.maven.org/maven2/com/microsoft/sqlserver/mssql-jdbc/13.2.0.jre11/mssql-jdbc-13.2.0.jre11.jar"
 ### logging configuration
 keycloak_quarkus_log: file
 keycloak_quarkus_log_level: info

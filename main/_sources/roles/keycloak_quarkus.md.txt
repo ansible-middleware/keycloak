@@ -33,7 +33,7 @@ Role Defaults
 
 | Variable | Description | Default |
 |:---------|:------------|:--------|
-|`keycloak_quarkus_version`| keycloak.org package version | `26.3.0` |
+|`keycloak_quarkus_version`| keycloak.org package version | `26.4.7` |
 |`keycloak_quarkus_offline_install` | Perform an offline install | `False`|
 |`keycloak_quarkus_dest`| Installation root path | `/opt/keycloak` |
 |`keycloak_quarkus_download_url` | Download URL for keycloak | `https://github.com/keycloak/keycloak/releases/download/{{ keycloak_quarkus_version }}/{{ keycloak_quarkus_archive }}` |
@@ -132,6 +132,17 @@ Role Defaults
 |`keycloak_quarkus_http_enabled`| Enable listener on HTTP port | `True` |
 
 
+#### Infinispan configuration
+
+| Variable                                           | Description                     | Default                                                      |
+| :------------------------------------------------- | :------------------------------ | :----------------------------------------------------------- |
+| `keycloak_quarkus_cache_managed_infinispan_config` | Manage infinispan configuration | `"{{ keycloak_quarkus_version is version('26.4.0', '<') }}"` |
+| `keycloak_quarkus_cache_infinispan_template`       | Infinispan cache template file  | `cache-ispn.xml`                                             |
+
+As explained in the [official documentation](https://www.keycloak.org/server/caching#_modifying_cache_configuration_defaults), since version 26.4, it is recommended not to modify the XML configuration file but rather to configure the cache via the keycloak.properties file. By default, the role will no longer automatically deploy this file for versions higher than 26.4.
+
+For earlier versions, it is possible to override the given template to customize the cache using the `keycloak_quarkus_cache_infinispan_template` variable.
+
 #### Database configuration
 
 | Variable | Description | Default |
@@ -154,6 +165,7 @@ Role Defaults
 |`keycloak_quarkus_cache_remote_port`| Port for connecting to infinispan | `11222` |
 |`keycloak_quarkus_cache_remote_sasl_mechanism` | Infinispan auth mechanism | `SCRAM-SHA-512` |
 |`keycloak_quarkus_cache_remote_tls_enabled` | Whether infinispan uses TLS connection | `false` |
+|`keycloak_quarkus_cache_embedded_properties` | Embedded cache properties | `` |
 
 
 #### Logging configuration

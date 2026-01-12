@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>keycloak_quarkus &mdash; Keycloak Ansible Collection  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=41de9001" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/antsibull-minimal.css" />
       <link rel="stylesheet" type="text/css" href="../_static/ansible-basic-sphinx-ext.css" />
 
@@ -59,6 +59,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#high-availability">High-availability</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#hostname-configuration">Hostname configuration</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#http-s-configuration">HTTP(S) configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#infinispan-configuration">Infinispan configuration</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#database-configuration">Database configuration</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cache-configuration">Cache configuration</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#logging-configuration">Logging configuration</a></li>
@@ -163,7 +164,7 @@
 <tbody>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_version</span></code></p></td>
 <td class="text-left"><p>keycloak.org package version</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">26.3.0</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">26.4.7</span></code></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_offline_install</span></code></p></td>
 <td class="text-left"><p>Perform an offline install</p></td>
@@ -512,6 +513,29 @@
 </tbody>
 </table>
 </section>
+<section id="infinispan-configuration">
+<h3>Infinispan configuration<a class="headerlink" href="#infinispan-configuration" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Variable</p></th>
+<th class="head text-left"><p>Description</p></th>
+<th class="head text-left"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_cache_managed_infinispan_config</span></code></p></td>
+<td class="text-left"><p>Manage infinispan configuration</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">&quot;{{</span> <span class="pre">keycloak_quarkus_version</span> <span class="pre">is</span> <span class="pre">version('26.4.0',</span> <span class="pre">'&lt;')</span> <span class="pre">}}&quot;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_cache_infinispan_template</span></code></p></td>
+<td class="text-left"><p>Infinispan cache template file</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">cache-ispn.xml</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>As explained in the <a class="reference external" href="https://www.keycloak.org/server/caching#_modifying_cache_configuration_defaults">official documentation</a>, since version 26.4, it is recommended not to modify the XML configuration file but rather to configure the cache via the keycloak.properties file. By default, the role will no longer automatically deploy this file for versions higher than 26.4.</p>
+<p>For earlier versions, it is possible to override the given template to customize the cache using the <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_cache_infinispan_template</span></code> variable.</p>
+</section>
 <section id="database-configuration">
 <h3>Database configuration<a class="headerlink" href="#database-configuration" title="Link to this heading"></a></h3>
 <table class="docutils align-default">
@@ -582,6 +606,10 @@
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_cache_remote_tls_enabled</span></code></p></td>
 <td class="text-left"><p>Whether infinispan uses TLS connection</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_cache_embedded_properties</span></code></p></td>
+<td class="text-left"><p>Embedded cache properties</p></td>
+<td class="text-left"><p>``</p></td>
 </tr>
 </tbody>
 </table>

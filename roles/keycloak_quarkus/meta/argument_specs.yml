@@ -508,6 +508,14 @@ argument_specs:
                 description: Embedded cache properties
                 default: ""
                 type: str
+            keycloak_quarkus_binary_download_user:
+                description: "Username for HTTP Basic Auth when downloading Keycloak binary"
+                type: "str"
+                required: false
+            keycloak_quarkus_binary_download_pass:
+                description: "Password for HTTP Basic Auth when downloading Keycloak binary"
+                type: "str"
+                required: false
     downstream:
         options:
             rhbk_version:

@@ -79,6 +79,8 @@
     url: "{{ keycloak_quarkus_download_url }}"
     dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
     mode: '0640'
+    url_username: "{{ keycloak_quarkus_binary_download_user | default(omit) }}"
+    url_password: "{{ keycloak_quarkus_binary_download_pass | default(omit) }}"
   delegate_to: localhost
   become: false
   run_once: true

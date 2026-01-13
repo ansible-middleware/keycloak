@@ -7,6 +7,10 @@ keycloak_download_url_9x: "https://downloads.jboss.org/keycloak/{{ keycloak_vers
 keycloak_installdir: "{{ keycloak_dest }}/keycloak-{{ keycloak_version }}"
 keycloak_offline_install: false
 
+# Authentication for Keycloak binary download (e.g. from internal artifact repository)
+keycloak_binary_download_user:
+keycloak_binary_download_pass:
+
 ### Install location and service settings
 keycloak_java_home:
 keycloak_dest: /opt/keycloak

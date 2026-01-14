@@ -5,6 +5,10 @@ keycloak_quarkus_archive: "keycloak-{{ keycloak_quarkus_version }}.zip"
 keycloak_quarkus_download_url: "https://github.com/keycloak/keycloak/releases/download/{{ keycloak_quarkus_version }}/{{ keycloak_quarkus_archive }}"
 keycloak_quarkus_installdir: "{{ keycloak_quarkus_dest }}/keycloak-{{ keycloak_quarkus_version }}"
 
+# Authentication for Keycloak binary download (e.g. from internal artifact repository)
+keycloak_quarkus_binary_download_user:
+keycloak_quarkus_binary_download_pass:
+
 # whether to install from local archive
 keycloak_quarkus_offline_install: false
 

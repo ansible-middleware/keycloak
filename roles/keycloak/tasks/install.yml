@@ -85,6 +85,8 @@
     url: "{{ keycloak_download_url }}"
     dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
     mode: '0644'
+    url_username: "{{ keycloak_binary_download_user | default(omit) }}"
+    url_password: "{{ keycloak_binary_download_pass | default(omit) }}"
   delegate_to: localhost
   run_once: true
   when:

@@ -333,6 +333,14 @@ argument_specs:
                 default: true
                 description: "Allow the option to ignore invalid certificates when downloading JDBC drivers from a custom URL"
                 type: "bool"
+            keycloak_binary_download_user:
+                description: "Username for HTTP Basic Auth when downloading Keycloak binary"
+                type: "str"
+                required: false
+            keycloak_binary_download_pass:
+                description: "Password for HTTP Basic Auth when downloading Keycloak binary"
+                type: "str"
+                required: false
     downstream:
         options:
             sso_version:

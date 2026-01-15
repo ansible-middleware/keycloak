@@ -58,7 +58,9 @@ hostname-backchannel-dynamic={{ keycloak_quarkus_hostname_backchannel_dynamic | 
 # Cluster
 {% if keycloak_quarkus_ha_enabled %}
 cache=ispn
+{% if keycloak_quarkus_cache_managed_infinispan_config %}
 cache-config-file=cache-ispn.xml
+{% endif %}
 {% if keycloak_quarkus_cache_remote %}
 cache-remote-username={{ keycloak_quarkus_cache_remote_username }}
 cache-remote-password={{ keycloak_quarkus_cache_remote_password }}

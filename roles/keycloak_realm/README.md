@@ -8,20 +8,20 @@ Create realms and clients in [keycloak](https://keycloak.org/) or [Red Hat Singl
 Role Defaults
 -------------
 
-| Variable | Description | Default |
-|:---------|:------------|:--------|
-|`keycloak_admin_user`| Administration console user account | `admin` |
-|`keycloak_host`| hostname | `localhost` |
-|`keycloak_context`| Context path for rest calls | `/auth` |
-|`keycloak_http_port`| HTTP port | `8080` |
-|`keycloak_https_port`| TLS HTTP port | `8443` |
-|`keycloak_auth_realm`| Name of the main authentication realm | `master` |
-|`keycloak_management_http_port`| Management port | `9990` |
-|`keycloak_auth_client`| Authentication client for configuration REST calls | `admin-cli` |
-|`keycloak_client_public`| Configure a public realm client | `True` |
-|`keycloak_client_web_origins`| Web origins for realm client | `/*` |
-|`keycloak_url`| URL for configuration rest calls | `http://{{ keycloak_host }}:{{ keycloak_http_port }}` |
-|`keycloak_management_url`| URL for management console rest calls | `http://{{ keycloak_host }}:{{ keycloak_management_http_port }}` |
+| Variable                            | Description                                                      | Default                                               |
+|:------------------------------------|:-----------------------------------------------------------------|:------------------------------------------------------|
+| `keycloak_admin_user`               | Administration console user account                              | `admin`                                               |
+| `keycloak_host`                     | hostname                                                         | `localhost`                                           |
+| `keycloak_context`                  | Context path for rest calls                                      | `/auth`                                               |
+| `keycloak_http_port`                | HTTP port                                                        | `8080`                                                |
+| `keycloak_https_port`               | TLS HTTP port                                                    | `8443`                                                |
+| `keycloak_auth_realm`               | Name of the main authentication realm                            | `master`                                              |
+| `keycloak_management_http_port`     | Management port                                                  | `9990`                                                |
+| `keycloak_auth_client`              | Authentication client for configuration REST calls               | `admin-cli`                                           |
+| `keycloak_client_public`            | Configure a public realm client                                  | `True`                                                |
+| `keycloak_client_web_origins`       | Web origins for realm client                                     | `/*`                                                  |
+| `keycloak_url`                      | URL for configuration rest calls                                 | `http://{{ keycloak_host }}:{{ keycloak_http_port }}` |
+| `keycloak_quarkus_http_health_port` | Port used for the health endpoint when health checks are enabled | `9000`                                                |
 
 
 Role Variables

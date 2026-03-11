@@ -1,0 +1,28 @@
+---
+- name: "Restart and enable {{ keycloak.service_name }} service"
+  ansible.builtin.systemd:
+    name: keycloak
+    enabled: true
+    state: restarted
+    daemon_reload: true
+  become: true
+  delegate_to: "{{ ansible_play_hosts | first }}"
+  run_once: true
+
+- name: "Wait until {{ keycloak.service_name }} becomes active {{ keycloak.health_url }}"
+  ansible.builtin.uri:
+    url: "{{ keycloak.health_url }}"
+  register: keycloak_status
+  until: keycloak_status.status == 200
+  delegate_to: "{{ ansible_play_hosts | first }}"
+  run_once: true
+  retries: "{{ keycloak_service_start_retries }}"
+  delay: "{{ keycloak_service_start_delay }}"
+
+- name: "Restart and enable {{ keycloak.service_name }} service"
+  ansible.builtin.systemd:
+    name: keycloak
+    enabled: true
+    state: restarted
+  become: true
+  when: inventory_hostname != ansible_play_hosts | first

@@ -1,0 +1,29 @@
+{{ ansible_managed | comment }}
+[Unit]
+Description={{ keycloak.service_name }} Server
+After=network.target
+StartLimitIntervalSec={{ keycloak_service_startlimitintervalsec }}
+StartLimitBurst={{ keycloak_service_startlimitburst }}
+
+
+[Service]
+{% if keycloak_service_runas %}
+User={{ keycloak_service_user }}
+Group={{ keycloak_service_group }}
+{% endif -%}
+EnvironmentFile=-{{ keycloak_sysconf_file }}
+PIDFile={{ keycloak_service_pidfile }}
+ExecStart={{ keycloak.home }}/bin/standalone.sh $WILDFLY_OPTS
+WorkingDirectory={{ keycloak.home }}
+TimeoutStartSec=30
+TimeoutStopSec=30
+LimitNOFILE=102642
+{% if keycloak_service_restart_always %}
+Restart=always
+{% elif keycloak_service_restart_on_failure %}
+Restart=on-failure
+{% endif %}
+RestartSec={{ keycloak_service_restartsec }}
+
+[Install]
+WantedBy=multi-user.target

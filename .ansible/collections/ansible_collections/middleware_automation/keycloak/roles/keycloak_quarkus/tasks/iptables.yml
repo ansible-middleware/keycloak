@@ -1,0 +1,20 @@
+---
+- name: Ensure required package iptables are installed
+  ansible.builtin.include_tasks: fastpackages.yml
+  vars:
+    packages_list:
+      - iptables
+
+- name: "Configure firewall ports for {{ keycloak.service_name }}"
+  become: true
+  ansible.builtin.iptables:
+    destination_port: "{{ item }}"
+    action: "insert"
+    rule_num: 6 # magic number I forget why
+    chain: "INPUT"
+    policy: "ACCEPT"
+    protocol: tcp
+  loop:
+    - "{{ keycloak_quarkus_http_port }}"
+    - "{{ keycloak_quarkus_https_port }}"
+    - "{{ keycloak_quarkus_jgroups_port }}"

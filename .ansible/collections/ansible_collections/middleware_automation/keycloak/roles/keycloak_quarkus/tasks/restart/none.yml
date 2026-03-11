@@ -1,0 +1,4 @@
+---
+- name: "Display message"
+  ansible.builtin.debug:
+    msg: "keycloak_quarkus_restart_strategy is none, skipping restart"

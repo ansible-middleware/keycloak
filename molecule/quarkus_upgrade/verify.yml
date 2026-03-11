@@ -28,5 +28,5 @@
         validate_certs: no
       register: keycloak_auth_response
       until: keycloak_auth_response.status == 200
-      retries: 2
-      delay: 2
+      retries: 15
+      delay: 3

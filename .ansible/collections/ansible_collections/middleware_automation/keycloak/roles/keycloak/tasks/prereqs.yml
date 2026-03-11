@@ -1,0 +1,58 @@
+---
+- name: Validate admin console password
+  ansible.builtin.assert:
+    that:
+      - keycloak_admin_password | length > 12
+    quiet: true
+    fail_msg: >
+      The console administrator password is empty or invalid. Please set the keycloak_admin_password variable to a 12+ char long string
+    success_msg: "{{ 'Console administrator password OK' }}"
+
+- name: Validate configuration
+  ansible.builtin.assert:
+    that: >
+      (keycloak_ha_enabled and keycloak_db_enabled) or
+      (not keycloak_ha_enabled and keycloak_db_enabled) or
+      (not keycloak_ha_enabled and not keycloak_db_enabled)
+    quiet: true
+    fail_msg: "Cannot install HA setup without a backend database service. Check keycloak_ha_enabled and keycloak_db_enabled"
+    success_msg: "{{ 'Configuring HA' if keycloak_ha_enabled else 'Configuring standalone' }}"
+
+- name: Validate credentials
+  ansible.builtin.assert:
+    that:
+      - (rhn_username is defined and sso_enable is defined and sso_enable) or not sso_enable is defined or not sso_enable or keycloak_offline_install
+      - (rhn_password is defined and sso_enable is defined and sso_enable) or not sso_enable is defined or not sso_enable or keycloak_offline_install
+    quiet: true
+    fail_msg: "Cannot install Red Hat SSO without RHN credentials. Check rhn_username and rhn_password are defined"
+    success_msg: "Installing {{ keycloak_service_desc }}"
+
+- name: Validate persistence configuration
+  ansible.builtin.assert:
+    that:
+      - keycloak_jdbc_engine is defined and keycloak_jdbc_engine in [ 'postgres', 'mariadb', 'sqlserver' ]
+      - keycloak_jdbc_url | length > 0
+      - keycloak_db_user | length > 0
+      - keycloak_db_pass | length > 0
+    quiet: true
+    fail_msg: "Configuration for the JDBC persistence is invalid or incomplete"
+    success_msg: "Configuring JDBC persistence using {{ keycloak_jdbc_engine }} database"
+  when: keycloak_db_enabled
+
+- name: Validate OS family
+  ansible.builtin.assert:
+    that:
+      - ansible_os_family in ["RedHat", "Debian"]
+    quiet: true
+    fail_msg: "Can only install on RedHat or Debian OS families; found {{ ansible_os_family }}"
+    success_msg: "Installing on {{ ansible_os_family }}"
+
+- name: Load OS specific variables
+  ansible.builtin.include_vars: "vars/{{ ansible_os_family | lower }}.yml"
+  tags:
+    - always
+
+- name: Ensure required packages are installed
+  ansible.builtin.include_tasks: fastpackages.yml
+  vars:
+    packages_list: "{{ keycloak_prereq_package_list }}"

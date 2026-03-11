@@ -1,0 +1,13 @@
+---
+- name: Manage Users
+  ansible.builtin.include_tasks: manage_user.yml
+  loop: "{{ client.users | flatten }}"
+  loop_control:
+    loop_var: user
+
+- name: Manage User Roles
+  ansible.builtin.include_tasks: manage_user_roles.yml
+  loop: "{{ client.users | flatten }}"
+  loop_control:
+    loop_var: user
+  when: "'client_roles' in user"

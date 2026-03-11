@@ -5,6 +5,7 @@
     - vars.yml
   vars:
     keycloak_quarkus_show_deprecation_warnings: false
+    rhbk_enable: false  
     keycloak_quarkus_additional_env_vars:
       - key: KC_FEATURES_DISABLED
         value: ciba,device-flow,impersonation,kerberos,docker

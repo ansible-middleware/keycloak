@@ -1,0 +1,151 @@
+---
+- name: Validate admin console password
+  ansible.builtin.assert:
+    that:
+      - keycloak_quarkus_bootstrap_admin_password | length > 12
+    quiet: true
+    fail_msg: "The console administrator password is empty or invalid. Please set the keycloak_quarkus_bootstrap_admin_password to a 12+ char long string"
+    success_msg: "{{ 'Console administrator password OK' }}"
+
+- name: Validate http_relative_path
+  ansible.builtin.assert:
+    that:
+      - keycloak_quarkus_http_relative_path is regex('^/.*')
+    quiet: true
+    fail_msg: "The relative path for keycloak_quarkus_http_relative_path must begin with /"
+    success_msg: "{{ 'Relative path OK' }}"
+
+- name: Validate http_management_relative_path
+  ansible.builtin.assert:
+    that:
+      - keycloak_quarkus_http_management_relative_path is regex('^/.*')
+    quiet: true
+    fail_msg: "The relative path for keycloak_quarkus_http_management_relative_path must begin with /"
+    success_msg: "{{ 'Relative mgmt path OK' }}"
+  when: keycloak_quarkus_http_management_relative_path is defined
+
+- name: Validate configuration
+  ansible.builtin.assert:
+    that:
+      - (keycloak_quarkus_ha_enabled and keycloak_quarkus_db_enabled) or
+        (not keycloak_quarkus_ha_enabled and keycloak_quarkus_db_enabled) or
+        (not keycloak_quarkus_ha_enabled and not keycloak_quarkus_db_enabled)
+    quiet: true
+    fail_msg: "HA setup requires a backend database service. Check keycloak_quarkus_ha_enabled and keycloak_quarkus_db_enabled"
+    success_msg: "{{ 'Configuring HA' if keycloak_quarkus_ha_enabled else 'Configuring standalone' }}"
+
+- name: Validate OS family
+  ansible.builtin.assert:
+    that:
+      - ansible_os_family in ["RedHat", "Debian"]
+    quiet: true
+    fail_msg: "Can only install on RedHat or Debian OS families; found {{ ansible_os_family }}"
+    success_msg: "Installing on {{ ansible_os_family }}"
+
+- name: Load OS specific variables
+  ansible.builtin.include_vars: "vars/{{ ansible_os_family | lower }}.yml"
+  tags:
+    - always
+
+- name: Ensure required packages are installed
+  ansible.builtin.include_tasks: fastpackages.yml
+  vars:
+    packages_list: "{{ keycloak_quarkus_prereq_package_list }}"
+
+- name: Check local download archive path
+  ansible.builtin.stat:
+    path: "{{ keycloak_quarkus_download_path }}"
+  register: local_path
+  delegate_to: localhost
+  run_once: true
+  become: false
+
+- name: Validate local download path
+  ansible.builtin.assert:
+    that:
+      - local_path.stat.exists
+      - local_path.stat.readable
+      - keycloak_quarkus_offline_install or local_path.stat.writeable
+    quiet: true
+    fail_msg: "Defined controller path for downloading resources is incorrect or unreadable: {{ keycloak_quarkus_download_path }}"
+    success_msg: "Will download resource to controller path: {{ keycloak_quarkus_download_path }}"
+  delegate_to: localhost
+  run_once: true
+
+- name: Check downloaded archive if offline
+  ansible.builtin.stat:
+    path: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
+  when: keycloak_quarkus_offline_install
+  register: local_archive_path_check
+  delegate_to: localhost
+  run_once: true
+
+- name: Validate local downloaded archive if offline
+  ansible.builtin.assert:
+    that:
+      - local_archive_path_check.stat.exists
+      - local_archive_path_check.stat.readable
+    quiet: true
+    fail_msg: "Configured for offline install but install archive not found at: {{ local_path.stat.path }}/{{ keycloak.bundle }}"
+    success_msg: "Will install offline with expected archive: {{ local_path.stat.path }}/{{ keycloak.bundle }}"
+  when: keycloak_quarkus_offline_install
+  delegate_to: localhost
+  run_once: true
+
+- name: "Validate keytool"
+  when: keycloak_quarkus_config_key_store_password | length > 0
+  block:
+    - name: "Check run keytool"
+      changed_when: false
+      ansible.builtin.command: keytool -help
+      register: keytool_check
+      ignore_errors: true
+
+    - name: "Fail when no keytool found"
+      when: keytool_check.rc != 0
+      ansible.builtin.fail:
+        msg: "keytool NOT found in the PATH, but is required for setting up the configuration key store"
+
+- name: "Validate providers"
+  ansible.builtin.assert:
+    that: >
+      item.id is defined and item.id | length > 0 and
+      ( (item.spi is defined and item.spi | length > 0) or
+        (item.url is defined and item.url | length > 0) or
+        ( item.maven is defined and item.maven.repository_url is defined and item.maven.repository_url | length > 0 and
+          item.maven.group_id is defined and item.maven.group_id | length > 0 and
+          item.maven.artifact_id is defined and item.maven.artifact_id | length > 0) or
+        (item.local_path is defined and item.local_path | length > 0)
+      )
+    quiet: true
+    fail_msg: >
+      Providers definition incorrect; `id` and one of `spi`, `url`, `local_path`, or `maven` are mandatory. `key` and `value` are mandatory for each property
+  loop: "{{ keycloak_quarkus_providers }}"
+
+- name: "Validate policies"
+  ansible.builtin.assert:
+    that:
+      - item.name is defined and item.name | length > 0
+      - item.url is defined and item.url | length > 0
+      - item.type is not defined or item.type | lower in keycloak_quarkus_supported_policy_types
+    quiet: true
+    fail_msg: >
+      Policy definition is incorrect: `name` and one of `url` are mandatory, `type` needs to be left empty or one of {{ keycloak_quarkus_supported_policy_types }}.
+  loop: "{{ keycloak_quarkus_policies }}"
+
+- name: "Validate additional env variables"
+  ansible.builtin.assert:
+    that:
+      - item.key is defined and item.key | length > 0
+      - item.value is defined and item.value | length > 0
+    quiet: true
+    fail_msg: "Additional env variable definition is incorrect: `key` and `value` are mandatory."
+  no_log: true
+  loop: "{{ keycloak_quarkus_additional_env_vars }}"
+
+- name: "Validate proxy-headers"
+  ansible.builtin.assert:
+    that:
+      - keycloak_quarkus_proxy_headers | lower in ['', 'forwarded', 'xforwarded']
+    quiet: true
+    fail_msg: "keycloak_quarkus_proxy_headers must be either '', 'forwarded' or 'xforwarded'"

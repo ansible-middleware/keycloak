@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.0" name="{{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_name }}">
+  <resources>
+    <resource-root path="{{ keycloak_jdbc[keycloak_jdbc_engine].driver_jar_filename }}"/>
+  </resources>
+  <dependencies>
+    <module name="javax.api"/>
+    <module name="javax.transaction.api"/>
+  </dependencies>
+</module>

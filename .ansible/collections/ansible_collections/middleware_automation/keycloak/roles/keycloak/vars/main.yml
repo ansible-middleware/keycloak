@@ -1,0 +1,107 @@
+---
+# internal variables below
+
+
+
+keycloak:
+  home: "{{ keycloak_jboss_home }}"
+  config_dir: "{{ keycloak_config_dir }}"
+  bundle: "{{ keycloak_archive }}"
+  service_name: "{{ keycloak_service_name }}"
+  health_url: "{{ keycloak_management_url }}/health"
+  cli_path: "{{ keycloak_jboss_home }}/bin/jboss-cli.sh"
+  config_template_source: "{{ keycloak_config_override_template if keycloak_config_override_template | length > 0 \
+                              else 'standalone-ha.xml.j2' if keycloak_remote_cache_enabled else 'standalone.xml.j2' }}"
+  features: "{{ keycloak_features }}"
+
+# database
+keycloak_jdbc:
+  postgres:
+    enabled: "{{ (keycloak_ha_enabled or keycloak_db_enabled) and keycloak_jdbc_engine == 'postgres' }}"
+    driver_class: org.postgresql.Driver
+    xa_datasource_class: org.postgresql.xa.PGXADataSource
+    driver_module_name: "org.postgresql"
+    driver_module_dir: "{{ keycloak_jboss_home }}/modules/org/postgresql/main"
+    driver_version: "{{ keycloak_jdbc_driver_version }}"
+    driver_jar_filename: "postgresql-{{ keycloak_jdbc_driver_version }}.jar"
+    driver_jar_url: >
+      {{ keycloak_maven_central }}org/postgresql/postgresql/{{ keycloak_jdbc_driver_version }}/postgresql-{{ keycloak_jdbc_driver_version }}.jar
+    connection_url: "{{ keycloak_jdbc_url }}"
+    db_user: "{{ keycloak_db_user }}"
+    db_password: "{{ keycloak_db_pass }}"
+    validate_query: "{{ keycloak_db_valid_conn_sql | default('select 1') }}"
+    initialize_db: >
+      CREATE TABLE IF NOT EXISTS JGROUPSPING (
+        own_addr varchar(200) NOT NULL,
+        cluster_name varchar(200) NOT NULL,
+        updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        ping_data BYTEA,
+        constraint PK_JGROUPSPING PRIMARY KEY (own_addr, cluster_name))
+  mariadb:
+    enabled: "{{ (keycloak_ha_enabled or keycloak_db_enabled) and keycloak_jdbc_engine == 'mariadb' }}"
+    driver_class: org.mariadb.jdbc.Driver
+    xa_datasource_class: org.mariadb.jdbc.MariaDbDataSource
+    driver_module_name: "org.mariadb"
+    driver_module_dir: "{{ keycloak_jboss_home }}/modules/org/mariadb/main"
+    driver_version: "{{ keycloak_jdbc_driver_version }}"
+    driver_jar_filename: "mariadb-java-client-{{ keycloak_jdbc_driver_version }}.jar"
+    driver_jar_url: >
+      {{ keycloak_maven_central }}org/mariadb/jdbc/mariadb-java-client/{{ keycloak_jdbc_driver_version }}/mariadb-java-client-{{ keycloak_jdbc_driver_version }}.jar
+    connection_url: "{{ keycloak_jdbc_url }}"
+    db_user: "{{ keycloak_db_user }}"
+    db_password: "{{ keycloak_db_pass }}"
+    validate_query: "{{ keycloak_db_valid_conn_sql | default('select 1') }}"
+    initialize_db: >
+      CREATE TABLE IF NOT EXISTS JGROUPSPING (
+        own_addr varchar(200) NOT NULL,
+        cluster_name varchar(200) NOT NULL,
+        updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        ping_data varbinary(5000) DEFAULT NULL,
+        PRIMARY KEY (own_addr, cluster_name))
+      ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+  sqlserver:
+    enabled: "{{ (keycloak_ha_enabled or keycloak_db_enabled) and keycloak_jdbc_engine == 'sqlserver' }}"
+    driver_class: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    xa_datasource_class: com.microsoft.sqlserver.jdbc.SQLServerXADataSource
+    driver_module_name: "com.microsoft.sqlserver"
+    driver_module_dir: "{{ keycloak_jboss_home }}/modules/com/microsoft/sqlserver/main"
+    driver_version: "{{ keycloak_jdbc_driver_version }}"
+    driver_jar_filename: "mssql-java-client-{{ keycloak_jdbc_driver_version }}.jar"
+    driver_jar_url: >
+      {{ keycloak_maven_central }}com/microsoft/sqlserver/mssql-jdbc/{{ keycloak_jdbc_driver_version }}.jre11/mssql-jdbc-{{ keycloak_jdbc_driver_version }}.jre11.jar
+    connection_url: "{{ keycloak_jdbc_url }}"
+    db_user: "{{ keycloak_db_user }}"
+    db_password: "{{ keycloak_db_pass }}"
+    validate_query: "{{ keycloak_db_valid_conn_sql | default('select 1') }}"
+    initialize_db: >
+      IF  NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[JGROUPSPING]') AND type in (N'U'))
+      BEGIN
+        CREATE TABLE JGROUPSPING (
+          own_addr varchar(200) NOT NULL,
+          cluster_name varchar(200) NOT NULL,
+          updated DATETIME2 DEFAULT SYSUTCDATETIME(),
+          ping_data varbinary(5000) DEFAULT NULL,
+          PRIMARY KEY (own_addr, cluster_name))
+      END
+
+# reverse proxy mod_cluster
+keycloak_modcluster:
+  enabled: "{{ keycloak_ha_enabled or keycloak_modcluster_enabled }}"
+  reverse_proxy_urls: "{{ keycloak_modcluster_urls }}"
+  frontend_url: "{{ keycloak_frontend_url }}"
+  force_frontend_url: "{{ keycloak_frontend_url_force }}"
+  admin_url: "{{ keycloak_admin_url | default('') }}"
+
+# infinispan
+keycloak_remotecache:
+  enabled: "{{ keycloak_ha_enabled }}"
+  username: "{{ keycloak_infinispan_user }}"
+  password: "{{ keycloak_infinispan_pass }}"
+  realm: default
+  sasl_mechanism: "{{ keycloak_infinispan_sasl_mechanism }}"
+  server_name: "{{ keycloak_infinispan_url }}"
+  use_ssl: "{{ keycloak_infinispan_use_ssl }}"
+  trust_store_path: "{{ keycloak_infinispan_trust_store_path }}"
+  trust_store_password: "{{ keycloak_infinispan_trust_store_password }}"
+
+keycloak_maven_central: https://repo1.maven.org/maven2/

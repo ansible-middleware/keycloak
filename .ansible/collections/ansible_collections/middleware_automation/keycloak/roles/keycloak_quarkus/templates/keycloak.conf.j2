@@ -1,0 +1,110 @@
+{{ ansible_managed | comment }}
+
+{% if keycloak_quarkus_db_enabled %}
+# Database
+db={{ keycloak_quarkus_db_engine }}
+db-url={{ keycloak_quarkus_db_url }}
+db-username={{ keycloak_quarkus_db_user }}
+{% if not keycloak.config_key_store_enabled %}
+db-password={{ keycloak_quarkus_db_pass }}
+{% endif %}
+{% endif %}
+
+{% if keycloak.config_key_store_enabled %}
+# Config store
+config-keystore={{ keycloak_quarkus_config_key_store_file }}
+config-keystore-password={{ keycloak_quarkus_config_key_store_password }}
+{% endif %}
+
+# Observability
+metrics-enabled={{ keycloak_quarkus_metrics_enabled | lower }}
+health-enabled={{ keycloak_quarkus_health_enabled | lower }}
+
+# HTTP
+http-enabled={{ keycloak_quarkus_http_enabled | lower }}
+{% if keycloak_quarkus_http_enabled %}
+http-port={{ keycloak_quarkus_http_port }}
+{% endif %}
+http-relative-path={{ keycloak_quarkus_http_relative_path }}
+http-host={{ keycloak_quarkus_http_host }}
+
+# Management
+http-management-port={{ keycloak_quarkus_http_management_port }}
+{% if keycloak_quarkus_http_management_relative_path is defined and keycloak_quarkus_http_management_relative_path | length > 0 %}
+http-management-relative-path={{ keycloak_quarkus_http_management_relative_path }}
+{% endif %}
+
+# HTTPS
+https-port={{ keycloak_quarkus_https_port }}
+{% if keycloak_quarkus_https_key_file_enabled %}
+https-certificate-file={{ keycloak_quarkus_cert_file}}
+https-certificate-key-file={{ keycloak_quarkus_key_file }}
+{% endif %}
+{% if keycloak_quarkus_https_key_store_enabled %}
+https-key-store-file={{ keycloak_quarkus_https_key_store_file }}
+https-key-store-password={{ keycloak_quarkus_https_key_store_password }}
+{% endif %}
+{% if keycloak_quarkus_https_trust_store_enabled %}
+https-trust-store-file={{ keycloak_quarkus_https_trust_store_file }}
+https-trust-store-password={{ keycloak_quarkus_https_trust_store_password }}
+{% endif %}
+
+# Client URL configuration
+hostname={{ keycloak_quarkus_hostname }}
+hostname-admin={{ keycloak_quarkus_hostname_admin }}
+hostname-strict={{ keycloak_quarkus_hostname_strict | lower }}
+hostname-backchannel-dynamic={{ keycloak_quarkus_hostname_backchannel_dynamic | lower }}
+
+# Cluster
+{% if keycloak_quarkus_ha_enabled %}
+cache=ispn
+{% if keycloak_quarkus_cache_managed_infinispan_config %}
+cache-config-file=cache-ispn.xml
+{% endif %}
+{% if keycloak_quarkus_cache_remote %}
+cache-remote-username={{ keycloak_quarkus_cache_remote_username }}
+cache-remote-password={{ keycloak_quarkus_cache_remote_password }}
+cache-remote-host={{ keycloak_quarkus_cache_remote_host }}
+cache-remote-port={{ keycloak_quarkus_cache_remote_port }}
+cache-remote-tls-enabled={{ keycloak_quarkus_cache_remote_tls_enabled | lower }}
+{% endif %}
+{{ keycloak_quarkus_cache_embedded_properties }}
+{% endif %}
+
+{% if keycloak_quarkus_proxy_headers | length > 0 %}
+proxy-headers={{ keycloak_quarkus_proxy_headers | lower }}
+{% elif keycloak_quarkus_proxy_mode is defined and keycloak_quarkus_proxy_mode != "none" %}
+# Deprecated Proxy configuration
+proxy={{ keycloak_quarkus_proxy_mode }}
+{% endif %}
+
+spi-sticky-session-encoder-infinispan-should-attach-route={{ keycloak_quarkus_spi_sticky_session_encoder_infinispan_should_attach_route | d(true) | lower }}
+
+# Transaction
+transaction-xa-enabled={{ keycloak_quarkus_transaction_xa_enabled | lower }}
+
+# Logging
+#log-format=%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n
+log={{ keycloak_quarkus_log }}
+log-level={{ keycloak.log.level }}
+log-file={{ keycloak.log.file }}
+log-file-format={{ keycloak.log.format }}
+
+# Vault
+{% if keycloak_quarkus_ks_vault_enabled %}
+vault=keystore
+vault-file={{ keycloak_quarkus_ks_vault_file }}
+vault-type={{ keycloak_quarkus_ks_vault_type }}
+vault-pass={{ keycloak_quarkus_ks_vault_pass }}
+{% endif %}
+
+
+# Providers
+{% for provider in keycloak_quarkus_providers %}
+{% if provider.default is defined and provider.default %}
+spi-{{ provider.spi }}-provider={{ provider.id }}
+{% endif %}
+{% if provider.properties is defined %}{% for property in provider.properties %}
+spi-{{ provider.spi }}-{{ provider.id }}-{{ property.key }}={{ property.value }}
+{% endfor %}{% endif %}
+{% endfor %}

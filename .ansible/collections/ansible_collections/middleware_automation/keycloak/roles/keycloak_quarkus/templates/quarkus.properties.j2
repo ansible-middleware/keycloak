@@ -1,0 +1,29 @@
+{{ ansible_managed | comment }}
+{% if keycloak_quarkus_ha_enabled %}
+{% if keycloak_quarkus_version.split('.')[0] | int < 22 %}
+quarkus.infinispan-client.server-list={{ keycloak_quarkus_cache_remote_host }}:{{ keycloak_quarkus_cache_remote_port }}
+quarkus.infinispan-client.auth-username={{ keycloak_quarkus_cache_remote_username }}
+quarkus.infinispan-client.auth-password={{ keycloak_quarkus_cache_remote_password }}
+{% else %}
+quarkus.infinispan-client.hosts={{ keycloak_quarkus_cache_remote_host }}:{{ keycloak_quarkus_cache_remote_port }}
+quarkus.infinispan-client.username={{ keycloak_quarkus_cache_remote_username }}
+quarkus.infinispan-client.password={{ keycloak_quarkus_cache_remote_password }}
+{% endif %}
+quarkus.infinispan-client.client-intelligence=HASH_DISTRIBUTION_AWARE
+quarkus.infinispan-client.use-auth=true
+quarkus.infinispan-client.auth-realm=default
+quarkus.infinispan-client.auth-server-name=infinispan
+quarkus.infinispan-client.sasl-mechanism={{ keycloak_quarkus_cache_remote_sasl_mechanism }}
+{% if keycloak_quarkus_cache_remote_tls_enabled %}
+quarkus.infinispan-client.trust-store={{ keycloak_quarkus_https_trust_store_file }}
+quarkus.infinispan-client.trust-store-password={{ keycloak_quarkus_https_trust_store_password }}
+quarkus.infinispan-client.trust-store-type=jks
+{% endif %}
+#quarkus.infinispan-client.use-schema-registration=true
+{% endif %}
+quarkus.log.file.rotation.max-file-size={{ keycloak_quarkus_log_max_file_size }}
+quarkus.log.file.rotation.max-backup-index={{ keycloak_quarkus_log_max_backup_index }}
+quarkus.log.file.rotation.file-suffix={{ keycloak_quarkus_log_file_suffix }}
+{% if keycloak_quarkus_db_enabled %}
+quarkus.transaction-manager.enable-recovery=true
+{% endif %}

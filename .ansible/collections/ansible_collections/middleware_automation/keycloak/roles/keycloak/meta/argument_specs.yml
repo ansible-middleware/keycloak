@@ -1,0 +1,393 @@
+argument_specs:
+    main:
+        options:
+            keycloak_version:
+                default: "18.0.2"
+                description: "keycloak.org package version"
+                type: "str"
+            keycloak_archive:
+                default: "keycloak-legacy-{{ keycloak_version }}.zip"
+                description: "keycloak install archive filename"
+                type: "str"
+            keycloak_configure_iptables:
+                default: false
+                description: "Ensure iptables is running and configure keycloak ports"
+                type: "bool"
+            keycloak_configure_firewalld:
+                default: false
+                description: "Ensure firewalld is running and configure keycloak ports"
+                type: "bool"
+            keycloak_download_url:
+                default: "https://github.com/keycloak/keycloak/releases/download/{{ keycloak_version }}/{{ keycloak_archive }}"
+                description: "Download URL for keycloak"
+                type: "str"
+            keycloak_download_url_9x:
+                default: "https://downloads.jboss.org/keycloak/{{ keycloak_version }}/{{ keycloak_archive }}"
+                description: "Download URL for keycloak (deprecated)"
+                type: "str"
+            keycloak_installdir:
+                default: "{{ keycloak_dest }}/keycloak-{{ keycloak_version }}"
+                description: "Installation path"
+                type: "str"
+            keycloak_offline_install:
+                default: false
+                description: "Perform an offline install"
+                type: "bool"
+            keycloak_jvm_package:
+                default: "java-1.8.0-openjdk-headless"
+                description: "RHEL java package runtime rpm"
+                type: "str"
+            keycloak_java_home:
+                description: "JAVA_HOME of installed JRE, leave empty for using specified keycloak_jvm_package RPM path"
+                type: "str"
+            keycloak_dest:
+                default: "/opt/keycloak"
+                description: "Root installation directory"
+                type: "str"
+            keycloak_jboss_home:
+                default: "{{ keycloak_installdir }}"
+                description: "Installation work directory"
+                type: "str"
+            keycloak_jboss_port_offset:
+                default: 0
+                description: "Port offset for the JBoss socket binding"
+                type: "int"
+            keycloak_config_dir:
+                default: "{{ keycloak_jboss_home }}/standalone/configuration"
+                description: "Path for configuration"
+                type: "str"
+            keycloak_config_standalone_xml:
+                default: "keycloak.xml"
+                description: "Service configuration filename"
+                type: "str"
+            keycloak_config_path_to_standalone_xml:
+                default: "{{ keycloak_jboss_home }}/standalone/configuration/{{ keycloak_config_standalone_xml }}"
+                description: "Custom path for configuration"
+                type: "str"
+            keycloak_config_override_template:
+                default: ""
+                description: "Path to custom template for standalone.xml configuration"
+                type: "str"
+            keycloak_service_runas:
+                default: false
+                description: "Enable execution of service as `keycloak_service_user`"
+                type: "bool"
+            keycloak_service_user:
+                default: "keycloak"
+                description: "posix account username"
+                type: "str"
+            keycloak_service_group:
+                default: "keycloak"
+                description: "posix account group"
+                type: "str"
+            keycloak_service_pidfile:
+                default: "/run/keycloak/keycloak.pid"
+                description: "PID file path for service"
+                type: "str"
+            keycloak_features:
+                default: "[]"
+                description: >
+                  List of `name`/`status` pairs of features (also known as profiles on RH-SSO) to `enable` or `disable`,
+                  example: `[ { name: 'docker', status: 'enabled' } ]`
+                type: "list"
+            keycloak_bind_address:
+                default: "0.0.0.0"
+                description: "Address for binding service ports"
+                type: "str"
+            keycloak_management_port_bind_address:
+                default: "127.0.0.1"
+                description: "Address for binding the management ports"
+                type: "str"
+            keycloak_host:
+                default: "localhost"
+                description: "Hostname for service"
+                type: "str"
+            keycloak_http_port:
+                default: 8080
+                description: "Listening HTTP port"
+                type: "int"
+            keycloak_https_port:
+                default: 8443
+                description: "Listening HTTPS port"
+                type: "int"
+            keycloak_ajp_port:
+                default: 8009
+                description: "Listening AJP port"
+                type: "int"
+            keycloak_jgroups_port:
+                default: 7600
+                description: "jgroups cluster tcp port"
+                type: "int"
+            keycloak_management_http_port:
+                default: 9990
+                description: "Management port (http)"
+                type: "int"
+            keycloak_management_https_port:
+                default: 9993
+                description: "Management port (https)"
+                type: "int"
+            keycloak_java_opts:
+                default: "-Xms1024m -Xmx2048m"
+                description: "Additional JVM options"
+                type: "str"
+            keycloak_prefer_ipv4:
+                default: true
+                description: "Prefer IPv4 stack and addresses for port binding"
+                type: "bool"
+            keycloak_ha_enabled:
+                default: false
+                description: "Enable auto configuration for database backend, clustering and remote caches on infinispan"
+                type: "bool"
+            keycloak_ha_discovery:
+                default: "{{ 'JDBC_PING' if keycloak_db_enabled else 'TCPPING' }}"
+                description: "Discovery protocol for HA cluster members"
+                type: "str"
+            keycloak_db_enabled:
+                default: "{{ True if keycloak_ha_enabled else False }}"
+                description: "Enable auto configuration for database backend"
+                type: "bool"
+            keycloak_admin_user:
+                default: "admin"
+                description: "Administration console user account"
+                type: "str"
+            keycloak_auth_realm:
+                default: "master"
+                description: "Name for rest authentication realm"
+                type: "str"
+            keycloak_auth_client:
+                default: "admin-cli"
+                description: "Authentication client for configuration REST calls"
+                type: "str"
+            keycloak_force_install:
+                default: false
+                description: "Remove pre-existing versions of service"
+                type: "bool"
+            keycloak_modcluster_enabled:
+                default: "{{ True if keycloak_ha_enabled else False }}"
+                description: "Enable configuration for modcluster subsystem"
+                type: "bool"
+            keycloak_modcluster_url:
+                default: "localhost"
+                description: "URL for the modcluster reverse proxy"
+                type: "str"
+            keycloak_modcluster_port:
+                default: 6666
+                description: "Port for the modcluster reverse proxy"
+                type: "int"
+            keycloak_modcluster_urls:
+                default: "[ { host: 'localhost', port: 6666 } ]"
+                description: "List of modproxy node URLs in the format { host, port } for the modcluster reverse proxy"
+                type: "list"
+            keycloak_frontend_url:
+                default: "http://localhost"
+                description: "Frontend URL for keycloak endpoints when a reverse proxy is used"
+                type: "str"
+            keycloak_frontend_url_force:
+                default: false
+                description: "Force backend requests to use the frontend URL"
+                type: "bool"
+            keycloak_infinispan_user:
+                default: "supervisor"
+                description: "Username for connecting to infinispan"
+                type: "str"
+            keycloak_infinispan_pass:
+                default: "supervisor"
+                description: "Password for connecting to infinispan"
+                type: "str"
+            keycloak_infinispan_url:
+                default: "localhost"
+                description: "URL for the infinispan remote-cache server"
+                type: "str"
+            keycloak_infinispan_sasl_mechanism:
+                default: "SCRAM-SHA-512"
+                description: "Authentication type to infinispan server"
+                type: "str"
+            keycloak_infinispan_use_ssl:
+                default: false
+                description: "Enable hotrod client TLS communication"
+                type: "bool"
+            keycloak_infinispan_trust_store_path:
+                default: "/etc/pki/java/cacerts"
+                description: "TODO document argument"
+                type: "str"
+            keycloak_infinispan_trust_store_password:
+                default: "changeit"
+                description: "Path to truststore containing infinispan server certificate"
+                type: "str"
+            keycloak_jdbc_engine:
+                default: "postgres"
+                description: "Backend database flavour when db is enabled: [ postgres, mariadb, sqlserver ]"
+                type: "str"
+            keycloak_db_user:
+                default: "keycloak-user"
+                description: "Username for connecting to database"
+                type: "str"
+            keycloak_db_pass:
+                default: "keycloak-pass"
+                description: "Password for connecting to database"
+                type: "str"
+            keycloak_jdbc_url:
+                default: "{{ keycloak_default_jdbc[keycloak_jdbc_engine].url }}"
+                description: "URL for connecting to backend database"
+                type: "str"
+            keycloak_jdbc_driver_version:
+                default: "{{ keycloak_default_jdbc[keycloak_jdbc_engine].version }}"
+                description: "Version for the JDBC driver to download"
+                type: "str"
+            keycloak_admin_password:
+                required: true
+                description: "Password for the administration console user account"
+                type: "str"
+            keycloak_url:
+                default: "http://{{ keycloak_host }}:{{ keycloak_http_port + keycloak_jboss_port_offset }}"
+                description: "URL for configuration rest calls"
+                type: "str"
+            keycloak_management_url:
+                default: "http://{{ keycloak_host }}:{{ keycloak_management_http_port + keycloak_jboss_port_offset }}"
+                description: "URL for management console rest calls"
+                type: "str"
+            keycloak_service_name:
+                default: "keycloak"
+                description: "systemd service name for keycloak"
+                type: "str"
+            keycloak_service_desc:
+                default: "Keycloak"
+                description: "systemd description for keycloak"
+                type: "str"
+            keycloak_service_start_delay:
+                default: "10"
+                description: "Expected delay in ms before the service is expected to be available after start."
+                type: "int"
+            keycloak_service_start_retries:
+                default: "25"
+                description: "How many time should Ansible retry to connect to the service after it was started, before failing."
+                type: "int"
+            keycloak_service_restart_always:
+                default: false
+                description: "systemd restart always behavior activation for keycloak"
+                type: "bool"
+            keycloak_service_restart_on_failure:
+                default: false
+                description: "systemd restart on-failure behavior activation for keycloak"
+                type: "bool"
+            keycloak_service_startlimitintervalsec:
+                default: 300
+                description: "systemd StartLimitIntervalSec for keycloak"
+                type: "int"
+            keycloak_service_startlimitburst:
+                default: 5
+                description: "systemd StartLimitBurst for keycloak"
+                type: "int"
+            keycloak_service_restartsec:
+                default: "5s"
+                description: "systemd RestartSec for keycloak"
+                type: "str"
+            keycloak_no_log:
+                default: true
+                type: "bool"
+                description: "Changes default behavior for no_log for debugging purpose, do not change for production system."
+            keycloak_remote_cache_enabled:
+                default: "{{ True if keycloak_ha_enabled else False }}"
+                description: "Enable remote cache store when in clustered ha configurations"
+                type: "bool"
+            keycloak_db_background_validation:
+                default: false
+                description: "Enable background validation of database connection"
+                type: "bool"
+            keycloak_db_background_validation_millis:
+                default: "{{ 10000 if keycloak_db_background_validation else 0 }}"
+                description: "How frequenly the connection pool is validated in the background"
+                type: 'int'
+            keycloak_db_background_validate_on_match:
+                default: false
+                description: "Enable validate on match for database connections"
+                type: "bool"
+            keycloak_db_valid_conn_sql:
+                required: false
+                description: "Override the default database connection validation query sql"
+                type: "str"
+            keycloak_admin_url:
+                required: false
+                description: "Override the default administration endpoint URL"
+                type: "str"
+            keycloak_jgroups_subnet:
+                required: false
+                description: >
+                  Override the subnet match for jgroups cluster formation; if not defined, it will be inferred from local machine route configuration
+                type: "str"
+            keycloak_log_target:
+                default: '/var/log/keycloak'
+                type: "str"
+                description: "Set the destination of the keycloak log folder link"
+            keycloak_jdbc_download_url:
+                description: "Override the default Maven Central download URL for the JDBC driver"
+                type: "str"
+            keycloak_jdbc_download_user:
+                description: "Set a username with which to authenticate when downloading JDBC drivers from an alternative location"
+                type: "str"
+            keycloak_jdbc_download_pass:
+                description: >
+                  Set a password with which to authenticate when downloading JDBC drivers from an alternative location (requires keycloak_jdbc_download_user)
+                type: "str"
+            keycloak_jdbc_download_validate_certs:
+                default: true
+                description: "Allow the option to ignore invalid certificates when downloading JDBC drivers from a custom URL"
+                type: "bool"
+            keycloak_binary_download_user:
+                description: "Username for HTTP Basic Auth when downloading Keycloak binary"
+                type: "str"
+                required: false
+            keycloak_binary_download_pass:
+                description: "Password for HTTP Basic Auth when downloading Keycloak binary"
+                type: "str"
+                required: false
+    downstream:
+        options:
+            sso_version:
+                default: "7.6.0"
+                description: "Red Hat Single Sign-On version"
+                type: "str"
+            sso_archive:
+                default: "rh-sso-{{ sso_version }}-server-dist.zip"
+                description: "Red Hat SSO install archive filename"
+                type: "str"
+            sso_dest:
+                default: "/opt/sso"
+                description: "Root installation directory"
+                type: "str"
+            sso_installdir:
+                default: "{{ sso_dest }}/rh-sso-{{ sso_version.split('.')[0] }}.{{ sso_version.split('.')[1] }}"
+                description: "Installation path for Red Hat SSO"
+                type: "str"
+            sso_apply_patches:
+                default: false
+                description: "Install Red Hat SSO most recent cumulative patch"
+                type: "bool"
+            sso_enable:
+                default: true
+                description: "Enable Red Hat Single Sign-on installation"
+                type: "str"
+            sso_offline_install:
+                default: false
+                description: "Perform an offline install"
+                type: "bool"
+            sso_service_name:
+                default: "sso"
+                description: "systemd service name for Single Sign-On"
+                type: "str"
+            sso_service_desc:
+                default: "Red Hat Single Sign-On"
+                description: "systemd description for Red Hat Single Sign-On"
+                type: "str"
+            sso_patch_version:
+                required: false
+                description: "Red Hat Single Sign-On latest cumulative patch version to apply; defaults to latest version when sso_apply_patches is True"
+                type: "str"
+            sso_patch_bundle:
+                default: "rh-sso-{{ sso_patch_version | default('[0-9]+[.][0-9]+[.][0-9]+') }}-patch.zip"
+                description: "Red Hat SSO patch archive filename"
+                type: "str"
+            sso_product_category:
+                default: "core.service.rhsso"
+                description: "JBossNetwork API category for Single Sign-On"
+                type: "str"

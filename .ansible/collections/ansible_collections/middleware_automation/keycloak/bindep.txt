@@ -1,0 +1,9 @@
+python3-dev [compile platform:dpkg]
+python3-devel [compile platform:rpm]
+python39-devel [compile platform:centos-8 platform:rhel-8]
+git-lfs [platform:rpm platform:dpkg]
+python3-netaddr [platform:rpm platform:dpkg]
+python3-lxml [platform:rpm platform:dpkg]
+python3-jmespath [platform:rpm platform:dpkg]
+python3-requests [platform:rpm platform:dpkg]
+

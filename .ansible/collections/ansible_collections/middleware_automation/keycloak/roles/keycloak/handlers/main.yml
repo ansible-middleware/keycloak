@@ -1,0 +1,4 @@
+---
+- name: "Restart handler"
+  ansible.builtin.include_tasks: restart_keycloak.yml
+  listen: "restart keycloak"

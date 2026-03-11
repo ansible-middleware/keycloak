@@ -1,0 +1,87 @@
+---
+# tasks file for keycloak
+- name: Check prerequisites
+  ansible.builtin.include_tasks:
+    file: prereqs.yml
+    apply:
+      tags:
+        - prereqs
+  tags:
+    - prereqs
+
+- name: Distro specific tasks
+  ansible.builtin.include_tasks:
+    file: "{{ ansible_os_family | lower }}.yml"
+    apply:
+      tags:
+        - unbound
+  tags:
+    - unbound
+
+- name: Include install tasks
+  ansible.builtin.include_tasks:
+    file: install.yml
+    apply:
+      tags:
+        - install
+  tags:
+    - install
+
+- name: Include systemd tasks
+  ansible.builtin.include_tasks:
+    file: systemd.yml
+    apply:
+      tags:
+        - systemd
+  tags:
+    - systemd
+
+- name: Include patch install tasks
+  ansible.builtin.include_tasks: rhsso_patch.yml
+  when:
+    - sso_apply_patches is defined and sso_apply_patches
+    - sso_enable is defined and sso_enable
+    - ansible_facts.os_family == "RedHat"
+  tags:
+    - install
+    - patch
+
+- name: Link default logs directory
+  ansible.builtin.file:
+    state: link
+    src: "{{ keycloak_jboss_home }}/standalone/log"
+    dest: "{{ keycloak_log_target }}"
+  become: true
+
+- name: Set admin credentials and restart if not already created
+  block:
+    - name: Check admin credentials by generating a token (supposed to fail on first installation)
+      ansible.builtin.uri:
+        url: "{{ keycloak_url }}/auth/realms/master/protocol/openid-connect/token"
+        method: POST
+        body: "client_id={{ keycloak_auth_client }}&username={{ keycloak_admin_user }}&password={{ keycloak_admin_password }}&grant_type=password"
+        validate_certs: false
+      register: keycloak_auth_response
+      until: keycloak_auth_response.status == 200
+      retries: 2
+      delay: 2
+  rescue:
+    - name: "Create {{ keycloak.service_name }} admin user"
+      ansible.builtin.command:
+      args:
+        argv:
+          - "{{ keycloak_jboss_home }}/bin/add-user-keycloak.sh"
+          - "-rmaster"
+          - "-u{{ keycloak_admin_user }}"
+          - "-p{{ keycloak_admin_password }}"
+      changed_when: true
+      become: true
+    - name: "Restart {{ keycloak.service_name }}"
+      ansible.builtin.include_tasks: tasks/restart_keycloak.yml
+    - name: "Wait until {{ keycloak.service_name }} becomes active {{ keycloak.health_url }}"
+      ansible.builtin.uri:
+        url: "{{ keycloak.health_url }}"
+      register: keycloak_status
+      until: keycloak_status.status == 200
+      retries: 25
+      delay: 10

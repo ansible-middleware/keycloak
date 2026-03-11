@@ -1,0 +1,29 @@
+---
+collections:
+  - middleware_automation.common
+  - ansible.posix
+
+galaxy_info:
+  role_name: keycloak
+  namespace: middleware_automation
+  author: Romain Pelisse, Guido Grazioli, Pavan Kumar Motaparthi
+  description: Install keycloak or Red Hat Single Sign-On server configurations
+  company: Red Hat, Inc.
+
+  license: Apache License 2.0
+
+  min_ansible_version: "2.16"
+
+  platforms:
+    - name: EL
+      versions:
+        - "8"
+
+  galaxy_tags:
+    - keycloak
+    - redhat
+    - rhel
+    - sso
+    - authentication
+    - identity
+    - security

@@ -1,0 +1,191 @@
+---
+### Configuration specific to keycloak
+keycloak_quarkus_version: 26.4.7
+keycloak_quarkus_archive: "keycloak-{{ keycloak_quarkus_version }}.zip"
+keycloak_quarkus_download_url: "https://github.com/keycloak/keycloak/releases/download/{{ keycloak_quarkus_version }}/{{ keycloak_quarkus_archive }}"
+keycloak_quarkus_installdir: "{{ keycloak_quarkus_dest }}/keycloak-{{ keycloak_quarkus_version }}"
+
+# Authentication for Keycloak binary download (e.g. from internal artifact repository)
+keycloak_quarkus_binary_download_user:
+keycloak_quarkus_binary_download_pass:
+
+# whether to install from local archive
+keycloak_quarkus_offline_install: false
+
+keycloak_quarkus_show_deprecation_warnings: true
+
+### Install location and service settings
+keycloak_quarkus_java_home:
+keycloak_quarkus_dest: /opt/keycloak
+keycloak_quarkus_home: "{{ keycloak_quarkus_installdir }}"
+keycloak_quarkus_config_dir: "{{ keycloak_quarkus_home }}/conf"
+keycloak_quarkus_download_path: "{{ lookup('env', 'PWD') }}"
+keycloak_quarkus_start_dev: false
+keycloak_quarkus_service_user: keycloak
+keycloak_quarkus_service_group: keycloak
+keycloak_quarkus_service_restart_always: false
+keycloak_quarkus_service_restart_on_failure: false
+keycloak_quarkus_service_restartsec: "10s"
+
+keycloak_quarkus_configure_firewalld: false
+keycloak_quarkus_configure_iptables: false
+
+### administrator console password
+keycloak_quarkus_bootstrap_admin_user: admin
+keycloak_quarkus_bootstrap_admin_password:
+keycloak_quarkus_master_realm: master
+
+### Configuration settings
+keycloak_quarkus_bind_address: 0.0.0.0 # deprecated use keycloak_quarkus_http_host
+keycloak_quarkus_http_host: 0.0.0.0
+keycloak_quarkus_http_enabled: true
+keycloak_quarkus_http_port: 8080
+keycloak_quarkus_https_port: 8443
+keycloak_quarkus_http_management_port: 9000
+keycloak_quarkus_jgroups_port: 7800
+keycloak_quarkus_jgroups_bind_address: "{{ ansible_default_ipv4.address }}"
+keycloak_quarkus_jgroups_external_addr: "{{ keycloak_quarkus_jgroups_bind_address }}"
+keycloak_quarkus_jgroups_external_port: "{{ keycloak_quarkus_jgroups_port }}"
+keycloak_quarkus_java_heap_opts: "-Xms1024m -Xmx2048m"
+keycloak_quarkus_java_jvm_opts: >
+  -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8
+  -Dsun.err.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8 -XX:+ExitOnOutOfMemoryError
+  -Djava.security.egd=file:/dev/urandom -XX:+UseParallelGC -XX:GCTimeRatio=4
+  -XX:AdaptiveSizePolicyWeight=90 -XX:FlightRecorderOptions=stackdepth=512
+keycloak_quarkus_jgroups_opts: >
+  -Djgroups.bind.address={{ keycloak_quarkus_jgroups_bind_address }}
+  -Djgroups.external_port={{ keycloak_quarkus_jgroups_external_port }}
+  -Djgroups.external_addr={{ keycloak_quarkus_jgroups_external_addr }}
+keycloak_quarkus_java_opts: "{{ ' '.join((keycloak_quarkus_jgroups_opts, keycloak_quarkus_java_heap_opts, keycloak_quarkus_java_jvm_opts)) }}"
+keycloak_quarkus_additional_env_vars: []
+
+### TLS/HTTPS configuration
+keycloak_quarkus_https_key_file_enabled: false
+keycloak_quarkus_key_file_copy_enabled: false
+keycloak_quarkus_key_content: ""
+keycloak_quarkus_key_file: "/etc/pki/tls/private/server.key.pem"
+keycloak_quarkus_cert_file_copy_enabled: false
+keycloak_quarkus_cert_file_src: ""
+keycloak_quarkus_cert_file: "/etc/pki/tls/certs/server.crt.pem"
+#### key store configuration
+keycloak_quarkus_https_key_store_enabled: false
+keycloak_quarkus_https_key_store_file: "{{ keycloak.home }}/conf/key_store.p12"
+keycloak_quarkus_https_key_store_password: ''
+##### trust store configuration
+keycloak_quarkus_https_trust_store_enabled: false
+keycloak_quarkus_https_trust_store_file: "{{ keycloak.home }}/conf/trust_store.p12"
+keycloak_quarkus_https_trust_store_password: ''
+### configuration key store configuration
+keycloak_quarkus_config_key_store_file: "{{ keycloak.home }}/conf/conf_store.p12"
+keycloak_quarkus_config_key_store_password: ''
+
+### Enable configuration for database backend, clustering and remote caches on infinispan
+keycloak_quarkus_ha_enabled: false
+keycloak_quarkus_ha_discovery: "JDBCPING"
+### Enable database configuration, must be enabled when HA is configured
+keycloak_quarkus_db_enabled: "{{ keycloak_quarkus_ha_enabled }}"
+keycloak_quarkus_systemd_wait_for_port: "{{ keycloak_quarkus_ha_enabled }}"
+keycloak_quarkus_systemd_wait_for_port_number: "{{ keycloak_quarkus_https_port }}"
+keycloak_quarkus_systemd_wait_for_log: false
+keycloak_quarkus_systemd_wait_for_timeout: 60
+keycloak_quarkus_systemd_wait_for_delay: 10
+
+### keycloak frontend url
+keycloak_quarkus_hostname:
+keycloak_quarkus_hostname_admin: ""
+
+### Set the path relative to / for serving resources. The path must start with a /
+### (set to `/auth` for retrocompatibility with pre-quarkus releases)
+keycloak_quarkus_http_relative_path: /
+
+# Disables dynamically resolving the hostname from request headers.
+# Should always be set to true in production, unless proxy verifies the Host header.
+keycloak_quarkus_hostname_strict: true
+# Enables dynamic resolving of backchannel URLs, including hostname, scheme, port and context path.
+# Set to true if your application accesses Keycloak via a private network. If set to true, keycloak_quarkus_hostname option needs to be specified as a full URL.
+keycloak_quarkus_hostname_backchannel_dynamic: false
+
+# The proxy headers that should be accepted by the server. ['', 'forwarded', 'xforwarded']
+keycloak_quarkus_proxy_headers: ""
+
+# deprecated: proxy address forwarding mode if the server is behind a reverse proxy. [none, edge, reencrypt, passthrough]
+keycloak_quarkus_proxy_mode: none
+
+# disable xa transactions
+keycloak_quarkus_transaction_xa_enabled: true
+
+# If the route should be attached to cookies to reflect the node that owns a particular session.
+# If false, route is not attached to cookies and we rely on the session affinity capabilities from reverse proxy
+keycloak_quarkus_spi_sticky_session_encoder_infinispan_should_attach_route: true
+
+keycloak_quarkus_metrics_enabled: false
+keycloak_quarkus_health_enabled: true
+
+### infinispan; must read: https://forum.keycloak.org/t/keycloak-26-4-7-ha/31202
+keycloak_quarkus_cache_managed_infinispan_config: "{{ keycloak_quarkus_version is version('26.4.0', '<') }}"
+keycloak_quarkus_cache_infinispan_template: cache-ispn.xml
+
+### caches; must read: https://www.keycloak.org/2024/12/storing-sessions-in-kc26
+### embedded caches
+# https://www.keycloak.org/server/caching
+keycloak_quarkus_cache_embedded_properties: ""
+
+### infinispan remote caches access (hotrod)
+# https://www.keycloak.org/server/caching#_remote_cache
+keycloak_quarkus_cache_remote: false
+keycloak_quarkus_cache_remote_username: supervisor
+keycloak_quarkus_cache_remote_password: supervisor
+keycloak_quarkus_cache_remote_host: localhost
+keycloak_quarkus_cache_remote_port: 11222
+keycloak_quarkus_cache_remote_tls_enabled: false
+keycloak_quarkus_cache_remote_sasl_mechanism: SCRAM-SHA-512
+
+
+### database backend engine: values [ 'postgres', 'mariadb' ]
+keycloak_quarkus_db_engine: postgres
+### database backend credentials
+keycloak_quarkus_db_user: keycloak-user
+keycloak_quarkus_db_pass: keycloak-pass
+keycloak_quarkus_db_url: "{{ keycloak_quarkus_default_jdbc[keycloak_quarkus_db_engine].url }}"
+keycloak_quarkus_db_driver_version: "{{ keycloak_quarkus_default_jdbc[keycloak_quarkus_db_engine].version }}"
+# override the variables above, following defaults show recommended version as per
+# https://access.redhat.com/articles/7033107
+keycloak_quarkus_default_jdbc:
+  postgres:
+    url: 'jdbc:postgresql://localhost:5432/keycloak'
+    version: 42.7.7
+  mariadb:
+    url: 'jdbc:mariadb://localhost:3306/keycloak'
+    version: 3.5.2
+  mssql:
+    url: 'jdbc:sqlserver://localhost:1433;databaseName=keycloak;'
+    version: 13.2.0
+    driver_jar_url: "https://repo1.maven.org/maven2/com/microsoft/sqlserver/mssql-jdbc/13.2.0.jre11/mssql-jdbc-13.2.0.jre11.jar"
+### logging configuration
+keycloak_quarkus_log: file
+keycloak_quarkus_log_level: info
+keycloak_quarkus_log_file: data/log/keycloak.log
+keycloak_quarkus_log_format: '%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n'
+keycloak_quarkus_log_target: /var/log/keycloak
+keycloak_quarkus_log_max_file_size: 10M
+keycloak_quarkus_log_max_backup_index: 10
+keycloak_quarkus_log_file_suffix: '.yyyy-MM-dd.zip'
+
+# keystore-based vault
+keycloak_quarkus_ks_vault_enabled: false
+keycloak_quarkus_ks_vault_file: "{{ keycloak_quarkus_config_dir }}/keystore.p12"
+keycloak_quarkus_ks_vault_type: PKCS12
+keycloak_quarkus_ks_vault_pass:
+
+keycloak_quarkus_providers: []
+keycloak_quarkus_policies: []
+keycloak_quarkus_supported_policy_types: ['password-blacklists']
+
+# files in restart directory (one of [ 'serial', 'none', 'serial_then_parallel' ]), or path to file when providing custom strategy
+keycloak_quarkus_restart_strategy: restart/serial.yml
+keycloak_quarkus_restart_health_check: true
+keycloak_quarkus_restart_health_check_delay: 10
+keycloak_quarkus_restart_health_check_retries: 25
+keycloak_quarkus_restart_pause: 15
+
+keycloak_quarkus_force_install: false

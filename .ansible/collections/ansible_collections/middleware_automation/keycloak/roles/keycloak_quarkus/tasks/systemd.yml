@@ -1,0 +1,27 @@
+---
+- name: "Configure sysconfig file for {{ keycloak.service_name }} service"
+  become: true
+  ansible.builtin.template:
+    src: keycloak-sysconfig.j2
+    dest: "{{ keycloak_quarkus_sysconf_file }}"
+    owner: root
+    group: root
+    mode: '0640'
+  vars:
+    keycloak_sys_pkg_java_home: "{{ keycloak_quarkus_pkg_java_home }}"
+  notify:
+    - rebuild keycloak config
+    - restart keycloak
+
+- name: "Configure systemd unit file for keycloak service"
+  ansible.builtin.template:
+    src: keycloak.service.j2
+    dest: /etc/systemd/system/keycloak.service
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+  register: systemdunit
+  notify:
+    - rebuild keycloak config
+    - restart keycloak

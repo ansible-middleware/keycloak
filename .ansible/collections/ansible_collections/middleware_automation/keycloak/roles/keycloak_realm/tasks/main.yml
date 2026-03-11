@@ -1,0 +1,117 @@
+---
+- name: Generate keycloak auth token
+  ansible.builtin.uri:
+    url: "{{ keycloak_url }}{{ keycloak_context }}/realms/master/protocol/openid-connect/token"
+    method: POST
+    body: "client_id={{ keycloak_auth_client }}&username={{ keycloak_admin_user }}&password={{ keycloak_admin_password }}&grant_type=password"
+    validate_certs: false
+  no_log: "{{ keycloak_no_log | default('True') }}"
+  register: keycloak_auth_response
+  until: keycloak_auth_response.status == 200
+  retries: 5
+  delay: 2
+
+- name: "Determine if realm exists"
+  ansible.builtin.uri:
+    url: "{{ keycloak_url }}{{ keycloak_context }}/admin/realms/{{ keycloak_realm }}"
+    method: GET
+    validate_certs: false
+    status_code:
+      - 200
+      - 404
+    headers:
+      Accept: "application/json"
+      Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
+  register: keycloak_realm_exists
+
+- name: Create Realm
+  ansible.builtin.uri:
+    url: "{{ keycloak_url }}{{ keycloak_context }}/admin/realms"
+    method: POST
+    body: "{{ lookup('template', 'realm.json.j2') }}"
+    validate_certs: false
+    body_format: json
+    headers:
+      Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
+    status_code: 201
+  when: keycloak_realm_exists.status == 404
+
+- name: Create user federation
+  middleware_automation.keycloak.keycloak_user_federation:
+    auth_keycloak_url: "{{ keycloak_url }}{{ keycloak_context }}"
+    auth_realm: "{{ keycloak_auth_realm }}"
+    auth_username: "{{ keycloak_admin_user }}"
+    auth_password: "{{ keycloak_admin_password }}"
+    realm: "{{ item.realm | default(keycloak_realm) }}"
+    name: "{{ item.name }}"
+    state: present
+    provider_id: "{{ item.provider_id }}"
+    provider_type: "{{ item.provider_type | default('org.keycloak.storage.UserStorageProvider') }}"
+    config: "{{ item.config }}"
+    mappers: "{{ item.mappers | default(omit) }}"
+  no_log: "{{ keycloak_no_log | default('True') }}"
+  register: create_user_federation_result
+  loop: "{{ keycloak_user_federation | flatten }}"
+  when: keycloak_user_federation is defined
+
+- name: Validate Keycloak clients
+  ansible.builtin.assert:
+    that:
+      - item.name is defined and item.name | length > 0
+      - (item.client_id is defined and item.client_id | length > 0) or (item.id is defined and item.id | length > 0)
+    fail_msg: "For each keycloak client, attributes `name` and either `id` or `client_id` is required"
+    quiet: true
+  loop: "{{ keycloak_clients | flatten }}"
+  loop_control:
+    label: "{{ item.name | default('unnamed client') }}"
+
+- name: Create or update a Keycloak client
+  middleware_automation.keycloak.keycloak_client:
+    auth_client_id: "{{ keycloak_auth_client }}"
+    auth_keycloak_url: "{{ keycloak_url }}{{ keycloak_context }}"
+    auth_realm: "{{ keycloak_auth_realm }}"
+    auth_username: "{{ keycloak_admin_user }}"
+    auth_password: "{{ keycloak_admin_password }}"
+    realm: "{{ item.realm | default(keycloak_realm) }}"
+    default_roles: "{{ item.roles | default(omit) }}"
+    client_id: "{{ item.client_id | default(omit) }}"
+    id: "{{ item.id | default(omit) }}"
+    secret: "{{ item.secret | default(omit) }}"
+    name: "{{ item.name | default(omit) }}"
+    description: "{{ item.description | default(omit) }}"
+    root_url: "{{ item.root_url | default('') }}"
+    admin_url: "{{ item.admin_url | default('') }}"
+    base_url: "{{ item.base_url | default('') }}"
+    enabled: "{{ item.enabled | default(True) }}"
+    redirect_uris: "{{ item.redirect_uris | default(omit) }}"
+    web_origins: "{{ item.web_origins | default(omit) }}"
+    bearer_only: "{{ item.bearer_only | default(omit) }}"
+    standard_flow_enabled: "{{ item.standard_flow_enabled | default(omit) }}"
+    implicit_flow_enabled: "{{ item.implicit_flow_enabled | default(omit) }}"
+    direct_access_grants_enabled: "{{ item.direct_access_grants_enabled | default(omit) }}"
+    service_accounts_enabled: "{{ item.service_accounts_enabled | default(omit) }}"
+    public_client: "{{ item.public_client | default(False) }}"
+    protocol: "{{ item.protocol | default(omit) }}"
+    attributes: "{{ item.attributes | default(omit) }}"
+    state: present
+  no_log: "{{ keycloak_no_log | default('false') }}"
+  register: create_client_result
+  loop: "{{ keycloak_clients | flatten }}"
+  when: (item.name is defined and item.client_id is defined) or (item.name is defined and item.id is defined)
+
+- name: Create client roles
+  ansible.builtin.include_tasks: manage_client_roles.yml
+  loop: "{{ keycloak_clients | flatten }}"
+  loop_control:
+    loop_var: client
+  when: "'roles' in client"
+
+- name: Create client users
+  ansible.builtin.include_tasks: manage_client_users.yml
+  loop: "{{ keycloak_clients | flatten }}"
+  loop_control:
+    loop_var: client
+  when: "'users' in client"
+  
+- name: Provide Access token lifespan
+  ansible.builtin.include_tasks: manage_token_lifespan.yml

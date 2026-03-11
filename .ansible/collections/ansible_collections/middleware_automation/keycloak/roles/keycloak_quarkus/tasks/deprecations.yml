@@ -1,0 +1,162 @@
+---
+- name: Check deprecation keycloak_quarkus_key_store -> keycloak_quarkus_http_key_store
+  delegate_to: localhost
+  run_once: true
+  when:
+    - keycloak_quarkus_https_key_store_enabled
+  block:
+    - name: Ensure backward compatibility for `keycloak_quarkus_key_store_file`, superseded by `keycloak_quarkus_https_key_store_file`
+      when:
+        - keycloak_quarkus_key_store_file is defined
+        - keycloak_quarkus_key_store_file != ''
+        - keycloak_quarkus_https_key_store_file == keycloak.home + "/conf/key_store.p12" # default value
+      changed_when: keycloak_quarkus_show_deprecation_warnings
+      ansible.builtin.set_fact:
+        keycloak_quarkus_https_key_store_file: "{{ keycloak_quarkus_key_store_file }}"
+        deprecated_variable: "keycloak_quarkus_key_store_file" # read in deprecation handler
+      notify:
+        - print deprecation warning
+
+    - name: Flush handlers
+      ansible.builtin.meta: flush_handlers
+
+    - name: Ensure backward compatibility for `keycloak_quarkus_key_store_password`, superseded by `keycloak_quarkus_https_key_store_password`
+      when:
+        - keycloak_quarkus_key_store_password is defined
+        - keycloak_quarkus_key_store_password != ''
+        - keycloak_quarkus_https_key_store_password == "" # default value
+      changed_when: keycloak_quarkus_show_deprecation_warnings
+      ansible.builtin.set_fact:
+        keycloak_quarkus_https_key_store_password: "{{ keycloak_quarkus_key_store_password }}"
+        deprecated_variable: "keycloak_quarkus_key_store_password" # read in deprecation handler
+      notify:
+        - print deprecation warning
+
+    - name: Flush handlers
+      ansible.builtin.meta: flush_handlers
+
+# https://access.redhat.com/documentation/en-us/red_hat_build_of_keycloak/24.0/html-single/upgrading_guide/index#deprecated_literal_proxy_literal_option
+- name: Check deprecation of keycloak_quarkus_proxy_mode
+  when:
+    - keycloak_quarkus_proxy_mode is defined
+    - keycloak_quarkus_proxy_headers is defined and keycloak_quarkus_proxy_headers | length == 0
+    - keycloak_quarkus_version.split('.') | first | int >= 24
+  delegate_to: localhost
+  run_once: true
+  changed_when: keycloak_quarkus_show_deprecation_warnings
+  ansible.builtin.set_fact:
+    deprecated_variable: "keycloak_quarkus_proxy_mode" # read in deprecation handler
+  notify:
+    - print deprecation warning
+
+# https://docs.redhat.com/en/documentation/red_hat_build_of_keycloak/26.0/html-single/upgrading_guide/index#new_hostname_options
+- name: Check deprecation of keycloak_quarkus_frontend_url -> keycloak_quarkus_hostname
+  when:
+    - keycloak_quarkus_hostname is not defined
+    - keycloak_quarkus_frontend_url is defined
+    - keycloak_quarkus_frontend_url != ''
+  delegate_to: localhost
+  run_once: true
+  changed_when: keycloak_quarkus_show_deprecation_warnings
+  ansible.builtin.set_fact:
+    keycloak_quarkus_hostname: "{{ keycloak_quarkus_frontend_url }}"
+    deprecated_variable: "keycloak_quarkus_frontend_url" # read in deprecation handler
+  notify:
+    - print deprecation warning
+
+# https://docs.redhat.com/en/documentation/red_hat_build_of_keycloak/26.0/html-single/upgrading_guide/index#new_hostname_options
+- name: Check deprecation of keycloak_quarkus_hostname_strict_https + keycloak_quarkus_host + keycloak_quarkus_port + keycloak_quarkus_path -> keycloak_quarkus_hostname
+  when:
+    - keycloak_quarkus_hostname is not defined
+    - keycloak_quarkus_hostname_strict_https is defined or keycloak_quarkus_frontend_url is defined or keycloak_quarkus_port is defined or keycloak_quarkus_path is defined
+  delegate_to: localhost
+  run_once: true
+  changed_when: keycloak_quarkus_show_deprecation_warnings
+  ansible.builtin.set_fact:
+    keycloak_quarkus_hostname: >-
+      {% set protocol = '' %}
+      {% if keycloak_quarkus_hostname_strict_https %}
+        {% set protocol = 'https://' %}
+      {% elif keycloak_quarkus_hostname_strict_https is defined and keycloak_quarkus_hostname_strict_https is False %}
+        {% set protocol = 'http://' %}
+      {% endif %}
+      {{ protocol }}{{ keycloak_quarkus_host }}:{{ keycloak_quarkus_port }}/{{ keycloak_quarkus_path }}
+    deprecated_variable: "keycloak_quarkus_hostname_strict_https or keycloak_quarkus_frontend_url or keycloak_quarkus_frontend_url or keycloak_quarkus_hostname" # read in deprecation handler
+  notify:
+    - print deprecation warning
+
+# https://docs.redhat.com/en/documentation/red_hat_build_of_keycloak/26.0/html-single/upgrading_guide/index#new_hostname_options
+- name: Check deprecation of keycloak_quarkus_admin_url -> keycloak_quarkus_hostname_admin
+  when:
+    - keycloak_quarkus_hostname_admin is not defined
+    - keycloak_quarkus_admin_url is defined
+    - keycloak_quarkus_admin_url != ''
+  delegate_to: localhost
+  run_once: true
+  changed_when: keycloak_quarkus_show_deprecation_warnings
+  ansible.builtin.set_fact:
+    keycloak_quarkus_hostname_admin: "{{ keycloak_quarkus_admin_url }}"
+    deprecated_variable: "keycloak_quarkus_admin_url" # read in deprecation handler
+  notify:
+    - print deprecation warning
+
+# https://docs.redhat.com/en/documentation/red_hat_build_of_keycloak/26.0/html-single/upgrading_guide/index#new_hostname_options
+- name: Check deprecation of keycloak_quarkus_hostname_strict_backchannel -> keycloak_quarkus_hostname_backchannel_dynamic
+  when:
+    - keycloak_quarkus_hostname_backchannel_dynamic is not defined
+    - keycloak_quarkus_hostname_strict_backchannel is defined
+    - keycloak_quarkus_hostname_strict_backchannel != ''
+  delegate_to: localhost
+  run_once: true
+  changed_when: keycloak_quarkus_show_deprecation_warnings
+  ansible.builtin.set_fact:
+    keycloak_quarkus_hostname_backchannel_dynamic: "{{ keycloak_quarkus_hostname_strict_backchannel == False }}"
+    deprecated_variable: "keycloak_quarkus_hostname_backchannel_dynamic" # read in deprecation handler
+  notify:
+    - print deprecation warning
+
+# https://github.com/keycloak/keycloak/issues/30009
+- name: Check deprecation of keycloak_quarkus_admin_user -> keycloak_quarkus_bootstrap_admin_user
+  when:
+    - keycloak_quarkus_bootstrap_admin_user is not defined
+    - keycloak_quarkus_admin_user is defined
+    - keycloak_quarkus_admin_user != ''
+  delegate_to: localhost
+  run_once: true
+  changed_when: keycloak_quarkus_show_deprecation_warnings
+  ansible.builtin.set_fact:
+    keycloak_quarkus_bootstrap_admin_user: "{{ keycloak_quarkus_admin_user }}"
+    deprecated_variable: "keycloak_quarkus_admin_user" # read in deprecation handler
+  notify:
+    - print deprecation warning
+
+# https://github.com/keycloak/keycloak/issues/30009
+- name: Check deprecation of keycloak_quarkus_admin_pass -> keycloak_quarkus_bootstrap_admin_password
+  when:
+    - keycloak_quarkus_bootstrap_admin_password is not defined
+    - keycloak_quarkus_admin_pass is defined
+    - keycloak_quarkus_admin_pass != ''
+  delegate_to: localhost
+  run_once: true
+  changed_when: keycloak_quarkus_show_deprecation_warnings
+  ansible.builtin.set_fact:
+    keycloak_quarkus_bootstrap_admin_user: "{{ keycloak_quarkus_admin_pass }}"
+    deprecated_variable: "keycloak_quarkus_admin_pass" # read in deprecation handler
+  notify:
+    - print deprecation warning
+
+- name: Check deprecation of keycloak_quarkus_bind_address -> keycloak_quarkus_http_host
+  when:
+    - keycloak_quarkus_bind_address is defined
+    - keycloak_quarkus_bind_address != '0.0.0.0'
+  delegate_to: localhost
+  run_once: true
+  changed_when: keycloak_quarkus_show_deprecation_warnings
+  ansible.builtin.set_fact:
+    keycloak_quarkus_http_host: "{{ keycloak_quarkus_bind_address }}"
+    deprecated_variable: "keycloak_quarkus_bind_address" # read in deprecation handler
+  notify:
+    - print deprecation warning
+  
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers

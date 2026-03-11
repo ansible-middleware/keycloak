@@ -1,0 +1,49 @@
+{
+ "collection_info": {
+  "namespace": "middleware_automation",
+  "name": "keycloak",
+  "version": "3.0.4",
+  "authors": [
+   "Romain Pelisse <rpelisse@redhat.com>",
+   "Guido Grazioli <ggraziol@redhat.com>",
+   "Pavan Kumar Motaparthi <pmotapar@redhat.com>",
+   "Helmut Wolf <hwo@world-direct.at>"
+  ],
+  "readme": "README.md",
+  "tags": [
+   "keycloak",
+   "redhat",
+   "rhel",
+   "sso",
+   "openid",
+   "application",
+   "identity",
+   "security",
+   "infrastructure",
+   "authentication",
+   "java",
+   "runtimes",
+   "middleware",
+   "a4mw"
+  ],
+  "description": "Install and configure a keycloak, or Red Hat Single Sign-on, service.",
+  "license": [],
+  "license_file": "LICENSE",
+  "dependencies": {
+   "middleware_automation.common": ">=1.2.1",
+   "ansible.posix": ">=1.4.0"
+  },
+  "repository": "https://github.com/ansible-middleware/keycloak",
+  "documentation": "https://ansible-middleware.github.io/keycloak",
+  "homepage": "https://github.com/ansible-middleware/keycloak",
+  "issues": "https://github.com/ansible-middleware/keycloak/issues"
+ },
+ "file_manifest_file": {
+  "name": "FILES.json",
+  "ftype": "file",
+  "chksum_type": "sha256",
+  "chksum_sha256": "050ba1c280cf511ef800f6a135bd0e6374378720842695ff27cae5ccee20f1c0",
+  "format": 1
+ },
+ "format": 1
+}

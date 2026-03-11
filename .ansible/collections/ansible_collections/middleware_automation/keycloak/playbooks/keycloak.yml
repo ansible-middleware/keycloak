@@ -1,0 +1,7 @@
+---
+- name: Playbook for Keycloak Hosts
+  hosts: all
+  vars:
+    keycloak_admin_password: "remembertochangeme"
+  roles:
+    - middleware_automation.keycloak.keycloak

@@ -1,0 +1,46 @@
+---
+- name: "Check module directory: {{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_dir }}"
+  ansible.builtin.stat:
+    path: "{{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_dir }}"
+  register: dest_path
+  become: true
+
+- name: "Set up module dir for JDBC Driver {{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_name }}"
+  ansible.builtin.file:
+    path: "{{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_dir }}"
+    state: directory
+    recurse: true
+    owner: "{{ keycloak_service_user }}"
+    group: "{{ keycloak_service_group }}"
+    mode: '0750'
+  become: true
+  when:
+    - not dest_path.stat.exists
+- name: "Verify valid parameters for download credentials when specified"
+  ansible.builtin.fail:
+    msg: >-
+      When JDBC driver download credentials are set, both the username and the password MUST be set
+  when: >
+    (keycloak_jdbc_download_user is undefined and keycloak_jdbc_download_pass is not undefined) or
+    (keycloak_jdbc_download_pass is undefined and keycloak_jdbc_download_user is not undefined)
+
+- name: "Retrieve JDBC Driver from {{ keycloak_jdbc[keycloak_jdbc_engine].driver_jar_url }}"
+  ansible.builtin.get_url:
+    url: "{{ keycloak_jdbc[keycloak_jdbc_engine].driver_jar_url }}"
+    dest: "{{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_dir }}/{{ keycloak_jdbc[keycloak_jdbc_engine].driver_jar_filename }}"
+    group: "{{ keycloak_service_group }}"
+    owner: "{{ keycloak_service_user }}"
+    url_username: "{{ keycloak_jdbc_download_user | default(omit) }}"
+    url_password: "{{ keycloak_jdbc_download_pass | default(omit) }}"
+    validate_certs: "{{ keycloak_jdbc_download_validate_certs | default(omit) }}"
+    mode: '0640'
+  become: true
+
+- name: "Deploy module.xml for JDBC Driver"
+  ansible.builtin.template:
+    src: "templates/jdbc_driver_module.xml.j2"
+    dest: "{{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_dir }}/module.xml"
+    group: "{{ keycloak_service_group }}"
+    owner: "{{ keycloak_service_user }}"
+    mode: '0640'
+  become: true

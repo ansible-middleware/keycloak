@@ -3,6 +3,7 @@
   hosts: all
   vars:
     keycloak_quarkus_show_deprecation_warnings: false
+    rhbk_enable: false  
     keycloak_quarkus_bootstrap_admin_password: "remembertochangeme"
     keycloak_quarkus_bootstrap_admin_user: "remembertochangeme"
     keycloak_quarkus_hostname: https://proxy

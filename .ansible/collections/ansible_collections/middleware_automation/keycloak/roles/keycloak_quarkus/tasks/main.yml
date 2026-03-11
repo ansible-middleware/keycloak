@@ -1,0 +1,130 @@
+---
+# tasks file for keycloak
+- name: Check prerequisites
+  ansible.builtin.include_tasks:
+    file: prereqs.yml
+    apply:
+      tags:
+        - prereqs
+  tags:
+    - prereqs
+    - always
+
+- name: Check for deprecations
+  ansible.builtin.include_tasks:
+    file: deprecations.yml
+    apply:
+      tags:
+        - always
+  tags:
+    - always
+
+- name: Distro specific tasks
+  ansible.builtin.include_tasks:
+    file: "{{ ansible_os_family | lower }}.yml"
+    apply:
+      tags:
+        - unbound
+  tags:
+    - unbound
+
+- name: Include install tasks
+  ansible.builtin.include_tasks:
+    file: install.yml
+    apply:
+      tags:
+        - install
+  tags:
+    - install
+
+- name: Include systemd tasks
+  ansible.builtin.include_tasks:
+    file: systemd.yml
+    apply:
+      tags:
+        - systemd
+  tags:
+    - systemd
+
+- name: Include configuration key store tasks
+  ansible.builtin.include_tasks:
+    file: config_store.yml
+    apply:
+      tags:
+        - install
+  when: keycloak.config_key_store_enabled
+  tags:
+    - install
+
+- name: Create tcpping cluster node list
+  ansible.builtin.set_fact:
+    keycloak_quarkus_cluster_nodes: >
+      {{ keycloak_quarkus_cluster_nodes | default([]) + [
+        {
+          "name": item,
+          "address": 'jgroups-' + item,
+          "inventory_host": hostvars[item].keycloak_quarkus_jgroups_ip | default(item) + '[' + (keycloak_quarkus_jgroups_port | string) + ']',
+          "value": hostvars[item].keycloak_quarkus_jgroups_ip | default(item)
+        }
+      ] }}
+  loop: "{{ ansible_play_batch }}"
+  when: keycloak_quarkus_ha_enabled and keycloak_quarkus_ha_discovery == 'TCPPING'
+
+
+- name: Determine the config files
+  ansible.builtin.set_fact:
+    keycloak_quarkus_config_files: "{{ ['keycloak.conf', 'quarkus.properties'] + (keycloak_quarkus_cache_managed_infinispan_config | ternary([keycloak_quarkus_cache_infinispan_template], [])) }}"
+
+- name: "Configure config files for keycloak service"
+  ansible.builtin.template:
+    src: "{{ item }}.j2"
+    dest: "{{ keycloak.home }}/conf/{{ item }}"
+    owner: "{{ keycloak.service_user }}"
+    group: "{{ keycloak.service_group }}"
+    mode: '0640'
+  become: true
+  loop: "{{ keycloak_quarkus_config_files }}" 
+  notify:
+    - rebuild keycloak config
+    - restart keycloak
+
+- name: Ensure logdirectory exists
+  ansible.builtin.file:
+    state: directory
+    path: "{{ keycloak.log.file | dirname }}"
+    owner: "{{ keycloak.service_user }}"
+    group: "{{ keycloak.service_group }}"
+    mode: '0775'
+  become: true
+
+- name: Flush pending handlers
+  ansible.builtin.meta: flush_handlers
+
+- name: "Start and wait for keycloak service"
+  ansible.builtin.include_tasks: start.yml
+
+- name: Link default logs directory
+  ansible.builtin.file:
+    state: link
+    src: "{{ keycloak.log.file | dirname }}"
+    dest: "{{ keycloak_quarkus_log_target }}"
+    force: true
+  become: true
+
+- name: Check service status
+  ansible.builtin.systemd_service:
+    name: "{{ keycloak.service_name }}"
+  register: keycloak_service_status
+  changed_when: false
+
+- name: "Notify to remove `keycloak_quarkus_bootstrap_admin_user[_password]` env vars"
+  when:
+    - not ansible_local.keycloak.general.bootstrapped | default(false) | bool # it was not bootstrapped prior to the current role's execution
+    - keycloak_service_status.status.ActiveState == "active"                  # but it is now
+  ansible.builtin.assert: { that: true, quiet: true }
+  changed_when: true
+  notify:
+    - bootstrapped
+
+- name: Flush pending handlers
+  ansible.builtin.meta: flush_handlers

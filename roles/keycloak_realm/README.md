@@ -12,7 +12,7 @@ Role Defaults
 |:---------|:------------|:--------|
 |`keycloak_admin_user`| Administration console user account | `admin` |
 |`keycloak_host`| hostname | `localhost` |
-|`keycloak_context`| Context path for rest calls | `/auth` |
+|`keycloak_context`| Context path for rest calls (set to `/auth` for legacy WildFly-based Keycloak) | `` |
 |`keycloak_http_port`| HTTP port | `8080` |
 |`keycloak_https_port`| TLS HTTP port | `8443` |
 |`keycloak_auth_realm`| Name of the main authentication realm | `master` |

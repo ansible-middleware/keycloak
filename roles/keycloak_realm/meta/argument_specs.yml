@@ -8,8 +8,8 @@ argument_specs:
                 type: "str"
             keycloak_context:
                 # line 5 of keycloak_realm/defaults/main.yml
-                default: "/auth"
-                description: "Context path for rest calls"
+                default: ""
+                description: "Context path for rest calls (was /auth for legacy WildFly-based Keycloak, empty for Quarkus-based Keycloak/RHBK)"
                 type: "str"
             keycloak_http_port:
                 # line 4 of keycloak_realm/defaults/main.yml

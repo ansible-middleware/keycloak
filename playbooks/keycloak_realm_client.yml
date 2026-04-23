@@ -1,0 +1,39 @@
+---
+- name: Playbook for Keycloak Realm and Client Configuration
+  hosts: all
+  tasks:
+    - name: Keycloak Realm Role
+      ansible.builtin.include_role:
+        name: middleware_automation.keycloak.keycloak_realm
+      vars:
+        keycloak_admin_password: "remembertochangeme"
+        keycloak_realm: TestRealm
+        keycloak_client_default_roles:
+          - TestRoleAdmin
+          - TestRoleUser
+        keycloak_client_users:
+          - username: TestUser
+            password: password
+            client_roles:
+              - client: TestClient1
+                role: TestRoleUser
+                realm: TestRealm
+          - username: TestAdmin
+            password: password
+            client_roles:
+              - client: TestClient1
+                role: TestRoleUser
+                realm: TestRealm
+              - client: TestClient1
+                role: TestRoleAdmin
+                realm: TestRealm
+        keycloak_clients:
+          - name: TestClient1
+            client_id: TestClient1
+            roles: "{{ keycloak_client_default_roles }}"
+            realm: TestRealm
+            public_client: true
+            web_origins:
+              - http://testclient1origin/application
+              - http://testclient1origin/other
+            users: "{{ keycloak_client_users }}"

@@ -15,7 +15,7 @@ on:
 
 jobs:
   ci:
-    uses: ansible-middleware/github-actions/.github/workflows/cish.yml@main
+    uses: ./.github/workflows/cish-keycloak.yml
     secrets: inherit
     with:
       fqcn: 'middleware_automation/keycloak'
@@ -23,6 +23,8 @@ jobs:
       molecule_tests: >-
         [ "debian", "quarkus", "quarkus_ha", "quarkus_ha_remote", "quarkus_ha_26.4_below" ]
       podman_tests_current: >-
+        [ "default", "quarkus_devmode", "quarkus_upgrade" ]
+      podman_tests_middle: >-
         [ "default", "quarkus_devmode", "quarkus_upgrade" ]
       podman_tests_next: >-
         [ "default", "quarkus_devmode", "quarkus_upgrade" ]

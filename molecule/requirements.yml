@@ -7,6 +7,8 @@ collections:
   - name: ansible.posix
   - name: community.docker
     version: ">=3.8.0"
+  - name: containers.podman
+    version: ">=1.8.1"
 
 roles:
   - name: elan.simple_nginx_reverse_proxy

@@ -55,6 +55,15 @@ A requirement file is provided to install:
 
 <!--end roles_paths -->
 
+### Included modules
+
+* `keycloak_realm`: module for managing Keycloak realms (create/update/delete).
+* `keycloak_client`: module for managing Keycloak clients (create/update/delete).
+* `keycloak_role`: module for managing Keycloak roles — realm roles and client roles (create/update/delete).
+* `keycloak_user_federation`: module for managing user federations such as LDAP/AD (create/update/delete).
+* `keycloak_client_scope`: module for managing client scopes and protocol mappers (create/update/delete).
+* `keycloak_authentication_flow`: module for managing authentication flows and execution steps (create/delete, copy existing flows).
+
 ## Usage
 
 
@@ -109,10 +118,13 @@ Note: when deploying clustered configurations, all hosts belonging to the cluste
 ## Configuration
 
 
-### Config Playbook
+### Config Playbooks
 <!--start rhbk_realm_playbook -->
-[`playbooks/keycloak_realm.yml`](https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_realm.yml) creates or updates provided realm, user federation(s), client(s), client role(s) and client user(s).
+* [`playbooks/keycloak_realm.yml`](https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_realm.yml) creates or updates provided realm, user federation(s), client(s), client role(s) and client user(s).
 <!--end rhbk_realm_playbook -->
+* [`playbooks/keycloak_realm_client.yml`](https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_realm_client.yml) creates a realm with clients, roles and users using the `keycloak_realm` role.
+* [`playbooks/keycloak_client_scope.yml`](https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_client_scope.yml) creates a client scope with protocol mappers using the `keycloak_client_scope` module.
+* [`playbooks/keycloak_authentication_flow.yml`](https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_authentication_flow.yml) creates a custom authentication flow with execution steps using the `keycloak_authentication_flow` module.
 
 ### Example configuration command
 

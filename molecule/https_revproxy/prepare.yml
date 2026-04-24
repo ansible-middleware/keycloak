@@ -27,6 +27,8 @@
   pre_tasks:
     - name: Create certificate request
       ansible.builtin.command: openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -days 365 -nodes -subj '/CN=proxy'
+      args:
+        chdir: "{{ playbook_dir }}"
       delegate_to: localhost
       changed_when: false
     - name: Make certificate directory

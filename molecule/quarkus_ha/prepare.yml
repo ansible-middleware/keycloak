@@ -11,6 +11,8 @@
 
     - name: Create certificate request
       ansible.builtin.command: "openssl req -x509 -newkey rsa:4096 -keyout {{ inventory_hostname }}.key -out {{ inventory_hostname }}.pem -sha256 -days 365 -nodes -subj '/CN={{ inventory_hostname }}'"
+      args:
+        chdir: "{{ playbook_dir }}"
       delegate_to: localhost
       changed_when: False
 

@@ -1,0 +1,409 @@
+---
+# Vendor of ansible-middleware/github-actions/.github/workflows/cish.yml (sync when CI workflow changes).
+# Podman Molecule jobs are skipped for fork pull requests (no org self-hosted runners / secrets).
+name: CI
+on:
+  workflow_call:
+    inputs:
+      fqcn:
+        required: true
+        type: string
+      molecule_tests:
+        required: false
+        type: string
+      podman_tests_current:
+        required: true
+        type: string
+      podman_tests_middle:
+        required: true
+        type: string
+      podman_tests_next:
+        required: true
+        type: string
+      sanity_includes:
+        required: false
+        type: string
+        default: "[]"
+      sanity_excludes:
+        required: false
+        type: string
+        default: "[]"
+      fail_fast:
+        required: false
+        type: boolean
+        default: false
+      debug_verbosity:
+        required: false
+        type: string
+        default: '0'
+env:
+  COLORTERM: 'yes'
+  TERM: 'xterm-256color'
+  PYTEST_ADDOPTS: '--color=yes'
+  PY_COLORS: '1'
+  ANSIBLE_FORCE_COLOR: '1'
+
+jobs:
+  linter:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python_version: ["3.12"]
+        ansible_version: ["2.18", "2.19", "2.20"]
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          path: ansible_collections/${{ inputs.fqcn }}
+
+      - name: Set up Python ${{ matrix.python_version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python_version }}
+          cache: 'pip'
+
+      - name: Create default collection path
+        run: |
+          mkdir -p /home/runner/.ansible/
+          ln -s ${{ github.workspace }} /home/runner/.ansible/collections
+
+      - name: Install yamllint, ansible and dependencies
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 5
+          retry_wait_seconds: 60
+          max_attempts: 3
+          command: |
+            python -m pip install --upgrade pip
+            pip install yamllint ansible-core~=${{ matrix.ansible_version }} ansible-lint
+            if [ -f ansible_collections/${{ inputs.fqcn }}/requirements.txt ]; then
+              pip install -r ansible_collections/${{ inputs.fqcn }}/requirements.txt
+            fi
+            if [ -f ansible_collections/${{ inputs.fqcn }}/requirements.yml ]; then
+              ansible-galaxy collection install -r ansible_collections/${{ inputs.fqcn }}/requirements.yml -p /home/runner/.ansible/collections --force-with-deps
+            fi
+
+      - name: Install ansible-lint custom rules
+        uses: actions/checkout@v4
+        with:
+          repository: ansible-middleware/ansible-lint-custom-rules
+          path: ansible-lint-custom-rules/
+
+      - name: Run linter
+        run: |
+          ansible-lint --version
+          ansible-lint -v
+        working-directory: ./ansible_collections/${{ inputs.fqcn }}
+
+  sanity:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python_version: ["3.12"]
+        ansible_version: ["stable-2.18", "stable-2.19", "stable-2.20"]
+        exclude: ${{ fromJSON(inputs.sanity_excludes) }}
+        include: ${{ fromJSON(inputs.sanity_includes) }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          path: ansible_collections/${{ inputs.fqcn }}
+
+      - name: Create default collection path
+        run: |
+          mkdir -p /home/runner/.ansible/
+          ln -s ${{ github.workspace }} /home/runner/.ansible/collections
+
+      - name: Set up Python ${{ matrix.python_version }}
+        uses: actions/setup-python@v5
+        if: matrix.python_version != '2.7'
+        with:
+          python-version: ${{ matrix.python_version }}
+          cache: "pip"
+
+      - name: Set up Python ${{ matrix.python_version }} virtualenv
+        if: matrix.python_version == '2.7'
+        run: |
+          sudo add-apt-repository universe
+          sudo apt update
+          sudo apt install -y python2
+          curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
+          sudo python2 get-pip.py
+          sudo apt install -y virtualenv
+          virtualenv -p python2 /home/runner/virtualenv/2.11
+          source /home/runner/virtualenv/2.11/bin/activate
+          pip install ansible-core==2.11
+
+      - name: Install ansible-core ${{ matrix.ansible_version }}
+        run: |
+          wget https://github.com/ansible/ansible/archive/${{ matrix.ansible_version }}.tar.gz
+          pip install ${{ matrix.ansible_version }}.tar.gz --disable-pip-version-check
+
+      - name: Run sanity tests
+        run: |
+          python -V
+          ansible-test sanity -v --color --requirements --python ${{ matrix.python_version }} --exclude molecule/ --exclude docs/conf.py --exclude changelogs/fragments/.gitignore --skip-test symlinks
+        working-directory: ./ansible_collections/${{ inputs.fqcn }}
+
+  molecule:
+    runs-on: ubuntu-22.04
+    if: ${{ inputs.molecule_tests != '[]' && inputs.molecule_tests != '' }}
+    strategy:
+      matrix:
+        python_version: ["3.12"]
+        ansible_version: ["2.18", "2.19", "2.20"]
+        molecule_test: ${{ fromJSON(inputs.molecule_tests) }}
+      fail-fast: ${{ inputs.fail_fast }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          path: ansible_collections/${{ inputs.fqcn }}
+
+      - name: Set up Python ${{ matrix.python_version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python_version }}
+          cache: 'pip'
+
+      - name: Install ansible and molecule
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 5
+          retry_wait_seconds: 60
+          max_attempts: 3
+          command: |
+            python -m pip install --upgrade pip
+            ansible_ver='${{ matrix.ansible_version }}'
+            ansible_next_ver="2.$((${ansible_ver#*.}+1))"
+            pip install --progress-bar off 'molecule>=24.2.0' 'molecule-plugins[docker]>=23.0.0' "ansible-core<${ansible_next_ver}"
+            if [ -f ansible_collections/${{ inputs.fqcn }}/requirements.txt ]; then
+              echo "=== Installing python deps"
+              pip install --progress-bar off -r ansible_collections/${{ inputs.fqcn }}/requirements.txt
+            fi
+            if [ -f ansible_collections/${{ inputs.fqcn }}/requirements.yml ]; then
+              echo "=== Installing dependencies"
+              ansible-galaxy collection install -r ansible_collections/${{ inputs.fqcn }}/requirements.yml -p /home/runner/.ansible/collections --force-with-deps
+            fi
+            if [ -f ansible_collections/${{ inputs.fqcn }}/molecule/requirements.yml ]; then
+              echo "=== Installing test dependencies"
+              ansible-galaxy role install -r ansible_collections/${{ inputs.fqcn }}/molecule/requirements.yml ||:
+              ansible-galaxy collection install -r ansible_collections/${{ inputs.fqcn }}/molecule/requirements.yml -p /home/runner/.ansible/collections
+            fi
+            exit 0
+
+      - name: Run molecule test
+        run: |
+          molecule --version
+          molecule test -s ${{ matrix.molecule_test }}
+        working-directory: ./ansible_collections/${{ inputs.fqcn }}
+        env:
+          ANSIBLE_VERBOSITY: ${{ inputs.debug_verbosity }}
+          PROD_JBOSSNETWORK_API_CLIENTID: '${{ secrets.PROD_JBOSSNETWORK_API_CLIENTID }}'
+          PROD_JBOSSNETWORK_API_SECRET: '${{ secrets.PROD_JBOSSNETWORK_API_SECRET }}'
+          STAGE_JBOSSNETWORK_API_CLIENTID: '${{ secrets.STAGE_JBOSSNETWORK_API_CLIENTID }}'
+          STAGE_JBOSSNETWORK_API_SECRET: '${{ secrets.STAGE_JBOSSNETWORK_API_SECRET }}'
+
+  molecule_current:
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    runs-on: molecule-2.18
+    strategy:
+      matrix:
+        python_version: ["3.12"]
+        molecule_test: ${{ fromJSON(inputs.podman_tests_current) }}
+      fail-fast: ${{ inputs.fail_fast }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          path: ansible_collections/${{ inputs.fqcn }}
+
+      - name: Ensure podman is available
+        run: |
+          if ! command -v podman &> /dev/null; then
+            echo "::warning::podman not found in PATH, attempting to install"
+            dnf install -y podman 2>/dev/null || sudo dnf install -y podman || {
+              echo "::error::Failed to install podman. The self-hosted runner image needs podman pre-installed."
+              exit 1
+            }
+          fi
+          echo "podman $(podman --version)"
+
+      - name: Initialize podman for current user
+        run: |
+          podman system migrate || true
+          podman info --format '{{.Host.Security.Rootless}}'
+
+      - name: Install ansible and molecule
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 5
+          retry_wait_seconds: 60
+          max_attempts: 3
+          command: |
+            python3.12 -m pip install --upgrade pip
+            if [ -f ansible_collections/${{ inputs.fqcn }}/requirements.txt ]; then
+              echo "=== Installing python deps"
+              python3.12 -m pip install --progress-bar off -r ansible_collections/${{ inputs.fqcn }}/requirements.txt
+            fi
+            if [ -f ansible_collections/${{ inputs.fqcn }}/requirements.yml ]; then
+              echo "=== Installing dependencies"
+              ansible-galaxy collection install -r ansible_collections/${{ inputs.fqcn }}/requirements.yml -p /home/runner/.ansible/collections --force-with-deps
+            fi
+            if [ -f ansible_collections/${{ inputs.fqcn }}/molecule/requirements.yml ]; then
+              echo "=== Installing test dependencies"
+              ansible-galaxy role install -r ansible_collections/${{ inputs.fqcn }}/molecule/requirements.yml ||:
+              ansible-galaxy collection install -r ansible_collections/${{ inputs.fqcn }}/molecule/requirements.yml -p /home/runner/.ansible/collections
+            fi
+            exit 0
+
+      - name: Run molecule test
+        run: |
+          molecule --version
+          molecule test -s ${{ matrix.molecule_test }}
+        working-directory: ./ansible_collections/${{ inputs.fqcn }}
+        env:
+          ANSIBLE_REMOTE_TMP: /tmp
+          ANSIBLE_VERBOSITY: ${{ inputs.debug_verbosity }}
+          PROD_JBOSSNETWORK_API_CLIENTID: '${{ secrets.PROD_JBOSSNETWORK_API_CLIENTID }}'
+          PROD_JBOSSNETWORK_API_SECRET: '${{ secrets.PROD_JBOSSNETWORK_API_SECRET }}'
+          STAGE_JBOSSNETWORK_API_CLIENTID: '${{ secrets.STAGE_JBOSSNETWORK_API_CLIENTID }}'
+          STAGE_JBOSSNETWORK_API_SECRET: '${{ secrets.STAGE_JBOSSNETWORK_API_SECRET }}'
+          PROXY: '10.88.0.1:3128'
+          NO_PROXY: 'localhost,.redhat.com,.ansible.com'
+
+  molecule_middle:
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    runs-on: molecule-2.19
+    strategy:
+      matrix:
+        python_version: ["3.12"]
+        molecule_test: ${{ fromJSON(inputs.podman_tests_middle) }}
+      fail-fast: ${{ inputs.fail_fast }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          path: ansible_collections/${{ inputs.fqcn }}
+
+      - name: Ensure podman is available
+        run: |
+          if ! command -v podman &> /dev/null; then
+            echo "::warning::podman not found in PATH, attempting to install"
+            dnf install -y podman 2>/dev/null || sudo dnf install -y podman || {
+              echo "::error::Failed to install podman. The self-hosted runner image needs podman pre-installed."
+              exit 1
+            }
+          fi
+          echo "podman $(podman --version)"
+
+      - name: Initialize podman for current user
+        run: |
+          podman system migrate || true
+          podman info --format '{{.Host.Security.Rootless}}'
+
+      - name: Install dependencies
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 5
+          retry_wait_seconds: 60
+          max_attempts: 3
+          command: |
+            python3.12 -m pip install --upgrade pip
+            if [ -f ansible_collections/${{ inputs.fqcn }}/requirements.txt ]; then
+              echo "=== Installing python deps"
+              python3.12 -m pip install --progress-bar off -r ansible_collections/${{ inputs.fqcn }}/requirements.txt
+            fi
+            if [ -f ansible_collections/${{ inputs.fqcn }}/requirements.yml ]; then
+              echo "=== Installing dependencies"
+              ansible-galaxy collection install -r ansible_collections/${{ inputs.fqcn }}/requirements.yml -p /home/runner/.ansible/collections --force-with-deps
+            fi
+            if [ -f ansible_collections/${{ inputs.fqcn }}/molecule/requirements.yml ]; then
+              echo "=== Installing test dependencies"
+              ansible-galaxy role install -r ansible_collections/${{ inputs.fqcn }}/molecule/requirements.yml ||:
+              ansible-galaxy collection install -r ansible_collections/${{ inputs.fqcn }}/molecule/requirements.yml -p /home/runner/.ansible/collections
+            fi
+            exit 0
+
+      - name: Run molecule test
+        run: |
+          molecule --version
+          molecule test -s ${{ matrix.molecule_test }}
+        working-directory: ./ansible_collections/${{ inputs.fqcn }}
+        env:
+          ANSIBLE_REMOTE_TMP: /tmp
+          ANSIBLE_VERBOSITY: ${{ inputs.debug_verbosity }}
+          PROD_JBOSSNETWORK_API_CLIENTID: '${{ secrets.PROD_JBOSSNETWORK_API_CLIENTID }}'
+          PROD_JBOSSNETWORK_API_SECRET: '${{ secrets.PROD_JBOSSNETWORK_API_SECRET }}'
+          STAGE_JBOSSNETWORK_API_CLIENTID: '${{ secrets.STAGE_JBOSSNETWORK_API_CLIENTID }}'
+          STAGE_JBOSSNETWORK_API_SECRET: '${{ secrets.STAGE_JBOSSNETWORK_API_SECRET }}'
+          PROXY: '10.88.0.1:3128'
+          NO_PROXY: 'localhost,.redhat.com,.ansible.com'
+
+  molecule_next:
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false }}
+    runs-on: molecule-2.20
+    strategy:
+      matrix:
+        python_version: ["3.12"]
+        molecule_test: ${{ fromJSON(inputs.podman_tests_next) }}
+      fail-fast: ${{ inputs.fail_fast }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          path: ansible_collections/${{ inputs.fqcn }}
+
+      - name: Ensure podman is available
+        run: |
+          if ! command -v podman &> /dev/null; then
+            echo "::warning::podman not found in PATH, attempting to install"
+            dnf install -y podman 2>/dev/null || sudo dnf install -y podman || {
+              echo "::error::Failed to install podman. The self-hosted runner image needs podman pre-installed."
+              exit 1
+            }
+          fi
+          echo "podman $(podman --version)"
+
+      - name: Initialize podman for current user
+        run: |
+          podman system migrate || true
+          podman info --format '{{.Host.Security.Rootless}}'
+
+      - name: Install dependencies
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 5
+          retry_wait_seconds: 60
+          max_attempts: 3
+          command: |
+            python3.12 -m pip install --upgrade pip
+            if [ -f ansible_collections/${{ inputs.fqcn }}/requirements.txt ]; then
+              echo "=== Installing python deps"
+              python3.12 -m pip install --progress-bar off -r ansible_collections/${{ inputs.fqcn }}/requirements.txt
+            fi
+            if [ -f ansible_collections/${{ inputs.fqcn }}/requirements.yml ]; then
+              echo "=== Installing dependencies"
+              ansible-galaxy collection install -r ansible_collections/${{ inputs.fqcn }}/requirements.yml -p /home/runner/.ansible/collections --force-with-deps
+            fi
+            if [ -f ansible_collections/${{ inputs.fqcn }}/molecule/requirements.yml ]; then
+              echo "=== Installing test dependencies"
+              ansible-galaxy role install -r ansible_collections/${{ inputs.fqcn }}/molecule/requirements.yml ||:
+              ansible-galaxy collection install -r ansible_collections/${{ inputs.fqcn }}/molecule/requirements.yml -p /home/runner/.ansible/collections
+            fi
+            exit 0
+
+      - name: Run molecule test
+        run: |
+          molecule --version
+          molecule test -s ${{ matrix.molecule_test }}
+        working-directory: ./ansible_collections/${{ inputs.fqcn }}
+        env:
+          ANSIBLE_REMOTE_TMP: /tmp
+          ANSIBLE_VERBOSITY: ${{ inputs.debug_verbosity }}
+          PROD_JBOSSNETWORK_API_CLIENTID: '${{ secrets.PROD_JBOSSNETWORK_API_CLIENTID }}'
+          PROD_JBOSSNETWORK_API_SECRET: '${{ secrets.PROD_JBOSSNETWORK_API_SECRET }}'
+          STAGE_JBOSSNETWORK_API_CLIENTID: '${{ secrets.STAGE_JBOSSNETWORK_API_CLIENTID }}'
+          STAGE_JBOSSNETWORK_API_SECRET: '${{ secrets.STAGE_JBOSSNETWORK_API_SECRET }}'
+          PROXY: '10.88.0.1:3128'
+          NO_PROXY: 'localhost,.redhat.com,.ansible.com'

@@ -12,7 +12,7 @@ Role Defaults
 |:---------|:------------|:--------|
 |`keycloak_admin_user`| Administration console user account | `admin` |
 |`keycloak_host`| hostname | `localhost` |
-|`keycloak_context`| Context path for rest calls | `/auth` |
+|`keycloak_context`| Context path for rest calls (set to `/auth` for legacy WildFly-based Keycloak) | `` |
 |`keycloak_http_port`| HTTP port | `8080` |
 |`keycloak_https_port`| TLS HTTP port | `8443` |
 |`keycloak_auth_realm`| Name of the main authentication realm | `master` |
@@ -107,6 +107,20 @@ Refer to [docs](https://docs.ansible.com/ansible/latest/collections/community/ge
 For a comprehensive example, refer to the [playbook](../../playbooks/keycloak_realm.yml).
 
 
+Related Modules
+---------------
+
+For features not covered by this role, the collection provides dedicated modules:
+
+| Module | What It Manages |
+|:-------|:----------------|
+| `keycloak_client_scope` | Client scopes and protocol mappers — see [example playbook](../../playbooks/keycloak_client_scope.yml) |
+| `keycloak_authentication_flow` | Authentication flows and execution steps — see [example playbook](../../playbooks/keycloak_authentication_flow.yml) |
+| `keycloak_client` | Clients (also used internally by this role) |
+| `keycloak_role` | Realm and client roles |
+| `keycloak_user_federation` | User federations such as LDAP (also used internally by this role) |
+
+
 Example Playbook
 ----------------
 
@@ -125,6 +139,47 @@ The following is an example playbook that makes use of the role to create a real
             keycloak_admin_password: "changeme"
             keycloak_realm: TestRealm
             keycloak_clients: [...]
+```
+
+The following example uses the `keycloak_client_scope` module to create a client scope with protocol mappers:
+
+```yaml
+- name: Create client scope
+  middleware_automation.keycloak.keycloak_client_scope:
+    auth_keycloak_url: http://localhost:8080
+    auth_realm: master
+    auth_username: admin
+    auth_password: changeme
+    realm: TestRealm
+    name: my-scope
+    protocol_mappers:
+      - name: email
+        protocolMapper: oidc-usermodel-attribute-mapper
+        config:
+          user.attribute: email
+          claim.name: email
+          id.token.claim: "true"
+          access.token.claim: "true"
+    state: present
+```
+
+The following example uses the `keycloak_authentication_flow` module to create a custom authentication flow:
+
+```yaml
+- name: Create authentication flow
+  middleware_automation.keycloak.keycloak_authentication_flow:
+    auth_keycloak_url: http://localhost:8080
+    auth_realm: master
+    auth_username: admin
+    auth_password: changeme
+    realm: TestRealm
+    alias: my-browser-flow
+    executions:
+      - provider_id: auth-cookie
+        requirement: ALTERNATIVE
+      - provider_id: auth-password
+        requirement: REQUIRED
+    state: present
 ```
 
 

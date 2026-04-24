@@ -15,6 +15,11 @@ Major Changes
 - AMW-467 Download keycloak binary from password protected HTTP location `#321 <https://github.com/ansible-middleware/keycloak/pull/321>`_
 - v26.4.x compability `#317 <https://github.com/ansible-middleware/keycloak/pull/317>`_
 
+Minor Changes
+-------------
+
+- AMW-518 Validating arguments against arg spec 'main' fails unexpectedly. `#324 <https://github.com/ansible-middleware/keycloak/pull/324>`_
+
 Bugfixes
 --------
 

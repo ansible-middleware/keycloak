@@ -16,8 +16,8 @@
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="_static/documentation_options.js?v=5929fcd5"></script>
-      <script src="_static/doctools.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -51,6 +51,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#installing-the-collection-from-ansible-galaxy">Installing the Collection from Ansible Galaxy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#included-roles">Included roles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#included-modules">Included modules</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a><ul>
@@ -63,7 +64,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#config-playbook">Config Playbook</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#config-playbooks">Config Playbooks</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#example-configuration-command">Example configuration command</a></li>
 </ul>
 </li>
@@ -171,6 +172,17 @@
 </ul>
 <!--end roles_paths -->
 </section>
+<section id="included-modules">
+<h3>Included modules<a class="headerlink" href="#included-modules" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm</span></code>: module for managing Keycloak realms (create/update/delete).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_client</span></code>: module for managing Keycloak clients (create/update/delete).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_role</span></code>: module for managing Keycloak roles — realm roles and client roles (create/update/delete).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_user_federation</span></code>: module for managing user federations such as LDAP/AD (create/update/delete).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_client_scope</span></code>: module for managing client scopes and protocol mappers (create/update/delete).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_authentication_flow</span></code>: module for managing authentication flows and execution steps (create/delete, copy existing flows).</p></li>
+</ul>
+</section>
 </section>
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
@@ -219,11 +231,18 @@ the download tasks. The local path for the archive does match the downloaded arc
 </section>
 <section id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
-<section id="config-playbook">
-<h3>Config Playbook<a class="headerlink" href="#config-playbook" title="Link to this heading"></a></h3>
+<section id="config-playbooks">
+<h3>Config Playbooks<a class="headerlink" href="#config-playbooks" title="Link to this heading"></a></h3>
 <!--start rhbk_realm_playbook -->
-<p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_realm.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak_realm.yml</span></code></a> creates or updates provided realm, user federation(s), client(s), client role(s) and client user(s).</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_realm.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak_realm.yml</span></code></a> creates or updates provided realm, user federation(s), client(s), client role(s) and client user(s).</p></li>
+</ul>
 <!--end rhbk_realm_playbook -->
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_realm_client.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak_realm_client.yml</span></code></a> creates a realm with clients, roles and users using the <code class="docutils literal notranslate"><span class="pre">keycloak_realm</span></code> role.</p></li>
+<li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_client_scope.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak_client_scope.yml</span></code></a> creates a client scope with protocol mappers using the <code class="docutils literal notranslate"><span class="pre">keycloak_client_scope</span></code> module.</p></li>
+<li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_authentication_flow.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak_authentication_flow.yml</span></code></a> creates a custom authentication flow with execution steps using the <code class="docutils literal notranslate"><span class="pre">keycloak_authentication_flow</span></code> module.</p></li>
+</ul>
 </section>
 <section id="example-configuration-command">
 <h3>Example configuration command<a class="headerlink" href="#example-configuration-command" title="Link to this heading"></a></h3>

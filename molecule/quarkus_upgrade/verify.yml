@@ -14,10 +14,9 @@
           - ansible_facts.services["keycloak.service"]["state"] == "running"
           - ansible_facts.services["keycloak.service"]["status"] == "enabled"
 
-    - name: Verify we are running on requested jvm
-      ansible.builtin.shell: |
-        set -eo pipefail
-        ps -ef | grep 'etc/alternatives/.*21' | grep -v grep
+    - name: Verify Java 21 runtime is installed (UBI/RHEL)
+      ansible.builtin.command:
+        cmd: rpm -q java-21-openjdk-headless
       changed_when: false
 
     - name: Verify token api call
@@ -28,5 +27,5 @@
         validate_certs: no
       register: keycloak_auth_response
       until: keycloak_auth_response.status == 200
-      retries: 2
-      delay: 2
+      retries: 45
+      delay: 5

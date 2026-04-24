@@ -49,6 +49,7 @@ options:
 
     description:
         type: str
+        default: ''
         description:
             - Description of the client scope.
 
@@ -179,7 +180,6 @@ end_state:
 from ansible_collections.middleware_automation.keycloak.plugins.module_utils.identity.keycloak.keycloak import KeycloakAPI, \
     keycloak_argument_spec, get_token, KeycloakError
 from ansible.module_utils.basic import AnsibleModule
-import copy
 
 
 def main():

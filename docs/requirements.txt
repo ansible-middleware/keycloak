@@ -1,3 +1,5 @@
+# ansible_basic_sphinx_ext still imports pkg_resources (removed in setuptools 82+).
+setuptools>=70.0.0,<81.0.0
 antsibull>=0.17.0
 antsibull-docs
 antsibull-changelog

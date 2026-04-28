@@ -97,6 +97,15 @@
     mode: '0775'
   become: true
 
+- name: Ensure tmp-directory exists
+  ansible.builtin.file:
+    state: directory
+    path: "{{ keycloak.home }}/data/tmp"
+    owner: "{{ keycloak.service_user }}"
+    group: "{{ keycloak.service_group }}"
+    mode: '0755'
+  become: true
+
 - name: Flush pending handlers
   ansible.builtin.meta: flush_handlers
 

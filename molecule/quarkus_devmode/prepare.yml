@@ -1,6 +1,8 @@
 ---
 - name: Prepare
   hosts: all
+  vars_files:
+    - ../group_vars/all/vars.yml
   tasks:
     - name: Install sudo
       ansible.builtin.apt:
@@ -15,7 +17,7 @@
       ansible.builtin.include_tasks: ../prepare.yml
 
     - name: Install JDK17
-      become: yes
+      become: "{{ molecule_prepare_require_privilege_escalation }}"
       ansible.builtin.yum:
         name:
           - java-17-openjdk-headless
@@ -24,7 +26,7 @@
         - ansible_facts.os_family == 'RedHat'
 
     - name: Link default logs directory
-      become: yes
+      become: "{{ molecule_prepare_require_privilege_escalation }}"
       ansible.builtin.file:
         state: link
         src: "{{ item }}"

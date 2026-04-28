@@ -5,7 +5,7 @@
     enabled: true
     state: restarted
     daemon_reload: true
-  become: true
+  become: "{{ keycloak_quarkus_restart_require_privilege_escalation }}"
 
 - name: "Wait until {{ keycloak.service_name }} service becomes active {{ keycloak.health_url }}"
   ansible.builtin.uri:

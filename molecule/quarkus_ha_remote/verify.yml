@@ -1,6 +1,8 @@
 ---
 - name: Verify
   hosts: keycloak
+  vars_files:
+    - ../group_vars/all/vars.yml
   tasks:
     - name: Populate service facts
       ansible.builtin.service_facts:
@@ -17,7 +19,7 @@
         hera_home: "{{ lookup('env', 'HERA_HOME') }}"
 
     - name: Check log file
-      become: true
+      become: "{{ molecule_prepare_require_privilege_escalation }}"
       ansible.builtin.stat:
         path: /var/log/keycloak/keycloak.log
       register: keycloak_log_file

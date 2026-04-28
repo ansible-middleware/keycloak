@@ -1,6 +1,8 @@
 ---
 - name: Converge
   hosts: keycloak
+  vars_files:
+    - ../group_vars/all/vars.yml
   vars:
     keycloak_quarkus_show_deprecation_warnings: false
     keycloak_quarkus_bootstrap_admin_password: "remembertochangeme"

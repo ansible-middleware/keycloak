@@ -15,16 +15,11 @@ on:
 
 jobs:
   ci:
-    uses: ./.github/workflows/cish-keycloak.yml
+    uses: ansible-middleware/github-actions/.github/workflows/ci.yml@rootperm
     secrets: inherit
     with:
       fqcn: 'middleware_automation/keycloak'
+      root_permission_varname: 'keycloak_install_requires_become'
       debug_verbosity: "${{ github.event.inputs.debug_verbosity }}"
       molecule_tests: >-
-        [ "debian", "quarkus", "quarkus_ha", "quarkus_ha_remote", "quarkus_ha_26.4_below" ]
-      podman_tests_current: >-
-        [ "default", "quarkus_devmode", "quarkus_upgrade" ]
-      podman_tests_middle: >-
-        [ "default", "quarkus_devmode", "quarkus_upgrade" ]
-      podman_tests_next: >-
-        [ "default", "quarkus_devmode", "quarkus_upgrade" ]
+        [ "debian", "quarkus", "quarkus_ha", "quarkus_ha_remote", "quarkus_ha_26.4_below", "default", "quarkus_devmode", "quarkus_upgrade" ]

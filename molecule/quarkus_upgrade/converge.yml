@@ -2,6 +2,7 @@
 - name: Converge
   hosts: all
   vars_files:
+    - ../group_vars/all/vars.yml
     - vars.yml
   vars:
     keycloak_quarkus_show_deprecation_warnings: false

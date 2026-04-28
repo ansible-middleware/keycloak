@@ -1,6 +1,10 @@
 ---
 - name: Converge
   hosts: infinispan
+  vars_files:
+    - ../group_vars/all/vars.yml
+  vars:
+    ansible_become: "{{ keycloak_install_requires_become | default(true) }}"
   roles:
     - role: middleware_automation.infinispan.infinispan
       infinispan_service_name: infinispan
@@ -18,6 +22,8 @@
 
 - name: Converge
   hosts: keycloak
+  vars_files:
+    - ../group_vars/all/vars.yml
   vars:
     keycloak_quarkus_show_deprecation_warnings: false
     keycloak_quarkus_bootstrap_admin_password: "remembertochangeme"

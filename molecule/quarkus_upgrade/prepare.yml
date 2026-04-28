@@ -2,6 +2,7 @@
 - name: Prepare
   hosts: all
   vars_files:
+    - ../group_vars/all/vars.yml
     - vars.yml
   vars:
     sudo_pkg_name: sudo
@@ -55,4 +56,4 @@
       ansible.builtin.file:
         path: /etc/ansible/facts.d/keycloak.fact
         state: absent
-      become: true
+      become: "{{ molecule_prepare_require_privilege_escalation }}"

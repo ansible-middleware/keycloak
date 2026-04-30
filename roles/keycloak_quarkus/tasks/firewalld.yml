@@ -6,14 +6,14 @@
       - firewalld
 
 - name: Enable and start the firewalld service
-  become: true
+  become: "{{ keycloak_quarkus_firewalld_require_privilege_escalation }}"
   ansible.builtin.systemd:
     name: firewalld
     enabled: true
     state: started
 
 - name: "Configure firewall for {{ keycloak.service_name }} http port"
-  become: true
+  become: "{{ keycloak_quarkus_firewalld_require_privilege_escalation }}"
   ansible.posix.firewalld:
     port: "{{ item }}"
     permanent: true
@@ -24,7 +24,7 @@
   when: keycloak_quarkus_http_enabled | bool
 
 - name: "Configure firewall for {{ keycloak.service_name }} ports"
-  become: true
+  become: "{{ keycloak_quarkus_firewalld_require_privilege_escalation }}"
   ansible.posix.firewalld:
     port: "{{ item }}"
     permanent: true

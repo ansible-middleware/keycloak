@@ -1,6 +1,8 @@
 ---
 - name: Prepare
   hosts: keycloak
+  vars_files:
+    - ../group_vars/all/vars.yml
   tasks:
     - name: "Display hera_home if defined."
       ansible.builtin.set_fact:
@@ -17,7 +19,7 @@
       changed_when: False
 
     - name: Create vault directory
-      become: true
+      become: "{{ molecule_prepare_require_privilege_escalation }}"
       ansible.builtin.file:
         state: directory
         path: "/opt/keycloak/vault"
@@ -28,7 +30,7 @@
       ansible.builtin.package:
         name: "{{ 'java-17-openjdk-headless' if hera_home | length > 0 else 'openjdk-17-jdk-headless' }}"
         state: present
-      become: true
+      become: "{{ molecule_prepare_require_privilege_escalation }}"
       failed_when: false
 
     - name: Create vault keystore
@@ -39,7 +41,7 @@
       failed_when: not 'already exists' in keytool_cmd.stdout and keytool_cmd.rc != 0
 
     - name: Copy certificates and vault
-      become: true
+      become: "{{ molecule_prepare_require_privilege_escalation }}"
       ansible.builtin.copy:
         src: keystore.p12
         dest: /opt/keycloak/vault/keystore.p12

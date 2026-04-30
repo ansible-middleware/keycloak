@@ -1,6 +1,8 @@
 ---
 - name: Verify
   hosts: all
+  vars_files:
+    - ../group_vars/all/vars.yml
   vars:
     keycloak_quarkus_bootstrap_admin_password: "remembertochangeme"
     keycloak_quarkus_bootstrap_admin_user: "remembertochangeme"
@@ -56,7 +58,7 @@
         fail_msg: "Service log symlink not correctly created"
 
     - name: Check log file
-      become: true
+      become: "{{ molecule_prepare_require_privilege_escalation }}"
       ansible.builtin.stat:
         path: /tmp/keycloak/keycloak.log
       register: keycloak_log_file
@@ -68,7 +70,7 @@
           - not keycloak_log_file.stat.isdir
 
     - name: Check default log folder
-      become: yes
+      become: "{{ molecule_prepare_require_privilege_escalation }}"
       ansible.builtin.stat:
         path: /var/log/keycloak
       register: keycloak_default_log_folder
@@ -80,7 +82,7 @@
           - not keycloak_default_log_folder.stat.exists
 
     - name: Verify vault SPI in logfile
-      become: true
+      become: "{{ molecule_prepare_require_privilege_escalation }}"
       ansible.builtin.shell: |
         set -o pipefail
         zgrep 'Configured KeystoreVaultProviderFactory with the keystore file' /opt/keycloak/keycloak-*/data/log/keycloak.log*zip

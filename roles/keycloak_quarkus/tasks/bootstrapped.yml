@@ -1,6 +1,6 @@
 ---
 - name: Save ansible custom facts
-  become: true
+  become: "{{ keycloak_quarkus_bootstrapped_require_privilege_escalation }}"
   ansible.builtin.template:
     src: keycloak.fact.j2
     dest: /etc/ansible/facts.d/keycloak.fact

@@ -4,4 +4,4 @@
     name: keycloak
     enabled: true
     state: stopped
-  become: true
+  become: "{{ keycloak_stop_require_privilege_escalation }}"

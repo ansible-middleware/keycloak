@@ -1,6 +1,8 @@
 ---
 - name: Converge
   hosts: all
+  vars_files:
+    - ../group_vars/all/vars.yml
   vars:
     keycloak_admin_password: "remembertochangeme"
     keycloak_config_override_template: custom.xml.j2

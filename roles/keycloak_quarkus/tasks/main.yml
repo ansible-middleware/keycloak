@@ -82,7 +82,7 @@
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
     mode: '0640'
-  become: true
+  become: "{{ keycloak_quarkus_require_privilege_escalation }}"
   loop: "{{ keycloak_quarkus_config_files }}" 
   notify:
     - rebuild keycloak config
@@ -95,7 +95,7 @@
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
     mode: '0775'
-  become: true
+  become: "{{ keycloak_quarkus_require_privilege_escalation }}"
 
 - name: Ensure tmp-directory exists
   ansible.builtin.file:
@@ -104,7 +104,7 @@
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
     mode: '0755'
-  become: true
+  become: "{{ keycloak_quarkus_require_privilege_escalation }}"
 
 - name: Flush pending handlers
   ansible.builtin.meta: flush_handlers
@@ -118,7 +118,7 @@
     src: "{{ keycloak.log.file | dirname }}"
     dest: "{{ keycloak_quarkus_log_target }}"
     force: true
-  become: true
+  become: "{{ keycloak_quarkus_require_privilege_escalation }}"
 
 - name: Check service status
   ansible.builtin.systemd_service:

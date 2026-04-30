@@ -16,5 +16,5 @@
         enabled: true
         state: restarted
         daemon_reload: true
-      become: true
+      become: "{{ keycloak_quarkus_restart_require_privilege_escalation }}"
       when: inventory_hostname != ansible_play_hosts | first

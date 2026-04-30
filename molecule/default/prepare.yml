@@ -1,6 +1,8 @@
 ---
 - name: Prepare
   hosts: all
+  vars_files:
+    - ../group_vars/all/vars.yml
   gather_facts: yes
   vars:
     sudo_pkg_name: sudo

@@ -25,11 +25,12 @@
     fail_msg: "sudo is not installed on target system"
 
 - name: "Install iproute"
-  become: true
   ansible.builtin.yum:
     name:
       - iproute
     state: present
+  when:
+    - ansible_user_id == 'root'
 
 - name: "Retrieve assets server from env"
   ansible.builtin.set_fact:

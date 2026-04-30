@@ -98,6 +98,10 @@ vault-type={{ keycloak_quarkus_ks_vault_type }}
 vault-pass={{ keycloak_quarkus_ks_vault_pass }}
 {% endif %}
 
+# Features
+{% if keycloak_quarkus_features is defined and keycloak_quarkus_features %}
+features={{ keycloak_quarkus_features | join(', ') }}
+{% endif %}
 
 # Providers
 {% for provider in keycloak_quarkus_providers %}

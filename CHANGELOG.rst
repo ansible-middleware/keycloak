@@ -6,6 +6,25 @@ middleware\_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v3.0.4
+======
+
+Major Changes
+-------------
+
+- AMW-467 Download keycloak binary from password protected HTTP location `#321 <https://github.com/ansible-middleware/keycloak/pull/321>`_
+- v26.4.x compability `#317 <https://github.com/ansible-middleware/keycloak/pull/317>`_
+
+Minor Changes
+-------------
+
+- AMW-518 Validating arguments against arg spec 'main' fails unexpectedly. `#324 <https://github.com/ansible-middleware/keycloak/pull/324>`_
+
+Bugfixes
+--------
+
+- Removing parseable from lint file as Additional properties are not allowed `#319 <https://github.com/ansible-middleware/keycloak/pull/319>`_
+
 v3.0.3
 ======
 

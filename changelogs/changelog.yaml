@@ -755,3 +755,29 @@ releases:
     - 310.yaml
     - 312.yaml
     release_date: '2025-12-16'
+  3.0.4:
+    changes:
+      bugfixes:
+      - 'Removing parseable from lint file as Additional properties are not allowed
+        `#319 <https://github.com/ansible-middleware/keycloak/pull/319>`_
+
+        '
+      major_changes:
+      - 'AMW-467 Download keycloak binary from password protected HTTP location `#321
+        <https://github.com/ansible-middleware/keycloak/pull/321>`_
+
+        '
+      - 'v26.4.x compability `#317 <https://github.com/ansible-middleware/keycloak/pull/317>`_
+
+        '
+      minor_changes:
+      - 'AMW-518 Validating arguments against arg spec ''main'' fails unexpectedly.
+        `#324 <https://github.com/ansible-middleware/keycloak/pull/324>`_
+
+        '
+    fragments:
+    - 317.yaml
+    - 319.yaml
+    - 321.yaml
+    - 324.yaml
+    release_date: '2026-05-20'

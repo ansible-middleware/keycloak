@@ -146,8 +146,19 @@ ansible-playbook -i <ansible_hosts> playbooks/keycloak_realm.yml -e keycloak_adm
 For full configuration details, refer to the [keycloak_realm role README](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak_realm/README.md).
 <!--end rhbk_realm_readme -->
 
+
+## Support
+
 <!--start support -->
+
+For bug reports and feature requests, use [GitHub Issues](https://github.com/ansible-middleware/keycloak/issues).
+
 <!--end support -->
+
+
+## Release and Upgrade Notes
+
+For details on changes between versions, please see the [CHANGELOG](https://github.com/ansible-middleware/keycloak/blob/main/CHANGELOG.rst) for this collection.
 
 
 ## License

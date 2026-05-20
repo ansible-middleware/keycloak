@@ -6,6 +6,14 @@ middleware\_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v3.0.5
+======
+
+Minor Changes
+-------------
+
+- AMW-528 Deployment fails in keycloak_quarkus due to missing escalation variables `#335 <https://github.com/ansible-middleware/keycloak/pull/335>`_
+
 v3.0.4
 ======
 

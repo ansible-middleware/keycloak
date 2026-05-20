@@ -781,3 +781,13 @@ releases:
     - 321.yaml
     - 324.yaml
     release_date: '2026-05-20'
+  3.0.5:
+    changes:
+      minor_changes:
+      - 'AMW-528 Deployment fails in keycloak_quarkus due to missing escalation variables
+        `#335 <https://github.com/ansible-middleware/keycloak/pull/335>`_
+
+        '
+    fragments:
+    - 335.yaml
+    release_date: '2026-05-20'

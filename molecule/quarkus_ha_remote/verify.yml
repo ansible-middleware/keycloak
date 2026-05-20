@@ -19,7 +19,7 @@
         hera_home: "{{ lookup('env', 'HERA_HOME') }}"
 
     - name: Check log file
-      become: "{{ molecule_prepare_require_privilege_escalation }}"
+      become: "{{ molecule_prepare_require_privilege_escalation | default(true) }}"
       ansible.builtin.stat:
         path: /var/log/keycloak/keycloak.log
       register: keycloak_log_file

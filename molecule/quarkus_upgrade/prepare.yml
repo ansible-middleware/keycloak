@@ -56,4 +56,4 @@
       ansible.builtin.file:
         path: /etc/ansible/facts.d/keycloak.fact
         state: absent
-      become: "{{ molecule_prepare_require_privilege_escalation }}"
+      become: "{{ molecule_prepare_require_privilege_escalation | default(true) }}"

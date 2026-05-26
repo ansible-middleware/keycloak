@@ -791,3 +791,13 @@ releases:
     fragments:
     - 335.yaml
     release_date: '2026-05-20'
+  3.0.6:
+    changes:
+      major_changes:
+      - 'AMW-540 Fix the upstream collection requirements with common v1.2.4 `#337
+        <https://github.com/ansible-middleware/keycloak/pull/337>`_
+
+        '
+    fragments:
+    - 337.yaml
+    release_date: '2026-05-26'

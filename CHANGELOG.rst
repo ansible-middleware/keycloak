@@ -6,6 +6,14 @@ middleware\_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v3.0.6
+======
+
+Major Changes
+-------------
+
+- AMW-540 Fix the upstream collection requirements with common v1.2.4 `#337 <https://github.com/ansible-middleware/keycloak/pull/337>`_
+
 v3.0.5
 ======
 

@@ -91,7 +91,7 @@
     - not keycloak.offline_install
     - not rhbk_enable is defined or not rhbk_enable
 
-- name: Perform download from RHN using JBoss Network API
+- name: Perform download from RHN using the Unified Downloads API
   delegate_to: localhost
   run_once: true
   when:
@@ -102,7 +102,7 @@
     - not keycloak.offline_install
     - keycloak_quarkus_alternate_download_url is undefined
   block:
-    - name: Retrieve product download using JBoss Network API
+    - name: Retrieve product download using Unified Downloads API
       middleware_automation.common.product_search:
         client_id: "{{ rhn_username }}"
         client_secret: "{{ rhn_password }}"
@@ -116,7 +116,7 @@
 
     - name: Determine install zipfile from search results
       ansible.builtin.set_fact:
-        rhn_filtered_products: "{{ rhn_products.results | selectattr('file_path', 'match', '[^/]*/' + rhbk_archive + '$') }}"
+        rhn_filtered_products: "{{ rhn_products.results | selectattr('file_name', 'match', '[^/]*/' + rhbk_archive + '$') }}"
       delegate_to: localhost
       run_once: true
 

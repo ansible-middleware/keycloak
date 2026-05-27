@@ -563,6 +563,6 @@ argument_specs:
                 description: "Red Hat Build of Keycloak patch archive filename"
                 type: "str"
             rhbk_product_category:
-                default: "rhbk"
+                default: "RHBK"
                 description: "JBossNetwork API category for Red Hat Build of Keycloak"
                 type: "str"

@@ -11,12 +11,13 @@
       infinispan_supervisor_password: remembertochangeme
       infinispan_keycloak_caches: true
       infinispan_keycloak_persistence: False
+      infinispan_jgroups_discovery: TCPPING
       infinispan_jdbc_engine: postgres
       infinispan_jdbc_url: jdbc:postgresql://postgres:5432/keycloak
       infinispan_jdbc_driver_version: 9.4.1212
       infinispan_jdbc_user: keycloak
       infinispan_jdbc_pass: mysecretpass
-      infinispan_bind_address: "{{ ansible_default_ipv4.address }}"
+      infinispan_bind_address: 0.0.0.0
       infinispan_users:
         - { name: 'testuser', password: 'test', roles: 'observer' }
 

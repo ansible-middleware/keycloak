@@ -18,6 +18,7 @@
       infinispan_jdbc_user: keycloak
       infinispan_jdbc_pass: mysecretpass
       infinispan_bind_address: 0.0.0.0
+      infinispan_jvm_package: java-21-openjdk-headless
       infinispan_users:
         - { name: 'testuser', password: 'test', roles: 'observer' }
 

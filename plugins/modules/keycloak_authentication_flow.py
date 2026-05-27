@@ -105,6 +105,7 @@ options:
 
 extends_documentation_fragment:
     - middleware_automation.keycloak.keycloak
+    - middleware_automation.keycloak.actiongroup_keycloak
     - middleware_automation.keycloak.attributes
 
 author:

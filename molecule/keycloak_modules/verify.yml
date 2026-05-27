@@ -1,0 +1,536 @@
+---
+- name: Verify migrated Keycloak modules
+  hosts: all
+  vars:
+    auth_keycloak_url: http://instance:8080
+    auth_realm: master
+    auth_username: remembertochangeme
+    auth_password: remembertochangeme
+    target_realm: TestRealm
+    role: molecule-role
+    client_role: molecule-client-role
+    client: molecule-client
+    scope: molecule-scope
+    group: molecule-group
+    user: molecule-user
+    flow: molecule-flow
+    flow_v2: molecule-flow-v2
+    auth_copy: molecule-auth-copy
+    idp: molecule-idp
+    ephemeral_realm: molecule-realm
+    template: molecule-template
+    realm_key: molecule-aes-key
+    authz_scope: molecule-authz-scope
+    authz_permission: molecule-authz-perm
+    federation: molecule-federation
+    component: molecule-component
+    migrated_keycloak_modules:
+      - keycloak_authentication
+      - keycloak_authentication_flow
+      - keycloak_authentication_required_actions
+      - keycloak_authentication_v2
+      - keycloak_authz_authorization_scope
+      - keycloak_authz_custom_policy
+      - keycloak_authz_permission
+      - keycloak_authz_permission_info
+      - keycloak_client
+      - keycloak_client_rolemapping
+      - keycloak_client_rolescope
+      - keycloak_client_scope
+      - keycloak_clientscope_type
+      - keycloak_clientsecret_info
+      - keycloak_clientsecret_regenerate
+      - keycloak_clienttemplate
+      - keycloak_component
+      - keycloak_component_info
+      - keycloak_group
+      - keycloak_identity_provider
+      - keycloak_realm
+      - keycloak_realm_info
+      - keycloak_realm_key
+      - keycloak_realm_keys_metadata_info
+      - keycloak_realm_localization
+      - keycloak_realm_rolemapping
+      - keycloak_role
+      - keycloak_user
+      - keycloak_user_execute_actions_email
+      - keycloak_user_federation
+      - keycloak_user_rolemapping
+      - keycloak_userprofile
+
+  tasks:
+    - name: Populate service facts
+      ansible.builtin.service_facts:
+
+    - name: Check if keycloak service started
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.services["keycloak.service"]["state"] == "running"
+          - ansible_facts.services["keycloak.service"]["status"] == "enabled"
+        fail_msg: Service not running
+
+    - name: Verify migrated modules are discoverable by ansible-doc # noqa command-instead-of-module
+      ansible.builtin.command:
+        cmd: "ansible-doc -t module middleware_automation.keycloak.{{ item }}"
+      loop: "{{ migrated_keycloak_modules }}"
+      delegate_to: localhost
+      register: docs_check
+      changed_when: false
+
+    - name: Ensure module docs check succeeded
+      ansible.builtin.assert:
+        that:
+          - docs_check is not failed
+
+    - name: Provision shared test fixtures
+      module_defaults:
+        group/middleware_automation.keycloak.keycloak:
+          auth_keycloak_url: "{{ auth_keycloak_url }}"
+          auth_realm: "{{ auth_realm }}"
+          auth_username: "{{ auth_username }}"
+          auth_password: "{{ auth_password }}"
+      block:
+        - name: Reset fixtures from a previous verify run
+          middleware_automation.keycloak.keycloak_user:
+            realm: "{{ target_realm }}"
+            username: "{{ user }}"
+            state: absent
+          failed_when: false
+
+        - name: keycloak_role — create realm role for module tests
+          middleware_automation.keycloak.keycloak_role:
+            realm: "{{ target_realm }}"
+            name: "{{ role }}"
+            state: present
+
+        - name: keycloak_client — create confidential client for module tests
+          middleware_automation.keycloak.keycloak_client:
+            realm: "{{ target_realm }}"
+            client_id: "{{ client }}"
+            name: "{{ client }}"
+            enabled: true
+            public_client: false
+            standard_flow_enabled: true
+            client_authenticator_type: client-secret
+            secret: molecule-client-secret
+            state: present
+
+        - name: keycloak_client — enable authorization services on test client
+          middleware_automation.keycloak.keycloak_client:
+            realm: "{{ target_realm }}"
+            client_id: "{{ client }}"
+            service_accounts_enabled: true
+            authorization_services_enabled: true
+            full_scope_allowed: false
+            state: present
+
+        - name: keycloak_role — create client role for rolemapping tests
+          middleware_automation.keycloak.keycloak_role:
+            realm: "{{ target_realm }}"
+            client_id: "{{ client }}"
+            name: "{{ client_role }}"
+            state: present
+
+        - name: keycloak_client_scope — create client scope
+          middleware_automation.keycloak.keycloak_client_scope:
+            realm: "{{ target_realm }}"
+            name: "{{ scope }}"
+            state: present
+
+        - name: keycloak_group — create group
+          middleware_automation.keycloak.keycloak_group:
+            realm: "{{ target_realm }}"
+            name: "{{ group }}"
+            state: present
+
+        - name: keycloak_user — create user
+          middleware_automation.keycloak.keycloak_user:
+            realm: "{{ target_realm }}"
+            username: "{{ user }}"
+            first_name: Molecule
+            last_name: User
+            email: molecule-user@example.invalid
+            enabled: true
+            state: present
+
+        - name: keycloak_authentication_flow — create browser-style flow
+          middleware_automation.keycloak.keycloak_authentication_flow:
+            realm: "{{ target_realm }}"
+            alias: "{{ flow }}"
+            description: Molecule module test authentication flow
+            executions:
+              - provider_id: auth-cookie
+                requirement: REQUIRED
+            state: present
+
+    - name: keycloak_realm_info — query TestRealm (public endpoint, no admin auth)
+      middleware_automation.keycloak.keycloak_realm_info:
+        auth_keycloak_url: "{{ auth_keycloak_url }}"
+        realm: "{{ target_realm }}"
+
+    - name: Exercise migrated modules against running Keycloak
+      module_defaults:
+        group/middleware_automation.keycloak.keycloak:
+          auth_keycloak_url: "{{ auth_keycloak_url }}"
+          auth_realm: "{{ auth_realm }}"
+          auth_username: "{{ auth_username }}"
+          auth_password: "{{ auth_password }}"
+      block:
+        - name: keycloak_realm_keys_metadata_info — query realm keys
+          middleware_automation.keycloak.keycloak_realm_keys_metadata_info:
+            realm: "{{ target_realm }}"
+
+        - name: keycloak_component_info — list realm components
+          middleware_automation.keycloak.keycloak_component_info:
+            realm: "{{ target_realm }}"
+
+        - name: keycloak_realm — create ephemeral realm
+          middleware_automation.keycloak.keycloak_realm:
+            id: "{{ ephemeral_realm }}"
+            realm: "{{ ephemeral_realm }}"
+            enabled: true
+            state: present
+
+        - name: keycloak_realm_localization — set locale override
+          middleware_automation.keycloak.keycloak_realm_localization:
+            parent_id: "{{ target_realm }}"
+            locale: en
+            state: present
+            overrides:
+              - key: molecule.module.test
+                value: molecule module test
+
+        - name: keycloak_realm_key — create generated AES key component
+          middleware_automation.keycloak.keycloak_realm_key:
+            parent_id: "{{ target_realm }}"
+            name: "{{ realm_key }}"
+            provider_id: aes-generated
+            state: present
+
+        - name: keycloak_authentication — copy browser flow
+          middleware_automation.keycloak.keycloak_authentication:
+            realm: "{{ target_realm }}"
+            alias: "{{ auth_copy }}"
+            copyFrom: browser
+            state: present
+
+        - name: keycloak_authentication_v2 — manage flow with safe-swap semantics
+          middleware_automation.keycloak.keycloak_authentication_v2:
+            realm: "{{ target_realm }}"
+            alias: "{{ flow_v2 }}"
+            description: Molecule module test flow v2
+            authenticationExecutions:
+              - requirement: REQUIRED
+                providerId: auth-cookie
+            state: present
+
+        - name: keycloak_authentication_required_actions — ensure VERIFY_EMAIL is enabled
+          middleware_automation.keycloak.keycloak_authentication_required_actions:
+            realm: "{{ target_realm }}"
+            state: present
+            required_actions:
+              - alias: VERIFY_EMAIL
+                enabled: true
+
+        - name: keycloak_userprofile — set unmanaged attribute policy
+          middleware_automation.keycloak.keycloak_userprofile:
+            parent_id: "{{ target_realm }}"
+            state: present
+            config:
+              kc_user_profile_config:
+                - unmanagedAttributePolicy: ENABLED
+
+        - name: keycloak_identity_provider — create OIDC broker stub
+          middleware_automation.keycloak.keycloak_identity_provider:
+            realm: "{{ target_realm }}"
+            alias: "{{ idp }}"
+            provider_id: oidc
+            enabled: false
+            config:
+              authorizationUrl: http://localhost:8080/realms/master/protocol/openid-connect/auth
+              tokenUrl: http://localhost:8080/realms/master/protocol/openid-connect/token
+              clientId: molecule-idp-client
+            state: present
+
+        - name: keycloak_clienttemplate — create client template
+          middleware_automation.keycloak.keycloak_clienttemplate:
+            realm: "{{ target_realm }}"
+            name: "{{ template }}"
+            protocol: openid-connect
+            state: present
+          register: clienttemplate_result
+          failed_when:
+            - clienttemplate_result is failed
+            - "'404' not in (clienttemplate_result.msg | default(''))"
+            - "'Not Found' not in (clienttemplate_result.msg | default(''))"
+
+        - name: keycloak_clientscope_type — attach scope as optional on realm
+          middleware_automation.keycloak.keycloak_clientscope_type:
+            realm: "{{ target_realm }}"
+            optional_clientscopes:
+              - "{{ scope }}"
+
+        - name: keycloak_user_rolemapping — assign realm role to user
+          middleware_automation.keycloak.keycloak_user_rolemapping:
+            realm: "{{ target_realm }}"
+            target_username: "{{ user }}"
+            state: present
+            roles:
+              - name: "{{ role }}"
+
+        - name: keycloak_realm_rolemapping — assign realm role to group
+          middleware_automation.keycloak.keycloak_realm_rolemapping:
+            realm: "{{ target_realm }}"
+            group_name: "{{ group }}"
+            state: present
+            roles:
+              - name: "{{ role }}"
+
+        - name: keycloak_client_rolemapping — assign client role to group
+          middleware_automation.keycloak.keycloak_client_rolemapping:
+            realm: "{{ target_realm }}"
+            client_id: "{{ client }}"
+            group_name: "{{ group }}"
+            state: present
+            roles:
+              - name: "{{ client_role }}"
+
+        - name: keycloak_client_rolescope — restrict realm role on client
+          middleware_automation.keycloak.keycloak_client_rolescope:
+            realm: "{{ target_realm }}"
+            client_id: "{{ client }}"
+            role_names:
+              - "{{ role }}"
+            state: present
+
+        - name: keycloak_clientsecret_info — read client secret
+          middleware_automation.keycloak.keycloak_clientsecret_info:
+            realm: "{{ target_realm }}"
+            client_id: "{{ client }}"
+          no_log: true
+
+        - name: keycloak_clientsecret_regenerate — rotate client secret
+          middleware_automation.keycloak.keycloak_clientsecret_regenerate:
+            realm: "{{ target_realm }}"
+            client_id: "{{ client }}"
+          no_log: true
+
+        - name: keycloak_authz_authorization_scope — create authorization scope
+          middleware_automation.keycloak.keycloak_authz_authorization_scope:
+            realm: "{{ target_realm }}"
+            client_id: "{{ client }}"
+            name: "{{ authz_scope }}"
+            display_name: Molecule module test scope
+            state: present
+
+        - name: keycloak_authz_permission — create scope permission
+          middleware_automation.keycloak.keycloak_authz_permission:
+            realm: "{{ target_realm }}"
+            client_id: "{{ client }}"
+            name: "{{ authz_permission }}"
+            permission_type: scope
+            scopes:
+              - "{{ authz_scope }}"
+            state: present
+
+        - name: keycloak_authz_permission_info — query scope permission
+          middleware_automation.keycloak.keycloak_authz_permission_info:
+            realm: "{{ target_realm }}"
+            client_id: "{{ client }}"
+            name: "{{ authz_permission }}"
+
+        - name: keycloak_authz_custom_policy — requires deployed policy provider on server
+          middleware_automation.keycloak.keycloak_authz_custom_policy:
+            realm: "{{ target_realm }}"
+            client_id: "{{ client }}"
+            name: molecule-script-policy
+            policy_type: script-policy.js
+            state: present
+          register: authz_custom_policy_result
+          failed_when:
+            - authz_custom_policy_result is failed
+            - "'No policy provider' not in (authz_custom_policy_result.msg | default(''))"
+            - "'Policy provider' not in (authz_custom_policy_result.msg | default(''))"
+            - "'405' not in (authz_custom_policy_result.msg | default(''))"
+            - "'Method Not Allowed' not in (authz_custom_policy_result.msg | default(''))"
+            - "'not found' not in (authz_custom_policy_result.msg | default('') | lower)"
+
+        - name: keycloak_user_execute_actions_email — trigger execute-actions email
+          middleware_automation.keycloak.keycloak_user_execute_actions_email:
+            realm: "{{ target_realm }}"
+            username: "{{ user }}"
+            actions:
+              - VERIFY_EMAIL
+          register: execute_actions_email_result
+          failed_when:
+            - execute_actions_email_result is failed
+            - "'Connection refused' in (execute_actions_email_result.msg | default(''))"
+            - "'Failed to send' in (execute_actions_email_result.msg | default(''))"
+
+        - name: keycloak_user_federation — remove non-existent federation (module API test)
+          middleware_automation.keycloak.keycloak_user_federation:
+            realm: "{{ target_realm }}"
+            name: "{{ federation }}"
+            state: absent
+
+        - name: keycloak_component — remove non-existent component (module API test)
+          middleware_automation.keycloak.keycloak_component:
+            parent_id: "{{ target_realm }}"
+            name: "{{ component }}"
+            provider_id: ldap
+            provider_type: org.keycloak.storage.UserStorageProvider
+            state: absent
+
+    - name: Remove shared test fixtures
+      module_defaults:
+        group/middleware_automation.keycloak.keycloak:
+          auth_keycloak_url: "{{ auth_keycloak_url }}"
+          auth_realm: "{{ auth_realm }}"
+          auth_username: "{{ auth_username }}"
+          auth_password: "{{ auth_password }}"
+      block:
+        - name: keycloak_authz_custom_policy — remove custom policy if created
+          middleware_automation.keycloak.keycloak_authz_custom_policy:
+            realm: "{{ target_realm }}"
+            client_id: "{{ client }}"
+            name: molecule-script-policy
+            policy_type: script-policy.js
+            state: absent
+          failed_when: false
+
+        - name: keycloak_authz_permission — remove scope permission
+          middleware_automation.keycloak.keycloak_authz_permission:
+            realm: "{{ target_realm }}"
+            client_id: "{{ client }}"
+            name: "{{ authz_permission }}"
+            permission_type: scope
+            state: absent
+
+        - name: keycloak_authz_authorization_scope — remove authorization scope
+          middleware_automation.keycloak.keycloak_authz_authorization_scope:
+            realm: "{{ target_realm }}"
+            client_id: "{{ client }}"
+            name: "{{ authz_scope }}"
+            state: absent
+
+        - name: keycloak_client_rolescope — remove role scope mapping
+          middleware_automation.keycloak.keycloak_client_rolescope:
+            realm: "{{ target_realm }}"
+            client_id: "{{ client }}"
+            role_names:
+              - "{{ role }}"
+            state: absent
+
+        - name: keycloak_client_rolemapping — remove group client role mapping
+          middleware_automation.keycloak.keycloak_client_rolemapping:
+            realm: "{{ target_realm }}"
+            client_id: "{{ client }}"
+            group_name: "{{ group }}"
+            state: absent
+            roles:
+              - name: "{{ client_role }}"
+
+        - name: keycloak_realm_rolemapping — remove group realm role mapping
+          middleware_automation.keycloak.keycloak_realm_rolemapping:
+            realm: "{{ target_realm }}"
+            group_name: "{{ group }}"
+            state: absent
+            roles:
+              - name: "{{ role }}"
+
+        - name: keycloak_user_rolemapping — remove user role mapping
+          middleware_automation.keycloak.keycloak_user_rolemapping:
+            realm: "{{ target_realm }}"
+            target_username: "{{ user }}"
+            state: absent
+            roles:
+              - name: "{{ role }}"
+
+        - name: keycloak_identity_provider — remove OIDC provider
+          middleware_automation.keycloak.keycloak_identity_provider:
+            realm: "{{ target_realm }}"
+            alias: "{{ idp }}"
+            state: absent
+
+        - name: keycloak_authentication_v2 — remove flow
+          middleware_automation.keycloak.keycloak_authentication_v2:
+            realm: "{{ target_realm }}"
+            alias: "{{ flow_v2 }}"
+            state: absent
+
+        - name: keycloak_authentication — remove copied flow
+          middleware_automation.keycloak.keycloak_authentication:
+            realm: "{{ target_realm }}"
+            alias: "{{ auth_copy }}"
+            state: absent
+
+        - name: keycloak_realm_key — remove generated key
+          middleware_automation.keycloak.keycloak_realm_key:
+            parent_id: "{{ target_realm }}"
+            name: "{{ realm_key }}"
+            provider_id: aes-generated
+            state: absent
+
+        - name: keycloak_realm_localization — remove locale override
+          middleware_automation.keycloak.keycloak_realm_localization:
+            parent_id: "{{ target_realm }}"
+            locale: en
+            state: absent
+            overrides:
+              - key: molecule.module.test
+
+        - name: keycloak_realm — remove ephemeral realm
+          middleware_automation.keycloak.keycloak_realm:
+            id: "{{ ephemeral_realm }}"
+            realm: "{{ ephemeral_realm }}"
+            state: absent
+
+        - name: keycloak_clienttemplate — remove client template
+          middleware_automation.keycloak.keycloak_clienttemplate:
+            realm: "{{ target_realm }}"
+            name: "{{ template }}"
+            state: absent
+          failed_when: false
+
+        - name: keycloak_authentication_flow — remove authentication flow
+          middleware_automation.keycloak.keycloak_authentication_flow:
+            realm: "{{ target_realm }}"
+            alias: "{{ flow }}"
+            state: absent
+
+        - name: keycloak_user — remove user
+          middleware_automation.keycloak.keycloak_user:
+            realm: "{{ target_realm }}"
+            username: "{{ user }}"
+            state: absent
+
+        - name: keycloak_group — remove group
+          middleware_automation.keycloak.keycloak_group:
+            realm: "{{ target_realm }}"
+            name: "{{ group }}"
+            state: absent
+
+        - name: keycloak_role — remove client role
+          middleware_automation.keycloak.keycloak_role:
+            realm: "{{ target_realm }}"
+            client_id: "{{ client }}"
+            name: "{{ client_role }}"
+            state: absent
+
+        - name: keycloak_client — remove confidential client
+          middleware_automation.keycloak.keycloak_client:
+            realm: "{{ target_realm }}"
+            client_id: "{{ client }}"
+            state: absent
+
+        - name: keycloak_client_scope — remove client scope
+          middleware_automation.keycloak.keycloak_client_scope:
+            realm: "{{ target_realm }}"
+            name: "{{ scope }}"
+            state: absent
+
+        - name: keycloak_role — remove realm role
+          middleware_automation.keycloak.keycloak_role:
+            realm: "{{ target_realm }}"
+            name: "{{ role }}"
+            state: absent

@@ -9,6 +9,12 @@ This changelog describes changes after version 0.2.6.
 v3.0.7-devel
 ============
 
+Minor Changes
+-------------
+
+- Fixing common module usage `#343 <https://github.com/ansible-middleware/keycloak/pull/343>`_
+- fix #336: https://github.com/ansible-middleware/common/pull/38 `#338 <https://github.com/ansible-middleware/keycloak/pull/338>`_
+
 Bugfixes
 --------
 

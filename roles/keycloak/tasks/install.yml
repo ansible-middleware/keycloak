@@ -96,7 +96,7 @@
     - not sso_enable is defined or not sso_enable
     - not keycloak_offline_install
 
-- name: Perform download from RHN using JBoss Network API
+- name: Perform download from RHN using Unified Downloads API
   delegate_to: localhost
   run_once: true
   when:
@@ -106,7 +106,7 @@
     - sso_enable is defined and sso_enable
     - not keycloak_offline_install
   block:
-    - name: Retrieve product download using JBoss Network API
+    - name: Retrieve product download using Unified Downloads API
       middleware_automation.common.product_search:
         client_id: "{{ rhn_username }}"
         client_secret: "{{ rhn_password }}"

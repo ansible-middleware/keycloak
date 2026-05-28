@@ -14,7 +14,7 @@
   when: sso_patch_version is defined
   become: "{{ keycloak_rhsso_patch_require_privilege_escalation | default(true) }}"
 
-- name: Perform patch download from RHN via JBossNetwork API
+- name: Perform patch download from RHN via Unified Downloads API
   delegate_to: localhost
   run_once: true
   when:
@@ -22,7 +22,7 @@
     - not keycloak_offline_install
     - sso_apply_patches
   block:
-    - name: Retrieve product download using JBossNetwork API
+    - name: Retrieve product download using Unified Downloads API
       middleware_automation.common.product_search:
         client_id: "{{ rhn_username }}"
         client_secret: "{{ rhn_password }}"

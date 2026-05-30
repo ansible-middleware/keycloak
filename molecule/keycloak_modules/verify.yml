@@ -38,6 +38,7 @@
       - keycloak_client_rolescope
       - keycloak_client_scope
       - keycloak_clientscope_type
+      - keycloak_clientscope_rolemappings
       - keycloak_clientsecret_info
       - keycloak_clientsecret_regenerate
       - keycloak_clienttemplate
@@ -303,6 +304,109 @@
               - "{{ role }}"
             state: present
 
+        - name: keycloak_clientscope_rolemappings — map client roles to clientscope
+          middleware_automation.keycloak.keycloak_clientscope_rolemappings:
+            realm: "{{ target_realm }}"
+            client_id: "{{ client }}"
+            clientscope_id: "{{ scope }}"
+            role_names:
+              - "{{ client_role }}"
+          register: clientscope_rolemappings_result
+
+        - name: Assert clientscope role mappings were created
+          ansible.builtin.assert:
+            that:
+              - clientscope_rolemappings_result is changed
+              - clientscope_rolemappings_result.end_state | length == 1
+
+        - name: keycloak_clientscope_rolemappings — remap client role (idempotency)
+          middleware_automation.keycloak.keycloak_clientscope_rolemappings:
+            realm: "{{ target_realm }}"
+            client_id: "{{ client }}"
+            clientscope_id: "{{ scope }}"
+            role_names:
+              - "{{ client_role }}"
+          register: clientscope_rolemappings_idempotent_result
+
+        - name: Assert clientscope role mappings are idempotent
+          ansible.builtin.assert:
+            that:
+              - clientscope_rolemappings_idempotent_result is not changed
+              - clientscope_rolemappings_idempotent_result.end_state | length == 1
+
+        - name: keycloak_clientscope_rolemappings — map realm role to clientscope
+          middleware_automation.keycloak.keycloak_clientscope_rolemappings:
+            realm: "{{ target_realm }}"
+            clientscope_id: "{{ scope }}"
+            role_names:
+              - "{{ role }}"
+          register: clientscope_realm_rolemappings_result
+
+        - name: Assert realm role was mapped to clientscope
+          ansible.builtin.assert:
+            that:
+              - clientscope_realm_rolemappings_result is changed
+              - clientscope_realm_rolemappings_result.end_state | length == 1
+
+        - name: keycloak_user — set email_verified explicitly
+          middleware_automation.keycloak.keycloak_user:
+            realm: "{{ target_realm }}"
+            username: "{{ user }}"
+            email_verified: true
+            state: present
+          register: user_email_verified_result
+
+        - name: Assert email_verified was set
+          ansible.builtin.assert:
+            that:
+              - user_email_verified_result is changed
+              - user_email_verified_result.end_state.emailVerified == true
+
+        - name: keycloak_user — leave email_verified unchanged with no_defaults
+          middleware_automation.keycloak.keycloak_user:
+            realm: "{{ target_realm }}"
+            username: "{{ user }}"
+            email_verified_behavior: no_defaults
+            state: present
+          register: user_email_verified_idempotent_result
+
+        - name: Assert email_verified is unchanged
+          ansible.builtin.assert:
+            that:
+              - user_email_verified_idempotent_result is not changed
+              - user_email_verified_idempotent_result.end_state.emailVerified == true
+
+        - name: keycloak_user — set required actions
+          middleware_automation.keycloak.keycloak_user:
+            realm: "{{ target_realm }}"
+            username: "{{ user }}"
+            required_actions:
+              - UPDATE_PASSWORD
+              - VERIFY_EMAIL
+            state: present
+          register: user_required_actions_result
+
+        - name: Assert required actions were set
+          ansible.builtin.assert:
+            that:
+              - user_required_actions_result is changed
+              - "'UPDATE_PASSWORD' in user_required_actions_result.end_state.requiredActions"
+              - "'VERIFY_EMAIL' in user_required_actions_result.end_state.requiredActions"
+
+        - name: keycloak_user — leave required actions unchanged when omitted
+          middleware_automation.keycloak.keycloak_user:
+            realm: "{{ target_realm }}"
+            username: "{{ user }}"
+            state: present
+          register: user_required_actions_idempotent_result
+
+        - name: Assert required actions are unchanged
+          ansible.builtin.assert:
+            that:
+              - user_required_actions_idempotent_result is not changed
+              - "'UPDATE_PASSWORD' in user_required_actions_idempotent_result.end_state.requiredActions"
+              - "'VERIFY_EMAIL' in user_required_actions_idempotent_result.end_state.requiredActions"
+
         - name: keycloak_clientsecret_info — read client secret
           middleware_automation.keycloak.keycloak_clientsecret_info:
             realm: "{{ target_realm }}"
@@ -411,6 +515,23 @@
             realm: "{{ target_realm }}"
             client_id: "{{ client }}"
             name: "{{ authz_scope }}"
+            state: absent
+
+        - name: keycloak_clientscope_rolemappings — remove realm role from clientscope
+          middleware_automation.keycloak.keycloak_clientscope_rolemappings:
+            realm: "{{ target_realm }}"
+            clientscope_id: "{{ scope }}"
+            role_names:
+              - "{{ role }}"
+            state: absent
+
+        - name: keycloak_clientscope_rolemappings — remove client role from clientscope
+          middleware_automation.keycloak.keycloak_clientscope_rolemappings:
+            realm: "{{ target_realm }}"
+            client_id: "{{ client }}"
+            clientscope_id: "{{ scope }}"
+            role_names:
+              - "{{ client_role }}"
             state: absent
 
         - name: keycloak_client_rolescope — remove role scope mapping

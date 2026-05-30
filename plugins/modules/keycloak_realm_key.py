@@ -11,6 +11,7 @@ module: keycloak_realm_key
 
 short_description: Allows administration of Keycloak realm keys using Keycloak API
 
+# Originally added in community.general 7.5.0
 version_added: "3.0.0"
 
 description:
@@ -31,6 +32,7 @@ attributes:
   diff_mode:
     support: partial
   action_group:
+    # Originally added in community.general 10.2.0
     version_added: "3.0.0"
 
 options:

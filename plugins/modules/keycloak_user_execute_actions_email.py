@@ -10,6 +10,7 @@ module: keycloak_user_execute_actions_email
 
 short_description: Send a Keycloak execute-actions email to a user
 
+# Originally added in community.general 12.0.0
 version_added: "3.0.0"
 
 description:

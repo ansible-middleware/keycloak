@@ -9,6 +9,7 @@ DOCUMENTATION = r"""
 module: keycloak_authentication_v2
 
 short_description: Configure authentication flows in Keycloak in an idempotent and safe manner.
+# Originally added in community.general 12.5.0
 version_added: "3.0.0"
 description:
   - This module allows the creation, deletion, and modification of Keycloak authentication flows using the Keycloak REST API.

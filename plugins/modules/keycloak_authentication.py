@@ -12,6 +12,7 @@ short_description: Configure authentication in Keycloak
 description:
   - This module actually can only make a copy of an existing authentication flow, add an execution to it and configure it.
   - It can also delete the flow.
+# Originally added in community.general 3.3.0
 version_added: "3.0.0"
 
 attributes:
@@ -20,6 +21,7 @@ attributes:
   diff_mode:
     support: full
   action_group:
+    # Originally added in community.general 10.2.0
     version_added: "3.0.0"
 
 options:

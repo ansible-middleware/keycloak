@@ -9,6 +9,7 @@ from __future__ import annotations
 DOCUMENTATION = r"""
 module: keycloak_authz_permission
 
+# Originally added in community.general 7.2.0
 version_added: "3.0.0"
 
 short_description: Allows administration of Keycloak client authorization permissions using Keycloak API
@@ -34,6 +35,7 @@ attributes:
   diff_mode:
     support: none
   action_group:
+    # Originally added in community.general 10.2.0
     version_added: "3.0.0"
 
 options:

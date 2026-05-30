@@ -8,6 +8,7 @@ authors:
   - Guido Grazioli <ggraziol@redhat.com>
   - Pavan Kumar Motaparthi <pmotapar@redhat.com>
   - Helmut Wolf <hwo@world-direct.at>
+  - Harsha Cherukuri <hcheruku@redhat.com>
 description: Install and configure a keycloak, or Red Hat Single Sign-on, service.
 license_file: "LICENSE"
 tags:

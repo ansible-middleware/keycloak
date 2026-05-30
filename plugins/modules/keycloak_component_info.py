@@ -10,12 +10,14 @@ module: keycloak_component_info
 
 short_description: Retrieve component info in Keycloak
 
+# Originally added in community.general 8.2.0
 version_added: "3.0.0"
 
 description:
   - This module retrieve information on component from Keycloak.
 attributes:
   action_group:
+    # Originally added in community.general 10.2.0
     version_added: "3.0.0"
 
 options:

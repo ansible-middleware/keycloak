@@ -16,6 +16,7 @@ description:
   - The names of module options are snake_cased versions of the camelCase ones found in the Keycloak API and its documentation
     at U(https://www.keycloak.org/docs-api/24.0.5/rest-api/index.html). For compatibility reasons, the module also accepts
     the camelCase versions of the options.
+# Originally added in community.general 9.4.0
 version_added: "3.0.0"
 
 attributes:
@@ -24,6 +25,7 @@ attributes:
   diff_mode:
     support: full
   action_group:
+    # Originally added in community.general 10.2.0
     version_added: "3.0.0"
 
 options:

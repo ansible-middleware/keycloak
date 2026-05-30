@@ -10,6 +10,7 @@ module: keycloak_realm_keys_metadata_info
 
 short_description: Allows obtaining Keycloak realm keys metadata using Keycloak API
 
+# Originally added in community.general 9.3.0
 version_added: "3.0.0"
 
 description:
@@ -18,6 +19,7 @@ description:
     at U(https://www.keycloak.org/docs-api/latest/rest-api/index.html).
 attributes:
   action_group:
+    # Originally added in community.general 10.2.0
     version_added: "3.0.0"
 
 options:

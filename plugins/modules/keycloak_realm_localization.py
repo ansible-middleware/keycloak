@@ -11,6 +11,7 @@ module: keycloak_realm_localization
 
 short_description: Allows management of Keycloak realm localization overrides via the Keycloak API
 
+# Originally added in community.general 12.4.0
 version_added: "3.0.0"
 
 description:

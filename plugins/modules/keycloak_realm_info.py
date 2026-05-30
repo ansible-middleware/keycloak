@@ -10,6 +10,7 @@ module: keycloak_realm_info
 
 short_description: Allows obtaining Keycloak realm public information using Keycloak API
 
+# Originally added in community.general 4.3.0
 version_added: "3.0.0"
 
 description:

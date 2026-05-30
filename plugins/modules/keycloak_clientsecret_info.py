@@ -10,6 +10,7 @@ module: keycloak_clientsecret_info
 
 short_description: Retrieve client secret using Keycloak API
 
+# Originally added in community.general 6.1.0
 version_added: "3.0.0"
 
 description:
@@ -23,6 +24,7 @@ description:
     the task.'
 attributes:
   action_group:
+    # Originally added in community.general 10.2.0
     version_added: "3.0.0"
 
 options:

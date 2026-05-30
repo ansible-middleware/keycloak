@@ -9,6 +9,7 @@ from __future__ import annotations
 DOCUMENTATION = r"""
 module: keycloak_authz_permission_info
 
+# Originally added in community.general 7.2.0
 version_added: "3.0.0"
 
 short_description: Query Keycloak client authorization permissions information
@@ -24,6 +25,7 @@ description:
     U(https://www.puppeteers.net/blog/keycloak-authorization-services-rest-api-paths-and-payload/).
 attributes:
   action_group:
+    # Originally added in community.general 10.2.0
     version_added: "3.0.0"
 
 options:

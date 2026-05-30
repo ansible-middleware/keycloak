@@ -10,6 +10,7 @@ module: keycloak_realm_rolemapping
 
 short_description: Allows administration of Keycloak realm role mappings into groups with the Keycloak API
 
+# Originally added in community.general 8.2.0
 version_added: "3.0.0"
 
 description:
@@ -30,6 +31,7 @@ attributes:
   diff_mode:
     support: full
   action_group:
+    # Originally added in community.general 10.2.0
     version_added: "3.0.0"
 
 options:

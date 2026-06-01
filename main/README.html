@@ -55,17 +55,17 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#install-playbook">Install Playbook</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#install-keycloak">Install Keycloak</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#install-from-controller-node-offline">Install from controller node (offline)</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#install-from-alternate-sources-like-corporate-nexus-artifactory-proxy-etc">Install from alternate sources (like corporate Nexus, artifactory, proxy, etc)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-installation-command">Example installation command</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#example-installation-command">Example installation command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-with-roles">Configure with roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#example-configuration-command">Example configuration command</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#config-playbooks">Config Playbooks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#example-configuration-command">Example configuration command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-with-modules">Configure with modules</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#support">Support</a></li>
@@ -176,28 +176,54 @@
 </section>
 <section id="included-modules">
 <h3>Included modules<a class="headerlink" href="#included-modules" title="Link to this heading"></a></h3>
+<p>All Keycloak administration modules from <code class="docutils literal notranslate"><span class="pre">community.general</span></code> are provided in this collection for Keycloak 17+ (Quarkus). Use <code class="docutils literal notranslate"><span class="pre">auth_keycloak_url</span></code> without the legacy <code class="docutils literal notranslate"><span class="pre">/auth</span></code> context path (for example <code class="docutils literal notranslate"><span class="pre">http://localhost:8080</span></code>). Set <code class="docutils literal notranslate"><span class="pre">keycloak_context</span></code> to <code class="docutils literal notranslate"><span class="pre">/auth</span></code> only when automating WildFly-based Keycloak with the <code class="docutils literal notranslate"><span class="pre">keycloak</span></code> role.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm</span></code>: module for managing Keycloak realms (create/update/delete).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_client</span></code>: module for managing Keycloak clients (create/update/delete).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_role</span></code>: module for managing Keycloak roles — realm roles and client roles (create/update/delete).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_user_federation</span></code>: module for managing user federations such as LDAP/AD (create/update/delete).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_client_scope</span></code>: module for managing client scopes and protocol mappers (create/update/delete).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_authentication_flow</span></code>: module for managing authentication flows and execution steps (create/delete, copy existing flows).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_authentication</span></code>: manage authentication flows and executions using Keycloak Admin REST API.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_authentication_flow</span></code>: manage custom authentication flows and flow executions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_authentication_required_actions</span></code>: manage required actions available in realm authentication.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_authentication_v2</span></code>: manage authentication flows with newer Keycloak API handling.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_authz_authorization_scope</span></code>: manage authorization scopes for a client resource server.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_authz_custom_policy</span></code>: manage custom authorization policies for a client resource server.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_authz_permission</span></code>: manage authorization permissions for a client resource server.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_authz_permission_info</span></code>: retrieve authorization permission information for a client resource server.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_client</span></code>: manage Keycloak clients (create/update/delete).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_client_rolemapping</span></code>: manage client role mappings for users and groups.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_client_rolescope</span></code>: manage client role scope mappings.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_client_scope</span></code>: manage client scopes and protocol mappers (replaces <code class="docutils literal notranslate"><span class="pre">community.general.keycloak_clientscope</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_clientscope_type</span></code>: manage default and optional client scope assignments.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_clientsecret_info</span></code>: retrieve client secret information.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_clientsecret_regenerate</span></code>: regenerate a client secret.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_clienttemplate</span></code>: manage legacy client templates.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_component</span></code>: manage realm components.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_component_info</span></code>: retrieve realm component information.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_group</span></code>: manage realm groups and subgroups.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_identity_provider</span></code>: manage identity provider instances and configuration.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm</span></code>: manage realms (create/update/delete).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_info</span></code>: retrieve realm information.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_key</span></code>: manage realm key providers.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_keys_metadata_info</span></code>: retrieve realm keys metadata.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_localization</span></code>: manage realm localization texts.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_rolemapping</span></code>: manage realm role mappings for users and groups.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_role</span></code>: manage realm and client roles.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_user</span></code>: manage users (create/update/delete).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_user_execute_actions_email</span></code>: trigger execute-actions emails for users.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_user_federation</span></code>: manage user federation providers (for example LDAP/AD).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_user_rolemapping</span></code>: manage user role mappings.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_userprofile</span></code>: manage user profile configuration.</p></li>
 </ul>
 </section>
 </section>
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
-<section id="install-playbook">
-<h3>Install Playbook<a class="headerlink" href="#install-playbook" title="Link to this heading"></a></h3>
-<!--start rhbk_playbook -->
+<p>The collection provides roles to install Keycloak and modules to manage realms, clients, users, and related settings via the <a class="reference external" href="https://www.keycloak.org/docs-api/latest/rest-api/index.html">Keycloak Admin REST API</a>.</p>
+<p>For Quarkus-based Keycloak (17+), set <code class="docutils literal notranslate"><span class="pre">auth_keycloak_url</span></code> to the server root URL without the legacy <code class="docutils literal notranslate"><span class="pre">/auth</span></code> path, for example <code class="docutils literal notranslate"><span class="pre">http://localhost:8080</span></code>. When using the legacy <code class="docutils literal notranslate"><span class="pre">keycloak</span></code> role with WildFly-based Keycloak, set <code class="docutils literal notranslate"><span class="pre">keycloak_context</span></code> to <code class="docutils literal notranslate"><span class="pre">/auth</span></code> in the <code class="docutils literal notranslate"><span class="pre">keycloak_realm</span></code> role.</p>
+<section id="install-keycloak">
+<h3>Install Keycloak<a class="headerlink" href="#install-keycloak" title="Link to this heading"></a></h3>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_quarkus.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak_quarkus.yml</span></code></a> installs keycloak &gt;= 17 based on the defined variables (using most defaults).</p></li>
-<li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak.yml</span></code></a> installs keycloak legacy based on the defined variables (using most defaults).</p></li>
+<li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_quarkus.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak_quarkus.yml</span></code></a> installs Keycloak &gt;= 17 using the <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus</span></code> role.</p></li>
+<li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak.yml</span></code></a> installs legacy Keycloak (&lt;= 19) using the <code class="docutils literal notranslate"><span class="pre">keycloak</span></code> role.</p></li>
 </ul>
-<p>Both playbooks include the <code class="docutils literal notranslate"><span class="pre">keycloak</span></code> role, with different settings, as described in the following sections.</p>
-<p>For full service configuration details, refer to the <a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak/README.md">keycloak role README</a>.</p>
-<!--end rhbk_playbook -->
+<p>For full service configuration details, refer to the <a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak_quarkus/README.md">keycloak_quarkus role README</a> or the <a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak/README.md">keycloak role README</a>.</p>
 <section id="install-from-controller-node-offline">
 <h4>Install from controller node (offline)<a class="headerlink" href="#install-from-controller-node-offline" title="Link to this heading"></a></h4>
 <p>Making the keycloak zip archive available to the playbook working directory, and setting <code class="docutils literal notranslate"><span class="pre">keycloak_offline_install</span></code> to <code class="docutils literal notranslate"><span class="pre">true</span></code>, allows to skip
@@ -212,15 +238,14 @@ the download tasks. The local path for the archive does match the downloaded arc
 <h4>Install from alternate sources (like corporate Nexus, artifactory, proxy, etc)<a class="headerlink" href="#install-from-alternate-sources-like-corporate-nexus-artifactory-proxy-etc" title="Link to this heading"></a></h4>
 <p>It is possible to perform downloads from alternate sources, using the <code class="docutils literal notranslate"><span class="pre">keycloak_download_url</span></code> variable; make sure the final downloaded filename matches with the source filename (ie. keycloak-legacy-x.y.zip or rh-sso-x.y.z-server-dist.zip).</p>
 </section>
-</section>
 <section id="example-installation-command">
-<h3>Example installation command<a class="headerlink" href="#example-installation-command" title="Link to this heading"></a></h3>
-<p>Execute the following command from the source root directory</p>
-<div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">ansible-playbook -i &lt;ansible_hosts&gt; -e @rhn-creds.yml playbooks/keycloak.yml -e keycloak_admin_password=&lt;changeme&gt;</span>
+<h4>Example installation command<a class="headerlink" href="#example-installation-command" title="Link to this heading"></a></h4>
+<p>Execute the following command from the source root directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible-playbook<span class="w"> </span>-i<span class="w"> </span>&lt;ansible_hosts&gt;<span class="w"> </span>playbooks/keycloak_quarkus.yml<span class="w"> </span>-e<span class="w"> </span><span class="nv">keycloak_quarkus_bootstrap_admin_password</span><span class="o">=</span>&lt;changeme&gt;
 </pre></div>
 </div>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_admin_password</span></code> Password for the administration console user account.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_bootstrap_admin_password</span></code> password for the administration console user account.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ansible_hosts</span></code> is the inventory, below is an example inventory for deploying to localhost</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">[</span><span class="nv">keycloak</span><span class="p p-Indicator">]</span>
 <span class="l l-Scalar l-Scalar-Plain">localhost ansible_connection=local</span>
@@ -231,10 +256,8 @@ the download tasks. The local path for the archive does match the downloaded arc
 <p>Note: when deploying clustered configurations, all hosts belonging to the cluster must be present in <code class="docutils literal notranslate"><span class="pre">ansible_play_batch</span></code>; ie. they must be targeted by the same ansible-playbook execution.</p>
 </section>
 </section>
-<section id="configuration">
-<h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
-<section id="config-playbooks">
-<h3>Config Playbooks<a class="headerlink" href="#config-playbooks" title="Link to this heading"></a></h3>
+<section id="configure-with-roles">
+<h3>Configure with roles<a class="headerlink" href="#configure-with-roles" title="Link to this heading"></a></h3>
 <!--start rhbk_realm_playbook -->
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_realm.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak_realm.yml</span></code></a> creates or updates provided realm, user federation(s), client(s), client role(s) and client user(s).</p></li>
@@ -242,12 +265,10 @@ the download tasks. The local path for the archive does match the downloaded arc
 <!--end rhbk_realm_playbook -->
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_realm_client.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak_realm_client.yml</span></code></a> creates a realm with clients, roles and users using the <code class="docutils literal notranslate"><span class="pre">keycloak_realm</span></code> role.</p></li>
-<li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_client_scope.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak_client_scope.yml</span></code></a> creates a client scope with protocol mappers using the <code class="docutils literal notranslate"><span class="pre">keycloak_client_scope</span></code> module.</p></li>
-<li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_authentication_flow.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak_authentication_flow.yml</span></code></a> creates a custom authentication flow with execution steps using the <code class="docutils literal notranslate"><span class="pre">keycloak_authentication_flow</span></code> module.</p></li>
+<li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_federation.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak_federation.yml</span></code></a> configures user federation providers.</p></li>
 </ul>
-</section>
 <section id="example-configuration-command">
-<h3>Example configuration command<a class="headerlink" href="#example-configuration-command" title="Link to this heading"></a></h3>
+<h4>Example configuration command<a class="headerlink" href="#example-configuration-command" title="Link to this heading"></a></h4>
 <p>Execute the following command from the source root directory:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible-playbook<span class="w"> </span>-i<span class="w"> </span>&lt;ansible_hosts&gt;<span class="w"> </span>playbooks/keycloak_realm.yml<span class="w"> </span>-e<span class="w"> </span><span class="nv">keycloak_admin_password</span><span class="o">=</span>&lt;changeme&gt;<span class="w"> </span>-e<span class="w"> </span><span class="nv">keycloak_realm</span><span class="o">=</span><span class="nb">test</span>
 </pre></div>
@@ -265,6 +286,36 @@ the download tasks. The local path for the archive does match the downloaded arc
 <!--start rhbk_realm_readme -->
 <p>For full configuration details, refer to the <a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak_realm/README.md">keycloak_realm role README</a>.</p>
 <!--end rhbk_realm_readme -->
+</section>
+</section>
+<section id="configure-with-modules">
+<h3>Configure with modules<a class="headerlink" href="#configure-with-modules" title="Link to this heading"></a></h3>
+<p>Module playbooks target an already running Keycloak instance. All modules use the <code class="docutils literal notranslate"><span class="pre">middleware_automation.keycloak</span></code> collection namespace.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_client_scope.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak_client_scope.yml</span></code></a> creates a client scope with protocol mappers using the <code class="docutils literal notranslate"><span class="pre">keycloak_client_scope</span></code> module.</p></li>
+<li><p><a class="reference external" href="https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_authentication_flow.yml"><code class="docutils literal notranslate"><span class="pre">playbooks/keycloak_authentication_flow.yml</span></code></a> creates a custom authentication flow with execution steps using the <code class="docutils literal notranslate"><span class="pre">keycloak_authentication_flow</span></code> module.</p></li>
+</ul>
+<p>Example task using shared authentication defaults:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span>
+<span class="w">  </span><span class="nt">module_defaults</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">group/middleware_automation.keycloak.keycloak</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">auth_keycloak_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://localhost:8080</span>
+<span class="w">      </span><span class="nt">auth_realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class="w">      </span><span class="nt">auth_username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+<span class="w">      </span><span class="nt">auth_password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{{</span><span class="nv"> </span><span class="s">keycloak_admin_password</span><span class="nv"> </span><span class="s">}}&quot;</span>
+<span class="w">  </span><span class="nt">tasks</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Create a user in a realm</span>
+<span class="w">      </span><span class="nt">middleware_automation.keycloak.keycloak_user</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TestRealm</span>
+<span class="w">        </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">testuser</span>
+<span class="w">        </span><span class="nt">first_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Test</span>
+<span class="w">        </span><span class="nt">last_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">User</span>
+<span class="w">        </span><span class="nt">email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">testuser@example.com</span>
+<span class="w">        </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
+</pre></div>
+</div>
+<p>When migrating from <code class="docutils literal notranslate"><span class="pre">community.general</span></code>, replace the collection prefix in playbooks (for example <code class="docutils literal notranslate"><span class="pre">community.general.keycloak_user</span></code> becomes <code class="docutils literal notranslate"><span class="pre">middleware_automation.keycloak.keycloak_user</span></code>) and use <code class="docutils literal notranslate"><span class="pre">keycloak_client_scope</span></code> instead of <code class="docutils literal notranslate"><span class="pre">keycloak_clientscope</span></code>.</p>
 </section>
 </section>
 <section id="support">

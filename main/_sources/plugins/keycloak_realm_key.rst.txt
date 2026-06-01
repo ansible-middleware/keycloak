@@ -1,0 +1,1238 @@
+.. Document meta
+
+:orphan:
+
+.. |antsibull-internal-nbsp| unicode:: 0xA0
+    :trim:
+
+.. meta::
+  :antsibull-docs: 2.24.0
+
+.. Anchors
+
+.. _ansible_collections.middleware_automation.keycloak.keycloak_realm_key_module:
+
+.. Anchors: short name for ansible.builtin
+
+.. Title
+
+keycloak_realm_key -- Allows administration of Keycloak realm keys using Keycloak API
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. Collection note
+
+.. note::
+    This module is part of the `middleware_automation.keycloak collection <https://galaxy.ansible.com/ui/repo/published/middleware_automation/keycloak/>`_.
+
+    It is not included in ``ansible-core``.
+    To check whether it is installed, run :code:`ansible-galaxy collection list`.
+
+    To install it, use: :code:`ansible\-galaxy collection install middleware\_automation.keycloak`.
+
+    To use it in a playbook, specify: :code:`middleware_automation.keycloak.keycloak_realm_key`.
+
+.. version_added
+
+.. rst-class:: ansible-version-added
+
+New in middleware\_automation.keycloak 3.0.0
+
+.. contents::
+   :local:
+   :depth: 1
+
+.. Deprecated
+
+
+Synopsis
+--------
+
+.. Description
+
+- This module allows the administration of Keycloak realm keys using the Keycloak REST API. It requires access to the REST API using OpenID Connect; the user connecting and the realm being used must have the requisite access rights. In a default Keycloak installation, admin\-cli and an admin user would work, as would a separate realm definition with the scope tailored to your needs and a user having the expected roles.
+- The names of module options are snake\_cased versions of the camelCase ones found in the Keycloak API and its documentation at \ `https://www.keycloak.org/docs\-api/latest/rest\-api/index.html <https://www.keycloak.org/docs-api/latest/rest-api/index.html>`__. Aliases are provided so camelCased versions can be used as well.
+- This module is unable to detect changes to the actual cryptographic key after importing it. However, if some other property is changed alongside the cryptographic key, then the key also changes as a side\-effect, as the JSON payload needs to include the private key. This can be considered either a bug or a feature, as the alternative would be to always update the realm key whether it has changed or not.
+
+
+.. Aliases
+
+
+.. Requirements
+
+
+
+
+
+
+.. Options
+
+Parameters
+----------
+
+.. raw:: html
+
+  <table class="colwidths-auto ansible-option-table docutils align-default" style="width: 100%">
+  <thead>
+  <tr class="row-odd">
+    <th class="head"><p>Parameter</p></th>
+    <th class="head"><p>Comments</p></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-auth_client_id"></div>
+      <p class="ansible-option-title"><strong>auth_client_id</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-auth_client_id" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>OpenID Connect <em>client_id</em> to authenticate to the API with.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;admin-cli&#34;</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-auth_client_secret"></div>
+      <p class="ansible-option-title"><strong>auth_client_secret</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-auth_client_secret" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Client Secret to use in conjunction with <em>auth_client_id</em> (if required).</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-auth_keycloak_url"></div>
+      <div class="ansibleOptionAnchor" id="parameter-url"></div>
+      <p class="ansible-option-title"><strong>auth_keycloak_url</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-auth_keycloak_url" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: url</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+        / <span class="ansible-option-required">required</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>URL to the Keycloak instance.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-auth_password"></div>
+      <div class="ansibleOptionAnchor" id="parameter-password"></div>
+      <p class="ansible-option-title"><strong>auth_password</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-auth_password" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: password</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Password to authenticate for API access with.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-auth_realm"></div>
+      <p class="ansible-option-title"><strong>auth_realm</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-auth_realm" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Keycloak realm name to authenticate to for API access.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-auth_username"></div>
+      <div class="ansibleOptionAnchor" id="parameter-username"></div>
+      <p class="ansible-option-title"><strong>auth_username</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-auth_username" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: username</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Username to authenticate for API access with.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-config"></div>
+      <p class="ansible-option-title"><strong>config</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-config" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">dictionary</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Dict specifying the key and its properties.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-config/active"></div>
+      <p class="ansible-option-title"><strong>active</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-config/active" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>Whether they key is active or inactive. Not to be confused with the state of the Ansible resource managed by the <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-state"><span class="std std-ref"><span class="pre">state</span></span></a></strong></code> parameter.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>true</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-config/algorithm"></div>
+      <p class="ansible-option-title"><strong>algorithm</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-config/algorithm" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>Key algorithm.</p>
+      <p>The values <code class="ansible-value literal notranslate">RS384</code>, <code class="ansible-value literal notranslate">RS512</code>, <code class="ansible-value literal notranslate">PS256</code>, <code class="ansible-value literal notranslate">PS384</code>, <code class="ansible-value literal notranslate">PS512</code>, <code class="ansible-value literal notranslate">RSA1_5</code>, <code class="ansible-value literal notranslate">RSA-OAEP</code>, <code class="ansible-value literal notranslate">RSA-OAEP-256</code> have been added in middleware_automation.keycloak 8.2.0.</p>
+      <p>The values <code class="ansible-value literal notranslate">HS256</code>, <code class="ansible-value literal notranslate">HS384</code>, <code class="ansible-value literal notranslate">HS512</code> (for HMAC), <code class="ansible-value literal notranslate">ES256</code>, <code class="ansible-value literal notranslate">ES384</code>, <code class="ansible-value literal notranslate">ES512</code> (for ECDSA), and <code class="ansible-value literal notranslate">AES</code> have been added in middleware_automation.keycloak 12.4.0.</p>
+      <p>The values <code class="ansible-value literal notranslate">ECDH_ES</code>, <code class="ansible-value literal notranslate">ECDH_ES_A128KW</code>, <code class="ansible-value literal notranslate">ECDH_ES_A192KW</code>, <code class="ansible-value literal notranslate">ECDH_ES_A256KW</code> (for ECDH key exchange), and <code class="ansible-value literal notranslate">Ed25519</code>, <code class="ansible-value literal notranslate">Ed448</code> (for EdDSA signing) have been added in middleware_automation.keycloak 12.4.0.</p>
+      <p>For <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-provider_id"><span class="std std-ref"><span class="pre">provider_id=rsa</span></span></a></code>, <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-provider_id"><span class="std std-ref"><span class="pre">provider_id=rsa-generated</span></span></a></code>, and <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-provider_id"><span class="std std-ref"><span class="pre">provider_id=java-keystore</span></span></a></code>, defaults to <code class="ansible-value literal notranslate">RS256</code>.</p>
+      <p>For <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-provider_id"><span class="std std-ref"><span class="pre">provider_id=rsa-enc</span></span></a></code> and <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-provider_id"><span class="std std-ref"><span class="pre">provider_id=rsa-enc-generated</span></span></a></code>, must be one of <code class="ansible-value literal notranslate">RSA1_5</code>, <code class="ansible-value literal notranslate">RSA-OAEP</code>, <code class="ansible-value literal notranslate">RSA-OAEP-256</code> (required, no default).</p>
+      <p>For <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-provider_id"><span class="std std-ref"><span class="pre">provider_id=hmac-generated</span></span></a></code>, must be one of <code class="ansible-value literal notranslate">HS256</code>, <code class="ansible-value literal notranslate">HS384</code>, <code class="ansible-value literal notranslate">HS512</code> (required, no default).</p>
+      <p>For <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-provider_id"><span class="std std-ref"><span class="pre">provider_id=ecdsa-generated</span></span></a></code>, must be one of <code class="ansible-value literal notranslate">ES256</code>, <code class="ansible-value literal notranslate">ES384</code>, <code class="ansible-value literal notranslate">ES512</code> (required, no default).</p>
+      <p>For <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-provider_id"><span class="std std-ref"><span class="pre">provider_id=ecdh-generated</span></span></a></code>, must be one of <code class="ansible-value literal notranslate">ECDH_ES</code>, <code class="ansible-value literal notranslate">ECDH_ES_A128KW</code>, <code class="ansible-value literal notranslate">ECDH_ES_A192KW</code>, <code class="ansible-value literal notranslate">ECDH_ES_A256KW</code> (required, no default).</p>
+      <p>For <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-provider_id"><span class="std std-ref"><span class="pre">provider_id=eddsa-generated</span></span></a></code>, this option is not used (the algorithm is determined by <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-config/elliptic_curve"><span class="std std-ref"><span class="pre">config.elliptic_curve</span></span></a></strong></code>).</p>
+      <p>For <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-provider_id"><span class="std std-ref"><span class="pre">provider_id=aes-generated</span></span></a></code>, this option is not used (AES is always used).</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>&#34;RS256&#34;</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;RS384&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;RS512&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;PS256&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;PS384&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;PS512&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;RSA1_5&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;RSA-OAEP&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;RSA-OAEP-256&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;HS256&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;HS384&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;HS512&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;ES256&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;ES384&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;ES512&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;AES&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;ECDH_ES&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;ECDH_ES_A128KW&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;ECDH_ES_A192KW&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;ECDH_ES_A256KW&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;Ed25519&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;Ed448&#34;</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-config/certificate"></div>
+      <p class="ansible-option-title"><strong>certificate</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-config/certificate" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>A certificate signed with the private key as an ASCII string. Contents of the key must match <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-config/algorithm"><span class="std std-ref"><span class="pre">config.algorithm</span></span></a></strong></code> and <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-provider_id"><span class="std std-ref"><span class="pre">provider_id</span></span></a></strong></code>.</p>
+      <p>If you want Keycloak to automatically generate a certificate using your private key then set this to an empty string.</p>
+      <p>Required when <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-provider_id"><span class="std std-ref"><span class="pre">provider_id</span></span></a></strong></code> is <code class="ansible-value literal notranslate">rsa</code> or <code class="ansible-value literal notranslate">rsa-enc</code>. Not used for auto-generated providers.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-config/elliptic_curve"></div>
+      <p class="ansible-option-title"><strong>elliptic_curve</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-config/elliptic_curve" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>The elliptic curve to use for ECDSA, ECDH, or EdDSA keys.</p>
+      <p>For <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-provider_id"><span class="std std-ref"><span class="pre">provider_id=ecdsa-generated</span></span></a></code> and <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-provider_id"><span class="std std-ref"><span class="pre">provider_id=ecdh-generated</span></span></a></code>, valid values are <code class="ansible-value literal notranslate">P-256</code>, <code class="ansible-value literal notranslate">P-384</code>, <code class="ansible-value literal notranslate">P-521</code>. Default is <code class="ansible-value literal notranslate">P-256</code>.</p>
+      <p>For <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-provider_id"><span class="std std-ref"><span class="pre">provider_id=eddsa-generated</span></span></a></code>, valid values are <code class="ansible-value literal notranslate">Ed25519</code>, <code class="ansible-value literal notranslate">Ed448</code>. Default is <code class="ansible-value literal notranslate">Ed25519</code>.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;P-256&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;P-384&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;P-521&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;Ed25519&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;Ed448&#34;</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-config/enabled"></div>
+      <p class="ansible-option-title"><strong>enabled</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-config/enabled" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>Whether the key is enabled or disabled. Not to be confused with the state of the Ansible resource managed by the <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-state"><span class="std std-ref"><span class="pre">state</span></span></a></strong></code> parameter.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>true</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-config/key_alias"></div>
+      <p class="ansible-option-title"><strong>key_alias</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-config/key_alias" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>Alias of the key within the keystore.</p>
+      <p>Required when <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-provider_id"><span class="std std-ref"><span class="pre">provider_id=java-keystore</span></span></a></code>.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-config/key_password"></div>
+      <p class="ansible-option-title"><strong>key_password</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-config/key_password" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>Password for the key within the keystore.</p>
+      <p>If not specified, the <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-config/keystore_password"><span class="std std-ref"><span class="pre">config.keystore_password</span></span></a></strong></code> is used.</p>
+      <p>Only applicable to <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-provider_id"><span class="std std-ref"><span class="pre">provider_id=java-keystore</span></span></a></code>.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-config/key_size"></div>
+      <p class="ansible-option-title"><strong>key_size</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-config/key_size" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">integer</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>The size of the generated key in bits.</p>
+      <p>Only applicable to <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-provider_id"><span class="std std-ref"><span class="pre">provider_id=rsa-generated</span></span></a></code> and <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-provider_id"><span class="std std-ref"><span class="pre">provider_id=rsa-enc-generated</span></span></a></code>.</p>
+      <p>Valid values are <code class="ansible-value literal notranslate">1024</code>, <code class="ansible-value literal notranslate">2048</code>, <code class="ansible-value literal notranslate">4096</code>. Default is <code class="ansible-value literal notranslate">2048</code>.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-config/keystore"></div>
+      <p class="ansible-option-title"><strong>keystore</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-config/keystore" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>Path to the Java Keystore file on the Keycloak server filesystem.</p>
+      <p>Required when <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-provider_id"><span class="std std-ref"><span class="pre">provider_id=java-keystore</span></span></a></code>.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-config/keystore_password"></div>
+      <p class="ansible-option-title"><strong>keystore_password</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-config/keystore_password" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>Password for the Java Keystore.</p>
+      <p>Required when <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-provider_id"><span class="std std-ref"><span class="pre">provider_id=java-keystore</span></span></a></code>.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-config/priority"></div>
+      <p class="ansible-option-title"><strong>priority</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-config/priority" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">integer</span>
+        / <span class="ansible-option-required">required</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>The priority of the key.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-config/private_key"></div>
+      <p class="ansible-option-title"><strong>private_key</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-config/private_key" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>The private key as an ASCII string. Contents of the key must match <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-config/algorithm"><span class="std std-ref"><span class="pre">config.algorithm</span></span></a></strong></code> and <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-provider_id"><span class="std std-ref"><span class="pre">provider_id</span></span></a></strong></code>.</p>
+      <p>Please note that the module cannot detect whether the private key specified differs from the current state&#x27;s private key. Use <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-force"><span class="std std-ref"><span class="pre">force=true</span></span></a></code> to force the module to update the private key if you expect it to be updated.</p>
+      <p>Required when <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-provider_id"><span class="std std-ref"><span class="pre">provider_id</span></span></a></strong></code> is <code class="ansible-value literal notranslate">rsa</code> or <code class="ansible-value literal notranslate">rsa-enc</code>. Not used for auto-generated providers.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-config/secret_size"></div>
+      <p class="ansible-option-title"><strong>secret_size</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-config/secret_size" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">integer</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>The size of the generated secret key in bytes.</p>
+      <p>Only applicable to <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-provider_id"><span class="std std-ref"><span class="pre">provider_id=hmac-generated</span></span></a></code> and <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-provider_id"><span class="std std-ref"><span class="pre">provider_id=aes-generated</span></span></a></code>.</p>
+      <p>Valid values are <code class="ansible-value literal notranslate">16</code>, <code class="ansible-value literal notranslate">24</code>, <code class="ansible-value literal notranslate">32</code>, <code class="ansible-value literal notranslate">64</code>, <code class="ansible-value literal notranslate">128</code>, <code class="ansible-value literal notranslate">256</code>, <code class="ansible-value literal notranslate">512</code>.</p>
+      <p>Default is <code class="ansible-value literal notranslate">64</code> for HMAC, <code class="ansible-value literal notranslate">16</code> for AES.</p>
+    </div></td>
+  </tr>
+
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-connection_timeout"></div>
+      <p class="ansible-option-title"><strong>connection_timeout</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-connection_timeout" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">integer</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Controls the HTTP connections timeout period (in seconds) to Keycloak API.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">10</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-force"></div>
+      <p class="ansible-option-title"><strong>force</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-force" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Enforce the state of the private key and certificate. This is not automatically the case as this module is unable to determine the current state of the private key and thus cannot trigger an update based on an actual divergence. That said, a private key update may happen even if force is false as a side-effect of other changes.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>false</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-http_agent"></div>
+      <p class="ansible-option-title"><strong>http_agent</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-http_agent" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Configures the HTTP User-Agent header.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;Ansible&#34;</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-name"></div>
+      <p class="ansible-option-title"><strong>name</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-name" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+        / <span class="ansible-option-required">required</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Name of the realm key to create.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-parent_id"></div>
+      <p class="ansible-option-title"><strong>parent_id</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-parent_id" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+        / <span class="ansible-option-required">required</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>The parent_id of the realm key. In practice the name of the realm.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-provider_id"></div>
+      <p class="ansible-option-title"><strong>provider_id</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-provider_id" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>The name of the "provider ID" for the key.</p>
+      <p>The value <code class="ansible-value literal notranslate">rsa-enc</code> has been added in middleware_automation.keycloak 8.2.0.</p>
+      <p>The value <code class="ansible-value literal notranslate">java-keystore</code> has been added in middleware_automation.keycloak 12.4.0. This provider imports keys from a Java Keystore (JKS or PKCS12) file located on the Keycloak server filesystem.</p>
+      <p>The values <code class="ansible-value literal notranslate">rsa-generated</code>, <code class="ansible-value literal notranslate">hmac-generated</code>, <code class="ansible-value literal notranslate">aes-generated</code>, and <code class="ansible-value literal notranslate">ecdsa-generated</code> have been added in middleware_automation.keycloak 3.0.0. These are auto-generated key providers where Keycloak manages the key material.</p>
+      <p>The values <code class="ansible-value literal notranslate">rsa-enc-generated</code>, <code class="ansible-value literal notranslate">ecdh-generated</code>, and <code class="ansible-value literal notranslate">eddsa-generated</code> have been added in middleware_automation.keycloak 3.0.0. These correspond to the auto-generated key providers available in Keycloak 26.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>&#34;rsa&#34;</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;rsa-enc&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;java-keystore&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;rsa-generated&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;rsa-enc-generated&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;hmac-generated&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;aes-generated&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;ecdsa-generated&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;ecdh-generated&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;eddsa-generated&#34;</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-refresh_token"></div>
+      <p class="ansible-option-title"><strong>refresh_token</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-refresh_token" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Authentication refresh token for Keycloak API.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-state"></div>
+      <p class="ansible-option-title"><strong>state</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-state" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>State of the keycloak realm key.</p>
+      <p>On <code class="ansible-value literal notranslate">present</code>, the realm key is created (or updated if it exists already).</p>
+      <p>On <code class="ansible-value literal notranslate">absent</code>, the realm key is removed if it exists.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>&#34;present&#34;</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;absent&#34;</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-token"></div>
+      <p class="ansible-option-title"><strong>token</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-token" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Authentication token for Keycloak API.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-update_password"></div>
+      <p class="ansible-option-title"><strong>update_password</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-update_password" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Controls when passwords are sent to Keycloak for <code class="ansible-value literal notranslate">java-keystore</code> provider.</p>
+      <p><code class="ansible-value literal notranslate">always</code> - Always send passwords. Keycloak will update the component even if passwords have not changed. Use when you need to ensure passwords are updated.</p>
+      <p><code class="ansible-value literal notranslate">on_create</code> - Only send passwords when creating a new component. When updating an existing component, send the masked value to preserve existing passwords. This makes the module idempotent for password fields.</p>
+      <p>This is necessary because Keycloak masks passwords in API responses (returns <code class='docutils literal notranslate'>**********</code>), making comparison impossible.</p>
+      <p>Has no effect for providers other than <code class="ansible-value literal notranslate">java-keystore</code>.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>&#34;always&#34;</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;on_create&#34;</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-validate_certs"></div>
+      <p class="ansible-option-title"><strong>validate_certs</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-validate_certs" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Verify TLS certificates (do not disable this in production).</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>true</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  </tbody>
+  </table>
+
+
+
+.. Attributes
+
+
+Attributes
+----------
+
+.. tabularcolumns:: \X{2}{10}\X{3}{10}\X{5}{10}
+
+.. list-table::
+  :width: 100%
+  :widths: auto
+  :header-rows: 1
+  :class: longtable ansible-option-table
+
+  * - Attribute
+    - Support
+    - Description
+
+  * - .. raw:: html
+
+        <div class="ansible-option-cell">
+        <div class="ansibleOptionAnchor" id="attribute-action_group"></div>
+
+      .. _ansible_collections.middleware_automation.keycloak.keycloak_realm_key_module__attribute-action_group:
+
+      .. rst-class:: ansible-option-title
+
+      **action_group**
+
+      .. raw:: html
+
+        <a class="ansibleOptionLink" href="#attribute-action_group" title="Permalink to this attribute"></a>
+
+      .. raw:: html
+
+        </div>
+
+    - .. raw:: html
+
+        <div class="ansible-option-cell">
+
+      :ansible-attribute-support-property:`Action group:` |antsibull-internal-nbsp|:ansible-attribute-support-full:`middleware\_automation.keycloak.keycloak`
+
+      :ansible-option-versionadded:`added in middleware\_automation.keycloak 3.0.0`
+
+
+      .. raw:: html
+
+        </div>
+
+    - .. raw:: html
+
+        <div class="ansible-option-cell">
+
+      Use :literal:`group/middleware\_automation.keycloak.keycloak` in :literal:`module\_defaults` to set defaults for this module.
+
+
+      .. raw:: html
+
+        </div>
+
+
+  * - .. raw:: html
+
+        <div class="ansible-option-cell">
+        <div class="ansibleOptionAnchor" id="attribute-check_mode"></div>
+
+      .. _ansible_collections.middleware_automation.keycloak.keycloak_realm_key_module__attribute-check_mode:
+
+      .. rst-class:: ansible-option-title
+
+      **check_mode**
+
+      .. raw:: html
+
+        <a class="ansibleOptionLink" href="#attribute-check_mode" title="Permalink to this attribute"></a>
+
+      .. raw:: html
+
+        </div>
+
+    - .. raw:: html
+
+        <div class="ansible-option-cell">
+
+      :ansible-attribute-support-label:`Support: \ `\ :ansible-attribute-support-full:`full`
+
+
+      .. raw:: html
+
+        </div>
+
+    - .. raw:: html
+
+        <div class="ansible-option-cell">
+
+      Can run in :literal:`check\_mode` and return changed status prediction without modifying target.
+
+
+      .. raw:: html
+
+        </div>
+
+
+  * - .. raw:: html
+
+        <div class="ansible-option-cell">
+        <div class="ansibleOptionAnchor" id="attribute-diff_mode"></div>
+
+      .. _ansible_collections.middleware_automation.keycloak.keycloak_realm_key_module__attribute-diff_mode:
+
+      .. rst-class:: ansible-option-title
+
+      **diff_mode**
+
+      .. raw:: html
+
+        <a class="ansibleOptionLink" href="#attribute-diff_mode" title="Permalink to this attribute"></a>
+
+      .. raw:: html
+
+        </div>
+
+    - .. raw:: html
+
+        <div class="ansible-option-cell">
+
+      :ansible-attribute-support-label:`Support: \ `\ :ansible-attribute-support-partial:`partial`
+
+
+      .. raw:: html
+
+        </div>
+
+    - .. raw:: html
+
+        <div class="ansible-option-cell">
+
+      Will return details on what has changed (or possibly needs changing in :literal:`check\_mode`\ ), when in diff mode.
+
+
+      .. raw:: html
+
+        </div>
+
+
+
+.. Notes
+
+Notes
+-----
+
+.. note::
+   - Current value of the private key cannot be fetched from Keycloak. Therefore comparing its desired state to the current state is not possible.
+   - If :ansopt:`middleware\_automation.keycloak.keycloak\_realm\_key#module:config.certificate` is not explicitly provided it is dynamically created by Keycloak. Therefore comparing the current state of the certificate to the desired state (which may be empty) is not possible.
+   - Due to the private key and certificate options the module is :strong:`not fully idempotent`. You can use :ansopt:`middleware\_automation.keycloak.keycloak\_realm\_key#module:force=true` to force the module to ensure updating if you know that the private key might have changed.
+   - For auto\-generated providers (\ :ansval:`rsa\-generated`\ , :ansval:`rsa\-enc\-generated`\ , :ansval:`hmac\-generated`\ , :ansval:`aes\-generated`\ , :ansval:`ecdsa\-generated`\ , :ansval:`ecdh\-generated`\ , :ansval:`eddsa\-generated`\ ), Keycloak manages the key material automatically. The :ansopt:`middleware\_automation.keycloak.keycloak\_realm\_key#module:config.private\_key` and :ansopt:`middleware\_automation.keycloak.keycloak\_realm\_key#module:config.certificate` options are not used.
+   - For :ansval:`java\-keystore` provider, the :ansopt:`middleware\_automation.keycloak.keycloak\_realm\_key#module:config.keystore\_password` and :ansopt:`middleware\_automation.keycloak.keycloak\_realm\_key#module:config.key\_password` values are returned masked by Keycloak. Therefore comparing their current state to the desired state is not possible. Use :ansopt:`middleware\_automation.keycloak.keycloak\_realm\_key#module:update\_password=on\_create` for idempotent playbooks, or use :ansopt:`middleware\_automation.keycloak.keycloak\_realm\_key#module:update\_password=always` (default) if you need to ensure passwords are updated.
+
+.. Seealso
+
+
+.. Examples
+
+Examples
+--------
+
+.. code-block:: yaml+jinja
+
+    - name: Manage Keycloak realm key (certificate autogenerated by Keycloak)
+      middleware_automation.keycloak.keycloak_realm_key:
+        name: custom
+        state: present
+        parent_id: master
+        provider_id: rsa
+        auth_keycloak_url: http://localhost:8080
+        auth_username: keycloak
+        auth_password: keycloak
+        auth_realm: master
+        config:
+          private_key: "{{ private_key }}"
+          certificate: ""
+          enabled: true
+          active: true
+          priority: 120
+          algorithm: RS256
+
+    - name: Manage Keycloak realm key and certificate
+      middleware_automation.keycloak.keycloak_realm_key:
+        name: custom
+        state: present
+        parent_id: master
+        provider_id: rsa
+        auth_keycloak_url: http://localhost:8080
+        auth_username: keycloak
+        auth_password: keycloak
+        auth_realm: master
+        config:
+          private_key: "{{ private_key }}"
+          certificate: "{{ certificate }}"
+          enabled: true
+          active: true
+          priority: 120
+          algorithm: RS256
+
+    - name: Create HMAC signing key (auto-generated)
+      middleware_automation.keycloak.keycloak_realm_key:
+        name: hmac-custom
+        state: present
+        parent_id: master
+        provider_id: hmac-generated
+        auth_keycloak_url: http://localhost:8080
+        auth_username: keycloak
+        auth_password: keycloak
+        auth_realm: master
+        config:
+          enabled: true
+          active: true
+          priority: 100
+          algorithm: HS256
+          secret_size: 64
+
+    - name: Create AES encryption key (auto-generated)
+      middleware_automation.keycloak.keycloak_realm_key:
+        name: aes-custom
+        state: present
+        parent_id: master
+        provider_id: aes-generated
+        auth_keycloak_url: http://localhost:8080
+        auth_username: keycloak
+        auth_password: keycloak
+        auth_realm: master
+        config:
+          enabled: true
+          active: true
+          priority: 100
+          secret_size: 16
+
+    - name: Create ECDSA signing key (auto-generated)
+      middleware_automation.keycloak.keycloak_realm_key:
+        name: ecdsa-custom
+        state: present
+        parent_id: master
+        provider_id: ecdsa-generated
+        auth_keycloak_url: http://localhost:8080
+        auth_username: keycloak
+        auth_password: keycloak
+        auth_realm: master
+        config:
+          enabled: true
+          active: true
+          priority: 100
+          algorithm: ES256
+          elliptic_curve: P-256
+
+    - name: Create RSA signing key (auto-generated)
+      middleware_automation.keycloak.keycloak_realm_key:
+        name: rsa-auto
+        state: present
+        parent_id: master
+        provider_id: rsa-generated
+        auth_keycloak_url: http://localhost:8080
+        auth_username: keycloak
+        auth_password: keycloak
+        auth_realm: master
+        config:
+          enabled: true
+          active: true
+          priority: 100
+          algorithm: RS256
+          key_size: 2048
+
+    - name: Remove default HMAC key
+      middleware_automation.keycloak.keycloak_realm_key:
+        name: hmac-generated
+        state: absent
+        parent_id: myrealm
+        provider_id: hmac-generated
+        auth_keycloak_url: http://localhost:8080
+        auth_username: keycloak
+        auth_password: keycloak
+        auth_realm: master
+        config:
+          priority: 100
+
+    - name: Create RSA encryption key (auto-generated)
+      middleware_automation.keycloak.keycloak_realm_key:
+        name: rsa-enc-auto
+        state: present
+        parent_id: master
+        provider_id: rsa-enc-generated
+        auth_keycloak_url: http://localhost:8080
+        auth_username: keycloak
+        auth_password: keycloak
+        auth_realm: master
+        config:
+          enabled: true
+          active: true
+          priority: 100
+          algorithm: RSA-OAEP
+          key_size: 2048
+
+    - name: Create ECDH key exchange key (auto-generated)
+      middleware_automation.keycloak.keycloak_realm_key:
+        name: ecdh-custom
+        state: present
+        parent_id: master
+        provider_id: ecdh-generated
+        auth_keycloak_url: http://localhost:8080
+        auth_username: keycloak
+        auth_password: keycloak
+        auth_realm: master
+        config:
+          enabled: true
+          active: true
+          priority: 100
+          algorithm: ECDH_ES
+          elliptic_curve: P-256
+
+    - name: Create EdDSA signing key (auto-generated)
+      middleware_automation.keycloak.keycloak_realm_key:
+        name: eddsa-custom
+        state: present
+        parent_id: master
+        provider_id: eddsa-generated
+        auth_keycloak_url: http://localhost:8080
+        auth_username: keycloak
+        auth_password: keycloak
+        auth_realm: master
+        config:
+          enabled: true
+          active: true
+          priority: 100
+          elliptic_curve: Ed25519
+
+    - name: Import key from Java Keystore (always update passwords)
+      middleware_automation.keycloak.keycloak_realm_key:
+        name: jks-imported
+        state: present
+        parent_id: master
+        provider_id: java-keystore
+        auth_keycloak_url: http://localhost:8080
+        auth_username: keycloak
+        auth_password: keycloak
+        auth_realm: master
+        # update_password: always is the default - passwords are always sent to Keycloak
+        config:
+          enabled: true
+          active: true
+          priority: 100
+          algorithm: RS256
+          keystore: /opt/keycloak/conf/keystore.jks
+          keystore_password: "{{ keystore_password }}"
+          key_alias: mykey
+          key_password: "{{ key_password }}"
+
+    - name: Import key from Java Keystore (idempotent - only set password on create)
+      middleware_automation.keycloak.keycloak_realm_key:
+        name: jks-idempotent
+        state: present
+        parent_id: master
+        provider_id: java-keystore
+        auth_keycloak_url: http://localhost:8080
+        auth_username: keycloak
+        auth_password: keycloak
+        auth_realm: master
+        update_password: on_create  # Only send passwords when creating, preserve existing on update
+        config:
+          enabled: true
+          active: true
+          priority: 100
+          algorithm: RS256
+          keystore: /opt/keycloak/conf/keystore.jks
+          keystore_password: "{{ keystore_password }}"
+          key_alias: mykey
+          key_password: "{{ key_password }}"
+
+
+
+.. Facts
+
+
+.. Return values
+
+Return Values
+-------------
+Common return values are documented :ref:`here <common_return_values>`, the following are the fields unique to this module:
+
+.. raw:: html
+
+  <table class="colwidths-auto ansible-option-table docutils align-default" style="width: 100%">
+  <thead>
+  <tr class="row-odd">
+    <th class="head"><p>Key</p></th>
+    <th class="head"><p>Description</p></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="return-end_state"></div>
+      <p class="ansible-option-title"><strong>end_state</strong></p>
+      <a class="ansibleOptionLink" href="#return-end_state" title="Permalink to this return value"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">dictionary</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Representation of the keycloak_realm_key after module execution.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> on success</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="return-end_state/config"></div>
+      <p class="ansible-option-title"><strong>config</strong></p>
+      <a class="ansibleOptionLink" href="#return-end_state/config" title="Permalink to this return value"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">dictionary</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>Realm key configuration.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> when <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-state"><span class="std std-ref"><span class="pre">state=present</span></span></a></code></p>
+      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">{&#34;active&#34;: [&#34;true&#34;], &#34;algorithm&#34;: [&#34;RS256&#34;], &#34;enabled&#34;: [&#34;true&#34;], &#34;priority&#34;: [&#34;140&#34;]}</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="return-end_state/id"></div>
+      <p class="ansible-option-title"><strong>id</strong></p>
+      <a class="ansibleOptionLink" href="#return-end_state/id" title="Permalink to this return value"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>ID of the realm key.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> when <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-state"><span class="std std-ref"><span class="pre">state=present</span></span></a></code></p>
+      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">&#34;5b7ec13f-99da-46ad-8326-ab4c73cf4ce4&#34;</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="return-end_state/key_info"></div>
+      <p class="ansible-option-title"><strong>key_info</strong></p>
+      <a class="ansibleOptionLink" href="#return-end_state/key_info" title="Permalink to this return value"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">dictionary</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>Cryptographic key metadata fetched from the realm keys endpoint.</p>
+      <p>Only returned for <code class="ansible-value literal notranslate">java-keystore</code> provider when <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-state"><span class="std std-ref"><span class="pre">state=present</span></span></a></code> and not in check mode.</p>
+      <p>This includes the key ID (kid) and certificate fingerprint, which can be used to detect if the actual cryptographic key changed.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> when <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-provider_id"><span class="std std-ref"><span class="pre">provider_id=java-keystore</span></span></a></code> and <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-state"><span class="std std-ref"><span class="pre">state=present</span></span></a></code></p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="return-end_state/key_info/certificate_fingerprint"></div>
+      <p class="ansible-option-title"><strong>certificate_fingerprint</strong></p>
+      <a class="ansibleOptionLink" href="#return-end_state/key_info/certificate_fingerprint" title="Permalink to this return value"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>SHA256 fingerprint of the certificate in colon-separated hex format.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> success</p>
+      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">&#34;A1:B2:C3:D4:E5:F6:...&#34;</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="return-end_state/key_info/kid"></div>
+      <p class="ansible-option-title"><strong>kid</strong></p>
+      <a class="ansibleOptionLink" href="#return-end_state/key_info/kid" title="Permalink to this return value"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>The key ID (kid) - unique identifier for the cryptographic key.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> success</p>
+      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">&#34;bN7p5Nc_V2M7N_-mb5vVSRVPKq5qD_OuARInB9ofsJ0&#34;</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="return-end_state/key_info/status"></div>
+      <p class="ansible-option-title"><strong>status</strong></p>
+      <a class="ansibleOptionLink" href="#return-end_state/key_info/status" title="Permalink to this return value"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>The key status (ACTIVE, PASSIVE, DISABLED).</p>
+      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> success</p>
+      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">&#34;ACTIVE&#34;</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="return-end_state/key_info/valid_to"></div>
+      <p class="ansible-option-title"><strong>valid_to</strong></p>
+      <a class="ansibleOptionLink" href="#return-end_state/key_info/valid_to" title="Permalink to this return value"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">integer</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>Certificate expiration timestamp in milliseconds since epoch.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> success</p>
+      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">1801789047000</code></p>
+    </div></td>
+  </tr>
+
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="return-end_state/name"></div>
+      <p class="ansible-option-title"><strong>name</strong></p>
+      <a class="ansibleOptionLink" href="#return-end_state/name" title="Permalink to this return value"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>Name of the realm key.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> when <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-state"><span class="std std-ref"><span class="pre">state=present</span></span></a></code></p>
+      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">&#34;mykey&#34;</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="return-end_state/parentId"></div>
+      <p class="ansible-option-title"><strong>parentId</strong></p>
+      <a class="ansibleOptionLink" href="#return-end_state/parentId" title="Permalink to this return value"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>ID of the realm this key belongs to.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> when <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-state"><span class="std std-ref"><span class="pre">state=present</span></span></a></code></p>
+      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">&#34;myrealm&#34;</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="return-end_state/providerId"></div>
+      <p class="ansible-option-title"><strong>providerId</strong></p>
+      <a class="ansibleOptionLink" href="#return-end_state/providerId" title="Permalink to this return value"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>The ID of the key provider.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> when <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-state"><span class="std std-ref"><span class="pre">state=present</span></span></a></code></p>
+      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">&#34;rsa&#34;</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="return-end_state/providerType"></div>
+      <p class="ansible-option-title"><strong>providerType</strong></p>
+      <a class="ansibleOptionLink" href="#return-end_state/providerType" title="Permalink to this return value"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>The type of provider.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> when <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-state"><span class="std std-ref"><span class="pre">state=present</span></span></a></code></p>
+    </div></td>
+  </tr>
+
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="return-msg"></div>
+      <p class="ansible-option-title"><strong>msg</strong></p>
+      <a class="ansibleOptionLink" href="#return-msg" title="Permalink to this return value"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Message as to what action was taken.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
+    </div></td>
+  </tr>
+  </tbody>
+  </table>
+
+
+
+..  Status (Presently only deprecated)
+
+
+.. Authors
+
+Authors
+~~~~~~~
+
+- Samuli Seppänen (@mattock)
+- Ivan Kokalović (@koke1997)
+
+
+.. Extra links
+
+
+.. Parsing errors

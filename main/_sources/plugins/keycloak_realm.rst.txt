@@ -16,8 +16,8 @@
 
 .. Title
 
-keycloak_realm -- Allows administration of Keycloak realm via Keycloak API
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+keycloak_realm -- Allows administration of Keycloak realm using Keycloak API
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. Collection note
 
@@ -49,9 +49,9 @@ Synopsis
 
 .. Description
 
-- This module allows the administration of Keycloak realm via the Keycloak REST API. It requires access to the REST API via OpenID Connect; the user connecting and the realm being used must have the requisite access rights. In a default Keycloak installation, admin\-cli and an admin user would work, as would a separate realm definition with the scope tailored to your needs and a user having the expected roles.
-- The names of module options are snake\_cased versions of the camelCase ones found in the Keycloak API and its documentation at \ `https://www.keycloak.org/docs\-api/8.0/rest\-api/index.html <https://www.keycloak.org/docs-api/8.0/rest-api/index.html>`__. Aliases are provided so camelCased versions can be used as well.
-- The Keycloak API does not always sanity check inputs e.g. you can set SAML\-specific settings on an OpenID Connect client for instance and vice versa. Be careful. If you do not specify a setting, usually a sensible default is chosen.
+- This module allows the administration of Keycloak realm using the Keycloak REST API. It requires access to the REST API using OpenID Connect; the user connecting and the realm being used must have the requisite access rights. In a default Keycloak installation, admin\-cli and an admin user would work, as would a separate realm definition with the scope tailored to your needs and a user having the expected roles.
+- The names of module options are snake\_cased versions of the camelCase ones found in the Keycloak API and its documentation at \ `https://www.keycloak.org/docs\-api/latest/rest\-api/index.html <https://www.keycloak.org/docs-api/latest/rest-api/index.html>`__. Aliases are provided so camelCased versions can be used as well.
+- The Keycloak API does not always sanity check inputs, for example you can set SAML\-specific settings on an OpenID Connect client for instance and also the other way around. :strong:`Be careful`. If you do not specify a setting, usually a sensible default is chosen.
 
 
 .. Aliases
@@ -243,6 +243,27 @@ Parameters
   </tr>
   <tr class="row-even">
     <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-admin_permissions_enabled"></div>
+      <div class="ansibleOptionAnchor" id="parameter-adminPermissionsEnabled"></div>
+      <p class="ansible-option-title"><strong>admin_permissions_enabled</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-admin_permissions_enabled" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: adminPermissionsEnabled</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>The realm admin permissions enabled.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-admin_theme"></div>
       <div class="ansibleOptionAnchor" id="parameter-adminTheme"></div>
       <p class="ansible-option-title"><strong>admin_theme</strong></p>
@@ -256,7 +277,7 @@ Parameters
       <p>The realm admin theme.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-attributes"></div>
       <p class="ansible-option-title"><strong>attributes</strong></p>
@@ -269,7 +290,7 @@ Parameters
       <p>The realm attributes.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-auth_client_id"></div>
       <p class="ansible-option-title"><strong>auth_client_id</strong></p>
@@ -283,7 +304,7 @@ Parameters
       <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;admin-cli&#34;</code></p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-auth_client_secret"></div>
       <p class="ansible-option-title"><strong>auth_client_secret</strong></p>
@@ -296,7 +317,7 @@ Parameters
       <p>Client Secret to use in conjunction with <em>auth_client_id</em> (if required).</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-auth_keycloak_url"></div>
       <div class="ansibleOptionAnchor" id="parameter-url"></div>
@@ -312,7 +333,7 @@ Parameters
       <p>URL to the Keycloak instance.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-auth_password"></div>
       <div class="ansibleOptionAnchor" id="parameter-password"></div>
@@ -327,7 +348,7 @@ Parameters
       <p>Password to authenticate for API access with.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-auth_realm"></div>
       <p class="ansible-option-title"><strong>auth_realm</strong></p>
@@ -340,7 +361,7 @@ Parameters
       <p>Keycloak realm name to authenticate to for API access.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-auth_username"></div>
       <div class="ansibleOptionAnchor" id="parameter-username"></div>
@@ -355,7 +376,7 @@ Parameters
       <p>Username to authenticate for API access with.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-browser_flow"></div>
       <div class="ansibleOptionAnchor" id="parameter-browserFlow"></div>
@@ -370,7 +391,7 @@ Parameters
       <p>The realm browser flow.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-browser_security_headers"></div>
       <div class="ansibleOptionAnchor" id="parameter-browserSecurityHeaders"></div>
@@ -385,7 +406,7 @@ Parameters
       <p>The realm browser security headers.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-brute_force_protected"></div>
       <div class="ansibleOptionAnchor" id="parameter-bruteForceProtected"></div>
@@ -402,6 +423,27 @@ Parameters
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
         <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-brute_force_strategy"></div>
+      <div class="ansibleOptionAnchor" id="parameter-bruteForceStrategy"></div>
+      <p class="ansible-option-title"><strong>brute_force_strategy</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-brute_force_strategy" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: bruteForceStrategy</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>The realm brute force strategy.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;LINEAR&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;MULTIPLE&#34;</code></p></li>
       </ul>
 
     </div></td>
@@ -423,6 +465,36 @@ Parameters
   </tr>
   <tr class="row-even">
     <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-client_offline_session_idle_timeout"></div>
+      <div class="ansibleOptionAnchor" id="parameter-clientOfflineSessionIdleTimeout"></div>
+      <p class="ansible-option-title"><strong>client_offline_session_idle_timeout</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-client_offline_session_idle_timeout" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: clientOfflineSessionIdleTimeout</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">integer</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>All Clients inherit from this setting, time an offline session is allowed to be idle before it expires.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-client_offline_session_max_lifespan"></div>
+      <div class="ansibleOptionAnchor" id="parameter-clientOfflineSessionMaxLifespan"></div>
+      <p class="ansible-option-title"><strong>client_offline_session_max_lifespan</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-client_offline_session_max_lifespan" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: clientOfflineSessionMaxLifespan</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">integer</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>All Clients inherit from this setting, max time before an offline session is expired regardless of activity.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-client_scope_mappings"></div>
       <div class="ansibleOptionAnchor" id="parameter-clientScopeMappings"></div>
       <p class="ansible-option-title"><strong>client_scope_mappings</strong></p>
@@ -438,13 +510,42 @@ Parameters
   </tr>
   <tr class="row-odd">
     <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-client_session_idle_timeout"></div>
+      <div class="ansibleOptionAnchor" id="parameter-clientSessionIdleTimeout"></div>
+      <p class="ansible-option-title"><strong>client_session_idle_timeout</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-client_session_idle_timeout" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: clientSessionIdleTimeout</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">integer</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>All Clients inherit from this setting, time a session is allowed to be idle before it expires.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-client_session_max_lifespan"></div>
+      <div class="ansibleOptionAnchor" id="parameter-clientSessionMaxLifespan"></div>
+      <p class="ansible-option-title"><strong>client_session_max_lifespan</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-client_session_max_lifespan" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: clientSessionMaxLifespan</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">integer</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>All Clients inherit from this setting, max time before a session is expired.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-connection_timeout"></div>
       <p class="ansible-option-title"><strong>connection_timeout</strong></p>
       <a class="ansibleOptionLink" href="#parameter-connection_timeout" title="Permalink to this option"></a>
       <p class="ansible-option-type-line">
         <span class="ansible-option-type">integer</span>
       </p>
-      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 4.5.0</em></p>
     </div></td>
     <td><div class="ansible-option-cell">
       <p>Controls the HTTP connections timeout period (in seconds) to Keycloak API.</p>
@@ -707,7 +808,6 @@ Parameters
       <p class="ansible-option-type-line">
         <span class="ansible-option-type">boolean</span>
       </p>
-      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 3.6.0</em></p>
     </div></td>
     <td><div class="ansible-option-cell">
       <p>Enables or disables login events for this realm.</p>
@@ -767,20 +867,34 @@ Parameters
   </tr>
   <tr class="row-odd">
     <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-first_broker_login_flow"></div>
+      <div class="ansibleOptionAnchor" id="parameter-firstBrokerLoginFlow"></div>
+      <p class="ansible-option-title"><strong>first_broker_login_flow</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-first_broker_login_flow" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: firstBrokerLoginFlow</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>The realm first broker login flow.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-http_agent"></div>
       <p class="ansible-option-title"><strong>http_agent</strong></p>
       <a class="ansibleOptionLink" href="#parameter-http_agent" title="Permalink to this option"></a>
       <p class="ansible-option-type-line">
         <span class="ansible-option-type">string</span>
       </p>
-      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 5.4.0</em></p>
     </div></td>
     <td><div class="ansible-option-cell">
       <p>Configures the HTTP User-Agent header.</p>
       <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;Ansible&#34;</code></p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-id"></div>
       <p class="ansible-option-title"><strong>id</strong></p>
@@ -793,7 +907,7 @@ Parameters
       <p>The realm to create.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-internationalization_enabled"></div>
       <div class="ansibleOptionAnchor" id="parameter-internationalizationEnabled"></div>
@@ -812,6 +926,21 @@ Parameters
         <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
       </ul>
 
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-localization_texts"></div>
+      <div class="ansibleOptionAnchor" id="parameter-localizationTexts"></div>
+      <p class="ansible-option-title"><strong>localization_texts</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-localization_texts" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: localizationTexts</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">dictionary</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>The custom localization texts for a realm.</p>
     </div></td>
   </tr>
   <tr class="row-even">
@@ -882,6 +1011,21 @@ Parameters
   </tr>
   <tr class="row-even">
     <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-max_temporary_lockouts"></div>
+      <div class="ansibleOptionAnchor" id="parameter-maxTemporaryLockouts"></div>
+      <p class="ansible-option-title"><strong>max_temporary_lockouts</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-max_temporary_lockouts" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: maxTemporaryLockouts</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">integer</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>The realm max temporary lockouts.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-minimum_quick_login_wait_seconds"></div>
       <div class="ansibleOptionAnchor" id="parameter-minimumQuickLoginWaitSeconds"></div>
       <p class="ansible-option-title"><strong>minimum_quick_login_wait_seconds</strong></p>
@@ -895,7 +1039,7 @@ Parameters
       <p>The realm minimum quick login wait in seconds.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-not_before"></div>
       <div class="ansibleOptionAnchor" id="parameter-notBefore"></div>
@@ -910,7 +1054,37 @@ Parameters
       <p>The realm not before.</p>
     </div></td>
   </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-oauth2_device_code_lifespan"></div>
+      <div class="ansibleOptionAnchor" id="parameter-oauth2DeviceCodeLifespan"></div>
+      <p class="ansible-option-title"><strong>oauth2_device_code_lifespan</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-oauth2_device_code_lifespan" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: oauth2DeviceCodeLifespan</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">integer</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Max time before the device code and user code are expired.</p>
+    </div></td>
+  </tr>
   <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-oauth2_device_polling_interval"></div>
+      <div class="ansibleOptionAnchor" id="parameter-oauth2DevicePollingInterval"></div>
+      <p class="ansible-option-title"><strong>oauth2_device_polling_interval</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-oauth2_device_polling_interval" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: oauth2DevicePollingInterval</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">integer</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>The minimum amount of time in seconds that the client should wait between polling requests to the token endpoint.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-offline_session_idle_timeout"></div>
       <div class="ansibleOptionAnchor" id="parameter-offlineSessionIdleTimeout"></div>
@@ -925,7 +1099,7 @@ Parameters
       <p>The realm offline session idle timeout.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-offline_session_max_lifespan"></div>
       <div class="ansibleOptionAnchor" id="parameter-offlineSessionMaxLifespan"></div>
@@ -940,7 +1114,7 @@ Parameters
       <p>The realm offline session max lifespan.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-offline_session_max_lifespan_enabled"></div>
       <div class="ansibleOptionAnchor" id="parameter-offlineSessionMaxLifespanEnabled"></div>
@@ -953,6 +1127,27 @@ Parameters
     </div></td>
     <td><div class="ansible-option-cell">
       <p>The realm offline session max lifespan enabled option.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-organizations_enabled"></div>
+      <div class="ansibleOptionAnchor" id="parameter-organizationsEnabled"></div>
+      <p class="ansible-option-title"><strong>organizations_enabled</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-organizations_enabled" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: organizationsEnabled</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Enables support for experimental organization feature.</p>
       <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
@@ -1133,6 +1328,19 @@ Parameters
   </tr>
   <tr class="row-even">
     <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-refresh_token"></div>
+      <p class="ansible-option-title"><strong>refresh_token</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-refresh_token" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Authentication refresh token for Keycloak API.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-refresh_token_max_reuse"></div>
       <div class="ansibleOptionAnchor" id="parameter-refreshTokenMaxReuse"></div>
       <p class="ansible-option-title"><strong>refresh_token_max_reuse</strong></p>
@@ -1146,7 +1354,7 @@ Parameters
       <p>The realm refresh token max reuse.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-registration_allowed"></div>
       <div class="ansibleOptionAnchor" id="parameter-registrationAllowed"></div>
@@ -1167,7 +1375,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-registration_email_as_username"></div>
       <div class="ansibleOptionAnchor" id="parameter-registrationEmailAsUsername"></div>
@@ -1188,7 +1396,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-registration_flow"></div>
       <div class="ansibleOptionAnchor" id="parameter-registrationFlow"></div>
@@ -1203,7 +1411,7 @@ Parameters
       <p>The realm registration flow.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-remember_me"></div>
       <div class="ansibleOptionAnchor" id="parameter-rememberMe"></div>
@@ -1224,7 +1432,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-reset_credentials_flow"></div>
       <div class="ansibleOptionAnchor" id="parameter-resetCredentialsFlow"></div>
@@ -1239,7 +1447,7 @@ Parameters
       <p>The realm reset credentials flow.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-reset_password_allowed"></div>
       <div class="ansibleOptionAnchor" id="parameter-resetPasswordAllowed"></div>
@@ -1260,7 +1468,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-revoke_refresh_token"></div>
       <div class="ansibleOptionAnchor" id="parameter-revokeRefreshToken"></div>
@@ -1281,7 +1489,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-smtp_server"></div>
       <div class="ansibleOptionAnchor" id="parameter-smtpServer"></div>
@@ -1296,7 +1504,7 @@ Parameters
       <p>The realm smtp server.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-ssl_required"></div>
       <div class="ansibleOptionAnchor" id="parameter-sslRequired"></div>
@@ -1318,7 +1526,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-sso_session_idle_timeout"></div>
       <div class="ansibleOptionAnchor" id="parameter-ssoSessionIdleTimeout"></div>
@@ -1333,7 +1541,7 @@ Parameters
       <p>The realm sso session idle timeout.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-sso_session_idle_timeout_remember_me"></div>
       <div class="ansibleOptionAnchor" id="parameter-ssoSessionIdleTimeoutRememberMe"></div>
@@ -1348,7 +1556,7 @@ Parameters
       <p>The realm sso session idle timeout remember me.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-sso_session_max_lifespan"></div>
       <div class="ansibleOptionAnchor" id="parameter-ssoSessionMaxLifespan"></div>
@@ -1363,7 +1571,7 @@ Parameters
       <p>The realm sso session max lifespan.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-sso_session_max_lifespan_remember_me"></div>
       <div class="ansibleOptionAnchor" id="parameter-ssoSessionMaxLifespanRememberMe"></div>
@@ -1378,7 +1586,7 @@ Parameters
       <p>The realm sso session max lifespan remember me.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-state"></div>
       <p class="ansible-option-title"><strong>state</strong></p>
@@ -1389,8 +1597,8 @@ Parameters
     </div></td>
     <td><div class="ansible-option-cell">
       <p>State of the realm.</p>
-      <p>On <code class="ansible-value literal notranslate">present</code>, the realm will be created (or updated if it exists already).</p>
-      <p>On <code class="ansible-value literal notranslate">absent</code>, the realm will be removed if it exists.</p>
+      <p>On <code class="ansible-value literal notranslate">present</code>, the realm is created (or updated if it exists already).</p>
+      <p>On <code class="ansible-value literal notranslate">absent</code>, the realm is removed if it exists.</p>
       <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>&#34;present&#34;</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
@@ -1399,7 +1607,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-supported_locales"></div>
       <div class="ansibleOptionAnchor" id="parameter-supportedLocales"></div>
@@ -1415,7 +1623,7 @@ Parameters
       <p>The realm supported locales.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-token"></div>
       <p class="ansible-option-title"><strong>token</strong></p>
@@ -1423,13 +1631,12 @@ Parameters
       <p class="ansible-option-type-line">
         <span class="ansible-option-type">string</span>
       </p>
-      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 3.0.0</em></p>
     </div></td>
     <td><div class="ansible-option-cell">
       <p>Authentication token for Keycloak API.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-user_managed_access_allowed"></div>
       <div class="ansibleOptionAnchor" id="parameter-userManagedAccessAllowed"></div>
@@ -1450,7 +1657,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-validate_certs"></div>
       <p class="ansible-option-title"><strong>validate_certs</strong></p>
@@ -1469,7 +1676,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-verify_email"></div>
       <div class="ansibleOptionAnchor" id="parameter-verifyEmail"></div>
@@ -1490,7 +1697,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-wait_increment_seconds"></div>
       <div class="ansibleOptionAnchor" id="parameter-waitIncrementSeconds"></div>
@@ -1503,6 +1710,375 @@ Parameters
     </div></td>
     <td><div class="ansible-option-cell">
       <p>The realm wait increment in seconds.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_acceptable_aaguids"></div>
+      <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyAcceptableAaguids"></div>
+      <p class="ansible-option-title"><strong>web_authn_policy_acceptable_aaguids</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-web_authn_policy_acceptable_aaguids" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: webAuthnPolicyAcceptableAaguids</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">list</span>
+        / <span class="ansible-option-elements">elements=string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>List of acceptable AAGUIDs for WebAuthn authenticators.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_attestation_conveyance_preference"></div>
+      <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyAttestationConveyancePreference"></div>
+      <p class="ansible-option-title"><strong>web_authn_policy_attestation_conveyance_preference</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-web_authn_policy_attestation_conveyance_preference" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: webAuthnPolicyAttestationConveyancePreference</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Attestation conveyance preference for WebAuthn.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_authenticator_attachment"></div>
+      <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyAuthenticatorAttachment"></div>
+      <p class="ansible-option-title"><strong>web_authn_policy_authenticator_attachment</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-web_authn_policy_authenticator_attachment" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: webAuthnPolicyAuthenticatorAttachment</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Authenticator attachment preference for WebAuthn authenticators.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_avoid_same_authenticator_register"></div>
+      <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyAvoidSameAuthenticatorRegister"></div>
+      <p class="ansible-option-title"><strong>web_authn_policy_avoid_same_authenticator_register</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-web_authn_policy_avoid_same_authenticator_register" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: webAuthnPolicyAvoidSameAuthenticatorRegister</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Avoid registering the same authenticator multiple times.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_create_timeout"></div>
+      <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyCreateTimeout"></div>
+      <p class="ansible-option-title"><strong>web_authn_policy_create_timeout</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-web_authn_policy_create_timeout" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: webAuthnPolicyCreateTimeout</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">integer</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Timeout for WebAuthn credential creation (ms).</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_extra_origins"></div>
+      <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyExtraOrigins"></div>
+      <p class="ansible-option-title"><strong>web_authn_policy_extra_origins</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-web_authn_policy_extra_origins" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: webAuthnPolicyExtraOrigins</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">list</span>
+        / <span class="ansible-option-elements">elements=string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Additional acceptable origins for WebAuthn requests.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_acceptable_aaguids"></div>
+      <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessAcceptableAaguids"></div>
+      <p class="ansible-option-title"><strong>web_authn_policy_passwordless_acceptable_aaguids</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-web_authn_policy_passwordless_acceptable_aaguids" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: webAuthnPolicyPasswordlessAcceptableAaguids</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">list</span>
+        / <span class="ansible-option-elements">elements=string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>List of acceptable AAGUIDs for WebAuthn passwordless authenticators.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_attestation_conveyance_preference"></div>
+      <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessAttestationConveyancePreference"></div>
+      <p class="ansible-option-title"><strong>web_authn_policy_passwordless_attestation_conveyance_preference</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-web_authn_policy_passwordless_attestation_conveyance_preference" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: webAuthnPolicyPasswordlessAttestationConveyancePreference</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Attestation conveyance preference for WebAuthn passwordless.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_authenticator_attachment"></div>
+      <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessAuthenticatorAttachment"></div>
+      <p class="ansible-option-title"><strong>web_authn_policy_passwordless_authenticator_attachment</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-web_authn_policy_passwordless_authenticator_attachment" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: webAuthnPolicyPasswordlessAuthenticatorAttachment</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Authenticator attachment for WebAuthn passwordless.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_avoid_same_authenticator_register"></div>
+      <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessAvoidSameAuthenticatorRegister"></div>
+      <p class="ansible-option-title"><strong>web_authn_policy_passwordless_avoid_same_authenticator_register</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-web_authn_policy_passwordless_avoid_same_authenticator_register" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: webAuthnPolicyPasswordlessAvoidSameAuthenticatorRegister</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Avoid registering the same authenticator multiple times for passwordless.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_create_timeout"></div>
+      <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessCreateTimeout"></div>
+      <p class="ansible-option-title"><strong>web_authn_policy_passwordless_create_timeout</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-web_authn_policy_passwordless_create_timeout" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: webAuthnPolicyPasswordlessCreateTimeout</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">integer</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Timeout for WebAuthn passwordless credential creation (ms).</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_extra_origins"></div>
+      <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessExtraOrigins"></div>
+      <p class="ansible-option-title"><strong>web_authn_policy_passwordless_extra_origins</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-web_authn_policy_passwordless_extra_origins" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: webAuthnPolicyPasswordlessExtraOrigins</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">list</span>
+        / <span class="ansible-option-elements">elements=string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Additional acceptable origins for WebAuthn passwordless requests.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_passkeys_enabled"></div>
+      <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessPasskeysEnabled"></div>
+      <p class="ansible-option-title"><strong>web_authn_policy_passwordless_passkeys_enabled</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-web_authn_policy_passwordless_passkeys_enabled" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: webAuthnPolicyPasswordlessPasskeysEnabled</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Enable passkeys (conditional UI) authentication in the username forms.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_require_resident_key"></div>
+      <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessRequireResidentKey"></div>
+      <p class="ansible-option-title"><strong>web_authn_policy_passwordless_require_resident_key</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-web_authn_policy_passwordless_require_resident_key" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: webAuthnPolicyPasswordlessRequireResidentKey</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Whether resident keys are required for WebAuthn passwordless (<code class="ansible-value literal notranslate">Yes</code>/<code class="ansible-value literal notranslate">No</code>/<code class="ansible-value literal notranslate">not specified</code>).</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_rp_entity_name"></div>
+      <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessRpEntityName"></div>
+      <p class="ansible-option-title"><strong>web_authn_policy_passwordless_rp_entity_name</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-web_authn_policy_passwordless_rp_entity_name" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: webAuthnPolicyPasswordlessRpEntityName</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>WebAuthn Passwordless Relying Party Entity Name.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_rp_id"></div>
+      <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessRpId"></div>
+      <p class="ansible-option-title"><strong>web_authn_policy_passwordless_rp_id</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-web_authn_policy_passwordless_rp_id" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: webAuthnPolicyPasswordlessRpId</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>WebAuthn Passwordless Relying Party ID (domain).</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_signature_algorithms"></div>
+      <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessSignatureAlgorithms"></div>
+      <p class="ansible-option-title"><strong>web_authn_policy_passwordless_signature_algorithms</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-web_authn_policy_passwordless_signature_algorithms" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: webAuthnPolicyPasswordlessSignatureAlgorithms</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">list</span>
+        / <span class="ansible-option-elements">elements=string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>List of acceptable WebAuthn signature algorithms for passwordless.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_user_verification_requirement"></div>
+      <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessUserVerificationRequirement"></div>
+      <p class="ansible-option-title"><strong>web_authn_policy_passwordless_user_verification_requirement</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-web_authn_policy_passwordless_user_verification_requirement" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: webAuthnPolicyPasswordlessUserVerificationRequirement</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>User verification requirement for WebAuthn passwordless.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_require_resident_key"></div>
+      <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyRequireResidentKey"></div>
+      <p class="ansible-option-title"><strong>web_authn_policy_require_resident_key</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-web_authn_policy_require_resident_key" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: webAuthnPolicyRequireResidentKey</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Whether resident keys are required for WebAuthn (Yes/No/not specified).</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_rp_entity_name"></div>
+      <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyRpEntityName"></div>
+      <p class="ansible-option-title"><strong>web_authn_policy_rp_entity_name</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-web_authn_policy_rp_entity_name" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: webAuthnPolicyRpEntityName</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>WebAuthn Relying Party Entity Name.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_rp_id"></div>
+      <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyRpId"></div>
+      <p class="ansible-option-title"><strong>web_authn_policy_rp_id</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-web_authn_policy_rp_id" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: webAuthnPolicyRpId</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>WebAuthn Relying Party ID (domain). Empty string means use request host.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_signature_algorithms"></div>
+      <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicySignatureAlgorithms"></div>
+      <p class="ansible-option-title"><strong>web_authn_policy_signature_algorithms</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-web_authn_policy_signature_algorithms" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: webAuthnPolicySignatureAlgorithms</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">list</span>
+        / <span class="ansible-option-elements">elements=string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>List of acceptable WebAuthn signature algorithms.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_user_verification_requirement"></div>
+      <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyUserVerificationRequirement"></div>
+      <p class="ansible-option-title"><strong>web_authn_policy_user_verification_requirement</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-web_authn_policy_user_verification_requirement" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: webAuthnPolicyUserVerificationRequirement</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>User verification requirement for WebAuthn.</p>
     </div></td>
   </tr>
   </tbody>
@@ -1527,6 +2103,50 @@ Attributes
   * - Attribute
     - Support
     - Description
+
+  * - .. raw:: html
+
+        <div class="ansible-option-cell">
+        <div class="ansibleOptionAnchor" id="attribute-action_group"></div>
+
+      .. _ansible_collections.middleware_automation.keycloak.keycloak_realm_module__attribute-action_group:
+
+      .. rst-class:: ansible-option-title
+
+      **action_group**
+
+      .. raw:: html
+
+        <a class="ansibleOptionLink" href="#attribute-action_group" title="Permalink to this attribute"></a>
+
+      .. raw:: html
+
+        </div>
+
+    - .. raw:: html
+
+        <div class="ansible-option-cell">
+
+      :ansible-attribute-support-property:`Action group:` |antsibull-internal-nbsp|:ansible-attribute-support-full:`middleware\_automation.keycloak.keycloak`
+
+      :ansible-option-versionadded:`added in middleware\_automation.keycloak 3.0.0`
+
+
+      .. raw:: html
+
+        </div>
+
+    - .. raw:: html
+
+        <div class="ansible-option-cell">
+
+      Use :literal:`group/middleware\_automation.keycloak.keycloak` in :literal:`module\_defaults` to set defaults for this module.
+
+
+      .. raw:: html
+
+        </div>
+
 
   * - .. raw:: html
 
@@ -1629,22 +2249,21 @@ Examples
     - name: Create or update Keycloak realm (minimal example)
       middleware_automation.keycloak.keycloak_realm:
         auth_client_id: admin-cli
-        auth_keycloak_url: https://auth.example.com/auth
+        auth_keycloak_url: https://auth.example.com
         auth_realm: master
         auth_username: USERNAME
         auth_password: PASSWORD
-        id: realm
-        realm: realm
+        realm: unique_realm_name
         state: present
 
     - name: Delete a Keycloak realm
       middleware_automation.keycloak.keycloak_realm:
         auth_client_id: admin-cli
-        auth_keycloak_url: https://auth.example.com/auth
+        auth_keycloak_url: https://auth.example.com
         auth_realm: master
         auth_username: USERNAME
         auth_password: PASSWORD
-        id: test
+        realm: unique_realm_name
         state: absent
 
 
@@ -1725,7 +2344,7 @@ Common return values are documented :ref:`here <common_return_values>`, the foll
     <td><div class="ansible-option-cell">
       <p>Representation of proposed realm.</p>
       <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
-      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">{&#34;id&#34;: &#34;test&#34;}</code></p>
+      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">{&#34;realm&#34;: &#34;test&#34;}</code></p>
     </div></td>
   </tr>
   </tbody>

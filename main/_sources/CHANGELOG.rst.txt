@@ -9,6 +9,11 @@ This changelog describes changes after version 0.2.6.
 v3.0.7-devel
 ============
 
+Major Changes
+-------------
+
+- Migrate Keycloak modules from the community.general collection to Keycloak collection. `#341 <https://github.com/ansible-middleware/keycloak/pull/341>`_
+
 Minor Changes
 -------------
 

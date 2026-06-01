@@ -21,7 +21,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="keycloak_authentication_flow – Allows administration of Keycloak authentication flows via Keycloak API" href="keycloak_authentication_flow.html" />
+    <link rel="next" title="keycloak_authentication – Configure authentication in Keycloak" href="keycloak_authentication.html" />
     <link rel="prev" title="Ansible Collection - middleware_automation.keycloak" href="../README.html" /> 
 </head>
 
@@ -48,12 +48,39 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../README.html">Ansible Collection - middleware_automation.keycloak</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Plugin Index</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication.html">keycloak_authentication – Configure authentication in Keycloak</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_authentication_flow.html">keycloak_authentication_flow – Allows administration of Keycloak authentication flows via Keycloak API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="keycloak_client.html">keycloak_client – Allows administration of Keycloak clients via Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication_required_actions.html">keycloak_authentication_required_actions – Allows administration of Keycloak authentication required actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication_v2.html">keycloak_authentication_v2 – Configure authentication flows in Keycloak in an idempotent and safe manner.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_authorization_scope.html">keycloak_authz_authorization_scope – Allows administration of Keycloak client authorization scopes using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_custom_policy.html">keycloak_authz_custom_policy – Allows administration of Keycloak client custom Javascript policies using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_permission.html">keycloak_authz_permission – Allows administration of Keycloak client authorization permissions using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_permission_info.html">keycloak_authz_permission_info – Query Keycloak client authorization permissions information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_client.html">keycloak_client – Allows administration of Keycloak clients using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_client_rolemapping.html">keycloak_client_rolemapping – Allows administration of Keycloak client_rolemapping with the Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_client_rolescope.html">keycloak_client_rolescope – Allows administration of Keycloak client roles scope to restrict the usage of certain roles to a other specific client applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_client_scope.html">keycloak_client_scope – Allows administration of Keycloak client scopes via Keycloak API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="keycloak_realm.html">keycloak_realm – Allows administration of Keycloak realm via Keycloak API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="keycloak_role.html">keycloak_role – Allows administration of Keycloak roles via Keycloak API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="keycloak_user_federation.html">keycloak_user_federation – Allows administration of Keycloak user federations via Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientscope_rolemappings.html">keycloak_clientscope_rolemappings – Allows administration of Keycloak clientscope scope mappings to restrict the usage of certain roles to specific clientscopes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientscope_type.html">keycloak_clientscope_type – Set the type of aclientscope in realm or client using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientsecret_info.html">keycloak_clientsecret_info – Retrieve client secret using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientsecret_regenerate.html">keycloak_clientsecret_regenerate – Regenerate Keycloak client secret using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clienttemplate.html">keycloak_clienttemplate – Allows administration of Keycloak client templates using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_component.html">keycloak_component – Allows administration of Keycloak components using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_component_info.html">keycloak_component_info – Retrieve component info in Keycloak</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_group.html">keycloak_group – Allows administration of Keycloak groups using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_identity_provider.html">keycloak_identity_provider – Allows administration of Keycloak identity providers using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm.html">keycloak_realm – Allows administration of Keycloak realm using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_info.html">keycloak_realm_info – Allows obtaining Keycloak realm public information using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_key.html">keycloak_realm_key – Allows administration of Keycloak realm keys using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_keys_metadata_info.html">keycloak_realm_keys_metadata_info – Allows obtaining Keycloak realm keys metadata using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_localization.html">keycloak_realm_localization – Allows management of Keycloak realm localization overrides via the Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_rolemapping.html">keycloak_realm_rolemapping – Allows administration of Keycloak realm role mappings into groups with the Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_role.html">keycloak_role – Allows administration of Keycloak roles using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user.html">keycloak_user – Create and configure a user in Keycloak</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user_execute_actions_email.html">keycloak_user_execute_actions_email – Send a Keycloak execute-actions email to a user</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user_federation.html">keycloak_user_federation – Allows administration of Keycloak user federations using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user_rolemapping.html">keycloak_user_rolemapping – Allows administration of Keycloak user_rolemapping with the Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_userprofile.html">keycloak_userprofile – Allows managing Keycloak User Profiles</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../roles/index.html">Role Index</a></li>
@@ -107,6 +134,17 @@
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">modules plugins</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_authentication.html">keycloak_authentication – Configure authentication in Keycloak</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication.html#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication.html#return-values">Return Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keycloak_authentication.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="keycloak_authentication_flow.html">keycloak_authentication_flow – Allows administration of Keycloak authentication flows via Keycloak API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_authentication_flow.html#synopsis">Synopsis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_authentication_flow.html#parameters">Parameters</a></li>
@@ -118,13 +156,101 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="keycloak_client.html">keycloak_client – Allows administration of Keycloak clients via Keycloak API</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_authentication_required_actions.html">keycloak_authentication_required_actions – Allows administration of Keycloak authentication required actions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication_required_actions.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication_required_actions.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication_required_actions.html#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication_required_actions.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication_required_actions.html#return-values">Return Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keycloak_authentication_required_actions.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_authentication_v2.html">keycloak_authentication_v2 – Configure authentication flows in Keycloak in an idempotent and safe manner.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication_v2.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication_v2.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication_v2.html#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication_v2.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication_v2.html#return-values">Return Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keycloak_authentication_v2.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_authz_authorization_scope.html">keycloak_authz_authorization_scope – Allows administration of Keycloak client authorization scopes using Keycloak API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_authorization_scope.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_authorization_scope.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_authorization_scope.html#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_authorization_scope.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_authorization_scope.html#return-values">Return Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keycloak_authz_authorization_scope.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_authz_custom_policy.html">keycloak_authz_custom_policy – Allows administration of Keycloak client custom Javascript policies using Keycloak API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_custom_policy.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_custom_policy.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_custom_policy.html#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_custom_policy.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_custom_policy.html#return-values">Return Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keycloak_authz_custom_policy.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_authz_permission.html">keycloak_authz_permission – Allows administration of Keycloak client authorization permissions using Keycloak API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_permission.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_permission.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_permission.html#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_permission.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_permission.html#return-values">Return Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keycloak_authz_permission.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_authz_permission_info.html">keycloak_authz_permission_info – Query Keycloak client authorization permissions information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_permission_info.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_permission_info.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_permission_info.html#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_permission_info.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_permission_info.html#return-values">Return Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keycloak_authz_permission_info.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_client.html">keycloak_client – Allows administration of Keycloak clients using Keycloak API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_client.html#synopsis">Synopsis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_client.html#parameters">Parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_client.html#attributes">Attributes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_client.html#examples">Examples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_client.html#return-values">Return Values</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="keycloak_client.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_client_rolemapping.html">keycloak_client_rolemapping – Allows administration of Keycloak client_rolemapping with the Keycloak API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_client_rolemapping.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_client_rolemapping.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_client_rolemapping.html#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_client_rolemapping.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_client_rolemapping.html#return-values">Return Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keycloak_client_rolemapping.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_client_rolescope.html">keycloak_client_rolescope – Allows administration of Keycloak client roles scope to restrict the usage of certain roles to a other specific client applications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_client_rolescope.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_client_rolescope.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_client_rolescope.html#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_client_rolescope.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_client_rolescope.html#return-values">Return Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keycloak_client_rolescope.html#authors">Authors</a></li>
 </ul>
 </li>
 </ul>
@@ -140,7 +266,108 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="keycloak_realm.html">keycloak_realm – Allows administration of Keycloak realm via Keycloak API</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_clientscope_rolemappings.html">keycloak_clientscope_rolemappings – Allows administration of Keycloak clientscope scope mappings to restrict the usage of certain roles to specific clientscopes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientscope_rolemappings.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientscope_rolemappings.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientscope_rolemappings.html#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientscope_rolemappings.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientscope_rolemappings.html#return-values">Return Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keycloak_clientscope_rolemappings.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_clientscope_type.html">keycloak_clientscope_type – Set the type of aclientscope in realm or client using Keycloak API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientscope_type.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientscope_type.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientscope_type.html#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientscope_type.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientscope_type.html#return-values">Return Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keycloak_clientscope_type.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_clientsecret_info.html">keycloak_clientsecret_info – Retrieve client secret using Keycloak API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientsecret_info.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientsecret_info.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientsecret_info.html#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientsecret_info.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientsecret_info.html#return-values">Return Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keycloak_clientsecret_info.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_clientsecret_regenerate.html">keycloak_clientsecret_regenerate – Regenerate Keycloak client secret using Keycloak API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientsecret_regenerate.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientsecret_regenerate.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientsecret_regenerate.html#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientsecret_regenerate.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientsecret_regenerate.html#return-values">Return Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keycloak_clientsecret_regenerate.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_clienttemplate.html">keycloak_clienttemplate – Allows administration of Keycloak client templates using Keycloak API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clienttemplate.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clienttemplate.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clienttemplate.html#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clienttemplate.html#notes">Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clienttemplate.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clienttemplate.html#return-values">Return Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keycloak_clienttemplate.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_component.html">keycloak_component – Allows administration of Keycloak components using Keycloak API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_component.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_component.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_component.html#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_component.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_component.html#return-values">Return Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keycloak_component.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_component_info.html">keycloak_component_info – Retrieve component info in Keycloak</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_component_info.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_component_info.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_component_info.html#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_component_info.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_component_info.html#return-values">Return Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keycloak_component_info.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_group.html">keycloak_group – Allows administration of Keycloak groups using Keycloak API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_group.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_group.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_group.html#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_group.html#notes">Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_group.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_group.html#return-values">Return Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keycloak_group.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_identity_provider.html">keycloak_identity_provider – Allows administration of Keycloak identity providers using Keycloak API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_identity_provider.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_identity_provider.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_identity_provider.html#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_identity_provider.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_identity_provider.html#return-values">Return Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keycloak_identity_provider.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_realm.html">keycloak_realm – Allows administration of Keycloak realm using Keycloak API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_realm.html#synopsis">Synopsis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_realm.html#parameters">Parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_realm.html#attributes">Attributes</a></li>
@@ -151,7 +378,64 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="keycloak_role.html">keycloak_role – Allows administration of Keycloak roles via Keycloak API</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_realm_info.html">keycloak_realm_info – Allows obtaining Keycloak realm public information using Keycloak API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_info.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_info.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_info.html#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_info.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_info.html#return-values">Return Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keycloak_realm_info.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_realm_key.html">keycloak_realm_key – Allows administration of Keycloak realm keys using Keycloak API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_key.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_key.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_key.html#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_key.html#notes">Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_key.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_key.html#return-values">Return Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keycloak_realm_key.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_realm_keys_metadata_info.html">keycloak_realm_keys_metadata_info – Allows obtaining Keycloak realm keys metadata using Keycloak API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_keys_metadata_info.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_keys_metadata_info.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_keys_metadata_info.html#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_keys_metadata_info.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_keys_metadata_info.html#return-values">Return Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keycloak_realm_keys_metadata_info.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_realm_localization.html">keycloak_realm_localization – Allows management of Keycloak realm localization overrides via the Keycloak API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_localization.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_localization.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_localization.html#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_localization.html#see-also">See Also</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_localization.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_localization.html#return-values">Return Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keycloak_realm_localization.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_realm_rolemapping.html">keycloak_realm_rolemapping – Allows administration of Keycloak realm role mappings into groups with the Keycloak API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_rolemapping.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_rolemapping.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_rolemapping.html#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_rolemapping.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_rolemapping.html#return-values">Return Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keycloak_realm_rolemapping.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_role.html">keycloak_role – Allows administration of Keycloak roles using Keycloak API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_role.html#synopsis">Synopsis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_role.html#parameters">Parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_role.html#attributes">Attributes</a></li>
@@ -162,13 +446,59 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="keycloak_user_federation.html">keycloak_user_federation – Allows administration of Keycloak user federations via Keycloak API</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_user.html">keycloak_user – Create and configure a user in Keycloak</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user.html#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user.html#notes">Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user.html#return-values">Return Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keycloak_user.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_user_execute_actions_email.html">keycloak_user_execute_actions_email – Send a Keycloak execute-actions email to a user</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user_execute_actions_email.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user_execute_actions_email.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user_execute_actions_email.html#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user_execute_actions_email.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user_execute_actions_email.html#return-values">Return Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keycloak_user_execute_actions_email.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_user_federation.html">keycloak_user_federation – Allows administration of Keycloak user federations using Keycloak API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_user_federation.html#synopsis">Synopsis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_user_federation.html#parameters">Parameters</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_user_federation.html#attributes">Attributes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_user_federation.html#examples">Examples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_user_federation.html#return-values">Return Values</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="keycloak_user_federation.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_user_rolemapping.html">keycloak_user_rolemapping – Allows administration of Keycloak user_rolemapping with the Keycloak API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user_rolemapping.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user_rolemapping.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user_rolemapping.html#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user_rolemapping.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user_rolemapping.html#return-values">Return Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keycloak_user_rolemapping.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keycloak_userprofile.html">keycloak_userprofile – Allows managing Keycloak User Profiles</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_userprofile.html#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_userprofile.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_userprofile.html#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_userprofile.html#notes">Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_userprofile.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_userprofile.html#return-values">Return Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="keycloak_userprofile.html#authors">Authors</a></li>
 </ul>
 </li>
 </ul>
@@ -182,7 +512,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../README.html" class="btn btn-neutral float-left" title="Ansible Collection - middleware_automation.keycloak" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="keycloak_authentication_flow.html" class="btn btn-neutral float-right" title="keycloak_authentication_flow – Allows administration of Keycloak authentication flows via Keycloak API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="keycloak_authentication.html" class="btn btn-neutral float-right" title="keycloak_authentication – Configure authentication in Keycloak" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

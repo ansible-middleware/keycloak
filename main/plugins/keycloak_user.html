@@ -1,0 +1,1130 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="2.24.0" name="antsibull-docs" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>keycloak_user – Create and configure a user in Keycloak &mdash; Keycloak Ansible Collection  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=41de9001" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/antsibull-minimal.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/ansible-basic-sphinx-ext.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="keycloak_user_execute_actions_email – Send a Keycloak execute-actions email to a user" href="keycloak_user_execute_actions_email.html" />
+    <link rel="prev" title="keycloak_role – Allows administration of Keycloak roles using Keycloak API" href="keycloak_role.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Keycloak Ansible Collection
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Ansible Collection - middleware_automation.keycloak</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Plugin Index</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication.html">keycloak_authentication – Configure authentication in Keycloak</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication_flow.html">keycloak_authentication_flow – Allows administration of Keycloak authentication flows via Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication_required_actions.html">keycloak_authentication_required_actions – Allows administration of Keycloak authentication required actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication_v2.html">keycloak_authentication_v2 – Configure authentication flows in Keycloak in an idempotent and safe manner.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_authorization_scope.html">keycloak_authz_authorization_scope – Allows administration of Keycloak client authorization scopes using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_custom_policy.html">keycloak_authz_custom_policy – Allows administration of Keycloak client custom Javascript policies using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_permission.html">keycloak_authz_permission – Allows administration of Keycloak client authorization permissions using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_permission_info.html">keycloak_authz_permission_info – Query Keycloak client authorization permissions information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_client.html">keycloak_client – Allows administration of Keycloak clients using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_client_rolemapping.html">keycloak_client_rolemapping – Allows administration of Keycloak client_rolemapping with the Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_client_rolescope.html">keycloak_client_rolescope – Allows administration of Keycloak client roles scope to restrict the usage of certain roles to a other specific client applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_client_scope.html">keycloak_client_scope – Allows administration of Keycloak client scopes via Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientscope_rolemappings.html">keycloak_clientscope_rolemappings – Allows administration of Keycloak clientscope scope mappings to restrict the usage of certain roles to specific clientscopes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientscope_type.html">keycloak_clientscope_type – Set the type of aclientscope in realm or client using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientsecret_info.html">keycloak_clientsecret_info – Retrieve client secret using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientsecret_regenerate.html">keycloak_clientsecret_regenerate – Regenerate Keycloak client secret using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clienttemplate.html">keycloak_clienttemplate – Allows administration of Keycloak client templates using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_component.html">keycloak_component – Allows administration of Keycloak components using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_component_info.html">keycloak_component_info – Retrieve component info in Keycloak</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_group.html">keycloak_group – Allows administration of Keycloak groups using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_identity_provider.html">keycloak_identity_provider – Allows administration of Keycloak identity providers using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm.html">keycloak_realm – Allows administration of Keycloak realm using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_info.html">keycloak_realm_info – Allows obtaining Keycloak realm public information using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_key.html">keycloak_realm_key – Allows administration of Keycloak realm keys using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_keys_metadata_info.html">keycloak_realm_keys_metadata_info – Allows obtaining Keycloak realm keys metadata using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_localization.html">keycloak_realm_localization – Allows management of Keycloak realm localization overrides via the Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_rolemapping.html">keycloak_realm_rolemapping – Allows administration of Keycloak realm role mappings into groups with the Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_role.html">keycloak_role – Allows administration of Keycloak roles using Keycloak API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">keycloak_user – Create and configure a user in Keycloak</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#synopsis">Synopsis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parameters">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#attributes">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#notes">Notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#return-values">Return Values</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user_execute_actions_email.html">keycloak_user_execute_actions_email – Send a Keycloak execute-actions email to a user</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user_federation.html">keycloak_user_federation – Allows administration of Keycloak user federations using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user_rolemapping.html">keycloak_user_rolemapping – Allows administration of Keycloak user_rolemapping with the Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_userprofile.html">keycloak_userprofile – Allows managing Keycloak User Profiles</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../roles/index.html">Role Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHANGELOG.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developing.html">Developing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing.html#contributor-s-guidelines">Contributor’s Guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releasing.html">Releasing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Middleware collections</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/keycloak/main/">Keycloak / Red Hat Single Sign-On</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/infinispan/main/">Infinispan / Red Hat Data Grid</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/wildfly/main/">Wildfly / Red Hat JBoss EAP</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/jws/main/">Tomcat / Red Hat JWS</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/amq/main/">ActiveMQ / Red Hat AMQ Broker</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/amq_streams/main/">Kafka / Red Hat AMQ Streams</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/common/main/">Ansible Middleware utilities</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/ansible_collections_jcliff/main/">JCliff</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Keycloak Ansible Collection</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Plugin Index</a></li>
+      <li class="breadcrumb-item active">keycloak_user – Create and configure a user in Keycloak</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/plugins/keycloak_user.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <span class="target" id="ansible-collections-middleware-automation-keycloak-keycloak-user-module"></span><section id="keycloak-user-create-and-configure-a-user-in-keycloak">
+<h1>keycloak_user – Create and configure a user in Keycloak<a class="headerlink" href="#keycloak-user-create-and-configure-a-user-in-keycloak" title="Link to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This module is part of the <a class="reference external" href="https://galaxy.ansible.com/ui/repo/published/middleware_automation/keycloak/">middleware_automation.keycloak collection</a>.</p>
+<p>It is not included in <code class="docutils literal notranslate"><span class="pre">ansible-core</span></code>.
+To check whether it is installed, run <code class="code docutils literal notranslate"><span class="pre">ansible-galaxy</span> <span class="pre">collection</span> <span class="pre">list</span></code>.</p>
+<p>To install it, use: <code class="code docutils literal notranslate"><span class="pre">ansible-galaxy</span> <span class="pre">collection</span> <span class="pre">install</span> <span class="pre">middleware_automation.keycloak</span></code>.</p>
+<p>To use it in a playbook, specify: <code class="code docutils literal notranslate"><span class="pre">middleware_automation.keycloak.keycloak_user</span></code>.</p>
+</div>
+<p class="ansible-version-added">New in middleware_automation.keycloak 3.0.0</p>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#synopsis" id="id1">Synopsis</a></p></li>
+<li><p><a class="reference internal" href="#parameters" id="id2">Parameters</a></p></li>
+<li><p><a class="reference internal" href="#attributes" id="id3">Attributes</a></p></li>
+<li><p><a class="reference internal" href="#notes" id="id4">Notes</a></p></li>
+<li><p><a class="reference internal" href="#examples" id="id5">Examples</a></p></li>
+<li><p><a class="reference internal" href="#return-values" id="id6">Return Values</a></p></li>
+</ul>
+</nav>
+<section id="synopsis">
+<h2><a class="toc-backref" href="#id1" role="doc-backlink">Synopsis</a><a class="headerlink" href="#synopsis" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>This module creates, removes, or updates Keycloak users.</p></li>
+</ul>
+</section>
+<section id="parameters">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Parameters</a><a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<table class="colwidths-auto ansible-option-table docutils align-default" style="width: 100%">
+<thead>
+<tr class="row-odd">
+  <th class="head"><p>Parameter</p></th>
+  <th class="head"><p>Comments</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-access"></div>
+    <p class="ansible-option-title"><strong>access</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-access" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">dictionary</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>List user access.</p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-attributes"></div>
+    <p class="ansible-option-title"><strong>attributes</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-attributes" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">list</span>
+      / <span class="ansible-option-elements">elements=dictionary</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>List of user attributes.</p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-attributes/name"></div>
+    <p class="ansible-option-title"><strong>name</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-attributes/name" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+    <p>Name of the attribute.</p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-attributes/state"></div>
+    <p class="ansible-option-title"><strong>state</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-attributes/state" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+    <p>Control whether the attribute must exists or not.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+    <ul class="simple">
+      <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>&#34;present&#34;</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+      <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;absent&#34;</code></p></li>
+    </ul>
+
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-attributes/values"></div>
+    <p class="ansible-option-title"><strong>values</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-attributes/values" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">list</span>
+      / <span class="ansible-option-elements">elements=string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+    <p>Values for the attribute as list.</p>
+  </div></td>
+</tr>
+
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-auth_client_id"></div>
+    <p class="ansible-option-title"><strong>auth_client_id</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-auth_client_id" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>OpenID Connect <em>client_id</em> to authenticate to the API with.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;admin-cli&#34;</code></p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-auth_client_secret"></div>
+    <p class="ansible-option-title"><strong>auth_client_secret</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-auth_client_secret" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Client Secret to use in conjunction with <em>auth_client_id</em> (if required).</p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-auth_keycloak_url"></div>
+    <div class="ansibleOptionAnchor" id="parameter-url"></div>
+    <p class="ansible-option-title"><strong>auth_keycloak_url</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-auth_keycloak_url" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: url</span></p>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+      / <span class="ansible-option-required">required</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>URL to the Keycloak instance.</p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-auth_password"></div>
+    <div class="ansibleOptionAnchor" id="parameter-password"></div>
+    <p class="ansible-option-title"><strong>auth_password</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-auth_password" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: password</span></p>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Password to authenticate for API access with.</p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-auth_realm"></div>
+    <p class="ansible-option-title"><strong>auth_realm</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-auth_realm" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Keycloak realm name to authenticate to for API access.</p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-auth_username"></div>
+    <p class="ansible-option-title"><strong>auth_username</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-auth_username" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Username to authenticate for API access with.</p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-client_consents"></div>
+    <div class="ansibleOptionAnchor" id="parameter-clientConsents"></div>
+    <p class="ansible-option-title"><strong>client_consents</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-client_consents" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: clientConsents</span></p>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">list</span>
+      / <span class="ansible-option-elements">elements=dictionary</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Client Authenticator Type.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">[]</code></p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-client_consents/client_id"></div>
+    <div class="ansibleOptionAnchor" id="parameter-clientConsents/client_id"></div>
+    <div class="ansibleOptionAnchor" id="parameter-client_consents/clientId"></div>
+    <div class="ansibleOptionAnchor" id="parameter-clientConsents/clientId"></div>
+    <p class="ansible-option-title"><strong>client_id</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-client_consents/client_id" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: clientId</span></p>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+      / <span class="ansible-option-required">required</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+    <p>Client ID of the client role. Not the technical ID of the client.</p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-client_consents/roles"></div>
+    <div class="ansibleOptionAnchor" id="parameter-clientConsents/roles"></div>
+    <p class="ansible-option-title"><strong>roles</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-client_consents/roles" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">list</span>
+      / <span class="ansible-option-elements">elements=string</span>
+      / <span class="ansible-option-required">required</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+    <p>List of client roles to assign to the user.</p>
+  </div></td>
+</tr>
+
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-connection_timeout"></div>
+    <p class="ansible-option-title"><strong>connection_timeout</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-connection_timeout" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">integer</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Controls the HTTP connections timeout period (in seconds) to Keycloak API.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">10</code></p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-credentials"></div>
+    <p class="ansible-option-title"><strong>credentials</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-credentials" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">list</span>
+      / <span class="ansible-option-elements">elements=dictionary</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>User credentials.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">[]</code></p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-credentials/temporary"></div>
+    <p class="ansible-option-title"><strong>temporary</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-credentials/temporary" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">boolean</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+    <p>If <code class="ansible-value literal notranslate">true</code>, the users are required to reset their credentials at next login.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+    <ul class="simple">
+      <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>false</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+      <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+    </ul>
+
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-credentials/type"></div>
+    <p class="ansible-option-title"><strong>type</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-credentials/type" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+      / <span class="ansible-option-required">required</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+    <p>Credential type.</p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-credentials/value"></div>
+    <p class="ansible-option-title"><strong>value</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-credentials/value" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+      / <span class="ansible-option-required">required</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+    <p>Value of the credential.</p>
+  </div></td>
+</tr>
+
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-disableable_credential_types"></div>
+    <div class="ansibleOptionAnchor" id="parameter-disableableCredentialTypes"></div>
+    <p class="ansible-option-title"><strong>disableable_credential_types</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-disableable_credential_types" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: disableableCredentialTypes</span></p>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">list</span>
+      / <span class="ansible-option-elements">elements=string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>List user Credential Type.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">[]</code></p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-email"></div>
+    <p class="ansible-option-title"><strong>email</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-email" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>User email.</p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-email_verified"></div>
+    <div class="ansibleOptionAnchor" id="parameter-emailVerified"></div>
+    <p class="ansible-option-title"><strong>email_verified</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-email_verified" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: emailVerified</span></p>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">boolean</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Set or reset the <code class='docutils literal notranslate'>emailVerified</code> flag of the user.</p>
+    <p>When <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-email_verified_behavior"><span class="std std-ref"><span class="pre">email_verified_behavior=no_defaults</span></span></a></code>, the default value of this option becomes <code class='docutils literal notranslate'>null</code> and that causes the module not to change any existing value for that attribute.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+    <ul class="simple">
+      <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+      <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+    </ul>
+
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-email_verified_behavior"></div>
+    <p class="ansible-option-title"><strong>email_verified_behavior</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-email_verified_behavior" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+    <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 3.0.0</em></p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>The <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-email_verified"><span class="std std-ref"><span class="pre">email_verified</span></span></a></strong></code> option used to have a default value. This caused problems when the user expects different behavior from keycloak by default.</p>
+    <p>The default value of this option is <code class="ansible-value literal notranslate">compatibility</code>, which will ensure that the old default value for <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-email_verified"><span class="std std-ref"><span class="pre">email_verified</span></span></a></strong></code> is used.</p>
+    <p>When set to <code class="ansible-value literal notranslate">no_defaults</code>, the module will not change existing values of <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-email_verified"><span class="std std-ref"><span class="pre">email_verified</span></span></a></strong></code> if no value is specified.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+    <ul class="simple">
+      <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>&#34;compatibility&#34;</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+      <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;no_defaults&#34;</code></p></li>
+    </ul>
+
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-enabled"></div>
+    <p class="ansible-option-title"><strong>enabled</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-enabled" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">boolean</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Enabled user.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+    <ul class="simple">
+      <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+      <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+    </ul>
+
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-federated_identities"></div>
+    <div class="ansibleOptionAnchor" id="parameter-federatedIdentities"></div>
+    <p class="ansible-option-title"><strong>federated_identities</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-federated_identities" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: federatedIdentities</span></p>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">list</span>
+      / <span class="ansible-option-elements">elements=string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>List of IDPs of user.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">[]</code></p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-federation_link"></div>
+    <div class="ansibleOptionAnchor" id="parameter-federationLink"></div>
+    <p class="ansible-option-title"><strong>federation_link</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-federation_link" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: federationLink</span></p>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Federation Link.</p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-first_name"></div>
+    <div class="ansibleOptionAnchor" id="parameter-firstName"></div>
+    <p class="ansible-option-title"><strong>first_name</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-first_name" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: firstName</span></p>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>The user&#x27;s first name.</p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-force"></div>
+    <p class="ansible-option-title"><strong>force</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-force" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">boolean</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>If <code class="ansible-value literal notranslate">true</code>, allows to remove user and recreate it.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+    <ul class="simple">
+      <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>false</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+      <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+    </ul>
+
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-groups"></div>
+    <p class="ansible-option-title"><strong>groups</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-groups" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">list</span>
+      / <span class="ansible-option-elements">elements=dictionary</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>List of groups for the user.</p>
+    <p>Groups can be referenced by their name, like <code class="ansible-value literal notranslate">staff</code>, or their path, like <code class="ansible-value literal notranslate">/staff/engineering</code>. The path syntax allows you to reference subgroups, which is not possible otherwise.</p>
+    <p>Using the path is possible since middleware_automation.keycloak 3.0.0.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">[]</code></p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-groups/name"></div>
+    <p class="ansible-option-title"><strong>name</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-groups/name" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+    <p>Name of the group.</p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-groups/state"></div>
+    <p class="ansible-option-title"><strong>state</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-groups/state" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+    <p>Control whether the user must be member of this group or not.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+    <ul class="simple">
+      <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>&#34;present&#34;</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+      <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;absent&#34;</code></p></li>
+    </ul>
+
+  </div></td>
+</tr>
+
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-http_agent"></div>
+    <p class="ansible-option-title"><strong>http_agent</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-http_agent" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Configures the HTTP User-Agent header.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;Ansible&#34;</code></p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-id"></div>
+    <p class="ansible-option-title"><strong>id</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-id" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>ID of the user on the Keycloak server if known.</p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-last_name"></div>
+    <div class="ansibleOptionAnchor" id="parameter-lastName"></div>
+    <p class="ansible-option-title"><strong>last_name</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-last_name" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: lastName</span></p>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>The user&#x27;s last name.</p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-origin"></div>
+    <p class="ansible-option-title"><strong>origin</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-origin" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>User origin.</p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-realm"></div>
+    <p class="ansible-option-title"><strong>realm</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-realm" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>The name of the realm in which is the client.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;master&#34;</code></p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-refresh_token"></div>
+    <p class="ansible-option-title"><strong>refresh_token</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-refresh_token" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Authentication refresh token for Keycloak API.</p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-required_actions"></div>
+    <div class="ansibleOptionAnchor" id="parameter-requiredActions"></div>
+    <p class="ansible-option-title"><strong>required_actions</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-required_actions" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: requiredActions</span></p>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">list</span>
+      / <span class="ansible-option-elements">elements=string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Set or reset a user&#x27;s required actions.</p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-self"></div>
+    <p class="ansible-option-title"><strong>self</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-self" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>User self administration.</p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-service_account_client_id"></div>
+    <div class="ansibleOptionAnchor" id="parameter-serviceAccountClientId"></div>
+    <p class="ansible-option-title"><strong>service_account_client_id</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-service_account_client_id" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: serviceAccountClientId</span></p>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Description of the client Application.</p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-state"></div>
+    <p class="ansible-option-title"><strong>state</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-state" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Control whether the user should exists or not.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+    <ul class="simple">
+      <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>&#34;present&#34;</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+      <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;absent&#34;</code></p></li>
+    </ul>
+
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-token"></div>
+    <p class="ansible-option-title"><strong>token</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-token" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Authentication token for Keycloak API.</p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-username"></div>
+    <p class="ansible-option-title"><strong>username</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-username" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+      / <span class="ansible-option-required">required</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Username for the user.</p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-validate_certs"></div>
+    <p class="ansible-option-title"><strong>validate_certs</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-validate_certs" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">boolean</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Verify TLS certificates (do not disable this in production).</p>
+    <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+    <ul class="simple">
+      <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+      <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>true</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+    </ul>
+
+  </div></td>
+</tr>
+</tbody>
+</table></section>
+<section id="attributes">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Attributes</a><a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<table class="longtable ansible-option-table docutils align-default" style="width: 100%">
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<th class="head"><p>Support</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="attribute-action_group"></div><p class="ansible-option-title" id="ansible-collections-middleware-automation-keycloak-keycloak-user-module-attribute-action-group"><strong>action_group</strong></p>
+<a class="ansibleOptionLink" href="#attribute-action_group" title="Permalink to this attribute"></a></div></td>
+<td><div class="ansible-option-cell"><p><strong class="ansible-attribute-support-property">Action group:</strong> <strong class="ansible-attribute-support-full">middleware_automation.keycloak.keycloak</strong></p>
+<p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 3.0.0</em></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Use <code class="docutils literal notranslate"><span class="pre">group/middleware_automation.keycloak.keycloak</span></code> in <code class="docutils literal notranslate"><span class="pre">module_defaults</span></code> to set defaults for this module.</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="attribute-check_mode"></div><p class="ansible-option-title" id="ansible-collections-middleware-automation-keycloak-keycloak-user-module-attribute-check-mode"><strong>check_mode</strong></p>
+<a class="ansibleOptionLink" href="#attribute-check_mode" title="Permalink to this attribute"></a></div></td>
+<td><div class="ansible-option-cell"><p><strong class="ansible-attribute-support-label">Support: </strong><strong class="ansible-attribute-support-full">full</strong></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Can run in <code class="docutils literal notranslate"><span class="pre">check_mode</span></code> and return changed status prediction without modifying target.</p>
+</div></td>
+</tr>
+<tr class="row-even"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="attribute-diff_mode"></div><p class="ansible-option-title" id="ansible-collections-middleware-automation-keycloak-keycloak-user-module-attribute-diff-mode"><strong>diff_mode</strong></p>
+<a class="ansibleOptionLink" href="#attribute-diff_mode" title="Permalink to this attribute"></a></div></td>
+<td><div class="ansible-option-cell"><p><strong class="ansible-attribute-support-label">Support: </strong><strong class="ansible-attribute-support-full">full</strong></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Will return details on what has changed (or possibly needs changing in <code class="docutils literal notranslate"><span class="pre">check_mode</span></code>), when in diff mode.</p>
+</div></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="notes">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Notes</a><a class="headerlink" href="#notes" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>The module does not modify the user ID of an existing user.</p></li>
+</ul>
+</div>
+</section>
+<section id="examples">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Examples</a><a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Create a user user1</span>
+<span class="w">  </span><span class="nt">middleware_automation.keycloak.keycloak_user</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">auth_keycloak_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://localhost:8080</span>
+<span class="w">    </span><span class="nt">auth_username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+<span class="w">    </span><span class="nt">auth_password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">password</span>
+<span class="w">    </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user1</span>
+<span class="w">    </span><span class="nt">firstName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user1</span>
+<span class="w">    </span><span class="nt">lastName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user1</span>
+<span class="w">    </span><span class="nt">email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user1</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">emailVerified</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">credentials</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">password</span>
+<span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">password</span>
+<span class="w">        </span><span class="nt">temporary</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">attr1</span>
+<span class="w">        </span><span class="nt">values</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value1</span>
+<span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">attr2</span>
+<span class="w">        </span><span class="nt">values</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value2</span>
+<span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">absent</span>
+<span class="w">    </span><span class="nt">groups</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">group1</span>
+<span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
+<span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Re-create a User</span>
+<span class="w">  </span><span class="nt">middleware_automation.keycloak.keycloak_user</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">auth_keycloak_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://localhost:8080</span>
+<span class="w">    </span><span class="nt">auth_username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+<span class="w">    </span><span class="nt">auth_password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">password</span>
+<span class="w">    </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user1</span>
+<span class="w">    </span><span class="nt">firstName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user1</span>
+<span class="w">    </span><span class="nt">lastName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user1</span>
+<span class="w">    </span><span class="nt">email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user1</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">emailVerified</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">credentials</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">password</span>
+<span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">password</span>
+<span class="w">        </span><span class="nt">temporary</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">attr1</span>
+<span class="w">        </span><span class="nt">values</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value1</span>
+<span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">attr2</span>
+<span class="w">        </span><span class="nt">values</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value2</span>
+<span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">absent</span>
+<span class="w">    </span><span class="nt">groups</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">group1</span>
+<span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
+<span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Re-create a User</span>
+<span class="w">  </span><span class="nt">middleware_automation.keycloak.keycloak_user</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">auth_keycloak_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://localhost:8080</span>
+<span class="w">    </span><span class="nt">auth_username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+<span class="w">    </span><span class="nt">auth_password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">password</span>
+<span class="w">    </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user1</span>
+<span class="w">    </span><span class="nt">firstName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user1</span>
+<span class="w">    </span><span class="nt">lastName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user1</span>
+<span class="w">    </span><span class="nt">email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user1</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">emailVerified</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">credentials</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">password</span>
+<span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">password</span>
+<span class="w">        </span><span class="nt">temporary</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">attr1</span>
+<span class="w">        </span><span class="nt">values</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value1</span>
+<span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">attr2</span>
+<span class="w">        </span><span class="nt">values</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value2</span>
+<span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">absent</span>
+<span class="w">    </span><span class="nt">groups</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">group1</span>
+<span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
+<span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
+<span class="w">    </span><span class="nt">force</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Remove User</span>
+<span class="w">  </span><span class="nt">middleware_automation.keycloak.keycloak_user</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">auth_keycloak_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://localhost:8080</span>
+<span class="w">    </span><span class="nt">auth_username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+<span class="w">    </span><span class="nt">auth_password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">password</span>
+<span class="w">    </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user1</span>
+<span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">absent</span>
+</pre></div>
+</div>
+</section>
+<section id="return-values">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Return Values</a><a class="headerlink" href="#return-values" title="Link to this heading"></a></h2>
+<p>Common return values are documented <a class="reference external" href="https://docs.ansible.com/projects/ansible/latest/reference_appendices/common_return_values.html#common-return-values" title="(in Ansible v13)"><span class="xref std std-ref">here</span></a>, the following are the fields unique to this module:</p>
+<table class="colwidths-auto ansible-option-table docutils align-default" style="width: 100%">
+<thead>
+<tr class="row-odd">
+  <th class="head"><p>Key</p></th>
+  <th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="return-end_state"></div>
+    <p class="ansible-option-title"><strong>end_state</strong></p>
+    <a class="ansibleOptionLink" href="#return-end_state" title="Permalink to this return value"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">dictionary</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Representation of the user after module execution.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> on success</p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="return-existing"></div>
+    <p class="ansible-option-title"><strong>existing</strong></p>
+    <a class="ansibleOptionLink" href="#return-existing" title="Permalink to this return value"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">dictionary</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Representation of the existing user.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> on success</p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="return-proposed"></div>
+    <p class="ansible-option-title"><strong>proposed</strong></p>
+    <a class="ansibleOptionLink" href="#return-proposed" title="Permalink to this return value"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">dictionary</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Representation of the proposed user.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> on success</p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="return-user_created"></div>
+    <p class="ansible-option-title"><strong>user_created</strong></p>
+    <a class="ansibleOptionLink" href="#return-user_created" title="Permalink to this return value"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">boolean</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Indicates whether a user was created.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> in success</p>
+  </div></td>
+</tr>
+</tbody>
+</table><section id="authors">
+<h3>Authors<a class="headerlink" href="#authors" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Philippe Gauthier (&#64;elfelip)</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="keycloak_role.html" class="btn btn-neutral float-left" title="keycloak_role – Allows administration of Keycloak roles using Keycloak API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="keycloak_user_execute_actions_email.html" class="btn btn-neutral float-right" title="keycloak_user_execute_actions_email – Send a Keycloak execute-actions email to a user" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Red Hat, Inc..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

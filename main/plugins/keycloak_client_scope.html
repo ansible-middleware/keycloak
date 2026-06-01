@@ -22,8 +22,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="keycloak_realm – Allows administration of Keycloak realm via Keycloak API" href="keycloak_realm.html" />
-    <link rel="prev" title="keycloak_client – Allows administration of Keycloak clients via Keycloak API" href="keycloak_client.html" /> 
+    <link rel="next" title="keycloak_clientscope_rolemappings – Allows administration of Keycloak clientscope scope mappings to restrict the usage of certain roles to specific clientscopes" href="keycloak_clientscope_rolemappings.html" />
+    <link rel="prev" title="keycloak_client_rolescope – Allows administration of Keycloak client roles scope to restrict the usage of certain roles to a other specific client applications" href="keycloak_client_rolescope.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -49,8 +49,17 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../README.html">Ansible Collection - middleware_automation.keycloak</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Plugin Index</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication.html">keycloak_authentication – Configure authentication in Keycloak</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_authentication_flow.html">keycloak_authentication_flow – Allows administration of Keycloak authentication flows via Keycloak API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="keycloak_client.html">keycloak_client – Allows administration of Keycloak clients via Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication_required_actions.html">keycloak_authentication_required_actions – Allows administration of Keycloak authentication required actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication_v2.html">keycloak_authentication_v2 – Configure authentication flows in Keycloak in an idempotent and safe manner.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_authorization_scope.html">keycloak_authz_authorization_scope – Allows administration of Keycloak client authorization scopes using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_custom_policy.html">keycloak_authz_custom_policy – Allows administration of Keycloak client custom Javascript policies using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_permission.html">keycloak_authz_permission – Allows administration of Keycloak client authorization permissions using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_permission_info.html">keycloak_authz_permission_info – Query Keycloak client authorization permissions information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_client.html">keycloak_client – Allows administration of Keycloak clients using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_client_rolemapping.html">keycloak_client_rolemapping – Allows administration of Keycloak client_rolemapping with the Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_client_rolescope.html">keycloak_client_rolescope – Allows administration of Keycloak client roles scope to restrict the usage of certain roles to a other specific client applications</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">keycloak_client_scope – Allows administration of Keycloak client scopes via Keycloak API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#synopsis">Synopsis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#parameters">Parameters</a></li>
@@ -62,9 +71,27 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="keycloak_realm.html">keycloak_realm – Allows administration of Keycloak realm via Keycloak API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="keycloak_role.html">keycloak_role – Allows administration of Keycloak roles via Keycloak API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="keycloak_user_federation.html">keycloak_user_federation – Allows administration of Keycloak user federations via Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientscope_rolemappings.html">keycloak_clientscope_rolemappings – Allows administration of Keycloak clientscope scope mappings to restrict the usage of certain roles to specific clientscopes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientscope_type.html">keycloak_clientscope_type – Set the type of aclientscope in realm or client using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientsecret_info.html">keycloak_clientsecret_info – Retrieve client secret using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientsecret_regenerate.html">keycloak_clientsecret_regenerate – Regenerate Keycloak client secret using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clienttemplate.html">keycloak_clienttemplate – Allows administration of Keycloak client templates using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_component.html">keycloak_component – Allows administration of Keycloak components using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_component_info.html">keycloak_component_info – Retrieve component info in Keycloak</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_group.html">keycloak_group – Allows administration of Keycloak groups using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_identity_provider.html">keycloak_identity_provider – Allows administration of Keycloak identity providers using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm.html">keycloak_realm – Allows administration of Keycloak realm using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_info.html">keycloak_realm_info – Allows obtaining Keycloak realm public information using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_key.html">keycloak_realm_key – Allows administration of Keycloak realm keys using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_keys_metadata_info.html">keycloak_realm_keys_metadata_info – Allows obtaining Keycloak realm keys metadata using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_localization.html">keycloak_realm_localization – Allows management of Keycloak realm localization overrides via the Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_rolemapping.html">keycloak_realm_rolemapping – Allows administration of Keycloak realm role mappings into groups with the Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_role.html">keycloak_role – Allows administration of Keycloak roles using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user.html">keycloak_user – Create and configure a user in Keycloak</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user_execute_actions_email.html">keycloak_user_execute_actions_email – Send a Keycloak execute-actions email to a user</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user_federation.html">keycloak_user_federation – Allows administration of Keycloak user federations using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user_rolemapping.html">keycloak_user_rolemapping – Allows administration of Keycloak user_rolemapping with the Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_userprofile.html">keycloak_userprofile – Allows managing Keycloak User Profiles</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../roles/index.html">Role Index</a></li>
@@ -124,6 +151,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 <p>To install it, use: <code class="code docutils literal notranslate"><span class="pre">ansible-galaxy</span> <span class="pre">collection</span> <span class="pre">install</span> <span class="pre">middleware_automation.keycloak</span></code>.</p>
 <p>To use it in a playbook, specify: <code class="code docutils literal notranslate"><span class="pre">middleware_automation.keycloak.keycloak_client_scope</span></code>.</p>
 </div>
+<p class="ansible-version-added">New in middleware_automation.keycloak 3.0.0</p>
 <nav class="contents local" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#synopsis" id="id1">Synopsis</a></p></li>
@@ -257,7 +285,6 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p class="ansible-option-type-line">
       <span class="ansible-option-type">integer</span>
     </p>
-    <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 4.5.0</em></p>
   </div></td>
   <td><div class="ansible-option-cell">
     <p>Controls the HTTP connections timeout period (in seconds) to Keycloak API.</p>
@@ -286,7 +313,6 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p class="ansible-option-type-line">
       <span class="ansible-option-type">string</span>
     </p>
-    <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 5.4.0</em></p>
   </div></td>
   <td><div class="ansible-option-cell">
     <p>Configures the HTTP User-Agent header.</p>
@@ -417,6 +443,19 @@ To check whether it is installed, run <code class="code docutils literal notrans
 </tr>
 <tr class="row-even">
   <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-refresh_token"></div>
+    <p class="ansible-option-title"><strong>refresh_token</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-refresh_token" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Authentication refresh token for Keycloak API.</p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-state"></div>
     <p class="ansible-option-title"><strong>state</strong></p>
     <a class="ansibleOptionLink" href="#parameter-state" title="Permalink to this option"></a>
@@ -436,7 +475,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-token"></div>
     <p class="ansible-option-title"><strong>token</strong></p>
@@ -444,13 +483,12 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p class="ansible-option-type-line">
       <span class="ansible-option-type">string</span>
     </p>
-    <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 3.0.0</em></p>
   </div></td>
   <td><div class="ansible-option-cell">
     <p>Authentication token for Keycloak API.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-validate_certs"></div>
     <p class="ansible-option-title"><strong>validate_certs</strong></p>
@@ -482,6 +520,14 @@ To check whether it is installed, run <code class="code docutils literal notrans
 </thead>
 <tbody>
 <tr class="row-even"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="attribute-action_group"></div><p class="ansible-option-title" id="ansible-collections-middleware-automation-keycloak-keycloak-client-scope-module-attribute-action-group"><strong>action_group</strong></p>
+<a class="ansibleOptionLink" href="#attribute-action_group" title="Permalink to this attribute"></a></div></td>
+<td><div class="ansible-option-cell"><p><strong class="ansible-attribute-support-property">Action group:</strong> <strong class="ansible-attribute-support-full">middleware_automation.keycloak.keycloak</strong></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Use <code class="docutils literal notranslate"><span class="pre">group/middleware_automation.keycloak.keycloak</span></code> in <code class="docutils literal notranslate"><span class="pre">module_defaults</span></code> to set defaults for this module.</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><div class="ansible-option-cell">
 <div class="ansibleOptionAnchor" id="attribute-check_mode"></div><p class="ansible-option-title" id="ansible-collections-middleware-automation-keycloak-keycloak-client-scope-module-attribute-check-mode"><strong>check_mode</strong></p>
 <a class="ansibleOptionLink" href="#attribute-check_mode" title="Permalink to this attribute"></a></div></td>
 <td><div class="ansible-option-cell"><p><strong class="ansible-attribute-support-label">Support: </strong><strong class="ansible-attribute-support-full">full</strong></p>
@@ -489,7 +535,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 <td><div class="ansible-option-cell"><p>Can run in <code class="docutils literal notranslate"><span class="pre">check_mode</span></code> and return changed status prediction without modifying target.</p>
 </div></td>
 </tr>
-<tr class="row-odd"><td><div class="ansible-option-cell">
+<tr class="row-even"><td><div class="ansible-option-cell">
 <div class="ansibleOptionAnchor" id="attribute-diff_mode"></div><p class="ansible-option-title" id="ansible-collections-middleware-automation-keycloak-keycloak-client-scope-module-attribute-diff-mode"><strong>diff_mode</strong></p>
 <a class="ansibleOptionLink" href="#attribute-diff_mode" title="Permalink to this attribute"></a></div></td>
 <td><div class="ansible-option-cell"><p><strong class="ansible-attribute-support-label">Support: </strong><strong class="ansible-attribute-support-full">full</strong></p>
@@ -603,8 +649,8 @@ To check whether it is installed, run <code class="code docutils literal notrans
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="keycloak_client.html" class="btn btn-neutral float-left" title="keycloak_client – Allows administration of Keycloak clients via Keycloak API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="keycloak_realm.html" class="btn btn-neutral float-right" title="keycloak_realm – Allows administration of Keycloak realm via Keycloak API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="keycloak_client_rolescope.html" class="btn btn-neutral float-left" title="keycloak_client_rolescope – Allows administration of Keycloak client roles scope to restrict the usage of certain roles to a other specific client applications" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="keycloak_clientscope_rolemappings.html" class="btn btn-neutral float-right" title="keycloak_clientscope_rolemappings – Allows administration of Keycloak clientscope scope mappings to restrict the usage of certain roles to specific clientscopes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

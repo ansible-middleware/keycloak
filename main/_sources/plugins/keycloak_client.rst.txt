@@ -16,8 +16,8 @@
 
 .. Title
 
-keycloak_client -- Allows administration of Keycloak clients via Keycloak API
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+keycloak_client -- Allows administration of Keycloak clients using Keycloak API
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. Collection note
 
@@ -33,6 +33,9 @@ keycloak_client -- Allows administration of Keycloak clients via Keycloak API
 
 .. version_added
 
+.. rst-class:: ansible-version-added
+
+New in middleware\_automation.keycloak 3.0.0
 
 .. contents::
    :local:
@@ -46,9 +49,9 @@ Synopsis
 
 .. Description
 
-- This module allows the administration of Keycloak clients via the Keycloak REST API. It requires access to the REST API via OpenID Connect; the user connecting and the client being used must have the requisite access rights. In a default Keycloak installation, admin\-cli and an admin user would work, as would a separate client definition with the scope tailored to your needs and a user having the expected roles.
-- The names of module options are snake\_cased versions of the camelCase ones found in the Keycloak API and its documentation at \ `https://www.keycloak.org/docs\-api/8.0/rest\-api/index.html <https://www.keycloak.org/docs-api/8.0/rest-api/index.html>`__. Aliases are provided so camelCased versions can be used as well.
-- The Keycloak API does not always sanity check inputs e.g. you can set SAML\-specific settings on an OpenID Connect client for instance and vice versa. Be careful. If you do not specify a setting, usually a sensible default is chosen.
+- This module allows the administration of Keycloak clients using the Keycloak REST API. It requires access to the REST API using OpenID Connect; the user connecting and the client being used must have the requisite access rights. In a default Keycloak installation, admin\-cli and an admin user would work, as would a separate client definition with the scope tailored to your needs and a user having the expected roles.
+- The names of module options are snake\_cased versions of the camelCase ones found in the Keycloak API and its documentation at \ `https://www.keycloak.org/docs\-api/latest/rest\-api/index.html <https://www.keycloak.org/docs-api/latest/rest-api/index.html>`__. Aliases are provided so camelCased versions can be used as well.
+- The Keycloak API does not always sanity check inputs, for example you can set SAML\-specific settings on an OpenID Connect client for instance and the other way around. Be careful. If you do not specify a setting, usually a sensible default is chosen.
 
 
 .. Aliases
@@ -88,7 +91,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>URL to the admin interface of the client. This is &#x27;adminUrl&#x27; in the Keycloak REST API.</p>
+      <p>URL to the admin interface of the client. This is <code class='docutils literal notranslate'>adminUrl</code> in the Keycloak REST API.</p>
     </div></td>
   </tr>
   <tr class="row-odd">
@@ -101,7 +104,6 @@ Parameters
       <p class="ansible-option-type-line">
         <span class="ansible-option-type">boolean</span>
       </p>
-      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 4.7.0</em></p>
     </div></td>
     <td><div class="ansible-option-cell">
       <p>Whether or not to display this client in account console, even if the user does not have an active session.</p>
@@ -123,7 +125,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>A dict of further attributes for this client. This can contain various configuration settings; an example is given in the examples section. While an exhaustive list of permissible options is not available; possible options as of Keycloak 3.4 are listed below. The Keycloak API does not validate whether a given option is appropriate for the protocol used; if specified anyway, Keycloak will simply not use it.</p>
+      <p>A dict of further attributes for this client. This can contain various configuration settings; an example is given in the examples section. While an exhaustive list of permissible options is not available; possible options as of Keycloak 3.4 are listed below. The Keycloak API does not validate whether a given option is appropriate for the protocol used; if specified anyway, Keycloak does not use it.</p>
     </div></td>
   </tr>
   <tr class="row-odd">
@@ -253,7 +255,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-      <p>For SAML clients, boolean specifying whether REDIRECT signing key lookup should be optimized through inclusion of the signing key id in the SAML Extensions element.</p>
+      <p>For SAML clients, boolean specifying whether REDIRECT signing key lookup should be optimized through inclusion of the signing key ID in the SAML Extensions element.</p>
     </div></td>
   </tr>
   <tr class="row-odd">
@@ -344,7 +346,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-      <p>For SAML clients, the NameID format to use (one of <code class="ansible-value literal notranslate">username</code>, <code class="ansible-value literal notranslate">email</code>, <code class="ansible-value literal notranslate">transient</code>, or <code class="ansible-value literal notranslate">persistent</code>)</p>
+      <p>For SAML clients, the NameID format to use (one of <code class="ansible-value literal notranslate">username</code>, <code class="ansible-value literal notranslate">email</code>, <code class="ansible-value literal notranslate">transient</code>, or <code class="ansible-value literal notranslate">persistent</code>).</p>
     </div></td>
   </tr>
   <tr class="row-even">
@@ -370,7 +372,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-      <p>SAML POST binding url for the client&#x27;s single logout service.</p>
+      <p>SAML POST binding URL for the client&#x27;s single logout service.</p>
     </div></td>
   </tr>
   <tr class="row-even">
@@ -383,7 +385,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-      <p>SAML redirect binding url for the client&#x27;s single logout service.</p>
+      <p>SAML redirect binding URL for the client&#x27;s single logout service.</p>
     </div></td>
   </tr>
   <tr class="row-odd">
@@ -420,7 +422,6 @@ Parameters
       <p class="ansible-option-type-line">
         <span class="ansible-option-type">boolean</span>
       </p>
-      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 9.5.0</em></p>
     </div></td>
     <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
       <p>For OpenID-Connect clients, boolean specifying whether to allow <code class='docutils literal notranslate'>x509.subjectdn</code> as regular expression.</p>
@@ -440,10 +441,9 @@ Parameters
       <p class="ansible-option-type-line">
         <span class="ansible-option-type">string</span>
       </p>
-      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 9.5.0</em></p>
     </div></td>
     <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-      <p>For OpenID-Connect clients, subject which will be used to authenticate the client.</p>
+      <p>For OpenID-Connect clients, subject which is used to authenticate the client.</p>
     </div></td>
   </tr>
 
@@ -543,7 +543,6 @@ Parameters
       <p class="ansible-option-type-line">
         <span class="ansible-option-type">dictionary</span>
       </p>
-      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 3.4.0</em></p>
     </div></td>
     <td><div class="ansible-option-cell">
       <p>Override realm authentication flow bindings.</p>
@@ -576,7 +575,6 @@ Parameters
       <p class="ansible-option-type-line">
         <span class="ansible-option-type">string</span>
       </p>
-      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 9.1.0</em></p>
     </div></td>
     <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
       <p>Flow name of the browser authentication flow.</p>
@@ -613,7 +611,6 @@ Parameters
       <p class="ansible-option-type-line">
         <span class="ansible-option-type">string</span>
       </p>
-      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 9.1.0</em></p>
     </div></td>
     <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
       <p>Flow name of the direct grant authentication flow.</p>
@@ -633,7 +630,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>Are authorization services enabled for this client or not (OpenID connect). This is &#x27;authorizationServicesEnabled&#x27; in the Keycloak REST API.</p>
+      <p>Are authorization services enabled for this client or not (OpenID connect). This is <code class='docutils literal notranslate'>authorizationServicesEnabled</code> in the Keycloak REST API.</p>
       <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
@@ -654,10 +651,26 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>a data structure defining the authorization settings for this client. For reference, please see the Keycloak API docs at <a href='https://www.keycloak.org/docs-api/8.0/rest-api/index.html#_resourceserverrepresentation'>https://www.keycloak.org/docs-api/8.0/rest-api/index.html#_resourceserverrepresentation</a>. This is &#x27;authorizationSettings&#x27; in the Keycloak REST API.</p>
+      <p>A data structure defining the authorization settings for this client. For reference, please see the Keycloak API docs at <a href='https://www.keycloak.org/docs-api/latest/rest-api/index.html#_resourceserverrepresentation'>https://www.keycloak.org/docs-api/latest/rest-api/index.html#_resourceserverrepresentation</a>. This is <code class='docutils literal notranslate'>authorizationSettings</code> in the Keycloak REST API.</p>
     </div></td>
   </tr>
   <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-backchannel_logout_url"></div>
+      <div class="ansibleOptionAnchor" id="parameter-backchannelLogoutUrl"></div>
+      <p class="ansible-option-title"><strong>backchannel_logout_url</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-backchannel_logout_url" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: backchannelLogoutUrl</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>URL that will cause the client to log itself out when a logout request is sent to this realm.</p>
+      <p>This is stored as <code class='docutils literal notranslate'>backchannel.logout.url</code> in the client attributes.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-base_url"></div>
       <div class="ansibleOptionAnchor" id="parameter-baseUrl"></div>
@@ -669,10 +682,10 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>Default URL to use when the auth server needs to redirect or link back to the client This is &#x27;baseUrl&#x27; in the Keycloak REST API.</p>
+      <p>Default URL to use when the auth server needs to redirect or link back to the client This is <code class='docutils literal notranslate'>baseUrl</code> in the Keycloak REST API.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-bearer_only"></div>
       <div class="ansibleOptionAnchor" id="parameter-bearerOnly"></div>
@@ -684,7 +697,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>The access type of this client is bearer-only. This is &#x27;bearerOnly&#x27; in the Keycloak REST API.</p>
+      <p>The access type of this client is bearer-only. This is <code class='docutils literal notranslate'>bearerOnly</code> in the Keycloak REST API.</p>
       <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
@@ -693,7 +706,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-client_authenticator_type"></div>
       <div class="ansibleOptionAnchor" id="parameter-clientAuthenticatorType"></div>
@@ -706,7 +719,7 @@ Parameters
     </div></td>
     <td><div class="ansible-option-cell">
       <p>How do clients authenticate with the auth server? Either <code class="ansible-value literal notranslate">client-secret</code>, <code class="ansible-value literal notranslate">client-jwt</code>, or <code class="ansible-value literal notranslate">client-x509</code> can be chosen. When using <code class="ansible-value literal notranslate">client-secret</code>, the module parameter <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-secret"><span class="std std-ref"><span class="pre">secret</span></span></a></strong></code> can set it, for <code class="ansible-value literal notranslate">client-jwt</code>, you can use the keys <code class='docutils literal notranslate'>use.jwks.url</code>, <code class='docutils literal notranslate'>jwks.url</code>, and <code class='docutils literal notranslate'>jwt.credential.certificate</code> in the <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-attributes"><span class="std std-ref"><span class="pre">attributes</span></span></a></strong></code> module parameter to configure its behavior. For <code class="ansible-value literal notranslate">client-x509</code> you can use the keys <code class='docutils literal notranslate'>x509.allow.regex.pattern.comparison</code> and <code class='docutils literal notranslate'>x509.subjectdn</code> in the <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-attributes"><span class="std std-ref"><span class="pre">attributes</span></span></a></strong></code> module parameter to configure which certificate(s) to accept.</p>
-      <p>This is &#x27;clientAuthenticatorType&#x27; in the Keycloak REST API.</p>
+      <p>This is <code class='docutils literal notranslate'>clientAuthenticatorType</code> in the Keycloak REST API.</p>
       <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;client-secret&#34;</code></p></li>
@@ -716,7 +729,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-client_id"></div>
       <div class="ansibleOptionAnchor" id="parameter-clientId"></div>
@@ -728,7 +741,32 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>Client id of client to be worked on. This is usually an alphanumeric name chosen by you. Either this or <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-id"><span class="std std-ref"><span class="pre">id</span></span></a></strong></code> is required. If you specify both, <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-id"><span class="std std-ref"><span class="pre">id</span></span></a></strong></code> takes precedence. This is &#x27;clientId&#x27; in the Keycloak REST API.</p>
+      <p>Client ID of client to be worked on. This is usually an alphanumeric name chosen by you. Either this or <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-id"><span class="std std-ref"><span class="pre">id</span></span></a></strong></code> is required. If you specify both, <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-id"><span class="std std-ref"><span class="pre">id</span></span></a></strong></code> takes precedence. This is <code class='docutils literal notranslate'>clientId</code> in the Keycloak REST API.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-client_scopes_behavior"></div>
+      <div class="ansibleOptionAnchor" id="parameter-clientScopesBehavior"></div>
+      <p class="ansible-option-title"><strong>client_scopes_behavior</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-client_scopes_behavior" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: clientScopesBehavior</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Determine how <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-default_client_scopes"><span class="std std-ref"><span class="pre">default_client_scopes</span></span></a></strong></code> and <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-optional_client_scopes"><span class="std std-ref"><span class="pre">optional_client_scopes</span></span></a></strong></code> behave when updating an existing client.</p>
+      <p><code class="ansible-value literal notranslate">ignore</code>: Do not change the client scopes of an existing client. This is the default for backward compatibility.</p>
+      <p><code class="ansible-value literal notranslate">patch</code>: Add missing scopes, do not remove any missing scopes.</p>
+      <p><code class="ansible-value literal notranslate">idempotent</code>: Make the client scopes exactly as specified, adding and removing scopes as needed.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>&#34;ignore&#34;</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;patch&#34;</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;idempotent&#34;</code></p></li>
+      </ul>
+
     </div></td>
   </tr>
   <tr class="row-even">
@@ -743,7 +781,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>Client template to use for this client. If it does not exist this field will silently be dropped. This is &#x27;clientTemplate&#x27; in the Keycloak REST API.</p>
+      <p>Client template to use for this client. If it does not exist this field is silently dropped. This is <code class='docutils literal notranslate'>clientTemplate</code> in the Keycloak REST API.</p>
     </div></td>
   </tr>
   <tr class="row-odd">
@@ -754,7 +792,6 @@ Parameters
       <p class="ansible-option-type-line">
         <span class="ansible-option-type">integer</span>
       </p>
-      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 4.5.0</em></p>
     </div></td>
     <td><div class="ansible-option-cell">
       <p>Controls the HTTP connections timeout period (in seconds) to Keycloak API.</p>
@@ -773,7 +810,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>If enabled, users have to consent to client access. This is &#x27;consentRequired&#x27; in the Keycloak REST API.</p>
+      <p>If enabled, users have to consent to client access. This is <code class='docutils literal notranslate'>consentRequired</code> in the Keycloak REST API.</p>
       <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
@@ -793,10 +830,10 @@ Parameters
         <span class="ansible-option-type">list</span>
         / <span class="ansible-option-elements">elements=string</span>
       </p>
-      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 4.7.0</em></p>
     </div></td>
     <td><div class="ansible-option-cell">
       <p>List of default client scopes.</p>
+      <p>See <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-client_scopes_behavior"><span class="std std-ref"><span class="pre">client_scopes_behavior</span></span></a></strong></code> for how this behaves when updating an existing client.</p>
     </div></td>
   </tr>
   <tr class="row-even">
@@ -812,7 +849,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>list of default roles for this client. If the client roles referenced do not exist yet, they will be created. This is &#x27;defaultRoles&#x27; in the Keycloak REST API.</p>
+      <p>List of default roles for this client. If the client roles referenced do not exist yet, they are created. This is <code class='docutils literal notranslate'>defaultRoles</code> in the Keycloak REST API.</p>
     </div></td>
   </tr>
   <tr class="row-odd">
@@ -840,7 +877,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>Are direct access grants enabled for this client or not (OpenID connect). This is &#x27;directAccessGrantsEnabled&#x27; in the Keycloak REST API.</p>
+      <p>Are direct access grants enabled for this client or not (OpenID connect). This is <code class='docutils literal notranslate'>directAccessGrantsEnabled</code> in the Keycloak REST API.</p>
       <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
@@ -880,7 +917,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>Is frontchannel logout enabled for this client or not. This is &#x27;frontchannelLogout&#x27; in the Keycloak REST API.</p>
+      <p>Is frontchannel logout enabled for this client or not. This is <code class='docutils literal notranslate'>frontchannelLogout</code> in the Keycloak REST API.</p>
       <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
@@ -901,7 +938,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>Is the "Full Scope Allowed" feature set for this client or not. This is &#x27;fullScopeAllowed&#x27; in the Keycloak REST API.</p>
+      <p>Is the "Full Scope Allowed" feature set for this client or not. This is <code class='docutils literal notranslate'>fullScopeAllowed</code> in the Keycloak REST API.</p>
       <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
@@ -918,7 +955,6 @@ Parameters
       <p class="ansible-option-type-line">
         <span class="ansible-option-type">string</span>
       </p>
-      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 5.4.0</em></p>
     </div></td>
     <td><div class="ansible-option-cell">
       <p>Configures the HTTP User-Agent header.</p>
@@ -935,7 +971,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>Id of client to be worked on. This is usually an UUID. Either this or <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-client_id"><span class="std std-ref"><span class="pre">client_id</span></span></a></strong></code> is required. If you specify both, this takes precedence.</p>
+      <p>ID of client to be worked on. This is usually an UUID. Either this or <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-client_id"><span class="std std-ref"><span class="pre">client_id</span></span></a></strong></code> is required. If you specify both, this takes precedence.</p>
     </div></td>
   </tr>
   <tr class="row-even">
@@ -950,7 +986,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>Enable implicit flow for this client or not (OpenID connect). This is &#x27;implicitFlowEnabled&#x27; in the Keycloak REST API.</p>
+      <p>Enable implicit flow for this client or not (OpenID connect). This is <code class='docutils literal notranslate'>implicitFlowEnabled</code> in the Keycloak REST API.</p>
       <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
@@ -984,7 +1020,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>Cluster node re-registration timeout for this client. This is &#x27;nodeReRegistrationTimeout&#x27; in the Keycloak REST API.</p>
+      <p>Cluster node re-registration timeout for this client. This is <code class='docutils literal notranslate'>nodeReRegistrationTimeout</code> in the Keycloak REST API.</p>
     </div></td>
   </tr>
   <tr class="row-odd">
@@ -999,7 +1035,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>Revoke any tokens issued before this date for this client (this is a UNIX timestamp). This is &#x27;notBefore&#x27; in the Keycloak REST API.</p>
+      <p>Revoke any tokens issued before this date for this client (this is a UNIX timestamp). This is <code class='docutils literal notranslate'>notBefore</code> in the Keycloak REST API.</p>
     </div></td>
   </tr>
   <tr class="row-even">
@@ -1013,10 +1049,10 @@ Parameters
         <span class="ansible-option-type">list</span>
         / <span class="ansible-option-elements">elements=string</span>
       </p>
-      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 4.7.0</em></p>
     </div></td>
     <td><div class="ansible-option-cell">
       <p>List of optional client scopes.</p>
+      <p>See <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-client_scopes_behavior"><span class="std std-ref"><span class="pre">client_scopes_behavior</span></span></a></strong></code> for how this behaves when updating an existing client.</p>
     </div></td>
   </tr>
   <tr class="row-odd">
@@ -1030,8 +1066,8 @@ Parameters
     </div></td>
     <td><div class="ansible-option-cell">
       <p>Type of client.</p>
-      <p>At creation only, default value will be <code class="ansible-value literal notranslate">openid-connect</code> if <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-protocol"><span class="std std-ref"><span class="pre">protocol</span></span></a></strong></code> is omitted.</p>
-      <p>The <code class="ansible-value literal notranslate">docker-v2</code> value was added in community.general 8.6.0.</p>
+      <p>At creation only, default value is <code class="ansible-value literal notranslate">openid-connect</code> if <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-protocol"><span class="std std-ref"><span class="pre">protocol</span></span></a></strong></code> is omitted.</p>
+      <p>The <code class="ansible-value literal notranslate">docker-v2</code> value was added in middleware_automation.keycloak 8.6.0.</p>
       <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;openid-connect&#34;</code></p></li>
@@ -1054,7 +1090,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>a list of dicts defining protocol mappers for this client. This is &#x27;protocolMappers&#x27; in the Keycloak REST API.</p>
+      <p>A list of dicts defining protocol mappers for this client. This is <code class='docutils literal notranslate'>protocolMappers</code> in the Keycloak REST API.</p>
     </div></td>
   </tr>
   <tr class="row-odd">
@@ -1166,28 +1202,28 @@ Parameters
     </div></td>
     <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
       <p>The Keycloak-internal name of the type of this protocol-mapper. While an exhaustive list is impossible to provide since this may be extended through SPIs by the user of Keycloak, by default Keycloak as of 3.4 ships with at least:</p>
-      <p><code class="ansible-value literal notranslate">docker-v2-allow-all-mapper</code></p>
-      <p><code class="ansible-value literal notranslate">oidc-address-mapper</code></p>
-      <p><code class="ansible-value literal notranslate">oidc-full-name-mapper</code></p>
-      <p><code class="ansible-value literal notranslate">oidc-group-membership-mapper</code></p>
-      <p><code class="ansible-value literal notranslate">oidc-hardcoded-claim-mapper</code></p>
-      <p><code class="ansible-value literal notranslate">oidc-hardcoded-role-mapper</code></p>
-      <p><code class="ansible-value literal notranslate">oidc-role-name-mapper</code></p>
-      <p><code class="ansible-value literal notranslate">oidc-script-based-protocol-mapper</code></p>
-      <p><code class="ansible-value literal notranslate">oidc-sha256-pairwise-sub-mapper</code></p>
-      <p><code class="ansible-value literal notranslate">oidc-usermodel-attribute-mapper</code></p>
-      <p><code class="ansible-value literal notranslate">oidc-usermodel-client-role-mapper</code></p>
-      <p><code class="ansible-value literal notranslate">oidc-usermodel-property-mapper</code></p>
-      <p><code class="ansible-value literal notranslate">oidc-usermodel-realm-role-mapper</code></p>
-      <p><code class="ansible-value literal notranslate">oidc-usersessionmodel-note-mapper</code></p>
-      <p><code class="ansible-value literal notranslate">saml-group-membership-mapper</code></p>
-      <p><code class="ansible-value literal notranslate">saml-hardcode-attribute-mapper</code></p>
-      <p><code class="ansible-value literal notranslate">saml-hardcode-role-mapper</code></p>
-      <p><code class="ansible-value literal notranslate">saml-role-list-mapper</code></p>
-      <p><code class="ansible-value literal notranslate">saml-role-name-mapper</code></p>
-      <p><code class="ansible-value literal notranslate">saml-user-attribute-mapper</code></p>
-      <p><code class="ansible-value literal notranslate">saml-user-property-mapper</code></p>
-      <p><code class="ansible-value literal notranslate">saml-user-session-note-mapper</code></p>
+      <p><code class="ansible-value literal notranslate">docker-v2-allow-all-mapper</code>.</p>
+      <p><code class="ansible-value literal notranslate">oidc-address-mapper</code>.</p>
+      <p><code class="ansible-value literal notranslate">oidc-full-name-mapper</code>.</p>
+      <p><code class="ansible-value literal notranslate">oidc-group-membership-mapper</code>.</p>
+      <p><code class="ansible-value literal notranslate">oidc-hardcoded-claim-mapper</code>.</p>
+      <p><code class="ansible-value literal notranslate">oidc-hardcoded-role-mapper</code>.</p>
+      <p><code class="ansible-value literal notranslate">oidc-role-name-mapper</code>.</p>
+      <p><code class="ansible-value literal notranslate">oidc-script-based-protocol-mapper</code>.</p>
+      <p><code class="ansible-value literal notranslate">oidc-sha256-pairwise-sub-mapper</code>.</p>
+      <p><code class="ansible-value literal notranslate">oidc-usermodel-attribute-mapper</code>.</p>
+      <p><code class="ansible-value literal notranslate">oidc-usermodel-client-role-mapper</code>.</p>
+      <p><code class="ansible-value literal notranslate">oidc-usermodel-property-mapper</code>.</p>
+      <p><code class="ansible-value literal notranslate">oidc-usermodel-realm-role-mapper</code>.</p>
+      <p><code class="ansible-value literal notranslate">oidc-usersessionmodel-note-mapper</code>.</p>
+      <p><code class="ansible-value literal notranslate">saml-group-membership-mapper</code>.</p>
+      <p><code class="ansible-value literal notranslate">saml-hardcode-attribute-mapper</code>.</p>
+      <p><code class="ansible-value literal notranslate">saml-hardcode-role-mapper</code>.</p>
+      <p><code class="ansible-value literal notranslate">saml-role-list-mapper</code>.</p>
+      <p><code class="ansible-value literal notranslate">saml-role-name-mapper</code>.</p>
+      <p><code class="ansible-value literal notranslate">saml-user-attribute-mapper</code>.</p>
+      <p><code class="ansible-value literal notranslate">saml-user-property-mapper</code>.</p>
+      <p><code class="ansible-value literal notranslate">saml-user-session-note-mapper</code>.</p>
       <p>An exhaustive list of available mappers on your installation can be obtained on the admin console by going to Server Info -&gt; Providers and looking under &#x27;protocol-mapper&#x27;.</p>
     </div></td>
   </tr>
@@ -1204,7 +1240,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>Is the access type for this client public or not. This is &#x27;publicClient&#x27; in the Keycloak REST API.</p>
+      <p>Is the access type for this client public or not. This is <code class='docutils literal notranslate'>publicClient</code> in the Keycloak REST API.</p>
       <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
@@ -1240,10 +1276,23 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>Acceptable redirect URIs for this client. This is &#x27;redirectUris&#x27; in the Keycloak REST API.</p>
+      <p>Acceptable redirect URIs for this client. This is <code class='docutils literal notranslate'>redirectUris</code> in the Keycloak REST API.</p>
     </div></td>
   </tr>
   <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-refresh_token"></div>
+      <p class="ansible-option-title"><strong>refresh_token</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-refresh_token" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Authentication refresh token for Keycloak API.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-registered_nodes"></div>
       <div class="ansibleOptionAnchor" id="parameter-registeredNodes"></div>
@@ -1255,10 +1304,10 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>dict of registered cluster nodes (with <code class='docutils literal notranslate'>nodename</code> as the key and last registration time as the value). This is &#x27;registeredNodes&#x27; in the Keycloak REST API.</p>
+      <p>Dict of registered cluster nodes (with <code class='docutils literal notranslate'>nodename</code> as the key and last registration time as the value). This is <code class='docutils literal notranslate'>registeredNodes</code> in the Keycloak REST API.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-registration_access_token"></div>
       <div class="ansibleOptionAnchor" id="parameter-registrationAccessToken"></div>
@@ -1270,10 +1319,10 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>The registration access token provides access for clients to the client registration service. This is &#x27;registrationAccessToken&#x27; in the Keycloak REST API.</p>
+      <p>The registration access token provides access for clients to the client registration service. This is <code class='docutils literal notranslate'>registrationAccessToken</code> in the Keycloak REST API.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-root_url"></div>
       <div class="ansibleOptionAnchor" id="parameter-rootUrl"></div>
@@ -1285,10 +1334,10 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>Root URL appended to relative URLs for this client. This is &#x27;rootUrl&#x27; in the Keycloak REST API.</p>
+      <p>Root URL appended to relative URLs for this client. This is <code class='docutils literal notranslate'>rootUrl</code> in the Keycloak REST API.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-secret"></div>
       <p class="ansible-option-title"><strong>secret</strong></p>
@@ -1298,10 +1347,10 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>When using <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-client_authenticator_type"><span class="std std-ref"><span class="pre">client_authenticator_type=client-secret</span></span></a></code> (the default), you can specify a secret here (otherwise one will be generated if it does not exit). If changing this secret, the module will not register a change currently (but the changed secret will be saved).</p>
+      <p>When using <code class="ansible-option-value literal notranslate"><a class="reference internal" href="#parameter-client_authenticator_type"><span class="std std-ref"><span class="pre">client_authenticator_type=client-secret</span></span></a></code> (the default), you can specify a secret here (otherwise one is generated if it does not exit). If changing this secret, the module does not register a change currently (but the changed secret is saved).</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-service_accounts_enabled"></div>
       <div class="ansibleOptionAnchor" id="parameter-serviceAccountsEnabled"></div>
@@ -1313,7 +1362,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>Are service accounts enabled for this client or not (OpenID connect). This is &#x27;serviceAccountsEnabled&#x27; in the Keycloak REST API.</p>
+      <p>Are service accounts enabled for this client or not (OpenID connect). This is <code class='docutils literal notranslate'>serviceAccountsEnabled</code> in the Keycloak REST API.</p>
       <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
@@ -1322,7 +1371,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-standard_flow_enabled"></div>
       <div class="ansibleOptionAnchor" id="parameter-standardFlowEnabled"></div>
@@ -1334,7 +1383,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>Enable standard flow for this client or not (OpenID connect). This is &#x27;standardFlowEnabled&#x27; in the Keycloak REST API.</p>
+      <p>Enable standard flow for this client or not (OpenID connect). This is <code class='docutils literal notranslate'>standardFlowEnabled</code> in the Keycloak REST API.</p>
       <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
@@ -1343,7 +1392,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-state"></div>
       <p class="ansible-option-title"><strong>state</strong></p>
@@ -1353,9 +1402,9 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>State of the client</p>
-      <p>On <code class="ansible-value literal notranslate">present</code>, the client will be created (or updated if it exists already).</p>
-      <p>On <code class="ansible-value literal notranslate">absent</code>, the client will be removed if it exists</p>
+      <p>State of the client.</p>
+      <p>On <code class="ansible-value literal notranslate">present</code>, the client are created (or updated if it exists already).</p>
+      <p>On <code class="ansible-value literal notranslate">absent</code>, the client are removed if it exists.</p>
       <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>&#34;present&#34;</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
@@ -1364,7 +1413,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-surrogate_auth_required"></div>
       <div class="ansibleOptionAnchor" id="parameter-surrogateAuthRequired"></div>
@@ -1376,7 +1425,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>Whether or not surrogate auth is required. This is &#x27;surrogateAuthRequired&#x27; in the Keycloak REST API.</p>
+      <p>Whether or not surrogate auth is required. This is <code class='docutils literal notranslate'>surrogateAuthRequired</code> in the Keycloak REST API.</p>
       <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
@@ -1385,7 +1434,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-token"></div>
       <p class="ansible-option-title"><strong>token</strong></p>
@@ -1393,13 +1442,12 @@ Parameters
       <p class="ansible-option-type-line">
         <span class="ansible-option-type">string</span>
       </p>
-      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 3.0.0</em></p>
     </div></td>
     <td><div class="ansible-option-cell">
       <p>Authentication token for Keycloak API.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-use_template_config"></div>
       <div class="ansibleOptionAnchor" id="parameter-useTemplateConfig"></div>
@@ -1411,7 +1459,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>Whether or not to use configuration from the <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-client_template"><span class="std std-ref"><span class="pre">client_template</span></span></a></strong></code>. This is &#x27;useTemplateConfig&#x27; in the Keycloak REST API.</p>
+      <p>Whether or not to use configuration from the <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-client_template"><span class="std std-ref"><span class="pre">client_template</span></span></a></strong></code>. This is <code class='docutils literal notranslate'>useTemplateConfig</code> in the Keycloak REST API.</p>
       <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
@@ -1420,7 +1468,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-use_template_mappers"></div>
       <div class="ansibleOptionAnchor" id="parameter-useTemplateMappers"></div>
@@ -1432,7 +1480,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>Whether or not to use mapper configuration from the <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-client_template"><span class="std std-ref"><span class="pre">client_template</span></span></a></strong></code>. This is &#x27;useTemplateMappers&#x27; in the Keycloak REST API.</p>
+      <p>Whether or not to use mapper configuration from the <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-client_template"><span class="std std-ref"><span class="pre">client_template</span></span></a></strong></code>. This is <code class='docutils literal notranslate'>useTemplateMappers</code> in the Keycloak REST API.</p>
       <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
@@ -1441,7 +1489,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-use_template_scope"></div>
       <div class="ansibleOptionAnchor" id="parameter-useTemplateScope"></div>
@@ -1453,13 +1501,31 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>Whether or not to use scope configuration from the <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-client_template"><span class="std std-ref"><span class="pre">client_template</span></span></a></strong></code>. This is &#x27;useTemplateScope&#x27; in the Keycloak REST API.</p>
+      <p>Whether or not to use scope configuration from the <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-client_template"><span class="std std-ref"><span class="pre">client_template</span></span></a></strong></code>. This is <code class='docutils literal notranslate'>useTemplateScope</code> in the Keycloak REST API.</p>
       <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
         <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
       </ul>
 
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-valid_post_logout_redirect_uris"></div>
+      <div class="ansibleOptionAnchor" id="parameter-postLogoutRedirectUris"></div>
+      <p class="ansible-option-title"><strong>valid_post_logout_redirect_uris</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-valid_post_logout_redirect_uris" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: postLogoutRedirectUris</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">list</span>
+        / <span class="ansible-option-elements">elements=string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Valid post logout redirect URIs for this client.</p>
+      <p>This is stored as <code class='docutils literal notranslate'>post.logout.redirect.uris</code> in the client attributes.</p>
+      <p>Use <code class="ansible-value literal notranslate">+</code> as a single list element to allow all redirect URIs.</p>
     </div></td>
   </tr>
   <tr class="row-odd">
@@ -1494,7 +1560,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>List of allowed CORS origins. This is &#x27;webOrigins&#x27; in the Keycloak REST API.</p>
+      <p>List of allowed CORS origins. This is <code class='docutils literal notranslate'>webOrigins</code> in the Keycloak REST API.</p>
     </div></td>
   </tr>
   </tbody>
@@ -1519,6 +1585,50 @@ Attributes
   * - Attribute
     - Support
     - Description
+
+  * - .. raw:: html
+
+        <div class="ansible-option-cell">
+        <div class="ansibleOptionAnchor" id="attribute-action_group"></div>
+
+      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_module__attribute-action_group:
+
+      .. rst-class:: ansible-option-title
+
+      **action_group**
+
+      .. raw:: html
+
+        <a class="ansibleOptionLink" href="#attribute-action_group" title="Permalink to this attribute"></a>
+
+      .. raw:: html
+
+        </div>
+
+    - .. raw:: html
+
+        <div class="ansible-option-cell">
+
+      :ansible-attribute-support-property:`Action group:` |antsibull-internal-nbsp|:ansible-attribute-support-full:`middleware\_automation.keycloak.keycloak`
+
+      :ansible-option-versionadded:`added in middleware\_automation.keycloak 3.0.0`
+
+
+      .. raw:: html
+
+        </div>
+
+    - .. raw:: html
+
+        <div class="ansible-option-cell">
+
+      Use :literal:`group/middleware\_automation.keycloak.keycloak` in :literal:`module\_defaults` to set defaults for this module.
+
+
+      .. raw:: html
+
+        </div>
+
 
   * - .. raw:: html
 
@@ -1620,7 +1730,7 @@ Examples
 
     - name: Create or update Keycloak client (minimal example), authentication with credentials
       middleware_automation.keycloak.keycloak_client:
-        auth_keycloak_url: https://auth.example.com/auth
+        auth_keycloak_url: https://auth.example.com
         auth_realm: master
         auth_username: USERNAME
         auth_password: PASSWORD
@@ -1632,7 +1742,7 @@ Examples
     - name: Create or update Keycloak client (minimal example), authentication with token
       middleware_automation.keycloak.keycloak_client:
         auth_client_id: admin-cli
-        auth_keycloak_url: https://auth.example.com/auth
+        auth_keycloak_url: https://auth.example.com
         auth_realm: master
         token: TOKEN
         client_id: test
@@ -1643,7 +1753,7 @@ Examples
     - name: Delete a Keycloak client
       middleware_automation.keycloak.keycloak_client:
         auth_client_id: admin-cli
-        auth_keycloak_url: https://auth.example.com/auth
+        auth_keycloak_url: https://auth.example.com
         auth_realm: master
         auth_username: USERNAME
         auth_password: PASSWORD
@@ -1655,7 +1765,7 @@ Examples
     - name: Create or update a Keycloak client (minimal example), with x509 authentication
       middleware_automation.keycloak.keycloak_client:
         auth_client_id: admin-cli
-        auth_keycloak_url: https://auth.example.com/auth
+        auth_keycloak_url: https://auth.example.com
         auth_realm: master
         auth_username: USERNAME
         auth_password: PASSWORD
@@ -1671,7 +1781,7 @@ Examples
     - name: Create or update a Keycloak client (with all the bells and whistles)
       middleware_automation.keycloak.keycloak_client:
         auth_client_id: admin-cli
-        auth_keycloak_url: https://auth.example.com/auth
+        auth_keycloak_url: https://auth.example.com
         auth_realm: master
         auth_username: USERNAME
         auth_password: PASSWORD
@@ -1718,7 +1828,7 @@ Examples
           - test01
           - test02
         authentication_flow_binding_overrides:
-            browser: 4c90336b-bf1d-4b87-916d-3677ba4e5fbb
+          browser: 4c90336b-bf1d-4b87-916d-3677ba4e5fbb
         protocol_mappers:
           - config:
               access.token.claim: true
@@ -1853,6 +1963,7 @@ Authors
 ~~~~~~~
 
 - Eike Frost (@eikef)
+- Ivan Kokalović (@koke1997)
 
 
 .. Extra links

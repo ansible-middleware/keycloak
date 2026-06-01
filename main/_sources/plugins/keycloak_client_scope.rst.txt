@@ -33,6 +33,9 @@ keycloak_client_scope -- Allows administration of Keycloak client scopes via Key
 
 .. version_added
 
+.. rst-class:: ansible-version-added
+
+New in middleware\_automation.keycloak 3.0.0
 
 .. contents::
    :local:
@@ -182,7 +185,6 @@ Parameters
       <p class="ansible-option-type-line">
         <span class="ansible-option-type">integer</span>
       </p>
-      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 4.5.0</em></p>
     </div></td>
     <td><div class="ansible-option-cell">
       <p>Controls the HTTP connections timeout period (in seconds) to Keycloak API.</p>
@@ -211,7 +213,6 @@ Parameters
       <p class="ansible-option-type-line">
         <span class="ansible-option-type">string</span>
       </p>
-      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 5.4.0</em></p>
     </div></td>
     <td><div class="ansible-option-cell">
       <p>Configures the HTTP User-Agent header.</p>
@@ -342,6 +343,19 @@ Parameters
   </tr>
   <tr class="row-even">
     <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-refresh_token"></div>
+      <p class="ansible-option-title"><strong>refresh_token</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-refresh_token" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Authentication refresh token for Keycloak API.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-state"></div>
       <p class="ansible-option-title"><strong>state</strong></p>
       <a class="ansibleOptionLink" href="#parameter-state" title="Permalink to this option"></a>
@@ -361,7 +375,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-token"></div>
       <p class="ansible-option-title"><strong>token</strong></p>
@@ -369,13 +383,12 @@ Parameters
       <p class="ansible-option-type-line">
         <span class="ansible-option-type">string</span>
       </p>
-      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 3.0.0</em></p>
     </div></td>
     <td><div class="ansible-option-cell">
       <p>Authentication token for Keycloak API.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-validate_certs"></div>
       <p class="ansible-option-title"><strong>validate_certs</strong></p>
@@ -416,6 +429,48 @@ Attributes
   * - Attribute
     - Support
     - Description
+
+  * - .. raw:: html
+
+        <div class="ansible-option-cell">
+        <div class="ansibleOptionAnchor" id="attribute-action_group"></div>
+
+      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_scope_module__attribute-action_group:
+
+      .. rst-class:: ansible-option-title
+
+      **action_group**
+
+      .. raw:: html
+
+        <a class="ansibleOptionLink" href="#attribute-action_group" title="Permalink to this attribute"></a>
+
+      .. raw:: html
+
+        </div>
+
+    - .. raw:: html
+
+        <div class="ansible-option-cell">
+
+      :ansible-attribute-support-property:`Action group:` |antsibull-internal-nbsp|:ansible-attribute-support-full:`middleware\_automation.keycloak.keycloak`
+
+
+      .. raw:: html
+
+        </div>
+
+    - .. raw:: html
+
+        <div class="ansible-option-cell">
+
+      Use :literal:`group/middleware\_automation.keycloak.keycloak` in :literal:`module\_defaults` to set defaults for this module.
+
+
+      .. raw:: html
+
+        </div>
+
 
   * - .. raw:: html
 

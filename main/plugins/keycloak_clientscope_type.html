@@ -1,0 +1,576 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="2.24.0" name="antsibull-docs" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>keycloak_clientscope_type – Set the type of aclientscope in realm or client using Keycloak API &mdash; Keycloak Ansible Collection  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=41de9001" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/antsibull-minimal.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/ansible-basic-sphinx-ext.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="keycloak_clientsecret_info – Retrieve client secret using Keycloak API" href="keycloak_clientsecret_info.html" />
+    <link rel="prev" title="keycloak_clientscope_rolemappings – Allows administration of Keycloak clientscope scope mappings to restrict the usage of certain roles to specific clientscopes" href="keycloak_clientscope_rolemappings.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Keycloak Ansible Collection
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../README.html">Ansible Collection - middleware_automation.keycloak</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Plugin Index</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication.html">keycloak_authentication – Configure authentication in Keycloak</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication_flow.html">keycloak_authentication_flow – Allows administration of Keycloak authentication flows via Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication_required_actions.html">keycloak_authentication_required_actions – Allows administration of Keycloak authentication required actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authentication_v2.html">keycloak_authentication_v2 – Configure authentication flows in Keycloak in an idempotent and safe manner.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_authorization_scope.html">keycloak_authz_authorization_scope – Allows administration of Keycloak client authorization scopes using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_custom_policy.html">keycloak_authz_custom_policy – Allows administration of Keycloak client custom Javascript policies using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_permission.html">keycloak_authz_permission – Allows administration of Keycloak client authorization permissions using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_authz_permission_info.html">keycloak_authz_permission_info – Query Keycloak client authorization permissions information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_client.html">keycloak_client – Allows administration of Keycloak clients using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_client_rolemapping.html">keycloak_client_rolemapping – Allows administration of Keycloak client_rolemapping with the Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_client_rolescope.html">keycloak_client_rolescope – Allows administration of Keycloak client roles scope to restrict the usage of certain roles to a other specific client applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_client_scope.html">keycloak_client_scope – Allows administration of Keycloak client scopes via Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientscope_rolemappings.html">keycloak_clientscope_rolemappings – Allows administration of Keycloak clientscope scope mappings to restrict the usage of certain roles to specific clientscopes</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">keycloak_clientscope_type – Set the type of aclientscope in realm or client using Keycloak API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#synopsis">Synopsis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parameters">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#attributes">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#return-values">Return Values</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientsecret_info.html">keycloak_clientsecret_info – Retrieve client secret using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clientsecret_regenerate.html">keycloak_clientsecret_regenerate – Regenerate Keycloak client secret using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_clienttemplate.html">keycloak_clienttemplate – Allows administration of Keycloak client templates using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_component.html">keycloak_component – Allows administration of Keycloak components using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_component_info.html">keycloak_component_info – Retrieve component info in Keycloak</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_group.html">keycloak_group – Allows administration of Keycloak groups using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_identity_provider.html">keycloak_identity_provider – Allows administration of Keycloak identity providers using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm.html">keycloak_realm – Allows administration of Keycloak realm using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_info.html">keycloak_realm_info – Allows obtaining Keycloak realm public information using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_key.html">keycloak_realm_key – Allows administration of Keycloak realm keys using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_keys_metadata_info.html">keycloak_realm_keys_metadata_info – Allows obtaining Keycloak realm keys metadata using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_localization.html">keycloak_realm_localization – Allows management of Keycloak realm localization overrides via the Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_rolemapping.html">keycloak_realm_rolemapping – Allows administration of Keycloak realm role mappings into groups with the Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_role.html">keycloak_role – Allows administration of Keycloak roles using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user.html">keycloak_user – Create and configure a user in Keycloak</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user_execute_actions_email.html">keycloak_user_execute_actions_email – Send a Keycloak execute-actions email to a user</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user_federation.html">keycloak_user_federation – Allows administration of Keycloak user federations using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_user_rolemapping.html">keycloak_user_rolemapping – Allows administration of Keycloak user_rolemapping with the Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_userprofile.html">keycloak_userprofile – Allows managing Keycloak User Profiles</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../roles/index.html">Role Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHANGELOG.html">Changelog</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../developing.html">Developing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developing.html#contributor-s-guidelines">Contributor’s Guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releasing.html">Releasing</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Middleware collections</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/keycloak/main/">Keycloak / Red Hat Single Sign-On</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/infinispan/main/">Infinispan / Red Hat Data Grid</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/wildfly/main/">Wildfly / Red Hat JBoss EAP</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/jws/main/">Tomcat / Red Hat JWS</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/amq/main/">ActiveMQ / Red Hat AMQ Broker</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/amq_streams/main/">Kafka / Red Hat AMQ Streams</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/common/main/">Ansible Middleware utilities</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ansible-middleware.github.io/ansible_collections_jcliff/main/">JCliff</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Keycloak Ansible Collection</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Plugin Index</a></li>
+      <li class="breadcrumb-item active">keycloak_clientscope_type – Set the type of aclientscope in realm or client using Keycloak API</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/plugins/keycloak_clientscope_type.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <span class="target" id="ansible-collections-middleware-automation-keycloak-keycloak-clientscope-type-module"></span><section id="keycloak-clientscope-type-set-the-type-of-aclientscope-in-realm-or-client-using-keycloak-api">
+<h1>keycloak_clientscope_type – Set the type of aclientscope in realm or client using Keycloak API<a class="headerlink" href="#keycloak-clientscope-type-set-the-type-of-aclientscope-in-realm-or-client-using-keycloak-api" title="Link to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This module is part of the <a class="reference external" href="https://galaxy.ansible.com/ui/repo/published/middleware_automation/keycloak/">middleware_automation.keycloak collection</a>.</p>
+<p>It is not included in <code class="docutils literal notranslate"><span class="pre">ansible-core</span></code>.
+To check whether it is installed, run <code class="code docutils literal notranslate"><span class="pre">ansible-galaxy</span> <span class="pre">collection</span> <span class="pre">list</span></code>.</p>
+<p>To install it, use: <code class="code docutils literal notranslate"><span class="pre">ansible-galaxy</span> <span class="pre">collection</span> <span class="pre">install</span> <span class="pre">middleware_automation.keycloak</span></code>.</p>
+<p>To use it in a playbook, specify: <code class="code docutils literal notranslate"><span class="pre">middleware_automation.keycloak.keycloak_clientscope_type</span></code>.</p>
+</div>
+<p class="ansible-version-added">New in middleware_automation.keycloak 3.0.0</p>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#synopsis" id="id1">Synopsis</a></p></li>
+<li><p><a class="reference internal" href="#parameters" id="id2">Parameters</a></p></li>
+<li><p><a class="reference internal" href="#attributes" id="id3">Attributes</a></p></li>
+<li><p><a class="reference internal" href="#examples" id="id4">Examples</a></p></li>
+<li><p><a class="reference internal" href="#return-values" id="id5">Return Values</a></p></li>
+</ul>
+</nav>
+<section id="synopsis">
+<h2><a class="toc-backref" href="#id1" role="doc-backlink">Synopsis</a><a class="headerlink" href="#synopsis" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>This module allows you to set the type (optional, default) of clientscopes using the Keycloak REST API. It requires access to the REST API using OpenID Connect; the user connecting and the client being used must have the requisite access rights. In a default Keycloak installation, admin-cli and an admin user would work, as would a separate client definition with the scope tailored to your needs and a user having the expected roles.</p></li>
+</ul>
+</section>
+<section id="parameters">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Parameters</a><a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<table class="colwidths-auto ansible-option-table docutils align-default" style="width: 100%">
+<thead>
+<tr class="row-odd">
+  <th class="head"><p>Parameter</p></th>
+  <th class="head"><p>Comments</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-auth_client_id"></div>
+    <p class="ansible-option-title"><strong>auth_client_id</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-auth_client_id" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>OpenID Connect <em>client_id</em> to authenticate to the API with.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;admin-cli&#34;</code></p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-auth_client_secret"></div>
+    <p class="ansible-option-title"><strong>auth_client_secret</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-auth_client_secret" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Client Secret to use in conjunction with <em>auth_client_id</em> (if required).</p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-auth_keycloak_url"></div>
+    <div class="ansibleOptionAnchor" id="parameter-url"></div>
+    <p class="ansible-option-title"><strong>auth_keycloak_url</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-auth_keycloak_url" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: url</span></p>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+      / <span class="ansible-option-required">required</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>URL to the Keycloak instance.</p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-auth_password"></div>
+    <div class="ansibleOptionAnchor" id="parameter-password"></div>
+    <p class="ansible-option-title"><strong>auth_password</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-auth_password" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: password</span></p>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Password to authenticate for API access with.</p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-auth_realm"></div>
+    <p class="ansible-option-title"><strong>auth_realm</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-auth_realm" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Keycloak realm name to authenticate to for API access.</p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-auth_username"></div>
+    <div class="ansibleOptionAnchor" id="parameter-username"></div>
+    <p class="ansible-option-title"><strong>auth_username</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-auth_username" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: username</span></p>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Username to authenticate for API access with.</p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-client_id"></div>
+    <div class="ansibleOptionAnchor" id="parameter-clientId"></div>
+    <p class="ansible-option-title"><strong>client_id</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-client_id" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: clientId</span></p>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>The <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-client_id"><span class="std std-ref"><span class="pre">client_id</span></span></a></strong></code> of the client. If not set the clientscope types are set as a default for the realm.</p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-connection_timeout"></div>
+    <p class="ansible-option-title"><strong>connection_timeout</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-connection_timeout" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">integer</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Controls the HTTP connections timeout period (in seconds) to Keycloak API.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">10</code></p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-default_clientscopes"></div>
+    <p class="ansible-option-title"><strong>default_clientscopes</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-default_clientscopes" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">list</span>
+      / <span class="ansible-option-elements">elements=string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Client scopes that should be of type default.</p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-http_agent"></div>
+    <p class="ansible-option-title"><strong>http_agent</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-http_agent" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Configures the HTTP User-Agent header.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;Ansible&#34;</code></p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-optional_clientscopes"></div>
+    <p class="ansible-option-title"><strong>optional_clientscopes</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-optional_clientscopes" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">list</span>
+      / <span class="ansible-option-elements">elements=string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Client scopes that should be of type optional.</p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-realm"></div>
+    <p class="ansible-option-title"><strong>realm</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-realm" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>The Keycloak realm.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;master&#34;</code></p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-refresh_token"></div>
+    <p class="ansible-option-title"><strong>refresh_token</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-refresh_token" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Authentication refresh token for Keycloak API.</p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-token"></div>
+    <p class="ansible-option-title"><strong>token</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-token" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Authentication token for Keycloak API.</p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-validate_certs"></div>
+    <p class="ansible-option-title"><strong>validate_certs</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-validate_certs" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">boolean</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Verify TLS certificates (do not disable this in production).</p>
+    <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+    <ul class="simple">
+      <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+      <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>true</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+    </ul>
+
+  </div></td>
+</tr>
+</tbody>
+</table></section>
+<section id="attributes">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Attributes</a><a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<table class="longtable ansible-option-table docutils align-default" style="width: 100%">
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<th class="head"><p>Support</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="attribute-action_group"></div><p class="ansible-option-title" id="ansible-collections-middleware-automation-keycloak-keycloak-clientscope-type-module-attribute-action-group"><strong>action_group</strong></p>
+<a class="ansibleOptionLink" href="#attribute-action_group" title="Permalink to this attribute"></a></div></td>
+<td><div class="ansible-option-cell"><p><strong class="ansible-attribute-support-property">Action group:</strong> <strong class="ansible-attribute-support-full">middleware_automation.keycloak.keycloak</strong></p>
+<p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 3.0.0</em></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Use <code class="docutils literal notranslate"><span class="pre">group/middleware_automation.keycloak.keycloak</span></code> in <code class="docutils literal notranslate"><span class="pre">module_defaults</span></code> to set defaults for this module.</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="attribute-check_mode"></div><p class="ansible-option-title" id="ansible-collections-middleware-automation-keycloak-keycloak-clientscope-type-module-attribute-check-mode"><strong>check_mode</strong></p>
+<a class="ansibleOptionLink" href="#attribute-check_mode" title="Permalink to this attribute"></a></div></td>
+<td><div class="ansible-option-cell"><p><strong class="ansible-attribute-support-label">Support: </strong><strong class="ansible-attribute-support-full">full</strong></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Can run in <code class="docutils literal notranslate"><span class="pre">check_mode</span></code> and return changed status prediction without modifying target.</p>
+</div></td>
+</tr>
+<tr class="row-even"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="attribute-diff_mode"></div><p class="ansible-option-title" id="ansible-collections-middleware-automation-keycloak-keycloak-clientscope-type-module-attribute-diff-mode"><strong>diff_mode</strong></p>
+<a class="ansibleOptionLink" href="#attribute-diff_mode" title="Permalink to this attribute"></a></div></td>
+<td><div class="ansible-option-cell"><p><strong class="ansible-attribute-support-label">Support: </strong><strong class="ansible-attribute-support-full">full</strong></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Will return details on what has changed (or possibly needs changing in <code class="docutils literal notranslate"><span class="pre">check_mode</span></code>), when in diff mode.</p>
+</div></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="examples">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Examples</a><a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set default client scopes on realm level</span>
+<span class="w">  </span><span class="nt">middleware_automation.keycloak.keycloak_clientscope_type</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">auth_client_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin-cli</span>
+<span class="w">    </span><span class="nt">auth_keycloak_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://auth.example.com</span>
+<span class="w">    </span><span class="nt">auth_realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class="w">    </span><span class="nt">auth_username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">USERNAME</span>
+<span class="w">    </span><span class="nt">auth_password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PASSWORD</span>
+<span class="w">    </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;MyCustomRealm&quot;</span>
+<span class="w">    </span><span class="nt">default_clientscopes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;profile&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;roles&#39;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">delegate_to</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span>
+
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set default and optional client scopes on client level with token auth</span>
+<span class="w">  </span><span class="nt">middleware_automation.keycloak.keycloak_clientscope_type</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">auth_client_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin-cli</span>
+<span class="w">    </span><span class="nt">auth_keycloak_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://auth.example.com</span>
+<span class="w">    </span><span class="nt">token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TOKEN</span>
+<span class="w">    </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;MyCustomRealm&quot;</span>
+<span class="w">    </span><span class="nt">client_id</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;MyCustomClient&quot;</span>
+<span class="w">    </span><span class="nt">default_clientscopes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;profile&#39;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&#39;roles&#39;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">optional_clientscopes</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;phone&#39;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">delegate_to</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span>
+</pre></div>
+</div>
+</section>
+<section id="return-values">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Return Values</a><a class="headerlink" href="#return-values" title="Link to this heading"></a></h2>
+<p>Common return values are documented <a class="reference external" href="https://docs.ansible.com/projects/ansible/latest/reference_appendices/common_return_values.html#common-return-values" title="(in Ansible v13)"><span class="xref std std-ref">here</span></a>, the following are the fields unique to this module:</p>
+<table class="colwidths-auto ansible-option-table docutils align-default" style="width: 100%">
+<thead>
+<tr class="row-odd">
+  <th class="head"><p>Key</p></th>
+  <th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="return-end_state"></div>
+    <p class="ansible-option-title"><strong>end_state</strong></p>
+    <a class="ansibleOptionLink" href="#return-end_state" title="Permalink to this return value"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">dictionary</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Representation of client scopes after module execution.</p>
+    <p>The sample is truncated.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> on success</p>
+    <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">{&#34;default_clientscopes&#34;: [&#34;profile&#34;, &#34;role&#34;], &#34;optional_clientscopes&#34;: []}</code></p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="return-existing"></div>
+    <p class="ansible-option-title"><strong>existing</strong></p>
+    <a class="ansibleOptionLink" href="#return-existing" title="Permalink to this return value"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">dictionary</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Representation of client scopes before module execution.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
+    <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">{&#34;default_clientscopes&#34;: [&#34;profile&#34;, &#34;role&#34;], &#34;optional_clientscopes&#34;: [&#34;phone&#34;]}</code></p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="return-msg"></div>
+    <p class="ansible-option-title"><strong>msg</strong></p>
+    <a class="ansibleOptionLink" href="#return-msg" title="Permalink to this return value"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Message as to what action was taken.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
+    <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">&#34;&#34;</code></p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="return-proposed"></div>
+    <p class="ansible-option-title"><strong>proposed</strong></p>
+    <a class="ansibleOptionLink" href="#return-proposed" title="Permalink to this return value"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">dictionary</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Representation of proposed client-scope types mapping.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
+    <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">{&#34;default_clientscopes&#34;: [&#34;profile&#34;, &#34;role&#34;], &#34;optional_clientscopes&#34;: []}</code></p>
+  </div></td>
+</tr>
+</tbody>
+</table><section id="authors">
+<h3>Authors<a class="headerlink" href="#authors" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Simon Pahl (&#64;simonpahl)</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="keycloak_clientscope_rolemappings.html" class="btn btn-neutral float-left" title="keycloak_clientscope_rolemappings – Allows administration of Keycloak clientscope scope mappings to restrict the usage of certain roles to specific clientscopes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="keycloak_clientsecret_info.html" class="btn btn-neutral float-right" title="keycloak_clientsecret_info – Retrieve client secret using Keycloak API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Red Hat, Inc..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

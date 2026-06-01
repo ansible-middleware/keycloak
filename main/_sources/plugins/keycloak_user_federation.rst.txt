@@ -16,8 +16,8 @@
 
 .. Title
 
-keycloak_user_federation -- Allows administration of Keycloak user federations via Keycloak API
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+keycloak_user_federation -- Allows administration of Keycloak user federations using Keycloak API
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. Collection note
 
@@ -35,7 +35,7 @@ keycloak_user_federation -- Allows administration of Keycloak user federations v
 
 .. rst-class:: ansible-version-added
 
-New in middleware\_automation.keycloak 3.7.0
+New in middleware\_automation.keycloak 3.0.0
 
 .. contents::
    :local:
@@ -49,7 +49,7 @@ Synopsis
 
 .. Description
 
-- This module allows you to add, remove or modify Keycloak user federations via the Keycloak REST API. It requires access to the REST API via OpenID Connect; the user connecting and the client being used must have the requisite access rights. In a default Keycloak installation, admin\-cli and an admin user would work, as would a separate client definition with the scope tailored to your needs and a user having the expected roles.
+- This module allows you to add, remove or modify Keycloak user federations using the Keycloak REST API. It requires access to the REST API using OpenID Connect; the user connecting and the client being used must have the requisite access rights. In a default Keycloak installation, admin\-cli and an admin user would work, as would a separate client definition with the scope tailored to your needs and a user having the expected roles.
 - The names of module options are snake\_cased versions of the camelCase ones found in the Keycloak API and its documentation at \ `https://www.keycloak.org/docs\-api/20.0.2/rest\-api/index.html <https://www.keycloak.org/docs-api/20.0.2/rest-api/index.html>`__.
 
 
@@ -175,8 +175,8 @@ Parameters
     </div></td>
     <td><div class="ansible-option-cell">
       <p>The value of the config parameter <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-config/bindCredential"><span class="std std-ref"><span class="pre">config.bindCredential</span></span></a></strong></code> is redacted in the Keycloak responses. Comparing the redacted value with the desired value always evaluates to not equal. This means the before and desired states are never equal if the parameter is set.</p>
-      <p>Set to <code class="ansible-value literal notranslate">always</code> to include <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-config/bindCredential"><span class="std std-ref"><span class="pre">config.bindCredential</span></span></a></strong></code> in the comparison of before and desired state. Because of the redacted value returned by Keycloak the module will always detect a change and make an update if a <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-config/bindCredential"><span class="std std-ref"><span class="pre">config.bindCredential</span></span></a></strong></code> value is set.</p>
-      <p>Set to <code class="ansible-value literal notranslate">only_indirect</code> to exclude <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-config/bindCredential"><span class="std std-ref"><span class="pre">config.bindCredential</span></span></a></strong></code> when comparing the before state with the desired state. The value of <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-config/bindCredential"><span class="std std-ref"><span class="pre">config.bindCredential</span></span></a></strong></code> will only be updated if there are other changes to the user federation that require an update.</p>
+      <p>Set to <code class="ansible-value literal notranslate">always</code> to include <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-config/bindCredential"><span class="std std-ref"><span class="pre">config.bindCredential</span></span></a></strong></code> in the comparison of before and desired state. Because of the redacted value returned by Keycloak the module always detects a change and make an update if a <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-config/bindCredential"><span class="std std-ref"><span class="pre">config.bindCredential</span></span></a></strong></code> value is set.</p>
+      <p>Set to <code class="ansible-value literal notranslate">only_indirect</code> to exclude <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-config/bindCredential"><span class="std std-ref"><span class="pre">config.bindCredential</span></span></a></strong></code> when comparing the before state with the desired state. The value of <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-config/bindCredential"><span class="std std-ref"><span class="pre">config.bindCredential</span></span></a></strong></code> is only updated if there are other changes to the user federation that require an update.</p>
       <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>&#34;always&#34;</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
@@ -196,7 +196,7 @@ Parameters
     </div></td>
     <td><div class="ansible-option-cell">
       <p>Dict specifying the configuration options for the provider; the contents differ depending on the value of <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-provider_id"><span class="std std-ref"><span class="pre">provider_id</span></span></a></strong></code>. Examples are given below for <code class="ansible-value literal notranslate">ldap</code>, <code class="ansible-value literal notranslate">kerberos</code> and <code class="ansible-value literal notranslate">sssd</code>. It is easiest to obtain valid config values by dumping an already-existing user federation configuration through check-mode in the <code class="ansible-return-value literal notranslate"><a class="reference internal" href="#return-existing"><span class="std std-ref"><span class="pre">existing</span></span></a></code> field.</p>
-      <p>The value <code class="ansible-value literal notranslate">sssd</code> has been supported since middleware_automation.keycloak 2.0.0.</p>
+      <p>The value <code class="ansible-value literal notranslate">sssd</code> has been supported since middleware_automation.keycloak 4.2.0.</p>
     </div></td>
   </tr>
   <tr class="row-even">
@@ -209,7 +209,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-      <p>Enable/disable HTTP authentication of users with SPNEGO/Kerberos tokens. The data about authenticated users will be provisioned from this LDAP server.</p>
+      <p>Enable/disable HTTP authentication of users with SPNEGO/Kerberos tokens. The data about authenticated users is provisioned from this LDAP server.</p>
       <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>false</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
@@ -293,7 +293,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-      <p>DN of LDAP user which will be used by Keycloak to access LDAP server.</p>
+      <p>DN of LDAP user which is used by Keycloak to access LDAP server.</p>
     </div></td>
   </tr>
   <tr class="row-even">
@@ -485,7 +485,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-      <p>Additional LDAP Filter for filtering searched users. Leave this empty if you don&#x27;t need additional filter.</p>
+      <p>Additional LDAP Filter for filtering searched users. Leave this empty if you do not need additional filter.</p>
     </div></td>
   </tr>
   <tr class="row-odd">
@@ -517,7 +517,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-      <p><code class="ansible-value literal notranslate">READ_ONLY</code> is a read-only LDAP store. <code class="ansible-value literal notranslate">WRITABLE</code> means data will be synced back to LDAP on demand. <code class="ansible-value literal notranslate">UNSYNCED</code> means user data will be imported, but not synced back to LDAP.</p>
+      <p><code class="ansible-value literal notranslate">READ_ONLY</code> is a read-only LDAP store. <code class="ansible-value literal notranslate">WRITABLE</code> means data is synced back to LDAP on demand. <code class="ansible-value literal notranslate">UNSYNCED</code> means user data is imported, but not synced back to LDAP.</p>
       <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;READ_ONLY&#34;</code></p></li>
@@ -556,7 +556,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-      <p>Day of the week the entry will become invalid on.</p>
+      <p>Day of the week the entry is set to become invalid on.</p>
     </div></td>
   </tr>
   <tr class="row-odd">
@@ -569,7 +569,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-      <p>Hour of day the entry will become invalid on.</p>
+      <p>Hour of day the entry is set to become invalid on.</p>
     </div></td>
   </tr>
   <tr class="row-even">
@@ -582,7 +582,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-      <p>Minute of day the entry will become invalid on.</p>
+      <p>Minute of day the entry is set to become invalid on.</p>
     </div></td>
   </tr>
   <tr class="row-odd">
@@ -609,7 +609,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-      <p>If <code class="ansible-value literal notranslate">true</code>, LDAP users will be imported into Keycloak DB and synced by the configured sync policies.</p>
+      <p>If <code class="ansible-value literal notranslate">true</code>, LDAP users are imported into Keycloak DB and synced by the configured sync policies.</p>
       <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
@@ -654,7 +654,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-      <p>Name of the LDAP attribute, which refers to Kerberos principal. This is used to lookup appropriate LDAP user after successful Kerberos/SPNEGO authentication in Keycloak. When this is empty, the LDAP user will be looked based on LDAP username corresponding to the first part of his Kerberos principal. For instance, for principal <code class='docutils literal notranslate'>john@KEYCLOAK.ORG</code>, it will assume that LDAP username is <code class="ansible-value literal notranslate">john</code>.</p>
+      <p>Name of the LDAP attribute, which refers to Kerberos principal. This is used to lookup appropriate LDAP user after successful Kerberos/SPNEGO authentication in Keycloak. When this is empty, the LDAP user is looked up based on LDAP username corresponding to the first part of his Kerberos principal. For instance, for principal <code class='docutils literal notranslate'>john@KEYCLOAK.ORG</code>, it assumes that LDAP username is <code class="ansible-value literal notranslate">john</code>.</p>
     </div></td>
   </tr>
   <tr class="row-even">
@@ -713,7 +713,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-      <p>Name of LDAP attribute, which is used as RDN (top attribute) of typical user DN. Usually it&#x27;s the same as Username LDAP attribute, however it is not required. For example for Active directory, it is common to use <code class="ansible-value literal notranslate">cn</code> as RDN attribute when username attribute might be <code class="ansible-value literal notranslate">sAMAccountName</code>.</p>
+      <p>Name of LDAP attribute, which is used as RDN (top attribute) of typical user DN. Usually it is the same as Username LDAP attribute, however it is not required. For example for Active directory, it is common to use <code class="ansible-value literal notranslate">cn</code> as RDN attribute when username attribute might be <code class="ansible-value literal notranslate">sAMAccountName</code>.</p>
     </div></td>
   </tr>
   <tr class="row-even">
@@ -790,7 +790,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-      <p>Encrypts the connection to LDAP using STARTTLS, which will disable connection pooling.</p>
+      <p>Encrypts the connection to LDAP using STARTTLS, which disables connection pooling.</p>
       <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>false</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
@@ -917,7 +917,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-      <p>All values of LDAP objectClass attribute for users in LDAP divided by comma. For example <code class="ansible-value literal notranslate">inetOrgPerson, organizationalPerson</code>. Newly created Keycloak users will be written to LDAP with all those object classes and existing LDAP user records are found just if they contain all those object classes.</p>
+      <p>All values of LDAP objectClass attribute for users in LDAP divided by comma. For example <code class="ansible-value literal notranslate">inetOrgPerson, organizationalPerson</code>. Newly created Keycloak users are written to LDAP with all those object classes and existing LDAP user records are found just if they contain all those object classes.</p>
     </div></td>
   </tr>
   <tr class="row-even">
@@ -943,7 +943,8 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-      <p>Specifies whether LDAP connection will use the truststore SPI with the truststore configured in standalone.xml/domain.xml. <code class="ansible-value literal notranslate">always</code> means that it will always use it. <code class="ansible-value literal notranslate">never</code> means that it will not use it. <code class="ansible-value literal notranslate">ldapsOnly</code> means that it will use if your connection URL use ldaps. Note even if standalone.xml/domain.xml is not configured, the default Java cacerts or certificate specified by <code class='docutils literal notranslate'>javax.net.ssl.trustStore</code> property will be used.</p>
+      <p>Specifies whether LDAP connection uses the truststore SPI with the truststore configured in standalone.xml/domain.xml. <code class="ansible-value literal notranslate">always</code> means that it always uses it. <code class="ansible-value literal notranslate">never</code> means that it does not use it. <code class="ansible-value literal notranslate">ldapsOnly</code> means that it uses if your connection URL use ldaps.</p>
+      <p>Note even if standalone.xml/domain.xml is not configured, the default Java cacerts or certificate specified by <code class='docutils literal notranslate'>javax.net.ssl.trustStore</code> property is used.</p>
       <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;always&#34;</code></p></li>
@@ -1008,7 +1009,6 @@ Parameters
       <p class="ansible-option-type-line">
         <span class="ansible-option-type">integer</span>
       </p>
-      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 4.5.0</em></p>
     </div></td>
     <td><div class="ansible-option-cell">
       <p>Controls the HTTP connections timeout period (in seconds) to Keycloak API.</p>
@@ -1023,7 +1023,6 @@ Parameters
       <p class="ansible-option-type-line">
         <span class="ansible-option-type">string</span>
       </p>
-      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 5.4.0</em></p>
     </div></td>
     <td><div class="ansible-option-cell">
       <p>Configures the HTTP User-Agent header.</p>
@@ -1040,7 +1039,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>The unique ID for this user federation. If left empty, the user federation will be searched by its <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-name"><span class="std std-ref"><span class="pre">name</span></span></a></strong></code>.</p>
+      <p>The unique ID for this user federation. If left empty, the user federation is searched by its <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-name"><span class="std std-ref"><span class="pre">name</span></span></a></strong></code>.</p>
     </div></td>
   </tr>
   <tr class="row-even">
@@ -1093,7 +1092,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-      <p>Name of the mapper. If no ID is given, the mapper will be searched by name.</p>
+      <p>Name of the mapper. If no ID is given, the mapper is searched by name.</p>
     </div></td>
   </tr>
   <tr class="row-even">
@@ -1106,7 +1105,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-      <p>Unique ID for the parent of this mapper. ID of the user federation will automatically be used if left blank.</p>
+      <p>Unique ID for the parent of this mapper. ID of the user federation is automatically used if left blank.</p>
     </div></td>
   </tr>
   <tr class="row-odd">
@@ -1162,7 +1161,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>Unique ID for the parent of this user federation. Realm ID will be automatically used if left blank.</p>
+      <p>Unique ID for the parent of this user federation. Realm ID is automatically used if left blank.</p>
     </div></td>
   </tr>
   <tr class="row-odd">
@@ -1212,6 +1211,19 @@ Parameters
   </tr>
   <tr class="row-even">
     <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-refresh_token"></div>
+      <p class="ansible-option-title"><strong>refresh_token</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-refresh_token" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Authentication refresh token for Keycloak API.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-remove_unspecified_mappers"></div>
       <p class="ansible-option-title"><strong>remove_unspecified_mappers</strong></p>
       <a class="ansibleOptionLink" href="#parameter-remove_unspecified_mappers" title="Permalink to this option"></a>
@@ -1230,7 +1242,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-state"></div>
       <p class="ansible-option-title"><strong>state</strong></p>
@@ -1241,8 +1253,8 @@ Parameters
     </div></td>
     <td><div class="ansible-option-cell">
       <p>State of the user federation.</p>
-      <p>On <code class="ansible-value literal notranslate">present</code>, the user federation will be created if it does not yet exist, or updated with the parameters you provide.</p>
-      <p>On <code class="ansible-value literal notranslate">absent</code>, the user federation will be removed if it exists.</p>
+      <p>On <code class="ansible-value literal notranslate">present</code>, the user federation is created if it does not yet exist, or updated with the parameters you provide.</p>
+      <p>On <code class="ansible-value literal notranslate">absent</code>, the user federation is removed if it exists.</p>
       <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>&#34;present&#34;</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
@@ -1251,7 +1263,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-token"></div>
       <p class="ansible-option-title"><strong>token</strong></p>
@@ -1259,13 +1271,12 @@ Parameters
       <p class="ansible-option-type-line">
         <span class="ansible-option-type">string</span>
       </p>
-      <p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 3.0.0</em></p>
     </div></td>
     <td><div class="ansible-option-cell">
       <p>Authentication token for Keycloak API.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-validate_certs"></div>
       <p class="ansible-option-title"><strong>validate_certs</strong></p>
@@ -1306,6 +1317,50 @@ Attributes
   * - Attribute
     - Support
     - Description
+
+  * - .. raw:: html
+
+        <div class="ansible-option-cell">
+        <div class="ansibleOptionAnchor" id="attribute-action_group"></div>
+
+      .. _ansible_collections.middleware_automation.keycloak.keycloak_user_federation_module__attribute-action_group:
+
+      .. rst-class:: ansible-option-title
+
+      **action_group**
+
+      .. raw:: html
+
+        <a class="ansibleOptionLink" href="#attribute-action_group" title="Permalink to this attribute"></a>
+
+      .. raw:: html
+
+        </div>
+
+    - .. raw:: html
+
+        <div class="ansible-option-cell">
+
+      :ansible-attribute-support-property:`Action group:` |antsibull-internal-nbsp|:ansible-attribute-support-full:`middleware\_automation.keycloak.keycloak`
+
+      :ansible-option-versionadded:`added in middleware\_automation.keycloak 3.0.0`
+
+
+      .. raw:: html
+
+        </div>
+
+    - .. raw:: html
+
+        <div class="ansible-option-cell">
+
+      Use :literal:`group/middleware\_automation.keycloak.keycloak` in :literal:`module\_defaults` to set defaults for this module.
+
+
+      .. raw:: html
+
+        </div>
+
 
   * - .. raw:: html
 
@@ -1407,7 +1462,7 @@ Examples
 
     - name: Create LDAP user federation
       middleware_automation.keycloak.keycloak_user_federation:
-        auth_keycloak_url: https://keycloak.example.com/auth
+        auth_keycloak_url: https://keycloak.example.com
         auth_realm: master
         auth_username: admin
         auth_password: password
@@ -1417,32 +1472,32 @@ Examples
         provider_id: ldap
         provider_type: org.keycloak.storage.UserStorageProvider
         config:
-        priority: 0
-        enabled: true
-        cachePolicy: DEFAULT
-        batchSizeForSync: 1000
-        editMode: READ_ONLY
-        importEnabled: true
-        syncRegistrations: false
-        vendor: other
-        usernameLDAPAttribute: uid
-        rdnLDAPAttribute: uid
-        uuidLDAPAttribute: entryUUID
-        userObjectClasses: inetOrgPerson, organizationalPerson
-        connectionUrl: ldaps://ldap.example.com:636
-        usersDn: ou=Users,dc=example,dc=com
-        authType: simple
-        bindDn: cn=directory reader
-        bindCredential: password
-        searchScope: 1
-        validatePasswordPolicy: false
-        trustEmail: false
-        useTruststoreSpi: ldapsOnly
-        connectionPooling: true
-        pagination: true
-        allowKerberosAuthentication: false
-        debug: false
-        useKerberosForPasswordAuthentication: false
+          priority: 0
+          enabled: true
+          cachePolicy: DEFAULT
+          batchSizeForSync: 1000
+          editMode: READ_ONLY
+          importEnabled: true
+          syncRegistrations: false
+          vendor: other
+          usernameLDAPAttribute: uid
+          rdnLDAPAttribute: uid
+          uuidLDAPAttribute: entryUUID
+          userObjectClasses: inetOrgPerson, organizationalPerson
+          connectionUrl: ldaps://ldap.example.com:636
+          usersDn: ou=Users,dc=example,dc=com
+          authType: simple
+          bindDn: cn=directory reader
+          bindCredential: password
+          searchScope: 1
+          validatePasswordPolicy: false
+          trustEmail: false
+          useTruststoreSpi: ldapsOnly
+          connectionPooling: true
+          pagination: true
+          allowKerberosAuthentication: false
+          debug: false
+          useKerberosForPasswordAuthentication: false
         mappers:
           - name: "full name"
             providerId: "full-name-ldap-mapper"
@@ -1454,7 +1509,7 @@ Examples
 
     - name: Create Kerberos user federation
       middleware_automation.keycloak.keycloak_user_federation:
-        auth_keycloak_url: https://keycloak.example.com/auth
+        auth_keycloak_url: https://keycloak.example.com
         auth_realm: master
         auth_username: admin
         auth_password: password
@@ -1475,7 +1530,7 @@ Examples
 
     - name: Create sssd user federation
       middleware_automation.keycloak.keycloak_user_federation:
-        auth_keycloak_url: https://keycloak.example.com/auth
+        auth_keycloak_url: https://keycloak.example.com
         auth_realm: master
         auth_username: admin
         auth_password: password
@@ -1485,13 +1540,13 @@ Examples
         provider_id: sssd
         provider_type: org.keycloak.storage.UserStorageProvider
         config:
-        priority: 0
-        enabled: true
-        cachePolicy: DEFAULT
+          priority: 0
+          enabled: true
+          cachePolicy: DEFAULT
 
     - name: Delete user federation
       middleware_automation.keycloak.keycloak_user_federation:
-        auth_keycloak_url: https://keycloak.example.com/auth
+        auth_keycloak_url: https://keycloak.example.com
         auth_realm: master
         auth_username: admin
         auth_password: password

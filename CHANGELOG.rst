@@ -6,6 +6,25 @@ middleware\_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v3.0.7
+======
+
+Major Changes
+-------------
+
+- Migrate Keycloak modules from the community.general collection to Keycloak collection. `#341 <https://github.com/ansible-middleware/keycloak/pull/341>`_
+
+Minor Changes
+-------------
+
+- Fixing common module usage `#343 <https://github.com/ansible-middleware/keycloak/pull/343>`_
+- fix #336: https://github.com/ansible-middleware/common/pull/38 `#338 <https://github.com/ansible-middleware/keycloak/pull/338>`_
+
+Bugfixes
+--------
+
+- Fix molecule tests `#339 <https://github.com/ansible-middleware/keycloak/pull/339>`_
+
 v3.0.6
 ======
 

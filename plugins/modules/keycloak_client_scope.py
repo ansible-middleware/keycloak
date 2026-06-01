@@ -14,6 +14,9 @@ module: keycloak_client_scope
 
 short_description: Allows administration of Keycloak client scopes via Keycloak API
 
+# Originally added in community.general 3.4.0 as keycloak_clientscope
+version_added: "3.0.0"
+
 description:
     - This module allows you to add, remove or modify Keycloak client scopes via the Keycloak REST API.
       It requires access to the REST API via OpenID Connect; the user connecting and the client being
@@ -106,6 +109,7 @@ options:
 
 extends_documentation_fragment:
     - middleware_automation.keycloak.keycloak
+    - middleware_automation.keycloak.actiongroup_keycloak
     - middleware_automation.keycloak.attributes
 
 author:

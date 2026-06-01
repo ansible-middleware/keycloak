@@ -25,6 +25,12 @@
   hosts: keycloak
   vars_files:
     - ../group_vars/all/vars.yml
+  pre_tasks:
+    - name: Wait for Infinispan Hot Rod port before starting Keycloak
+      ansible.builtin.wait_for:
+        host: infinispan1
+        port: 11222
+        timeout: 120
   vars:
     keycloak_quarkus_show_deprecation_warnings: false
     keycloak_quarkus_bootstrap_admin_password: "remembertochangeme"
@@ -41,7 +47,7 @@
     keycloak_quarkus_ks_vault_file: "/opt/keycloak/vault/keystore.p12"
     keycloak_quarkus_ks_vault_pass: keystorepassword
     keycloak_quarkus_systemd_wait_for_port: true
-    keycloak_quarkus_systemd_wait_for_timeout: 20
+    keycloak_quarkus_systemd_wait_for_timeout: 120
     keycloak_quarkus_systemd_wait_for_delay: 2
     keycloak_quarkus_systemd_wait_for_log: true
     keycloak_quarkus_ha_enabled: true

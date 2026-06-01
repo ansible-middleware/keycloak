@@ -55,7 +55,11 @@ options:
         description:
             - Authentication token for Keycloak API.
         type: str
-        version_added: 3.0.0
+
+    refresh_token:
+        description:
+            - Authentication refresh token for Keycloak API.
+        type: str
 
     validate_certs:
         description:
@@ -68,11 +72,9 @@ options:
             - Controls the HTTP connections timeout period (in seconds) to Keycloak API.
         type: int
         default: 10
-        version_added: 4.5.0
     http_agent:
         description:
             - Configures the HTTP User-Agent header.
         type: str
         default: Ansible
-        version_added: 5.4.0
 '''

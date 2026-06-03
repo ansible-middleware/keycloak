@@ -49,9 +49,9 @@ A requirement file is provided to install:
 <!--start roles_paths -->
 ### Included roles
 
-* `keycloak_quarkus`: role for installing keycloak (>= 19.0.0, quarkus based).
-* `keycloak_realm`: role for configuring a realm, user federation(s), clients and users, in an installed service.
-* `keycloak`: role for installing legacy keycloak (<= 19.0, wildfly based).
+* [`keycloak_quarkus`](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak_quarkus/README.md): role for installing keycloak (>= 19.0.0, quarkus based).
+* [`keycloak_realm`](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak_realm/README.md): role for configuring a realm, user federation(s), clients and users, in an installed service.
+* [`keycloak`](https://github.com/ansible-middleware/keycloak/blob/main/roles/keycloak/README.md): role for installing legacy keycloak (<= 19.0, wildfly based).
 
 <!--end roles_paths -->
 
@@ -165,5 +165,5 @@ For details on changes between versions, please see the [CHANGELOG](https://gith
 
 Apache License v2.0 or later
 <!--start license -->
-See [LICENSE](LICENSE) to view the full text.
+See [LICENSE](https://github.com/ansible-middleware/keycloak/blob/main/LICENSE) to view the full text.
 <!--end license -->

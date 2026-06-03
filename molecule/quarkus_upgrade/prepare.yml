@@ -6,7 +6,7 @@
     - vars.yml
   vars:
     sudo_pkg_name: sudo
-    keycloak_quarkus_version: 26.0.4
+    keycloak_quarkus_version: 26.6.1
     keycloak_quarkus_additional_env_vars:
       - key: KC_FEATURES_DISABLED
         value: impersonation,kerberos

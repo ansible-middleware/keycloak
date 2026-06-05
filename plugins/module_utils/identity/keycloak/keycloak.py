@@ -154,18 +154,6 @@ URL_AUTHZ_CUSTOM_POLICY = "{url}/admin/realms/{realm}/clients/{client_id}/authz/
 URL_AUTHZ_CUSTOM_POLICIES = "{url}/admin/realms/{realm}/clients/{client_id}/authz/resource-server/policy"
 
 
-def normalize_keycloak_url(url: str) -> str:
-    """Normalize Keycloak base URL for Admin REST API access.
-
-    Keycloak 17+ (Quarkus) exposes the API at the server root without an /auth prefix.
-    WildFly-based Keycloak used /auth as the context path. Trailing slashes are removed.
-    """
-    url = url.rstrip("/")
-    if url.endswith("/auth"):
-        return url[:-5]
-    return url
-
-
 def keycloak_argument_spec() -> dict[str, t.Any]:
     """
     Returns argument_spec of options common to keycloak_*-modules
@@ -215,7 +203,7 @@ def _token_request(module_params: dict[str, t.Any], payload: dict[str, t.Any]) -
            'refresh_token' for type 'refresh_token'.
     :return: access token
     """
-    base_url = normalize_keycloak_url(module_params["auth_keycloak_url"])
+    base_url = module_params["auth_keycloak_url"]
     if not base_url.lower().startswith(("http", "https")):
         raise KeycloakError(f"auth_url '{base_url}' should either start with 'http' or 'https'.")
     auth_realm = module_params.get("auth_realm")
@@ -403,7 +391,7 @@ class KeycloakAPI:
 
     def __init__(self, module: AnsibleModule, connection_header: dict[str, str]) -> None:
         self.module = module
-        self.baseurl = normalize_keycloak_url(self.module.params.get("auth_keycloak_url"))
+        self.baseurl = self.module.params.get("auth_keycloak_url")
         self.validate_certs = self.module.params.get("validate_certs")
         self.connection_timeout = self.module.params.get("connection_timeout")
         self.restheaders = connection_header

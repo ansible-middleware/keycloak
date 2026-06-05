@@ -203,7 +203,7 @@ def _token_request(module_params: dict[str, t.Any], payload: dict[str, t.Any]) -
            'refresh_token' for type 'refresh_token'.
     :return: access token
     """
-    base_url = normalize_keycloak_url(module_params["auth_keycloak_url"])
+    base_url = module_params["auth_keycloak_url"]
     if not base_url.lower().startswith(("http", "https")):
         raise KeycloakError(f"auth_url '{base_url}' should either start with 'http' or 'https'.")
     auth_realm = module_params.get("auth_realm")

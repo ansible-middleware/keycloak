@@ -196,7 +196,7 @@ def main():
 
     client_scope_object = kc.get_client_scope_by_name(client_scope_id, realm)
     if not client_scope_object:
-        module.fail_json(msg=f"Failed to retrieve client-scope '{client_scope_id}'")
+        module.fail_json(msg=f"Failed to retrieve client scope '{client_scope_id}'")
 
     if client_id:
         # add client role

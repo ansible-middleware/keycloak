@@ -94,7 +94,7 @@ msg:
   type: str
   sample: ""
 proposed:
-  description: Representation of proposed client-scope types mapping.
+  description: Representation of proposed client scope types mapping.
   returned: always
   type: dict
   sample:

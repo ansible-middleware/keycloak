@@ -71,7 +71,7 @@ All Keycloak administration modules from `community.general` are provided in thi
 * `keycloak_client_rolemapping`: manage client role mappings for users and groups.
 * `keycloak_client_rolescope`: manage client role scope mappings.
 * `keycloak_client_scope`: manage client scopes and protocol mappers (replaces `community.general.keycloak_clientscope`).
-* `keycloak_clientscope_type`: manage default and optional client scope assignments.
+* `keycloak_client_scopeee_type`: manage default and optional client scope assignments.
 * `keycloak_clientsecret_info`: retrieve client secret information.
 * `keycloak_clientsecret_regenerate`: regenerate a client secret.
 * `keycloak_clienttemplate`: manage legacy client templates.

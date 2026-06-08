@@ -1100,11 +1100,11 @@ def add_default_client_scopes(desired_client, before_client, realm, kc):
     missing_scopes = [item for item in desired_default_scope if item not in before_client["defaultClientScopes"]]
     if not missing_scopes:
         return
-    client_scopes = kc.get_clientscopes(realm)
+    client_scopes = kc.get_client_scopes(realm)
     for name in missing_scopes:
         scope = find_match(client_scopes, "name", name)
         if scope:
-            kc.add_default_clientscope(scope["id"], realm, desired_client["clientId"])
+            kc.add_default_client_scope(scope["id"], realm, desired_client["clientId"])
 
 
 def add_optional_client_scopes(desired_client, before_client, realm, kc):
@@ -1139,11 +1139,11 @@ def add_optional_client_scopes(desired_client, before_client, realm, kc):
     missing_scopes = [item for item in desired_optional_scope if item not in before_client["optionalClientScopes"]]
     if not missing_scopes:
         return
-    client_scopes = kc.get_clientscopes(realm)
+    client_scopes = kc.get_client_scopes(realm)
     for name in missing_scopes:
         scope = find_match(client_scopes, "name", name)
         if scope:
-            kc.add_optional_clientscope(scope["id"], realm, desired_client["clientId"])
+            kc.add_optional_client_scope(scope["id"], realm, desired_client["clientId"])
 
 
 def remove_default_client_scopes(desired_client, before_client, realm, kc):
@@ -1178,11 +1178,11 @@ def remove_default_client_scopes(desired_client, before_client, realm, kc):
     missing_scopes = [item for item in before_default_scope if item not in desired_client["defaultClientScopes"]]
     if not missing_scopes:
         return
-    client_scopes = kc.get_default_clientscopes(realm, desired_client["clientId"])
+    client_scopes = kc.get_default_client_scopes(realm, desired_client["clientId"])
     for name in missing_scopes:
         scope = find_match(client_scopes, "name", name)
         if scope:
-            kc.delete_default_clientscope(scope["id"], realm, desired_client["clientId"])
+            kc.delete_default_client_scope(scope["id"], realm, desired_client["clientId"])
 
 
 def remove_optional_client_scopes(desired_client, before_client, realm, kc):
@@ -1217,11 +1217,11 @@ def remove_optional_client_scopes(desired_client, before_client, realm, kc):
     missing_scopes = [item for item in before_optional_scope if item not in desired_client["optionalClientScopes"]]
     if not missing_scopes:
         return
-    client_scopes = kc.get_optional_clientscopes(realm, desired_client["clientId"])
+    client_scopes = kc.get_optional_client_scopes(realm, desired_client["clientId"])
     for name in missing_scopes:
         scope = find_match(client_scopes, "name", name)
         if scope:
-            kc.delete_optional_clientscope(scope["id"], realm, desired_client["clientId"])
+            kc.delete_optional_client_scope(scope["id"], realm, desired_client["clientId"])
 
 
 def main():

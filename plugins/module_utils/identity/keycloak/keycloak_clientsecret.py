@@ -66,7 +66,7 @@ def keycloak_clientsecret_module_resolve_params(module: AnsibleModule, kc: Keycl
     # less lookup.
     if id is None:
         # Due to the required_one_of spec, client_id is guaranteed to not be None
-        client = kc.get_client_by_clientid(client_id, realm=realm)
+        client = kc.get_client_by_client_id(client_id, realm=realm)
 
         if client is None:
             module.fail_json(msg=f"Client does not exist {client_id}")

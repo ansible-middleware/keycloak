@@ -200,7 +200,7 @@ def main():
 
     if client_id:
         # add client role
-        client_object = kc.get_client_by_clientid(client_id, realm)
+        client_object = kc.get_client_by_client_id(client_id, realm)
         if not client_object:
             module.fail_json(msg=f"Failed to retrieve client '{realm}.{client_id}'")
         if client_object["fullScopeAllowed"] and state == "present":

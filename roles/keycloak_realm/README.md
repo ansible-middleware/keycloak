@@ -114,7 +114,7 @@ For features not covered by this role, the collection provides dedicated modules
 
 | Module | What It Manages |
 |:-------|:----------------|
-| `keycloak_client_scope` | Client scopes and protocol mappers — see [example playbook](../../playbooks/keycloak_client_scope.yml) |
+| `keycloak_clientscope` | Client scopes and protocol mappers — see [example playbook](../../playbooks/keycloak_clientscope.yml) |
 | `keycloak_authentication_flow` | Authentication flows and execution steps — see [example playbook](../../playbooks/keycloak_authentication_flow.yml) |
 | `keycloak_client` | Clients (also used internally by this role) |
 | `keycloak_role` | Realm and client roles |
@@ -141,11 +141,11 @@ The following is an example playbook that makes use of the role to create a real
             keycloak_clients: [...]
 ```
 
-The following example uses the `keycloak_client_scope` module to create a client scope with protocol mappers:
+The following example uses the `keycloak_clientscope` module to create a client scope with protocol mappers:
 
 ```yaml
 - name: Create client scope
-  middleware_automation.keycloak.keycloak_client_scope:
+  middleware_automation.keycloak.keycloak_clientscope:
     auth_keycloak_url: http://localhost:8080
     auth_realm: master
     auth_username: admin

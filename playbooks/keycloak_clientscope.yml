@@ -8,7 +8,7 @@
     keycloak_realm: TestRealm
   tasks:
     - name: Create client scope with protocol mappers
-      middleware_automation.keycloak.keycloak_client_scope:
+      middleware_automation.keycloak.keycloak_clientscope:
         auth_keycloak_url: "{{ keycloak_url }}"
         auth_realm: master
         auth_username: "{{ keycloak_admin_user }}"

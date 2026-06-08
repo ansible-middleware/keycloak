@@ -70,7 +70,8 @@ All Keycloak administration modules from `community.general` are provided in thi
 * `keycloak_client`: manage Keycloak clients (create/update/delete).
 * `keycloak_client_rolemapping`: manage client role mappings for users and groups.
 * `keycloak_client_rolescope`: manage client role scope mappings.
-* `keycloak_client_scope`: manage client scopes and protocol mappers (replaces `community.general.keycloak_clientscope`).
+* `keycloak_clientscope`: manage client scopes and protocol mappers.
+* `keycloak_clientscope_rolemappings`: manage role mappings for client scopes.
 * `keycloak_clientscope_type`: manage default and optional client scope assignments.
 * `keycloak_clientsecret_info`: retrieve client secret information.
 * `keycloak_clientsecret_regenerate`: regenerate a client secret.
@@ -174,7 +175,7 @@ For full configuration details, refer to the [keycloak_realm role README](https:
 
 Module playbooks target an already running Keycloak instance. All modules use the `middleware_automation.keycloak` collection namespace.
 
-* [`playbooks/keycloak_client_scope.yml`](https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_client_scope.yml) creates a client scope with protocol mappers using the `keycloak_client_scope` module.
+* [`playbooks/keycloak_clientscope.yml`](https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_clientscope.yml) creates a client scope with protocol mappers using the `keycloak_clientscope` module.
 * [`playbooks/keycloak_authentication_flow.yml`](https://github.com/ansible-middleware/keycloak/blob/main/playbooks/keycloak_authentication_flow.yml) creates a custom authentication flow with execution steps using the `keycloak_authentication_flow` module.
 
 Example task using shared authentication defaults:
@@ -199,7 +200,7 @@ Example task using shared authentication defaults:
         state: present
 ```
 
-When migrating from `community.general`, replace the collection prefix in playbooks (for example `community.general.keycloak_user` becomes `middleware_automation.keycloak.keycloak_user`) and use `keycloak_client_scope` instead of `keycloak_clientscope`.
+When migrating from `community.general`, replace the collection prefix in playbooks (for example `community.general.keycloak_user` becomes `middleware_automation.keycloak.keycloak_user`).
 
 
 ## Support

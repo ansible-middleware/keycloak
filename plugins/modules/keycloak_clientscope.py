@@ -10,7 +10,7 @@ __metaclass__ = type
 
 DOCUMENTATION = '''
 ---
-module: keycloak_client_scope
+module: keycloak_clientscope
 
 short_description: Allows administration of Keycloak client scopes via Keycloak API
 
@@ -118,7 +118,7 @@ author:
 
 EXAMPLES = '''
 - name: Create a client scope with protocol mappers
-  middleware_automation.keycloak.keycloak_client_scope:
+  middleware_automation.keycloak.keycloak_clientscope:
     auth_keycloak_url: http://localhost:8080
     auth_realm: master
     auth_username: admin
@@ -142,7 +142,7 @@ EXAMPLES = '''
   delegate_to: localhost
 
 - name: Create a client scope using token authentication
-  middleware_automation.keycloak.keycloak_client_scope:
+  middleware_automation.keycloak.keycloak_clientscope:
     auth_keycloak_url: http://localhost:8080
     token: MY_TOKEN
     realm: TestRealm
@@ -151,7 +151,7 @@ EXAMPLES = '''
   delegate_to: localhost
 
 - name: Delete a client scope
-  middleware_automation.keycloak.keycloak_client_scope:
+  middleware_automation.keycloak.keycloak_clientscope:
     auth_keycloak_url: http://localhost:8080
     auth_realm: master
     auth_username: admin

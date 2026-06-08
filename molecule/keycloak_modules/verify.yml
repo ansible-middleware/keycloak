@@ -36,7 +36,7 @@
       - keycloak_client
       - keycloak_client_rolemapping
       - keycloak_client_rolescope
-      - keycloak_client_scope
+      - keycloak_clientscope
       - keycloak_clientscope_type
       - keycloak_clientscope_rolemappings
       - keycloak_clientsecret_info
@@ -132,8 +132,8 @@
             name: "{{ client_role }}"
             state: present
 
-        - name: keycloak_client_scope — create client scope
-          middleware_automation.keycloak.keycloak_client_scope:
+        - name: keycloak_clientscope — create client scope
+          middleware_automation.keycloak.keycloak_clientscope:
             realm: "{{ target_realm }}"
             name: "{{ scope }}"
             state: present
@@ -644,8 +644,8 @@
             client_id: "{{ client }}"
             state: absent
 
-        - name: keycloak_client_scope — remove client scope
-          middleware_automation.keycloak.keycloak_client_scope:
+        - name: keycloak_clientscope — remove client scope
+          middleware_automation.keycloak.keycloak_clientscope:
             realm: "{{ target_realm }}"
             name: "{{ scope }}"
             state: absent

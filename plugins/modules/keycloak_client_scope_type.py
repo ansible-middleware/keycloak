@@ -271,7 +271,7 @@ def main():
     if module._diff:
         result["diff"] = dict(before=normalize_scopes(result["existing"]), after=normalize_scopes(result["proposed"]))
 
-    default_client_scopes_add = client_scopes_to_add(default_client_scopees_existing, defaultclient_scopees_real)
+    default_client_scopes_add = client_scopes_to_add(default_client_scopes_existing, default_client_scopes_real)
     optional_client_scopes_add = client_scopes_to_add(optional_client_scopes_existing, optional_client_scopes_real)
 
     default_client_scopes_delete = client_scopes_to_delete(default_client_scopes_existing, default_client_scopes_real)

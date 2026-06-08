@@ -1417,7 +1417,7 @@ class KeycloakAPI:
         get_client_scope_by_client_scope_id, passing in the ID of the group you wish to return.
 
         :param cid: id of client scope (not name).
-        :param realm: Realm in which the client_scope resides; default 'master'.
+        :param realm: Realm in which the client scope resides; default 'master'.
         :return The protocolmappers of this realm (default "master")
         """
         protocolmappers_url = URL_CLIENT_SCOPE_PROTOCOLMAPPERS.format(id=cid, url=self.baseurl, realm=realm)
@@ -1634,7 +1634,7 @@ class KeycloakAPI:
 
         except Exception as e:
             place = "realm" if client_id is None else f"client {client_id}"
-            self.fail_request(e, msg=f"Unable to {action} {scope_type} client_scope {id} @ {place} : {e}")
+            self.fail_request(e, msg=f"Unable to {action} {scope_type} client scope {id} @ {place} : {e}")
 
     def create_clientsecret(self, id, realm: str = "master"):
         """Generate a new client secret by id

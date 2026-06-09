@@ -825,3 +825,5 @@ releases:
     - 341.yaml
     - 343.yaml
     release_date: '2026-06-01'
+  3.0.8:
+    release_date: '2026-06-09'

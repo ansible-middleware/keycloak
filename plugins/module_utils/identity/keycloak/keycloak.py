@@ -3340,7 +3340,7 @@ class KeycloakAPI:
         return self.get_client_role_scope_from_client(target_client_id, role_owner_client_id, realm)
 
     def delete_client_role_scope_from_client(self, roles, target_client_id, role_owner_client_id, realm: str = "master"):
-        """Delete the roles contained in the payload from the client's scope on the Keycloak server.
+        """Delete the roles from the client's scope on the Keycloak server.
         :param roles: List of roles to be deleted.
         :param target_client_id: ID of the client to delete roles from scope.
         :param role_owner_client_id: ID of the client who owns the roles.
@@ -3359,10 +3359,10 @@ class KeycloakAPI:
         return self.get_client_role_scope_from_client(target_client_id, role_owner_client_id, realm)
 
     def update_client_scope_scope_mappings_client(
-        self, payload: list[dict], client_scope_id: str, role_owner_client_id: str, realm: str = "master"
+        self, roles: list[dict], client_scope_id: str, role_owner_client_id: str, realm: str = "master"
     ):
         """Update and fetch the client roles (scope-mappings) associated with the client scope on the Keycloak server.
-        :param payload: List of client roles to be added to the scope.
+        :param roles: List of client roles to be added to the scope.
         :param client_scope_id: ID of the client scope to update scope-mappings.
         :param role_owner_client_id: ID of the client from which to obtain the associated roles.
         :param realm: Realm from which to obtain the client.
@@ -3372,7 +3372,7 @@ class KeycloakAPI:
             url=self.baseurl, realm=realm, id=client_scope_id, client=role_owner_client_id
         )
         try:
-            self._request(client_role_scope_url, method="POST", data=json.dumps(payload))
+            self._request(client_role_scope_url, method="POST", data=json.dumps(roles))
 
         except Exception as e:
             self.fail_request(
@@ -3382,9 +3382,9 @@ class KeycloakAPI:
 
         return self.get_client_scope_scope_mappings_client(client_scope_id, role_owner_client_id, realm)
 
-    def update_client_scope_scope_mappings_realm(self, payload: list[dict], client_scope_id: str, realm: str = "master"):
+    def update_client_scope_scope_mappings_realm(self, roles: list[dict], client_scope_id: str, realm: str = "master"):
         """Update and fetch the realm roles (scope-mappings) associated with the client scope on the Keycloak server.
-        :param payload: List of realm roles to be added to the scope.
+        :param roles: List of realm roles to be added to the scope.
         :param client_scope_id: ID of the client scope to update scope-mappings.
         :param realm: Realm from which to obtain the roles.
         :return: The client scope realm scope-mappings.
@@ -3393,7 +3393,7 @@ class KeycloakAPI:
             url=self.baseurl, realm=realm, id=client_scope_id
         )
         try:
-            self._request(client_role_scope_url, method="POST", data=json.dumps(payload))
+            self._request(client_role_scope_url, method="POST", data=json.dumps(roles))
 
         except Exception as e:
             self.fail_request(
@@ -3405,8 +3405,8 @@ class KeycloakAPI:
     def delete_client_scope_scope_mappings_client(
         self, roles: list[dict], client_scope_id: str, role_owner_client_id: str, realm: str = "master"
     ):
-        """Delete the client roles (scope_mappings) contained in the payload from the client scope on the Keycloak server.
-        :param payload: List of roles to be deleted.
+        """Delete the client roles (scope_mappings) from the client scope on the Keycloak server.
+        :param roles: List of roles to be deleted.
         :param client_scope_id: ID of the client scope to delete roles from scope-mappings.
         :param role_owner_client_id: ID of the client who owns the roles.
         :param realm: Realm from which to obtain the client.
@@ -3416,7 +3416,7 @@ class KeycloakAPI:
             url=self.baseurl, realm=realm, id=client_scope_id, client=role_owner_client_id
         )
         try:
-            self._request(client_role_scope_url, method="DELETE", data=json.dumps(payload))
+            self._request(client_role_scope_url, method="DELETE", data=json.dumps(roles))
 
         except Exception as e:
             self.fail_request(
@@ -3426,9 +3426,9 @@ class KeycloakAPI:
 
         return self.get_client_scope_scope_mappings_client(client_scope_id, role_owner_client_id, realm)
 
-    def delete_client_scope_scope_mappings_realm(self, payload: list[dict], client_scope_id: str, realm: str = "master"):
-        """Delete the realm roles (scope_mappings) contained in the payload from the client scope on the Keycloak server.
-        :param payload: List of roles to be deleted.
+    def delete_client_scope_scope_mappings_realm(self, roles: list[dict], client_scope_id: str, realm: str = "master"):
+        """Delete the realm roles (scope_mappings) contained in the roles from the client scope on the Keycloak server.
+        :param roles: List of roles to be deleted.
         :param client_scope_id: ID of the client scope to delete roles from scope-mappings.
         :param realm: Realm from which to obtain the roles.
         :return: The client scope realm scope-mappings.
@@ -3437,7 +3437,7 @@ class KeycloakAPI:
             url=self.baseurl, realm=realm, id=client_scope_id
         )
         try:
-            self._request(client_role_scope_url, method="DELETE", data=json.dumps(payload))
+            self._request(client_role_scope_url, method="DELETE", data=json.dumps(roles))
 
         except Exception as e:
             self.fail_request(
@@ -3458,32 +3458,32 @@ class KeycloakAPI:
         except Exception as e:
             self.fail_request(e, msg=f"Could not fetch roles scope for client {clientid} in realm {realm}: {e}")
 
-    def update_client_role_scope_from_realm(self, payload, clientid, realm: str = "master"):
+    def update_client_role_scope_from_realm(self, roles, clientid, realm: str = "master"):
         """Update and fetch the realm roles from the client's scope on the Keycloak server.
-        :param payload: List of realm roles to add.
+        :param roles: List of realm roles to add.
         :param clientid: ID of the client to update scope.
         :param realm: Realm from which to obtain the clients.
         :return: The client realm roles scope.
         """
         client_role_scope_url = URL_CLIENT_ROLE_SCOPE_REALM.format(url=self.baseurl, realm=realm, id=clientid)
         try:
-            self._request(client_role_scope_url, method="POST", data=json.dumps(payload))
+            self._request(client_role_scope_url, method="POST", data=json.dumps(roles))
 
         except Exception as e:
             self.fail_request(e, msg=f"Could not update roles scope for client {clientid} in realm {realm}: {e}")
 
         return self.get_client_role_scope_from_realm(clientid, realm)
 
-    def delete_client_role_scope_from_realm(self, payload, clientid, realm: str = "master"):
-        """Delete the realm roles contains in the payload from the client's scope on the Keycloak server.
-        :param payload: List of realm roles to delete.
+    def delete_client_role_scope_from_realm(self, roles, clientid, realm: str = "master"):
+        """Delete the realm roles from the client's scope on the Keycloak server.
+        :param roles: List of realm roles to delete.
         :param clientid: ID of the client to delete roles from scope.
         :param realm: Realm from which to obtain the clients.
         :return: The client realm roles scope.
         """
         client_role_scope_url = URL_CLIENT_ROLE_SCOPE_REALM.format(url=self.baseurl, realm=realm, id=clientid)
         try:
-            self._request(client_role_scope_url, method="DELETE", data=json.dumps(payload))
+            self._request(client_role_scope_url, method="DELETE", data=json.dumps(roles))
 
         except Exception as e:
             self.fail_request(e, msg=f"Could not delete roles scope for client {clientid} in realm {realm}: {e}")

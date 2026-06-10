@@ -6,16 +6,16 @@
 from __future__ import annotations
 
 DOCUMENTATION = r"""
-module: keycloak_clientscope_rolemappings
+module: keycloak_client_scope_rolemappings
 
-short_description: Allows administration of Keycloak clientscope scope mappings to restrict the usage of certain roles to
-  specific clientscopes
+short_description: Allows administration of Keycloak client scope scope mappings to restrict the usage of certain roles to
+  specific client scopes
 
 # Originally added in community.general 13.1.0
 version_added: "3.0.0"
 
 description:
-  - This module allows you to add or remove Keycloak roles from clientscopes using the Keycloak REST API. It requires access
+  - This module allows you to add or remove Keycloak roles from client scopes using the Keycloak REST API. It requires access
     to the REST API using OpenID Connect; the user connecting and the client being used must have the requisite access rights.
     In a default Keycloak installation, C(admin-cli) and an admin user would work, as would a separate client definition with
     the scope tailored to your needs and a user having the expected roles.
@@ -49,11 +49,11 @@ options:
       - The Keycloak realm under which clients resides.
     default: 'master'
 
-  clientscope_id:
+  client_scope_id:
     required: true
     type: str
     description:
-      - Roles provided in O(role_names) will be added to this clientscope.
+      - Roles provided in O(role_names) will be added to this client scope.
 
   client_id:
     type: str
@@ -81,40 +81,40 @@ author:
 """
 
 EXAMPLES = r"""
-- name: Add roles to clientscope
-  middleware_automation.keycloak.keycloak_clientscope_rolemappings:
+- name: Add roles to client scope
+  middleware_automation.keycloak.keycloak_client_scope_rolemappings:
     auth_keycloak_url: https://auth.example.com
     auth_realm: master
     auth_username: USERNAME
     auth_password: PASSWORD
     realm: MyCustomRealm
     client_id: frontend-client-public
-    clientscope_id: frontend-clientscope
+    client_scope_id: frontend-client-scope
     role_names:
       - backend-role-admin
       - backend-role-user
 
-- name: Remove roles from clientscope
-  middleware_automation.keycloak.keycloak_clientscope_rolemappings:
+- name: Remove roles from client scope
+  middleware_automation.keycloak.keycloak_client_scope_rolemappings:
     auth_keycloak_url: https://auth.example.com
     auth_realm: master
     auth_username: USERNAME
     auth_password: PASSWORD
     realm: MyCustomRealm
     client_id: frontend-client-public
-    clientscope_id: frontend-clientscope
+    client_scope_id: frontend-client-scope
     role_names:
       - backend-role-admin
     state: absent
 
-- name: Add realm roles to clientscope
-  middleware_automation.keycloak.keycloak_clientscope_rolemappings:
+- name: Add realm roles to client scope
+  middleware_automation.keycloak.keycloak_client_scope_rolemappings:
     auth_keycloak_url: https://auth.example.com
     auth_realm: master
     auth_username: USERNAME
     auth_password: PASSWORD
     realm: MyCustomRealm
-    clientscope_id: frontend-clientscope
+    client_scope_id: frontend-client-scope
     role_names:
       - realm-role-admin
       - realm-role-user
@@ -122,7 +122,7 @@ EXAMPLES = r"""
 
 RETURN = r"""
 end_state:
-  description: Representation of clientscope scope mappings after module execution.
+  description: Representation of client scope scope mappings after module execution.
   returned: on success
   type: list
   elements: dict
@@ -164,7 +164,7 @@ def main():
 
     meta_args = dict(
         client_id=dict(type="str"),
-        clientscope_id=dict(type="str", required=True),
+        client_scope_id=dict(type="str", required=True),
         realm=dict(type="str", default="master"),
         role_names=dict(type="list", elements="str", required=True),
         state=dict(type="str", default="present", choices=["present", "absent"]),
@@ -186,7 +186,7 @@ def main():
 
     realm = module.params["realm"]
     client_id = module.params["client_id"]
-    clientscope_id = module.params["clientscope_id"]
+    client_scope_id = module.params["client_scope_id"]
     role_names = module.params["role_names"]
     state = module.params["state"]
 
@@ -194,23 +194,23 @@ def main():
     if not realm_object:
         module.fail_json(msg=f"Failed to retrieve realm '{realm}'")
 
-    clientscope_object = kc.get_clientscope_by_name(clientscope_id, realm)
-    if not clientscope_object:
-        module.fail_json(msg=f"Failed to retrieve client-scope '{clientscope_id}'")
+    client_scope_object = kc.get_client_scope_by_name(client_scope_id, realm)
+    if not client_scope_object:
+        module.fail_json(msg=f"Failed to retrieve client scope '{client_scope_id}'")
 
     if client_id:
         # add client role
-        client_object = kc.get_client_by_clientid(client_id, realm)
+        client_object = kc.get_client_by_client_id(client_id, realm)
         if not client_object:
             module.fail_json(msg=f"Failed to retrieve client '{realm}.{client_id}'")
         if client_object["fullScopeAllowed"] and state == "present":
             module.fail_json(msg=f"FullScopeAllowed is active for Client '{realm}.{client_id}'")
 
-        before_roles = kc.get_clientscope_scope_mappings_client(clientscope_object["id"], client_object["id"], realm)
+        before_roles = kc.get_client_scope_scope_mappings_client(client_scope_object["id"], client_object["id"], realm)
         available_roles_by_name = kc.get_client_roles_by_id(client_object["id"], realm)
     else:
         # add realm role
-        before_roles = kc.get_clientscope_scope_mappings_realm(clientscope_object["id"], realm)
+        before_roles = kc.get_client_scope_scope_mappings_realm(client_scope_object["id"], realm)
         available_roles_by_name = kc.get_realm_roles(realm)
 
     # convert to indexed Dict by name
@@ -248,33 +248,33 @@ def main():
     if not result["changed"]:
         # no changes
         result["end_state"] = before_roles
-        result["msg"] = f"No changes required for clientscope {clientscope_id}."
+        result["msg"] = f"No changes required for client scope {client_scope_id}."
     elif state == "present":
         # doing update
         if module.check_mode:
             result["end_state"] = desired_role_mapping
         elif client_id:
-            result["end_state"] = kc.update_clientscope_scope_mappings_client(
-                changed_roles, clientscope_object["id"], client_object["id"], realm
+            result["end_state"] = kc.update_client_scope_scope_mappings_client(
+                changed_roles, client_scope_object["id"], client_object["id"], realm
             )
         else:
-            result["end_state"] = kc.update_clientscope_scope_mappings_realm(
-                changed_roles, clientscope_object["id"], realm
+            result["end_state"] = kc.update_client_scope_scope_mappings_realm(
+                changed_roles, client_scope_object["id"], realm
             )
-        result["msg"] = f"Clientscope scope mappings for {clientscope_id} have been updated"
+        result["msg"] = f"Clientscope scope mappings for {client_scope_id} have been updated"
     else:
         # doing delete
         if module.check_mode:
             result["end_state"] = desired_role_mapping
         elif client_id:
-            result["end_state"] = kc.delete_clientscope_scope_mappings_client(
-                changed_roles, clientscope_object["id"], client_object["id"], realm
+            result["end_state"] = kc.delete_client_scope_scope_mappings_client(
+                changed_roles, client_scope_object["id"], client_object["id"], realm
             )
         else:
-            result["end_state"] = kc.delete_clientscope_scope_mappings_realm(
-                changed_roles, clientscope_object["id"], realm
+            result["end_state"] = kc.delete_client_scope_scope_mappings_realm(
+                changed_roles, client_scope_object["id"], realm
             )
-        result["msg"] = f"Clientscope scope mappings for {clientscope_id} have been deleted"
+        result["msg"] = f"Clientscope scope mappings for {client_scope_id} have been deleted"
     module.exit_json(**result)
 
 

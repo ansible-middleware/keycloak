@@ -14,8 +14,8 @@ action_groups:
     - keycloak_client_rolemapping
     - keycloak_client_rolescope
     - keycloak_client_scope
-    - keycloak_clientscope_type
-    - keycloak_clientscope_rolemappings
+    - keycloak_client_scope_type
+    - keycloak_client_scope_rolemappings
     - keycloak_clientsecret_info
     - keycloak_clientsecret_regenerate
     - keycloak_clienttemplate
@@ -44,3 +44,19 @@ plugin_routing:
         warning_text: >-
           The module has been renamed to keycloak_client_scope for Keycloak 17+ (Quarkus).
           Update playbooks to use middleware_automation.keycloak.keycloak_client_scope.
+
+    keycloak_clientscope_type:
+      redirect: middleware_automation.keycloak.keycloak_client_scope_type
+      deprecation:
+        removal_version: 5.0.0
+        warning_text: >-
+          The module has been renamed to keycloak_client_scope_type for Keycloak 17+ (Quarkus).
+          Update playbooks to use middleware_automation.keycloak.keycloak_client_scope_type.
+
+    keycloak_clientscope_rolemappings:
+      redirect: middleware_automation.keycloak.keycloak_client_scope_rolemappings
+      deprecation:
+        removal_version: 5.0.0
+        warning_text: >-
+          The module has been renamed to keycloak_client_scope_rolemappings for Keycloak 17+ (Quarkus).
+          Update playbooks to use middleware_automation.keycloak.keycloak_client_scope_rolemappings.

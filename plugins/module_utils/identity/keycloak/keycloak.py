@@ -57,23 +57,23 @@ URL_GROUPS = "{url}/admin/realms/{realm}/groups"
 URL_GROUP = "{url}/admin/realms/{realm}/groups/{groupid}"
 URL_GROUP_CHILDREN = "{url}/admin/realms/{realm}/groups/{groupid}/children"
 
-URL_CLIENTSCOPES = "{url}/admin/realms/{realm}/client-scopes"
-URL_CLIENTSCOPE = "{url}/admin/realms/{realm}/client-scopes/{id}"
-URL_CLIENTSCOPE_SCOPE_MAPPINGS = "{url}/admin/realms/{realm}/client-scopes/{id}/scope-mappings"
-URL_CLIENTSCOPE_SCOPE_MAPPINGS_REALM = "{url}/admin/realms/{realm}/client-scopes/{id}/scope-mappings/realm"
-URL_CLIENTSCOPE_SCOPE_MAPPINGS_CLIENT = "{url}/admin/realms/{realm}/client-scopes/{id}/scope-mappings/clients/{client}"
-URL_CLIENTSCOPE_PROTOCOLMAPPERS = "{url}/admin/realms/{realm}/client-scopes/{id}/protocol-mappers/models"
-URL_CLIENTSCOPE_PROTOCOLMAPPER = "{url}/admin/realms/{realm}/client-scopes/{id}/protocol-mappers/models/{mapper_id}"
+URL_CLIENT_SCOPES = "{url}/admin/realms/{realm}/client-scopes"
+URL_CLIENT_SCOPE = "{url}/admin/realms/{realm}/client-scopes/{id}"
+URL_CLIENT_SCOPE_SCOPE_MAPPINGS = "{url}/admin/realms/{realm}/client-scopes/{id}/scope-mappings"
+URL_CLIENT_SCOPE_SCOPE_MAPPINGS_REALM = "{url}/admin/realms/{realm}/client-scopes/{id}/scope-mappings/realm"
+URL_CLIENT_SCOPE_SCOPE_MAPPINGS_CLIENT = "{url}/admin/realms/{realm}/client-scopes/{id}/scope-mappings/clients/{client}"
+URL_CLIENT_SCOPE_PROTOCOLMAPPERS = "{url}/admin/realms/{realm}/client-scopes/{id}/protocol-mappers/models"
+URL_CLIENT_SCOPE_PROTOCOLMAPPER = "{url}/admin/realms/{realm}/client-scopes/{id}/protocol-mappers/models/{mapper_id}"
 
-URL_DEFAULT_CLIENTSCOPES = "{url}/admin/realms/{realm}/default-default-client-scopes"
-URL_DEFAULT_CLIENTSCOPE = "{url}/admin/realms/{realm}/default-default-client-scopes/{id}"
-URL_OPTIONAL_CLIENTSCOPES = "{url}/admin/realms/{realm}/default-optional-client-scopes"
-URL_OPTIONAL_CLIENTSCOPE = "{url}/admin/realms/{realm}/default-optional-client-scopes/{id}"
+URL_DEFAULT_CLIENT_SCOPES = "{url}/admin/realms/{realm}/default-default-client-scopes"
+URL_DEFAULT_CLIENT_SCOPE = "{url}/admin/realms/{realm}/default-default-client-scopes/{id}"
+URL_OPTIONAL_CLIENT_SCOPES = "{url}/admin/realms/{realm}/default-optional-client-scopes"
+URL_OPTIONAL_CLIENT_SCOPE = "{url}/admin/realms/{realm}/default-optional-client-scopes/{id}"
 
-URL_CLIENT_DEFAULT_CLIENTSCOPES = "{url}/admin/realms/{realm}/clients/{cid}/default-client-scopes"
-URL_CLIENT_DEFAULT_CLIENTSCOPE = "{url}/admin/realms/{realm}/clients/{cid}/default-client-scopes/{id}"
-URL_CLIENT_OPTIONAL_CLIENTSCOPES = "{url}/admin/realms/{realm}/clients/{cid}/optional-client-scopes"
-URL_CLIENT_OPTIONAL_CLIENTSCOPE = "{url}/admin/realms/{realm}/clients/{cid}/optional-client-scopes/{id}"
+URL_CLIENT_DEFAULT_CLIENT_SCOPES = "{url}/admin/realms/{realm}/clients/{cid}/default-client-scopes"
+URL_CLIENT_DEFAULT_CLIENT_SCOPE = "{url}/admin/realms/{realm}/clients/{cid}/default-client-scopes/{id}"
+URL_CLIENT_OPTIONAL_CLIENT_SCOPES = "{url}/admin/realms/{realm}/clients/{cid}/optional-client-scopes"
+URL_CLIENT_OPTIONAL_CLIENT_SCOPE = "{url}/admin/realms/{realm}/clients/{cid}/optional-client-scopes/{id}"
 
 URL_CLIENT_GROUP_ROLEMAPPINGS = "{url}/admin/realms/{realm}/groups/{id}/role-mappings/clients/{client}"
 URL_CLIENT_GROUP_ROLEMAPPINGS_AVAILABLE = (
@@ -701,7 +701,7 @@ class KeycloakAPI:
         except Exception as e:
             self.fail_request(e, msg=f"Could not obtain list of clients for realm {realm}: {e}")
 
-    def get_client_by_clientid(self, client_id, realm: str = "master"):
+    def get_client_by_client_id(self, client_id, realm: str = "master"):
         """Get client representation by clientId
         :param client_id: The clientId to be queried
         :param realm: realm from which to obtain the client representation
@@ -744,7 +744,7 @@ class KeycloakAPI:
         :param realm: client template from this realm
         :return: id of client (usually a UUID)
         """
-        result = self.get_client_by_clientid(client_id, realm)
+        result = self.get_client_by_client_id(client_id, realm)
         if isinstance(result, dict) and "id" in result:
             return result["id"]
         else:
@@ -1289,99 +1289,99 @@ class KeycloakAPI:
         except Exception as e:
             self.fail_request(e, msg=f"Could not delete client template {id} in realm {realm}: {e}")
 
-    def get_clientscopes(self, realm: str = "master"):
-        """Fetch the name and ID of all clientscopes on the Keycloak server.
+    def get_client_scopes(self, realm: str = "master"):
+        """Fetch the name and ID of all client scopes on the Keycloak server.
 
         To fetch the full data of the group, make a subsequent call to
-        get_clientscope_by_clientscopeid, passing in the ID of the group you wish to return.
+        get_client_scope_by_client_scope_id, passing in the ID of the group you wish to return.
 
-        :param realm: Realm in which the clientscope resides; default 'master'.
-        :return The clientscopes of this realm (default "master")
+        :param realm: Realm in which the client scope resides; default 'master'.
+        :return The client scopes of this realm (default "master")
         """
-        clientscopes_url = URL_CLIENTSCOPES.format(url=self.baseurl, realm=realm)
+        client_scopes_url = URL_CLIENT_SCOPES.format(url=self.baseurl, realm=realm)
         try:
-            return self._request_and_deserialize(clientscopes_url, method="GET")
+            return self._request_and_deserialize(client_scopes_url, method="GET")
         except Exception as e:
-            self.fail_request(e, msg=f"Could not fetch list of clientscopes in realm {realm}: {e}")
+            self.fail_request(e, msg=f"Could not fetch list of client scopes in realm {realm}: {e}")
 
-    def get_clientscope_by_clientscopeid(self, cid, realm: str = "master"):
-        """Fetch a keycloak clientscope from the provided realm using the clientscope's unique ID.
+    def get_client_scope_by_client_scope_id(self, cid, realm: str = "master"):
+        """Fetch a keycloak client scope from the provided realm using the client scope's unique ID.
 
-        If the clientscope does not exist, None is returned.
+        If the client scope does not exist, None is returned.
 
         gid is a UUID provided by the Keycloak API
-        :param cid: UUID of the clientscope to be returned
-        :param realm: Realm in which the clientscope resides; default 'master'.
+        :param cid: UUID of the client scope to be returned
+        :param realm: Realm in which the client scope resides; default 'master'.
         """
-        clientscope_url = URL_CLIENTSCOPE.format(url=self.baseurl, realm=realm, id=cid)
+        client_scope_url = URL_CLIENT_SCOPE.format(url=self.baseurl, realm=realm, id=cid)
         try:
-            return self._request_and_deserialize(clientscope_url, method="GET")
+            return self._request_and_deserialize(client_scope_url, method="GET")
 
         except HTTPError as e:
             if e.code == HTTPStatus.NOT_FOUND:
                 return None
             else:
-                self.fail_request(e, msg=f"Could not fetch clientscope {cid} in realm {realm}: {e}")
+                self.fail_request(e, msg=f"Could not fetch client scope {cid} in realm {realm}: {e}")
         except Exception as e:
-            self.module.fail_json(msg=f"Could not clientscope group {cid} in realm {realm}: {e}")
+            self.module.fail_json(msg=f"Could not client scope group {cid} in realm {realm}: {e}")
 
-    def get_clientscope_by_name(self, name, realm: str = "master"):
-        """Fetch a keycloak clientscope within a realm based on its name.
+    def get_client_scope_by_name(self, name, realm: str = "master"):
+        """Fetch a keycloak client scope within a realm based on its name.
 
-        The Keycloak API does not allow filtering of the clientscopes resource by name.
-        As a result, this method first retrieves the entire list of clientscopes - name and ID -
+        The Keycloak API does not allow filtering of the client scopes resource by name.
+        As a result, this method first retrieves the entire list of client scopes - name and ID -
         then performs a second query to fetch the group.
 
-        If the clientscope does not exist, None is returned.
-        :param name: Name of the clientscope to fetch.
-        :param realm: Realm in which the clientscope resides; default 'master'
+        If the client scope does not exist, None is returned.
+        :param name: Name of the client scope to fetch.
+        :param realm: Realm in which the client scope resides; default 'master'
         """
         try:
-            all_clientscopes = self.get_clientscopes(realm=realm)
+            all_client_scopes = self.get_client_scopes(realm=realm)
 
-            for clientscope in all_clientscopes:
-                if clientscope["name"] == name:
-                    return self.get_clientscope_by_clientscopeid(clientscope["id"], realm=realm)
+            for client_scope in all_client_scopes:
+                if client_scope["name"] == name:
+                    return self.get_client_scope_by_client_scope_id(client_scope["id"], realm=realm)
 
             return None
 
         except Exception as e:
-            self.module.fail_json(msg=f"Could not fetch clientscope {name} in realm {realm}: {e}")
+            self.module.fail_json(msg=f"Could not fetch client scope {name} in realm {realm}: {e}")
 
-    def create_clientscope(self, clientscoperep, realm: str = "master"):
-        """Create a Keycloak clientscope.
+    def create_client_scope(self, client_scope_rep, realm: str = "master"):
+        """Create a Keycloak client scope.
 
-        :param clientscoperep: a ClientScopeRepresentation of the clientscope to be created. Must contain at minimum the field name.
+        :param client_scope_rep: a ClientScopeRepresentation of the client scope to be created. Must contain at minimum the field name.
         :return: HTTPResponse object on success
         """
-        clientscopes_url = URL_CLIENTSCOPES.format(url=self.baseurl, realm=realm)
+        client_scopes_url = URL_CLIENT_SCOPES.format(url=self.baseurl, realm=realm)
         try:
-            return self._request(clientscopes_url, method="POST", data=json.dumps(clientscoperep))
+            return self._request(client_scopes_url, method="POST", data=json.dumps(client_scope_rep))
         except Exception as e:
-            self.fail_request(e, msg=f"Could not create clientscope {clientscoperep['name']} in realm {realm}: {e}")
+            self.fail_request(e, msg=f"Could not create client scope {client_scope_rep['name']} in realm {realm}: {e}")
 
-    def update_clientscope(self, clientscoperep, realm: str = "master"):
-        """Update an existing clientscope.
+    def update_client_scope(self, client_scope_rep, realm: str = "master"):
+        """Update an existing client scope.
 
         :param grouprep: A GroupRepresentation of the updated group.
         :return HTTPResponse object on success
         """
-        clientscope_url = URL_CLIENTSCOPE.format(url=self.baseurl, realm=realm, id=clientscoperep["id"])
+        client_scope_url = URL_CLIENT_SCOPE.format(url=self.baseurl, realm=realm, id=client_scope_rep["id"])
 
         try:
-            return self._request(clientscope_url, method="PUT", data=json.dumps(clientscoperep))
+            return self._request(client_scope_url, method="PUT", data=json.dumps(client_scope_rep))
 
         except Exception as e:
-            self.fail_request(e, msg=f"Could not update clientscope {clientscoperep['name']} in realm {realm}: {e}")
+            self.fail_request(e, msg=f"Could not update client scope {client_scope_rep['name']} in realm {realm}: {e}")
 
-    def delete_clientscope(self, name=None, cid=None, realm: str = "master"):
-        """Delete a clientscope. One of name or cid must be provided.
+    def delete_client_scope(self, name=None, cid=None, realm: str = "master"):
+        """Delete a client scope. One of name or cid must be provided.
 
-        Providing the clientscope ID is preferred as it avoids a second lookup to
-        convert a clientscope name to an ID.
+        Providing the client scope ID is preferred as it avoids a second lookup to
+        convert a client scope name to an ID.
 
-        :param name: The name of the clientscope. A lookup will be performed to retrieve the clientscope ID.
-        :param cid: The ID of the clientscope (preferred to name).
+        :param name: The name of the client scope. A lookup will be performed to retrieve the client scope ID.
+        :param cid: The ID of the client scope (preferred to name).
         :param realm: The realm in which this group resides, default "master".
         """
 
@@ -1393,9 +1393,9 @@ class KeycloakAPI:
         # in the case that both are provided, prefer the ID, since it is one
         # less lookup.
         if cid is None and name is not None:
-            for clientscope in self.get_clientscopes(realm=realm):
-                if clientscope["name"] == name:
-                    cid = clientscope["id"]
+            for client_scope in self.get_client_scopes(realm=realm):
+                if client_scope["name"] == name:
+                    cid = client_scope["id"]
                     break
 
         # if the group doesn't exist - no problem, nothing to delete.
@@ -1403,41 +1403,41 @@ class KeycloakAPI:
             return None
 
         # should have a good cid by here.
-        clientscope_url = URL_CLIENTSCOPE.format(realm=realm, id=cid, url=self.baseurl)
+        client_scope_url = URL_CLIENT_SCOPE.format(realm=realm, id=cid, url=self.baseurl)
         try:
-            return self._request(clientscope_url, method="DELETE")
+            return self._request(client_scope_url, method="DELETE")
 
         except Exception as e:
-            self.fail_request(e, msg=f"Unable to delete clientscope {cid}: {e}")
+            self.fail_request(e, msg=f"Unable to delete client scope {cid}: {e}")
 
-    def get_clientscope_protocolmappers(self, cid, realm: str = "master"):
-        """Fetch the name and ID of all clientscopes on the Keycloak server.
+    def get_client_scope_protocolmappers(self, cid, realm: str = "master"):
+        """Fetch the name and ID of all client scopes on the Keycloak server.
 
         To fetch the full data of the group, make a subsequent call to
-        get_clientscope_by_clientscopeid, passing in the ID of the group you wish to return.
+        get_client_scope_by_client_scope_id, passing in the ID of the group you wish to return.
 
-        :param cid: id of clientscope (not name).
-        :param realm: Realm in which the clientscope resides; default 'master'.
+        :param cid: id of client scope (not name).
+        :param realm: Realm in which the client scope resides; default 'master'.
         :return The protocolmappers of this realm (default "master")
         """
-        protocolmappers_url = URL_CLIENTSCOPE_PROTOCOLMAPPERS.format(id=cid, url=self.baseurl, realm=realm)
+        protocolmappers_url = URL_CLIENT_SCOPE_PROTOCOLMAPPERS.format(id=cid, url=self.baseurl, realm=realm)
         try:
             return self._request_and_deserialize(protocolmappers_url, method="GET")
         except Exception as e:
             self.fail_request(e, msg=f"Could not fetch list of protocolmappers in realm {realm}: {e}")
 
-    def get_clientscope_protocolmapper_by_protocolmapperid(self, pid, cid, realm: str = "master"):
-        """Fetch a keycloak clientscope from the provided realm using the clientscope's unique ID.
+    def get_client_scope_protocolmapper_by_protocolmapperid(self, pid, cid, realm: str = "master"):
+        """Fetch a keycloak client scope from the provided realm using the client scope's unique ID.
 
-        If the clientscope does not exist, None is returned.
+        If the client scope does not exist, None is returned.
 
         gid is a UUID provided by the Keycloak API
 
         :param cid: UUID of the protocolmapper to be returned
-        :param cid: UUID of the clientscope to be returned
-        :param realm: Realm in which the clientscope resides; default 'master'.
+        :param cid: UUID of the client scope to be returned
+        :param realm: Realm in which the client scope resides; default 'master'.
         """
-        protocolmapper_url = URL_CLIENTSCOPE_PROTOCOLMAPPER.format(url=self.baseurl, realm=realm, id=cid, mapper_id=pid)
+        protocolmapper_url = URL_CLIENT_SCOPE_PROTOCOLMAPPER.format(url=self.baseurl, realm=realm, id=cid, mapper_id=pid)
         try:
             return self._request_and_deserialize(protocolmapper_url, method="GET")
 
@@ -1449,24 +1449,24 @@ class KeycloakAPI:
         except Exception as e:
             self.module.fail_json(msg=f"Could not fetch protocolmapper {cid} in realm {realm}: {e}")
 
-    def get_clientscope_protocolmapper_by_name(self, cid, name, realm: str = "master"):
-        """Fetch a keycloak clientscope within a realm based on its name.
+    def get_client_scope_protocolmapper_by_name(self, cid, name, realm: str = "master"):
+        """Fetch a keycloak client scope within a realm based on its name.
 
-        The Keycloak API does not allow filtering of the clientscopes resource by name.
-        As a result, this method first retrieves the entire list of clientscopes - name and ID -
+        The Keycloak API does not allow filtering of the client scopes resource by name.
+        As a result, this method first retrieves the entire list of client scopes - name and ID -
         then performs a second query to fetch the group.
 
-        If the clientscope does not exist, None is returned.
-        :param cid: Id of the clientscope (not name).
+        If the client scope does not exist, None is returned.
+        :param cid: Id of the client scope (not name).
         :param name: Name of the protocolmapper to fetch.
-        :param realm: Realm in which the clientscope resides; default 'master'
+        :param realm: Realm in which the client scope resides; default 'master'
         """
         try:
-            all_protocolmappers = self.get_clientscope_protocolmappers(cid, realm=realm)
+            all_protocolmappers = self.get_client_scope_protocolmappers(cid, realm=realm)
 
             for protocolmapper in all_protocolmappers:
                 if protocolmapper["name"] == name:
-                    return self.get_clientscope_protocolmapper_by_protocolmapperid(
+                    return self.get_client_scope_protocolmapper_by_protocolmapperid(
                         protocolmapper["id"], cid, realm=realm
                     )
 
@@ -1475,27 +1475,27 @@ class KeycloakAPI:
         except Exception as e:
             self.module.fail_json(msg=f"Could not fetch protocolmapper {name} in realm {realm}: {e}")
 
-    def create_clientscope_protocolmapper(self, cid, mapper_rep, realm: str = "master"):
-        """Create a Keycloak clientscope protocolmapper.
+    def create_client_scope_protocolmapper(self, cid, mapper_rep, realm: str = "master"):
+        """Create a Keycloak client scope protocolmapper.
 
-        :param cid: Id of the clientscope.
+        :param cid: Id of the client scope.
         :param mapper_rep: a ProtocolMapperRepresentation of the protocolmapper to be created. Must contain at minimum the field name.
         :return: HTTPResponse object on success
         """
-        protocolmappers_url = URL_CLIENTSCOPE_PROTOCOLMAPPERS.format(url=self.baseurl, id=cid, realm=realm)
+        protocolmappers_url = URL_CLIENT_SCOPE_PROTOCOLMAPPERS.format(url=self.baseurl, id=cid, realm=realm)
         try:
             return self._request(protocolmappers_url, method="POST", data=json.dumps(mapper_rep))
         except Exception as e:
             self.fail_request(e, msg=f"Could not create protocolmapper {mapper_rep['name']} in realm {realm}: {e}")
 
-    def update_clientscope_protocolmappers(self, cid, mapper_rep, realm: str = "master"):
-        """Update an existing clientscope.
+    def update_client_scope_protocolmappers(self, cid, mapper_rep, realm: str = "master"):
+        """Update an existing client scope.
 
-        :param cid: Id of the clientscope.
+        :param cid: Id of the client scope.
         :param mapper_rep: A ProtocolMapperRepresentation of the updated protocolmapper.
         :return HTTPResponse object on success
         """
-        protocolmapper_url = URL_CLIENTSCOPE_PROTOCOLMAPPER.format(
+        protocolmapper_url = URL_CLIENT_SCOPE_PROTOCOLMAPPER.format(
             url=self.baseurl, realm=realm, id=cid, mapper_id=mapper_rep["id"]
         )
 
@@ -1504,137 +1504,137 @@ class KeycloakAPI:
 
         except Exception as e:
             self.fail_request(
-                e, msg=f"Could not update protocolmappers for clientscope {mapper_rep} in realm {realm}: {e}"
+                e, msg=f"Could not update protocolmappers for client scope {mapper_rep} in realm {realm}: {e}"
             )
 
-    def get_default_clientscopes(self, realm, client_id=None):
-        """Fetch the name and ID of all clientscopes on the Keycloak server.
+    def get_default_client_scopes(self, realm, client_id=None):
+        """Fetch the name and ID of all client scopes on the Keycloak server.
 
         To fetch the full data of the client scope, make a subsequent call to
-        get_clientscope_by_clientscopeid, passing in the ID of the client scope you wish to return.
+        get_client_scope_by_client_scope_id, passing in the ID of the client scope you wish to return.
 
-        :param realm: Realm in which the clientscope resides.
-        :param client_id: The client in which the clientscope resides.
-        :return The default clientscopes of this realm or client
+        :param realm: Realm in which the client scope resides.
+        :param client_id: The client in which the client scope resides.
+        :return The default client scopes of this realm or client
         """
-        url = URL_DEFAULT_CLIENTSCOPES if client_id is None else URL_CLIENT_DEFAULT_CLIENTSCOPES
-        return self._get_clientscopes_of_type(realm, url, "default", client_id)
+        url = URL_DEFAULT_CLIENT_SCOPES if client_id is None else URL_CLIENT_DEFAULT_CLIENT_SCOPES
+        return self._get_client_scopes_of_type(realm, url, "default", client_id)
 
-    def get_optional_clientscopes(self, realm, client_id=None):
-        """Fetch the name and ID of all clientscopes on the Keycloak server.
+    def get_optional_client_scopes(self, realm, client_id=None):
+        """Fetch the name and ID of all client scopes on the Keycloak server.
 
         To fetch the full data of the client scope, make a subsequent call to
-        get_clientscope_by_clientscopeid, passing in the ID of the client scope you wish to return.
+        get_client_scope_by_client_scope_id, passing in the ID of the client scope you wish to return.
 
-        :param realm: Realm in which the clientscope resides.
-        :param client_id: The client in which the clientscope resides.
-        :return The optional clientscopes of this realm or client
+        :param realm: Realm in which the client scope resides.
+        :param client_id: The client in which the client scope resides.
+        :return The optional client scopes of this realm or client
         """
-        url = URL_OPTIONAL_CLIENTSCOPES if client_id is None else URL_CLIENT_OPTIONAL_CLIENTSCOPES
-        return self._get_clientscopes_of_type(realm, url, "optional", client_id)
+        url = URL_OPTIONAL_CLIENT_SCOPES if client_id is None else URL_CLIENT_OPTIONAL_CLIENT_SCOPES
+        return self._get_client_scopes_of_type(realm, url, "optional", client_id)
 
-    def _get_clientscopes_of_type(self, realm, url_template, scope_type, client_id=None):
-        """Fetch the name and ID of all clientscopes on the Keycloak server.
+    def _get_client_scopes_of_type(self, realm, url_template, scope_type, client_id=None):
+        """Fetch the name and ID of all client scopes on the Keycloak server.
 
         To fetch the full data of the client scope, make a subsequent call to
-        get_clientscope_by_clientscopeid, passing in the ID of the client scope you wish to return.
+        get_client_scope_by_client_scope_id, passing in the ID of the client scope you wish to return.
 
-        :param realm: Realm in which the clientscope resides.
+        :param realm: Realm in which the client scope resides.
         :param url_template the template for the right type
         :param scope_type this can be either optional or default
-        :param client_id: The client in which the clientscope resides.
-        :return The clientscopes of the specified type of this realm
+        :param client_id: The client in which the client scope resides.
+        :return The client scopes of the specified type of this realm
         """
         if client_id is None:
-            clientscopes_url = url_template.format(url=self.baseurl, realm=realm)
+            client_scopes_url = url_template.format(url=self.baseurl, realm=realm)
             try:
-                return self._request_and_deserialize(clientscopes_url, method="GET")
+                return self._request_and_deserialize(client_scopes_url, method="GET")
             except Exception as e:
-                self.fail_request(e, msg=f"Could not fetch list of {scope_type} clientscopes in realm {realm}: {e}")
+                self.fail_request(e, msg=f"Could not fetch list of {scope_type} client scopes in realm {realm}: {e}")
         else:
             cid = self.get_client_id(client_id=client_id, realm=realm)
-            clientscopes_url = url_template.format(url=self.baseurl, realm=realm, cid=cid)
+            client_scopes_url = url_template.format(url=self.baseurl, realm=realm, cid=cid)
             try:
-                return self._request_and_deserialize(clientscopes_url, method="GET")
+                return self._request_and_deserialize(client_scopes_url, method="GET")
             except Exception as e:
                 self.fail_request(
                     e,
-                    msg=f"Could not fetch list of {scope_type} clientscopes in client {client_id}: {clientscopes_url}",
+                    msg=f"Could not fetch list of {scope_type} client scopes in client {client_id}: {client_scopes_url}",
                 )
 
-    def _decide_url_type_clientscope(self, client_id=None, scope_type="default"):
+    def _decide_url_type_client_scope(self, client_id=None, scope_type="default"):
         """Decides which url to use.
         :param scope_type this can be either optional or default
-        :param client_id: The client in which the clientscope resides.
+        :param client_id: The client in which the client scope resides.
         """
         if client_id is None:
             if scope_type == "default":
-                return URL_DEFAULT_CLIENTSCOPE
+                return URL_DEFAULT_CLIENT_SCOPE
             if scope_type == "optional":
-                return URL_OPTIONAL_CLIENTSCOPE
+                return URL_OPTIONAL_CLIENT_SCOPE
         else:
             if scope_type == "default":
-                return URL_CLIENT_DEFAULT_CLIENTSCOPE
+                return URL_CLIENT_DEFAULT_CLIENT_SCOPE
             if scope_type == "optional":
-                return URL_CLIENT_OPTIONAL_CLIENTSCOPE
+                return URL_CLIENT_OPTIONAL_CLIENT_SCOPE
 
-    def add_default_clientscope(self, id, realm: str = "master", client_id=None):
+    def add_default_client_scope(self, id, realm: str = "master", client_id=None):
         """Add a client scope as default either on realm or client level.
 
         :param id: Client scope Id.
-        :param realm: Realm in which the clientscope resides.
-        :param client_id: The client in which the clientscope resides.
+        :param realm: Realm in which the client scope resides.
+        :param client_id: The client in which the client scope resides.
         """
-        self._action_type_clientscope(id, client_id, "default", realm, "add")
+        self._action_type_client_scope(id, client_id, "default", realm, "add")
 
-    def add_optional_clientscope(self, id, realm: str = "master", client_id=None):
+    def add_optional_client_scope(self, id, realm: str = "master", client_id=None):
         """Add a client scope as optional either on realm or client level.
 
         :param id: Client scope Id.
-        :param realm: Realm in which the clientscope resides.
-        :param client_id: The client in which the clientscope resides.
+        :param realm: Realm in which the client scope resides.
+        :param client_id: The client in which the client scope resides.
         """
-        self._action_type_clientscope(id, client_id, "optional", realm, "add")
+        self._action_type_client_scope(id, client_id, "optional", realm, "add")
 
-    def delete_default_clientscope(self, id, realm: str = "master", client_id=None):
+    def delete_default_client_scope(self, id, realm: str = "master", client_id=None):
         """Remove a client scope as default either on realm or client level.
 
         :param id: Client scope Id.
-        :param realm: Realm in which the clientscope resides.
-        :param client_id: The client in which the clientscope resides.
+        :param realm: Realm in which the client scope resides.
+        :param client_id: The client in which the client scope resides.
         """
-        self._action_type_clientscope(id, client_id, "default", realm, "delete")
+        self._action_type_client_scope(id, client_id, "default", realm, "delete")
 
-    def delete_optional_clientscope(self, id, realm: str = "master", client_id=None):
+    def delete_optional_client_scope(self, id, realm: str = "master", client_id=None):
         """Remove a client scope as optional either on realm or client level.
 
         :param id: Client scope Id.
-        :param realm: Realm in which the clientscope resides.
-        :param client_id: The client in which the clientscope resides.
+        :param realm: Realm in which the client scope resides.
+        :param client_id: The client in which the client scope resides.
         """
-        self._action_type_clientscope(id, client_id, "optional", realm, "delete")
+        self._action_type_client_scope(id, client_id, "optional", realm, "delete")
 
-    def _action_type_clientscope(
+    def _action_type_client_scope(
         self, id=None, client_id=None, scope_type="default", realm: str = "master", action="add"
     ):
-        """Delete or add a clientscope of type.
-        :param name: The name of the clientscope. A lookup will be performed to retrieve the clientscope ID.
-        :param client_id: The ID of the clientscope (preferred to name).
+        """Delete or add a client scope of type.
+        :param name: The name of the client scope. A lookup will be performed to retrieve the client scope ID.
+        :param client_id: The ID of the client scope (preferred to name).
         :param scope_type 'default' or 'optional'
         :param realm: The realm in which this group resides, default "master".
         """
         cid = None if client_id is None else self.get_client_id(client_id=client_id, realm=realm)
         # should have a good cid by here.
-        clientscope_type_url = self._decide_url_type_clientscope(client_id, scope_type).format(
+        client_scope_type_url = self._decide_url_type_client_scope(client_id, scope_type).format(
             realm=realm, id=id, cid=cid, url=self.baseurl
         )
         try:
             method = "PUT" if action == "add" else "DELETE"
-            return self._request(clientscope_type_url, method=method)
+            return self._request(client_scope_type_url, method=method)
 
         except Exception as e:
             place = "realm" if client_id is None else f"client {client_id}"
-            self.fail_request(e, msg=f"Unable to {action} {scope_type} clientscope {id} @ {place} : {e}")
+            self.fail_request(e, msg=f"Unable to {action} {scope_type} client scope {id} @ {place} : {e}")
 
     def create_clientsecret(self, id, realm: str = "master"):
         """Generate a new client secret by id
@@ -2020,7 +2020,7 @@ class KeycloakAPI:
         composite_url = ""
         try:
             if clientid is not None:
-                client = self.get_client_by_clientid(client_id=clientid, realm=realm)
+                client = self.get_client_by_client_id(client_id=clientid, realm=realm)
                 cid = client["id"]
                 composite_url = URL_CLIENT_ROLE_COMPOSITES.format(
                     url=self.baseurl, realm=realm, id=cid, name=quote(rolerep["name"], safe="")
@@ -2038,7 +2038,7 @@ class KeycloakAPI:
         composite_url = ""
         try:
             if clientid is not None:
-                client = self.get_client_by_clientid(client_id=clientid, realm=realm)
+                client = self.get_client_by_client_id(client_id=clientid, realm=realm)
                 cid = client["id"]
                 composite_url = URL_CLIENT_ROLE_COMPOSITES.format(
                     url=self.baseurl, realm=realm, id=cid, name=quote(rolerep["name"], safe="")
@@ -2057,7 +2057,7 @@ class KeycloakAPI:
         composite_url = ""
         try:
             if clientid is not None:
-                client = self.get_client_by_clientid(client_id=clientid, realm=realm)
+                client = self.get_client_by_client_id(client_id=clientid, realm=realm)
                 cid = client["id"]
                 composite_url = URL_CLIENT_ROLE_COMPOSITES.format(
                     url=self.baseurl, realm=realm, id=cid, name=quote(rolerep["name"], safe="")
@@ -3259,192 +3259,192 @@ class KeycloakAPI:
         except Exception:
             return False
 
-    def get_all_clientscope_scope_mappings(self, clientscope_id, realm: str = "master"):
-        """Fetch all (realm and client) roles (scope-mappings) associated with the clientscope for a specific clientscope on the Keycloak server.
-        :param clientscope_id: ID of the clientscope from which to obtain the associated roles.
+    def get_all_client_scope_scope_mappings(self, client_scope_id, realm: str = "master"):
+        """Fetch all (realm and client) roles (scope-mappings) associated with the client scope for a specific client scope on the Keycloak server.
+        :param client_scope_id: ID of the client scope from which to obtain the associated roles.
         :param realm: Realm from which to obtain the scope.
-        :return: The clientscope scope-mappings.
+        :return: The client scope scope-mappings.
         """
-        client_role_scope_url = URL_CLIENTSCOPE_SCOPE_MAPPINGS.format(url=self.baseurl, realm=realm, id=clientscope_id)
+        client_role_scope_url = URL_CLIENT_SCOPE_SCOPE_MAPPINGS.format(url=self.baseurl, realm=realm, id=client_scope_id)
         try:
             return self._request_and_deserialize(client_role_scope_url, method="GET")
         except Exception as e:
-            self.fail_request(e, msg=f"Could not fetch roles for client-scope {clientscope_id} in realm {realm}: {e}")
+            self.fail_request(e, msg=f"Could not fetch roles for client scope {client_scope_id} in realm {realm}: {e}")
 
-    def get_clientscope_scope_mappings_realm(self, clientscope_id, realm: str = "master"):
-        """Fetch the realm roles (scope-mappings) associated with the clientscope for a specific clientscope on the Keycloak server.
-        :param clientscope_id: ID of the clientscope from which to obtain the associated roles.
+    def get_client_scope_scope_mappings_realm(self, client_scope_id, realm: str = "master"):
+        """Fetch the realm roles (scope-mappings) associated with the client scope for a specific client scope on the Keycloak server.
+        :param client_scope_id: ID of the client scope from which to obtain the associated roles.
         :param realm: Realm from which to obtain the scope.
-        :return: The clientscope realm scope-mappings.
+        :return: The client scope realm scope-mappings.
         """
-        client_role_scope_url = URL_CLIENTSCOPE_SCOPE_MAPPINGS_REALM.format(
-            url=self.baseurl, realm=realm, id=clientscope_id
+        client_role_scope_url = URL_CLIENT_SCOPE_SCOPE_MAPPINGS_REALM.format(
+            url=self.baseurl, realm=realm, id=client_scope_id
         )
         try:
             return self._request_and_deserialize(client_role_scope_url, method="GET")
         except Exception as e:
             self.fail_request(
-                e, msg=f"Could not fetch realm roles for client-scope {clientscope_id} in realm {realm}: {e}"
+                e, msg=f"Could not fetch realm roles for client scope {client_scope_id} in realm {realm}: {e}"
             )
 
-    def get_clientscope_scope_mappings_client(self, clientscope_id, client_id, realm: str = "master"):
-        """Fetch the client roles (scope-mappings) associated with the clientscope for a specific clientscope and client on the Keycloak server.
-        :param clientscope_id: ID of the clientscope from which to obtain the associated roles.
+    def get_client_scope_scope_mappings_client(self, client_scope_id, client_id, realm: str = "master"):
+        """Fetch the client roles (scope-mappings) associated with the client scope for a specific client scope and client on the Keycloak server.
+        :param client_scope_id: ID of the client scope from which to obtain the associated roles.
         :param clientid: ID of the client from which to obtain the associated roles.
         :param realm: Realm from which to obtain the scope.
-        :return: The clientscope client scope-mappings.
+        :return: The client scope client scope-mappings.
         """
-        client_role_scope_url = URL_CLIENTSCOPE_SCOPE_MAPPINGS_CLIENT.format(
-            url=self.baseurl, realm=realm, id=clientscope_id, client=client_id
+        client_role_scope_url = URL_CLIENT_SCOPE_SCOPE_MAPPINGS_CLIENT.format(
+            url=self.baseurl, realm=realm, id=client_scope_id, client=client_id
         )
         try:
             return self._request_and_deserialize(client_role_scope_url, method="GET")
         except Exception as e:
             self.fail_request(
                 e,
-                msg=f"Could not fetch client roles from client {client_id} for client-scope {clientscope_id} in realm {realm}: {e}",
+                msg=f"Could not fetch client roles from client {client_id} for client scope {client_scope_id} in realm {realm}: {e}",
             )
 
-    def get_client_role_scope_from_client(self, clientid, clientscopeid, realm: str = "master"):
+    def get_client_role_scope_from_client(self, target_client_id, role_owner_client_id, realm: str = "master"):
         """Fetch the roles associated with the client's scope for a specific client on the Keycloak server.
-        :param clientid: ID of the client from which to obtain the associated roles.
-        :param clientscopeid: ID of the client who owns the roles.
+        :param target_client_id: ID of the client from which to obtain the associated roles.
+        :param role_owner_client_id: ID of the client who owns the roles.
         :param realm: Realm from which to obtain the scope.
         :return: The client scope of roles from specified client.
         """
         client_role_scope_url = URL_CLIENT_ROLE_SCOPE_CLIENTS.format(
-            url=self.baseurl, realm=realm, id=clientid, scopeid=clientscopeid
+            url=self.baseurl, realm=realm, id=target_client_id, scopeid=role_owner_client_id
         )
         try:
             return self._request_and_deserialize(client_role_scope_url, method="GET")
         except Exception as e:
-            self.fail_request(e, msg=f"Could not fetch roles scope for client {clientid} in realm {realm}: {e}")
+            self.fail_request(e, msg=f"Could not fetch roles scope for client {target_client_id} in realm {realm}: {e}")
 
-    def update_client_role_scope_from_client(self, payload, clientid, clientscopeid, realm: str = "master"):
+    def update_client_role_scope_from_client(self, roles, target_client_id, role_owner_client_id, realm: str = "master"):
         """Update and fetch the roles associated with the client's scope on the Keycloak server.
-        :param payload: List of roles to be added to the scope.
-        :param clientid: ID of the client to update scope.
-        :param clientscopeid: ID of the client who owns the roles.
+        :param roles: List of roles to be added to the scope.
+        :param target_client_id: ID of the client to update scope.
+        :param role_owner_client_id: ID of the client who owns the roles.
         :param realm: Realm from which to obtain the clients.
         :return: The client scope of roles from specified client.
         """
         client_role_scope_url = URL_CLIENT_ROLE_SCOPE_CLIENTS.format(
-            url=self.baseurl, realm=realm, id=clientid, scopeid=clientscopeid
+            url=self.baseurl, realm=realm, id=target_client_id, scopeid=role_owner_client_id
         )
         try:
-            self._request(client_role_scope_url, method="POST", data=json.dumps(payload))
+            self._request(client_role_scope_url, method="POST", data=json.dumps(roles))
 
         except Exception as e:
-            self.fail_request(e, msg=f"Could not update roles scope for client {clientid} in realm {realm}: {e}")
+            self.fail_request(e, msg=f"Could not update roles scope for client {target_client_id} in realm {realm}: {e}")
 
-        return self.get_client_role_scope_from_client(clientid, clientscopeid, realm)
+        return self.get_client_role_scope_from_client(target_client_id, role_owner_client_id, realm)
 
-    def delete_client_role_scope_from_client(self, payload, clientid, clientscopeid, realm: str = "master"):
-        """Delete the roles contains in the payload from the client's scope on the Keycloak server.
-        :param payload: List of roles to be deleted.
-        :param clientid: ID of the client to delete roles from scope.
-        :param clientscopeid: ID of the client who owns the roles.
+    def delete_client_role_scope_from_client(self, roles, target_client_id, role_owner_client_id, realm: str = "master"):
+        """Delete the roles from the client's scope on the Keycloak server.
+        :param roles: List of roles to be deleted.
+        :param target_client_id: ID of the client to delete roles from scope.
+        :param role_owner_client_id: ID of the client who owns the roles.
         :param realm: Realm from which to obtain the clients.
         :return: The client scope of roles from specified client.
         """
         client_role_scope_url = URL_CLIENT_ROLE_SCOPE_CLIENTS.format(
-            url=self.baseurl, realm=realm, id=clientid, scopeid=clientscopeid
+            url=self.baseurl, realm=realm, id=target_client_id, scopeid=role_owner_client_id
         )
         try:
-            self._request(client_role_scope_url, method="DELETE", data=json.dumps(payload))
+            self._request(client_role_scope_url, method="DELETE", data=json.dumps(roles))
 
         except Exception as e:
-            self.fail_request(e, msg=f"Could not delete roles scope for client {clientid} in realm {realm}: {e}")
+            self.fail_request(e, msg=f"Could not delete roles from scope for client {target_client_id} in realm {realm}: {e}")
 
-        return self.get_client_role_scope_from_client(clientid, clientscopeid, realm)
+        return self.get_client_role_scope_from_client(target_client_id, role_owner_client_id, realm)
 
-    def update_clientscope_scope_mappings_client(
-        self, payload: list[dict], clientscope_id: str, client_id: str, realm: str = "master"
+    def update_client_scope_scope_mappings_client(
+        self, roles: list[dict], client_scope_id: str, role_owner_client_id: str, realm: str = "master"
     ):
-        """Update and fetch the client roles (scope-mappings) associated with the clientscope on the Keycloak server.
-        :param payload: List of client roles to be added to the scope.
-        :param clientscope_id: ID of the clientscope to update scope-mappings.
-        :param clientid: ID of the client from which to obtain the associated roles.
+        """Update and fetch the client roles (scope-mappings) associated with the client scope on the Keycloak server.
+        :param roles: List of client roles to be added to the scope.
+        :param client_scope_id: ID of the client scope to update scope-mappings.
+        :param role_owner_client_id: ID of the client from which to obtain the associated roles.
         :param realm: Realm from which to obtain the client.
-        :return: The clientscope client scope-mappings.
+        :return: The client scope client scope-mappings.
         """
-        client_role_scope_url = URL_CLIENTSCOPE_SCOPE_MAPPINGS_CLIENT.format(
-            url=self.baseurl, realm=realm, id=clientscope_id, client=client_id
+        client_role_scope_url = URL_CLIENT_SCOPE_SCOPE_MAPPINGS_CLIENT.format(
+            url=self.baseurl, realm=realm, id=client_scope_id, client=role_owner_client_id
         )
         try:
-            self._request(client_role_scope_url, method="POST", data=json.dumps(payload))
+            self._request(client_role_scope_url, method="POST", data=json.dumps(roles))
 
         except Exception as e:
             self.fail_request(
                 e,
-                msg=f"Could not update scope mappings for client-scope {client_id}.{clientscope_id} in realm {realm}: {e}",
+                msg=f"Could not update scope mappings for client scope {role_owner_client_id}.{client_scope_id} in realm {realm}: {e}",
             )
 
-        return self.get_clientscope_scope_mappings_client(clientscope_id, client_id, realm)
+        return self.get_client_scope_scope_mappings_client(client_scope_id, role_owner_client_id, realm)
 
-    def update_clientscope_scope_mappings_realm(self, payload: list[dict], clientscope_id: str, realm: str = "master"):
-        """Update and fetch the realm roles (scope-mappings) associated with the clientscope on the Keycloak server.
-        :param payload: List of realm roles to be added to the scope.
-        :param clientscope_id: ID of the clientscope to update scope-mappings.
+    def update_client_scope_scope_mappings_realm(self, roles: list[dict], client_scope_id: str, realm: str = "master"):
+        """Update and fetch the realm roles (scope-mappings) associated with the client scope on the Keycloak server.
+        :param roles: List of realm roles to be added to the scope.
+        :param client_scope_id: ID of the client scope to update scope-mappings.
         :param realm: Realm from which to obtain the roles.
-        :return: The clientscope realm scope-mappings.
+        :return: The client scope realm scope-mappings.
         """
-        client_role_scope_url = URL_CLIENTSCOPE_SCOPE_MAPPINGS_REALM.format(
-            url=self.baseurl, realm=realm, id=clientscope_id
+        client_role_scope_url = URL_CLIENT_SCOPE_SCOPE_MAPPINGS_REALM.format(
+            url=self.baseurl, realm=realm, id=client_scope_id
         )
         try:
-            self._request(client_role_scope_url, method="POST", data=json.dumps(payload))
+            self._request(client_role_scope_url, method="POST", data=json.dumps(roles))
 
         except Exception as e:
             self.fail_request(
-                e, msg=f"Could not update scope mappings for client-scope {clientscope_id} in realm {realm}: {e}"
+                e, msg=f"Could not update scope mappings for client scope {client_scope_id} in realm {realm}: {e}"
             )
 
-        return self.get_clientscope_scope_mappings_realm(clientscope_id, realm)
+        return self.get_client_scope_scope_mappings_realm(client_scope_id, realm)
 
-    def delete_clientscope_scope_mappings_client(
-        self, payload: list[dict], clientscope_id: str, client_id: str, realm: str = "master"
+    def delete_client_scope_scope_mappings_client(
+        self, roles: list[dict], client_scope_id: str, role_owner_client_id: str, realm: str = "master"
     ):
-        """Delete the client roles (scope_mappings) contained in the payload from the clientscope on the Keycloak server.
-        :param payload: List of roles to be deleted.
-        :param clientscope_id: ID of the clientscope to delete roles from scope-mappings.
-        :param clientid: ID of the client who owns the roles.
+        """Delete the client roles (scope_mappings) from the client scope on the Keycloak server.
+        :param roles: List of roles to be deleted.
+        :param client_scope_id: ID of the client scope to delete roles from scope-mappings.
+        :param role_owner_client_id: ID of the client who owns the roles.
         :param realm: Realm from which to obtain the client.
-        :return: The clientscope client scope-mappings.
+        :return: The client scope client scope-mappings.
         """
-        client_role_scope_url = URL_CLIENTSCOPE_SCOPE_MAPPINGS_CLIENT.format(
-            url=self.baseurl, realm=realm, id=clientscope_id, client=client_id
+        client_role_scope_url = URL_CLIENT_SCOPE_SCOPE_MAPPINGS_CLIENT.format(
+            url=self.baseurl, realm=realm, id=client_scope_id, client=role_owner_client_id
         )
         try:
-            self._request(client_role_scope_url, method="DELETE", data=json.dumps(payload))
+            self._request(client_role_scope_url, method="DELETE", data=json.dumps(roles))
 
         except Exception as e:
             self.fail_request(
                 e,
-                msg=f"Could not delete scope mappings for client-scope {client_id}.{clientscope_id} in realm {realm}: {e}",
+                msg=f"Could not delete scope mappings for client scope {role_owner_client_id}.{client_scope_id} in realm {realm}: {e}",
             )
 
-        return self.get_clientscope_scope_mappings_client(clientscope_id, client_id, realm)
+        return self.get_client_scope_scope_mappings_client(client_scope_id, role_owner_client_id, realm)
 
-    def delete_clientscope_scope_mappings_realm(self, payload: list[dict], clientscope_id: str, realm: str = "master"):
-        """Delete the realm roles (scope_mappings) contained in the payload from the clientscope on the Keycloak server.
-        :param payload: List of roles to be deleted.
-        :param clientscope_id: ID of the clientscope to delete roles from scope-mappings.
+    def delete_client_scope_scope_mappings_realm(self, roles: list[dict], client_scope_id: str, realm: str = "master"):
+        """Delete the realm roles (scope_mappings) contained in the roles from the client scope on the Keycloak server.
+        :param roles: List of roles to be deleted.
+        :param client_scope_id: ID of the client scope to delete roles from scope-mappings.
         :param realm: Realm from which to obtain the roles.
-        :return: The clientscope realm scope-mappings.
+        :return: The client scope realm scope-mappings.
         """
-        client_role_scope_url = URL_CLIENTSCOPE_SCOPE_MAPPINGS_REALM.format(
-            url=self.baseurl, realm=realm, id=clientscope_id
+        client_role_scope_url = URL_CLIENT_SCOPE_SCOPE_MAPPINGS_REALM.format(
+            url=self.baseurl, realm=realm, id=client_scope_id
         )
         try:
-            self._request(client_role_scope_url, method="DELETE", data=json.dumps(payload))
+            self._request(client_role_scope_url, method="DELETE", data=json.dumps(roles))
 
         except Exception as e:
             self.fail_request(
-                e, msg=f"Could not delete scope mappings for client-scope {clientscope_id} in realm {realm}: {e}"
+                e, msg=f"Could not delete scope mappings for client scope {client_scope_id} in realm {realm}: {e}"
             )
 
-        return self.get_clientscope_scope_mappings_realm(clientscope_id, realm)
+        return self.get_client_scope_scope_mappings_realm(client_scope_id, realm)
 
     def get_client_role_scope_from_realm(self, clientid, realm: str = "master"):
         """Fetch the realm roles from the client's scope on the Keycloak server.
@@ -3458,32 +3458,32 @@ class KeycloakAPI:
         except Exception as e:
             self.fail_request(e, msg=f"Could not fetch roles scope for client {clientid} in realm {realm}: {e}")
 
-    def update_client_role_scope_from_realm(self, payload, clientid, realm: str = "master"):
+    def update_client_role_scope_from_realm(self, roles, clientid, realm: str = "master"):
         """Update and fetch the realm roles from the client's scope on the Keycloak server.
-        :param payload: List of realm roles to add.
+        :param roles: List of realm roles to add.
         :param clientid: ID of the client to update scope.
         :param realm: Realm from which to obtain the clients.
         :return: The client realm roles scope.
         """
         client_role_scope_url = URL_CLIENT_ROLE_SCOPE_REALM.format(url=self.baseurl, realm=realm, id=clientid)
         try:
-            self._request(client_role_scope_url, method="POST", data=json.dumps(payload))
+            self._request(client_role_scope_url, method="POST", data=json.dumps(roles))
 
         except Exception as e:
             self.fail_request(e, msg=f"Could not update roles scope for client {clientid} in realm {realm}: {e}")
 
         return self.get_client_role_scope_from_realm(clientid, realm)
 
-    def delete_client_role_scope_from_realm(self, payload, clientid, realm: str = "master"):
-        """Delete the realm roles contains in the payload from the client's scope on the Keycloak server.
-        :param payload: List of realm roles to delete.
+    def delete_client_role_scope_from_realm(self, roles, clientid, realm: str = "master"):
+        """Delete the realm roles from the client's scope on the Keycloak server.
+        :param roles: List of realm roles to delete.
         :param clientid: ID of the client to delete roles from scope.
         :param realm: Realm from which to obtain the clients.
         :return: The client realm roles scope.
         """
         client_role_scope_url = URL_CLIENT_ROLE_SCOPE_REALM.format(url=self.baseurl, realm=realm, id=clientid)
         try:
-            self._request(client_role_scope_url, method="DELETE", data=json.dumps(payload))
+            self._request(client_role_scope_url, method="DELETE", data=json.dumps(roles))
 
         except Exception as e:
             self.fail_request(e, msg=f"Could not delete roles scope for client {clientid} in realm {realm}: {e}")

@@ -37,8 +37,8 @@
       - keycloak_client_rolemapping
       - keycloak_client_rolescope
       - keycloak_client_scope
-      - keycloak_clientscope_type
-      - keycloak_clientscope_rolemappings
+      - keycloak_client_scope_type
+      - keycloak_client_scope_rolemappings
       - keycloak_clientsecret_info
       - keycloak_clientsecret_regenerate
       - keycloak_clienttemplate
@@ -265,10 +265,10 @@
             - "'404' not in (clienttemplate_result.msg | default(''))"
             - "'Not Found' not in (clienttemplate_result.msg | default(''))"
 
-        - name: keycloak_clientscope_type — attach scope as optional on realm
-          middleware_automation.keycloak.keycloak_clientscope_type:
+        - name: keycloak_client_scope_type — attach scope as optional on realm
+          middleware_automation.keycloak.keycloak_client_scope_type:
             realm: "{{ target_realm }}"
-            optional_clientscopes:
+            optional_client_scopes:
               - "{{ scope }}"
 
         - name: keycloak_user_rolemapping — assign realm role to user
@@ -299,54 +299,54 @@
         - name: keycloak_client_rolescope — restrict realm role on client
           middleware_automation.keycloak.keycloak_client_rolescope:
             realm: "{{ target_realm }}"
-            client_id: "{{ client }}"
+            target_client_id: "{{ client }}"
             role_names:
               - "{{ role }}"
             state: present
 
-        - name: keycloak_clientscope_rolemappings — map client roles to clientscope
-          middleware_automation.keycloak.keycloak_clientscope_rolemappings:
+        - name: keycloak_client_scope_rolemappings — map client roles to client scope
+          middleware_automation.keycloak.keycloak_client_scope_rolemappings:
             realm: "{{ target_realm }}"
             client_id: "{{ client }}"
-            clientscope_id: "{{ scope }}"
+            client_scope_id: "{{ scope }}"
             role_names:
               - "{{ client_role }}"
-          register: clientscope_rolemappings_result
+          register: client_scope_rolemappings_result
 
-        - name: Assert clientscope role mappings were created
+        - name: Assert client scope role mappings were created
           ansible.builtin.assert:
             that:
-              - clientscope_rolemappings_result is changed
-              - clientscope_rolemappings_result.end_state | length == 1
+              - client_scope_rolemappings_result is changed
+              - client_scope_rolemappings_result.end_state | length == 1
 
-        - name: keycloak_clientscope_rolemappings — remap client role (idempotency)
-          middleware_automation.keycloak.keycloak_clientscope_rolemappings:
+        - name: keycloak_client_scope_rolemappings — remap client role (idempotency)
+          middleware_automation.keycloak.keycloak_client_scope_rolemappings:
             realm: "{{ target_realm }}"
             client_id: "{{ client }}"
-            clientscope_id: "{{ scope }}"
+            client_scope_id: "{{ scope }}"
             role_names:
               - "{{ client_role }}"
-          register: clientscope_rolemappings_idempotent_result
+          register: client_scope_rolemappings_idempotent_result
 
-        - name: Assert clientscope role mappings are idempotent
+        - name: Assert client scope role mappings are idempotent
           ansible.builtin.assert:
             that:
-              - clientscope_rolemappings_idempotent_result is not changed
-              - clientscope_rolemappings_idempotent_result.end_state | length == 1
+              - client_scope_rolemappings_idempotent_result is not changed
+              - client_scope_rolemappings_idempotent_result.end_state | length == 1
 
-        - name: keycloak_clientscope_rolemappings — map realm role to clientscope
-          middleware_automation.keycloak.keycloak_clientscope_rolemappings:
+        - name: keycloak_client_scope_rolemappings — map realm role to client scope
+          middleware_automation.keycloak.keycloak_client_scope_rolemappings:
             realm: "{{ target_realm }}"
-            clientscope_id: "{{ scope }}"
+            client_scope_id: "{{ scope }}"
             role_names:
               - "{{ role }}"
-          register: clientscope_realm_rolemappings_result
+          register: client_scope_realm_rolemappings_result
 
-        - name: Assert realm role was mapped to clientscope
+        - name: Assert realm role was mapped to client_scope
           ansible.builtin.assert:
             that:
-              - clientscope_realm_rolemappings_result is changed
-              - clientscope_realm_rolemappings_result.end_state | length == 1
+              - client_scope_realm_rolemappings_result is changed
+              - client_scope_realm_rolemappings_result.end_state | length == 1
 
         - name: keycloak_user — set email_verified explicitly
           middleware_automation.keycloak.keycloak_user:
@@ -517,19 +517,19 @@
             name: "{{ authz_scope }}"
             state: absent
 
-        - name: keycloak_clientscope_rolemappings — remove realm role from clientscope
-          middleware_automation.keycloak.keycloak_clientscope_rolemappings:
+        - name: keycloak_client_scope_rolemappings — remove realm role from client scope
+          middleware_automation.keycloak.keycloak_client_scope_rolemappings:
             realm: "{{ target_realm }}"
-            clientscope_id: "{{ scope }}"
+            client_scope_id: "{{ scope }}"
             role_names:
               - "{{ role }}"
             state: absent
 
-        - name: keycloak_clientscope_rolemappings — remove client role from clientscope
-          middleware_automation.keycloak.keycloak_clientscope_rolemappings:
+        - name: keycloak_client_scope_rolemappings — remove client role from client scope
+          middleware_automation.keycloak.keycloak_client_scope_rolemappings:
             realm: "{{ target_realm }}"
             client_id: "{{ client }}"
-            clientscope_id: "{{ scope }}"
+            client_scope_id: "{{ scope }}"
             role_names:
               - "{{ client_role }}"
             state: absent
@@ -537,7 +537,7 @@
         - name: keycloak_client_rolescope — remove role scope mapping
           middleware_automation.keycloak.keycloak_client_rolescope:
             realm: "{{ target_realm }}"
-            client_id: "{{ client }}"
+            target_client_id: "{{ client }}"
             role_names:
               - "{{ role }}"
             state: absent

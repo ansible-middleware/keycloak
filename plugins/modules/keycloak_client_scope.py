@@ -230,7 +230,7 @@ def main():
     attributes = module.params.get('attributes')
     protocol_mappers = module.params.get('protocol_mappers')
 
-    before_scope = kc.get_clientscope_by_name(name, realm=realm)
+    before_scope = kc.get_client_scope_by_name(name, realm=realm)
 
     if state == 'absent':
         if before_scope:
@@ -239,7 +239,7 @@ def main():
                 result['diff'] = dict(before=before_scope, after='')
             if module.check_mode:
                 module.exit_json(**result)
-            kc.delete_clientscope(cid=before_scope['id'], realm=realm)
+            kc.delete_client_scope(cid=before_scope['id'], realm=realm)
             result['msg'] = "Client scope {name} has been deleted".format(name=name)
         else:
             result['msg'] = "Client scope {name} does not exist, doing nothing".format(name=name)
@@ -261,8 +261,8 @@ def main():
         if module.check_mode:
             module.exit_json(**result)
 
-        kc.create_clientscope(scope_rep, realm=realm)
-        after_scope = kc.get_clientscope_by_name(name, realm=realm)
+        kc.create_client_scope(scope_rep, realm=realm)
+        after_scope = kc.get_client_scope_by_name(name, realm=realm)
 
         if protocol_mappers:
             for mapper in protocol_mappers:
@@ -272,8 +272,8 @@ def main():
                     'protocolMapper': mapper['protocolMapper'],
                     'config': mapper['config'],
                 }
-                kc.create_clientscope_protocolmapper(after_scope['id'], mapper_rep, realm=realm)
-            after_scope = kc.get_clientscope_by_name(name, realm=realm)
+                kc.create_client_scope_protocolmapper(after_scope['id'], mapper_rep, realm=realm)
+            after_scope = kc.get_client_scope_by_name(name, realm=realm)
 
         result['end_state'] = after_scope
         result['msg'] = "Client scope {name} has been created".format(name=name)
@@ -296,10 +296,10 @@ def main():
                 result['diff'] = dict(before=before_scope, after=scope_rep)
             if module.check_mode:
                 module.exit_json(**result)
-            kc.update_clientscope(scope_rep, realm=realm)
+            kc.update_client_scope(scope_rep, realm=realm)
 
         if protocol_mappers:
-            existing_mappers = kc.get_clientscope_protocolmappers(before_scope['id'], realm=realm)
+            existing_mappers = kc.get_client_scope_protocolmappers(before_scope['id'], realm=realm)
             existing_mapper_names = {m['name'] for m in existing_mappers}
 
             for mapper in protocol_mappers:
@@ -312,9 +312,9 @@ def main():
                             'protocolMapper': mapper['protocolMapper'],
                             'config': mapper['config'],
                         }
-                        kc.create_clientscope_protocolmapper(before_scope['id'], mapper_rep, realm=realm)
+                        kc.create_client_scope_protocolmapper(before_scope['id'], mapper_rep, realm=realm)
 
-        after_scope = kc.get_clientscope_by_name(name, realm=realm)
+        after_scope = kc.get_client_scope_by_name(name, realm=realm)
         result['end_state'] = after_scope
 
         if result['changed']:

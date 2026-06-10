@@ -1346,7 +1346,7 @@ def main():
 
     # See if it already exists in Keycloak
     if cid is None:
-        before_client = kc.get_client_by_client_idd(module.params.get("client_id"), realm=realm)
+        before_client = kc.get_client_by_client_id(module.params.get("client_id"), realm=realm)
         if before_client is not None:
             cid = before_client["id"]
     else:

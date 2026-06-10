@@ -10,14 +10,14 @@
 
 .. Anchors
 
-.. _ansible_collections.middleware_automation.keycloak.keycloak_clientscope_type_module:
+.. _ansible_collections.middleware_automation.keycloak.keycloak_client_scope_rolemappings_module:
 
 .. Anchors: short name for ansible.builtin
 
 .. Title
 
-keycloak_clientscope_type -- Set the type of aclientscope in realm or client using Keycloak API
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+keycloak_client_scope_rolemappings -- Allows administration of Keycloak client scope scope mappings to restrict the usage of certain roles to specific client scopes
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. Collection note
 
@@ -29,7 +29,7 @@ keycloak_clientscope_type -- Set the type of aclientscope in realm or client usi
 
     To install it, use: :code:`ansible\-galaxy collection install middleware\_automation.keycloak`.
 
-    To use it in a playbook, specify: :code:`middleware_automation.keycloak.keycloak_clientscope_type`.
+    To use it in a playbook, specify: :code:`middleware_automation.keycloak.keycloak_client_scope_rolemappings`.
 
 .. version_added
 
@@ -49,7 +49,8 @@ Synopsis
 
 .. Description
 
-- This module allows you to set the type (optional, default) of clientscopes using the Keycloak REST API. It requires access to the REST API using OpenID Connect; the user connecting and the client being used must have the requisite access rights. In a default Keycloak installation, admin\-cli and an admin user would work, as would a separate client definition with the scope tailored to your needs and a user having the expected roles.
+- This module allows you to add or remove Keycloak roles from client scopes using the Keycloak REST API. It requires access to the REST API using OpenID Connect; the user connecting and the client being used must have the requisite access rights. In a default Keycloak installation, :literal:`admin\-cli` and an admin user would work, as would a separate client definition with the scope tailored to your needs and a user having the expected roles.
+- Attributes are multi\-valued in the Keycloak API. All attributes are lists of individual values and are returned that way by this module. You may pass single values for attributes when calling the module, and this is translated into a list suitable for the API.
 
 
 .. Aliases
@@ -166,19 +167,32 @@ Parameters
   <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-client_id"></div>
-      <div class="ansibleOptionAnchor" id="parameter-clientId"></div>
       <p class="ansible-option-title"><strong>client_id</strong></p>
       <a class="ansibleOptionLink" href="#parameter-client_id" title="Permalink to this option"></a>
-      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: clientId</span></p>
       <p class="ansible-option-type-line">
         <span class="ansible-option-type">string</span>
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>The <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-client_id"><span class="std std-ref"><span class="pre">client_id</span></span></a></strong></code> of the client. If not set the clientscope types are set as a default for the realm.</p>
+      <p>If the <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-role_names"><span class="std std-ref"><span class="pre">role_names</span></span></a></strong></code> are client roles, the client ID under which it resides.</p>
+      <p>If this parameter is absent, the roles are considered realm roles.</p>
     </div></td>
   </tr>
   <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-client_scope_id"></div>
+      <p class="ansible-option-title"><strong>client_scope_id</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-client_scope_id" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+        / <span class="ansible-option-required">required</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Roles provided in <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-role_names"><span class="std std-ref"><span class="pre">role_names</span></span></a></strong></code> will be added to this client scope.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-connection_timeout"></div>
       <p class="ansible-option-title"><strong>connection_timeout</strong></p>
@@ -190,20 +204,6 @@ Parameters
     <td><div class="ansible-option-cell">
       <p>Controls the HTTP connections timeout period (in seconds) to Keycloak API.</p>
       <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">10</code></p>
-    </div></td>
-  </tr>
-  <tr class="row-even">
-    <td><div class="ansible-option-cell">
-      <div class="ansibleOptionAnchor" id="parameter-default_clientscopes"></div>
-      <p class="ansible-option-title"><strong>default_clientscopes</strong></p>
-      <a class="ansibleOptionLink" href="#parameter-default_clientscopes" title="Permalink to this option"></a>
-      <p class="ansible-option-type-line">
-        <span class="ansible-option-type">list</span>
-        / <span class="ansible-option-elements">elements=string</span>
-      </p>
-    </div></td>
-    <td><div class="ansible-option-cell">
-      <p>Client scopes that should be of type default.</p>
     </div></td>
   </tr>
   <tr class="row-odd">
@@ -222,20 +222,6 @@ Parameters
   </tr>
   <tr class="row-even">
     <td><div class="ansible-option-cell">
-      <div class="ansibleOptionAnchor" id="parameter-optional_clientscopes"></div>
-      <p class="ansible-option-title"><strong>optional_clientscopes</strong></p>
-      <a class="ansibleOptionLink" href="#parameter-optional_clientscopes" title="Permalink to this option"></a>
-      <p class="ansible-option-type-line">
-        <span class="ansible-option-type">list</span>
-        / <span class="ansible-option-elements">elements=string</span>
-      </p>
-    </div></td>
-    <td><div class="ansible-option-cell">
-      <p>Client scopes that should be of type optional.</p>
-    </div></td>
-  </tr>
-  <tr class="row-odd">
-    <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-realm"></div>
       <p class="ansible-option-title"><strong>realm</strong></p>
       <a class="ansibleOptionLink" href="#parameter-realm" title="Permalink to this option"></a>
@@ -244,11 +230,11 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>The Keycloak realm.</p>
+      <p>The Keycloak realm under which clients resides.</p>
       <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;master&#34;</code></p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-refresh_token"></div>
       <p class="ansible-option-title"><strong>refresh_token</strong></p>
@@ -261,7 +247,45 @@ Parameters
       <p>Authentication refresh token for Keycloak API.</p>
     </div></td>
   </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-role_names"></div>
+      <p class="ansible-option-title"><strong>role_names</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-role_names" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">list</span>
+        / <span class="ansible-option-elements">elements=string</span>
+        / <span class="ansible-option-required">required</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Names of roles to add.</p>
+      <p>If <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-client_id"><span class="std std-ref"><span class="pre">client_id</span></span></a></strong></code> is present, all roles must be under this client.</p>
+      <p>If <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-client_id"><span class="std std-ref"><span class="pre">client_id</span></span></a></strong></code> is absent, all roles must be under the realm.</p>
+    </div></td>
+  </tr>
   <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-state"></div>
+      <p class="ansible-option-title"><strong>state</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-state" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>State of the role mapping.</p>
+      <p>On <code class="ansible-value literal notranslate">present</code>, all roles in <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-role_names"><span class="std std-ref"><span class="pre">role_names</span></span></a></strong></code> are mapped if not exist yet.</p>
+      <p>On <code class="ansible-value literal notranslate">absent</code>, all roles mapping in <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-role_names"><span class="std std-ref"><span class="pre">role_names</span></span></a></strong></code> are removed if they exist.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>&#34;present&#34;</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;absent&#34;</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-token"></div>
       <p class="ansible-option-title"><strong>token</strong></p>
@@ -274,7 +298,7 @@ Parameters
       <p>Authentication token for Keycloak API.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-validate_certs"></div>
       <p class="ansible-option-title"><strong>validate_certs</strong></p>
@@ -321,7 +345,7 @@ Attributes
         <div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="attribute-action_group"></div>
 
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_clientscope_type_module__attribute-action_group:
+      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_scope_rolemappings_module__attribute-action_group:
 
       .. rst-class:: ansible-option-title
 
@@ -365,7 +389,7 @@ Attributes
         <div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="attribute-check_mode"></div>
 
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_clientscope_type_module__attribute-check_mode:
+      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_scope_rolemappings_module__attribute-check_mode:
 
       .. rst-class:: ansible-option-title
 
@@ -407,7 +431,7 @@ Attributes
         <div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="attribute-diff_mode"></div>
 
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_clientscope_type_module__attribute-diff_mode:
+      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_scope_rolemappings_module__attribute-diff_mode:
 
       .. rst-class:: ansible-option-title
 
@@ -458,28 +482,43 @@ Examples
 
 .. code-block:: yaml+jinja
 
-    - name: Set default client scopes on realm level
-      middleware_automation.keycloak.keycloak_clientscope_type:
-        auth_client_id: admin-cli
+    - name: Add roles to client scope
+      middleware_automation.keycloak.keycloak_client_scope_rolemappings:
         auth_keycloak_url: https://auth.example.com
         auth_realm: master
         auth_username: USERNAME
         auth_password: PASSWORD
-        realm: "MyCustomRealm"
-        default_clientscopes: ['profile', 'roles']
-      delegate_to: localhost
+        realm: MyCustomRealm
+        client_id: frontend-client-public
+        client_scope_id: frontend-client-scope
+        role_names:
+          - backend-role-admin
+          - backend-role-user
 
-
-    - name: Set default and optional client scopes on client level with token auth
-      middleware_automation.keycloak.keycloak_clientscope_type:
-        auth_client_id: admin-cli
+    - name: Remove roles from client scope
+      middleware_automation.keycloak.keycloak_client_scope_rolemappings:
         auth_keycloak_url: https://auth.example.com
-        token: TOKEN
-        realm: "MyCustomRealm"
-        client_id: "MyCustomClient"
-        default_clientscopes: ['profile', 'roles']
-        optional_clientscopes: ['phone']
-      delegate_to: localhost
+        auth_realm: master
+        auth_username: USERNAME
+        auth_password: PASSWORD
+        realm: MyCustomRealm
+        client_id: frontend-client-public
+        client_scope_id: frontend-client-scope
+        role_names:
+          - backend-role-admin
+        state: absent
+
+    - name: Add realm roles to client scope
+      middleware_automation.keycloak.keycloak_client_scope_rolemappings:
+        auth_keycloak_url: https://auth.example.com
+        auth_realm: master
+        auth_username: USERNAME
+        auth_password: PASSWORD
+        realm: MyCustomRealm
+        client_scope_id: frontend-client-scope
+        role_names:
+          - realm-role-admin
+          - realm-role-user
 
 
 
@@ -508,59 +547,14 @@ Common return values are documented :ref:`here <common_return_values>`, the foll
       <p class="ansible-option-title"><strong>end_state</strong></p>
       <a class="ansibleOptionLink" href="#return-end_state" title="Permalink to this return value"></a>
       <p class="ansible-option-type-line">
-        <span class="ansible-option-type">dictionary</span>
+        <span class="ansible-option-type">list</span>
+        / <span class="ansible-option-elements">elements=dictionary</span>
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>Representation of client scopes after module execution.</p>
-      <p>The sample is truncated.</p>
+      <p>Representation of client scope scope mappings after module execution.</p>
       <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> on success</p>
-      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">{&#34;default_clientscopes&#34;: [&#34;profile&#34;, &#34;role&#34;], &#34;optional_clientscopes&#34;: []}</code></p>
-    </div></td>
-  </tr>
-  <tr class="row-odd">
-    <td><div class="ansible-option-cell">
-      <div class="ansibleOptionAnchor" id="return-existing"></div>
-      <p class="ansible-option-title"><strong>existing</strong></p>
-      <a class="ansibleOptionLink" href="#return-existing" title="Permalink to this return value"></a>
-      <p class="ansible-option-type-line">
-        <span class="ansible-option-type">dictionary</span>
-      </p>
-    </div></td>
-    <td><div class="ansible-option-cell">
-      <p>Representation of client scopes before module execution.</p>
-      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
-      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">{&#34;default_clientscopes&#34;: [&#34;profile&#34;, &#34;role&#34;], &#34;optional_clientscopes&#34;: [&#34;phone&#34;]}</code></p>
-    </div></td>
-  </tr>
-  <tr class="row-even">
-    <td><div class="ansible-option-cell">
-      <div class="ansibleOptionAnchor" id="return-msg"></div>
-      <p class="ansible-option-title"><strong>msg</strong></p>
-      <a class="ansibleOptionLink" href="#return-msg" title="Permalink to this return value"></a>
-      <p class="ansible-option-type-line">
-        <span class="ansible-option-type">string</span>
-      </p>
-    </div></td>
-    <td><div class="ansible-option-cell">
-      <p>Message as to what action was taken.</p>
-      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
-      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">&#34;&#34;</code></p>
-    </div></td>
-  </tr>
-  <tr class="row-odd">
-    <td><div class="ansible-option-cell">
-      <div class="ansibleOptionAnchor" id="return-proposed"></div>
-      <p class="ansible-option-title"><strong>proposed</strong></p>
-      <a class="ansibleOptionLink" href="#return-proposed" title="Permalink to this return value"></a>
-      <p class="ansible-option-type-line">
-        <span class="ansible-option-type">dictionary</span>
-      </p>
-    </div></td>
-    <td><div class="ansible-option-cell">
-      <p>Representation of proposed client-scope types mapping.</p>
-      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
-      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">{&#34;default_clientscopes&#34;: [&#34;profile&#34;, &#34;role&#34;], &#34;optional_clientscopes&#34;: []}</code></p>
+      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">[{&#34;clientRole&#34;: false, &#34;composite&#34;: false, &#34;containerId&#34;: &#34;77f9bd4e-13a6-451e-9c72-ee6997299c1f&#34;, &#34;description&#34;: &#34;User role&#34;, &#34;id&#34;: &#34;9e155ef7-86f5-4def-b507-581ce7b87013&#34;, &#34;name&#34;: &#34;realm-role-user&#34;}, {&#34;clientRole&#34;: false, &#34;composite&#34;: false, &#34;containerId&#34;: &#34;77f9bd4e-13a6-451e-9c72-ee6997299c1f&#34;, &#34;description&#34;: &#34;Admin role&#34;, &#34;id&#34;: &#34;9e155ef7-86f5-4def-b507-581ce7b87013&#34;, &#34;name&#34;: &#34;realm-role-admin&#34;}]</code></p>
     </div></td>
   </tr>
   </tbody>
@@ -576,7 +570,7 @@ Common return values are documented :ref:`here <common_return_values>`, the foll
 Authors
 ~~~~~~~
 
-- Simon Pahl (@simonpahl)
+- Felix Grzelka (@felix-grzelka)
 
 
 .. Extra links

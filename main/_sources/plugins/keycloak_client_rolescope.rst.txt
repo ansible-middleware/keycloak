@@ -50,7 +50,7 @@ Synopsis
 .. Description
 
 - This module allows you to add or remove Keycloak roles from clients scope using the Keycloak REST API. It requires access to the REST API using OpenID Connect; the user connecting and the client being used must have the requisite access rights. In a default Keycloak installation, admin\-cli and an admin user would work, as would a separate client definition with the scope tailored to your needs and a user having the expected roles.
-- Client :ansopt:`middleware\_automation.keycloak.keycloak\_client\_rolescope#module:client\_id` must have :ansopt:`middleware\_automation.keycloak.keycloak\_client#module:full\_scope\_allowed` set to :ansval:`false`.
+- Client :ansopt:`middleware\_automation.keycloak.keycloak\_client\_rolescope#module:target\_client\_id` must have :ansopt:`middleware\_automation.keycloak.keycloak\_client#module:full\_scope\_allowed` set to :ansval:`false`.
 - Attributes are multi\-valued in the Keycloak API. All attributes are lists of individual values and are returned that way by this module. You may pass single values for attributes when calling the module, and this is translated into a list suitable for the API.
 
 
@@ -167,34 +167,6 @@ Parameters
   </tr>
   <tr class="row-even">
     <td><div class="ansible-option-cell">
-      <div class="ansibleOptionAnchor" id="parameter-client_id"></div>
-      <p class="ansible-option-title"><strong>client_id</strong></p>
-      <a class="ansibleOptionLink" href="#parameter-client_id" title="Permalink to this option"></a>
-      <p class="ansible-option-type-line">
-        <span class="ansible-option-type">string</span>
-        / <span class="ansible-option-required">required</span>
-      </p>
-    </div></td>
-    <td><div class="ansible-option-cell">
-      <p>Roles provided in <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-role_names"><span class="std std-ref"><span class="pre">role_names</span></span></a></strong></code> while be added to this client scope.</p>
-    </div></td>
-  </tr>
-  <tr class="row-odd">
-    <td><div class="ansible-option-cell">
-      <div class="ansibleOptionAnchor" id="parameter-client_scope_id"></div>
-      <p class="ansible-option-title"><strong>client_scope_id</strong></p>
-      <a class="ansibleOptionLink" href="#parameter-client_scope_id" title="Permalink to this option"></a>
-      <p class="ansible-option-type-line">
-        <span class="ansible-option-type">string</span>
-      </p>
-    </div></td>
-    <td><div class="ansible-option-cell">
-      <p>If the <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-role_names"><span class="std std-ref"><span class="pre">role_names</span></span></a></strong></code> are client role, the client ID under which it resides.</p>
-      <p>If this parameter is absent, the roles are considered a realm role.</p>
-    </div></td>
-  </tr>
-  <tr class="row-even">
-    <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-connection_timeout"></div>
       <p class="ansible-option-title"><strong>connection_timeout</strong></p>
       <a class="ansibleOptionLink" href="#parameter-connection_timeout" title="Permalink to this option"></a>
@@ -261,11 +233,25 @@ Parameters
     </div></td>
     <td><div class="ansible-option-cell">
       <p>Names of roles to manipulate.</p>
-      <p>If <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-client_scope_id"><span class="std std-ref"><span class="pre">client_scope_id</span></span></a></strong></code> is present, all roles must be under this client.</p>
-      <p>If <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-client_scope_id"><span class="std std-ref"><span class="pre">client_scope_id</span></span></a></strong></code> is absent, all roles must be under the realm.</p>
+      <p>If <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-role_owner_client_id"><span class="std std-ref"><span class="pre">role_owner_client_id</span></span></a></strong></code> is present, all roles must be under this client.</p>
+      <p>If <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-role_owner_client_id"><span class="std std-ref"><span class="pre">role_owner_client_id</span></span></a></strong></code> is absent, all roles must be under the realm.</p>
     </div></td>
   </tr>
   <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-role_owner_client_id"></div>
+      <p class="ansible-option-title"><strong>role_owner_client_id</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-role_owner_client_id" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>If the <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-role_names"><span class="std std-ref"><span class="pre">role_names</span></span></a></strong></code> are client role, the client ID under which it resides.</p>
+      <p>If this parameter is absent, the roles are considered a realm role.</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-state"></div>
       <p class="ansible-option-title"><strong>state</strong></p>
@@ -284,6 +270,20 @@ Parameters
         <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">&#34;absent&#34;</code></p></li>
       </ul>
 
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-target_client_id"></div>
+      <p class="ansible-option-title"><strong>target_client_id</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-target_client_id" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+        / <span class="ansible-option-required">required</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Roles provided in <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-role_names"><span class="std std-ref"><span class="pre">role_names</span></span></a></strong></code> while be added to this client scope.</p>
     </div></td>
   </tr>
   <tr class="row-even">
@@ -490,8 +490,8 @@ Examples
         auth_username: USERNAME
         auth_password: PASSWORD
         realm: MyCustomRealm
-        client_id: frontend-client-public
-        client_scope_id: backend-client-private
+        target_client_id: frontend-client-public
+        role_owner_client_id: backend-client-private
         role_names:
           - backend-role-admin
           - backend-role-user
@@ -503,8 +503,8 @@ Examples
         auth_username: USERNAME
         auth_password: PASSWORD
         realm: MyCustomRealm
-        client_id: frontend-client-public
-        client_scope_id: backend-client-private
+        target_client_id: frontend-client-public
+        role_owner_client_id: backend-client-private
         role_names:
           - backend-role-admin
         state: absent
@@ -516,7 +516,7 @@ Examples
         auth_username: USERNAME
         auth_password: PASSWORD
         realm: MyCustomRealm
-        client_id: frontend-client-public
+        target_client_id: frontend-client-public
         role_names:
           - realm-role-admin
           - realm-role-user

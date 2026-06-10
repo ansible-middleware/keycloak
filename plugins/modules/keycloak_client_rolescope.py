@@ -198,7 +198,7 @@ def main():
     if not objRealm:
         module.fail_json(msg=f"Failed to retrive realm '{realm}'")
 
-    objClient = kc.get_client_by_target_client_id(target_client_id, realm)
+    objClient = kc.get_client_by_client_id(target_client_id, realm)
     if not objClient:
         module.fail_json(msg=f"Failed to retrive client '{realm}.{target_client_id}'")
     if objClient["fullScopeAllowed"] and state == "present":

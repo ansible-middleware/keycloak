@@ -299,7 +299,7 @@
         - name: keycloak_client_rolescope — restrict realm role on client
           middleware_automation.keycloak.keycloak_client_rolescope:
             realm: "{{ target_realm }}"
-            client_id: "{{ client }}"
+            target_client_id: "{{ client }}"
             role_names:
               - "{{ role }}"
             state: present
@@ -537,7 +537,7 @@
         - name: keycloak_client_rolescope — remove role scope mapping
           middleware_automation.keycloak.keycloak_client_rolescope:
             realm: "{{ target_realm }}"
-            client_id: "{{ client }}"
+            target_client_id: "{{ client }}"
             role_names:
               - "{{ role }}"
             state: absent

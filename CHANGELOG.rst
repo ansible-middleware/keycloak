@@ -6,6 +6,14 @@ middleware\_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v3.0.9
+======
+
+Bugfixes
+--------
+
+- AMW-551 Providing correct rhbk version `#344 <https://github.com/ansible-middleware/keycloak/pull/344>`_
+
 v3.0.8
 ======
 

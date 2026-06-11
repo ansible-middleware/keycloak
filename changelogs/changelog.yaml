@@ -827,3 +827,12 @@ releases:
     release_date: '2026-06-01'
   3.0.8:
     release_date: '2026-06-09'
+  3.0.9:
+    changes:
+      bugfixes:
+      - 'AMW-551 Providing correct rhbk version `#344 <https://github.com/ansible-middleware/keycloak/pull/344>`_
+
+        '
+    fragments:
+    - 344.yaml
+    release_date: '2026-06-11'

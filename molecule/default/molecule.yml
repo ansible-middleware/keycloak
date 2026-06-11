@@ -1,6 +1,6 @@
 ---
 driver:
-  name: podman
+  name: docker
 platforms:
   - name: instance
     image: registry.access.redhat.com/ubi9/ubi-init:latest

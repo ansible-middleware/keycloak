@@ -6,6 +6,7 @@
   gather_facts: yes
   vars:
     sudo_pkg_name: sudo
+    _rhbk_default_version: "{{ rhbk_version | default('26.4.11') }}"
   tasks:
     - name: "Run preparation common to all scenario"
       ansible.builtin.include_tasks: ../prepare.yml
@@ -37,7 +38,7 @@
             client_id: "{{ rhn_username }}"
             client_secret: "{{ rhn_password }}"
             product_type: DISTRIBUTION
-            product_version: "{{ keycloak_quarkus_version | default('26.6.2') }}"
+            product_version: "{{ _rhbk_default_version }}"
             product_category: "RHBK"
           register: rhn_products
           no_log: "{{ omit_rhn_output | default(true) }}"
@@ -47,7 +48,7 @@
 
         - name: Determine install zipfile from search results
           ansible.builtin.set_fact:
-            rhn_matched_products: "{{ rhn_products.results | selectattr('file_name', 'match', '.*keycloak-' + (keycloak_quarkus_version | default('26.6.2')) + '.zip$') }}"
+            rhn_matched_products: "{{ rhn_products.results | selectattr('file_name', 'match', '.*rhbk-' ~ _rhbk_default_version ~ '\\.zip$') }}"
           delegate_to: localhost
           run_once: true
           when:
@@ -59,7 +60,7 @@
             client_id: "{{ rhn_username }}"
             client_secret: "{{ rhn_password }}"
             product_id: "{{ (rhn_matched_products | first).id }}"
-            dest: "/tmp/keycloak/keycloak-{{ keycloak_quarkus_version | default('26.6.2') }}.zip"
+            dest: "/tmp/keycloak/{{ (rhn_matched_products | first).file_name | basename }}"
           no_log: "{{ omit_rhn_output | default(true) }}"
           delegate_to: localhost
           run_once: true

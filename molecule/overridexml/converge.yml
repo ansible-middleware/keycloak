@@ -4,8 +4,6 @@
   vars_files:
     - ../group_vars/all/vars.yml
   vars:
-    rhn_username: "{{ lookup('env', 'rhn_username') | default('4278e994-7f90-46eb-b99c-90f2815b845f', true) }}"
-    rhn_password: "{{ lookup('env', 'rhn_password') | default('AHOLJo08ursGdWVm0F66iDR5Owk0CwpL', true) }}"
     keycloak_quarkus_bootstrap_admin_password: "remembertochangeme"
     keycloak_admin_password: "remembertochangeme"
     keycloak_quarkus_hostname: "http://instance:8080"

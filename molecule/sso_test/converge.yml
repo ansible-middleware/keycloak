@@ -1,0 +1,22 @@
+---
+- name: Converge
+  hosts: all
+  vars_files:
+    - ../group_vars/all/vars.yml
+  vars:
+    keycloak_admin_password: "remembertochangeme"
+    keycloak_enable: true
+    keycloak_offline_install: false
+  roles:
+    - role: keycloak
+    - role: keycloak_realm
+      keycloak_url: "http://instance:8080"
+      keycloak_context: "/auth"
+      keycloak_admin_user: "admin"
+      keycloak_admin_password: "remembertochangeme"
+      keycloak_realm: TestRealm
+      keycloak_clients:
+        - name: TestClient
+          realm: "{{ keycloak_realm }}"
+          public_client: true
+          client_id: TestClient

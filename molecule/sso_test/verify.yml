@@ -1,0 +1,26 @@
+---
+- name: Verify
+  hosts: all
+  vars:
+    keycloak_admin_password: "remembertochangeme"
+    keycloak_admin_user: "admin"
+    keycloak_uri: "http://localhost:8080"
+    keycloak_context: "/auth"
+  tasks:
+    - name: Populate service facts
+      ansible.builtin.service_facts:
+    - name: Check if keycloak service started
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.services["keycloak.service"]["state"] == "running"
+          - ansible_facts.services["keycloak.service"]["status"] == "enabled"
+    - name: Verify token api call
+      ansible.builtin.uri:
+        url: "{{ keycloak_uri }}{{ keycloak_context }}/realms/master/protocol/openid-connect/token"
+        method: POST
+        body: "client_id=admin-cli&username={{ keycloak_admin_user }}&password={{ keycloak_admin_password }}&grant_type=password"
+        validate_certs: no
+      register: keycloak_auth_response
+      until: keycloak_auth_response.status == 200
+      retries: 2
+      delay: 2

@@ -120,7 +120,7 @@
 
     - name: Determine install zipfile from search results
       ansible.builtin.set_fact:
-        rhn_filtered_products: "{{ rhn_products.results | selectattr('file_name', 'match', '[^/]*/' + sso_archive + '$') }}"
+        rhn_filtered_products: "{{ rhn_products.results | selectattr('file_name', 'match', '.*rh-sso-' + sso_version.split('.')[:2] | join('.') + '.*-server-dist\\.zip$') | rejectattr('file_name', 'search', 'maven|src|license|provenance|adapter') | list }}"
       delegate_to: localhost
       run_once: true
 
@@ -226,7 +226,7 @@
     mode: '0640'
   notify:
     - restart keycloak
-  when: keycloak_config_override_template | length > 0
+  when: (keycloak_config_override_template | default('', true)) | length > 0
 
 - name: "Deploy standalone {{ keycloak.service_name }} config to {{ keycloak_config_path_to_standalone_xml }}"
   become: "{{ keycloak_install_require_privilege_escalation | default(true) }}"
@@ -240,7 +240,7 @@
     - restart keycloak
   when:
     - not keycloak_ha_enabled
-    - keycloak_config_override_template | length == 0
+    - (keycloak_config_override_template | default('', true)) | length == 0
 
 - name: Create tcpping cluster node list
   ansible.builtin.set_fact:
@@ -269,7 +269,7 @@
   when:
     - keycloak_ha_enabled
     - not keycloak_remote_cache_enabled
-    - keycloak_config_override_template | length == 0
+    - (keycloak_config_override_template | default('', true)) | length == 0
 
 - name: "Deploy HA {{ keycloak.service_name }} config with infinispan remote cache store to {{ keycloak_config_path_to_standalone_xml }}"
   become: "{{ keycloak_install_require_privilege_escalation | default(true) }}"
@@ -284,7 +284,7 @@
   when:
     - keycloak_ha_enabled
     - keycloak_remote_cache_enabled
-    - keycloak_config_override_template | length == 0
+    - (keycloak_config_override_template | default('', true)) | length == 0
 
 - name: "Deploy profile.properties file to {{ keycloak_config_path_to_properties }}"
   become: "{{ keycloak_install_require_privilege_escalation | default(true) }}"
@@ -296,4 +296,4 @@
     mode: '0640'
   notify:
     - restart keycloak
-  when: keycloak_features | length > 0
+  when: (keycloak_features | default([], true)) | length > 0

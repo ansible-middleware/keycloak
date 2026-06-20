@@ -2,7 +2,7 @@
 - name: Validate admin console password
   ansible.builtin.assert:
     that:
-      - keycloak_admin_password | length > 12
+      - (keycloak_admin_password | default('', true)) | length > 12
     quiet: true
     fail_msg: >
       The console administrator password is empty or invalid. Please set the keycloak_admin_password variable to a 12+ char long string
@@ -31,9 +31,9 @@
   ansible.builtin.assert:
     that:
       - keycloak_jdbc_engine is defined and keycloak_jdbc_engine in [ 'postgres', 'mariadb', 'sqlserver' ]
-      - keycloak_jdbc_url | length > 0
-      - keycloak_db_user | length > 0
-      - keycloak_db_pass | length > 0
+      - (keycloak_jdbc_url | default('', true)) | length > 0
+      - (keycloak_db_user | default('', true)) | length > 0
+      - (keycloak_db_pass | default('', true)) | length > 0
     quiet: true
     fail_msg: "Configuration for the JDBC persistence is invalid or incomplete"
     success_msg: "Configuring JDBC persistence using {{ keycloak_jdbc_engine }} database"

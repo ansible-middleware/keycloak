@@ -22,4 +22,4 @@ jobs:
       root_permission_varname: 'keycloak_install_requires_become'
       debug_verbosity: "${{ github.event.inputs.debug_verbosity }}"
       molecule_tests: >-
-        [ "debian", "quarkus", "quarkus_ha", "quarkus_ha_remote", "quarkus_ha_26.4_below", "default", "quarkus_devmode", "quarkus_upgrade", "keycloak_modules" ]
+        [ "debian", "sso_test", "quarkus", "quarkus_ha", "quarkus_ha_remote", "quarkus_ha_26.4_below", "default", "quarkus_devmode", "quarkus_upgrade", "keycloak_modules" ]

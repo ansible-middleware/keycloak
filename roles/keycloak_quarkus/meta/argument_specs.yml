@@ -564,5 +564,5 @@ argument_specs:
                 type: "str"
             rhbk_product_category:
                 default: "RHBK"
-                description: "JBossNetwork API category for Red Hat Build of Keycloak"
+                description: "Unified Downloads API category for Red Hat Build of Keycloak"
                 type: "str"

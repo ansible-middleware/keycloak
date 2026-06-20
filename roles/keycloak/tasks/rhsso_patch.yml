@@ -39,14 +39,14 @@
         filtered_versions: "{{ rhn_products.results | map(attribute='file_name') | \
                                select('match', '^[^/]*/rh-sso-.*[0-9]*[.][0-9]*[.][0-9]*.*$') | \
                                map('regex_replace', '[^/]*/rh-sso-([0-9]*[.][0-9]*[.][0-9]*(-[0-9])?)-.*', '\\1') | list | unique }}"
-      when: sso_patch_version is not defined or sso_patch_version | length == 0
+      when: (sso_patch_version | default('', true)) | length == 0
       delegate_to: localhost
       run_once: true
 
     - name: Determine latest version
       ansible.builtin.set_fact:
         sso_latest_version: "{{ filtered_versions | middleware_automation.common.version_sort | last }}"
-      when: sso_patch_version is not defined or sso_patch_version | length == 0
+      when: (sso_patch_version | default('', true)) | length == 0
       delegate_to: localhost
       run_once: true
 
@@ -55,7 +55,7 @@
         rhn_filtered_products: "{{ rhn_products.results | selectattr('file_name', 'match', '[^/]*/rh-sso-' + sso_latest_version + '-patch.zip$') }}"
         patch_bundle: "rh-sso-{{ sso_latest_version }}-patch.zip"
         patch_version: "{{ sso_latest_version }}"
-      when: sso_patch_version is not defined or sso_patch_version | length == 0
+      when: (sso_patch_version | default('', true)) | length == 0
       delegate_to: localhost
       run_once: true
 

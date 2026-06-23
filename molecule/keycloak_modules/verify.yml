@@ -253,6 +253,50 @@
               clientId: molecule-idp-client
             state: present
 
+        - name: keycloak_identity_provider — set hide_on_login via top-level param
+          middleware_automation.keycloak.keycloak_identity_provider:
+            realm: "{{ target_realm }}"
+            alias: "{{ idp }}"
+            hide_on_login: true
+            state: present
+          register: idp_hide_on_login_result
+
+        - name: Assert hide_on_login is set correctly in end_state
+          ansible.builtin.assert:
+            that:
+              - idp_hide_on_login_result is changed
+              - idp_hide_on_login_result.end_state.hideOnLogin == true
+              - "'hide_on_login' not in (idp_hide_on_login_result.end_state.config | default({}))"
+
+        - name: keycloak_identity_provider — set hide_on_login idempotency check
+          middleware_automation.keycloak.keycloak_identity_provider:
+            realm: "{{ target_realm }}"
+            alias: "{{ idp }}"
+            hide_on_login: true
+            state: present
+          register: idp_hide_on_login_idempotent_result
+
+        - name: Assert hide_on_login idempotency (no change)
+          ansible.builtin.assert:
+            that:
+              - idp_hide_on_login_idempotent_result is not changed
+              - idp_hide_on_login_idempotent_result.end_state.hideOnLogin == true
+
+        - name: keycloak_identity_provider — set hide_on_login via legacy config key (backward compat)
+          middleware_automation.keycloak.keycloak_identity_provider:
+            realm: "{{ target_realm }}"
+            alias: "{{ idp }}"
+            hide_on_login: false
+            state: present
+          register: idp_hide_on_login_off_result
+
+        - name: Assert hide_on_login can be toggled off via top-level param
+          ansible.builtin.assert:
+            that:
+              - idp_hide_on_login_off_result is changed
+              - idp_hide_on_login_off_result.end_state.hideOnLogin == false
+              - "'hide_on_login_page' not in (idp_hide_on_login_off_result.end_state.config | default({}))"
+
         - name: keycloak_clienttemplate — create client template
           middleware_automation.keycloak.keycloak_clienttemplate:
             realm: "{{ target_realm }}"

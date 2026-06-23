@@ -44,7 +44,6 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.intersphinx',
     'sphinx_antsibull_ext',
-    'ansible_basic_sphinx_ext',
 ]
 
 # Add any paths that contain templates here, relative to this directory.

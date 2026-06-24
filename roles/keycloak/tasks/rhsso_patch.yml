@@ -2,15 +2,15 @@
 ## check remote patch archive
 - name: Set download patch archive path
   ansible.builtin.set_fact:
-    patch_archive: "{{ keycloak_dest }}/{{ sso_patch_bundle }}"
-    patch_bundle: "{{ sso_patch_bundle }}"
-    patch_version: "{{ sso_patch_version }}"
+    keycloak_patch_archive: "{{ keycloak_dest }}/{{ sso_patch_bundle }}"
+    keycloak_patch_bundle: "{{ sso_patch_bundle }}"
+    keycloak_patch_version: "{{ sso_patch_version }}"
   when: sso_patch_version is defined
 
 - name: Check download patch archive path
   ansible.builtin.stat:
-    path: "{{ patch_archive }}"
-  register: patch_archive_path
+    path: "{{ keycloak_patch_archive }}"
+  register: keycloak_patch_archive_path
   when: sso_patch_version is defined
   become: "{{ keycloak_rhsso_patch_require_privilege_escalation | default(true) }}"
 
@@ -29,14 +29,14 @@
         product_type: BUGFIX
         product_version: "{{ sso_version.split('.')[:2] | join('.') }}"
         product_category: "{{ sso_product_category }}"
-      register: rhn_products
+      register: keycloak_rhn_products
       no_log: "{{ omit_rhn_output | default(true) }}"
       delegate_to: localhost
       run_once: true
 
     - name: Determine patch versions list
       ansible.builtin.set_fact:
-        filtered_versions: "{{ rhn_products.results | map(attribute='file_name') | \
+        keycloak_filtered_versions: "{{ keycloak_rhn_products.results | map(attribute='file_name') | \
                                select('match', '^[^/]*/rh-sso-.*[0-9]*[.][0-9]*[.][0-9]*.*$') | \
                                map('regex_replace', '[^/]*/rh-sso-([0-9]*[.][0-9]*[.][0-9]*(-[0-9])?)-.*', '\\1') | list | unique }}"
       when: (sso_patch_version | default('', true)) | length == 0
@@ -45,25 +45,25 @@
 
     - name: Determine latest version
       ansible.builtin.set_fact:
-        sso_latest_version: "{{ filtered_versions | middleware_automation.common.version_sort | last }}"
+        keycloak_sso_latest_version: "{{ keycloak_filtered_versions | middleware_automation.common.version_sort | last }}"
       when: (sso_patch_version | default('', true)) | length == 0
       delegate_to: localhost
       run_once: true
 
     - name: Determine install zipfile from search results
       ansible.builtin.set_fact:
-        rhn_filtered_products: "{{ rhn_products.results | selectattr('file_name', 'match', '[^/]*/rh-sso-' + sso_latest_version + '-patch.zip$') }}"
-        patch_bundle: "rh-sso-{{ sso_latest_version }}-patch.zip"
-        patch_version: "{{ sso_latest_version }}"
+        keycloak_keycloak_rhn_filtered_products: "{{ keycloak_rhn_products.results | selectattr('file_name', 'match', '[^/]*/rh-sso-' + keycloak_sso_latest_version + '-patch.zip$') }}"
+        keycloak_patch_bundle: "rh-sso-{{ keycloak_sso_latest_version }}-patch.zip"
+        keycloak_patch_version: "{{ keycloak_sso_latest_version }}"
       when: (sso_patch_version | default('', true)) | length == 0
       delegate_to: localhost
       run_once: true
 
     - name: "Determine selected patch from supplied version: {{ sso_patch_version }}"
       ansible.builtin.set_fact:
-        rhn_filtered_products: "{{ rhn_products.results | selectattr('file_name', 'match', '[^/]*/' + sso_patch_bundle + '$') }}"
-        patch_bundle: "{{ sso_patch_bundle }}"
-        patch_version: "{{ sso_patch_version }}"
+        keycloak_keycloak_rhn_filtered_products: "{{ keycloak_rhn_products.results | selectattr('file_name', 'match', '[^/]*/' + sso_patch_bundle + '$') }}"
+        keycloak_patch_bundle: "{{ sso_patch_bundle }}"
+        keycloak_patch_version: "{{ sso_patch_version }}"
       when: sso_patch_version is defined
       delegate_to: localhost
       run_once: true
@@ -72,35 +72,35 @@
       middleware_automation.common.product_download: # noqa risky-file-permissions delegated, uses controller host user
         client_id: "{{ rhn_username }}"
         client_secret: "{{ rhn_password }}"
-        product_id: "{{ (rhn_filtered_products | sort | last).id }}"
-        dest: "{{ local_path.stat.path }}/{{ patch_bundle }}"
+        product_id: "{{ (keycloak_rhn_filtered_products | sort | last).id }}"
+        dest: "{{ keycloak_local_path.stat.path }}/{{ keycloak_patch_bundle }}"
       no_log: "{{ omit_rhn_output | default(true) }}"
       delegate_to: localhost
       run_once: true
 
 - name: Set download patch archive path
   ansible.builtin.set_fact:
-    patch_archive: "{{ keycloak_dest }}/{{ patch_bundle }}"
+    keycloak_patch_archive: "{{ keycloak_dest }}/{{ keycloak_patch_bundle }}"
 
 - name: Check download patch archive path
   ansible.builtin.stat:
-    path: "{{ patch_archive }}"
-  register: patch_archive_path
+    path: "{{ keycloak_patch_archive }}"
+  register: keycloak_patch_archive_path
   become: "{{ keycloak_rhsso_patch_require_privilege_escalation | default(true) }}"
 
 ## copy and unpack
 - name: Copy patch archive to target nodes
   ansible.builtin.copy:
-    src: "{{ local_path.stat.path }}/{{ patch_bundle }}"
-    dest: "{{ patch_archive }}"
+    src: "{{ keycloak_local_path.stat.path }}/{{ keycloak_patch_bundle }}"
+    dest: "{{ keycloak_patch_archive }}"
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
     mode: '0640'
-  register: new_version_downloaded
+  register: keycloak_new_version_downloaded
   when:
-    - not patch_archive_path.stat.exists
-    - local_archive_path.stat is defined
-    - local_archive_path.stat.exists
+    - not keycloak_patch_archive_path.stat.exists
+    - keycloak_local_archive_path.stat is defined
+    - keycloak_local_archive_path.stat.exists
   become: "{{ keycloak_rhsso_patch_require_privilege_escalation | default(true) }}"
 
 - name: "Check installed patches"
@@ -114,14 +114,14 @@
 
 - name: "Perform patching"
   when:
-    - cli_result is defined
-    - cli_result.stdout is defined
-    - patch_version | regex_replace('-[0-9]$', '') not in cli_result.stdout
+    - keycloak_cli_result is defined
+    - keycloak_cli_result.stdout is defined
+    - keycloak_patch_version | regex_replace('-[0-9]$', '') not in keycloak_cli_result.stdout
   block:
-    - name: "Apply patch {{ patch_version }} to server"
+    - name: "Apply patch to server: {{ keycloak_patch_version }}"
       ansible.builtin.include_tasks: rhsso_cli.yml
       vars:
-        cli_query: "patch apply {{ patch_archive }}"
+        cli_query: "patch apply {{ keycloak_patch_archive }}"
       args:
         apply:
           become: "{{ keycloak_rhsso_patch_require_privilege_escalation | default(true) }}"
@@ -132,15 +132,15 @@
       vars:
         cli_query: "shutdown --restart"
       when:
-        - cli_result.rc == 0
+        - keycloak_cli_result.rc == 0
       args:
         apply:
           become: "{{ keycloak_rhsso_patch_require_privilege_escalation | default(true) }}"
           become_user: "{{ keycloak_service_user }}"
 
-    - name: "Wait until {{ keycloak.service_name }} becomes active {{ keycloak.health_url }}"
+    - name: "Wait until service becomes active: {{ keycloak_config.service_name }}"
       ansible.builtin.uri:
-        url: "{{ keycloak.health_url }}"
+        url: "{{ keycloak_config.health_url }}"
       register: keycloak_status
       until: keycloak_status.status == 200
       retries: 25
@@ -158,14 +158,14 @@
     - name: "Verify installed patch version"
       ansible.builtin.assert:
         that:
-          - patch_version not in cli_result.stdout
+          - keycloak_patch_version not in keycloak_cli_result.stdout
         fail_msg: "Patch installation failed"
         success_msg: "Patch installation successful"
 
 - name: "Skipping patch"
   ansible.builtin.debug:
-    msg: "Cumulative patch {{ patch_version }} already installed, skipping patch installation."
+    msg: "Cumulative patch {{ keycloak_patch_version }} already installed, skipping patch installation."
   when:
-    - cli_result is defined
-    - cli_result.stdout is defined
-    - patch_version in cli_result.stdout
+    - keycloak_cli_result is defined
+    - keycloak_cli_result.stdout is defined
+    - keycloak_patch_version in keycloak_cli_result.stdout

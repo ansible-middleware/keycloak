@@ -123,13 +123,13 @@
 - name: Check service status
   ansible.builtin.systemd_service:
     name: "{{ keycloak.service_name }}"
-  register: keycloak_service_status
+  register: keycloak_quarkus_service_status
   changed_when: false
 
 - name: "Notify to remove `keycloak_quarkus_bootstrap_admin_user[_password]` env vars"
   when:
     - not ansible_local.keycloak.general.bootstrapped | default(false) | bool # it was not bootstrapped prior to the current role's execution
-    - keycloak_service_status.status.ActiveState == "active"                  # but it is now
+    - keycloak_quarkus_service_status.status.ActiveState == "active"                  # but it is now
   ansible.builtin.assert: { that: true, quiet: true }
   changed_when: true
   notify:

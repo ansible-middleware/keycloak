@@ -1,24 +1,24 @@
 ---
 - name: "Check if packages are already installed" # noqa command-instead-of-module this runs faster
   ansible.builtin.command: "rpm -q {{ packages_list | join(' ') }}"
-  register: rpm_info
+  register: keycloak_quarkus_rpm_info
   changed_when: false
   failed_when: false
   when: ansible_facts.os_family == "RedHat"
 
 - name: "Add missing packages to the yum install list"
   ansible.builtin.set_fact:
-    packages_to_install: "{{ packages_to_install | default([]) + rpm_info.stdout_lines | \
+    keycloak_quarkus_packages_to_install: "{{ keycloak_quarkus_packages_to_install | default([]) + keycloak_quarkus_rpm_info.stdout_lines | \
                              map('regex_findall', 'package (.+) is not installed$') | default([]) | flatten }}"
   when: ansible_facts.os_family == "RedHat"
 
-- name: "Install packages: {{ packages_to_install }}"
+- name: "Install packages: {{ keycloak_quarkus_packages_to_install }}"
   become: "{{ keycloak_quarkus_fastpackages_require_privilege_escalation | default(true) }}"
   ansible.builtin.dnf:
-    name: "{{ packages_to_install }}"
+    name: "{{ keycloak_quarkus_packages_to_install }}"
     state: present
   when:
-    - packages_to_install | default([]) | length > 0
+    - keycloak_quarkus_packages_to_install | default([]) | length > 0
     - ansible_facts.os_family == "RedHat"
 
 - name: "Install packages: {{ packages_list }}"

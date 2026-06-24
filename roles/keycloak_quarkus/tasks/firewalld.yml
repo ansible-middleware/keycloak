@@ -12,7 +12,7 @@
     enabled: true
     state: started
 
-- name: "Configure firewall for {{ keycloak.service_name }} http port"
+- name: "Configure firewall for http port: {{ keycloak.service_name }}"
   become: "{{ keycloak_quarkus_firewalld_require_privilege_escalation | default(true) }}"
   ansible.posix.firewalld:
     port: "{{ item }}"
@@ -23,7 +23,7 @@
     - "{{ keycloak_quarkus_http_port }}/tcp"
   when: keycloak_quarkus_http_enabled | bool
 
-- name: "Configure firewall for {{ keycloak.service_name }} ports"
+- name: "Configure firewall for ports: {{ keycloak.service_name }}"
   become: "{{ keycloak_quarkus_firewalld_require_privilege_escalation | default(true) }}"
   ansible.posix.firewalld:
     port: "{{ item }}"

@@ -12,7 +12,7 @@
     enabled: true
     state: started
 
-- name: "Configure firewall ports for {{ keycloak.service_name }}"
+- name: "Configure firewall ports for {{ keycloak_config.service_name }}"
   become: "{{ keycloak_firewalld_require_privilege_escalation | default(true) }}"
   ansible.posix.firewalld:
     port: "{{ item }}"

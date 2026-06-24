@@ -8,25 +8,25 @@
       - keycloak_quarkus_archive is defined
       - keycloak_quarkus_download_url is defined
       - keycloak_quarkus_version is defined
-      - local_path is defined
+      - keycloak_quarkus_local_path is defined
     quiet: true
 
 - name: Check for an existing deployment
   become: "{{ keycloak_quarkus_install_require_privilege_escalation | default(true) }}"
   ansible.builtin.stat:
     path: "{{ keycloak.home }}"
-  register: existing_deploy
+  register: keycloak_quarkus_existing_deploy
 
 - name: Stop and restart if existing deployment exists and install forced
-  when: existing_deploy.stat.exists and keycloak_quarkus_force_install | bool
+  when: keycloak_quarkus_existing_deploy.stat.exists and keycloak_quarkus_force_install | bool
   block:
-    - name: "Stop the old {{ keycloak.service_name }} service"
+    - name: "Stop the old service: {{ keycloak.service_name }}"
       become: "{{ keycloak_quarkus_install_require_privilege_escalation | default(true) }}"
       failed_when: false
       ansible.builtin.systemd:
         name: keycloak
         state: stopped
-    - name: "Remove the old {{ keycloak.service_name }} deployment"
+    - name: "Remove the old deployment: {{ keycloak.service_name }}"
       become: "{{ keycloak_quarkus_install_require_privilege_escalation | default(true) }}"
       ansible.builtin.file:
         path: "{{ keycloak_quarkus_home }}"
@@ -36,9 +36,9 @@
   become: "{{ keycloak_quarkus_install_require_privilege_escalation | default(true) }}"
   ansible.builtin.stat:
     path: "{{ keycloak_quarkus_home }}"
-  register: existing_deploy
+  register: keycloak_quarkus_existing_deploy
 
-- name: "Create {{ keycloak.service_name }} service user/group"
+- name: "Create service user/group: {{ keycloak.service_name }}"
   become: "{{ keycloak_quarkus_install_require_privilege_escalation | default(true) }}"
   ansible.builtin.user:
     name: "{{ keycloak.service_user }}"
@@ -46,7 +46,7 @@
     system: true
     create_home: false
 
-- name: "Create {{ keycloak.service_name }} install location"
+- name: "Create install location: {{ keycloak.service_name }}"
   become: "{{ keycloak_quarkus_install_require_privilege_escalation | default(true) }}"
   ansible.builtin.file:
     dest: "{{ keycloak_quarkus_dest }}"
@@ -65,29 +65,30 @@
 ## check remote archive
 - name: Set download archive path
   ansible.builtin.set_fact:
-    archive: "{{ keycloak_quarkus_dest }}/{{ keycloak.bundle }}"
+    keycloak_quarkus_archive_full_path: "{{ keycloak_quarkus_dest }}/{{ keycloak.bundle }}"
 
 - name: Check download archive path
   become: "{{ keycloak_quarkus_install_require_privilege_escalation | default(true) }}"
   ansible.builtin.stat:
-    path: "{{ archive }}"
-  register: archive_path
+    path: "{{ keycloak_quarkus_archive_full_path }}"
+  register: keycloak_quarkus_archive_path
 
 ## download to controller
 - name: Download keycloak archive
   ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
     url: "{{ keycloak_quarkus_download_url }}"
-    dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
+    dest: "{{ keycloak_quarkus_local_path.stat.path }}/{{ keycloak.bundle }}"
     mode: '0640'
     url_username: "{{ keycloak_quarkus_binary_download_user | default(omit) }}"
     url_password: "{{ keycloak_quarkus_binary_download_pass | default(omit) }}"
+    validate_certs: false
   delegate_to: localhost
   become: false
   run_once: true
   when:
-    - archive_path is defined
-    - archive_path.stat is defined
-    - not archive_path.stat.exists
+    - keycloak_quarkus_archive_path is defined
+    - keycloak_quarkus_archive_path.stat is defined
+    - not keycloak_quarkus_archive_path.stat.exists
     - not keycloak.offline_install
     - not rhbk_enable is defined or not rhbk_enable
 
@@ -95,9 +96,9 @@
   delegate_to: localhost
   run_once: true
   when:
-    - archive_path is defined
-    - archive_path.stat is defined
-    - not archive_path.stat.exists
+    - keycloak_quarkus_archive_path is defined
+    - keycloak_quarkus_archive_path.stat is defined
+    - not keycloak_quarkus_archive_path.stat.exists
     - rhbk_enable is defined and rhbk_enable
     - not keycloak.offline_install
     - keycloak_quarkus_alternate_download_url is undefined
@@ -109,14 +110,14 @@
         product_type: DISTRIBUTION
         product_version: "{{ rhbk_version }}"
         product_category: "{{ rhbk_product_category }}"
-      register: rhn_products
+      register: keycloak_quarkus_rhn_products
       no_log: "{{ omit_rhn_output | default(true) }}"
       delegate_to: localhost
       run_once: true
 
     - name: Determine install zipfile from search results
       ansible.builtin.set_fact:
-        rhn_filtered_products: "{{ rhn_products.results | selectattr('file_name', 'match', '[^/]*/' + rhbk_archive + '$') }}"
+        keycloak_quarkus_rhn_filtered_products: "{{ keycloak_quarkus_rhn_products.results | selectattr('file_name', 'match', '[^/]*/' + rhbk_archive + '$') }}"
       delegate_to: localhost
       run_once: true
 
@@ -125,7 +126,7 @@
         client_id: "{{ rhn_username }}"
         client_secret: "{{ rhn_password }}"
         product_id: "{{ (rhn_filtered_products | first).id }}"
-        dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
+        dest: "{{ keycloak_quarkus_local_path.stat.path }}/{{ keycloak.bundle }}"
         mode: '0640'
       no_log: "{{ omit_rhn_output | default(true) }}"
       delegate_to: localhost
@@ -137,15 +138,15 @@
   run_once: true
   become: false
   when:
-    - archive_path is defined
-    - archive_path.stat is defined
-    - not archive_path.stat.exists
+    - keycloak_quarkus_archive_path is defined
+    - keycloak_quarkus_archive_path.stat is defined
+    - not keycloak_quarkus_archive_path.stat.exists
     - rhbk_enable is defined and rhbk_enable
     - not keycloak.offline_install
     - keycloak_quarkus_alternate_download_url is defined
   ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
     url: "{{ keycloak_quarkus_alternate_download_url }}"
-    dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
+    dest: "{{ keycloak_quarkus_local_path.stat.path }}/{{ keycloak.bundle }}"
     mode: '0640'
     url_username: "{{ keycloak_quarkus_download_user | default(omit) }}"
     url_password: "{{ keycloak_quarkus_download_pass | default(omit) }}"
@@ -153,8 +154,8 @@
 
 - name: Check downloaded archive
   ansible.builtin.stat:
-    path: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
-  register: local_archive_path
+    path: "{{ keycloak_quarkus_local_path.stat.path }}/{{ keycloak.bundle }}"
+  register: keycloak_quarkus_local_archive_path
   delegate_to: localhost
   become: false
   run_once: true
@@ -162,35 +163,35 @@
 ## copy and unpack
 - name: Copy archive to target nodes
   ansible.builtin.copy:
-    src: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
-    dest: "{{ archive }}"
+    src: "{{ keycloak_quarkus_local_path.stat.path }}/{{ keycloak.bundle }}"
+    dest: "{{ keycloak_quarkus_archive_full_path }}"
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
     mode: '0640'
-  register: new_version_downloaded
+  register: keycloak_quarkus_new_version_downloaded
   when:
-    - not archive_path.stat.exists
-    - local_archive_path.stat is defined
-    - local_archive_path.stat.exists
+    - not keycloak_quarkus_archive_path.stat.exists
+    - keycloak_quarkus_local_archive_path.stat is defined
+    - keycloak_quarkus_local_archive_path.stat.exists
   become: "{{ keycloak_quarkus_install_require_privilege_escalation | default(true) }}"
 
-- name: "Check target directory: {{ keycloak.home }}/bin/"
+- name: "Check target directory /bin/: {{ keycloak.home }}"
   ansible.builtin.stat:
     path: "{{ keycloak.home }}/bin/"
-  register: path_to_workdir
+  register: keycloak_quarkus_path_to_workdir
   become: "{{ keycloak_quarkus_install_require_privilege_escalation | default(true) }}"
 
 - name: "Extract Keycloak archive on target" # noqa no-handler need to run this here
   ansible.builtin.unarchive:
     remote_src: true
-    src: "{{ archive }}"
+    src: "{{ keycloak_quarkus_archive_full_path }}"
     dest: "{{ keycloak_quarkus_dest }}"
     creates: "{{ keycloak.home }}/bin/"
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
   become: "{{ keycloak_quarkus_install_require_privilege_escalation | default(true) }}"
   when:
-    - (not path_to_workdir.stat.exists) or new_version_downloaded.changed
+    - (not keycloak_quarkus_path_to_workdir.stat.exists) or keycloak_quarkus_new_version_downloaded.changed
   notify:
     - restart keycloak
 
@@ -198,7 +199,7 @@
   ansible.builtin.debug:
     msg: "{{ keycloak.home }} already exists and version unchanged, skipping decompression"
   when:
-    - (not new_version_downloaded.changed) and path_to_workdir.stat.exists
+    - (not keycloak_quarkus_new_version_downloaded.changed) and keycloak_quarkus_path_to_workdir.stat.exists
 
 - name: "Copy private key to target"
   ansible.builtin.copy:
@@ -226,7 +227,7 @@
     - keycloak_quarkus_cert_file_copy_enabled is defined and keycloak_quarkus_cert_file_copy_enabled
     - keycloak_quarkus_cert_file_src | length > 0
 
-- name: "Install {{ keycloak_quarkus_db_engine }} JDBC driver"
+- name: "Install JDBC driver: {{ keycloak_quarkus_db_engine }}"
   ansible.builtin.include_tasks: jdbc_driver.yml
   when:
     - rhbk_enable is defined and rhbk_enable
@@ -254,7 +255,7 @@
     version: "{{ item.maven.version | default(omit) }}"
     username: "{{ item.maven.username | default(omit) }}"
     password: "{{ item.maven.password | default(omit) }}"
-    dest: "{{ local_path.stat.path }}/{{ item.id }}.jar"
+    dest: "{{ keycloak_quarkus_local_path.stat.path }}/{{ item.id }}.jar"
   delegate_to: "localhost"
   run_once: true
   loop: "{{ keycloak_quarkus_providers }}"
@@ -263,7 +264,7 @@
 
 - name: "Copy maven providers"
   ansible.builtin.copy:
-    src: "{{ local_path.stat.path }}/{{ item.id }}.jar"
+    src: "{{ keycloak_quarkus_local_path.stat.path }}/{{ item.id }}.jar"
     dest: "{{ keycloak.home }}/providers/{{ item.id }}.jar"
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"

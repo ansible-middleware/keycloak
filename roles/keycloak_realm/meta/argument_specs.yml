@@ -1,94 +1,94 @@
 argument_specs:
     main:
         options:
-            keycloak_host:
+            keycloak_realm_host:
                 # line 3 of keycloak_realm/defaults/main.yml
                 default: "localhost"
                 description: "Hostname for rest calls"
                 type: "str"
-            keycloak_context:
+            keycloak_realm_context:
                 # line 5 of keycloak_realm/defaults/main.yml
                 default: ""
                 description: "Context path for rest calls (was /auth for legacy WildFly-based Keycloak, empty for Quarkus-based Keycloak/RHBK)"
                 type: "str"
-            keycloak_http_port:
+            keycloak_realm_http_port:
                 # line 4 of keycloak_realm/defaults/main.yml
                 default: 8080
                 description: "HTTP port"
                 type: "int"
-            keycloak_https_port:
+            keycloak_realm_https_port:
                 # line 5 of keycloak_realm/defaults/main.yml
                 default: 8443
                 description: "HTTPS port"
                 type: "int"
-            keycloak_management_http_port:
+            keycloak_realm_management_http_port:
                 # line 6 of keycloak_realm/defaults/main.yml
                 default: 9990
                 description: "Management port"
                 type: "int"
-            keycloak_admin_user:
+            keycloak_realm_admin_user:
                 # line 10 of keycloak_realm/defaults/main.yml
                 default: "admin"
                 description: "Administration console user account"
                 type: "str"
-            keycloak_auth_realm:
+            keycloak_realm_auth_realm:
                 # line 11 of keycloak_realm/defaults/main.yml
                 default: "master"
                 description: "Name of the main authentication realm"
                 type: "str"
-            keycloak_auth_client:
+            keycloak_realm_auth_client:
                 # line 12 of keycloak_realm/defaults/main.yml
                 default: "admin-cli"
                 description: "Authentication client for configuration REST calls"
                 type: "str"
-            keycloak_client_default_roles:
+            keycloak_realm_client_default_roles:
                 # line 36 of keycloak_realm/defaults/main.yml
                 default: "[]"
                 description: "List of roles to configure as client default"
                 type: "list"
-            keycloak_client_public:
+            keycloak_realm_client_public:
                 # line 39 of keycloak_realm/defaults/main.yml
                 default: true
                 description: "Configure a public realm client"
                 type: "bool"
-            keycloak_client_web_origins:
+            keycloak_realm_client_web_origins:
                 # line 42 of keycloak_realm/defaults/main.yml
                 default: "/*"
                 description: "Web origins for realm client"
                 type: "str"
-            keycloak_client_users:
+            keycloak_realm_client_users:
                 # line 49 of keycloak_realm/defaults/main.yml
                 default: "[]"
                 description: "List of users to configure in the realm client"
                 type: "list"
-            keycloak_user_federation:
+            keycloak_realm_user_federation:
                 # line 52 of keycloak_realm/defaults/main.yml
                 default: "[]"
                 description: "List of user federations to configure in the realm"
                 type: "list"
-            keycloak_admin_password:
+            keycloak_realm_admin_password:
                 # line 5 of keycloak_realm/vars/main.yml
                 required: true
                 description: "Password for the administration console user account"
                 type: "str"
-            keycloak_realm:
+            keycloak_realm_realm:
                 # line 8 of keycloak_realm/vars/main.yml
                 required: true
                 description: "Name of the realm to be configured"
                 type: "str"
-            keycloak_clients:
+            keycloak_realm_clients:
                 # line 11 of keycloak_realm/vars/main.yml
                 default: "[]"
                 description: "List of client declarations for the realm"
                 type: "list"
-            keycloak_url:
+            keycloak_realm_url:
                 # line 14 of keycloak_realm/vars/main.yml
-                default: "http://{{ keycloak_host }}:{{ keycloak_http_port + ( keycloak_jboss_port_offset | default(0) ) }}"
+                default: "http://{{ keycloak_realm_host }}:{{ keycloak_realm_http_port + ( keycloak_realm_jboss_port_offset | default(0) ) }}"
                 description: "URL for configuration rest calls"
                 type: "str"
-            keycloak_management_url:
+            keycloak_realm_management_url:
                 # line 15 of keycloak_realm/vars/main.yml
-                default: "http://{{ keycloak_host }}:{{ keycloak_management_http_port + ( keycloak_jboss_port_offset | default(0) ) }}"
+                default: "http://{{ keycloak_realm_host }}:{{ keycloak_realm_management_http_port + ( keycloak_realm_jboss_port_offset | default(0) ) }}"
                 description: "URL for management console rest calls"
                 type: "str"
     downstream:

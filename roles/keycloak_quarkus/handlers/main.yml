@@ -1,9 +1,9 @@
 ---
-- name: "Invalidate {{ keycloak.service_name }} theme cache"
+- name: "Invalidate theme cache: {{ keycloak.service_name }}"
   ansible.builtin.include_tasks: invalidate_theme_cache.yml
   listen: "invalidate keycloak theme cache"
 # handler should be invoked anytime a [build configuration](https://www.keycloak.org/server/all-config?f=build) changes
-- name: "Rebuild {{ keycloak.service_name }} config"
+- name: "Rebuild config: {{ keycloak.service_name }}"
   ansible.builtin.include_tasks: rebuild_config.yml
   listen: "rebuild keycloak config"
 - name: "Bootstrapped"
@@ -15,7 +15,7 @@
   listen: "restart keycloak"
 - name: "Display deprecation warning"
   ansible.builtin.fail:
-    msg: "Deprecation warning: you are using the deprecated variable '{{ deprecated_variable | d('NotSet') }}', check docs on how to upgrade."
+    msg: "Deprecation warning: you are using the deprecated variable '{{ keycloak_quarkus_deprecated_variable | d('NotSet') }}', check docs on how to upgrade."
   failed_when: false
   changed_when: true
   listen: "print deprecation warning"

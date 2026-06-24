@@ -2,7 +2,7 @@
 - name: "Check module directory: {{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_dir }}"
   ansible.builtin.stat:
     path: "{{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_dir }}"
-  register: dest_path
+  register: keycloak_dest_path
   become: "{{ keycloak_jdbc_driver_require_privilege_escalation | default(true) }}"
 
 - name: "Set up module dir for JDBC Driver {{ keycloak_jdbc[keycloak_jdbc_engine].driver_module_name }}"

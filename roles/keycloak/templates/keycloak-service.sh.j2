@@ -17,7 +17,7 @@ checkEnvVar() {
 #  for testing outside systemd
 . /etc/sysconfig/keycloak
 
-readonly KEYCLOAK_HOME={{ keycloak.home }}
+readonly KEYCLOAK_HOME={{ keycloak_config.home }}
 readonly KEYCLOAK_BIND_ADDRESS=${KEYCLOAK_BIND_ADDRESS}
 readonly KEYCLOAK_HTTP_PORT=${KEYCLOAK_HTTP_PORT}
 readonly KEYCLOAK_HTTPS_PORT=${KEYCLOAK_HTTPS_PORT}

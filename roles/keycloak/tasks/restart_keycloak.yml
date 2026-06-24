@@ -1,5 +1,5 @@
 ---
-- name: "Restart and enable {{ keycloak.service_name }} service"
+- name: "Restart and enable service: {{ keycloak_config.service_name }}"
   ansible.builtin.systemd:
     name: keycloak
     enabled: true
@@ -9,9 +9,9 @@
   delegate_to: "{{ ansible_play_hosts | first }}"
   run_once: true
 
-- name: "Wait until {{ keycloak.service_name }} becomes active {{ keycloak.health_url }}"
+- name: "Wait until service becomes active: {{ keycloak_config.service_name }}"
   ansible.builtin.uri:
-    url: "{{ keycloak.health_url }}"
+    url: "{{ keycloak_config.health_url }}"
   register: keycloak_status
   until: keycloak_status.status == 200
   delegate_to: "{{ ansible_play_hosts | first }}"
@@ -19,7 +19,7 @@
   retries: "{{ keycloak_service_start_retries }}"
   delay: "{{ keycloak_service_start_delay }}"
 
-- name: "Restart and enable {{ keycloak.service_name }} service"
+- name: "Restart and enable service (remaining nodes): {{ keycloak_config.service_name }}"
   ansible.builtin.systemd:
     name: keycloak
     enabled: true

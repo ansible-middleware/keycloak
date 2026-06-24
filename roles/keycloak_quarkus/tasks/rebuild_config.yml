@@ -1,6 +1,6 @@
 ---
 # cf. https://www.keycloak.org/server/configuration#_optimize_the_keycloak_startup
-- name: "Rebuild {{ keycloak.service_name }} config"
+- name: "Rebuild config: {{ keycloak.service_name }}"
   ansible.builtin.shell: | # noqa blocked_modules shell is necessary here
     env -i bash -c "set -a ; source {{ keycloak_quarkus_sysconf_file }} ; {{ keycloak.home }}/bin/kc.sh build "
   become: "{{ keycloak_quarkus_rebuild_config_require_privilege_escalation | default(true) }}"

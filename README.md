@@ -155,11 +155,11 @@ Note: when deploying clustered configurations, all hosts belonging to the cluste
 Execute the following command from the source root directory:
 
 ```bash
-ansible-playbook -i <ansible_hosts> playbooks/keycloak_realm.yml -e keycloak_admin_password=<changeme> -e keycloak_realm=test
+ansible-playbook -i <ansible_hosts> playbooks/keycloak_realm.yml -e keycloak_realm_admin_password=<changeme> -e keycloak_realm_realm=test
 ```
 
-- `keycloak_admin_password` password for the administration console user account.
-- `keycloak_realm` name of the realm to be created/used.
+- `keycloak_realm_admin_password` password for the administration console user account.
+- `keycloak_realm_realm` name of the realm to be created/used.
 - `ansible_hosts` is the inventory, below is an example inventory for deploying to localhost
 
   ```

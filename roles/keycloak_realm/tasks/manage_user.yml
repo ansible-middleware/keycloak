@@ -1,15 +1,15 @@
 ---
 - name: "Check if User Already Exists"
   ansible.builtin.uri:
-    url: "{{ keycloak_url }}{{ keycloak_context }}/admin/realms/{{ keycloak_realm }}/users?username={{ user.username }}"
+    url: "{{ keycloak_realm_url }}{{ keycloak_realm_context }}/admin/realms/{{ keycloak_realm_realm }}/users?username={{ user.username }}"
     validate_certs: false
     headers:
-      Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
-  register: keycloak_user_search_result
+      Authorization: "Bearer {{ keycloak_realm_auth_response.json.access_token }}"
+  register: keycloak_realm_user_search_result
 
 - name: "Create User"
   ansible.builtin.uri:
-    url: "{{ keycloak_url }}{{ keycloak_context }}/admin/realms/{{ keycloak_realm }}/users"
+    url: "{{ keycloak_realm_url }}{{ keycloak_realm_context }}/admin/realms/{{ keycloak_realm_realm }}/users"
     method: POST
     body:
       enabled: true
@@ -21,21 +21,21 @@
     validate_certs: false
     body_format: json
     headers:
-      Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
+      Authorization: "Bearer {{ keycloak_realm_auth_response.json.access_token }}"
     status_code: 201
-  when: keycloak_user_search_result.json | length == 0
+  when: keycloak_realm_user_search_result.json | length == 0
 
 - name: "Get User"
   ansible.builtin.uri:
-    url: "{{ keycloak_url }}{{ keycloak_context }}/admin/realms/{{ keycloak_realm }}/users?username={{ user.username }}"
+    url: "{{ keycloak_realm_url }}{{ keycloak_realm_context }}/admin/realms/{{ keycloak_realm_realm }}/users?username={{ user.username }}"
     validate_certs: false
     headers:
-      Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
-  register: keycloak_user
+      Authorization: "Bearer {{ keycloak_realm_auth_response.json.access_token }}"
+  register: keycloak_realm_user
 
 - name: "Update User Password"
   ansible.builtin.uri:
-    url: "{{ keycloak_url }}{{ keycloak_context }}/admin/realms/{{ keycloak_realm }}/users/{{ (keycloak_user.json | first).id }}/reset-password"
+    url: "{{ keycloak_realm_url }}{{ keycloak_realm_context }}/admin/realms/{{ keycloak_realm_realm }}/users/{{ (keycloak_realm_user.json | first).id }}/reset-password"
     method: PUT
     body:
       type: password
@@ -47,5 +47,5 @@
       - 200
       - 204
     headers:
-      Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
-  register: keycloak_user
+      Authorization: "Bearer {{ keycloak_realm_auth_response.json.access_token }}"
+  register: keycloak_realm_user

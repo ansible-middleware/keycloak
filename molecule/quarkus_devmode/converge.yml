@@ -7,7 +7,7 @@
     keycloak_quarkus_show_deprecation_warnings: false
     keycloak_quarkus_bootstrap_admin_password: "remembertochangeme"
     keycloak_quarkus_bootstrap_admin_user: "remembertochangeme"
-    keycloak_realm: TestRealm
+    keycloak_realm_realm: TestRealm
     keycloak_quarkus_log: file
     keycloak_quarkus_hostname: 'http://localhost:8080'
     keycloak_quarkus_start_dev: True
@@ -18,34 +18,34 @@
   roles:
     - role: keycloak_quarkus
     - role: keycloak_realm
-      keycloak_url: "{{ keycloak_quarkus_hostname }}"
-      keycloak_admin_user: "{{ keycloak_quarkus_bootstrap_admin_user }}"
-      keycloak_admin_password: "{{ keycloak_quarkus_bootstrap_admin_password }}"
-      keycloak_client_default_roles:
+      keycloak_realm_url: "{{ keycloak_quarkus_hostname }}"
+      keycloak_realm_admin_user: "{{ keycloak_quarkus_bootstrap_admin_user }}"
+      keycloak_realm_admin_password: "{{ keycloak_quarkus_bootstrap_admin_password }}"
+      keycloak_realm_client_default_roles:
         - TestRoleAdmin
         - TestRoleUser
-      keycloak_client_users:
+      keycloak_realm_client_users:
         - username: TestUser
           password: password
           client_roles:
             - client: TestClient
               role: TestRoleUser
-              realm: "{{ keycloak_realm }}"
+              realm: "{{ keycloak_realm_realm }}"
         - username: TestAdmin
           password: password
           client_roles:
             - client: TestClient
               role: TestRoleUser
-              realm: "{{ keycloak_realm }}"
+              realm: "{{ keycloak_realm_realm }}"
             - client: TestClient
               role: TestRoleAdmin
-              realm: "{{ keycloak_realm }}"
-      keycloak_realm: TestRealm
-      keycloak_clients:
+              realm: "{{ keycloak_realm_realm }}"
+      keycloak_realm_realm: TestRealm
+      keycloak_realm_clients:
         - name: TestClient
-          roles: "{{ keycloak_client_default_roles }}"
-          realm: "{{ keycloak_realm }}"
-          public_client: "{{ keycloak_client_public }}"
-          web_origins: "{{ keycloak_client_web_origins }}"
-          users: "{{ keycloak_client_users }}"
+          roles: "{{ keycloak_realm_client_default_roles }}"
+          realm: "{{ keycloak_realm_realm }}"
+          public_client: "{{ keycloak_realm_client_public }}"
+          web_origins: "{{ keycloak_realm_client_web_origins }}"
+          users: "{{ keycloak_realm_client_users }}"
           client_id: TestClient

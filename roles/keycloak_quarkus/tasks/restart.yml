@@ -1,5 +1,5 @@
 ---
-- name: "Restart and enable {{ keycloak.service_name }} service"
+- name: "Restart and enable service: {{ keycloak.service_name }}"
   ansible.builtin.systemd:
     name: "{{ keycloak.service_name }}"
     enabled: true
@@ -7,11 +7,11 @@
     daemon_reload: true
   become: "{{ keycloak_quarkus_restart_require_privilege_escalation | default(true) }}"
 
-- name: "Wait until {{ keycloak.service_name }} service becomes active {{ keycloak.health_url }}"
+- name: "Wait until service becomes active: {{ keycloak.service_name }}"
   ansible.builtin.uri:
     url: "{{ keycloak.health_url }}"
-  register: keycloak_status
-  until: keycloak_status.status == 200
+  register: keycloak_quarkus_status
+  until: keycloak_quarkus_status.status == 200
   retries: "{{ keycloak_quarkus_restart_health_check_retries }}"
   delay: "{{ keycloak_quarkus_restart_health_check_delay }}"
   when: internal_force_health_check | default(keycloak_quarkus_restart_health_check)

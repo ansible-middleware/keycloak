@@ -1,20 +1,20 @@
 ---
 - name: "Get Realm for role"
   ansible.builtin.uri:
-    url: "{{ keycloak_url }}{{ keycloak_context }}/admin/realms/{{ client_role.realm | default(keycloak_realm) }}"
+    url: "{{ keycloak_realm_url }}{{ keycloak_realm_context }}/admin/realms/{{ client_role.realm | default(keycloak_realm_realm) }}"
     method: GET
     validate_certs: false
     status_code:
       - 200
     headers:
       Accept: "application/json"
-      Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
-  register: client_role_realm
+      Authorization: "Bearer {{ keycloak_realm_auth_response.json.access_token }}"
+  register: keycloak_realm_client_role_realm
 
 - name: Check if Mapping is available
   ansible.builtin.uri:
-    url: "{{ keycloak_url }}{{ keycloak_context }}/admin/realms/{{ client_role.realm | \
-          default(keycloak_realm) }}/users/{{ (keycloak_user.json | first).id }}/role-mappings/clients/{{ (create_client_result.results | \
+    url: "{{ keycloak_realm_url }}{{ keycloak_realm_context }}/admin/realms/{{ client_role.realm | \
+          default(keycloak_realm_realm) }}/users/{{ (keycloak_realm_user.json | first).id }}/role-mappings/clients/{{ (keycloak_realm_create_client_result.results | \
           selectattr('end_state.clientId', 'equalto', client_role.client) | list | first).end_state.id }}/available"
     method: GET
     validate_certs: false
@@ -22,13 +22,13 @@
       - 200
     headers:
       Accept: "application/json"
-      Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
-  register: client_role_user_available
+      Authorization: "Bearer {{ keycloak_realm_auth_response.json.access_token }}"
+  register: keycloak_realm_client_role_user_available
 
 - name: "Create Role Mapping"
   ansible.builtin.uri:
-    url: "{{ keycloak_url }}{{ keycloak_context }}/admin/realms/{{ client_role.realm | \
-          default(keycloak_realm) }}/users/{{ (keycloak_user.json | first).id }}/role-mappings/clients/{{ (create_client_result.results | \
+    url: "{{ keycloak_realm_url }}{{ keycloak_realm_context }}/admin/realms/{{ client_role.realm | \
+          default(keycloak_realm_realm) }}/users/{{ (keycloak_realm_user.json | first).id }}/role-mappings/clients/{{ (keycloak_realm_create_client_result.results | \
           selectattr('end_state.clientId', 'equalto', client_role.client) | list | first).end_state.id }}"
     method: POST
     body:
@@ -40,7 +40,7 @@
     validate_certs: false
     body_format: json
     headers:
-      Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
+      Authorization: "Bearer {{ keycloak_realm_auth_response.json.access_token }}"
     status_code: 204
-  loop: "{{ client_role_user_available.json | flatten }}"
+  loop: "{{ keycloak_realm_client_role_user_available.json | flatten }}"
   when: item.name == client_role.role

@@ -2,8 +2,8 @@
 - name: Playbook for Keycloak Hosts
   hosts: all
   vars:
-    keycloak_admin_password: "remembertochangeme"
-    keycloak_clients:
+    keycloak_realm_admin_password: "remembertochangeme"
+    keycloak_realm_clients:
       - name: TestClient1
         client_id: TestClient1
         roles:
@@ -23,4 +23,4 @@
                 realm: TestRealm
   roles:
     - role: middleware_automation.keycloak.keycloak_realm
-      keycloak_realm: TestRealm
+      keycloak_realm_realm: TestRealm

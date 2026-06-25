@@ -2,7 +2,9 @@
 # BSD 2-Clause license (see LICENSES/BSD-2-Clause.txt)
 # SPDX-License-Identifier: BSD-2-Clause
 
+from __future__ import (absolute_import, division, print_function)
 from __future__ import annotations
+__metaclass__ = type
 
 import copy
 import json

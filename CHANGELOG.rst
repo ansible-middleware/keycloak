@@ -6,6 +6,21 @@ middleware\_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v3.0.10
+=======
+
+Major Changes
+-------------
+
+- Fixing linting issues `#357 <https://github.com/ansible-middleware/keycloak/pull/357>`_
+
+Minor Changes
+-------------
+
+- AMW-571 keycloak_identity_provider hide_on_login_page not working `#356 <https://github.com/ansible-middleware/keycloak/pull/356>`_
+- Fixing vars naming issue `#359 <https://github.com/ansible-middleware/keycloak/pull/359>`_
+- Removing from __future__ import annotations broke runtime type hints using Sequence and union syntax, causing sanity import failures and molecule module errors `#358 <https://github.com/ansible-middleware/keycloak/pull/358>`_
+
 v3.0.9
 ======
 

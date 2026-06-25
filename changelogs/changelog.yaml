@@ -674,6 +674,30 @@ releases:
     - 276.yaml
     - 277.yaml
     release_date: '2025-05-02'
+  3.0.10:
+    changes:
+      major_changes:
+      - 'Fixing linting issues `#357 <https://github.com/ansible-middleware/keycloak/pull/357>`_
+
+        '
+      minor_changes:
+      - 'AMW-571 keycloak_identity_provider hide_on_login_page not working `#356 <https://github.com/ansible-middleware/keycloak/pull/356>`_
+
+        '
+      - 'Fixing vars naming issue `#359 <https://github.com/ansible-middleware/keycloak/pull/359>`_
+
+        '
+      - 'Removing from __future__ import annotations broke runtime type hints using
+        Sequence and union syntax, causing sanity import failures and molecule module
+        errors `#358 <https://github.com/ansible-middleware/keycloak/pull/358>`_
+
+        '
+    fragments:
+    - 356.yaml
+    - 357.yaml
+    - 358.yaml
+    - 359.yaml
+    release_date: '2026-06-25'
   3.0.2:
     changes:
       bugfixes:

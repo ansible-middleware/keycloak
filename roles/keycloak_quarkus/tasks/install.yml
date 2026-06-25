@@ -110,6 +110,7 @@
         product_type: DISTRIBUTION
         product_version: "{{ rhbk_version }}"
         product_category: "{{ rhbk_product_category }}"
+        validate_certs: false
       register: keycloak_quarkus_rhn_products
       no_log: "{{ omit_rhn_output | default(true) }}"
       delegate_to: localhost
@@ -125,9 +126,10 @@
       middleware_automation.common.product_download: # noqa risky-file-permissions delegated, uses controller host user
         client_id: "{{ rhn_username }}"
         client_secret: "{{ rhn_password }}"
-        product_id: "{{ (rhn_filtered_products | first).id }}"
+        product_id: "{{ (keycloak_quarkus_rhn_filtered_products | first).id }}"
         dest: "{{ keycloak_quarkus_local_path.stat.path }}/{{ keycloak.bundle }}"
         mode: '0640'
+        validate_certs: false
       no_log: "{{ omit_rhn_output | default(true) }}"
       delegate_to: localhost
       run_once: true

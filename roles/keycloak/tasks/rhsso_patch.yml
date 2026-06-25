@@ -29,6 +29,7 @@
         product_type: BUGFIX
         product_version: "{{ sso_version.split('.')[:2] | join('.') }}"
         product_category: "{{ sso_product_category }}"
+        validate_certs: false
       register: keycloak_rhn_products
       no_log: "{{ omit_rhn_output | default(true) }}"
       delegate_to: localhost
@@ -52,7 +53,7 @@
 
     - name: Determine install zipfile from search results
       ansible.builtin.set_fact:
-        keycloak_keycloak_rhn_filtered_products: "{{ keycloak_rhn_products.results | selectattr('file_name', 'match', '[^/]*/rh-sso-' + keycloak_sso_latest_version + '-patch.zip$') }}"
+        keycloak_rhn_filtered_products: "{{ keycloak_rhn_products.results | selectattr('file_name', 'match', '[^/]*/rh-sso-' + keycloak_sso_latest_version + '-patch.zip$') }}"
         keycloak_patch_bundle: "rh-sso-{{ keycloak_sso_latest_version }}-patch.zip"
         keycloak_patch_version: "{{ keycloak_sso_latest_version }}"
       when: (sso_patch_version | default('', true)) | length == 0
@@ -61,7 +62,7 @@
 
     - name: "Determine selected patch from supplied version: {{ sso_patch_version }}"
       ansible.builtin.set_fact:
-        keycloak_keycloak_rhn_filtered_products: "{{ keycloak_rhn_products.results | selectattr('file_name', 'match', '[^/]*/' + sso_patch_bundle + '$') }}"
+        keycloak_rhn_filtered_products: "{{ keycloak_rhn_products.results | selectattr('file_name', 'match', '[^/]*/' + sso_patch_bundle + '$') }}"
         keycloak_patch_bundle: "{{ sso_patch_bundle }}"
         keycloak_patch_version: "{{ sso_patch_version }}"
       when: sso_patch_version is defined
@@ -74,6 +75,7 @@
         client_secret: "{{ rhn_password }}"
         product_id: "{{ (keycloak_rhn_filtered_products | sort | last).id }}"
         dest: "{{ keycloak_local_path.stat.path }}/{{ keycloak_patch_bundle }}"
+        validate_certs: false
       no_log: "{{ omit_rhn_output | default(true) }}"
       delegate_to: localhost
       run_once: true

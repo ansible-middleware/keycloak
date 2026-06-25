@@ -114,6 +114,7 @@
         product_type: DISTRIBUTION
         product_version: "{{ sso_version.split('.')[:2] | join('.') }}"
         product_category: "{{ sso_product_category }}"
+        validate_certs: false
       register: keycloak_rhn_products
       no_log: "{{ omit_rhn_output | default(true) }}"
       delegate_to: localhost
@@ -123,8 +124,7 @@
       ansible.builtin.set_fact:
         keycloak_rhn_filtered_products: >-
           {{ keycloak_rhn_products.results
-          | selectattr('file_name', 'match', '.*rh-sso-' + sso_version.split('.')[:2] | join('.') + '.*-server-dist\\.zip$')
-          | rejectattr('file_name', 'search', 'maven|src|license|provenance|adapter')
+          | selectattr('file_name', 'search', 'rh-sso-' + sso_version + '-server-dist.zip$')
           | list }}
       delegate_to: localhost
       run_once: true
@@ -135,6 +135,7 @@
         client_secret: "{{ rhn_password }}"
         product_id: "{{ (keycloak_rhn_filtered_products | first).id }}"
         dest: "{{ keycloak_local_path.stat.path }}/{{ keycloak_archive }}"
+        validate_certs: false
       no_log: "{{ omit_rhn_output | default(true) }}"
       delegate_to: localhost
       run_once: true

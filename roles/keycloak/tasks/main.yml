@@ -66,7 +66,7 @@
       retries: 2
       delay: 2
   rescue:
-    - name: "Create {{ keycloak.service_name }} admin user"
+    - name: "Create admin user: {{ keycloak_config.service_name }}"
       ansible.builtin.command:
       args:
         argv:
@@ -76,11 +76,11 @@
           - "-p{{ keycloak_admin_password }}"
       changed_when: true
       become: "{{ keycloak_require_privilege_escalation | default(true) }}"
-    - name: "Restart {{ keycloak.service_name }}"
+    - name: "Restart service: {{ keycloak_config.service_name }}"
       ansible.builtin.include_tasks: tasks/restart_keycloak.yml
-    - name: "Wait until {{ keycloak.service_name }} becomes active {{ keycloak.health_url }}"
+    - name: "Wait until service becomes active: {{ keycloak_config.service_name }}"
       ansible.builtin.uri:
-        url: "{{ keycloak.health_url }}"
+        url: "{{ keycloak_config.health_url }}"
       register: keycloak_status
       until: keycloak_status.status == 200
       retries: 25

@@ -1,5 +1,5 @@
 ---
-- name: "Configure sysconfig file for {{ keycloak.service_name }} service"
+- name: "Configure sysconfig file for service: {{ keycloak.service_name }}"
   become: "{{ keycloak_quarkus_systemd_require_privilege_escalation | default(true) }}"
   ansible.builtin.template:
     src: keycloak-sysconfig.j2
@@ -21,7 +21,7 @@
     group: root
     mode: '0644'
   become: "{{ keycloak_quarkus_systemd_require_privilege_escalation | default(true) }}"
-  register: systemdunit
+  register: keycloak_quarkus_systemdunit
   notify:
     - rebuild keycloak config
     - restart keycloak

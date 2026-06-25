@@ -1,7 +1,7 @@
 ---
 - name: Verify first restarted service with health URL, then rest restart in parallel
   block:
-    - name: "Restart and enable {{ keycloak.service_name }} service on initial host"
+    - name: "Restart and enable service on initial host: {{ keycloak.service_name }}"
       ansible.builtin.include_tasks:
         file: restart.yml
         apply:
@@ -10,7 +10,7 @@
       vars:
         internal_force_health_check: true
 
-    - name: "Restart and enable {{ keycloak.service_name }} service on other hosts"
+    - name: "Restart and enable service on other hosts: {{ keycloak.service_name }}"
       ansible.builtin.systemd:
         name: "{{ keycloak.service_name }}"
         enabled: true

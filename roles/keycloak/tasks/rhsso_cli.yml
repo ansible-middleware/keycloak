@@ -8,6 +8,6 @@
 
 - name: "Execute CLI query: {{ cli_query }}"
   ansible.builtin.command: >
-    {{ keycloak.cli_path }} --connect --command='{{ cli_query }}' --controller={{ keycloak_host }}:{{ keycloak_management_http_port }}
+    {{ keycloak_config.cli_path }} --connect --command='{{ cli_query }}' --controller={{ keycloak_host }}:{{ keycloak_management_http_port }}
   changed_when: false
-  register: cli_result
+  register: keycloak_cli_result

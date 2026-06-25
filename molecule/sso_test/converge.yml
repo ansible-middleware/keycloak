@@ -10,13 +10,13 @@
   roles:
     - role: keycloak
     - role: keycloak_realm
-      keycloak_url: "http://instance:8080"
-      keycloak_context: "/auth"
-      keycloak_admin_user: "admin"
-      keycloak_admin_password: "remembertochangeme"
-      keycloak_realm: TestRealm
-      keycloak_clients:
+      keycloak_realm_url: "http://instance:8080"
+      keycloak_realm_context: "/auth"
+      keycloak_realm_admin_user: "admin"
+      keycloak_realm_admin_password: "remembertochangeme"
+      keycloak_realm_realm: TestRealm
+      keycloak_realm_clients:
         - name: TestClient
-          realm: "{{ keycloak_realm }}"
+          realm: "{{ keycloak_realm_realm }}"
           public_client: true
           client_id: TestClient

@@ -14,18 +14,18 @@
   become: "{{ keycloak_install_require_privilege_escalation | default(true) }}"
   ansible.builtin.stat:
     path: "{{ keycloak_jboss_home }}"
-  register: existing_deploy
+  register: keycloak_existing_deploy
 
 - name: Stop and restart if existing deployment exists and install forced
-  when: existing_deploy.stat.exists and keycloak_force_install | bool
+  when: keycloak_existing_deploy.stat.exists and keycloak_force_install | bool
   block:
-    - name: "Stop the old {{ keycloak.service_name }} service"
+    - name: "Stop the old service: {{ keycloak_config.service_name }}"
       become: "{{ keycloak_install_require_privilege_escalation | default(true) }}"
       failed_when: false
       ansible.builtin.systemd:
         name: keycloak
         state: stopped
-    - name: "Remove the old {{ keycloak.service_name }} deployment"
+    - name: "Remove the old deployment: {{ keycloak_config.service_name }}"
       become: "{{ keycloak_install_require_privilege_escalation | default(true) }}"
       ansible.builtin.file:
         path: "{{ keycloak_jboss_home }}"
@@ -36,7 +36,7 @@
   ansible.builtin.stat:
     path: "{{ keycloak_jboss_home }}"
 
-- name: "Create service user/group for {{ keycloak.service_name }}"
+- name: "Create service user/group for {{ keycloak_config.service_name }}"
   become: "{{ keycloak_install_require_privilege_escalation | default(true) }}"
   ansible.builtin.user:
     name: "{{ keycloak_service_user }}"
@@ -44,7 +44,7 @@
     system: true
     create_home: false
 
-- name: "Create install location for {{ keycloak.service_name }}"
+- name: "Create install location for {{ keycloak_config.service_name }}"
   become: "{{ keycloak_install_require_privilege_escalation | default(true) }}"
   ansible.builtin.file:
     dest: "{{ keycloak_dest }}"
@@ -65,34 +65,35 @@
 ## check remote archive
 - name: Set download archive path
   ansible.builtin.set_fact:
-    archive: "{{ keycloak_dest }}/{{ keycloak.bundle }}"
+    keycloak_archive_full_path: "{{ keycloak_dest }}/{{ keycloak_archive }}"
 
 - name: Check download archive path
   become: "{{ keycloak_install_require_privilege_escalation | default(true) }}"
   ansible.builtin.stat:
-    path: "{{ archive }}"
-  register: archive_path
+    path: "{{ keycloak_archive_full_path }}"
+  register: keycloak_archive_path
 
 ## download to controller
 - name: Check local download archive path
   ansible.builtin.stat:
     path: "{{ lookup('env', 'PWD') }}"
-  register: local_path
+  register: keycloak_local_path
   delegate_to: localhost
 
 - name: Download keycloak archive
   ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
     url: "{{ keycloak_download_url }}"
-    dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
+    dest: "{{ keycloak_local_path.stat.path }}/{{ keycloak_archive }}"
     mode: '0644'
     url_username: "{{ keycloak_binary_download_user | default(omit) }}"
     url_password: "{{ keycloak_binary_download_pass | default(omit) }}"
+    validate_certs: false
   delegate_to: localhost
   run_once: true
   when:
-    - archive_path is defined
-    - archive_path.stat is defined
-    - not archive_path.stat.exists
+    - keycloak_archive_path is defined
+    - keycloak_archive_path.stat is defined
+    - not keycloak_archive_path.stat.exists
     - not sso_enable is defined or not sso_enable
     - not keycloak_offline_install
 
@@ -100,9 +101,9 @@
   delegate_to: localhost
   run_once: true
   when:
-    - archive_path is defined
-    - archive_path.stat is defined
-    - not archive_path.stat.exists
+    - keycloak_archive_path is defined
+    - keycloak_archive_path.stat is defined
+    - not keycloak_archive_path.stat.exists
     - sso_enable is defined and sso_enable
     - not keycloak_offline_install
   block:
@@ -113,14 +114,18 @@
         product_type: DISTRIBUTION
         product_version: "{{ sso_version.split('.')[:2] | join('.') }}"
         product_category: "{{ sso_product_category }}"
-      register: rhn_products
+      register: keycloak_rhn_products
       no_log: "{{ omit_rhn_output | default(true) }}"
       delegate_to: localhost
       run_once: true
 
     - name: Determine install zipfile from search results
       ansible.builtin.set_fact:
-        rhn_filtered_products: "{{ rhn_products.results | selectattr('file_name', 'match', '.*rh-sso-' + sso_version.split('.')[:2] | join('.') + '.*-server-dist\\.zip$') | rejectattr('file_name', 'search', 'maven|src|license|provenance|adapter') | list }}"
+        keycloak_rhn_filtered_products: >-
+          {{ keycloak_rhn_products.results
+          | selectattr('file_name', 'match', '.*rh-sso-' + sso_version.split('.')[:2] | join('.') + '.*-server-dist\\.zip$')
+          | rejectattr('file_name', 'search', 'maven|src|license|provenance|adapter')
+          | list }}
       delegate_to: localhost
       run_once: true
 
@@ -128,8 +133,8 @@
       middleware_automation.common.product_download: # noqa risky-file-permissions delegated, uses controller host user
         client_id: "{{ rhn_username }}"
         client_secret: "{{ rhn_password }}"
-        product_id: "{{ (rhn_filtered_products | first).id }}"
-        dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
+        product_id: "{{ (keycloak_rhn_filtered_products | first).id }}"
+        dest: "{{ keycloak_local_path.stat.path }}/{{ keycloak_archive }}"
       no_log: "{{ omit_rhn_output | default(true) }}"
       delegate_to: localhost
       run_once: true
@@ -137,68 +142,69 @@
 - name: Download rhsso archive from alternate location
   ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
     url: "{{ keycloak_rhsso_download_url }}"
-    dest: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
+    dest: "{{ keycloak_local_path.stat.path }}/{{ keycloak_archive }}"
     mode: '0644'
+    validate_certs: false
   delegate_to: localhost
   run_once: true
   when:
-    - archive_path is defined
-    - archive_path.stat is defined
-    - not archive_path.stat.exists
+    - keycloak_archive_path is defined
+    - keycloak_archive_path.stat is defined
+    - not keycloak_archive_path.stat.exists
     - sso_enable is defined and sso_enable
     - not keycloak_offline_install
     - keycloak_rhsso_download_url is defined
 
 - name: Check downloaded archive
   ansible.builtin.stat:
-    path: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
-  register: local_archive_path
+    path: "{{ keycloak_local_path.stat.path }}/{{ keycloak_archive }}"
+  register: keycloak_local_archive_path
   delegate_to: localhost
 
 ## copy and unpack
 - name: Copy archive to target nodes
   ansible.builtin.copy:
-    src: "{{ local_path.stat.path }}/{{ keycloak.bundle }}"
-    dest: "{{ archive }}"
+    src: "{{ keycloak_local_path.stat.path }}/{{ keycloak_archive }}"
+    dest: "{{ keycloak_archive_full_path }}"
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
     mode: '0640'
-  register: new_version_downloaded
+  register: keycloak_new_version_downloaded
   when:
-    - not archive_path.stat.exists
-    - local_archive_path.stat is defined
-    - local_archive_path.stat.exists
+    - not keycloak_archive_path.stat.exists
+    - keycloak_local_archive_path.stat is defined
+    - keycloak_local_archive_path.stat.exists
   become: "{{ keycloak_install_require_privilege_escalation | default(true) }}"
 
-- name: "Check target directory: {{ keycloak.home }}"
+- name: "Check target directory: {{ keycloak_config.home }}"
   ansible.builtin.stat:
-    path: "{{ keycloak.home }}"
-  register: path_to_workdir
+    path: "{{ keycloak_config.home }}"
+  register: keycloak_path_to_workdir
   become: "{{ keycloak_install_require_privilege_escalation | default(true) }}"
 
-- name: "Extract {{ keycloak_service_desc }} archive on target"
+- name: "Extract archive on target: {{ keycloak_service_desc }}"
   ansible.builtin.unarchive:
     remote_src: true
-    src: "{{ archive }}"
+    src: "{{ keycloak_archive_full_path }}"
     dest: "{{ keycloak_dest }}"
-    creates: "{{ keycloak.home }}"
+    creates: "{{ keycloak_config.home }}"
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
   become: "{{ keycloak_install_require_privilege_escalation | default(true) }}"
   when:
-    - new_version_downloaded.changed or not path_to_workdir.stat.exists
+    - keycloak_new_version_downloaded.changed or not keycloak_path_to_workdir.stat.exists
   notify:
     - restart keycloak
 
 - name: Inform decompression was not executed
   ansible.builtin.debug:
-    msg: "{{ keycloak.home }} already exists and version unchanged, skipping decompression"
+    msg: "{{ keycloak_config.home }} already exists and version unchanged, skipping decompression"
   when:
-    - not new_version_downloaded.changed and path_to_workdir.stat.exists
+    - not keycloak_new_version_downloaded.changed and keycloak_path_to_workdir.stat.exists
 
 - name: "Reown installation directory to {{ keycloak_service_user }}"
   ansible.builtin.file:
-    path: "{{ keycloak.home }}"
+    path: "{{ keycloak_config.home }}"
     owner: "{{ keycloak_service_user }}"
     group: "{{ keycloak_service_group }}"
     recurse: true
@@ -206,17 +212,17 @@
   changed_when: false
 
 - name: Ensure permissions are correct on existing deploy
-  ansible.builtin.command: chown -R "{{ keycloak_service_user }}:{{ keycloak_service_group }}" "{{ keycloak.home }}"
+  ansible.builtin.command: chown -R "{{ keycloak_service_user }}:{{ keycloak_service_group }}" "{{ keycloak_config.home }}"
   when: keycloak_service_runas
   become: "{{ keycloak_install_require_privilege_escalation | default(true) }}"
   changed_when: false
 
 # driver and configuration
-- name: "Install {{ keycloak_jdbc_engine }} driver"
+- name: "Install database driver: {{ keycloak_jdbc_engine }}"
   ansible.builtin.include_tasks: jdbc_driver.yml
   when: keycloak_jdbc[keycloak_jdbc_engine].enabled
 
-- name: "Deploy custom {{ keycloak.service_name }} config to {{ keycloak_config_path_to_standalone_xml }} from {{ keycloak_config_override_template }}"
+- name: "Deploy custom config: {{ keycloak_config.service_name }}"
   become: "{{ keycloak_install_require_privilege_escalation | default(true) }}"
   ansible.builtin.template:
     src: "templates/{{ keycloak_config_override_template }}"
@@ -228,7 +234,7 @@
     - restart keycloak
   when: (keycloak_config_override_template | default('', true)) | length > 0
 
-- name: "Deploy standalone {{ keycloak.service_name }} config to {{ keycloak_config_path_to_standalone_xml }}"
+- name: "Deploy standalone config: {{ keycloak_config.service_name }}"
   become: "{{ keycloak_install_require_privilege_escalation | default(true) }}"
   ansible.builtin.template:
     src: templates/standalone.xml.j2
@@ -256,7 +262,7 @@
   loop: "{{ ansible_play_batch }}"
   when: keycloak_ha_enabled and keycloak_ha_discovery == 'TCPPING'
 
-- name: "Deploy HA {{ keycloak.service_name }} config to {{ keycloak_config_path_to_standalone_xml }}"
+- name: "Deploy HA config: {{ keycloak_config.service_name }}"
   become: "{{ keycloak_install_require_privilege_escalation | default(true) }}"
   ansible.builtin.template:
     src: templates/standalone-ha.xml.j2
@@ -271,7 +277,7 @@
     - not keycloak_remote_cache_enabled
     - (keycloak_config_override_template | default('', true)) | length == 0
 
-- name: "Deploy HA {{ keycloak.service_name }} config with infinispan remote cache store to {{ keycloak_config_path_to_standalone_xml }}"
+- name: "Deploy HA config with infinispan: {{ keycloak_config.service_name }}"
   become: "{{ keycloak_install_require_privilege_escalation | default(true) }}"
   ansible.builtin.template:
     src: templates/standalone-infinispan.xml.j2

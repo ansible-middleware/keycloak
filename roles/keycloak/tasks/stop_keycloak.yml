@@ -1,5 +1,5 @@
 ---
-- name: "Stop {{ keycloak.service_name }}"
+- name: "Stop {{ keycloak_config.service_name }}"
   ansible.builtin.systemd:
     name: keycloak
     enabled: true

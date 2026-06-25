@@ -1,18 +1,18 @@
 ---
 ### Keycloak configuration settings
-keycloak_host: localhost
-keycloak_http_port: 8080
-keycloak_https_port: 8443
-keycloak_management_http_port: 9990
+keycloak_realm_host: localhost
+keycloak_realm_http_port: 8080
+keycloak_realm_https_port: 8443
+keycloak_realm_management_http_port: 9990
 
 ### Keycloak administration console user
-keycloak_admin_user: admin
-keycloak_auth_realm: master
-keycloak_auth_client: admin-cli
-keycloak_context: ''
+keycloak_realm_admin_user: admin
+keycloak_realm_auth_realm: master
+keycloak_realm_auth_client: admin-cli
+keycloak_realm_context: ''
 
 # administrator console password, this is a required variable
-keycloak_admin_password: ''
+keycloak_realm_admin_password: ''
 
 ### Keycloak realms, clients, roles, federation
 # list of clients to create in the realm
@@ -26,35 +26,36 @@ keycloak_admin_password: ''
 # and users is a list of account, see below for the format definition
 # an empty name will skip the creation of the client
 #
-# keycloak_clients:
+# keycloak_realm_clients:
 #   - name: ''
-#     roles: "{{ keycloak_client_default_roles }}"
-#     realm: "{{ keycloak_realm }}"
-#     public_client: "{{ keycloak_client_public }}"
-#     web_origins: "{{ keycloak_client_web_origins }}"
-#     redirect_uris: "{{ keycloak_client_redirect_uris }}"
-#     users: "{{ keycloak_client_users }}"
-keycloak_clients: []
+#     roles: "{{ keycloak_realm_client_default_roles }}"
+#     realm: "{{ keycloak_realm_realm }}"
+#     public_client: "{{ keycloak_realm_client_public }}"
+#     web_origins: "{{ keycloak_realm_client_web_origins }}"
+#     redirect_uris: "{{ keycloak_realm_client_redirect_uris }}"
+#     users: "{{ keycloak_realm_client_users }}"
+keycloak_realm_clients: []
 
 # list of roles to create in the client
-keycloak_client_default_roles: []
+keycloak_realm_client_default_roles: []
 
 # if True, create a public client; otherwise, a confidetial client
-keycloak_client_public: true
+keycloak_realm_client_public: true
 
 # allowed web origins for the client
-keycloak_client_web_origins: '/*'
+keycloak_realm_client_web_origins: '/*'
 
 # list of user and role mappings to create in the client
 # Each user has the form:
 #    { username: '', password: '', email: '', firstName: '', lastName: '', client_roles: [] }
 # where each client_role has the form:
 #    { client: '', role: '', realm: '' }
-keycloak_client_users: []
+keycloak_realm_client_users: []
 
 ### List of Keycloak User Federation
-keycloak_user_federation: []
+keycloak_realm_user_federation: []
 
 # other settings
-keycloak_url: "http://{{ keycloak_host }}:{{ keycloak_http_port + (keycloak_jboss_port_offset | default(0)) }}"
-keycloak_management_url: "http://{{ keycloak_host }}:{{ keycloak_management_http_port + (keycloak_jboss_port_offset | default(0)) }}"
+keycloak_realm_url: "http://{{ keycloak_realm_host }}:{{ keycloak_realm_http_port + (keycloak_realm_jboss_port_offset | default(0)) }}"
+keycloak_realm_management_url: "http://{{ keycloak_realm_host }}:{{ keycloak_realm_management_http_port + (keycloak_realm_jboss_port_offset | default(0)) }}"
+keycloak_realm_no_log: true

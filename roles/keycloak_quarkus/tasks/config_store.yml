@@ -1,7 +1,7 @@
 ---
 - name: "Initialize configuration key store variables to be written"
   ansible.builtin.set_fact:
-    store_items:
+    keycloak_quarkus_store_items:
       - key: "kc.db-password"
         value: "{{ keycloak_quarkus_db_pass }}"
 

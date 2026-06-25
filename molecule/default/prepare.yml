@@ -23,6 +23,7 @@
         url: https://github.com/keycloak/keycloak/releases/download/26.6.2/keycloak-26.6.2.zip
         dest: /tmp/keycloak
         mode: '0640'
+        validate_certs: false
       delegate_to: localhost
       run_once: true
       ignore_errors: true

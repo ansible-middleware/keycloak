@@ -1,6 +1,6 @@
 {{ ansible_managed | comment }}
 [Unit]
-Description={{ keycloak.service_name }} Server
+Description={{ keycloak_config.service_name }} Server
 After=network.target
 StartLimitIntervalSec={{ keycloak_service_startlimitintervalsec }}
 StartLimitBurst={{ keycloak_service_startlimitburst }}
@@ -13,8 +13,8 @@ Group={{ keycloak_service_group }}
 {% endif -%}
 EnvironmentFile=-{{ keycloak_sysconf_file }}
 PIDFile={{ keycloak_service_pidfile }}
-ExecStart={{ keycloak.home }}/bin/standalone.sh $WILDFLY_OPTS
-WorkingDirectory={{ keycloak.home }}
+ExecStart={{ keycloak_config.home }}/bin/standalone.sh $WILDFLY_OPTS
+WorkingDirectory={{ keycloak_config.home }}
 TimeoutStartSec=30
 TimeoutStopSec=30
 LimitNOFILE=102642

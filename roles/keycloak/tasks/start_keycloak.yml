@@ -1,5 +1,5 @@
 ---
-- name: "Start {{ keycloak.service_name }} service"
+- name: "Start service: {{ keycloak_config.service_name }}"
   ansible.builtin.systemd:
     name: keycloak
     enabled: true
@@ -7,9 +7,9 @@
     daemon_reload: true
   become: "{{ keycloak_start_require_privilege_escalation | default(true) }}"
 
-- name: "Wait until {{ keycloak.service_name }} becomes active {{ keycloak.health_url }}"
+- name: "Wait until service becomes active: {{ keycloak_config.service_name }}"
   ansible.builtin.uri:
-    url: "{{ keycloak.health_url }}"
+    url: "{{ keycloak_config.health_url }}"
   register: keycloak_status
   until: keycloak_status.status == 200
   retries: "{{ keycloak_service_start_retries }}"

@@ -13,7 +13,7 @@
       changed_when: keycloak_quarkus_show_deprecation_warnings
       ansible.builtin.set_fact:
         keycloak_quarkus_https_key_store_file: "{{ keycloak_quarkus_key_store_file }}"
-        deprecated_variable: "keycloak_quarkus_key_store_file" # read in deprecation handler
+        keycloak_quarkus_deprecated_variable: "keycloak_quarkus_key_store_file" # read in deprecation handler
       notify:
         - print deprecation warning
 
@@ -28,7 +28,7 @@
       changed_when: keycloak_quarkus_show_deprecation_warnings
       ansible.builtin.set_fact:
         keycloak_quarkus_https_key_store_password: "{{ keycloak_quarkus_key_store_password }}"
-        deprecated_variable: "keycloak_quarkus_key_store_password" # read in deprecation handler
+        keycloak_quarkus_deprecated_variable: "keycloak_quarkus_key_store_password" # read in deprecation handler
       notify:
         - print deprecation warning
 
@@ -45,7 +45,7 @@
   run_once: true
   changed_when: keycloak_quarkus_show_deprecation_warnings
   ansible.builtin.set_fact:
-    deprecated_variable: "keycloak_quarkus_proxy_mode" # read in deprecation handler
+    keycloak_quarkus_deprecated_variable: "keycloak_quarkus_proxy_mode" # read in deprecation handler
   notify:
     - print deprecation warning
 
@@ -60,7 +60,7 @@
   changed_when: keycloak_quarkus_show_deprecation_warnings
   ansible.builtin.set_fact:
     keycloak_quarkus_hostname: "{{ keycloak_quarkus_frontend_url }}"
-    deprecated_variable: "keycloak_quarkus_frontend_url" # read in deprecation handler
+    keycloak_quarkus_deprecated_variable: "keycloak_quarkus_frontend_url" # read in deprecation handler
   notify:
     - print deprecation warning
 
@@ -81,7 +81,7 @@
         {% set protocol = 'http://' %}
       {% endif %}
       {{ protocol }}{{ keycloak_quarkus_host }}:{{ keycloak_quarkus_port }}/{{ keycloak_quarkus_path }}
-    deprecated_variable: "keycloak_quarkus_hostname_strict_https or keycloak_quarkus_frontend_url or keycloak_quarkus_frontend_url or keycloak_quarkus_hostname" # read in deprecation handler
+    keycloak_quarkus_deprecated_variable: "keycloak_quarkus_hostname_strict_https or keycloak_quarkus_frontend_url or keycloak_quarkus_frontend_url or keycloak_quarkus_hostname" # read in deprecation handler
   notify:
     - print deprecation warning
 
@@ -96,7 +96,7 @@
   changed_when: keycloak_quarkus_show_deprecation_warnings
   ansible.builtin.set_fact:
     keycloak_quarkus_hostname_admin: "{{ keycloak_quarkus_admin_url }}"
-    deprecated_variable: "keycloak_quarkus_admin_url" # read in deprecation handler
+    keycloak_quarkus_deprecated_variable: "keycloak_quarkus_admin_url" # read in deprecation handler
   notify:
     - print deprecation warning
 
@@ -111,7 +111,7 @@
   changed_when: keycloak_quarkus_show_deprecation_warnings
   ansible.builtin.set_fact:
     keycloak_quarkus_hostname_backchannel_dynamic: "{{ keycloak_quarkus_hostname_strict_backchannel == False }}"
-    deprecated_variable: "keycloak_quarkus_hostname_backchannel_dynamic" # read in deprecation handler
+    keycloak_quarkus_deprecated_variable: "keycloak_quarkus_hostname_backchannel_dynamic" # read in deprecation handler
   notify:
     - print deprecation warning
 
@@ -126,7 +126,7 @@
   changed_when: keycloak_quarkus_show_deprecation_warnings
   ansible.builtin.set_fact:
     keycloak_quarkus_bootstrap_admin_user: "{{ keycloak_quarkus_admin_user }}"
-    deprecated_variable: "keycloak_quarkus_admin_user" # read in deprecation handler
+    keycloak_quarkus_deprecated_variable: "keycloak_quarkus_admin_user" # read in deprecation handler
   notify:
     - print deprecation warning
 
@@ -141,7 +141,7 @@
   changed_when: keycloak_quarkus_show_deprecation_warnings
   ansible.builtin.set_fact:
     keycloak_quarkus_bootstrap_admin_user: "{{ keycloak_quarkus_admin_pass }}"
-    deprecated_variable: "keycloak_quarkus_admin_pass" # read in deprecation handler
+    keycloak_quarkus_deprecated_variable: "keycloak_quarkus_admin_pass" # read in deprecation handler
   notify:
     - print deprecation warning
 
@@ -154,7 +154,7 @@
   changed_when: keycloak_quarkus_show_deprecation_warnings
   ansible.builtin.set_fact:
     keycloak_quarkus_http_host: "{{ keycloak_quarkus_bind_address }}"
-    deprecated_variable: "keycloak_quarkus_bind_address" # read in deprecation handler
+    keycloak_quarkus_deprecated_variable: "keycloak_quarkus_bind_address" # read in deprecation handler
   notify:
     - print deprecation warning
   

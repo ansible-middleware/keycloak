@@ -1,9 +1,7 @@
 ---
 # internal variables below
 
-
-
-keycloak:
+keycloak_config:
   home: "{{ keycloak_jboss_home }}"
   config_dir: "{{ keycloak_config_dir }}"
   bundle: "{{ keycloak_archive }}"

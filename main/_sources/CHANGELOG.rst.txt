@@ -14,6 +14,11 @@ Major Changes
 
 - Fixing linting issues `#357 <https://github.com/ansible-middleware/keycloak/pull/357>`_
 
+Minor Changes
+-------------
+
+- AMW-571 keycloak_identity_provider hide_on_login_page not working `#356 <https://github.com/ansible-middleware/keycloak/pull/356>`_
+
 v3.0.9
 ======
 

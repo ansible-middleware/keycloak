@@ -356,27 +356,6 @@ Parameters
   </tr>
   <tr class="row-odd">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
-      <div class="ansibleOptionAnchor" id="parameter-config/hide_on_login_page"></div>
-      <div class="ansibleOptionAnchor" id="parameter-config/hideOnLoginPage"></div>
-      <p class="ansible-option-title"><strong>hide_on_login_page</strong></p>
-      <a class="ansibleOptionLink" href="#parameter-config/hide_on_login_page" title="Permalink to this option"></a>
-      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: hideOnLoginPage</span></p>
-      <p class="ansible-option-type-line">
-        <span class="ansible-option-type">boolean</span>
-      </p>
-    </div></td>
-    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-      <p>If hidden, login with this provider is possible only if requested explicitly, for example using the <code class='docutils literal notranslate'>kc_idp_hint</code> parameter.</p>
-      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
-      <ul class="simple">
-        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
-        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
-      </ul>
-
-    </div></td>
-  </tr>
-  <tr class="row-even">
-    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-config/issuer"></div>
       <p class="ansible-option-title"><strong>issuer</strong></p>
       <a class="ansibleOptionLink" href="#parameter-config/issuer" title="Permalink to this option"></a>
@@ -388,7 +367,7 @@ Parameters
       <p>The issuer identifier for the issuer of the response. If not provided, no validation is performed.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-config/jwksUrl"></div>
       <p class="ansible-option-title"><strong>jwksUrl</strong></p>
@@ -401,7 +380,7 @@ Parameters
       <p>URL where identity provider keys in JWK format are stored. See JWK specification for more details.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-config/logoutUrl"></div>
       <p class="ansible-option-title"><strong>logoutUrl</strong></p>
@@ -414,7 +393,7 @@ Parameters
       <p>End session endpoint to use to logout user from external IDP.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-config/nameIDPolicyFormat"></div>
       <p class="ansible-option-title"><strong>nameIDPolicyFormat</strong></p>
@@ -427,7 +406,7 @@ Parameters
       <p>Specifies the URI reference corresponding to a name identifier format.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-config/principalType"></div>
       <p class="ansible-option-title"><strong>principalType</strong></p>
@@ -440,7 +419,7 @@ Parameters
       <p>Way to identify and track external users from the assertion.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-config/singleLogoutServiceUrl"></div>
       <p class="ansible-option-title"><strong>singleLogoutServiceUrl</strong></p>
@@ -453,7 +432,7 @@ Parameters
       <p>The URL that must be used to send logout requests.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-config/singleSignOnServiceUrl"></div>
       <p class="ansible-option-title"><strong>singleSignOnServiceUrl</strong></p>
@@ -466,7 +445,7 @@ Parameters
       <p>The URL that must be used to send authentication requests (SAML AuthnRequest).</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-config/sync_mode"></div>
       <div class="ansibleOptionAnchor" id="parameter-config/syncMode"></div>
@@ -481,7 +460,7 @@ Parameters
       <p>Default sync mode for all mappers. The sync mode determines when user data is synced using the mappers.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-config/tokenUrl"></div>
       <p class="ansible-option-title"><strong>tokenUrl</strong></p>
@@ -494,7 +473,7 @@ Parameters
       <p>The Token URL.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-config/useJwksUrl"></div>
       <p class="ansible-option-title"><strong>useJwksUrl</strong></p>
@@ -513,7 +492,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-config/userInfoUrl"></div>
       <p class="ansible-option-title"><strong>userInfoUrl</strong></p>
@@ -526,7 +505,7 @@ Parameters
       <p>The User Info URL.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-config/validateSignature"></div>
       <p class="ansible-option-title"><strong>validateSignature</strong></p>
@@ -546,7 +525,7 @@ Parameters
     </div></td>
   </tr>
 
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-connection_timeout"></div>
       <p class="ansible-option-title"><strong>connection_timeout</strong></p>
@@ -560,7 +539,7 @@ Parameters
       <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">10</code></p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-display_name"></div>
       <div class="ansibleOptionAnchor" id="parameter-displayName"></div>
@@ -575,7 +554,7 @@ Parameters
       <p>Friendly name for identity provider.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-enabled"></div>
       <p class="ansible-option-title"><strong>enabled</strong></p>
@@ -594,7 +573,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-first_broker_login_flow_alias"></div>
       <div class="ansibleOptionAnchor" id="parameter-firstBrokerLoginFlowAlias"></div>
@@ -607,6 +586,28 @@ Parameters
     </div></td>
     <td><div class="ansible-option-cell">
       <p>Alias of authentication flow, which is triggered after first login with this identity provider.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-hide_on_login"></div>
+      <div class="ansibleOptionAnchor" id="parameter-hideOnLogin"></div>
+      <div class="ansibleOptionAnchor" id="parameter-hide_on_login_page"></div>
+      <p class="ansible-option-title"><strong>hide_on_login</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-hide_on_login" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: hideOnLogin, hide_on_login_page</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>If hidden, login with this provider is possible only if requested explicitly, for example using the <code class='docutils literal notranslate'>kc_idp_hint</code> parameter.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
     </div></td>
   </tr>
   <tr class="row-even">

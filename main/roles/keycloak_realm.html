@@ -123,53 +123,53 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_admin_user</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_admin_user</span></code></p></td>
 <td class="text-left"><p>Administration console user account</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">admin</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_host</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_host</span></code></p></td>
 <td class="text-left"><p>hostname</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">localhost</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_context</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_context</span></code></p></td>
 <td class="text-left"><p>Context path for rest calls (set to <code class="docutils literal notranslate"><span class="pre">/auth</span></code> for legacy WildFly-based Keycloak)</p></td>
 <td class="text-left"><p>``</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_http_port</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_http_port</span></code></p></td>
 <td class="text-left"><p>HTTP port</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">8080</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_https_port</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_https_port</span></code></p></td>
 <td class="text-left"><p>TLS HTTP port</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">8443</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_auth_realm</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_auth_realm</span></code></p></td>
 <td class="text-left"><p>Name of the main authentication realm</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">master</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_management_http_port</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_management_http_port</span></code></p></td>
 <td class="text-left"><p>Management port</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">9990</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_auth_client</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_auth_client</span></code></p></td>
 <td class="text-left"><p>Authentication client for configuration REST calls</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">admin-cli</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_client_public</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_client_public</span></code></p></td>
 <td class="text-left"><p>Configure a public realm client</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_client_web_origins</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_client_web_origins</span></code></p></td>
 <td class="text-left"><p>Web origins for realm client</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">/*</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_url</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_url</span></code></p></td>
 <td class="text-left"><p>URL for configuration rest calls</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">http://{{</span> <span class="pre">keycloak_host</span> <span class="pre">}}:{{</span> <span class="pre">keycloak_http_port</span> <span class="pre">}}</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">http://{{</span> <span class="pre">keycloak_realm_host</span> <span class="pre">}}:{{</span> <span class="pre">keycloak_realm_http_port</span> <span class="pre">}}</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_management_url</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_management_url</span></code></p></td>
 <td class="text-left"><p>URL for management console rest calls</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">http://{{</span> <span class="pre">keycloak_host</span> <span class="pre">}}:{{</span> <span class="pre">keycloak_management_http_port</span> <span class="pre">}}</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">http://{{</span> <span class="pre">keycloak_realm_host</span> <span class="pre">}}:{{</span> <span class="pre">keycloak_realm_management_http_port</span> <span class="pre">}}</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -184,10 +184,10 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_realm</span></code></p></td>
 <td class="text-left"><p>Name of the realm to be created</p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_admin_password</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_admin_password</span></code></p></td>
 <td class="text-left"><p>Password for the administration console user account</p></td>
 </tr>
 </tbody>
@@ -201,15 +201,15 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_clients</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_clients</span></code></p></td>
 <td class="text-left"><p>List of <em>client</em> declarations for the realm</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
 </tr>
-<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_client_default_roles</span></code></p></td>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_client_default_roles</span></code></p></td>
 <td class="text-left"><p>List of default role name for clients</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_client_users</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_client_users</span></code></p></td>
 <td class="text-left"><p>List of user/role mappings for a client</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
 </tr>
@@ -224,7 +224,7 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_user_federation</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_user_federation</span></code></p></td>
 <td class="text-left"><p>List of <em>keycloak_user_federation</em> for the realm</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
 </tr>
@@ -234,7 +234,7 @@
 <section id="variable-formats">
 <h2>Variable formats<a class="headerlink" href="#variable-formats" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_user_federation</span></code>, a list of:</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_user_federation</span></code>, a list of:</p></li>
 </ul>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">realm</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">&lt;name of the realm in which user federation should be configured, required&gt;</span>
 <span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;name of the user federation provider, required&gt;</span>
@@ -246,22 +246,22 @@
 </div>
 <p>Refer to <a class="reference external" href="https://docs.ansible.com/ansible/latest/collections/community/general/keycloak_user_federation_module.html">docs</a> for information on supported variables.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_clients</span></code>, a list of:</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_clients</span></code>, a list of:</p></li>
 </ul>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;name of the client&gt;</span>
 <span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;id of the client&gt;</span>
 <span class="w">      </span><span class="nt">client_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;id of the client&gt;</span>
 <span class="w">      </span><span class="nt">secret</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;secret of the client (Optional)&gt;</span>
-<span class="w">      </span><span class="nt">roles</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;keycloak_client_default_roles&gt;</span>
+<span class="w">      </span><span class="nt">roles</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;keycloak_realm_client_default_roles&gt;</span>
 <span class="w">      </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;name of the realm that contains the client&gt;</span>
 <span class="w">      </span><span class="nt">public_client</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;true for public, false for confidential&gt;</span>
 <span class="w">      </span><span class="nt">web_origins</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;list of allowed we origins for the client&gt;</span>
-<span class="w">      </span><span class="nt">users</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;keycloak_client_users&gt;</span>
+<span class="w">      </span><span class="nt">users</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;keycloak_realm_client_users&gt;</span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">name</span></code> and either <code class="docutils literal notranslate"><span class="pre">id</span></code> or <code class="docutils literal notranslate"><span class="pre">client_id</span></code> are required.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_client_users</span></code>, a list of:</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_client_users</span></code>, a list of:</p></li>
 </ul>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;username, required&gt;</span>
 <span class="w">      </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;password, required&gt;</span>
@@ -303,7 +303,7 @@
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_role</span></code></p></td>
 <td class="text-left"><p>Realm and client roles</p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_user_federation</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_user_federation</span></code></p></td>
 <td class="text-left"><p>User federations such as LDAP (also used internally by this role)</p></td>
 </tr>
 </tbody>

@@ -9,6 +9,11 @@ This changelog describes changes after version 0.2.6.
 v3.0.10-devel
 =============
 
+Major Changes
+-------------
+
+- Fixing linting issues `#357 <https://github.com/ansible-middleware/keycloak/pull/357>`_
+
 v3.0.9
 ======
 

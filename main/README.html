@@ -269,12 +269,12 @@ the download tasks. The local path for the archive does match the downloaded arc
 <section id="example-configuration-command">
 <h4>Example configuration command<a class="headerlink" href="#example-configuration-command" title="Link to this heading"></a></h4>
 <p>Execute the following command from the source root directory:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible-playbook<span class="w"> </span>-i<span class="w"> </span>&lt;ansible_hosts&gt;<span class="w"> </span>playbooks/keycloak_realm.yml<span class="w"> </span>-e<span class="w"> </span><span class="nv">keycloak_admin_password</span><span class="o">=</span>&lt;changeme&gt;<span class="w"> </span>-e<span class="w"> </span><span class="nv">keycloak_realm</span><span class="o">=</span><span class="nb">test</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ansible-playbook<span class="w"> </span>-i<span class="w"> </span>&lt;ansible_hosts&gt;<span class="w"> </span>playbooks/keycloak_realm.yml<span class="w"> </span>-e<span class="w"> </span><span class="nv">keycloak_realm_admin_password</span><span class="o">=</span>&lt;changeme&gt;<span class="w"> </span>-e<span class="w"> </span><span class="nv">keycloak_realm_realm</span><span class="o">=</span><span class="nb">test</span>
 </pre></div>
 </div>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_admin_password</span></code> password for the administration console user account.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm</span></code> name of the realm to be created/used.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_admin_password</span></code> password for the administration console user account.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">keycloak_realm_realm</span></code> name of the realm to be created/used.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ansible_hosts</span></code> is the inventory, below is an example inventory for deploying to localhost</p>
 <div class="highlight-YAML+Jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">[</span><span class="nv">keycloak</span><span class="p p-Indicator">]</span>
 <span class="l l-Scalar l-Scalar-Plain">localhost ansible_connection=local</span>

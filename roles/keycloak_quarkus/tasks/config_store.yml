@@ -36,7 +36,7 @@
     fi
 
     echo {{ item.value | quote }} | keytool -noprompt -importpass -alias {{ item.key | quote }} -keystore {{ keycloak_quarkus_config_key_store_file | quote }} -storepass {{ keycloak_quarkus_config_key_store_password | quote }} -storetype PKCS12
-  loop: "{{ store_items }}"
+  loop: "{{ keycloak_quarkus_store_items }}"
   no_log: true
   become: "{{ keycloak_quarkus_config_store_require_privilege_escalation | default(true) }}"
   changed_when: true

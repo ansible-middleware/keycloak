@@ -9,6 +9,11 @@ This changelog describes changes after version 0.2.6.
 v3.0.11-devel
 =============
 
+Minor Changes
+-------------
+
+- fix(keycloak_quarkus): avoid leaking maven provider password in logs `#363 <https://github.com/ansible-middleware/keycloak/pull/363>`_
+
 v3.0.10
 =======
 

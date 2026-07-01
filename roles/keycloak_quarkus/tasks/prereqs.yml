@@ -123,6 +123,7 @@
     fail_msg: >
       Providers definition incorrect; `id` and one of `spi`, `url`, `local_path`, or `maven` are mandatory. `key` and `value` are mandatory for each property
   loop: "{{ keycloak_quarkus_providers }}"
+  no_log: "{{ item.maven.password is defined and item.maven.password | length > 0 | default(false) }}"
 
 - name: "Validate policies"
   ansible.builtin.assert:

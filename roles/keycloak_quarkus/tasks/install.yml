@@ -246,6 +246,7 @@
   become: "{{ keycloak_quarkus_install_require_privilege_escalation | default(true) }}"
   loop: "{{ keycloak_quarkus_providers }}"
   when: item.url is defined and item.url | length > 0
+  no_log: "{{ item.maven.password is defined and item.maven.password | length > 0 | default(false) }}"
   notify: "{{ ['invalidate keycloak theme cache', 'rebuild keycloak config', 'restart keycloak'] if not item.restart is defined or item.restart else [] }}"
 
 # this requires the `lxml` package to be installed; we redirect this step to localhost such that we do need to install it on the remote hosts
@@ -289,6 +290,7 @@
   become: "{{ keycloak_quarkus_install_require_privilege_escalation | default(true) }}"
   loop: "{{ keycloak_quarkus_providers }}"
   when: item.local_path is defined
+  no_log: "{{ item.maven.password is defined and item.maven.password | length > 0 | default(false) }}"
   notify: "{{ ['invalidate keycloak theme cache', 'rebuild keycloak config', 'restart keycloak'] if not item.restart is defined or item.restart else [] }}"
 
 - name: Ensure required folder structure for policies exists

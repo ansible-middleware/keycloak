@@ -8,6 +8,7 @@
     auth_realm: "{{ keycloak_realm_auth_realm }}"
     auth_username: "{{ keycloak_realm_admin_user }}"
     auth_password: "{{ keycloak_realm_admin_password }}"
+    validate_certs: "{{ keycloak_realm_validate_certs | default(omit) }}"
     state: present
   loop: "{{ client.roles | flatten }}"
   no_log: "{{ keycloak_realm_no_log | default('True') }}"

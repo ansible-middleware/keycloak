@@ -7,7 +7,7 @@ platforms:
     pre_build_image: true
     privileged: true
     command: "/usr/sbin/init"
-    port_bindings:
+    exposed_ports:
       - "8080/tcp"
       - "8009/tcp"
       - "9000/tcp"

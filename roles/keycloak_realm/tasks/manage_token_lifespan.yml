@@ -5,7 +5,7 @@
     method: PUT
     body:
       accessTokenLifespan: 300
-    validate_certs: false
+    validate_certs: "{{ keycloak_realm_validate_certs | default(omit) }}"
     body_format: json
     status_code:
       - 200

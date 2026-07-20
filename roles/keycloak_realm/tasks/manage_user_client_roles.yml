@@ -3,7 +3,7 @@
   ansible.builtin.uri:
     url: "{{ keycloak_realm_url }}{{ keycloak_realm_context }}/admin/realms/{{ client_role.realm | default(keycloak_realm_realm) }}"
     method: GET
-    validate_certs: false
+    validate_certs: "{{ keycloak_realm_validate_certs | default(omit) }}"
     status_code:
       - 200
     headers:
@@ -17,7 +17,7 @@
           default(keycloak_realm_realm) }}/users/{{ (keycloak_realm_user.json | first).id }}/role-mappings/clients/{{ (keycloak_realm_create_client_result.results | \
           selectattr('end_state.clientId', 'equalto', client_role.client) | list | first).end_state.id }}/available"
     method: GET
-    validate_certs: false
+    validate_certs: "{{ keycloak_realm_validate_certs | default(omit) }}"
     status_code:
       - 200
     headers:
@@ -37,7 +37,7 @@
         containerId: "{{ item.containerId }}"
         name: "{{ item.name }}"
         composite: "{{ item.composite }}"
-    validate_certs: false
+    validate_certs: "{{ keycloak_realm_validate_certs | default(omit) }}"
     body_format: json
     headers:
       Authorization: "Bearer {{ keycloak_realm_auth_response.json.access_token }}"

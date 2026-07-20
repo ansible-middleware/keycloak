@@ -29,7 +29,7 @@
         product_type: BUGFIX
         product_version: "{{ sso_version.split('.')[:2] | join('.') }}"
         product_category: "{{ sso_product_category }}"
-        validate_certs: false
+        validate_certs: "{{ keycloak_download_validate_certs | default(omit) }}"
       register: keycloak_rhn_products
       no_log: "{{ omit_rhn_output | default(true) }}"
       delegate_to: localhost
@@ -75,7 +75,7 @@
         client_secret: "{{ rhn_password }}"
         product_id: "{{ (keycloak_rhn_filtered_products | sort | last).id }}"
         dest: "{{ keycloak_local_path.stat.path }}/{{ keycloak_patch_bundle }}"
-        validate_certs: false
+        validate_certs: "{{ keycloak_download_validate_certs | default(omit) }}"
       no_log: "{{ omit_rhn_output | default(true) }}"
       delegate_to: localhost
       run_once: true
@@ -143,6 +143,7 @@
     - name: "Wait until service becomes active: {{ keycloak_config.service_name }}"
       ansible.builtin.uri:
         url: "{{ keycloak_config.health_url }}"
+        validate_certs: "{{ keycloak_validate_certs | default(omit) }}"
       register: keycloak_status
       until: keycloak_status.status == 200
       retries: 25

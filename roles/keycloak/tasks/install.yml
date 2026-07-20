@@ -87,7 +87,7 @@
     mode: '0644'
     url_username: "{{ keycloak_binary_download_user | default(omit) }}"
     url_password: "{{ keycloak_binary_download_pass | default(omit) }}"
-    validate_certs: false
+    validate_certs: "{{ keycloak_download_validate_certs | default(omit) }}"
   delegate_to: localhost
   run_once: true
   when:
@@ -114,7 +114,7 @@
         product_type: DISTRIBUTION
         product_version: "{{ sso_version.split('.')[:2] | join('.') }}"
         product_category: "{{ sso_product_category }}"
-        validate_certs: false
+        validate_certs: "{{ keycloak_download_validate_certs | default(omit) }}"
       register: keycloak_rhn_products
       no_log: "{{ omit_rhn_output | default(true) }}"
       delegate_to: localhost
@@ -135,7 +135,7 @@
         client_secret: "{{ rhn_password }}"
         product_id: "{{ (keycloak_rhn_filtered_products | first).id }}"
         dest: "{{ keycloak_local_path.stat.path }}/{{ keycloak_archive }}"
-        validate_certs: false
+        validate_certs: "{{ keycloak_download_validate_certs | default(omit) }}"
       no_log: "{{ omit_rhn_output | default(true) }}"
       delegate_to: localhost
       run_once: true
@@ -145,7 +145,7 @@
     url: "{{ keycloak_rhsso_download_url }}"
     dest: "{{ keycloak_local_path.stat.path }}/{{ keycloak_archive }}"
     mode: '0644'
-    validate_certs: false
+    validate_certs: "{{ keycloak_download_validate_certs | default(omit) }}"
   delegate_to: localhost
   run_once: true
   when:

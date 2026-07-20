@@ -14,6 +14,11 @@ Minor Changes
 
 - fix(keycloak_quarkus): avoid leaking maven provider password in logs `#363 <https://github.com/ansible-middleware/keycloak/pull/363>`_
 
+Bugfixes
+--------
+
+- AMW-592 AMW Github Actions are failing because of latest molecule `#366 <https://github.com/ansible-middleware/keycloak/pull/366>`_
+
 v3.0.10
 =======
 

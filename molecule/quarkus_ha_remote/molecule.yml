@@ -11,7 +11,7 @@ platforms:
       - keycloak
     networks:
       - name: rhbk
-    port_bindings:
+    exposed_ports:
       - "8080/tcp"
       - "8443/tcp"
       - "9000/tcp"
@@ -24,7 +24,7 @@ platforms:
       - infinispan
     networks:
       - name: rhbk
-    port_bindings:
+    exposed_ports:
       - "11222/tcp"
   - name: postgres
     image: ubuntu/postgres:14-22.04_beta
@@ -35,7 +35,7 @@ platforms:
       - database
     networks:
       - name: rhbk
-    port_bindings:
+    exposed_ports:
       - "5432/tcp"
     mounts:
       - type: bind

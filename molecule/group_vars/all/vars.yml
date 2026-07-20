@@ -1,4 +1,9 @@
 ---
+keycloak_download_validate_certs: false
+keycloak_validate_certs: false
+keycloak_quarkus_download_validate_certs: false
+keycloak_quarkus_validate_certs: false
+keycloak_realm_validate_certs: false
 keycloak_quarkus_require_privilege_escalation: "{{ keycloak_install_requires_become | default(true) }}"
 keycloak_quarkus_systemd_require_privilege_escalation: "{{ keycloak_install_requires_become | default(true) }}"
 keycloak_quarkus_install_require_privilege_escalation: "{{ keycloak_install_requires_become | default(true) }}"

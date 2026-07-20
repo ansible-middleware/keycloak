@@ -10,6 +10,7 @@
 - name: "Wait until service becomes active: {{ keycloak.service_name }}"
   ansible.builtin.uri:
     url: "{{ keycloak.health_url }}"
+    validate_certs: "{{ keycloak_quarkus_validate_certs | default(omit) }}"
   register: keycloak_quarkus_status
   until: keycloak_quarkus_status.status == 200
   retries: "{{ keycloak_quarkus_restart_health_check_retries }}"

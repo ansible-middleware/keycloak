@@ -12,6 +12,7 @@
 - name: "Wait until service becomes active: {{ keycloak_config.service_name }}"
   ansible.builtin.uri:
     url: "{{ keycloak_config.health_url }}"
+    validate_certs: "{{ keycloak_validate_certs | default(omit) }}"
   register: keycloak_status
   until: keycloak_status.status == 200
   delegate_to: "{{ ansible_play_hosts | first }}"

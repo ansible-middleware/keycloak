@@ -81,7 +81,7 @@
     mode: '0640'
     url_username: "{{ keycloak_quarkus_binary_download_user | default(omit) }}"
     url_password: "{{ keycloak_quarkus_binary_download_pass | default(omit) }}"
-    validate_certs: false
+    validate_certs: "{{ keycloak_quarkus_download_validate_certs | default(omit) }}"
   delegate_to: localhost
   become: false
   run_once: true
@@ -110,7 +110,7 @@
         product_type: DISTRIBUTION
         product_version: "{{ rhbk_version }}"
         product_category: "{{ rhbk_product_category }}"
-        validate_certs: false
+        validate_certs: "{{ keycloak_quarkus_download_validate_certs | default(omit) }}"
       register: keycloak_quarkus_rhn_products
       no_log: "{{ omit_rhn_output | default(true) }}"
       delegate_to: localhost
@@ -129,7 +129,7 @@
         product_id: "{{ (keycloak_quarkus_rhn_filtered_products | first).id }}"
         dest: "{{ keycloak_quarkus_local_path.stat.path }}/{{ keycloak.bundle }}"
         mode: '0640'
-        validate_certs: false
+        validate_certs: "{{ keycloak_quarkus_download_validate_certs | default(omit) }}"
       no_log: "{{ omit_rhn_output | default(true) }}"
       delegate_to: localhost
       run_once: true
@@ -243,6 +243,7 @@
     group: "{{ keycloak.service_group }}"
     mode: '0640'
     checksum: "{{ item.checksum | default(omit) }}"
+    validate_certs: "{{ keycloak_quarkus_download_validate_certs | default(omit) }}"
   become: "{{ keycloak_quarkus_install_require_privilege_escalation | default(true) }}"
   loop: "{{ keycloak_quarkus_providers }}"
   when: item.url is defined and item.url | length > 0
@@ -259,6 +260,7 @@
     username: "{{ item.maven.username | default(omit) }}"
     password: "{{ item.maven.password | default(omit) }}"
     dest: "{{ keycloak_quarkus_local_path.stat.path }}/{{ item.id }}.jar"
+    validate_certs: "{{ keycloak_quarkus_download_validate_certs | default(omit) }}"
   delegate_to: "localhost"
   run_once: true
   loop: "{{ keycloak_quarkus_providers }}"
@@ -310,6 +312,7 @@
     owner: "{{ keycloak.service_user }}"
     group: "{{ keycloak.service_group }}"
     mode: '0640'
+    validate_certs: "{{ keycloak_quarkus_download_validate_certs | default(omit) }}"
   become: "{{ keycloak_quarkus_install_require_privilege_escalation | default(true) }}"
   loop: "{{ keycloak_quarkus_policies }}"
   when: item.url is defined and item.url | length > 0

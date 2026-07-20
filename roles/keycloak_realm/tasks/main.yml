@@ -4,7 +4,7 @@
     url: "{{ keycloak_realm_url }}{{ keycloak_realm_context }}/realms/master/protocol/openid-connect/token"
     method: POST
     body: "client_id={{ keycloak_realm_auth_client }}&username={{ keycloak_realm_admin_user }}&password={{ keycloak_realm_admin_password }}&grant_type=password"
-    validate_certs: false
+    validate_certs: "{{ keycloak_realm_validate_certs | default(omit) }}"
   no_log: "{{ keycloak_realm_no_log | default('True') }}"
   register: keycloak_realm_auth_response
   until: keycloak_realm_auth_response.status == 200
@@ -15,7 +15,7 @@
   ansible.builtin.uri:
     url: "{{ keycloak_realm_url }}{{ keycloak_realm_context }}/admin/realms/{{ keycloak_realm_realm }}"
     method: GET
-    validate_certs: false
+    validate_certs: "{{ keycloak_realm_validate_certs | default(omit) }}"
     status_code:
       - 200
       - 404
@@ -29,7 +29,7 @@
     url: "{{ keycloak_realm_url }}{{ keycloak_realm_context }}/admin/realms"
     method: POST
     body: "{{ lookup('template', 'realm.json.j2') }}"
-    validate_certs: false
+    validate_certs: "{{ keycloak_realm_validate_certs | default(omit) }}"
     body_format: json
     headers:
       Authorization: "Bearer {{ keycloak_realm_auth_response.json.access_token }}"
@@ -42,6 +42,7 @@
     auth_realm: "{{ keycloak_realm_auth_realm }}"
     auth_username: "{{ keycloak_realm_admin_user }}"
     auth_password: "{{ keycloak_realm_admin_password }}"
+    validate_certs: "{{ keycloak_realm_validate_certs | default(omit) }}"
     realm: "{{ item.realm | default(keycloak_realm_realm) }}"
     name: "{{ item.name }}"
     state: present
@@ -72,6 +73,7 @@
     auth_realm: "{{ keycloak_realm_auth_realm }}"
     auth_username: "{{ keycloak_realm_admin_user }}"
     auth_password: "{{ keycloak_realm_admin_password }}"
+    validate_certs: "{{ keycloak_realm_validate_certs | default(omit) }}"
     realm: "{{ item.realm | default(keycloak_realm_realm) }}"
     default_roles: "{{ item.roles | default(omit) }}"
     client_id: "{{ item.client_id | default(omit) }}"

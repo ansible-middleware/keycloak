@@ -90,6 +90,7 @@
           auth_realm: "{{ auth_realm }}"
           auth_username: "{{ auth_username }}"
           auth_password: "{{ auth_password }}"
+          validate_certs: false
       block:
         - name: Reset fixtures from a previous verify run
           middleware_automation.keycloak.keycloak_user:
@@ -168,6 +169,7 @@
       middleware_automation.keycloak.keycloak_realm_info:
         auth_keycloak_url: "{{ auth_keycloak_url }}"
         realm: "{{ target_realm }}"
+        validate_certs: false
 
     - name: Exercise migrated modules against running Keycloak
       module_defaults:
@@ -176,6 +178,7 @@
           auth_realm: "{{ auth_realm }}"
           auth_username: "{{ auth_username }}"
           auth_password: "{{ auth_password }}"
+          validate_certs: false
       block:
         - name: keycloak_realm_keys_metadata_info — query realm keys
           middleware_automation.keycloak.keycloak_realm_keys_metadata_info:
@@ -536,6 +539,7 @@
           auth_realm: "{{ auth_realm }}"
           auth_username: "{{ auth_username }}"
           auth_password: "{{ auth_password }}"
+          validate_certs: false
       block:
         - name: keycloak_authz_custom_policy — remove custom policy if created
           middleware_automation.keycloak.keycloak_authz_custom_policy:

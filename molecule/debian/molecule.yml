@@ -6,7 +6,7 @@ platforms:
     image: ghcr.io/hspaans/molecule-containers:debian-13
     pre_build_image: true
     privileged: true
-    port_bindings:
+    exposed_ports:
       - "8080/tcp"
       - "8443/tcp"
       - "8009/tcp"

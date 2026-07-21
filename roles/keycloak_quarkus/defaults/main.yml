@@ -186,6 +186,9 @@ keycloak_quarkus_restart_strategy: restart/serial.yml
 keycloak_quarkus_restart_health_check: true
 keycloak_quarkus_restart_health_check_delay: 10
 keycloak_quarkus_restart_health_check_retries: 25
+keycloak_quarkus_validate_certs: true
+keycloak_quarkus_health_check_url_path: "realms/{{ keycloak_quarkus_master_realm }}/.well-known/openid-configuration"
+keycloak_quarkus_health_check_url: "{{ keycloak_quarkus_hostname ~ keycloak_quarkus_http_relative_path.rstrip('/') ~ '/' ~ keycloak_quarkus_health_check_url_path }}"
 keycloak_quarkus_restart_pause: 15
 
 keycloak_quarkus_force_install: false

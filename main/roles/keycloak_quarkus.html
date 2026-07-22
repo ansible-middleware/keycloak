@@ -272,11 +272,11 @@
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_health_check_url</span></code></p></td>
 <td class="text-left"><p>Full URL (including scheme, host, path, fragment etc.) used for health check endpoint; keycloak_quarkus_hostname will NOT be prepended; helpful when health checks should happen against http port, but keycloak_quarkus_hostname uses https scheme per default</p></td>
-<td class="text-left"><p>``</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">keycloak_quarkus_hostname</span> <span class="pre">~</span> <span class="pre">keycloak_quarkus_http_relative_path.rstrip('/')</span> <span class="pre">~</span> <span class="pre">'/'</span> <span class="pre">~</span> <span class="pre">keycloak_quarkus_health_check_url_path</span> <span class="pre">}}</span></code></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_health_check_url_path</span></code></p></td>
 <td class="text-left"><p>Path to the health check endpoint; keycloak_quarkus_hostname will be prepended automatically; Note that keycloak_quarkus_health_check_url takes precedence over this property</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">realms/master/.well-known/openid-configuration</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">realms/{{</span> <span class="pre">keycloak_quarkus_master_realm</span> <span class="pre">}}/.well-known/openid-configuration</span></code></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_proxy_headers</span></code></p></td>
 <td class="text-left"><p>Parse reverse proxy headers (<code class="docutils literal notranslate"><span class="pre">forwarded</span></code> or <code class="docutils literal notranslate"><span class="pre">xforwarded</span></code>)</p></td>
@@ -367,7 +367,11 @@
 <td class="text-left"><p>Number of attempts for successful health check before failing</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">25</span></code></p></td>
 </tr>
-<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_restart_pause</span></code></p></td>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_validate_certs</span></code></p></td>
+<td class="text-left"><p>Whether to validate SSL certificates when performing health checks</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_restart_pause</span></code></p></td>
 <td class="text-left"><p>Seconds to wait between restarts in HA strategy</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">15</span></code></p></td>
 </tr>

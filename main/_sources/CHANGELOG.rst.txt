@@ -12,6 +12,7 @@ v3.0.11-devel
 Minor Changes
 -------------
 
+- Fix health check URL to include HTTP relative path `#364 <https://github.com/ansible-middleware/keycloak/pull/364>`_
 - fix(keycloak_quarkus): avoid leaking maven provider password in logs `#363 <https://github.com/ansible-middleware/keycloak/pull/363>`_
 
 Bugfixes

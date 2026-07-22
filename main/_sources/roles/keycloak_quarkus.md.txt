@@ -63,8 +63,8 @@ Role Defaults
 |`keycloak_quarkus_additional_env_vars` | List of additional env variables of { key: str, value: str} to be put in sysconfig file, see https://www.keycloak.org/server/all-config | `[]` |
 |`keycloak_quarkus_frontend_url`| Deprecated, use `keycloak_quarkus_hostname` instead. | |
 |`keycloak_quarkus_admin_url`| Deprecated, use `keycloak_quarkus_hostname_admin` instead. | |
-|`keycloak_quarkus_health_check_url`| Full URL (including scheme, host, path, fragment etc.) used for health check endpoint; keycloak_quarkus_hostname will NOT be prepended; helpful when health checks should happen against http port, but keycloak_quarkus_hostname uses https scheme per default | `` |
-|`keycloak_quarkus_health_check_url_path`| Path to the health check endpoint; keycloak_quarkus_hostname will be prepended automatically; Note that keycloak_quarkus_health_check_url takes precedence over this property | `realms/master/.well-known/openid-configuration` |
+|`keycloak_quarkus_health_check_url`| Full URL (including scheme, host, path, fragment etc.) used for health check endpoint; keycloak_quarkus_hostname will NOT be prepended; helpful when health checks should happen against http port, but keycloak_quarkus_hostname uses https scheme per default | `{{ keycloak_quarkus_hostname ~ keycloak_quarkus_http_relative_path.rstrip('/') ~ '/' ~ keycloak_quarkus_health_check_url_path }}` |
+|`keycloak_quarkus_health_check_url_path`| Path to the health check endpoint; keycloak_quarkus_hostname will be prepended automatically; Note that keycloak_quarkus_health_check_url takes precedence over this property | `realms/{{ keycloak_quarkus_master_realm }}/.well-known/openid-configuration` |
 |`keycloak_quarkus_proxy_headers`| Parse reverse proxy headers (`forwarded` or `xforwarded`) | `""` |
 |`keycloak_quarkus_config_key_store_file`| Path to the configuration key store; only used if `keycloak_quarkus_config_key_store_password` is not empty  | `{{ keycloak.home }}/conf/conf_store.p12` if `keycloak_quarkus_config_key_store_password != ''`, else `''` |
 |`keycloak_quarkus_config_key_store_password`| Password of the configuration keystore; if non-empty, `keycloak_quarkus_db_pass` will be saved to the keystore at `keycloak_quarkus_config_key_store_file` instead of being written to the configuration file in clear text | `""` |
@@ -90,6 +90,7 @@ Role Defaults
 |`keycloak_quarkus_restart_health_check`| Whether to wait for successful health check after restart | `true` |
 |`keycloak_quarkus_restart_health_check_delay`| Seconds to let pass before starting healch checks | `10` |
 |`keycloak_quarkus_restart_health_check_retries`| Number of attempts for successful health check before failing | `25` |
+|`keycloak_quarkus_validate_certs`| Whether to validate SSL certificates when performing health checks | `true` |
 |`keycloak_quarkus_restart_pause`| Seconds to wait between restarts in HA strategy | `15` |
 
 

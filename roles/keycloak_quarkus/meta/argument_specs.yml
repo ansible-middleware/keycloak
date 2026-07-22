@@ -115,10 +115,11 @@ argument_specs:
                 description: "HTTP port"
                 type: "int"
             keycloak_quarkus_health_check_url:
+                default: "{{ keycloak_quarkus_hostname ~ keycloak_quarkus_http_relative_path.rstrip('/') ~ '/' ~ keycloak_quarkus_health_check_url_path }}"
                 description: "Full URL (including scheme, host, path, fragment etc.) used for health check endpoint; keycloak_quarkus_hostname will NOT be prepended; helpful when health checks should happen against http port, but keycloak_quarkus_hostname uses https scheme per default"
                 type: "str"
             keycloak_quarkus_health_check_url_path:
-                default: "realms/master/.well-known/openid-configuration"
+                default: "realms/{{ keycloak_quarkus_master_realm }}/.well-known/openid-configuration"
                 description: "Path to the health check endpoint; keycloak_quarkus_hostname will be prepended automatically; Note that keycloak_quarkus_health_check_url takes precedence over this property"
                 type: "str"
             keycloak_quarkus_https_key_file_enabled:
@@ -488,6 +489,10 @@ argument_specs:
                 description: "Number of attempts for successful health check before failing"
                 default: 25
                 type: 'int'
+            keycloak_quarkus_validate_certs:
+                description: "Whether to validate SSL certificates when performing health checks"
+                default: true
+                type: "bool"
             keycloak_quarkus_show_deprecation_warnings:
                 default: true
                 description: "Whether or not deprecation warnings should be shown"

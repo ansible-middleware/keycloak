@@ -424,6 +424,13 @@ options:
     aliases:
       - permanentLockout
     type: bool
+  prune_undefined_realm_attributes:
+    description:
+      - If True all realm attributes which are not defined in the attributes dict will be deleted
+    aliases:
+      - pruneUndefinedRealmAttributes
+    type: bool
+    default: true
   quick_login_check_milli_seconds:
     description:
       - The realm quick login check in milliseconds.
@@ -799,6 +806,9 @@ from ansible_collections.middleware_automation.keycloak.plugins.module_utils.ide
     get_token,
     keycloak_argument_spec,
 )
+from ansible_collections.middleware_automation.keycloak.plugins.module_utils.identity.keycloak._keycloak_utils import (
+    merge_settings_without_absent_nulls,
+)
 
 
 def normalise_cr(realmrep):
@@ -920,6 +930,7 @@ def main():
         password_policy=dict(type="str", aliases=["passwordPolicy"], no_log=False),
         organizations_enabled=dict(type="bool", aliases=["organizationsEnabled"]),
         permanent_lockout=dict(type="bool", aliases=["permanentLockout"]),
+        prune_undefined_realm_attributes=dict(type="bool", aliases=["pruneUndefinedRealmAttributes"], default=True),
         quick_login_check_milli_seconds=dict(type="int", aliases=["quickLoginCheckMilliSeconds"]),
         refresh_token_max_reuse=dict(type="int", aliases=["refreshTokenMaxReuse"], no_log=False),
         registration_allowed=dict(type="bool", aliases=["registrationAllowed"]),
@@ -1031,9 +1042,10 @@ def main():
 
     realm = module.params.get("realm")
     state = module.params.get("state")
+    prune_undefined_realm_attributes = module.params.get("prune_undefined_realm_attributes")
 
     # convert module parameters to realm representation parameters (if they belong in there)
-    params_to_ignore = list(keycloak_argument_spec().keys()) + ["state"]
+    params_to_ignore = list(keycloak_argument_spec().keys()) + ["state", "prune_undefined_realm_attributes"]
 
     # Filter and map the parameters names that apply to the role
     realm_params = [x for x in module.params if x not in params_to_ignore and module.params.get(x) is not None]
@@ -1049,6 +1061,9 @@ def main():
 
     for realm_param in realm_params:
         new_param_value = module.params.get(realm_param)
+        if camel(realm_param) == "attributes" and not prune_undefined_realm_attributes:
+            new_param_value = merge_settings_without_absent_nulls(before_realm.get("attributes"), new_param_value)
+
         changeset[camel(realm_param)] = new_param_value
 
     # Prepare the desired values using the existing values (non-existence results in a dict that is save to use as a basis)

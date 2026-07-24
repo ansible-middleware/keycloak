@@ -52,6 +52,7 @@
       - keycloak_realm_keys_metadata_info
       - keycloak_realm_localization
       - keycloak_realm_rolemapping
+      - keycloak_realm_users_info
       - keycloak_role
       - keycloak_user
       - keycloak_user_execute_actions_email
@@ -187,6 +188,18 @@
         - name: keycloak_component_info — list realm components
           middleware_automation.keycloak.keycloak_component_info:
             realm: "{{ target_realm }}"
+
+        - name: keycloak_realm_users_info — list users in realm
+          middleware_automation.keycloak.keycloak_realm_users_info:
+            realm: "{{ target_realm }}"
+          register: realm_users_info_result
+
+        - name: Assert keycloak_realm_users_info returns the molecule user
+          ansible.builtin.assert:
+            that:
+              - realm_users_info_result is not changed
+              - realm_users_info_result.users | length > 0
+              - realm_users_info_result.users | selectattr('username', 'equalto', user) | list | length == 1
 
         - name: keycloak_realm — create ephemeral realm
           middleware_automation.keycloak.keycloak_realm:

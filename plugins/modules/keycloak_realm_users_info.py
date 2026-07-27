@@ -22,10 +22,6 @@ description:
   - Authentication can be performed either with username/password or with a token.
   - The names of module options are snake_case versions of the camelCase ones found in the Keycloak API and its documentation
     at U(https://www.keycloak.org/docs-api/latest/rest-api/index.html).
-attributes:
-  action_group:
-    # Originally added in community.general 10.2.0
-    version_added: "3.1.0"
 
 options:
   realm:

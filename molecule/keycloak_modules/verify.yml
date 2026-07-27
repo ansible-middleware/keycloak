@@ -195,6 +195,62 @@
             enabled: true
             state: present
 
+        - name: keycloak_realm — modify realm attributes without pruning undefined attributes. Step 1 - Introduce custom realm attributes
+          middleware_automation.keycloak.keycloak_realm:
+            id: "{{ ephemeral_realm }}"
+            realm: "{{ ephemeral_realm }}"
+            enabled: true
+            state: present
+            prune_undefined_realm_attributes: false
+            attributes:
+              custom-realm-attribute-1: 123
+              custom-realm-attribute-2: true
+          register: custom_realm_attributes_result
+
+        - name: Assert realm attribute without pruning undefined data result (Step 1)
+          ansible.builtin.assert:
+            that:
+              - custom_realm_attributes_result is changed
+              - custom_realm_attributes_result.end_state.attributes["custom-realm-attribute-1"] == "123"
+              - custom_realm_attributes_result.end_state.attributes["custom-realm-attribute-2"] == "true"
+
+        - name: keycloak_realm — modify realm attributes without pruning undefined attributes. Step 2 - Verify unchanged custom realm attributes
+          middleware_automation.keycloak.keycloak_realm:
+            id: "{{ ephemeral_realm }}"
+            realm: "{{ ephemeral_realm }}"
+            enabled: true
+            state: present
+            prune_undefined_realm_attributes: false
+            attributes:
+              custom-realm-attribute-2: false
+          register: custom_realm_attributes_result
+
+        - name: Assert realm attribute without pruning undefined data result (Step 2)
+          ansible.builtin.assert:
+            that:
+              - custom_realm_attributes_result is changed
+              - custom_realm_attributes_result.end_state.attributes["custom-realm-attribute-1"] == "123" # should still be 123
+              - custom_realm_attributes_result.end_state.attributes["custom-realm-attribute-2"] == "false"
+
+        - name: keycloak_realm — modify realm attributes with pruning undefined attributes
+          middleware_automation.keycloak.keycloak_realm:
+            id: "{{ ephemeral_realm }}"
+            realm: "{{ ephemeral_realm }}"
+            enabled: true
+            state: present
+            prune_undefined_realm_attributes: true
+            attributes:
+              custom-realm-attribute-3: custom-attribute-3
+          register: custom_realm_attributes_result
+
+        - name: Assert realm attribute with pruning undefined data result
+          ansible.builtin.assert:
+            that:
+              - custom_realm_attributes_result is changed
+              - custom_realm_attributes_result.end_state.attributes["custom-realm-attribute-1"] is not defined
+              - custom_realm_attributes_result.end_state.attributes["custom-realm-attribute-2"] is not defined
+              - custom_realm_attributes_result.end_state.attributes["custom-realm-attribute-3"] == "custom-attribute-3"
+
         - name: keycloak_realm_localization — set locale override
           middleware_automation.keycloak.keycloak_realm_localization:
             parent_id: "{{ target_realm }}"

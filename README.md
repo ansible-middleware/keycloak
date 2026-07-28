@@ -85,6 +85,7 @@ All Keycloak administration modules from `community.general` are provided in thi
 * `keycloak_realm_keys_metadata_info`: retrieve realm keys metadata.
 * `keycloak_realm_localization`: manage realm localization texts.
 * `keycloak_realm_rolemapping`: manage realm role mappings for users and groups.
+* `keycloak_realm_users_info`: retrieve users from a realm.
 * `keycloak_role`: manage realm and client roles.
 * `keycloak_user`: manage users (create/update/delete).
 * `keycloak_user_execute_actions_email`: trigger execute-actions emails for users.

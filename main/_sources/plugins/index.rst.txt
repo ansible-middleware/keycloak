@@ -32,6 +32,7 @@ Plugin Index
    keycloak_realm_keys_metadata_info
    keycloak_realm_localization
    keycloak_realm_rolemapping
+   keycloak_realm_users_info
    keycloak_role
    keycloak_user
    keycloak_user_execute_actions_email

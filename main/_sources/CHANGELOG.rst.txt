@@ -19,6 +19,7 @@ Bugfixes
 --------
 
 - AMW-592 AMW Github Actions are failing because of latest molecule `#366 <https://github.com/ansible-middleware/keycloak/pull/366>`_
+- AMW-594 Upstream release is failing due to recent rules change `#373 <https://github.com/ansible-middleware/keycloak/pull/373>`_
 
 v3.0.10
 =======

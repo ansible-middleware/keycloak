@@ -155,6 +155,9 @@ URL_AUTHZ_RESOURCES = "{url}/admin/realms/{realm}/clients/{client_id}/authz/reso
 URL_AUTHZ_CUSTOM_POLICY = "{url}/admin/realms/{realm}/clients/{client_id}/authz/resource-server/policy/{policy_type}"
 URL_AUTHZ_CUSTOM_POLICIES = "{url}/admin/realms/{realm}/clients/{client_id}/authz/resource-server/policy"
 
+URL_ORGANIZATIONS = "{url}/admin/realms/{realm}/organizations"
+URL_ORGANIZATION = "{url}/admin/realms/{realm}/organizations/{id}"
+
 
 def keycloak_argument_spec() -> dict[str, t.Any]:
     """
@@ -3507,6 +3510,92 @@ class KeycloakAPI:
             self.fail_request(e, msg=f"Could not delete roles scope for client {clientid} in realm {realm}: {e}")
 
         return self.get_client_role_scope_from_realm(clientid, realm)
+
+    def get_organizations(self, search_filter=None, realm: str = "master"):
+        """Fetch representations for organizations in a realm.
+        :param search_filter: Optional query string to append (e.g. 'search=foo&exact=true').
+        :param realm: Realm to be queried; default 'master'.
+        :return: List of organization representations.
+        """
+        orgs_url = URL_ORGANIZATIONS.format(url=self.baseurl, realm=realm)
+        if search_filter:
+            orgs_url = f"{orgs_url}?{search_filter}"
+        try:
+            return self._request_and_deserialize(orgs_url, method="GET")
+        except ValueError as e:
+            self.module.fail_json(
+                msg=f"API returned incorrect JSON when trying to obtain list of organizations for realm {realm}: {e}"
+            )
+        except Exception as e:
+            self.fail_request(e, msg=f"Could not obtain list of organizations for realm {realm}: {e}")
+
+    def get_organization_by_id(self, org_id, realm: str = "master"):
+        """Fetch an organization by its UUID.
+        If the organization does not exist, None is returned.
+        :param org_id: UUID of the organization to fetch.
+        :param realm: Realm in which the organization resides; default 'master'.
+        """
+        org_url = URL_ORGANIZATION.format(url=self.baseurl, realm=realm, id=org_id)
+        try:
+            return self._request_and_deserialize(org_url, method="GET")
+        except HTTPError as e:
+            if e.code == HTTPStatus.NOT_FOUND:
+                return None
+            else:
+                self.fail_request(e, msg=f"Could not fetch organization {org_id} in realm {realm}: {e}")
+        except Exception as e:
+            self.fail_request(e, msg=f"Could not fetch organization {org_id} in realm {realm}: {e}")
+
+    def get_organization_by_name(self, name, realm: str = "master"):
+        """Fetch an organization by name using search API with exact matching.
+        Returns the full representation (fetched by ID) or None if not found.
+        :param name: Name of the organization to fetch.
+        :param realm: Realm in which the organization resides; default 'master'.
+        """
+        search_url = URL_ORGANIZATIONS.format(url=self.baseurl, realm=realm)
+        search_url = f"{search_url}?search={quote(name, safe='')}&exact=true"
+        try:
+            orgs = self._request_and_deserialize(search_url, method="GET")
+            if not orgs:
+                return None
+            return self.get_organization_by_id(orgs[0]["id"], realm=realm)
+        except Exception as e:
+            self.fail_request(e, msg=f"Could not fetch organization {name} in realm {realm}: {e}")
+
+    def create_organization(self, orgrep, realm: str = "master"):
+        """Create an organization.
+        :param orgrep: Organization representation of the organization to be created.
+        :param realm: Realm in which this organization resides, default "master".
+        :return: HTTPResponse object on success.
+        """
+        orgs_url = URL_ORGANIZATIONS.format(url=self.baseurl, realm=realm)
+        try:
+            return self._request(orgs_url, method="POST", data=json.dumps(orgrep))
+        except Exception as e:
+            self.fail_request(e, msg=f"Could not create organization {orgrep.get('name')} in realm {realm}: {e}")
+
+    def update_organization(self, orgrep, realm: str = "master"):
+        """Update an existing organization.
+        :param orgrep: Organization representation of the organization to be updated.
+        :param realm: Realm in which this organization resides, default "master".
+        :return: HTTPResponse object on success.
+        """
+        org_url = URL_ORGANIZATION.format(url=self.baseurl, realm=realm, id=orgrep["id"])
+        try:
+            return self._request(org_url, method="PUT", data=json.dumps(orgrep))
+        except Exception as e:
+            self.fail_request(e, msg=f"Could not update organization {orgrep.get('name')} in realm {realm}: {e}")
+
+    def delete_organization(self, org_id, realm: str = "master"):
+        """Delete an organization by UUID.
+        :param org_id: UUID of the organization to delete.
+        :param realm: Realm in which this organization resides, default "master".
+        """
+        org_url = URL_ORGANIZATION.format(url=self.baseurl, realm=realm, id=org_id)
+        try:
+            return self._request(org_url, method="DELETE")
+        except Exception as e:
+            self.fail_request(e, msg=f"Could not delete organization {org_id} in realm {realm}: {e}")
 
     def fail_request(self, e: Exception, msg: str, **kwargs: t.Any) -> t.NoReturn:
         """Triggers a module failure. This should be called

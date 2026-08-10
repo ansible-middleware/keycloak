@@ -1,0 +1,5 @@
+---
+# See: https://github.com/ansible/ansible/blob/devel/test/lib/ansible_test/config/config.yml
+# Modules use ``from __future__ import annotations`` (Python 3.7+).
+modules:
+  python_requires: '>=3.7'

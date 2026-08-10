@@ -11,6 +11,9 @@ docs/_build/
 .mypy_cache/
 *.retry
 changelogs/.plugin-cache.yaml
+changelogs/fragments/*.yaml
+changelogs/fragments/*.yml
+
 *.pem
 *.key
 *.p12

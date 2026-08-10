@@ -1,0 +1,8 @@
+---
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      # Weekly keeps Actions dependency PRs current without daily CI load.
+      interval: weekly

@@ -46,6 +46,8 @@
       - keycloak_component_info
       - keycloak_group
       - keycloak_identity_provider
+      - keycloak_organization
+      - keycloak_organization_info
       - keycloak_realm
       - keycloak_realm_info
       - keycloak_realm_key
@@ -263,6 +265,157 @@
               - custom_realm_attributes_result.end_state.attributes["custom-realm-attribute-1"] is not defined
               - custom_realm_attributes_result.end_state.attributes["custom-realm-attribute-2"] is not defined
               - custom_realm_attributes_result.end_state.attributes["custom-realm-attribute-3"] == "custom-attribute-3"
+
+        # --- Organization module tests ---
+
+        - name: keycloak_realm — enable organizations on ephemeral realm
+          middleware_automation.keycloak.keycloak_realm:
+            id: "{{ ephemeral_realm }}"
+            realm: "{{ ephemeral_realm }}"
+            organizations_enabled: true
+            state: present
+
+        - name: keycloak_organization — create organization
+          middleware_automation.keycloak.keycloak_organization:
+            realm: "{{ ephemeral_realm }}"
+            name: molecule-org
+            description: Molecule test organization
+            enabled: true
+            domains:
+              - name: molecule.example.com
+            state: present
+          register: org_create_result
+
+        - name: Assert organization was created
+          ansible.builtin.assert:
+            that:
+              - org_create_result is changed
+              - org_create_result.end_state.name == "molecule-org"
+              - org_create_result.end_state.description == "Molecule test organization"
+              - org_create_result.end_state.enabled == true
+              - org_create_result.end_state.id is defined
+
+        - name: keycloak_organization — create organization (idempotency)
+          middleware_automation.keycloak.keycloak_organization:
+            realm: "{{ ephemeral_realm }}"
+            name: molecule-org
+            description: Molecule test organization
+            enabled: true
+            domains:
+              - name: molecule.example.com
+            state: present
+          register: org_create_idempotent_result
+
+        - name: Assert organization creation is idempotent
+          ansible.builtin.assert:
+            that:
+              - org_create_idempotent_result is not changed
+
+        - name: keycloak_organization — update organization description
+          middleware_automation.keycloak.keycloak_organization:
+            realm: "{{ ephemeral_realm }}"
+            name: molecule-org
+            description: Updated molecule test organization
+            state: present
+          register: org_update_result
+
+        - name: Assert organization was updated
+          ansible.builtin.assert:
+            that:
+              - org_update_result is changed
+              - org_update_result.end_state.description == "Updated molecule test organization"
+
+        - name: keycloak_organization — update organization (idempotency)
+          middleware_automation.keycloak.keycloak_organization:
+            realm: "{{ ephemeral_realm }}"
+            name: molecule-org
+            description: Updated molecule test organization
+            state: present
+          register: org_update_idempotent_result
+
+        - name: Assert organization update is idempotent
+          ansible.builtin.assert:
+            that:
+              - org_update_idempotent_result is not changed
+
+        - name: keycloak_organization_info — query organization by name
+          middleware_automation.keycloak.keycloak_organization_info:
+            realm: "{{ ephemeral_realm }}"
+            name: molecule-org
+          register: org_info_result
+
+        - name: Assert organization info returns the created org
+          ansible.builtin.assert:
+            that:
+              - org_info_result is not changed
+              - org_info_result.organizations | length == 1
+              - org_info_result.organizations[0].name == "molecule-org"
+
+        - name: keycloak_organization_info — list all organizations
+          middleware_automation.keycloak.keycloak_organization_info:
+            realm: "{{ ephemeral_realm }}"
+          register: org_info_all_result
+
+        - name: Assert organization list is non-empty
+          ansible.builtin.assert:
+            that:
+              - org_info_all_result.organizations | length >= 1
+
+        - name: keycloak_organization — create organization with attributes
+          middleware_automation.keycloak.keycloak_organization:
+            realm: "{{ ephemeral_realm }}"
+            name: molecule-org-attrs
+            description: Organization with attributes
+            attributes:
+              department: engineering
+              tags:
+                - test
+                - molecule
+            state: present
+          register: org_attrs_result
+
+        - name: Assert organization with attributes was created
+          ansible.builtin.assert:
+            that:
+              - org_attrs_result is changed
+              - org_attrs_result.end_state.attributes.department == ["engineering"]
+              - org_attrs_result.end_state.attributes.tags == ["test", "molecule"]
+
+        - name: keycloak_organization — delete organization with attributes
+          middleware_automation.keycloak.keycloak_organization:
+            realm: "{{ ephemeral_realm }}"
+            name: molecule-org-attrs
+            state: absent
+          register: org_attrs_delete_result
+
+        - name: Assert organization with attributes was deleted
+          ansible.builtin.assert:
+            that:
+              - org_attrs_delete_result is changed
+
+        - name: keycloak_organization — delete organization
+          middleware_automation.keycloak.keycloak_organization:
+            realm: "{{ ephemeral_realm }}"
+            name: molecule-org
+            state: absent
+          register: org_delete_result
+
+        - name: Assert organization was deleted
+          ansible.builtin.assert:
+            that:
+              - org_delete_result is changed
+
+        - name: keycloak_organization — delete organization (idempotency)
+          middleware_automation.keycloak.keycloak_organization:
+            realm: "{{ ephemeral_realm }}"
+            name: molecule-org
+            state: absent
+          register: org_delete_idempotent_result
+
+        - name: Assert organization deletion is idempotent
+          ansible.builtin.assert:
+            that:
+              - org_delete_idempotent_result is not changed
 
         - name: keycloak_realm_localization — set locale override
           middleware_automation.keycloak.keycloak_realm_localization:

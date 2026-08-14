@@ -15,6 +15,7 @@
     user: molecule-user
     flow: molecule-flow
     flow_v2: molecule-flow-v2
+    flow_v2_form_action: molecule-flow-v2-form-action
     auth_copy: molecule-auth-copy
     idp: molecule-idp
     ephemeral_realm: molecule-realm
@@ -296,6 +297,64 @@
               - requirement: REQUIRED
                 providerId: auth-cookie
             state: present
+
+        # Rebuilds Keycloak's own built-in "registration" flow structure as of 26.7.1.
+        # validate_executions() used to only check authenticator-providers and falsely flagged form actions as invalid
+        # See https://github.com/ansible-middleware/keycloak/issues/382
+        - name: keycloak_authentication_v2 — accept valid FormAction flow
+          middleware_automation.keycloak.keycloak_authentication_v2:
+            realm: "{{ target_realm }}"
+            alias: "{{ flow_v2_form_action }}"
+            description: Molecule module test flow v2 - FormAction providers
+            authenticationExecutions:
+              - subFlow: "{{ flow_v2_form_action }} - registration form"
+                subFlowType: form-flow
+                requirement: REQUIRED
+                authenticationExecutions:
+                  - providerId: registration-user-creation
+                    requirement: REQUIRED
+                  - providerId: registration-password-action
+                    requirement: REQUIRED
+                  - providerId: registration-recaptcha-action
+                    requirement: DISABLED
+                  - providerId: registration-terms-and-conditions
+                    requirement: DISABLED
+            state: present
+          register: flow_v2_form_action_result
+
+        - name: Assert that valid FormAction flow is accepted
+          ansible.builtin.assert:
+            that:
+              - flow_v2_form_action_result is changed
+              - flow_v2_form_action_result.diff is defined
+
+          # form-action providers are valid for form-flow, but not for basic-flow.
+          # This test ensures that validate_executions() correctly rejects them when used in a basic-flow context.
+          # Same for authentication providers (e.g auth-cookie) in a form-flow context.
+        - name: keycloak_authentication_v2 — reject providerIds mismatched with their parent flow type
+          middleware_automation.keycloak.keycloak_authentication_v2:
+            realm: "{{ target_realm }}"
+            alias: molecule-flow-v2-mismatched-flow-type
+            description: Molecule module test flow v2 - mismatched flow type providers
+            authenticationExecutions:
+              - providerId: registration-user-creation
+                requirement: REQUIRED
+              - subFlow: molecule-flow-v2-mismatched-flow-type - form
+                subFlowType: form-flow
+                requirement: REQUIRED
+                authenticationExecutions:
+                  - providerId: auth-cookie
+                    requirement: REQUIRED
+            state: present
+          register: flow_v2_mismatched_flow_type_result
+          ignore_errors: true
+
+        - name: Assert providerIds mismatched with their parent flow type are rejected
+          ansible.builtin.assert:
+            that:
+              - flow_v2_mismatched_flow_type_result is failed
+              - "'registration-user-creation' in flow_v2_mismatched_flow_type_result.msg"
+              - "'auth-cookie' in flow_v2_mismatched_flow_type_result.msg"
 
         - name: keycloak_authentication_required_actions — ensure VERIFY_EMAIL is enabled
           middleware_automation.keycloak.keycloak_authentication_required_actions:
@@ -694,6 +753,12 @@
           middleware_automation.keycloak.keycloak_authentication_v2:
             realm: "{{ target_realm }}"
             alias: "{{ flow_v2 }}"
+            state: absent
+
+        - name: keycloak_authentication_v2 — remove valid FormAction flow
+          middleware_automation.keycloak.keycloak_authentication_v2:
+            realm: "{{ target_realm }}"
+            alias: "{{ flow_v2_form_action }}"
             state: absent
 
         - name: keycloak_authentication — remove copied flow

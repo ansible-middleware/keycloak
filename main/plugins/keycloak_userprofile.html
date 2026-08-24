@@ -4,7 +4,7 @@
 <html class="writer-html5" lang="en" data-content_root="../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta content="2.24.0" name="antsibull-docs" />
+<meta content="2.26.0" name="antsibull-docs" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>keycloak_userprofile – Allows managing Keycloak User Profiles &mdash; Keycloak Ansible Collection  documentation</title>
@@ -69,6 +69,8 @@
 <li class="toctree-l2"><a class="reference internal" href="keycloak_component_info.html">keycloak_component_info – Retrieve component info in Keycloak</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_group.html">keycloak_group – Allows administration of Keycloak groups using Keycloak API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_identity_provider.html">keycloak_identity_provider – Allows administration of Keycloak identity providers using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_organization.html">keycloak_organization – Allows administration of Keycloak organizations using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_organization_info.html">keycloak_organization_info – Retrieve organization info in Keycloak</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_realm.html">keycloak_realm – Allows administration of Keycloak realm using Keycloak API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_realm_info.html">keycloak_realm_info – Allows obtaining Keycloak realm public information using Keycloak API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_realm_key.html">keycloak_realm_key – Allows administration of Keycloak realm keys using Keycloak API</a></li>
@@ -1181,12 +1183,12 @@ To check whether it is installed, run <code class="code docutils literal notrans
 <span class="w">    </span><span class="nt">parent_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
 
 <span class="c1"># Unmanaged attributes are user attributes not explicitly defined in the User Profile</span>
-<span class="c1"># configuration. By default, unmanaged attributes are &quot;Disabled&quot; and are not</span>
+<span class="c1"># configuration. By default, unmanaged attributes are "Disabled" and are not</span>
 <span class="c1"># available from any context such as registration, account, and the</span>
-<span class="c1"># administration console. By setting &quot;Enabled&quot;, unmanaged attributes are fully</span>
+<span class="c1"># administration console. By setting "Enabled", unmanaged attributes are fully</span>
 <span class="c1"># recognized by the server and accessible through all contexts, useful if you are</span>
 <span class="c1"># starting migrating an existing realm to the declarative User Profile</span>
-<span class="c1"># and you don&#39;t have yet all user attributes defined in the User Profile configuration.</span>
+<span class="c1"># and you don't have yet all user attributes defined in the User Profile configuration.</span>
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Enable Unmanaged Attributes</span>
 <span class="w">  </span><span class="nt">middleware_automation.keycloak.keycloak_userprofile</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
@@ -1195,7 +1197,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 <span class="w">      </span><span class="nt">kc_user_profile_config</span><span class="p">:</span>
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">unmanagedAttributePolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ENABLED</span>
 
-<span class="c1"># By setting &quot;Only administrators can write&quot;, unmanaged attributes can be managed</span>
+<span class="c1"># By setting "Only administrators can write", unmanaged attributes can be managed</span>
 <span class="c1"># only through the administration console and API, useful if you have already</span>
 <span class="c1"># defined any custom attribute that can be managed by users but you are unsure</span>
 <span class="c1"># about adding other attributes that should only be managed by administrators.</span>

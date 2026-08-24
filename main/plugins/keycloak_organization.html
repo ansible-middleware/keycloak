@@ -7,7 +7,7 @@
 <meta content="2.26.0" name="antsibull-docs" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>keycloak_realm_rolemapping – Allows administration of Keycloak realm role mappings into groups with the Keycloak API &mdash; Keycloak Ansible Collection  documentation</title>
+  <title>keycloak_organization – Allows administration of Keycloak organizations using Keycloak API &mdash; Keycloak Ansible Collection  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=41de9001" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/antsibull-minimal.css" />
@@ -21,8 +21,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="keycloak_realm_users_info – Retrieve users from a Keycloak realm using the Keycloak API" href="keycloak_realm_users_info.html" />
-    <link rel="prev" title="keycloak_realm_localization – Allows management of Keycloak realm localization overrides via the Keycloak API" href="keycloak_realm_localization.html" /> 
+    <link rel="next" title="keycloak_organization_info – Retrieve organization info in Keycloak" href="keycloak_organization_info.html" />
+    <link rel="prev" title="keycloak_identity_provider – Allows administration of Keycloak identity providers using Keycloak API" href="keycloak_identity_provider.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -69,14 +69,7 @@
 <li class="toctree-l2"><a class="reference internal" href="keycloak_component_info.html">keycloak_component_info – Retrieve component info in Keycloak</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_group.html">keycloak_group – Allows administration of Keycloak groups using Keycloak API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_identity_provider.html">keycloak_identity_provider – Allows administration of Keycloak identity providers using Keycloak API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="keycloak_organization.html">keycloak_organization – Allows administration of Keycloak organizations using Keycloak API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="keycloak_organization_info.html">keycloak_organization_info – Retrieve organization info in Keycloak</a></li>
-<li class="toctree-l2"><a class="reference internal" href="keycloak_realm.html">keycloak_realm – Allows administration of Keycloak realm using Keycloak API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_info.html">keycloak_realm_info – Allows obtaining Keycloak realm public information using Keycloak API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_key.html">keycloak_realm_key – Allows administration of Keycloak realm keys using Keycloak API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_keys_metadata_info.html">keycloak_realm_keys_metadata_info – Allows obtaining Keycloak realm keys metadata using Keycloak API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_localization.html">keycloak_realm_localization – Allows management of Keycloak realm localization overrides via the Keycloak API</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">keycloak_realm_rolemapping – Allows administration of Keycloak realm role mappings into groups with the Keycloak API</a><ul>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">keycloak_organization – Allows administration of Keycloak organizations using Keycloak API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#synopsis">Synopsis</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#parameters">Parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#attributes">Attributes</a></li>
@@ -87,6 +80,13 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_organization_info.html">keycloak_organization_info – Retrieve organization info in Keycloak</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm.html">keycloak_realm – Allows administration of Keycloak realm using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_info.html">keycloak_realm_info – Allows obtaining Keycloak realm public information using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_key.html">keycloak_realm_key – Allows administration of Keycloak realm keys using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_keys_metadata_info.html">keycloak_realm_keys_metadata_info – Allows obtaining Keycloak realm keys metadata using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_localization.html">keycloak_realm_localization – Allows management of Keycloak realm localization overrides via the Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_realm_rolemapping.html">keycloak_realm_rolemapping – Allows administration of Keycloak realm role mappings into groups with the Keycloak API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_realm_users_info.html">keycloak_realm_users_info – Retrieve users from a Keycloak realm using the Keycloak API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_role.html">keycloak_role – Allows administration of Keycloak roles using Keycloak API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_user.html">keycloak_user – Create and configure a user in Keycloak</a></li>
@@ -133,9 +133,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">Plugin Index</a></li>
-      <li class="breadcrumb-item active">keycloak_realm_rolemapping – Allows administration of Keycloak realm role mappings into groups with the Keycloak API</li>
+      <li class="breadcrumb-item active">keycloak_organization – Allows administration of Keycloak organizations using Keycloak API</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/plugins/keycloak_realm_rolemapping.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/plugins/keycloak_organization.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -143,17 +143,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <span class="target" id="ansible-collections-middleware-automation-keycloak-keycloak-realm-rolemapping-module"></span><section id="keycloak-realm-rolemapping-allows-administration-of-keycloak-realm-role-mappings-into-groups-with-the-keycloak-api">
-<h1>keycloak_realm_rolemapping – Allows administration of Keycloak realm role mappings into groups with the Keycloak API<a class="headerlink" href="#keycloak-realm-rolemapping-allows-administration-of-keycloak-realm-role-mappings-into-groups-with-the-keycloak-api" title="Link to this heading"></a></h1>
+  <span class="target" id="ansible-collections-middleware-automation-keycloak-keycloak-organization-module"></span><section id="keycloak-organization-allows-administration-of-keycloak-organizations-using-keycloak-api">
+<h1>keycloak_organization – Allows administration of Keycloak organizations using Keycloak API<a class="headerlink" href="#keycloak-organization-allows-administration-of-keycloak-organizations-using-keycloak-api" title="Link to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This module is part of the <a class="reference external" href="https://galaxy.ansible.com/ui/repo/published/middleware_automation/keycloak/">middleware_automation.keycloak collection</a>.</p>
 <p>It is not included in <code class="docutils literal notranslate"><span class="pre">ansible-core</span></code>.
 To check whether it is installed, run <code class="code docutils literal notranslate"><span class="pre">ansible-galaxy</span> <span class="pre">collection</span> <span class="pre">list</span></code>.</p>
 <p>To install it, use: <code class="code docutils literal notranslate"><span class="pre">ansible-galaxy</span> <span class="pre">collection</span> <span class="pre">install</span> <span class="pre">middleware_automation.keycloak</span></code>.</p>
-<p>To use it in a playbook, specify: <code class="code docutils literal notranslate"><span class="pre">middleware_automation.keycloak.keycloak_realm_rolemapping</span></code>.</p>
+<p>To use it in a playbook, specify: <code class="code docutils literal notranslate"><span class="pre">middleware_automation.keycloak.keycloak_organization</span></code>.</p>
 </div>
-<p class="ansible-version-added">New in middleware_automation.keycloak 3.0.0</p>
+<p class="ansible-version-added">New in middleware_automation.keycloak 3.1.0</p>
 <nav class="contents local" id="contents">
 <ul class="simple">
 <li><p><a class="reference internal" href="#synopsis" id="id1">Synopsis</a></p></li>
@@ -166,10 +166,11 @@ To check whether it is installed, run <code class="code docutils literal notrans
 <section id="synopsis">
 <h2><a class="toc-backref" href="#id1" role="doc-backlink">Synopsis</a><a class="headerlink" href="#synopsis" title="Link to this heading"></a></h2>
 <ul class="simple">
-<li><p>This module allows you to add, remove or modify Keycloak realm role mappings into groups with the Keycloak REST API. It requires access to the REST API using OpenID Connect; the user connecting and the client being used must have the requisite access rights. In a default Keycloak installation, admin-cli and an admin user would work, as would a separate client definition with the scope tailored to your needs and a user having the expected roles.</p></li>
-<li><p>The names of module options are snake_cased versions of the camelCase ones found in the Keycloak API and its documentation at <a class="reference external" href="https://www.keycloak.org/docs-api/18.0/rest-api/index.html">https://www.keycloak.org/docs-api/18.0/rest-api/index.html</a>.</p></li>
+<li><p>This module allows you to add, remove or modify Keycloak organizations using the Keycloak REST API. It requires access to the REST API using OpenID Connect; the user connecting and the client being used must have the requisite access rights. In a default Keycloak installation, admin-cli and an admin user would work, as would a separate client definition with the scope tailored to your needs and a user having the expected roles.</p></li>
+<li><p>The names of module options are snake_cased versions of the camelCase ones found in the Keycloak API and its documentation at <a class="reference external" href="https://www.keycloak.org/docs-api/latest/rest-api/index.html">https://www.keycloak.org/docs-api/latest/rest-api/index.html</a>.</p></li>
 <li><p>Attributes are multi-valued in the Keycloak API. All attributes are lists of individual values and are returned that way by this module. You may pass single values for attributes when calling the module, and this is translated into a list suitable for the API.</p></li>
-<li><p>When updating a group_rolemapping, where possible provide the role ID to the module. This removes a lookup to the API to translate the name into the role ID.</p></li>
+<li><p>Organizations are available in Keycloak 26 and later. The realm must have organizations enabled (<code class="docutils literal notranslate"><span class="pre">organizations_enabled=true</span></code> in the <a class="reference internal" href="keycloak_realm.html#ansible-collections-middleware-automation-keycloak-keycloak-realm-module"><span class="std std-ref">middleware_automation.keycloak.keycloak_realm</span></a> module) before this module can be used.</p></li>
+<li><p>When updating an organization, where possible provide the organization ID to the module. This removes a lookup to the API to translate the name into the organization ID.</p></li>
 </ul>
 </section>
 <section id="parameters">
@@ -182,6 +183,35 @@ To check whether it is installed, run <code class="code docutils literal notrans
 </tr>
 </thead>
 <tbody>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-alias"></div>
+    <p class="ansible-option-title"><strong>alias</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-alias" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>URL-friendly alias for the organization.</p>
+    <p>If not provided during creation, defaults to the organization name if URL-safe.</p>
+    <p>The alias is immutable once set and cannot be changed on update.</p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-attributes"></div>
+    <p class="ansible-option-title"><strong>attributes</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-attributes" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">dictionary</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>A dict of key/value pairs to set as custom attributes for the organization.</p>
+    <p>Values may be single values (for example a string) or a list of strings.</p>
+  </div></td>
+</tr>
 <tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-auth_client_id"></div>
@@ -284,33 +314,87 @@ To check whether it is installed, run <code class="code docutils literal notrans
 </tr>
 <tr class="row-odd">
   <td><div class="ansible-option-cell">
-    <div class="ansibleOptionAnchor" id="parameter-gid"></div>
-    <p class="ansible-option-title"><strong>gid</strong></p>
-    <a class="ansibleOptionLink" href="#parameter-gid" title="Permalink to this option"></a>
+    <div class="ansibleOptionAnchor" id="parameter-description"></div>
+    <p class="ansible-option-title"><strong>description</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-description" title="Permalink to this option"></a>
     <p class="ansible-option-type-line">
       <span class="ansible-option-type">string</span>
     </p>
   </div></td>
   <td><div class="ansible-option-cell">
-    <p>ID of the group to be mapped.</p>
-    <p>This parameter is not required for updating or deleting the rolemapping but providing it reduces the number of API calls required.</p>
+    <p>Description of the organization.</p>
   </div></td>
 </tr>
 <tr class="row-even">
   <td><div class="ansible-option-cell">
-    <div class="ansibleOptionAnchor" id="parameter-group_name"></div>
-    <p class="ansible-option-title"><strong>group_name</strong></p>
-    <a class="ansibleOptionLink" href="#parameter-group_name" title="Permalink to this option"></a>
+    <div class="ansibleOptionAnchor" id="parameter-domains"></div>
+    <p class="ansible-option-title"><strong>domains</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-domains" title="Permalink to this option"></a>
     <p class="ansible-option-type-line">
-      <span class="ansible-option-type">string</span>
+      <span class="ansible-option-type">list</span>
+      / <span class="ansible-option-elements">elements=dictionary</span>
     </p>
   </div></td>
   <td><div class="ansible-option-cell">
-    <p>Name of the group to be mapped.</p>
-    <p>This parameter is required (can be replaced by gid for less API call).</p>
+    <p>List of internet domains associated with the organization.</p>
+    <p>A domain name can only belong to one organization within a realm.</p>
   </div></td>
 </tr>
 <tr class="row-odd">
+  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-domains/name"></div>
+    <p class="ansible-option-title"><strong>name</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-domains/name" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+      / <span class="ansible-option-required">required</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+    <p>The domain name (e.g. <code class="ansible-value literal notranslate">example.com</code>).</p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-domains/verified"></div>
+    <p class="ansible-option-title"><strong>verified</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-domains/verified" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">boolean</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+    <p>Whether the domain has been verified.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+    <ul class="simple">
+      <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>false</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+      <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+    </ul>
+
+  </div></td>
+</tr>
+
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-enabled"></div>
+    <p class="ansible-option-title"><strong>enabled</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-enabled" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">boolean</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Whether the organization is enabled.</p>
+    <p>Disabled organizations block member authentication.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+    <ul class="simple">
+      <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+      <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+    </ul>
+
+  </div></td>
+</tr>
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-http_agent"></div>
     <p class="ansible-option-title"><strong>http_agent</strong></p>
@@ -324,54 +408,34 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;Ansible&#34;</code></p>
   </div></td>
 </tr>
-<tr class="row-even">
-  <td><div class="ansible-option-cell">
-    <div class="ansibleOptionAnchor" id="parameter-parents"></div>
-    <p class="ansible-option-title"><strong>parents</strong></p>
-    <a class="ansibleOptionLink" href="#parameter-parents" title="Permalink to this option"></a>
-    <p class="ansible-option-type-line">
-      <span class="ansible-option-type">list</span>
-      / <span class="ansible-option-elements">elements=dictionary</span>
-    </p>
-  </div></td>
-  <td><div class="ansible-option-cell">
-    <p>List of parent groups for the group to handle sorted top to bottom.</p>
-    <p>Set this if your group is a subgroup and you do not provide the GID in <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-gid"><span class="std std-ref"><span class="pre">gid</span></span></a></strong></code>.</p>
-  </div></td>
-</tr>
 <tr class="row-odd">
-  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
-    <div class="ansibleOptionAnchor" id="parameter-parents/id"></div>
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-id"></div>
     <p class="ansible-option-title"><strong>id</strong></p>
-    <a class="ansibleOptionLink" href="#parameter-parents/id" title="Permalink to this option"></a>
+    <a class="ansibleOptionLink" href="#parameter-id" title="Permalink to this option"></a>
     <p class="ansible-option-type-line">
       <span class="ansible-option-type">string</span>
     </p>
   </div></td>
-  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-    <p>Identify parent by ID.</p>
-    <p>Needs less API calls than using <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-parents/name"><span class="std std-ref"><span class="pre">parents[].name</span></span></a></strong></code>.</p>
-    <p>A deep parent chain can be started at any point when first given parent is given as ID.</p>
-    <p>Note that in principle both ID and name can be specified at the same time but current implementation only always use just one of them, with ID being preferred.</p>
+  <td><div class="ansible-option-cell">
+    <p>The unique identifier for this organization.</p>
+    <p>This parameter is not required for updating or deleting an organization but providing it reduces the number of API calls required.</p>
   </div></td>
 </tr>
 <tr class="row-even">
-  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
-    <div class="ansibleOptionAnchor" id="parameter-parents/name"></div>
+  <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-name"></div>
     <p class="ansible-option-title"><strong>name</strong></p>
-    <a class="ansibleOptionLink" href="#parameter-parents/name" title="Permalink to this option"></a>
+    <a class="ansibleOptionLink" href="#parameter-name" title="Permalink to this option"></a>
     <p class="ansible-option-type-line">
       <span class="ansible-option-type">string</span>
     </p>
   </div></td>
-  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-    <p>Identify parent by name.</p>
-    <p>Needs more internal API calls than using <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-parents/id"><span class="std std-ref"><span class="pre">parents[].id</span></span></a></strong></code> to map names to ID&#x27;s under the hood.</p>
-    <p>When giving a parent chain with only names it must be complete up to the top.</p>
-    <p>Note that in principle both ID and name can be specified at the same time but current implementation only always use just one of them, with ID being preferred.</p>
+  <td><div class="ansible-option-cell">
+    <p>Name of the organization.</p>
+    <p>This parameter is required when creating a new organization.</p>
   </div></td>
 </tr>
-
 <tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-realm"></div>
@@ -382,7 +446,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     </p>
   </div></td>
   <td><div class="ansible-option-cell">
-    <p>They Keycloak realm under which this role_representation resides.</p>
+    <p>The Keycloak realm under which this organization resides.</p>
     <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;master&#34;</code></p>
   </div></td>
 </tr>
@@ -401,49 +465,6 @@ To check whether it is installed, run <code class="code docutils literal notrans
 </tr>
 <tr class="row-odd">
   <td><div class="ansible-option-cell">
-    <div class="ansibleOptionAnchor" id="parameter-roles"></div>
-    <p class="ansible-option-title"><strong>roles</strong></p>
-    <a class="ansibleOptionLink" href="#parameter-roles" title="Permalink to this option"></a>
-    <p class="ansible-option-type-line">
-      <span class="ansible-option-type">list</span>
-      / <span class="ansible-option-elements">elements=dictionary</span>
-    </p>
-  </div></td>
-  <td><div class="ansible-option-cell">
-    <p>Roles to be mapped to the group.</p>
-  </div></td>
-</tr>
-<tr class="row-even">
-  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
-    <div class="ansibleOptionAnchor" id="parameter-roles/id"></div>
-    <p class="ansible-option-title"><strong>id</strong></p>
-    <a class="ansibleOptionLink" href="#parameter-roles/id" title="Permalink to this option"></a>
-    <p class="ansible-option-type-line">
-      <span class="ansible-option-type">string</span>
-    </p>
-  </div></td>
-  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-    <p>The unique identifier for this role_representation.</p>
-    <p>This parameter is not required for updating or deleting a role_representation but providing it reduces the number of API calls required.</p>
-  </div></td>
-</tr>
-<tr class="row-odd">
-  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
-    <div class="ansibleOptionAnchor" id="parameter-roles/name"></div>
-    <p class="ansible-option-title"><strong>name</strong></p>
-    <a class="ansibleOptionLink" href="#parameter-roles/name" title="Permalink to this option"></a>
-    <p class="ansible-option-type-line">
-      <span class="ansible-option-type">string</span>
-    </p>
-  </div></td>
-  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-    <p>Name of the role_representation.</p>
-    <p>This parameter is required only when creating or updating the role_representation.</p>
-  </div></td>
-</tr>
-
-<tr class="row-even">
-  <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-state"></div>
     <p class="ansible-option-title"><strong>state</strong></p>
     <a class="ansibleOptionLink" href="#parameter-state" title="Permalink to this option"></a>
@@ -452,9 +473,9 @@ To check whether it is installed, run <code class="code docutils literal notrans
     </p>
   </div></td>
   <td><div class="ansible-option-cell">
-    <p>State of the realm_rolemapping.</p>
-    <p>On <code class='docutils literal notranslate'>present</code>, the realm_rolemapping is created if it does not yet exist, or updated with the parameters you provide.</p>
-    <p>On <code class='docutils literal notranslate'>absent</code>, the realm_rolemapping is removed if it exists.</p>
+    <p>State of the organization.</p>
+    <p>On <code class="ansible-value literal notranslate">present</code>, the organization is created if it does not yet exist, or updated with the parameters you provide.</p>
+    <p>On <code class="ansible-value literal notranslate">absent</code>, the organization is removed if it exists.</p>
     <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
     <ul class="simple">
       <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>&#34;present&#34;</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
@@ -463,7 +484,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-token"></div>
     <p class="ansible-option-title"><strong>token</strong></p>
@@ -476,7 +497,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Authentication token for Keycloak API.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-validate_certs"></div>
     <p class="ansible-option-title"><strong>validate_certs</strong></p>
@@ -508,16 +529,16 @@ To check whether it is installed, run <code class="code docutils literal notrans
 </thead>
 <tbody>
 <tr class="row-even"><td><div class="ansible-option-cell">
-<div class="ansibleOptionAnchor" id="attribute-action_group"></div><p class="ansible-option-title" id="ansible-collections-middleware-automation-keycloak-keycloak-realm-rolemapping-module-attribute-action-group"><strong>action_group</strong></p>
+<div class="ansibleOptionAnchor" id="attribute-action_group"></div><p class="ansible-option-title" id="ansible-collections-middleware-automation-keycloak-keycloak-organization-module-attribute-action-group"><strong>action_group</strong></p>
 <a class="ansibleOptionLink" href="#attribute-action_group" title="Permalink to this attribute"></a></div></td>
 <td><div class="ansible-option-cell"><p><strong class="ansible-attribute-support-property">Action group:</strong> <strong class="ansible-attribute-support-full">middleware_automation.keycloak.keycloak</strong></p>
-<p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 3.0.0</em></p>
+<p><em class="ansible-option-versionadded">added in middleware_automation.keycloak 3.1.0</em></p>
 </div></td>
 <td><div class="ansible-option-cell"><p>Use <code class="docutils literal notranslate"><span class="pre">group/middleware_automation.keycloak.keycloak</span></code> in <code class="docutils literal notranslate"><span class="pre">module_defaults</span></code> to set defaults for this module.</p>
 </div></td>
 </tr>
 <tr class="row-odd"><td><div class="ansible-option-cell">
-<div class="ansibleOptionAnchor" id="attribute-check_mode"></div><p class="ansible-option-title" id="ansible-collections-middleware-automation-keycloak-keycloak-realm-rolemapping-module-attribute-check-mode"><strong>check_mode</strong></p>
+<div class="ansibleOptionAnchor" id="attribute-check_mode"></div><p class="ansible-option-title" id="ansible-collections-middleware-automation-keycloak-keycloak-organization-module-attribute-check-mode"><strong>check_mode</strong></p>
 <a class="ansibleOptionLink" href="#attribute-check_mode" title="Permalink to this attribute"></a></div></td>
 <td><div class="ansible-option-cell"><p><strong class="ansible-attribute-support-label">Support: </strong><strong class="ansible-attribute-support-full">full</strong></p>
 </div></td>
@@ -525,7 +546,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 </div></td>
 </tr>
 <tr class="row-even"><td><div class="ansible-option-cell">
-<div class="ansibleOptionAnchor" id="attribute-diff_mode"></div><p class="ansible-option-title" id="ansible-collections-middleware-automation-keycloak-keycloak-realm-rolemapping-module-attribute-diff-mode"><strong>diff_mode</strong></p>
+<div class="ansibleOptionAnchor" id="attribute-diff_mode"></div><p class="ansible-option-title" id="ansible-collections-middleware-automation-keycloak-keycloak-organization-module-attribute-diff-mode"><strong>diff_mode</strong></p>
 <a class="ansibleOptionLink" href="#attribute-diff_mode" title="Permalink to this attribute"></a></div></td>
 <td><div class="ansible-option-cell"><p><strong class="ansible-attribute-support-label">Support: </strong><strong class="ansible-attribute-support-full">full</strong></p>
 </div></td>
@@ -537,70 +558,61 @@ To check whether it is installed, run <code class="code docutils literal notrans
 </section>
 <section id="examples">
 <h2><a class="toc-backref" href="#id4" role="doc-backlink">Examples</a><a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
-<div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Map a client role to a group, authentication with credentials</span>
-<span class="w">  </span><span class="nt">middleware_automation.keycloak.keycloak_realm_rolemapping</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyCustomRealm</span>
+<div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Create a Keycloak organization</span>
+<span class="w">  </span><span class="nt">middleware_automation.keycloak.keycloak_organization</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-org</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">My Organization</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyRealm</span>
+<span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
 <span class="w">    </span><span class="nt">auth_client_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin-cli</span>
 <span class="w">    </span><span class="nt">auth_keycloak_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://auth.example.com</span>
 <span class="w">    </span><span class="nt">auth_realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
 <span class="w">    </span><span class="nt">auth_username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">USERNAME</span>
 <span class="w">    </span><span class="nt">auth_password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PASSWORD</span>
-<span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
-<span class="w">    </span><span class="nt">group_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">group1</span>
-<span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">role_name1</span>
-<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">role_id1</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">role_name2</span>
-<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">role_id2</span>
 <span class="w">  </span><span class="nt">delegate_to</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span>
 
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Map a client role to a group, authentication with token</span>
-<span class="w">  </span><span class="nt">middleware_automation.keycloak.keycloak_realm_rolemapping</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyCustomRealm</span>
-<span class="w">    </span><span class="nt">auth_client_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin-cli</span>
-<span class="w">    </span><span class="nt">auth_keycloak_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://auth.example.com</span>
-<span class="w">    </span><span class="nt">token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TOKEN</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Create a Keycloak organization with domains</span>
+<span class="w">  </span><span class="nt">middleware_automation.keycloak.keycloak_organization</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acme-corp</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Acme Corporation</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">domains</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acme.com</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acme.org</span>
+<span class="w">        </span><span class="nt">verified</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyRealm</span>
 <span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
-<span class="w">    </span><span class="nt">group_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">group1</span>
-<span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">role_name1</span>
-<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">role_id1</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">role_name2</span>
-<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">role_id2</span>
-<span class="w">  </span><span class="nt">delegate_to</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span>
-
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Map a client role to a subgroup, authentication with token</span>
-<span class="w">  </span><span class="nt">middleware_automation.keycloak.keycloak_realm_rolemapping</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyCustomRealm</span>
-<span class="w">    </span><span class="nt">auth_client_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin-cli</span>
-<span class="w">    </span><span class="nt">auth_keycloak_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://auth.example.com</span>
-<span class="w">    </span><span class="nt">token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TOKEN</span>
-<span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
-<span class="w">    </span><span class="nt">group_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">subgroup1</span>
-<span class="w">    </span><span class="nt">parents</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">parent-group</span>
-<span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">role_name1</span>
-<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">role_id1</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">role_name2</span>
-<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">role_id2</span>
-<span class="w">  </span><span class="nt">delegate_to</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span>
-
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Unmap realm role from a group</span>
-<span class="w">  </span><span class="nt">middleware_automation.keycloak.keycloak_realm_rolemapping</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyCustomRealm</span>
 <span class="w">    </span><span class="nt">auth_client_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin-cli</span>
 <span class="w">    </span><span class="nt">auth_keycloak_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://auth.example.com</span>
 <span class="w">    </span><span class="nt">auth_realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
 <span class="w">    </span><span class="nt">auth_username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">USERNAME</span>
 <span class="w">    </span><span class="nt">auth_password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PASSWORD</span>
+<span class="w">  </span><span class="nt">delegate_to</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Update a Keycloak organization</span>
+<span class="w">  </span><span class="nt">middleware_automation.keycloak.keycloak_organization</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-org</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Updated description</span>
+<span class="w">    </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyRealm</span>
+<span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
+<span class="w">    </span><span class="nt">auth_client_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin-cli</span>
+<span class="w">    </span><span class="nt">auth_keycloak_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://auth.example.com</span>
+<span class="w">    </span><span class="nt">auth_realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class="w">    </span><span class="nt">auth_username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">USERNAME</span>
+<span class="w">    </span><span class="nt">auth_password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PASSWORD</span>
+<span class="w">  </span><span class="nt">delegate_to</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Delete a Keycloak organization</span>
+<span class="w">  </span><span class="nt">middleware_automation.keycloak.keycloak_organization</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-org</span>
 <span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">absent</span>
-<span class="w">    </span><span class="nt">group_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">group1</span>
-<span class="w">    </span><span class="nt">roles</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">role_name1</span>
-<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">role_id1</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">role_name2</span>
-<span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">role_id2</span>
+<span class="w">    </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyRealm</span>
+<span class="w">    </span><span class="nt">auth_client_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin-cli</span>
+<span class="w">    </span><span class="nt">auth_keycloak_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://auth.example.com</span>
+<span class="w">    </span><span class="nt">auth_realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class="w">    </span><span class="nt">auth_username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">USERNAME</span>
+<span class="w">    </span><span class="nt">auth_password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PASSWORD</span>
 <span class="w">  </span><span class="nt">delegate_to</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost</span>
 </pre></div>
 </div>
@@ -622,32 +634,121 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p class="ansible-option-title"><strong>end_state</strong></p>
     <a class="ansibleOptionLink" href="#return-end_state" title="Permalink to this return value"></a>
     <p class="ansible-option-type-line">
-      <span class="ansible-option-type">dictionary</span>
+      <span class="ansible-option-type">complex</span>
     </p>
   </div></td>
   <td><div class="ansible-option-cell">
-    <p>Representation of client role mapping after module execution.</p>
-    <p>The sample is truncated.</p>
+    <p>Representation of the organization after module execution.</p>
     <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> on success</p>
-    <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">{&#34;adminUrl&#34;: &#34;http://www.example.com/admin_url&#34;, &#34;attributes&#34;: {&#34;request.object.signature.alg&#34;: &#34;RS256&#34;}}</code></p>
   </div></td>
 </tr>
 <tr class="row-odd">
-  <td><div class="ansible-option-cell">
-    <div class="ansibleOptionAnchor" id="return-existing"></div>
-    <p class="ansible-option-title"><strong>existing</strong></p>
-    <a class="ansibleOptionLink" href="#return-existing" title="Permalink to this return value"></a>
+  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="return-end_state/alias"></div>
+    <p class="ansible-option-title"><strong>alias</strong></p>
+    <a class="ansibleOptionLink" href="#return-end_state/alias" title="Permalink to this return value"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+    <p>URL-friendly alias of the organization.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
+    <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">&#34;my-org&#34;</code></p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="return-end_state/attributes"></div>
+    <p class="ansible-option-title"><strong>attributes</strong></p>
+    <a class="ansibleOptionLink" href="#return-end_state/attributes" title="Permalink to this return value"></a>
     <p class="ansible-option-type-line">
       <span class="ansible-option-type">dictionary</span>
     </p>
   </div></td>
-  <td><div class="ansible-option-cell">
-    <p>Representation of existing client role mapping.</p>
-    <p>The sample is truncated.</p>
+  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+    <p>Attributes applied to this organization.</p>
     <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
-    <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">{&#34;adminUrl&#34;: &#34;http://www.example.com/admin_url&#34;, &#34;attributes&#34;: {&#34;request.object.signature.alg&#34;: &#34;RS256&#34;}}</code></p>
+    <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">{&#34;attr1&#34;: [&#34;val1&#34;, &#34;val2&#34;]}</code></p>
   </div></td>
 </tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="return-end_state/description"></div>
+    <p class="ansible-option-title"><strong>description</strong></p>
+    <a class="ansibleOptionLink" href="#return-end_state/description" title="Permalink to this return value"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+    <p>Description of the organization.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
+    <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">&#34;My Organization&#34;</code></p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="return-end_state/domains"></div>
+    <p class="ansible-option-title"><strong>domains</strong></p>
+    <a class="ansibleOptionLink" href="#return-end_state/domains" title="Permalink to this return value"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">list</span>
+      / <span class="ansible-option-elements">elements=string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+    <p>Domains associated with the organization.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
+    <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">[{&#34;name&#34;: &#34;example.com&#34;, &#34;verified&#34;: false}]</code></p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="return-end_state/enabled"></div>
+    <p class="ansible-option-title"><strong>enabled</strong></p>
+    <a class="ansibleOptionLink" href="#return-end_state/enabled" title="Permalink to this return value"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">boolean</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+    <p>Whether the organization is enabled.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
+    <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">true</code></p>
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="return-end_state/id"></div>
+    <p class="ansible-option-title"><strong>id</strong></p>
+    <a class="ansibleOptionLink" href="#return-end_state/id" title="Permalink to this return value"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+    <p>GUID that identifies the organization.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
+    <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">&#34;23f38145-3195-462c-97e7-97041ccea73e&#34;</code></p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="return-end_state/name"></div>
+    <p class="ansible-option-title"><strong>name</strong></p>
+    <a class="ansibleOptionLink" href="#return-end_state/name" title="Permalink to this return value"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+    <p>Name of the organization.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
+    <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">&#34;my-org&#34;</code></p>
+  </div></td>
+</tr>
+
 <tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="return-msg"></div>
@@ -660,31 +761,13 @@ To check whether it is installed, run <code class="code docutils literal notrans
   <td><div class="ansible-option-cell">
     <p>Message as to what action was taken.</p>
     <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
-    <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">&#34;Role role1 assigned to group group1.&#34;</code></p>
-  </div></td>
-</tr>
-<tr class="row-odd">
-  <td><div class="ansible-option-cell">
-    <div class="ansibleOptionAnchor" id="return-proposed"></div>
-    <p class="ansible-option-title"><strong>proposed</strong></p>
-    <a class="ansibleOptionLink" href="#return-proposed" title="Permalink to this return value"></a>
-    <p class="ansible-option-type-line">
-      <span class="ansible-option-type">dictionary</span>
-    </p>
-  </div></td>
-  <td><div class="ansible-option-cell">
-    <p>Representation of proposed client role mapping.</p>
-    <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
-    <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">{&#34;clientId&#34;: &#34;test&#34;}</code></p>
   </div></td>
 </tr>
 </tbody>
 </table><section id="authors">
 <h3>Authors<a class="headerlink" href="#authors" title="Link to this heading"></a></h3>
 <ul class="simple">
-<li><p>Gaëtan Daubresse (&#64;Gaetan2907)</p></li>
-<li><p>Marius Huysamen (&#64;mhuysamen)</p></li>
-<li><p>Alexander Groß (&#64;agross)</p></li>
+<li><p>Chris Brown (&#64;chribro)</p></li>
 </ul>
 </section>
 </section>
@@ -694,8 +777,8 @@ To check whether it is installed, run <code class="code docutils literal notrans
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="keycloak_realm_localization.html" class="btn btn-neutral float-left" title="keycloak_realm_localization – Allows management of Keycloak realm localization overrides via the Keycloak API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="keycloak_realm_users_info.html" class="btn btn-neutral float-right" title="keycloak_realm_users_info – Retrieve users from a Keycloak realm using the Keycloak API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="keycloak_identity_provider.html" class="btn btn-neutral float-left" title="keycloak_identity_provider – Allows administration of Keycloak identity providers using Keycloak API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="keycloak_organization_info.html" class="btn btn-neutral float-right" title="keycloak_organization_info – Retrieve organization info in Keycloak" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

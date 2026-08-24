@@ -10,14 +10,14 @@
 
 .. Anchors
 
-.. _ansible_collections.middleware_automation.keycloak.keycloak_clientsecret_info_module:
+.. _ansible_collections.middleware_automation.keycloak.keycloak_organization_info_module:
 
 .. Anchors: short name for ansible.builtin
 
 .. Title
 
-keycloak_clientsecret_info -- Retrieve client secret using Keycloak API
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+keycloak_organization_info -- Retrieve organization info in Keycloak
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. Collection note
 
@@ -29,13 +29,13 @@ keycloak_clientsecret_info -- Retrieve client secret using Keycloak API
 
     To install it, use: :code:`ansible\-galaxy collection install middleware\_automation.keycloak`.
 
-    To use it in a playbook, specify: :code:`middleware_automation.keycloak.keycloak_clientsecret_info`.
+    To use it in a playbook, specify: :code:`middleware_automation.keycloak.keycloak_organization_info`.
 
 .. version_added
 
 .. rst-class:: ansible-version-added
 
-New in middleware\_automation.keycloak 3.0.0
+New in middleware\_automation.keycloak 3.1.0
 
 .. contents::
    :local:
@@ -49,9 +49,8 @@ Synopsis
 
 .. Description
 
-- This module allows you to get a Keycloak client secret using the Keycloak REST API. It requires access to the REST API using OpenID Connect; the user connecting and the client being used must have the requisite access rights. In a default Keycloak installation, admin\-cli and an admin user would work, as would a separate client definition with the scope tailored to your needs and a user having the expected roles.
-- When retrieving a new client secret, where possible provide the client's :ansopt:`middleware\_automation.keycloak.keycloak\_clientsecret\_info#module:id` (not :ansopt:`middleware\_automation.keycloak.keycloak\_clientsecret\_info#module:client\_id`\ ) to the module. This removes a lookup to the API to translate the :ansopt:`middleware\_automation.keycloak.keycloak\_clientsecret\_info#module:client\_id` into the client ID.
-- Note that this module returns the client secret. To avoid this showing up in the logs, please add :literal:`no\_log: true` to the task.
+- This module retrieves information on organizations from Keycloak.
+- Organizations are available in Keycloak 26 and later. The realm must have organizations enabled before this module can be used.
 
 
 .. Aliases
@@ -167,21 +166,6 @@ Parameters
   </tr>
   <tr class="row-even">
     <td><div class="ansible-option-cell">
-      <div class="ansibleOptionAnchor" id="parameter-client_id"></div>
-      <div class="ansibleOptionAnchor" id="parameter-clientId"></div>
-      <p class="ansible-option-title"><strong>client_id</strong></p>
-      <a class="ansibleOptionLink" href="#parameter-client_id" title="Permalink to this option"></a>
-      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: clientId</span></p>
-      <p class="ansible-option-type-line">
-        <span class="ansible-option-type">string</span>
-      </p>
-    </div></td>
-    <td><div class="ansible-option-cell">
-      <p>The <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-client_id"><span class="std std-ref"><span class="pre">client_id</span></span></a></strong></code> of the client. Passing this instead of <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-id"><span class="std std-ref"><span class="pre">id</span></span></a></strong></code> results in an extra API call.</p>
-    </div></td>
-  </tr>
-  <tr class="row-odd">
-    <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-connection_timeout"></div>
       <p class="ansible-option-title"><strong>connection_timeout</strong></p>
       <a class="ansibleOptionLink" href="#parameter-connection_timeout" title="Permalink to this option"></a>
@@ -192,6 +176,26 @@ Parameters
     <td><div class="ansible-option-cell">
       <p>Controls the HTTP connections timeout period (in seconds) to Keycloak API.</p>
       <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">10</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-exact"></div>
+      <p class="ansible-option-title"><strong>exact</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-exact" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Whether the search should be an exact match.</p>
+      <p>Only relevant when <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-name"><span class="std std-ref"><span class="pre">name</span></span></a></strong></code> is provided.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>true</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+      </ul>
+
     </div></td>
   </tr>
   <tr class="row-even">
@@ -210,16 +214,16 @@ Parameters
   </tr>
   <tr class="row-odd">
     <td><div class="ansible-option-cell">
-      <div class="ansibleOptionAnchor" id="parameter-id"></div>
-      <p class="ansible-option-title"><strong>id</strong></p>
-      <a class="ansibleOptionLink" href="#parameter-id" title="Permalink to this option"></a>
+      <div class="ansibleOptionAnchor" id="parameter-name"></div>
+      <p class="ansible-option-title"><strong>name</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-name" title="Permalink to this option"></a>
       <p class="ansible-option-type-line">
         <span class="ansible-option-type">string</span>
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>The unique identifier for this client.</p>
-      <p>This parameter is not required for getting or generating a client secret but providing it reduces the number of API calls required.</p>
+      <p>Name of the organization to search for.</p>
+      <p>If not provided, all organizations in the realm are returned.</p>
     </div></td>
   </tr>
   <tr class="row-even">
@@ -229,11 +233,11 @@ Parameters
       <a class="ansibleOptionLink" href="#parameter-realm" title="Permalink to this option"></a>
       <p class="ansible-option-type-line">
         <span class="ansible-option-type">string</span>
+        / <span class="ansible-option-required">required</span>
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>They Keycloak realm under which this client resides.</p>
-      <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;master&#34;</code></p>
+      <p>The name of the realm.</p>
     </div></td>
   </tr>
   <tr class="row-odd">
@@ -309,7 +313,7 @@ Attributes
         <div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="attribute-action_group"></div>
 
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_clientsecret_info_module__attribute-action_group:
+      .. _ansible_collections.middleware_automation.keycloak.keycloak_organization_info_module__attribute-action_group:
 
       .. rst-class:: ansible-option-title
 
@@ -329,7 +333,7 @@ Attributes
 
       :ansible-attribute-support-property:`Action group:` |antsibull-internal-nbsp|:ansible-attribute-support-full:`middleware\_automation.keycloak.keycloak`
 
-      :ansible-option-versionadded:`added in middleware\_automation.keycloak 3.0.0`
+      :ansible-option-versionadded:`added in middleware\_automation.keycloak 3.1.0`
 
 
       .. raw:: html
@@ -353,7 +357,7 @@ Attributes
         <div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="attribute-check_mode"></div>
 
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_clientsecret_info_module__attribute-check_mode:
+      .. _ansible_collections.middleware_automation.keycloak.keycloak_organization_info_module__attribute-check_mode:
 
       .. rst-class:: ansible-option-title
 
@@ -397,7 +401,7 @@ Attributes
         <div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="attribute-diff_mode"></div>
 
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_clientsecret_info_module__attribute-diff_mode:
+      .. _ansible_collections.middleware_automation.keycloak.keycloak_organization_info_module__attribute-diff_mode:
 
       .. rst-class:: ansible-option-title
 
@@ -450,47 +454,32 @@ Examples
 
 .. code-block:: yaml+jinja
 
-    - name: Get a Keycloak client secret, authentication with credentials
-      middleware_automation.keycloak.keycloak_clientsecret_info:
-        id: '9d59aa76-2755-48c6-b1af-beb70a82c3cd'
-        realm: MyCustomRealm
-        auth_client_id: admin-cli
+    - name: Retrieve a specific organization by name
+      middleware_automation.keycloak.keycloak_organization_info:
         auth_keycloak_url: https://auth.example.com
+        auth_username: admin
+        auth_password: password
         auth_realm: master
-        auth_username: USERNAME
-        auth_password: PASSWORD
-      delegate_to: localhost
-      no_log: true
+        realm: MyRealm
+        name: my-org
 
-    - name: Get a new Keycloak client secret, authentication with token
-      middleware_automation.keycloak.keycloak_clientsecret_info:
-        id: '9d59aa76-2755-48c6-b1af-beb70a82c3cd'
-        realm: MyCustomRealm
-        auth_client_id: admin-cli
+    - name: List all organizations in a realm
+      middleware_automation.keycloak.keycloak_organization_info:
         auth_keycloak_url: https://auth.example.com
-        token: TOKEN
-      delegate_to: localhost
-      no_log: true
+        auth_username: admin
+        auth_password: password
+        auth_realm: master
+        realm: MyRealm
 
-    - name: Get a new Keycloak client secret, passing client_id instead of id
-      middleware_automation.keycloak.keycloak_clientsecret_info:
-        client_id: 'myClientId'
-        realm: MyCustomRealm
-        auth_client_id: admin-cli
+    - name: Search organizations by partial name
+      middleware_automation.keycloak.keycloak_organization_info:
         auth_keycloak_url: https://auth.example.com
-        token: TOKEN
-      delegate_to: localhost
-      no_log: true
-
-    - name: Get a new Keycloak client secret, authentication with auth_client_id and auth_client_secret
-      middleware_automation.keycloak.keycloak_clientsecret_info:
-        id: '9d59aa76-2755-48c6-b1af-beb70a82c3cd'
-        realm: MyCustomRealm
-        auth_client_id: admin-cli
-        auth_client_secret: SECRET
-        auth_keycloak_url: https://auth.example.com
-      delegate_to: localhost
-      no_log: true
+        auth_username: admin
+        auth_password: password
+        auth_realm: master
+        realm: MyRealm
+        name: acme
+        exact: false
 
 
 
@@ -515,60 +504,16 @@ Common return values are documented :ref:`here <common_return_values>`, the foll
   <tbody>
   <tr class="row-even">
     <td><div class="ansible-option-cell">
-      <div class="ansibleOptionAnchor" id="return-clientsecret_info"></div>
-      <p class="ansible-option-title"><strong>clientsecret_info</strong></p>
-      <a class="ansibleOptionLink" href="#return-clientsecret_info" title="Permalink to this return value"></a>
+      <div class="ansibleOptionAnchor" id="return-organizations"></div>
+      <p class="ansible-option-title"><strong>organizations</strong></p>
+      <a class="ansibleOptionLink" href="#return-organizations" title="Permalink to this return value"></a>
       <p class="ansible-option-type-line">
-        <span class="ansible-option-type">complex</span>
+        <span class="ansible-option-type">list</span>
+        / <span class="ansible-option-elements">elements=dictionary</span>
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>Representation of the client secret.</p>
-      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> on success</p>
-    </div></td>
-  </tr>
-  <tr class="row-odd">
-    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
-      <div class="ansibleOptionAnchor" id="return-clientsecret_info/type"></div>
-      <p class="ansible-option-title"><strong>type</strong></p>
-      <a class="ansibleOptionLink" href="#return-clientsecret_info/type" title="Permalink to this return value"></a>
-      <p class="ansible-option-type-line">
-        <span class="ansible-option-type">string</span>
-      </p>
-    </div></td>
-    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-      <p>Credential type.</p>
-      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
-      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">&#34;secret&#34;</code></p>
-    </div></td>
-  </tr>
-  <tr class="row-even">
-    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
-      <div class="ansibleOptionAnchor" id="return-clientsecret_info/value"></div>
-      <p class="ansible-option-title"><strong>value</strong></p>
-      <a class="ansibleOptionLink" href="#return-clientsecret_info/value" title="Permalink to this return value"></a>
-      <p class="ansible-option-type-line">
-        <span class="ansible-option-type">string</span>
-      </p>
-    </div></td>
-    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-      <p>Client secret.</p>
-      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
-      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">&#34;cUGnX1EIeTtPPAkcyGMv0ncyqDPu68P1&#34;</code></p>
-    </div></td>
-  </tr>
-
-  <tr class="row-odd">
-    <td><div class="ansible-option-cell">
-      <div class="ansibleOptionAnchor" id="return-msg"></div>
-      <p class="ansible-option-title"><strong>msg</strong></p>
-      <a class="ansibleOptionLink" href="#return-msg" title="Permalink to this return value"></a>
-      <p class="ansible-option-type-line">
-        <span class="ansible-option-type">string</span>
-      </p>
-    </div></td>
-    <td><div class="ansible-option-cell">
-      <p>Textual description of whether we succeeded or failed.</p>
+      <p>JSON representation of organizations.</p>
       <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
     </div></td>
   </tr>
@@ -585,8 +530,7 @@ Common return values are documented :ref:`here <common_return_values>`, the foll
 Authors
 ~~~~~~~
 
-- Fynn Chen (@fynncfchen)
-- John Cant (@johncant)
+- Chris Brown (@chribro)
 
 
 .. Extra links

@@ -26,6 +26,8 @@ Plugin Index
    keycloak_component_info
    keycloak_group
    keycloak_identity_provider
+   keycloak_organization
+   keycloak_organization_info
    keycloak_realm
    keycloak_realm_info
    keycloak_realm_key

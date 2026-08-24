@@ -10,14 +10,14 @@
 
 .. Anchors
 
-.. _ansible_collections.middleware_automation.keycloak.keycloak_client_rolemapping_module:
+.. _ansible_collections.middleware_automation.keycloak.keycloak_organization_module:
 
 .. Anchors: short name for ansible.builtin
 
 .. Title
 
-keycloak_client_rolemapping -- Allows administration of Keycloak client\_rolemapping with the Keycloak API
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+keycloak_organization -- Allows administration of Keycloak organizations using Keycloak API
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. Collection note
 
@@ -29,13 +29,13 @@ keycloak_client_rolemapping -- Allows administration of Keycloak client\_rolemap
 
     To install it, use: :code:`ansible\-galaxy collection install middleware\_automation.keycloak`.
 
-    To use it in a playbook, specify: :code:`middleware_automation.keycloak.keycloak_client_rolemapping`.
+    To use it in a playbook, specify: :code:`middleware_automation.keycloak.keycloak_organization`.
 
 .. version_added
 
 .. rst-class:: ansible-version-added
 
-New in middleware\_automation.keycloak 3.0.0
+New in middleware\_automation.keycloak 3.1.0
 
 .. contents::
    :local:
@@ -49,10 +49,11 @@ Synopsis
 
 .. Description
 
-- This module allows you to add, remove or modify Keycloak client\_rolemapping with the Keycloak REST API. It requires access to the REST API using OpenID Connect; the user connecting and the client being used must have the requisite access rights. In a default Keycloak installation, admin\-cli and an admin user would work, as would a separate client definition with the scope tailored to your needs and a user having the expected roles.
+- This module allows you to add, remove or modify Keycloak organizations using the Keycloak REST API. It requires access to the REST API using OpenID Connect; the user connecting and the client being used must have the requisite access rights. In a default Keycloak installation, admin\-cli and an admin user would work, as would a separate client definition with the scope tailored to your needs and a user having the expected roles.
 - The names of module options are snake\_cased versions of the camelCase ones found in the Keycloak API and its documentation at \ `https://www.keycloak.org/docs\-api/latest/rest\-api/index.html <https://www.keycloak.org/docs-api/latest/rest-api/index.html>`__.
 - Attributes are multi\-valued in the Keycloak API. All attributes are lists of individual values and are returned that way by this module. You may pass single values for attributes when calling the module, and this is translated into a list suitable for the API.
-- When updating a client\_rolemapping, where possible provide the role ID to the module. This removes a lookup to the API to translate the name into the role ID.
+- Organizations are available in Keycloak 26 and later. The realm must have organizations enabled (\ :literal:`organizations\_enabled=true` in the :ref:`middleware\_automation.keycloak.keycloak\_realm <ansible_collections.middleware_automation.keycloak.keycloak_realm_module>` module) before this module can be used.
+- When updating an organization, where possible provide the organization ID to the module. This removes a lookup to the API to translate the name into the organization ID.
 
 
 .. Aliases
@@ -80,6 +81,35 @@ Parameters
   </tr>
   </thead>
   <tbody>
+  <tr class="row-even">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-alias"></div>
+      <p class="ansible-option-title"><strong>alias</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-alias" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>URL-friendly alias for the organization.</p>
+      <p>If not provided during creation, defaults to the organization name if URL-safe.</p>
+      <p>The alias is immutable once set and cannot be changed on update.</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-attributes"></div>
+      <p class="ansible-option-title"><strong>attributes</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-attributes" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">dictionary</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>A dict of key/value pairs to set as custom attributes for the organization.</p>
+      <p>Values may be single values (for example a string) or a list of strings.</p>
+    </div></td>
+  </tr>
   <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-auth_client_id"></div>
@@ -168,34 +198,6 @@ Parameters
   </tr>
   <tr class="row-even">
     <td><div class="ansible-option-cell">
-      <div class="ansibleOptionAnchor" id="parameter-cid"></div>
-      <p class="ansible-option-title"><strong>cid</strong></p>
-      <a class="ansibleOptionLink" href="#parameter-cid" title="Permalink to this option"></a>
-      <p class="ansible-option-type-line">
-        <span class="ansible-option-type">string</span>
-      </p>
-    </div></td>
-    <td><div class="ansible-option-cell">
-      <p>ID of the client to be mapped.</p>
-      <p>This parameter is not required for updating or deleting the rolemapping but providing it reduces the number of API calls required.</p>
-    </div></td>
-  </tr>
-  <tr class="row-odd">
-    <td><div class="ansible-option-cell">
-      <div class="ansibleOptionAnchor" id="parameter-client_id"></div>
-      <p class="ansible-option-title"><strong>client_id</strong></p>
-      <a class="ansibleOptionLink" href="#parameter-client_id" title="Permalink to this option"></a>
-      <p class="ansible-option-type-line">
-        <span class="ansible-option-type">string</span>
-      </p>
-    </div></td>
-    <td><div class="ansible-option-cell">
-      <p>Name of the client to be mapped (different than <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-cid"><span class="std std-ref"><span class="pre">cid</span></span></a></strong></code>).</p>
-      <p>This parameter is required (can be replaced by cid for less API call).</p>
-    </div></td>
-  </tr>
-  <tr class="row-even">
-    <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-connection_timeout"></div>
       <p class="ansible-option-title"><strong>connection_timeout</strong></p>
       <a class="ansibleOptionLink" href="#parameter-connection_timeout" title="Permalink to this option"></a>
@@ -210,33 +212,87 @@ Parameters
   </tr>
   <tr class="row-odd">
     <td><div class="ansible-option-cell">
-      <div class="ansibleOptionAnchor" id="parameter-gid"></div>
-      <p class="ansible-option-title"><strong>gid</strong></p>
-      <a class="ansibleOptionLink" href="#parameter-gid" title="Permalink to this option"></a>
+      <div class="ansibleOptionAnchor" id="parameter-description"></div>
+      <p class="ansible-option-title"><strong>description</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-description" title="Permalink to this option"></a>
       <p class="ansible-option-type-line">
         <span class="ansible-option-type">string</span>
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>ID of the group to be mapped.</p>
-      <p>This parameter is not required for updating or deleting the rolemapping but providing it reduces the number of API calls required.</p>
+      <p>Description of the organization.</p>
     </div></td>
   </tr>
   <tr class="row-even">
     <td><div class="ansible-option-cell">
-      <div class="ansibleOptionAnchor" id="parameter-group_name"></div>
-      <p class="ansible-option-title"><strong>group_name</strong></p>
-      <a class="ansibleOptionLink" href="#parameter-group_name" title="Permalink to this option"></a>
+      <div class="ansibleOptionAnchor" id="parameter-domains"></div>
+      <p class="ansible-option-title"><strong>domains</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-domains" title="Permalink to this option"></a>
       <p class="ansible-option-type-line">
-        <span class="ansible-option-type">string</span>
+        <span class="ansible-option-type">list</span>
+        / <span class="ansible-option-elements">elements=dictionary</span>
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>Name of the group to be mapped.</p>
-      <p>This parameter is required (can be replaced by gid for less API call).</p>
+      <p>List of internet domains associated with the organization.</p>
+      <p>A domain name can only belong to one organization within a realm.</p>
     </div></td>
   </tr>
   <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-domains/name"></div>
+      <p class="ansible-option-title"><strong>name</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-domains/name" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+        / <span class="ansible-option-required">required</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>The domain name (e.g. <code class="ansible-value literal notranslate">example.com</code>).</p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-domains/verified"></div>
+      <p class="ansible-option-title"><strong>verified</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-domains/verified" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>Whether the domain has been verified.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>false</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-enabled"></div>
+      <p class="ansible-option-title"><strong>enabled</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-enabled" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Whether the organization is enabled.</p>
+      <p>Disabled organizations block member authentication.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-http_agent"></div>
       <p class="ansible-option-title"><strong>http_agent</strong></p>
@@ -250,54 +306,34 @@ Parameters
       <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;Ansible&#34;</code></p>
     </div></td>
   </tr>
-  <tr class="row-even">
-    <td><div class="ansible-option-cell">
-      <div class="ansibleOptionAnchor" id="parameter-parents"></div>
-      <p class="ansible-option-title"><strong>parents</strong></p>
-      <a class="ansibleOptionLink" href="#parameter-parents" title="Permalink to this option"></a>
-      <p class="ansible-option-type-line">
-        <span class="ansible-option-type">list</span>
-        / <span class="ansible-option-elements">elements=dictionary</span>
-      </p>
-    </div></td>
-    <td><div class="ansible-option-cell">
-      <p>List of parent groups for the group to handle sorted top to bottom.</p>
-      <p>Set this if your group is a subgroup and you do not provide the GID in <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-gid"><span class="std std-ref"><span class="pre">gid</span></span></a></strong></code>.</p>
-    </div></td>
-  </tr>
   <tr class="row-odd">
-    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
-      <div class="ansibleOptionAnchor" id="parameter-parents/id"></div>
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-id"></div>
       <p class="ansible-option-title"><strong>id</strong></p>
-      <a class="ansibleOptionLink" href="#parameter-parents/id" title="Permalink to this option"></a>
+      <a class="ansibleOptionLink" href="#parameter-id" title="Permalink to this option"></a>
       <p class="ansible-option-type-line">
         <span class="ansible-option-type">string</span>
       </p>
     </div></td>
-    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-      <p>Identify parent by ID.</p>
-      <p>Needs less API calls than using <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-parents/name"><span class="std std-ref"><span class="pre">parents[].name</span></span></a></strong></code>.</p>
-      <p>A deep parent chain can be started at any point when first given parent is given as ID.</p>
-      <p>Note that in principle both ID and name can be specified at the same time but current implementation only always use just one of them, with ID being preferred.</p>
+    <td><div class="ansible-option-cell">
+      <p>The unique identifier for this organization.</p>
+      <p>This parameter is not required for updating or deleting an organization but providing it reduces the number of API calls required.</p>
     </div></td>
   </tr>
   <tr class="row-even">
-    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
-      <div class="ansibleOptionAnchor" id="parameter-parents/name"></div>
+    <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-name"></div>
       <p class="ansible-option-title"><strong>name</strong></p>
-      <a class="ansibleOptionLink" href="#parameter-parents/name" title="Permalink to this option"></a>
+      <a class="ansibleOptionLink" href="#parameter-name" title="Permalink to this option"></a>
       <p class="ansible-option-type-line">
         <span class="ansible-option-type">string</span>
       </p>
     </div></td>
-    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-      <p>Identify parent by name.</p>
-      <p>Needs more internal API calls than using <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-parents/id"><span class="std std-ref"><span class="pre">parents[].id</span></span></a></strong></code> to map names to ID&#x27;s under the hood.</p>
-      <p>When giving a parent chain with only names it must be complete up to the top.</p>
-      <p>Note that in principle both ID and name can be specified at the same time but current implementation only always use just one of them, with ID being preferred.</p>
+    <td><div class="ansible-option-cell">
+      <p>Name of the organization.</p>
+      <p>This parameter is required when creating a new organization.</p>
     </div></td>
   </tr>
-
   <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-realm"></div>
@@ -308,7 +344,7 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>They Keycloak realm under which this role_representation resides.</p>
+      <p>The Keycloak realm under which this organization resides.</p>
       <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;master&#34;</code></p>
     </div></td>
   </tr>
@@ -327,49 +363,6 @@ Parameters
   </tr>
   <tr class="row-odd">
     <td><div class="ansible-option-cell">
-      <div class="ansibleOptionAnchor" id="parameter-roles"></div>
-      <p class="ansible-option-title"><strong>roles</strong></p>
-      <a class="ansibleOptionLink" href="#parameter-roles" title="Permalink to this option"></a>
-      <p class="ansible-option-type-line">
-        <span class="ansible-option-type">list</span>
-        / <span class="ansible-option-elements">elements=dictionary</span>
-      </p>
-    </div></td>
-    <td><div class="ansible-option-cell">
-      <p>Roles to be mapped to the group.</p>
-    </div></td>
-  </tr>
-  <tr class="row-even">
-    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
-      <div class="ansibleOptionAnchor" id="parameter-roles/id"></div>
-      <p class="ansible-option-title"><strong>id</strong></p>
-      <a class="ansibleOptionLink" href="#parameter-roles/id" title="Permalink to this option"></a>
-      <p class="ansible-option-type-line">
-        <span class="ansible-option-type">string</span>
-      </p>
-    </div></td>
-    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-      <p>The unique identifier for this role_representation.</p>
-      <p>This parameter is not required for updating or deleting a role_representation but providing it reduces the number of API calls required.</p>
-    </div></td>
-  </tr>
-  <tr class="row-odd">
-    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
-      <div class="ansibleOptionAnchor" id="parameter-roles/name"></div>
-      <p class="ansible-option-title"><strong>name</strong></p>
-      <a class="ansibleOptionLink" href="#parameter-roles/name" title="Permalink to this option"></a>
-      <p class="ansible-option-type-line">
-        <span class="ansible-option-type">string</span>
-      </p>
-    </div></td>
-    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
-      <p>Name of the role_representation.</p>
-      <p>This parameter is required only when creating or updating the role_representation.</p>
-    </div></td>
-  </tr>
-
-  <tr class="row-even">
-    <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-state"></div>
       <p class="ansible-option-title"><strong>state</strong></p>
       <a class="ansibleOptionLink" href="#parameter-state" title="Permalink to this option"></a>
@@ -378,9 +371,9 @@ Parameters
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>State of the client_rolemapping.</p>
-      <p>On <code class="ansible-value literal notranslate">present</code>, the client_rolemapping is created if it does not yet exist, or updated with the parameters you provide.</p>
-      <p>On <code class="ansible-value literal notranslate">absent</code>, the client_rolemapping is removed if it exists.</p>
+      <p>State of the organization.</p>
+      <p>On <code class="ansible-value literal notranslate">present</code>, the organization is created if it does not yet exist, or updated with the parameters you provide.</p>
+      <p>On <code class="ansible-value literal notranslate">absent</code>, the organization is removed if it exists.</p>
       <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
       <ul class="simple">
         <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>&#34;present&#34;</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
@@ -389,7 +382,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-token"></div>
       <p class="ansible-option-title"><strong>token</strong></p>
@@ -402,7 +395,7 @@ Parameters
       <p>Authentication token for Keycloak API.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-validate_certs"></div>
       <p class="ansible-option-title"><strong>validate_certs</strong></p>
@@ -449,7 +442,7 @@ Attributes
         <div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="attribute-action_group"></div>
 
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_rolemapping_module__attribute-action_group:
+      .. _ansible_collections.middleware_automation.keycloak.keycloak_organization_module__attribute-action_group:
 
       .. rst-class:: ansible-option-title
 
@@ -469,7 +462,7 @@ Attributes
 
       :ansible-attribute-support-property:`Action group:` |antsibull-internal-nbsp|:ansible-attribute-support-full:`middleware\_automation.keycloak.keycloak`
 
-      :ansible-option-versionadded:`added in middleware\_automation.keycloak 3.0.0`
+      :ansible-option-versionadded:`added in middleware\_automation.keycloak 3.1.0`
 
 
       .. raw:: html
@@ -493,7 +486,7 @@ Attributes
         <div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="attribute-check_mode"></div>
 
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_rolemapping_module__attribute-check_mode:
+      .. _ansible_collections.middleware_automation.keycloak.keycloak_organization_module__attribute-check_mode:
 
       .. rst-class:: ansible-option-title
 
@@ -535,7 +528,7 @@ Attributes
         <div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="attribute-diff_mode"></div>
 
-      .. _ansible_collections.middleware_automation.keycloak.keycloak_client_rolemapping_module__attribute-diff_mode:
+      .. _ansible_collections.middleware_automation.keycloak.keycloak_organization_module__attribute-diff_mode:
 
       .. rst-class:: ansible-option-title
 
@@ -586,74 +579,61 @@ Examples
 
 .. code-block:: yaml+jinja
 
-    - name: Map a client role to a group, authentication with credentials
-      middleware_automation.keycloak.keycloak_client_rolemapping:
-        realm: MyCustomRealm
+    - name: Create a Keycloak organization
+      middleware_automation.keycloak.keycloak_organization:
+        name: my-org
+        description: My Organization
+        enabled: true
+        realm: MyRealm
+        state: present
         auth_client_id: admin-cli
         auth_keycloak_url: https://auth.example.com
         auth_realm: master
         auth_username: USERNAME
         auth_password: PASSWORD
-        state: present
-        client_id: client1
-        group_name: group1
-        roles:
-          - name: role_name1
-            id: role_id1
-          - name: role_name2
-            id: role_id2
       delegate_to: localhost
 
-    - name: Map a client role to a group, authentication with token
-      middleware_automation.keycloak.keycloak_client_rolemapping:
-        realm: MyCustomRealm
-        auth_client_id: admin-cli
-        auth_keycloak_url: https://auth.example.com
-        token: TOKEN
+    - name: Create a Keycloak organization with domains
+      middleware_automation.keycloak.keycloak_organization:
+        name: acme-corp
+        description: Acme Corporation
+        enabled: true
+        domains:
+          - name: acme.com
+          - name: acme.org
+            verified: true
+        realm: MyRealm
         state: present
-        client_id: client1
-        group_name: group1
-        roles:
-          - name: role_name1
-            id: role_id1
-          - name: role_name2
-            id: role_id2
-      delegate_to: localhost
-
-    - name: Map a client role to a subgroup, authentication with token
-      middleware_automation.keycloak.keycloak_client_rolemapping:
-        realm: MyCustomRealm
-        auth_client_id: admin-cli
-        auth_keycloak_url: https://auth.example.com
-        token: TOKEN
-        state: present
-        client_id: client1
-        group_name: subgroup1
-        parents:
-          - name: parent-group
-        roles:
-          - name: role_name1
-            id: role_id1
-          - name: role_name2
-            id: role_id2
-      delegate_to: localhost
-
-    - name: Unmap client role from a group
-      middleware_automation.keycloak.keycloak_client_rolemapping:
-        realm: MyCustomRealm
         auth_client_id: admin-cli
         auth_keycloak_url: https://auth.example.com
         auth_realm: master
         auth_username: USERNAME
         auth_password: PASSWORD
+      delegate_to: localhost
+
+    - name: Update a Keycloak organization
+      middleware_automation.keycloak.keycloak_organization:
+        name: my-org
+        description: Updated description
+        realm: MyRealm
+        state: present
+        auth_client_id: admin-cli
+        auth_keycloak_url: https://auth.example.com
+        auth_realm: master
+        auth_username: USERNAME
+        auth_password: PASSWORD
+      delegate_to: localhost
+
+    - name: Delete a Keycloak organization
+      middleware_automation.keycloak.keycloak_organization:
+        name: my-org
         state: absent
-        client_id: client1
-        group_name: group1
-        roles:
-          - name: role_name1
-            id: role_id1
-          - name: role_name2
-            id: role_id2
+        realm: MyRealm
+        auth_client_id: admin-cli
+        auth_keycloak_url: https://auth.example.com
+        auth_realm: master
+        auth_username: USERNAME
+        auth_password: PASSWORD
       delegate_to: localhost
 
 
@@ -683,32 +663,121 @@ Common return values are documented :ref:`here <common_return_values>`, the foll
       <p class="ansible-option-title"><strong>end_state</strong></p>
       <a class="ansibleOptionLink" href="#return-end_state" title="Permalink to this return value"></a>
       <p class="ansible-option-type-line">
-        <span class="ansible-option-type">dictionary</span>
+        <span class="ansible-option-type">complex</span>
       </p>
     </div></td>
     <td><div class="ansible-option-cell">
-      <p>Representation of client role mapping after module execution.</p>
-      <p>The sample is truncated.</p>
+      <p>Representation of the organization after module execution.</p>
       <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> on success</p>
-      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">{&#34;adminUrl&#34;: &#34;http://www.example.com/admin_url&#34;, &#34;attributes&#34;: {&#34;request.object.signature.alg&#34;: &#34;RS256&#34;}}</code></p>
     </div></td>
   </tr>
   <tr class="row-odd">
-    <td><div class="ansible-option-cell">
-      <div class="ansibleOptionAnchor" id="return-existing"></div>
-      <p class="ansible-option-title"><strong>existing</strong></p>
-      <a class="ansibleOptionLink" href="#return-existing" title="Permalink to this return value"></a>
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="return-end_state/alias"></div>
+      <p class="ansible-option-title"><strong>alias</strong></p>
+      <a class="ansibleOptionLink" href="#return-end_state/alias" title="Permalink to this return value"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>URL-friendly alias of the organization.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
+      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">&#34;my-org&#34;</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="return-end_state/attributes"></div>
+      <p class="ansible-option-title"><strong>attributes</strong></p>
+      <a class="ansibleOptionLink" href="#return-end_state/attributes" title="Permalink to this return value"></a>
       <p class="ansible-option-type-line">
         <span class="ansible-option-type">dictionary</span>
       </p>
     </div></td>
-    <td><div class="ansible-option-cell">
-      <p>Representation of existing client role mapping.</p>
-      <p>The sample is truncated.</p>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>Attributes applied to this organization.</p>
       <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
-      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">{&#34;adminUrl&#34;: &#34;http://www.example.com/admin_url&#34;, &#34;attributes&#34;: {&#34;request.object.signature.alg&#34;: &#34;RS256&#34;}}</code></p>
+      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">{&#34;attr1&#34;: [&#34;val1&#34;, &#34;val2&#34;]}</code></p>
     </div></td>
   </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="return-end_state/description"></div>
+      <p class="ansible-option-title"><strong>description</strong></p>
+      <a class="ansibleOptionLink" href="#return-end_state/description" title="Permalink to this return value"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>Description of the organization.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
+      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">&#34;My Organization&#34;</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="return-end_state/domains"></div>
+      <p class="ansible-option-title"><strong>domains</strong></p>
+      <a class="ansibleOptionLink" href="#return-end_state/domains" title="Permalink to this return value"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">list</span>
+        / <span class="ansible-option-elements">elements=string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>Domains associated with the organization.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
+      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">[{&#34;name&#34;: &#34;example.com&#34;, &#34;verified&#34;: false}]</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="return-end_state/enabled"></div>
+      <p class="ansible-option-title"><strong>enabled</strong></p>
+      <a class="ansibleOptionLink" href="#return-end_state/enabled" title="Permalink to this return value"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>Whether the organization is enabled.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
+      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">true</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-even">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="return-end_state/id"></div>
+      <p class="ansible-option-title"><strong>id</strong></p>
+      <a class="ansibleOptionLink" href="#return-end_state/id" title="Permalink to this return value"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>GUID that identifies the organization.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
+      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">&#34;23f38145-3195-462c-97e7-97041ccea73e&#34;</code></p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="return-end_state/name"></div>
+      <p class="ansible-option-title"><strong>name</strong></p>
+      <a class="ansibleOptionLink" href="#return-end_state/name" title="Permalink to this return value"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">string</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>Name of the organization.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
+      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">&#34;my-org&#34;</code></p>
+    </div></td>
+  </tr>
+
   <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="return-msg"></div>
@@ -721,22 +790,6 @@ Common return values are documented :ref:`here <common_return_values>`, the foll
     <td><div class="ansible-option-cell">
       <p>Message as to what action was taken.</p>
       <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
-      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">&#34;Role role1 assigned to group group1.&#34;</code></p>
-    </div></td>
-  </tr>
-  <tr class="row-odd">
-    <td><div class="ansible-option-cell">
-      <div class="ansibleOptionAnchor" id="return-proposed"></div>
-      <p class="ansible-option-title"><strong>proposed</strong></p>
-      <a class="ansibleOptionLink" href="#return-proposed" title="Permalink to this return value"></a>
-      <p class="ansible-option-type-line">
-        <span class="ansible-option-type">dictionary</span>
-      </p>
-    </div></td>
-    <td><div class="ansible-option-cell">
-      <p>Representation of proposed client role mapping.</p>
-      <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
-      <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">{&#34;clientId&#34;: &#34;test&#34;}</code></p>
     </div></td>
   </tr>
   </tbody>
@@ -752,7 +805,7 @@ Common return values are documented :ref:`here <common_return_values>`, the foll
 Authors
 ~~~~~~~
 
-- Gaëtan Daubresse (@Gaetan2907)
+- Chris Brown (@chribro)
 
 
 .. Extra links

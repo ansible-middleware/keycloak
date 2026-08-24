@@ -4,7 +4,7 @@
 <html class="writer-html5" lang="en" data-content_root="../">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta content="2.24.0" name="antsibull-docs" />
+<meta content="2.26.0" name="antsibull-docs" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>keycloak_authentication – Configure authentication in Keycloak &mdash; Keycloak Ansible Collection  documentation</title>
@@ -79,6 +79,8 @@
 <li class="toctree-l2"><a class="reference internal" href="keycloak_component_info.html">keycloak_component_info – Retrieve component info in Keycloak</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_group.html">keycloak_group – Allows administration of Keycloak groups using Keycloak API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_identity_provider.html">keycloak_identity_provider – Allows administration of Keycloak identity providers using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_organization.html">keycloak_organization – Allows administration of Keycloak organizations using Keycloak API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keycloak_organization_info.html">keycloak_organization_info – Retrieve organization info in Keycloak</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_realm.html">keycloak_realm – Allows administration of Keycloak realm using Keycloak API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_realm_info.html">keycloak_realm_info – Allows obtaining Keycloak realm public information using Keycloak API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="keycloak_realm_key.html">keycloak_realm_key – Allows administration of Keycloak realm keys using Keycloak API</a></li>
@@ -618,21 +620,21 @@ To check whether it is installed, run <code class="code docutils literal notrans
 <span class="w">    </span><span class="nt">auth_username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
 <span class="w">    </span><span class="nt">auth_password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">password</span>
 <span class="w">    </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
-<span class="w">    </span><span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Copy</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">first</span><span class="nv"> </span><span class="s">broker</span><span class="nv"> </span><span class="s">login&quot;</span>
-<span class="w">    </span><span class="nt">copyFrom</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;first</span><span class="nv"> </span><span class="s">broker</span><span class="nv"> </span><span class="s">login&quot;</span>
+<span class="w">    </span><span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="s">"Copy</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">first</span><span class="nv"> </span><span class="s">broker</span><span class="nv"> </span><span class="s">login"</span>
+<span class="w">    </span><span class="nt">copyFrom</span><span class="p">:</span><span class="w"> </span><span class="s">"first</span><span class="nv"> </span><span class="s">broker</span><span class="nv"> </span><span class="s">login"</span>
 <span class="w">    </span><span class="nt">authenticationExecutions</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">providerId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;test-execution1&quot;</span>
-<span class="w">        </span><span class="nt">requirement</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;REQUIRED&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">providerId</span><span class="p">:</span><span class="w"> </span><span class="s">"test-execution1"</span>
+<span class="w">        </span><span class="nt">requirement</span><span class="p">:</span><span class="w"> </span><span class="s">"REQUIRED"</span>
 <span class="w">        </span><span class="nt">authenticationConfig</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;test.execution1.property&quot;</span>
+<span class="w">          </span><span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="s">"test.execution1.property"</span>
 <span class="w">          </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">test1.property</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">providerId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;test-execution2&quot;</span>
-<span class="w">        </span><span class="nt">requirement</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;REQUIRED&quot;</span>
+<span class="w">          </span><span class="nt">test1.property</span><span class="p">:</span><span class="w"> </span><span class="s">"value"</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">providerId</span><span class="p">:</span><span class="w"> </span><span class="s">"test-execution2"</span>
+<span class="w">        </span><span class="nt">requirement</span><span class="p">:</span><span class="w"> </span><span class="s">"REQUIRED"</span>
 <span class="w">        </span><span class="nt">authenticationConfig</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;test.execution2.property&quot;</span>
+<span class="w">          </span><span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="s">"test.execution2.property"</span>
 <span class="w">          </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">test2.property</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span>
+<span class="w">          </span><span class="nt">test2.property</span><span class="p">:</span><span class="w"> </span><span class="s">"value"</span>
 <span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
 
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Re-create the authentication flow</span>
@@ -642,15 +644,15 @@ To check whether it is installed, run <code class="code docutils literal notrans
 <span class="w">    </span><span class="nt">auth_username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
 <span class="w">    </span><span class="nt">auth_password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">password</span>
 <span class="w">    </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
-<span class="w">    </span><span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Copy</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">first</span><span class="nv"> </span><span class="s">broker</span><span class="nv"> </span><span class="s">login&quot;</span>
-<span class="w">    </span><span class="nt">copyFrom</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;first</span><span class="nv"> </span><span class="s">broker</span><span class="nv"> </span><span class="s">login&quot;</span>
+<span class="w">    </span><span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="s">"Copy</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">first</span><span class="nv"> </span><span class="s">broker</span><span class="nv"> </span><span class="s">login"</span>
+<span class="w">    </span><span class="nt">copyFrom</span><span class="p">:</span><span class="w"> </span><span class="s">"first</span><span class="nv"> </span><span class="s">broker</span><span class="nv"> </span><span class="s">login"</span>
 <span class="w">    </span><span class="nt">authenticationExecutions</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">providerId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;test-provisioning&quot;</span>
-<span class="w">        </span><span class="nt">requirement</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;REQUIRED&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">providerId</span><span class="p">:</span><span class="w"> </span><span class="s">"test-provisioning"</span>
+<span class="w">        </span><span class="nt">requirement</span><span class="p">:</span><span class="w"> </span><span class="s">"REQUIRED"</span>
 <span class="w">        </span><span class="nt">authenticationConfig</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;test.provisioning.property&quot;</span>
+<span class="w">          </span><span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="s">"test.provisioning.property"</span>
 <span class="w">          </span><span class="nt">config</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">test.provisioning.property</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value&quot;</span>
+<span class="w">          </span><span class="nt">test.provisioning.property</span><span class="p">:</span><span class="w"> </span><span class="s">"value"</span>
 <span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
 <span class="w">    </span><span class="nt">force</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 
@@ -661,16 +663,16 @@ To check whether it is installed, run <code class="code docutils literal notrans
 <span class="w">    </span><span class="nt">auth_username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
 <span class="w">    </span><span class="nt">auth_password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">password</span>
 <span class="w">    </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
-<span class="w">    </span><span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Copy</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">first</span><span class="nv"> </span><span class="s">broker</span><span class="nv"> </span><span class="s">login&quot;</span>
-<span class="w">    </span><span class="nt">copyFrom</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;first</span><span class="nv"> </span><span class="s">broker</span><span class="nv"> </span><span class="s">login&quot;</span>
+<span class="w">    </span><span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="s">"Copy</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">first</span><span class="nv"> </span><span class="s">broker</span><span class="nv"> </span><span class="s">login"</span>
+<span class="w">    </span><span class="nt">copyFrom</span><span class="p">:</span><span class="w"> </span><span class="s">"first</span><span class="nv"> </span><span class="s">broker</span><span class="nv"> </span><span class="s">login"</span>
 <span class="w">    </span><span class="nt">authenticationExecutions</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">providerId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;test-execution1&quot;</span>
-<span class="w">        </span><span class="nt">requirement</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;REQUIRED&quot;</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;New</span><span class="nv"> </span><span class="s">Subflow&quot;</span>
-<span class="w">        </span><span class="nt">requirement</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;REQUIRED&quot;</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">providerId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;auth-cookie&quot;</span>
-<span class="w">        </span><span class="nt">requirement</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;REQUIRED&quot;</span>
-<span class="w">        </span><span class="nt">flowAlias</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;New</span><span class="nv"> </span><span class="s">Sublow&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">providerId</span><span class="p">:</span><span class="w"> </span><span class="s">"test-execution1"</span>
+<span class="w">        </span><span class="nt">requirement</span><span class="p">:</span><span class="w"> </span><span class="s">"REQUIRED"</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">"New</span><span class="nv"> </span><span class="s">Subflow"</span>
+<span class="w">        </span><span class="nt">requirement</span><span class="p">:</span><span class="w"> </span><span class="s">"REQUIRED"</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">providerId</span><span class="p">:</span><span class="w"> </span><span class="s">"auth-cookie"</span>
+<span class="w">        </span><span class="nt">requirement</span><span class="p">:</span><span class="w"> </span><span class="s">"REQUIRED"</span>
+<span class="w">        </span><span class="nt">flowAlias</span><span class="p">:</span><span class="w"> </span><span class="s">"New</span><span class="nv"> </span><span class="s">Sublow"</span>
 <span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
 
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Remove authentication.</span>
@@ -680,7 +682,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 <span class="w">    </span><span class="nt">auth_username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
 <span class="w">    </span><span class="nt">auth_password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">password</span>
 <span class="w">    </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
-<span class="w">    </span><span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Copy</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">first</span><span class="nv"> </span><span class="s">broker</span><span class="nv"> </span><span class="s">login&quot;</span>
+<span class="w">    </span><span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="s">"Copy</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">first</span><span class="nv"> </span><span class="s">broker</span><span class="nv"> </span><span class="s">login"</span>
 <span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">absent</span>
 </pre></div>
 </div>

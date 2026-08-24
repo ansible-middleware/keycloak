@@ -1,0 +1,27 @@
+---
+- name: Playbook for Keycloak Authentication Flow Configuration
+  hosts: all
+  vars:
+    keycloak_admin_user: admin
+    keycloak_admin_password: "remembertochangeme"
+    keycloak_url: "http://localhost:8080"
+    keycloak_realm: TestRealm
+  tasks:
+    - name: Create authentication flow with executions
+      middleware_automation.keycloak.keycloak_authentication_flow:
+        auth_keycloak_url: "{{ keycloak_url }}"
+        auth_realm: master
+        auth_username: "{{ keycloak_admin_user }}"
+        auth_password: "{{ keycloak_admin_password }}"
+        realm: "{{ keycloak_realm }}"
+        alias: my-browser-flow
+        description: "Custom browser authentication flow"
+        provider_id: basic-flow
+        executions:
+          - provider_id: auth-cookie
+            requirement: ALTERNATIVE
+          - provider_id: auth-password
+            requirement: REQUIRED
+          - provider_id: auth-otp-form
+            requirement: ALTERNATIVE
+        state: present

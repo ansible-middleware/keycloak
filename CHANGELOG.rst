@@ -6,6 +6,23 @@ middleware\_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v3.0.11
+=======
+
+Minor Changes
+-------------
+
+- Add certification checks to the upstream repo `#378 <https://github.com/ansible-middleware/keycloak/pull/378>`_
+- Fix cert workflow `#389 <https://github.com/ansible-middleware/keycloak/pull/389>`_
+- Fix health check URL to include HTTP relative path `#364 <https://github.com/ansible-middleware/keycloak/pull/364>`_
+- fix(keycloak_quarkus): avoid leaking maven provider password in logs `#363 <https://github.com/ansible-middleware/keycloak/pull/363>`_
+
+Bugfixes
+--------
+
+- AMW-592 AMW Github Actions are failing because of latest molecule `#366 <https://github.com/ansible-middleware/keycloak/pull/366>`_
+- AMW-594 Upstream release is failing due to recent rules change `#373 <https://github.com/ansible-middleware/keycloak/pull/373>`_
+
 v3.0.10
 =======
 

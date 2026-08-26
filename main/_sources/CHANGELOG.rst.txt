@@ -9,6 +9,11 @@ This changelog describes changes after version 0.2.6.
 v3.0.12-devel
 =============
 
+Minor Changes
+-------------
+
+- 369 add integration tests for keycloak_authentication_v2 `#374 <https://github.com/ansible-middleware/keycloak/pull/374>`_
+
 v3.0.11
 =======
 

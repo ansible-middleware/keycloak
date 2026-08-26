@@ -441,14 +441,8 @@
             state: present
 
         - name: keycloak_authentication_v2 — manage flow with safe-swap semantics
-          middleware_automation.keycloak.keycloak_authentication_v2:
-            realm: "{{ target_realm }}"
-            alias: "{{ flow_v2 }}"
-            description: Molecule module test flow v2
-            authenticationExecutions:
-              - requirement: REQUIRED
-                providerId: auth-cookie
-            state: present
+          ansible.builtin.include_tasks:
+            file: keycloak_authentication_v2/verify.yml
 
         - name: keycloak_authentication_required_actions — ensure VERIFY_EMAIL is enabled
           middleware_automation.keycloak.keycloak_authentication_required_actions:
@@ -841,12 +835,6 @@
           middleware_automation.keycloak.keycloak_identity_provider:
             realm: "{{ target_realm }}"
             alias: "{{ idp }}"
-            state: absent
-
-        - name: keycloak_authentication_v2 — remove flow
-          middleware_automation.keycloak.keycloak_authentication_v2:
-            realm: "{{ target_realm }}"
-            alias: "{{ flow_v2 }}"
             state: absent
 
         - name: keycloak_authentication — remove copied flow

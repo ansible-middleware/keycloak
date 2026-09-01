@@ -1,0 +1,29 @@
+---
+- name: Prepare
+  hosts: all
+  vars_files:
+    - ../group_vars/all/vars.yml
+  gather_facts: yes
+  vars:
+    sudo_pkg_name: sudo
+  tasks:
+    - name: "Run preparation common to all scenario"
+      ansible.builtin.include_tasks: ../prepare.yml
+
+    - name: Create controller directory for downloads
+      ansible.builtin.file: # noqa risky-file-permissions delegated, uses controller host user
+        path: /tmp/keycloak
+        state: directory
+        mode: '0750'
+      delegate_to: localhost
+      run_once: true
+
+    - name: Download keycloak archive to controller directory
+      ansible.builtin.get_url: # noqa risky-file-permissions delegated, uses controller host user
+        url: https://github.com/keycloak/keycloak/releases/download/26.6.2/keycloak-26.6.2.zip
+        dest: /tmp/keycloak
+        mode: '0640'
+        validate_certs: false
+      delegate_to: localhost
+      run_once: true
+      ignore_errors: true

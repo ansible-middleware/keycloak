@@ -115,7 +115,7 @@ argument_specs:
                 description: "HTTP port"
                 type: "int"
             keycloak_quarkus_health_check_url:
-                default: "{{ keycloak_quarkus_hostname ~ keycloak_quarkus_http_relative_path.rstrip('/') ~ '/' ~ keycloak_quarkus_health_check_url_path }}"
+                default: "{{ keycloak_quarkus_hostname.rstrip('/').removesuffix(keycloak_quarkus_http_relative_path.rstrip('/')) ~ keycloak_quarkus_http_relative_path.rstrip('/') ~ '/' ~ keycloak_quarkus_health_check_url_path }}"
                 description: "Full URL (including scheme, host, path, fragment etc.) used for health check endpoint; keycloak_quarkus_hostname will NOT be prepended; helpful when health checks should happen against http port, but keycloak_quarkus_hostname uses https scheme per default"
                 type: "str"
             keycloak_quarkus_health_check_url_path:

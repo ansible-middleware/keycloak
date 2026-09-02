@@ -756,8 +756,8 @@ def create_executions(
     :param parent_flow_alias: the alias of the flow or sub-flow that will own the executions.
     """
     for desired_exec in executions:
-        sub_flow = desired_exec["subFlow"]
-        sub_flow_type = desired_exec["subFlowType"]
+        sub_flow = desired_exec.get("subFlow")
+        sub_flow_type = desired_exec.get("subFlowType", "basic-flow")
         sub_flow_execs = desired_exec.get("authenticationExecutions")
 
         # Build the minimal payload accepted by the execution creation endpoint.
@@ -1068,7 +1068,7 @@ def validate_executions_rec(valid_provider_ids: set, executions: dict) -> list:
     invalid_provider_ids = []
     for execution in executions:
         provider_id = execution["providerId"]
-        sub_flow = execution["subFlow"]
+        sub_flow = execution.get("subFlow")
         if provider_id is not None:
             if provider_id not in valid_provider_ids:
                 invalid_provider_ids.append(provider_id)

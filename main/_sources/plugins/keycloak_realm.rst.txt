@@ -1011,6 +1011,21 @@ Parameters
   </tr>
   <tr class="row-even">
     <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-max_secondary_auth_failures"></div>
+      <div class="ansibleOptionAnchor" id="parameter-maxSecondaryAuthFailures"></div>
+      <p class="ansible-option-title"><strong>max_secondary_auth_failures</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-max_secondary_auth_failures" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: maxSecondaryAuthFailures</span></p>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">integer</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>The realm max secondary authentication failures (used with brute force detection for secondary auth mechanisms).</p>
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-max_temporary_lockouts"></div>
       <div class="ansibleOptionAnchor" id="parameter-maxTemporaryLockouts"></div>
       <p class="ansible-option-title"><strong>max_temporary_lockouts</strong></p>
@@ -1024,7 +1039,7 @@ Parameters
       <p>The realm max temporary lockouts.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-minimum_quick_login_wait_seconds"></div>
       <div class="ansibleOptionAnchor" id="parameter-minimumQuickLoginWaitSeconds"></div>
@@ -1039,7 +1054,7 @@ Parameters
       <p>The realm minimum quick login wait in seconds.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-not_before"></div>
       <div class="ansibleOptionAnchor" id="parameter-notBefore"></div>
@@ -1054,7 +1069,7 @@ Parameters
       <p>The realm not before.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-oauth2_device_code_lifespan"></div>
       <div class="ansibleOptionAnchor" id="parameter-oauth2DeviceCodeLifespan"></div>
@@ -1069,7 +1084,7 @@ Parameters
       <p>Max time before the device code and user code are expired.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-oauth2_device_polling_interval"></div>
       <div class="ansibleOptionAnchor" id="parameter-oauth2DevicePollingInterval"></div>
@@ -1084,7 +1099,7 @@ Parameters
       <p>The minimum amount of time in seconds that the client should wait between polling requests to the token endpoint.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-offline_session_idle_timeout"></div>
       <div class="ansibleOptionAnchor" id="parameter-offlineSessionIdleTimeout"></div>
@@ -1099,7 +1114,7 @@ Parameters
       <p>The realm offline session idle timeout.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-offline_session_max_lifespan"></div>
       <div class="ansibleOptionAnchor" id="parameter-offlineSessionMaxLifespan"></div>
@@ -1114,7 +1129,7 @@ Parameters
       <p>The realm offline session max lifespan.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-offline_session_max_lifespan_enabled"></div>
       <div class="ansibleOptionAnchor" id="parameter-offlineSessionMaxLifespanEnabled"></div>
@@ -1135,7 +1150,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-organizations_enabled"></div>
       <div class="ansibleOptionAnchor" id="parameter-organizationsEnabled"></div>
@@ -1156,7 +1171,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-otp_policy_algorithm"></div>
       <div class="ansibleOptionAnchor" id="parameter-otpPolicyAlgorithm"></div>
@@ -1171,7 +1186,7 @@ Parameters
       <p>The realm otp policy algorithm.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-otp_policy_digits"></div>
       <div class="ansibleOptionAnchor" id="parameter-otpPolicyDigits"></div>
@@ -1186,7 +1201,7 @@ Parameters
       <p>The realm otp policy digits.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-otp_policy_initial_counter"></div>
       <div class="ansibleOptionAnchor" id="parameter-otpPolicyInitialCounter"></div>
@@ -1201,7 +1216,7 @@ Parameters
       <p>The realm otp policy initial counter.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-otp_policy_look_ahead_window"></div>
       <div class="ansibleOptionAnchor" id="parameter-otpPolicyLookAheadWindow"></div>
@@ -1216,7 +1231,7 @@ Parameters
       <p>The realm otp policy look ahead window.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-otp_policy_period"></div>
       <div class="ansibleOptionAnchor" id="parameter-otpPolicyPeriod"></div>
@@ -1231,7 +1246,7 @@ Parameters
       <p>The realm otp policy period.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-otp_policy_type"></div>
       <div class="ansibleOptionAnchor" id="parameter-otpPolicyType"></div>
@@ -1246,7 +1261,7 @@ Parameters
       <p>The realm otp policy type.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-otp_supported_applications"></div>
       <div class="ansibleOptionAnchor" id="parameter-otpSupportedApplications"></div>
@@ -1262,7 +1277,7 @@ Parameters
       <p>The realm otp supported applications.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-password_policy"></div>
       <div class="ansibleOptionAnchor" id="parameter-passwordPolicy"></div>
@@ -1277,7 +1292,7 @@ Parameters
       <p>The realm password policy.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-permanent_lockout"></div>
       <div class="ansibleOptionAnchor" id="parameter-permanentLockout"></div>
@@ -1298,7 +1313,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-prune_undefined_realm_attributes"></div>
       <div class="ansibleOptionAnchor" id="parameter-pruneUndefinedRealmAttributes"></div>
@@ -1319,7 +1334,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-quick_login_check_milli_seconds"></div>
       <div class="ansibleOptionAnchor" id="parameter-quickLoginCheckMilliSeconds"></div>
@@ -1334,7 +1349,7 @@ Parameters
       <p>The realm quick login check in milliseconds.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-realm"></div>
       <p class="ansible-option-title"><strong>realm</strong></p>
@@ -1347,7 +1362,7 @@ Parameters
       <p>The realm name.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-refresh_token"></div>
       <p class="ansible-option-title"><strong>refresh_token</strong></p>
@@ -1360,7 +1375,7 @@ Parameters
       <p>Authentication refresh token for Keycloak API.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-refresh_token_max_reuse"></div>
       <div class="ansibleOptionAnchor" id="parameter-refreshTokenMaxReuse"></div>
@@ -1375,7 +1390,7 @@ Parameters
       <p>The realm refresh token max reuse.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-registration_allowed"></div>
       <div class="ansibleOptionAnchor" id="parameter-registrationAllowed"></div>
@@ -1396,7 +1411,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-registration_email_as_username"></div>
       <div class="ansibleOptionAnchor" id="parameter-registrationEmailAsUsername"></div>
@@ -1417,7 +1432,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-registration_flow"></div>
       <div class="ansibleOptionAnchor" id="parameter-registrationFlow"></div>
@@ -1432,7 +1447,7 @@ Parameters
       <p>The realm registration flow.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-remember_me"></div>
       <div class="ansibleOptionAnchor" id="parameter-rememberMe"></div>
@@ -1453,7 +1468,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-reset_credentials_flow"></div>
       <div class="ansibleOptionAnchor" id="parameter-resetCredentialsFlow"></div>
@@ -1468,7 +1483,7 @@ Parameters
       <p>The realm reset credentials flow.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-reset_password_allowed"></div>
       <div class="ansibleOptionAnchor" id="parameter-resetPasswordAllowed"></div>
@@ -1489,7 +1504,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-revoke_refresh_token"></div>
       <div class="ansibleOptionAnchor" id="parameter-revokeRefreshToken"></div>
@@ -1510,7 +1525,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-smtp_server"></div>
       <div class="ansibleOptionAnchor" id="parameter-smtpServer"></div>
@@ -1525,7 +1540,7 @@ Parameters
       <p>The realm smtp server.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-ssl_required"></div>
       <div class="ansibleOptionAnchor" id="parameter-sslRequired"></div>
@@ -1547,7 +1562,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-sso_session_idle_timeout"></div>
       <div class="ansibleOptionAnchor" id="parameter-ssoSessionIdleTimeout"></div>
@@ -1562,7 +1577,7 @@ Parameters
       <p>The realm sso session idle timeout.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-sso_session_idle_timeout_remember_me"></div>
       <div class="ansibleOptionAnchor" id="parameter-ssoSessionIdleTimeoutRememberMe"></div>
@@ -1577,7 +1592,7 @@ Parameters
       <p>The realm sso session idle timeout remember me.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-sso_session_max_lifespan"></div>
       <div class="ansibleOptionAnchor" id="parameter-ssoSessionMaxLifespan"></div>
@@ -1592,7 +1607,7 @@ Parameters
       <p>The realm sso session max lifespan.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-sso_session_max_lifespan_remember_me"></div>
       <div class="ansibleOptionAnchor" id="parameter-ssoSessionMaxLifespanRememberMe"></div>
@@ -1607,7 +1622,7 @@ Parameters
       <p>The realm sso session max lifespan remember me.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-state"></div>
       <p class="ansible-option-title"><strong>state</strong></p>
@@ -1628,7 +1643,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-supported_locales"></div>
       <div class="ansibleOptionAnchor" id="parameter-supportedLocales"></div>
@@ -1644,7 +1659,7 @@ Parameters
       <p>The realm supported locales.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-token"></div>
       <p class="ansible-option-title"><strong>token</strong></p>
@@ -1657,7 +1672,7 @@ Parameters
       <p>Authentication token for Keycloak API.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-user_managed_access_allowed"></div>
       <div class="ansibleOptionAnchor" id="parameter-userManagedAccessAllowed"></div>
@@ -1678,7 +1693,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-validate_certs"></div>
       <p class="ansible-option-title"><strong>validate_certs</strong></p>
@@ -1697,7 +1712,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-verify_email"></div>
       <div class="ansibleOptionAnchor" id="parameter-verifyEmail"></div>
@@ -1718,7 +1733,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-wait_increment_seconds"></div>
       <div class="ansibleOptionAnchor" id="parameter-waitIncrementSeconds"></div>
@@ -1733,7 +1748,7 @@ Parameters
       <p>The realm wait increment in seconds.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_acceptable_aaguids"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyAcceptableAaguids"></div>
@@ -1749,7 +1764,7 @@ Parameters
       <p>List of acceptable AAGUIDs for WebAuthn authenticators.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_attestation_conveyance_preference"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyAttestationConveyancePreference"></div>
@@ -1764,7 +1779,7 @@ Parameters
       <p>Attestation conveyance preference for WebAuthn.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_authenticator_attachment"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyAuthenticatorAttachment"></div>
@@ -1779,7 +1794,7 @@ Parameters
       <p>Authenticator attachment preference for WebAuthn authenticators.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_avoid_same_authenticator_register"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyAvoidSameAuthenticatorRegister"></div>
@@ -1800,7 +1815,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_create_timeout"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyCreateTimeout"></div>
@@ -1815,7 +1830,7 @@ Parameters
       <p>Timeout for WebAuthn credential creation (ms).</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_extra_origins"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyExtraOrigins"></div>
@@ -1831,7 +1846,7 @@ Parameters
       <p>Additional acceptable origins for WebAuthn requests.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_acceptable_aaguids"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessAcceptableAaguids"></div>
@@ -1847,7 +1862,7 @@ Parameters
       <p>List of acceptable AAGUIDs for WebAuthn passwordless authenticators.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_attestation_conveyance_preference"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessAttestationConveyancePreference"></div>
@@ -1862,7 +1877,7 @@ Parameters
       <p>Attestation conveyance preference for WebAuthn passwordless.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_authenticator_attachment"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessAuthenticatorAttachment"></div>
@@ -1877,7 +1892,7 @@ Parameters
       <p>Authenticator attachment for WebAuthn passwordless.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_avoid_same_authenticator_register"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessAvoidSameAuthenticatorRegister"></div>
@@ -1898,7 +1913,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_create_timeout"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessCreateTimeout"></div>
@@ -1913,7 +1928,7 @@ Parameters
       <p>Timeout for WebAuthn passwordless credential creation (ms).</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_extra_origins"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessExtraOrigins"></div>
@@ -1929,7 +1944,7 @@ Parameters
       <p>Additional acceptable origins for WebAuthn passwordless requests.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_passkeys_enabled"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessPasskeysEnabled"></div>
@@ -1950,7 +1965,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_require_resident_key"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessRequireResidentKey"></div>
@@ -1965,7 +1980,7 @@ Parameters
       <p>Whether resident keys are required for WebAuthn passwordless (<code class="ansible-value literal notranslate">Yes</code>/<code class="ansible-value literal notranslate">No</code>/<code class="ansible-value literal notranslate">not specified</code>).</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_rp_entity_name"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessRpEntityName"></div>
@@ -1980,7 +1995,7 @@ Parameters
       <p>WebAuthn Passwordless Relying Party Entity Name.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_rp_id"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessRpId"></div>
@@ -1995,7 +2010,7 @@ Parameters
       <p>WebAuthn Passwordless Relying Party ID (domain).</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_signature_algorithms"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessSignatureAlgorithms"></div>
@@ -2011,7 +2026,7 @@ Parameters
       <p>List of acceptable WebAuthn signature algorithms for passwordless.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_user_verification_requirement"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessUserVerificationRequirement"></div>
@@ -2026,7 +2041,7 @@ Parameters
       <p>User verification requirement for WebAuthn passwordless.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_require_resident_key"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyRequireResidentKey"></div>
@@ -2041,7 +2056,7 @@ Parameters
       <p>Whether resident keys are required for WebAuthn (Yes/No/not specified).</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_rp_entity_name"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyRpEntityName"></div>
@@ -2056,7 +2071,7 @@ Parameters
       <p>WebAuthn Relying Party Entity Name.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_rp_id"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyRpId"></div>
@@ -2071,7 +2086,7 @@ Parameters
       <p>WebAuthn Relying Party ID (domain). Empty string means use request host.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_signature_algorithms"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicySignatureAlgorithms"></div>
@@ -2087,7 +2102,7 @@ Parameters
       <p>List of acceptable WebAuthn signature algorithms.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_user_verification_requirement"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyUserVerificationRequirement"></div>

@@ -1113,6 +1113,21 @@ To check whether it is installed, run <code class="code docutils literal notrans
 </tr>
 <tr class="row-even">
   <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-max_secondary_auth_failures"></div>
+    <div class="ansibleOptionAnchor" id="parameter-maxSecondaryAuthFailures"></div>
+    <p class="ansible-option-title"><strong>max_secondary_auth_failures</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-max_secondary_auth_failures" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: maxSecondaryAuthFailures</span></p>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">integer</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>The realm max secondary authentication failures (used with brute force detection for secondary auth mechanisms).</p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-max_temporary_lockouts"></div>
     <div class="ansibleOptionAnchor" id="parameter-maxTemporaryLockouts"></div>
     <p class="ansible-option-title"><strong>max_temporary_lockouts</strong></p>
@@ -1126,7 +1141,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The realm max temporary lockouts.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-minimum_quick_login_wait_seconds"></div>
     <div class="ansibleOptionAnchor" id="parameter-minimumQuickLoginWaitSeconds"></div>
@@ -1141,7 +1156,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The realm minimum quick login wait in seconds.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-not_before"></div>
     <div class="ansibleOptionAnchor" id="parameter-notBefore"></div>
@@ -1156,7 +1171,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The realm not before.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-oauth2_device_code_lifespan"></div>
     <div class="ansibleOptionAnchor" id="parameter-oauth2DeviceCodeLifespan"></div>
@@ -1171,7 +1186,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Max time before the device code and user code are expired.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-oauth2_device_polling_interval"></div>
     <div class="ansibleOptionAnchor" id="parameter-oauth2DevicePollingInterval"></div>
@@ -1186,7 +1201,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The minimum amount of time in seconds that the client should wait between polling requests to the token endpoint.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-offline_session_idle_timeout"></div>
     <div class="ansibleOptionAnchor" id="parameter-offlineSessionIdleTimeout"></div>
@@ -1201,7 +1216,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The realm offline session idle timeout.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-offline_session_max_lifespan"></div>
     <div class="ansibleOptionAnchor" id="parameter-offlineSessionMaxLifespan"></div>
@@ -1216,7 +1231,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The realm offline session max lifespan.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-offline_session_max_lifespan_enabled"></div>
     <div class="ansibleOptionAnchor" id="parameter-offlineSessionMaxLifespanEnabled"></div>
@@ -1237,7 +1252,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-organizations_enabled"></div>
     <div class="ansibleOptionAnchor" id="parameter-organizationsEnabled"></div>
@@ -1258,7 +1273,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-otp_policy_algorithm"></div>
     <div class="ansibleOptionAnchor" id="parameter-otpPolicyAlgorithm"></div>
@@ -1273,7 +1288,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The realm otp policy algorithm.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-otp_policy_digits"></div>
     <div class="ansibleOptionAnchor" id="parameter-otpPolicyDigits"></div>
@@ -1288,7 +1303,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The realm otp policy digits.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-otp_policy_initial_counter"></div>
     <div class="ansibleOptionAnchor" id="parameter-otpPolicyInitialCounter"></div>
@@ -1303,7 +1318,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The realm otp policy initial counter.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-otp_policy_look_ahead_window"></div>
     <div class="ansibleOptionAnchor" id="parameter-otpPolicyLookAheadWindow"></div>
@@ -1318,7 +1333,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The realm otp policy look ahead window.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-otp_policy_period"></div>
     <div class="ansibleOptionAnchor" id="parameter-otpPolicyPeriod"></div>
@@ -1333,7 +1348,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The realm otp policy period.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-otp_policy_type"></div>
     <div class="ansibleOptionAnchor" id="parameter-otpPolicyType"></div>
@@ -1348,7 +1363,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The realm otp policy type.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-otp_supported_applications"></div>
     <div class="ansibleOptionAnchor" id="parameter-otpSupportedApplications"></div>
@@ -1364,7 +1379,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The realm otp supported applications.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-password_policy"></div>
     <div class="ansibleOptionAnchor" id="parameter-passwordPolicy"></div>
@@ -1379,7 +1394,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The realm password policy.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-permanent_lockout"></div>
     <div class="ansibleOptionAnchor" id="parameter-permanentLockout"></div>
@@ -1400,7 +1415,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-prune_undefined_realm_attributes"></div>
     <div class="ansibleOptionAnchor" id="parameter-pruneUndefinedRealmAttributes"></div>
@@ -1421,7 +1436,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-quick_login_check_milli_seconds"></div>
     <div class="ansibleOptionAnchor" id="parameter-quickLoginCheckMilliSeconds"></div>
@@ -1436,7 +1451,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The realm quick login check in milliseconds.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-realm"></div>
     <p class="ansible-option-title"><strong>realm</strong></p>
@@ -1449,7 +1464,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The realm name.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-refresh_token"></div>
     <p class="ansible-option-title"><strong>refresh_token</strong></p>
@@ -1462,7 +1477,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Authentication refresh token for Keycloak API.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-refresh_token_max_reuse"></div>
     <div class="ansibleOptionAnchor" id="parameter-refreshTokenMaxReuse"></div>
@@ -1477,7 +1492,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The realm refresh token max reuse.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-registration_allowed"></div>
     <div class="ansibleOptionAnchor" id="parameter-registrationAllowed"></div>
@@ -1498,7 +1513,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-registration_email_as_username"></div>
     <div class="ansibleOptionAnchor" id="parameter-registrationEmailAsUsername"></div>
@@ -1519,7 +1534,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-registration_flow"></div>
     <div class="ansibleOptionAnchor" id="parameter-registrationFlow"></div>
@@ -1534,7 +1549,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The realm registration flow.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-remember_me"></div>
     <div class="ansibleOptionAnchor" id="parameter-rememberMe"></div>
@@ -1555,7 +1570,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-reset_credentials_flow"></div>
     <div class="ansibleOptionAnchor" id="parameter-resetCredentialsFlow"></div>
@@ -1570,7 +1585,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The realm reset credentials flow.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-reset_password_allowed"></div>
     <div class="ansibleOptionAnchor" id="parameter-resetPasswordAllowed"></div>
@@ -1591,7 +1606,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-revoke_refresh_token"></div>
     <div class="ansibleOptionAnchor" id="parameter-revokeRefreshToken"></div>
@@ -1612,7 +1627,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-smtp_server"></div>
     <div class="ansibleOptionAnchor" id="parameter-smtpServer"></div>
@@ -1627,7 +1642,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The realm smtp server.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-ssl_required"></div>
     <div class="ansibleOptionAnchor" id="parameter-sslRequired"></div>
@@ -1649,7 +1664,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-sso_session_idle_timeout"></div>
     <div class="ansibleOptionAnchor" id="parameter-ssoSessionIdleTimeout"></div>
@@ -1664,7 +1679,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The realm sso session idle timeout.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-sso_session_idle_timeout_remember_me"></div>
     <div class="ansibleOptionAnchor" id="parameter-ssoSessionIdleTimeoutRememberMe"></div>
@@ -1679,7 +1694,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The realm sso session idle timeout remember me.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-sso_session_max_lifespan"></div>
     <div class="ansibleOptionAnchor" id="parameter-ssoSessionMaxLifespan"></div>
@@ -1694,7 +1709,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The realm sso session max lifespan.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-sso_session_max_lifespan_remember_me"></div>
     <div class="ansibleOptionAnchor" id="parameter-ssoSessionMaxLifespanRememberMe"></div>
@@ -1709,7 +1724,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The realm sso session max lifespan remember me.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-state"></div>
     <p class="ansible-option-title"><strong>state</strong></p>
@@ -1730,7 +1745,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-supported_locales"></div>
     <div class="ansibleOptionAnchor" id="parameter-supportedLocales"></div>
@@ -1746,7 +1761,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The realm supported locales.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-token"></div>
     <p class="ansible-option-title"><strong>token</strong></p>
@@ -1759,7 +1774,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Authentication token for Keycloak API.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-user_managed_access_allowed"></div>
     <div class="ansibleOptionAnchor" id="parameter-userManagedAccessAllowed"></div>
@@ -1780,7 +1795,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-validate_certs"></div>
     <p class="ansible-option-title"><strong>validate_certs</strong></p>
@@ -1799,7 +1814,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-verify_email"></div>
     <div class="ansibleOptionAnchor" id="parameter-verifyEmail"></div>
@@ -1820,7 +1835,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-wait_increment_seconds"></div>
     <div class="ansibleOptionAnchor" id="parameter-waitIncrementSeconds"></div>
@@ -1835,7 +1850,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The realm wait increment in seconds.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_acceptable_aaguids"></div>
     <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyAcceptableAaguids"></div>
@@ -1851,7 +1866,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>List of acceptable AAGUIDs for WebAuthn authenticators.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_attestation_conveyance_preference"></div>
     <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyAttestationConveyancePreference"></div>
@@ -1866,7 +1881,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Attestation conveyance preference for WebAuthn.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_authenticator_attachment"></div>
     <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyAuthenticatorAttachment"></div>
@@ -1881,7 +1896,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Authenticator attachment preference for WebAuthn authenticators.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_avoid_same_authenticator_register"></div>
     <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyAvoidSameAuthenticatorRegister"></div>
@@ -1902,7 +1917,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_create_timeout"></div>
     <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyCreateTimeout"></div>
@@ -1917,7 +1932,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Timeout for WebAuthn credential creation (ms).</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_extra_origins"></div>
     <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyExtraOrigins"></div>
@@ -1933,7 +1948,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Additional acceptable origins for WebAuthn requests.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_acceptable_aaguids"></div>
     <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessAcceptableAaguids"></div>
@@ -1949,7 +1964,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>List of acceptable AAGUIDs for WebAuthn passwordless authenticators.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_attestation_conveyance_preference"></div>
     <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessAttestationConveyancePreference"></div>
@@ -1964,7 +1979,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Attestation conveyance preference for WebAuthn passwordless.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_authenticator_attachment"></div>
     <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessAuthenticatorAttachment"></div>
@@ -1979,7 +1994,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Authenticator attachment for WebAuthn passwordless.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_avoid_same_authenticator_register"></div>
     <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessAvoidSameAuthenticatorRegister"></div>
@@ -2000,7 +2015,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_create_timeout"></div>
     <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessCreateTimeout"></div>
@@ -2015,7 +2030,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Timeout for WebAuthn passwordless credential creation (ms).</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_extra_origins"></div>
     <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessExtraOrigins"></div>
@@ -2031,7 +2046,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Additional acceptable origins for WebAuthn passwordless requests.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_passkeys_enabled"></div>
     <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessPasskeysEnabled"></div>
@@ -2052,7 +2067,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_require_resident_key"></div>
     <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessRequireResidentKey"></div>
@@ -2067,7 +2082,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Whether resident keys are required for WebAuthn passwordless (<code class="ansible-value literal notranslate">Yes</code>/<code class="ansible-value literal notranslate">No</code>/<code class="ansible-value literal notranslate">not specified</code>).</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_rp_entity_name"></div>
     <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessRpEntityName"></div>
@@ -2082,7 +2097,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>WebAuthn Passwordless Relying Party Entity Name.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_rp_id"></div>
     <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessRpId"></div>
@@ -2097,7 +2112,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>WebAuthn Passwordless Relying Party ID (domain).</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_signature_algorithms"></div>
     <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessSignatureAlgorithms"></div>
@@ -2113,7 +2128,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>List of acceptable WebAuthn signature algorithms for passwordless.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_user_verification_requirement"></div>
     <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessUserVerificationRequirement"></div>
@@ -2128,7 +2143,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>User verification requirement for WebAuthn passwordless.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_require_resident_key"></div>
     <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyRequireResidentKey"></div>
@@ -2143,7 +2158,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Whether resident keys are required for WebAuthn (Yes/No/not specified).</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_rp_entity_name"></div>
     <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyRpEntityName"></div>
@@ -2158,7 +2173,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>WebAuthn Relying Party Entity Name.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_rp_id"></div>
     <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyRpId"></div>
@@ -2173,7 +2188,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>WebAuthn Relying Party ID (domain). Empty string means use request host.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_signature_algorithms"></div>
     <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicySignatureAlgorithms"></div>
@@ -2189,7 +2204,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>List of acceptable WebAuthn signature algorithms.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_user_verification_requirement"></div>
     <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyUserVerificationRequirement"></div>

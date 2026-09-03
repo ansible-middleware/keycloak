@@ -519,6 +519,7 @@ extends_documentation_fragment:
 
 author:
   - Thomas Bargetz (@thomasbargetz)
+  - Nils Bergmann (@NilsBergmann)
 """
 
 EXAMPLES = r"""

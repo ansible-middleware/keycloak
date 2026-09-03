@@ -1057,6 +1057,7 @@ def validate_executions(kc: KeycloakAPI, realm: str, executions: dict, flow_type
     valid_provider_ids_by_flow_type = {
         "basic-flow": {provider["id"] for provider in kc.get_authenticator_providers(realm)},
         "form-flow": {provider["id"] for provider in kc.get_form_action_providers(realm)},
+        "client-flow": {provider["id"] for provider in kc.get_client_authenticator_providers(realm)},
     }
     all_known_provider_ids = set().union(*valid_provider_ids_by_flow_type.values())
 

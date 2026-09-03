@@ -109,6 +109,7 @@ URL_REALM_GROUP_ROLEMAPPINGS = "{url}/admin/realms/{realm}/groups/{group}/role-m
 URL_CLIENTSECRET = "{url}/admin/realms/{realm}/clients/{id}/client-secret"
 
 URL_AUTHENTICATION_AUTHENTICATOR_PROVIDERS = "{url}/admin/realms/{realm}/authentication/authenticator-providers"
+URL_AUTHENTICATION_CLIENT_AUTHENTICATOR_PROVIDERS = "{url}/admin/realms/{realm}/authentication/client-authenticator-providers"
 URL_AUTHENTICATION_FORM_ACTION_PROVIDERS = "{url}/admin/realms/{realm}/authentication/form-action-providers"
 URL_AUTHENTICATION_FLOWS = "{url}/admin/realms/{realm}/authentication/flows"
 URL_AUTHENTICATION_FLOW = "{url}/admin/realms/{realm}/authentication/flows/{id}"
@@ -2294,6 +2295,19 @@ class KeycloakAPI:
             )
         except Exception as e:
             self.fail_request(e, msg=f"Unable get authenticator providers in realm {realm}: {e}")
+
+    def get_client_authenticator_providers(self, realm: str = "master"):
+        """
+        Get all available client authenticator providers of the realm.
+        :param realm: Realm.
+        :return: List of client authenticator provider representations.
+        """
+        try:
+            return self._request_and_deserialize(
+                URL_AUTHENTICATION_CLIENT_AUTHENTICATOR_PROVIDERS.format(url=self.baseurl, realm=realm), method="GET"
+            )
+        except Exception as e:
+            self.fail_request(e, msg=f"Unable get client authenticator providers in realm {realm}: {e}")
 
     def get_form_action_providers(self, realm: str = "master"):
         """

@@ -116,7 +116,7 @@ Role Defaults
 |`keycloak_management_url` | URL for management console rest calls | `http://{{ keycloak_host }}:{{ keycloak_management_http_port + keycloak_jboss_port_offset }}` |
 |`keycloak_frontend_url_force` | Force backend requests to use the frontend URL | `false` |
 |`keycloak_db_background_validation` | Enable background validation of database connection | `false` |
-|`keycloak_db_background_validation_millis`| How frequenly the connection pool is validated in the background | `10000` if background validation enabled |
+|`keycloak_db_background_validation_millis`| How frequently the connection pool is validated in the background | `10000` if background validation enabled |
 |`keycloak_db_background_validate_on_match` | Enable validate on match for database connections | `false` |
 |`keycloak_frontend_url` | frontend URL for keycloak endpoint | `http://localhost:8080/auth/` |
 |`keycloak_log_target`| Set the destination of the keycloak log folder link | `/var/log/keycloak` |

@@ -36,7 +36,7 @@
   ansible.builtin.set_fact:
     assets_server: "{{ lookup('env', 'MIDDLEWARE_DOWNLOAD_RELEASE_SERVER_URL') }}"
 
-- name: "Download artefacts only if assets_server is set"
+- name: "Download artifacts only if assets_server is set"
   when:
     - assets_server is defined
     - assets_server | length > 0

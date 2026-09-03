@@ -15,6 +15,7 @@ Minor Changes
 - 369 add integration tests for keycloak_authentication_v2 `#374 <https://github.com/ansible-middleware/keycloak/pull/374>`_
 - AMW-615 Inconsistent support of authentication via client credentials `#400 <https://github.com/ansible-middleware/keycloak/pull/400>`_
 - Address issue #370, add keycloak_realm: max_secondary_auth_failures parameter `#404 <https://github.com/ansible-middleware/keycloak/pull/404>`_
+- Fix issue #397 #398 crash on first role assignment `#405 <https://github.com/ansible-middleware/keycloak/pull/405>`_
 - Normalize hostname that includes http_relative_path suffix `#392 <https://github.com/ansible-middleware/keycloak/pull/392>`_
 - keycloak_user: fix attributes always reporting changed=True `#399 <https://github.com/ansible-middleware/keycloak/pull/399>`_
 

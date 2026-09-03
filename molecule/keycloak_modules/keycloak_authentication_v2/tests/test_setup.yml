@@ -25,3 +25,15 @@
     realm: "{{ target_realm }}"
     alias: Integration Test Flow
     state: absent
+
+- name: Delete <Integration Test Flow - Form Actions> flow if it exists
+  middleware_automation.keycloak.keycloak_authentication_v2:
+    realm: "{{ target_realm }}"
+    alias: Integration Test Flow - Form Actions
+    state: absent
+
+- name: Delete <Integration Test Flow - Mismatched Flow Type> flow if it exists
+  middleware_automation.keycloak.keycloak_authentication_v2:
+    realm: "{{ target_realm }}"
+    alias: Integration Test Flow - Mismatched Flow Type
+    state: absent

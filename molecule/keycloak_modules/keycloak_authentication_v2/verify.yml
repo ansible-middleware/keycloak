@@ -25,3 +25,11 @@
 - name: Invalid providerIds in execution tests
   ansible.builtin.include_tasks:
     file: tests/test_invalid_poviderid_flow_creation.yml
+
+- name: Executing form action flow creation tests
+  ansible.builtin.include_tasks:
+    file: tests/test_form_action_flow_creation.yml
+
+- name: Mismatched flow type providerIds in execution tests
+  ansible.builtin.include_tasks:
+    file: tests/test_mismatched_flow_type_flow_creation.yml

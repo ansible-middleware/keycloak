@@ -2311,7 +2311,7 @@ class KeycloakAPI:
 
     def get_form_action_providers(self, realm: str = "master"):
         """
-        Get all available form action providers of the realm. 
+        Get all available form action providers of the realm.
         :param realm: Realm.
         :return: List of form action provider representations.
         """

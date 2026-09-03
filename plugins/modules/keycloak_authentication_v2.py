@@ -1058,45 +1058,40 @@ def validate_executions(kc: KeycloakAPI, realm: str, executions: dict, flow_type
         "basic-flow": {provider["id"] for provider in kc.get_authenticator_providers(realm)},
         "form-flow": {provider["id"] for provider in kc.get_form_action_providers(realm)},
     }
-    all_valid_provider_ids = set().union(*valid_provider_ids_by_flow_type.values())
+    all_known_provider_ids = set().union(*valid_provider_ids_by_flow_type.values())
 
-    invalid = validate_executions_rec(valid_provider_ids_by_flow_type, executions, flow_type)
-    if len(invalid) > 0:
-        unknown = sorted({provider_id for provider_id, _ in invalid if provider_id not in all_valid_provider_ids})
-        wrong_type = sorted(
-            {(provider_id, enclosing_flow_type) for provider_id, enclosing_flow_type in invalid if provider_id in all_valid_provider_ids}
-        )
-
-        messages = []
-        if unknown:
-            messages.append("unknown providerIds: " + ", ".join(f"'{item}'" for item in unknown))
-        if wrong_type:
-            messages.append(
-                "providerIds not valid for their flow type: "
-                + ", ".join(
-                    f"'{provider_id}' (not a valid provider for a '{enclosing_flow_type}')"
-                    for provider_id, enclosing_flow_type in wrong_type
-                )
-            )
-        raise ValueError("Invalid execution providerIds - " + "; ".join(messages))
+    messages = []
+    has_issues = validate_executions_rec(valid_provider_ids_by_flow_type, all_known_provider_ids, executions, flow_type, messages)
+    if has_issues:
+        raise ValueError("Error(s) while validating flow: " + ", ".join(messages))
 
 
-def validate_executions_rec(valid_provider_ids_by_flow_type: dict, executions: dict, flow_type: str) -> list:
-    invalid = []
-    valid_provider_ids = valid_provider_ids_by_flow_type.get(flow_type)
+def validate_executions_rec(
+    valid_provider_ids_by_flow_type: dict, all_known_provider_ids: set, executions: dict, flow_type: str, messages: list
+) -> bool:
+    if flow_type not in valid_provider_ids_by_flow_type:
+        messages.append(f"Unsupported flow type '{flow_type}'")
+        return True
+
+    has_issues = False
+    valid_provider_ids = valid_provider_ids_by_flow_type[flow_type]
     for execution in executions:
         provider_id = execution["providerId"]
         sub_flow = execution.get("subFlow")
-        if provider_id is not None:
-            if valid_provider_ids is not None and provider_id not in valid_provider_ids:
-                invalid.append((provider_id, flow_type))
+        if provider_id is not None and provider_id not in valid_provider_ids:
+            has_issues = True
+            if provider_id in all_known_provider_ids:
+                messages.append(f"'{provider_id}' is not a valid provider for parent flow '{flow_type}'")
+            else:
+                messages.append(f"Unknown providerId '{provider_id}'")
 
         if sub_flow is not None:
-            invalid.extend(
-                validate_executions_rec(valid_provider_ids_by_flow_type, execution["authenticationExecutions"], execution["subFlowType"])
-            )
+            if validate_executions_rec(
+                valid_provider_ids_by_flow_type, all_known_provider_ids, execution["authenticationExecutions"], execution["subFlowType"], messages
+            ):
+                has_issues = True
 
-    return invalid
+    return has_issues
 
 
 def main() -> None:

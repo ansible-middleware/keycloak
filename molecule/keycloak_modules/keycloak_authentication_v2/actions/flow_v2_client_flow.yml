@@ -1,0 +1,28 @@
+# Copyright (c) Ansible Project
+# GNU General Public License v3.0+ (see LICENSES/GPL-3.0-or-later.txt or https://www.gnu.org/licenses/gpl-3.0.txt)
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+# Rebuilds Keycloak's own built-in "clients" flow structure as of 26.7.1.
+# validate_executions() used to raise a KeyError for client-flow parents, since only
+# basic-flow and form-flow provider sets were known.
+- name: Flow Creation/Update <Integration Test Flow - Client Flow>
+  middleware_automation.keycloak.keycloak_authentication_v2:
+    realm: "{{ target_realm }}"
+    alias: Integration Test Flow - Client Flow
+    providerId: client-flow
+    state: present
+    authenticationExecutions:
+      - providerId: client-secret
+        requirement: ALTERNATIVE
+      - providerId: client-jwt
+        requirement: ALTERNATIVE
+      - providerId: client-secret-jwt
+        requirement: ALTERNATIVE
+      - providerId: client-x509
+        requirement: ALTERNATIVE
+  register: flow_v2_client_flow_result
+
+- name: Expose flow_v2_client_flow_result to parent scope
+  ansible.builtin.set_fact:
+    flow_v2_client_flow_result: "{{ flow_v2_client_flow_result }}"
+  no_log: true

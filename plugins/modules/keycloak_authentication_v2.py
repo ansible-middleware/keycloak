@@ -30,7 +30,7 @@ description:
      If the option is V(false) and a temporary flow already exists, the module will fail to prevent accidental data loss.
   - B(Idempotency) - If the existing flow already matches the desired configuration, no changes are made.
      The module compares a normalised representation of the existing flow against the desired state before deciding whether to trigger the Safe Swap procedure.
-  - A depth of 4 sub-flows is supported.
+  - A depth of 10 sub-flows is supported.
 
 attributes:
   check_mode:
@@ -222,7 +222,7 @@ options:
                   authenticationExecutions:
                     description:
                       - The execution configuration for executions within the sub-flow.
-                      - Executions at sub level 4 (last sub level).
+                      - Executions at sub level 4.
                     type: list
                     elements: dict
                     suboptions:
@@ -236,7 +236,6 @@ options:
                         description:
                           - The C(providerId) of the execution.
                         type: str
-                        required: true
                       authenticationConfig:
                         description:
                           - The configuration for the execution.
@@ -250,6 +249,247 @@ options:
                             description: Options for the execution config.
                             required: true
                             type: dict
+                      subFlow:
+                        description:
+                          - The name of the sub-flow.
+                        type: str
+                      subFlowType:
+                        description:
+                          - The type of the sub-flow.
+                        choices: [basic-flow, form-flow]
+                        default: basic-flow
+                        type: str
+                      authenticationExecutions:
+                        description:
+                          - The execution configuration for executions within the sub-flow.
+                          - Executions at sub level 5.
+                        type: list
+                        elements: dict
+                        suboptions:
+                          requirement:
+                            description:
+                              - The requirement status of the execution or sub-flow.
+                            choices: [REQUIRED, ALTERNATIVE, DISABLED, CONDITIONAL]
+                            type: str
+                            required: true
+                          providerId:
+                            description:
+                              - The C(providerId) of the execution.
+                            type: str
+                          authenticationConfig:
+                            description:
+                              - The configuration for the execution.
+                            type: dict
+                            suboptions:
+                              alias:
+                                description: Name of the execution config.
+                                type: str
+                                required: true
+                              config:
+                                description: Options for the execution config.
+                                required: true
+                                type: dict
+                          subFlow:
+                            description:
+                              - The name of the sub-flow.
+                            type: str
+                          subFlowType:
+                            description:
+                              - The type of the sub-flow.
+                            choices: [basic-flow, form-flow]
+                            default: basic-flow
+                            type: str
+                          authenticationExecutions:
+                            description:
+                              - The execution configuration for executions within the sub-flow.
+                              - Executions at sub level 6.
+                            type: list
+                            elements: dict
+                            suboptions:
+                              requirement:
+                                description:
+                                  - The requirement status of the execution or sub-flow.
+                                choices: [REQUIRED, ALTERNATIVE, DISABLED, CONDITIONAL]
+                                type: str
+                                required: true
+                              providerId:
+                                description:
+                                  - The C(providerId) of the execution.
+                                type: str
+                              authenticationConfig:
+                                description:
+                                  - The configuration for the execution.
+                                type: dict
+                                suboptions:
+                                  alias:
+                                    description: Name of the execution config.
+                                    type: str
+                                    required: true
+                                  config:
+                                    description: Options for the execution config.
+                                    required: true
+                                    type: dict
+                              subFlow:
+                                description:
+                                  - The name of the sub-flow.
+                                type: str
+                              subFlowType:
+                                description:
+                                  - The type of the sub-flow.
+                                choices: [basic-flow, form-flow]
+                                default: basic-flow
+                                type: str
+                              authenticationExecutions:
+                                description:
+                                  - The execution configuration for executions within the sub-flow.
+                                  - Executions at sub level 7.
+                                type: list
+                                elements: dict
+                                suboptions:
+                                  requirement:
+                                    description:
+                                      - The requirement status of the execution or sub-flow.
+                                    choices: [REQUIRED, ALTERNATIVE, DISABLED, CONDITIONAL]
+                                    type: str
+                                    required: true
+                                  providerId:
+                                    description:
+                                      - The C(providerId) of the execution.
+                                    type: str
+                                  authenticationConfig:
+                                    description:
+                                      - The configuration for the execution.
+                                    type: dict
+                                    suboptions:
+                                      alias:
+                                        description: Name of the execution config.
+                                        type: str
+                                        required: true
+                                      config:
+                                        description: Options for the execution config.
+                                        required: true
+                                        type: dict
+                                  subFlow:
+                                    description:
+                                      - The name of the sub-flow.
+                                    type: str
+                                  subFlowType:
+                                    description:
+                                      - The type of the sub-flow.
+                                    choices: [basic-flow, form-flow]
+                                    default: basic-flow
+                                    type: str
+                                  authenticationExecutions:
+                                    description:
+                                      - The execution configuration for executions within the sub-flow.
+                                      - Executions at sub level 8.
+                                    type: list
+                                    elements: dict
+                                    suboptions:
+                                      requirement:
+                                        description:
+                                          - The requirement status of the execution or sub-flow.
+                                        choices: [REQUIRED, ALTERNATIVE, DISABLED, CONDITIONAL]
+                                        type: str
+                                        required: true
+                                      providerId:
+                                        description:
+                                          - The C(providerId) of the execution.
+                                        type: str
+                                      authenticationConfig:
+                                        description:
+                                          - The configuration for the execution.
+                                        type: dict
+                                        suboptions:
+                                          alias:
+                                            description: Name of the execution config.
+                                            type: str
+                                            required: true
+                                          config:
+                                            description: Options for the execution config.
+                                            required: true
+                                            type: dict
+                                      subFlow:
+                                        description:
+                                          - The name of the sub-flow.
+                                        type: str
+                                      subFlowType:
+                                        description:
+                                          - The type of the sub-flow.
+                                        choices: [basic-flow, form-flow]
+                                        default: basic-flow
+                                        type: str
+                                      authenticationExecutions:
+                                        description:
+                                          - The execution configuration for executions within the sub-flow.
+                                          - Executions at sub level 9.
+                                        type: list
+                                        elements: dict
+                                        suboptions:
+                                          requirement:
+                                            description:
+                                              - The requirement status of the execution or sub-flow.
+                                            choices: [REQUIRED, ALTERNATIVE, DISABLED, CONDITIONAL]
+                                            type: str
+                                            required: true
+                                          providerId:
+                                            description:
+                                              - The C(providerId) of the execution.
+                                            type: str
+                                          authenticationConfig:
+                                            description:
+                                              - The configuration for the execution.
+                                            type: dict
+                                            suboptions:
+                                              alias:
+                                                description: Name of the execution config.
+                                                type: str
+                                                required: true
+                                              config:
+                                                description: Options for the execution config.
+                                                required: true
+                                                type: dict
+                                          subFlow:
+                                            description:
+                                              - The name of the sub-flow.
+                                            type: str
+                                          subFlowType:
+                                            description:
+                                              - The type of the sub-flow.
+                                            choices: [basic-flow, form-flow]
+                                            default: basic-flow
+                                            type: str
+                                          authenticationExecutions:
+                                            description:
+                                              - The execution configuration for executions within the sub-flow.
+                                              - Executions at sub level 10 (last sub level).
+                                            type: list
+                                            elements: dict
+                                            suboptions:
+                                              requirement:
+                                                description:
+                                                  - The requirement status of the execution or sub-flow.
+                                                choices: [REQUIRED, ALTERNATIVE, DISABLED, CONDITIONAL]
+                                                type: str
+                                                required: true
+                                              providerId:
+                                                description:
+                                                  - The C(providerId) of the execution.
+                                                type: str
+                                                required: true
+                                              authenticationConfig:
+                                                description:
+                                                  - The configuration for the execution.
+                                                type: dict
+                                                suboptions:
+                                                  alias:
+                                                    description: Name of the execution config.
+                                                    type: str
+                                                    required: true
+                                                  config:
+                                                    description: Options for the execution config.
+                                                    required: true
+                                                    type: dict
   state:
     description:
       - Whether the authentication flow should exist or not.
@@ -516,8 +756,8 @@ def create_executions(
     :param parent_flow_alias: the alias of the flow or sub-flow that will own the executions.
     """
     for desired_exec in executions:
-        sub_flow = desired_exec["subFlow"]
-        sub_flow_type = desired_exec["subFlowType"]
+        sub_flow = desired_exec.get("subFlow")
+        sub_flow_type = desired_exec.get("subFlowType", "basic-flow")
         sub_flow_execs = desired_exec.get("authenticationExecutions")
 
         # Build the minimal payload accepted by the execution creation endpoint.
@@ -845,7 +1085,7 @@ def validate_executions_rec(valid_provider_ids_by_flow_type: dict, executions: d
     valid_provider_ids = valid_provider_ids_by_flow_type.get(flow_type)
     for execution in executions:
         provider_id = execution["providerId"]
-        sub_flow = execution["subFlow"]
+        sub_flow = execution.get("subFlow")
         if provider_id is not None:
             if valid_provider_ids is not None and provider_id not in valid_provider_ids:
                 invalid.append((provider_id, flow_type))
@@ -870,7 +1110,7 @@ def main() -> None:
         authenticationExecutions=dict(
             type="list",
             elements="dict",
-            options=create_authentication_execution_spec_options(4),
+            options=create_authentication_execution_spec_options(10),
         ),
         state=dict(choices=["absent", "present"], default="present"),
         force_temporary_swap_flow_deletion=dict(type="bool", default=True),

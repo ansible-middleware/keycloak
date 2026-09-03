@@ -327,6 +327,12 @@ options:
     aliases:
       - maxFailureWaitSeconds
     type: int
+  max_secondary_auth_failures:
+    description:
+      - The realm max secondary authentication failures (used with brute force detection for secondary auth mechanisms).
+    aliases:
+      - maxSecondaryAuthFailures
+    type: int
   max_temporary_lockouts:
     description:
       - The realm max temporary lockouts.
@@ -914,6 +920,7 @@ def main():
         login_with_email_allowed=dict(type="bool", aliases=["loginWithEmailAllowed"]),
         max_delta_time_seconds=dict(type="int", aliases=["maxDeltaTimeSeconds"]),
         max_failure_wait_seconds=dict(type="int", aliases=["maxFailureWaitSeconds"]),
+        max_secondary_auth_failures=dict(type="int", aliases=["maxSecondaryAuthFailures"]),
         max_temporary_lockouts=dict(type="int", aliases=["maxTemporaryLockouts"]),
         minimum_quick_login_wait_seconds=dict(type="int", aliases=["minimumQuickLoginWaitSeconds"]),
         not_before=dict(type="int", aliases=["notBefore"]),

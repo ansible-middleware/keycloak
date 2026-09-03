@@ -211,8 +211,14 @@ def main():
 
     module = AnsibleModule(argument_spec=argument_spec,
                            supports_check_mode=True,
-                           required_one_of=([['token', 'auth_realm', 'auth_username', 'auth_password']]),
-                           required_together=([['auth_realm', 'auth_username', 'auth_password']]))
+                           required_one_of=(
+                               [
+                                   ["token", "auth_realm", "auth_username", "auth_password", "auth_client_id", "auth_client_secret"],
+                               ]
+                           ),
+                           required_together=([["auth_username", "auth_password"]]),
+                           required_by={"refresh_token": "auth_realm"},
+                           mutually_exclusive=[["token", "auth_realm"], ["token", "auth_username"], ["token", "auth_password"]])
 
     result = dict(changed=False, msg='', diff={}, end_state={})
 

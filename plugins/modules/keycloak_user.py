@@ -512,6 +512,7 @@ def main():
         "groups",
         "clientConsents",
         "federatedIdentities",
+        "state",
     ]
 
     if state == "absent":
@@ -554,9 +555,16 @@ def main():
             # Add user ID to new representation
             desired_user["id"] = before_user["id"]
 
+            before_user_for_compare = before_user
+            if "attributes" in changeset and "attributes" in before_user:
+                before_user_for_compare = before_user.copy()
+                before_user_for_compare["attributes"] = kc.convert_keycloak_user_attributes_dict_to_module_list(
+                    attributes=before_user["attributes"]
+                )
+
             # Compare users
             if not (
-                is_struct_included(desired_user, before_user, user_compare_excludes, empty_list_result=False)
+                is_struct_included(desired_user, before_user_for_compare, user_compare_excludes, empty_list_result=False)
             ):  # If the new user introduces a change to the existing user
                 # Update the user
                 if not module.check_mode:

@@ -1,0 +1,27 @@
+# Copyright (c) Ansible Project
+# GNU General Public License v3.0+ (see LICENSES/GPL-3.0-or-later.txt or https://www.gnu.org/licenses/gpl-3.0.txt)
+# SPDX-License-Identifier: GPL-3.0-or-later
+- name: Delete identity-provider <oidc-idp-integration-test> if it exists
+  middleware_automation.keycloak.keycloak_identity_provider:
+    realm: "{{ target_realm }}"
+    alias: oidc-idp-integration-test
+    state: absent
+
+- name: Delete client <test_client> if it exists
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ target_realm }}"
+    client_id: "test_client"
+    state: absent
+
+- name: Unassign the flow <Integration Test Flow> as default browser flow
+  middleware_automation.keycloak.keycloak_realm:
+    id: "{{ target_realm }}"
+    realm: "{{ target_realm }}"
+    state: present
+    browser_flow: browser
+
+- name: Delete <Integration Test Flow> flow if it exists
+  middleware_automation.keycloak.keycloak_authentication_v2:
+    realm: "{{ target_realm }}"
+    alias: Integration Test Flow
+    state: absent

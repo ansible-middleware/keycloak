@@ -382,7 +382,10 @@ def main():
             # Assign roles
             result["changed"] = True
             if module._diff:
-                result["diff"] = dict(before=assigned_roles_before, after=result["proposed"])
+                result["diff"] = dict(
+                    before={"roles": assigned_roles_before or []},
+                    after={"roles": result["proposed"]},
+                )
             if module.check_mode:
                 module.exit_json(**result)
             kc.add_group_rolemapping(gid, cid, update_roles, realm=realm)
@@ -394,7 +397,10 @@ def main():
             # Remove mapping of role
             result["changed"] = True
             if module._diff:
-                result["diff"] = dict(before=assigned_roles_before, after=result["proposed"])
+                result["diff"] = dict(
+                    before={"roles": assigned_roles_before or []},
+                    after={"roles": result["proposed"]},
+                )
             if module.check_mode:
                 module.exit_json(**result)
             kc.delete_group_rolemapping(gid, cid, update_roles, realm=realm)

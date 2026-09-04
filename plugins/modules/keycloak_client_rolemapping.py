@@ -339,11 +339,10 @@ def main():
                     role["id"] = role_id
                 else:
                     module.fail_json(msg=f"Could not fetch role {role['name']}:")
-            # Fetch missing role_name
-            else:
-                role["name"] = kc.get_client_group_rolemapping_by_id(gid, cid, role["id"], realm=realm)["name"]
-                if role["name"] is None:
-                    module.fail_json(msg=f"Could not fetch role {role['id']}")
+            # Fetch missing role_name from the client's roles, not from existing group mappings
+            elif role["name"] is None:
+                role_rep = kc.get_role_by_id(role["id"], realm=realm)
+                role["name"] = role_rep["name"]
 
     # Get effective client-level role mappings
     available_roles_before = kc.get_client_group_available_rolemappings(gid, cid, realm=realm)
@@ -383,7 +382,10 @@ def main():
             # Assign roles
             result["changed"] = True
             if module._diff:
-                result["diff"] = dict(before=assigned_roles_before, after=result["proposed"])
+                result["diff"] = dict(
+                    before={"roles": assigned_roles_before or []},
+                    after={"roles": result["proposed"]},
+                )
             if module.check_mode:
                 module.exit_json(**result)
             kc.add_group_rolemapping(gid, cid, update_roles, realm=realm)
@@ -395,7 +397,10 @@ def main():
             # Remove mapping of role
             result["changed"] = True
             if module._diff:
-                result["diff"] = dict(before=assigned_roles_before, after=result["proposed"])
+                result["diff"] = dict(
+                    before={"roles": assigned_roles_before or []},
+                    after={"roles": result["proposed"]},
+                )
             if module.check_mode:
                 module.exit_json(**result)
             kc.delete_group_rolemapping(gid, cid, update_roles, realm=realm)

@@ -39,7 +39,7 @@ keycloak_realm_clients: []
 # list of roles to create in the client
 keycloak_realm_client_default_roles: []
 
-# if True, create a public client; otherwise, a confidetial client
+# if True, create a public client; otherwise, a confidential client
 keycloak_realm_client_public: true
 
 # allowed web origins for the client

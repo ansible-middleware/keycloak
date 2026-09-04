@@ -296,7 +296,7 @@ argument_specs:
                 type: "bool"
             keycloak_db_background_validation_millis:
                 default: "{{ 10000 if keycloak_db_background_validation else 0 }}"
-                description: "How frequenly the connection pool is validated in the background"
+                description: "How frequently the connection pool is validated in the background"
                 type: 'int'
             keycloak_db_background_validate_on_match:
                 default: false

@@ -1,0 +1,88 @@
+# Keycloak / Ansible domain-specific words
+# Only terms NOT covered by built-in dictionaries
+
+# Product names and projects
+Infinispan
+infinispan
+Wildfly
+wildfly
+keycloak
+
+# Red Hat product names
+RHBK
+rhbk
+rhsso
+
+# Java / JBoss terms
+Djboss
+Djgroups
+Dsun
+ispn
+ISPN
+jaegertracing
+jaxrs
+jberet
+JDBCPING
+jgroups
+JGROUPSPING
+jndi
+keytool
+MPING
+NAKACK
+passivation
+passivating
+slsb
+sfsb
+TCPPING
+tcpping
+jdbcx
+cacerts
+changeit
+
+# Systemd directives
+restartsec
+runas
+startlimitburst
+systemdunit
+
+# Ansible terms
+fqcn
+FQCN
+
+# WildFly / JBoss terms
+jbcs
+modcluster
+
+# Linux / System terms
+firewalld
+cgroupns
+zgrep
+
+# Configuration terms
+xforwarded
+PYTHONHTTPSVERIFY
+
+# Keycloak-specific
+ciba
+clusterless
+remembertochangeme
+
+# Molecule / Testing
+hspaans
+
+# CI / DevOps
+sangonzal
+rootperm
+
+# RST / Sphinx directives
+toctree
+
+# Task names / verbs
+Reown
+decomment
+
+# British spellings (from upstream Keycloak docs)
+recognises
+
+# Other
+rmaster

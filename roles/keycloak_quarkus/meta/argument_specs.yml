@@ -482,7 +482,7 @@ argument_specs:
                 default: 15
                 type: int
             keycloak_quarkus_restart_health_check_delay:
-                description: "Seconds to let pass before starting healch checks"
+                description: "Seconds to let pass before starting health checks"
                 default: 10
                 type: 'int'
             keycloak_quarkus_restart_health_check_retries:

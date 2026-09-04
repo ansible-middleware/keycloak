@@ -1,0 +1,59 @@
+{
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "version": "0.2",
+  "language": "en",
+  "ignorePaths": ["changelogs/**", "CHANGELOG.rst"],
+  "files": [
+    "**/*.md",
+    "**/*.rst",
+    "roles/*/meta/argument_specs.yml",
+    "roles/*/meta/main.yml",
+    "roles/*/tasks/**/*.yml",
+    "roles/*/defaults/*.yml",
+    "roles/*/handlers/*.yml",
+    "roles/*/templates/*.j2",
+    "molecule/**/*.yml",
+    "molecule/**/*.j2",
+    "playbooks/**/*.yml",
+    "meta/runtime.yml",
+    "meta/execution-environment.yml",
+    ".github/workflows/*.yml",
+    ".github/ISSUE_TEMPLATE/*.md",
+    "galaxy.yml"
+  ],
+  "dictionaries": [
+    "custom-keycloak",
+    "java",
+    "bash",
+    "shellscript",
+    "fullstack",
+    "softwareTerms",
+    "software-tools",
+    "cpp-compound-words",
+    "python",
+    "docker",
+    "k8s",
+    "html",
+    "css",
+    "git",
+    "networking-terms",
+    "node",
+    "npm"
+  ],
+  "dictionaryDefinitions": [
+    {
+      "name": "custom-keycloak",
+      "path": ".cspell/custom-dictionary.txt",
+      "addWords": true
+    }
+  ],
+  "ignoreRegExpList": [
+    "/\\{\\{.*?\\}\\}/g",
+    "/`[^`]+`/g",
+    "/(https?:\\/\\/[^\\s)]+)/g",
+    "/\\|`?[a-z_]+`?\\|/g",
+    "/\\[.*?\\]\\(.*?\\)/g",
+    "/^\\s*authors?:.*$/gm",
+    "/^\\s*-\\s+.*<[^>]+>.*$/gm"
+  ]
+}

@@ -95,7 +95,7 @@ keycloak_quarkus_hostname:
 keycloak_quarkus_hostname_admin: ""
 
 ### Set the path relative to / for serving resources. The path must start with a /
-### (set to `/auth` for retrocompatibility with pre-quarkus releases)
+### (set to `/auth` for backward compatibility with pre-quarkus releases)
 keycloak_quarkus_http_relative_path: /
 
 # Disables dynamically resolving the hostname from request headers.

@@ -10,7 +10,7 @@ Clone the repository, checkout the tag you want to build, or pick the main branc
 
 ### Development environment
 
-Make sure your development machine has avilable:
+Make sure your development machine has available:
 
 * python 3.11+
 * virtualenv

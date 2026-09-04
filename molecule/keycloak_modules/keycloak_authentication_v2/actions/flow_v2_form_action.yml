@@ -1,0 +1,31 @@
+# Copyright (c) Ansible Project
+# GNU General Public License v3.0+ (see LICENSES/GPL-3.0-or-later.txt or https://www.gnu.org/licenses/gpl-3.0.txt)
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+# Rebuilds Keycloak's own built-in "registration" flow structure as of 26.7.1.
+# validate_executions() used to only check authenticator-providers and falsely flagged form actions as invalid
+# See https://github.com/ansible-middleware/keycloak/issues/382
+- name: Flow Creation/Update <Integration Test Flow - Form Actions>
+  middleware_automation.keycloak.keycloak_authentication_v2:
+    realm: "{{ target_realm }}"
+    alias: Integration Test Flow - Form Actions
+    state: present
+    authenticationExecutions:
+      - subFlow: Integration Test Flow - Form Actions - registration form
+        subFlowType: form-flow
+        requirement: REQUIRED
+        authenticationExecutions:
+          - providerId: registration-user-creation
+            requirement: REQUIRED
+          - providerId: registration-password-action
+            requirement: REQUIRED
+          - providerId: registration-recaptcha-action
+            requirement: DISABLED
+          - providerId: registration-terms-and-conditions
+            requirement: DISABLED
+  register: flow_v2_form_action_result
+
+- name: Expose flow_v2_form_action_result to parent scope
+  ansible.builtin.set_fact:
+    flow_v2_form_action_result: "{{ flow_v2_form_action_result }}"
+  no_log: true

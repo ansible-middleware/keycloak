@@ -39,7 +39,7 @@
       - invalid_providerid_in_flow_result is failed
       - invalid_providerid_in_flow_result is not changed
       - >-
-        invalid_providerid_in_flow_result.msg == "Validation of executions failed: The following execution providerIds are unknown and therefore invalid: 'invalid-providerid', 'another-invalid-providerid'"
+        invalid_providerid_in_flow_result.msg == "Validation of executions failed: Error(s) while validating flow: Unknown providerId 'invalid-providerid', Unknown providerId 'another-invalid-providerid'"
 
 - name: Retrieve access token
   ansible.builtin.include_tasks:

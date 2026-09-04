@@ -6,6 +6,8 @@
     keycloak_admin_user: "admin"
     keycloak_uri: "http://localhost:8080"
     keycloak_context: "/auth"
+    parent_group: molecule-parent-group
+    child_group: molecule-child-group
   tasks:
     - name: Populate service facts
       ansible.builtin.service_facts:
@@ -24,3 +26,53 @@
       until: keycloak_auth_response.status == 200
       retries: 2
       delay: 2
+
+    # This Keycloak is older than 23, so its group children endpoint accepts no
+    # GET request and the subgroup lookup has to fall back to the subgroups
+    # inlined in the parent group representation.
+    - name: Verify subgroup handling on a pre-23 Keycloak
+      module_defaults:
+        group/middleware_automation.keycloak.keycloak:
+          auth_keycloak_url: "{{ keycloak_uri }}{{ keycloak_context }}"
+          auth_realm: master
+          auth_username: "{{ keycloak_admin_user }}"
+          auth_password: "{{ keycloak_admin_password }}"
+          validate_certs: false
+          realm: master
+      block:
+        - name: keycloak_group — create parent group
+          middleware_automation.keycloak.keycloak_group:
+            name: "{{ parent_group }}"
+            state: present
+
+        - name: keycloak_group — create subgroup below the parent group
+          middleware_automation.keycloak.keycloak_group:
+            name: "{{ child_group }}"
+            parents:
+              - name: "{{ parent_group }}"
+            state: present
+          register: subgroup_result
+
+        - name: Assert subgroup was created below the parent group
+          ansible.builtin.assert:
+            that:
+              - subgroup_result is changed
+              - subgroup_result.end_state.path == '/' ~ parent_group ~ '/' ~ child_group
+
+        - name: keycloak_group — look the subgroup up through parents again
+          middleware_automation.keycloak.keycloak_group:
+            name: "{{ child_group }}"
+            parents:
+              - name: "{{ parent_group }}"
+            state: present
+          register: subgroup_lookup_result
+
+        - name: Assert the existing subgroup was found instead of re-created
+          ansible.builtin.assert:
+            that:
+              - subgroup_lookup_result is not changed
+      always:
+        - name: keycloak_group — remove parent group and its subtree
+          middleware_automation.keycloak.keycloak_group:
+            name: "{{ parent_group }}"
+            state: absent

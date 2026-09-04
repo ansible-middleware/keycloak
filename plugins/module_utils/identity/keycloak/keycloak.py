@@ -1731,7 +1731,15 @@ class KeycloakAPI:
         except Exception as e:
             self.module.fail_json(msg=f"Could not fetch group {gid} in realm {realm}: {e}")
 
-    def get_subgroups(self, parent, realm: str = "master"):
+    def get_subgroups(self, parent, realm: str = "master", search=None):
+        """Fetch the direct subgroups of a group.
+
+        :param parent: GroupRepresentation of the parent group
+        :param realm: Realm in which the group resides; default "master"
+        :param search: Optional group name, letting the server narrow the result
+            down. This is a hint only: servers which do not support searching
+            return all subgroups, so callers must still match names themselves.
+        """
         if "subGroupCount" in parent:
             # Since version 23, when GETting a group Keycloak does not
             # return subGroups but only a subGroupCount.
@@ -1740,9 +1748,17 @@ class KeycloakAPI:
                 group_children = []
             else:
                 group_children_url = f"{URL_GROUP_CHILDREN.format(url=self.baseurl, realm=realm, groupid=parent['id'])}?max={parent['subGroupCount']}"
+                if search is not None:
+                    # search/exact are only honoured from version 25 on, 23 and 24
+                    # silently ignore them, which is why max is always sent as the
+                    # full child count.
+                    group_children_url += f"&search={quote(search, safe='')}&exact=true"
                 group_children = self._request_and_deserialize(group_children_url, method="GET")
             subgroups = group_children
         else:
+            # Before version 23 the children endpoint has no GET method at all
+            # (it answers 405 Method Not Allowed), the subgroups are inlined in
+            # the parent representation instead.
             subgroups = parent["subGroups"]
         return subgroups
 
@@ -1750,7 +1766,8 @@ class KeycloakAPI:
         """Fetch a keycloak group within a realm based on its name.
 
         Uses the Keycloak search API with exact matching for efficient lookup
-        instead of fetching all groups.
+        instead of fetching all groups. Servers which do not support searching
+        are handled transparently, see the comments below.
 
         If the group does not exist, None is returned.
         :param name: Name of the group to fetch.
@@ -1764,18 +1781,18 @@ class KeycloakAPI:
                 if not parent:
                     return None
 
-                # For subgroups: use children endpoint with search parameter
-                search_url = "{url}?search={name}&exact=true".format(
-                    url=URL_GROUP_CHILDREN.format(url=self.baseurl, realm=realm, groupid=parent["id"]),
-                    name=quote(name, safe=""),
-                )
+                # For subgroups: search the parent's children where the server
+                # supports it. get_subgroups knows which servers those are, the
+                # exact name check below covers the ones which do not.
+                groups = self.get_subgroups(parent, realm, search=name)
             else:
-                # For top-level groups: use groups endpoint with search parameter
+                # For top-level groups: use groups endpoint with search parameter.
+                # exact was only added in version 20; older servers ignore it and return
+                # substring matches, which the exact name check below sorts out.
                 search_url = "{url}?search={name}&exact=true".format(
                     url=URL_GROUPS.format(url=self.baseurl, realm=realm), name=quote(name, safe="")
                 )
-
-            groups = self._request_and_deserialize(search_url, method="GET")
+                groups = self._request_and_deserialize(search_url, method="GET")
 
             # exact=true should return only exact matches, but verify the name
             for group in groups:

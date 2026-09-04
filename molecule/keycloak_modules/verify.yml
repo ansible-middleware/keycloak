@@ -12,6 +12,7 @@
     client: molecule-client
     scope: molecule-scope
     group: molecule-group
+    subgroup: molecule-subgroup
     user: molecule-user
     flow: molecule-flow
     flow_v2: molecule-flow-v2
@@ -558,6 +559,61 @@
             state: present
             roles:
               - name: "{{ client_role }}"
+
+        - name: keycloak_group — create subgroup below the parent group
+          middleware_automation.keycloak.keycloak_group:
+            realm: "{{ target_realm }}"
+            name: "{{ subgroup }}"
+            parents:
+              - name: "{{ group }}"
+            state: present
+          register: subgroup_result
+
+        - name: Assert subgroup was created below the parent group
+          ansible.builtin.assert:
+            that:
+              - subgroup_result is changed
+              - subgroup_result.end_state.path == '/' ~ group ~ '/' ~ subgroup
+
+        - name: keycloak_group — create enough siblings to exceed the children page size
+          middleware_automation.keycloak.keycloak_group:
+            realm: "{{ target_realm }}"
+            name: "{{ subgroup }}-{{ item }}"
+            parents:
+              - name: "{{ group }}"
+            state: present
+          loop: "{{ range(1, 13) | list }}"
+
+        - name: keycloak_group — look up a subgroup sorting past the children page size
+          middleware_automation.keycloak.keycloak_group:
+            realm: "{{ target_realm }}"
+            name: "{{ subgroup }}-9"
+            parents:
+              - name: "{{ group }}"
+            state: present
+          register: subgroup_paging_result
+
+        - name: Assert subgroup lookup is not limited to the first page of children
+          ansible.builtin.assert:
+            that:
+              - subgroup_paging_result is not changed
+              - subgroup_paging_result.end_state.path == '/' ~ group ~ '/' ~ subgroup ~ '-9'
+
+        - name: keycloak_realm_rolemapping — assign realm role to subgroup via parents
+          middleware_automation.keycloak.keycloak_realm_rolemapping:
+            realm: "{{ target_realm }}"
+            group_name: "{{ subgroup }}"
+            parents:
+              - name: "{{ group }}"
+            state: present
+            roles:
+              - name: "{{ role }}"
+          register: subgroup_rolemapping_result
+
+        - name: Assert realm role was mapped to the subgroup
+          ansible.builtin.assert:
+            that:
+              - subgroup_rolemapping_result is changed
 
         - name: keycloak_client_rolescope — restrict realm role on client
           middleware_automation.keycloak.keycloak_client_rolescope:

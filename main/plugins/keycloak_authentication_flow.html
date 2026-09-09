@@ -473,6 +473,26 @@ To check whether it is installed, run <code class="code docutils literal notrans
 </tr>
 <tr class="row-odd">
   <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-use_netrc"></div>
+    <p class="ansible-option-title"><strong>use_netrc</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-use_netrc" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">boolean</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Whether to use credentials from <code class='docutils literal notranslate'>~/.netrc</code> file.</p>
+    <p>By default, <code class='docutils literal notranslate'>~/.netrc</code> is not used because these modules authenticate via explicit OIDC credentials/token. A matching <code class='docutils literal notranslate'>~/.netrc</code> entry would silently override the Bearer token with Basic authentication, causing 401 errors.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+    <ul class="simple">
+      <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>false</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+      <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+    </ul>
+
+  </div></td>
+</tr>
+<tr class="row-even">
+  <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-validate_certs"></div>
     <p class="ansible-option-title"><strong>validate_certs</strong></p>
     <a class="ansibleOptionLink" href="#parameter-validate_certs" title="Permalink to this option"></a>

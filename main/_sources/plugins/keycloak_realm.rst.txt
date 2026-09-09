@@ -1674,6 +1674,26 @@ Parameters
   </tr>
   <tr class="row-even">
     <td><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-use_netrc"></div>
+      <p class="ansible-option-title"><strong>use_netrc</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-use_netrc" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-cell">
+      <p>Whether to use credentials from <code class='docutils literal notranslate'>~/.netrc</code> file.</p>
+      <p>By default, <code class='docutils literal notranslate'>~/.netrc</code> is not used because these modules authenticate via explicit OIDC credentials/token. A matching <code class='docutils literal notranslate'>~/.netrc</code> entry would silently override the Bearer token with Basic authentication, causing 401 errors.</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-default-bold"><strong>false</strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-user_managed_access_allowed"></div>
       <div class="ansibleOptionAnchor" id="parameter-userManagedAccessAllowed"></div>
       <p class="ansible-option-title"><strong>user_managed_access_allowed</strong></p>
@@ -1693,7 +1713,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-validate_certs"></div>
       <p class="ansible-option-title"><strong>validate_certs</strong></p>
@@ -1712,7 +1732,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-verify_email"></div>
       <div class="ansibleOptionAnchor" id="parameter-verifyEmail"></div>
@@ -1733,7 +1753,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-wait_increment_seconds"></div>
       <div class="ansibleOptionAnchor" id="parameter-waitIncrementSeconds"></div>
@@ -1748,7 +1768,7 @@ Parameters
       <p>The realm wait increment in seconds.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_acceptable_aaguids"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyAcceptableAaguids"></div>
@@ -1764,7 +1784,7 @@ Parameters
       <p>List of acceptable AAGUIDs for WebAuthn authenticators.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_attestation_conveyance_preference"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyAttestationConveyancePreference"></div>
@@ -1779,7 +1799,7 @@ Parameters
       <p>Attestation conveyance preference for WebAuthn.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_authenticator_attachment"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyAuthenticatorAttachment"></div>
@@ -1794,7 +1814,7 @@ Parameters
       <p>Authenticator attachment preference for WebAuthn authenticators.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_avoid_same_authenticator_register"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyAvoidSameAuthenticatorRegister"></div>
@@ -1815,7 +1835,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_create_timeout"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyCreateTimeout"></div>
@@ -1830,7 +1850,7 @@ Parameters
       <p>Timeout for WebAuthn credential creation (ms).</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_extra_origins"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyExtraOrigins"></div>
@@ -1846,7 +1866,7 @@ Parameters
       <p>Additional acceptable origins for WebAuthn requests.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_acceptable_aaguids"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessAcceptableAaguids"></div>
@@ -1862,7 +1882,7 @@ Parameters
       <p>List of acceptable AAGUIDs for WebAuthn passwordless authenticators.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_attestation_conveyance_preference"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessAttestationConveyancePreference"></div>
@@ -1877,7 +1897,7 @@ Parameters
       <p>Attestation conveyance preference for WebAuthn passwordless.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_authenticator_attachment"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessAuthenticatorAttachment"></div>
@@ -1892,7 +1912,7 @@ Parameters
       <p>Authenticator attachment for WebAuthn passwordless.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_avoid_same_authenticator_register"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessAvoidSameAuthenticatorRegister"></div>
@@ -1913,7 +1933,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_create_timeout"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessCreateTimeout"></div>
@@ -1928,7 +1948,7 @@ Parameters
       <p>Timeout for WebAuthn passwordless credential creation (ms).</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_extra_origins"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessExtraOrigins"></div>
@@ -1944,7 +1964,7 @@ Parameters
       <p>Additional acceptable origins for WebAuthn passwordless requests.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_passkeys_enabled"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessPasskeysEnabled"></div>
@@ -1965,7 +1985,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_require_resident_key"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessRequireResidentKey"></div>
@@ -1980,7 +2000,7 @@ Parameters
       <p>Whether resident keys are required for WebAuthn passwordless (<code class="ansible-value literal notranslate">Yes</code>/<code class="ansible-value literal notranslate">No</code>/<code class="ansible-value literal notranslate">not specified</code>).</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_rp_entity_name"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessRpEntityName"></div>
@@ -1995,7 +2015,7 @@ Parameters
       <p>WebAuthn Passwordless Relying Party Entity Name.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_rp_id"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessRpId"></div>
@@ -2010,7 +2030,7 @@ Parameters
       <p>WebAuthn Passwordless Relying Party ID (domain).</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_signature_algorithms"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessSignatureAlgorithms"></div>
@@ -2026,7 +2046,7 @@ Parameters
       <p>List of acceptable WebAuthn signature algorithms for passwordless.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_passwordless_user_verification_requirement"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyPasswordlessUserVerificationRequirement"></div>
@@ -2041,7 +2061,7 @@ Parameters
       <p>User verification requirement for WebAuthn passwordless.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_require_resident_key"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyRequireResidentKey"></div>
@@ -2056,7 +2076,7 @@ Parameters
       <p>Whether resident keys are required for WebAuthn (Yes/No/not specified).</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_rp_entity_name"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyRpEntityName"></div>
@@ -2071,7 +2091,7 @@ Parameters
       <p>WebAuthn Relying Party Entity Name.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_rp_id"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyRpId"></div>
@@ -2086,7 +2106,7 @@ Parameters
       <p>WebAuthn Relying Party ID (domain). Empty string means use request host.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_signature_algorithms"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicySignatureAlgorithms"></div>
@@ -2102,7 +2122,7 @@ Parameters
       <p>List of acceptable WebAuthn signature algorithms.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-web_authn_policy_user_verification_requirement"></div>
       <div class="ansibleOptionAnchor" id="parameter-webAuthnPolicyUserVerificationRequirement"></div>

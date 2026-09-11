@@ -325,7 +325,7 @@
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_jgroups_ip</span></code></p></td>
 <td class="text-left"><p>Host jgroups IP.  If changing this variable you must make sure it is always set for all hosts in your cluster.</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">ansible_default_ipv4.address</span> <span class="pre">}}</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">ansible_facts['default_ipv4']['address']</span> <span class="pre">}}</span></code></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_jgroups_port</span></code></p></td>
 <td class="text-left"><p>jgroups cluster tcp port</p></td>

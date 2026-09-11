@@ -1978,6 +1978,7 @@ Authors
 ~~~~~~~
 
 - Thomas Bargetz (@thomasbargetz)
+- Nils Bergmann (@NilsBergmann)
 
 
 .. Extra links

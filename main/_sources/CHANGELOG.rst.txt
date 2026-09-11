@@ -21,6 +21,7 @@ Minor Changes
 - Fix #396 keycloak_user_federation.py mapper sorting now happens after unspecified mappers are merged in `#414 <https://github.com/ansible-middleware/keycloak/pull/414>`_
 - Fix issue #397 #398 crash on first role assignment `#405 <https://github.com/ansible-middleware/keycloak/pull/405>`_
 - Normalize hostname that includes http_relative_path suffix `#392 <https://github.com/ansible-middleware/keycloak/pull/392>`_
+- authentication_v2: Fix validation for FormActions `#384 <https://github.com/ansible-middleware/keycloak/pull/384>`_
 - keycloak_group: fix subgroup lookup on Keycloak older than 25 `#407 <https://github.com/ansible-middleware/keycloak/pull/407>`_
 - keycloak_user: fix attributes always reporting changed=True `#399 <https://github.com/ansible-middleware/keycloak/pull/399>`_
 

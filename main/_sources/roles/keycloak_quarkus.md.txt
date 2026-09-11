@@ -311,4 +311,5 @@ Apache License 2.0
 Author Information
 ------------------
 
+* [Ranabir Chakraborty](https://github.com/RanabirChakraborty)
 * [Guido Grazioli](https://github.com/guidograzioli)

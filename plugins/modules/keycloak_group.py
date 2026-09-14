@@ -56,7 +56,7 @@ options:
   description:
     type: str
     description:
-      - Description of the group
+      - Description of the group.
   realm:
     type: str
     description:

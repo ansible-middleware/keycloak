@@ -84,5 +84,10 @@ decomment
 # British spellings (from upstream Keycloak docs)
 recognises
 
+# Integration test container/variable names
+mykeycloak
+myldap
+minkwe
+
 # Other
 rmaster

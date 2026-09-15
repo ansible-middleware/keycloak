@@ -25,7 +25,7 @@
     keycloak_quarkus_systemd_wait_for_delay: 2
     keycloak_quarkus_systemd_wait_for_log: true
     keycloak_quarkus_restart_health_check: false # would fail because of self-signed cert
-    keycloak_quarkus_version: 26.6.2
+    keycloak_quarkus_version: 26.7.3
     keycloak_quarkus_java_heap_opts: "-Xms1024m -Xmx1024m"
     keycloak_quarkus_additional_env_vars:
       - key: KC_FEATURES_DISABLED
@@ -39,16 +39,16 @@
           - key: default-connection-pool-size
             value: 10
       - id: spid-saml
-        url: https://github.com/italia/spid-keycloak-provider/releases/download/26.5.6/spid-provider.jar
+        url: https://github.com/italia/spid-keycloak-provider/releases/download/26.7.1/spid-provider.jar
       - id: spid-saml-w-checksum
-        url: https://github.com/italia/spid-keycloak-provider/releases/download/26.5.6/spid-provider.jar
-        checksum: sha256:2ddafc389a5f017d8665bfdfa2f72b3784fc74b9f3a482e796fa89a5ba5cc95b
+        url: https://github.com/italia/spid-keycloak-provider/releases/download/26.7.1/spid-provider.jar
+        checksum: sha256:65c16bc70f36af26dac5ab1506b45120674fdf89106320ce00ff53bf6bf1243e
       - id: keycloak-kerberos-federation
         maven:
           repository_url: https://repo1.maven.org/maven2/ # https://mvnrepository.com/artifact/org.keycloak/keycloak-kerberos-federation/24.0.4
           group_id: org.keycloak
           artifact_id: keycloak-kerberos-federation
-          version: 26.6.3 # optional
+          version: 26.7.3 # optional
           # username: myUser # optional
           # password: myPAT # optional
       # - id: my-static-theme

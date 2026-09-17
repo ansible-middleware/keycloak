@@ -53,6 +53,10 @@ options:
     description:
       - Name of the group.
       - This parameter is required only when creating or updating the group.
+  description:
+    type: str
+    description:
+      - Description of the group.
   realm:
     type: str
     description:
@@ -298,6 +302,11 @@ end_state:
         manage: true
         manageMembership: true
         view: true
+    description:
+      description: A description of the group as string.
+      type: str
+      returned: when present
+      sample: An example group description
 """
 
 from ansible.module_utils.basic import AnsibleModule
@@ -324,6 +333,7 @@ def main():
         realm=dict(default="master"),
         id=dict(type="str"),
         name=dict(type="str"),
+        description=dict(type="str"),
         attributes=dict(type="dict"),
         parents=dict(
             type="list",
@@ -361,6 +371,7 @@ def main():
     state = module.params.get("state")
     gid = module.params.get("id")
     name = module.params.get("name")
+    description = module.params.get("description")
     attributes = module.params.get("attributes")
 
     parents = module.params.get("parents")

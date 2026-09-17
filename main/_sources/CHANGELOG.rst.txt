@@ -14,6 +14,11 @@ Minor Changes
 
 - Add support for the ``description`` attribute of keycloak groups `#419 <https://github.com/ansible-middleware/keycloak/pull/419>`_
 
+Bugfixes
+--------
+
+- Fix keycloak_quarkus_health_check_url crash when hostname is unset `#424 <https://github.com/ansible-middleware/keycloak/pull/424>`_
+
 v3.1.0
 ======
 

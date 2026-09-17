@@ -300,6 +300,19 @@ To check whether it is installed, run <code class="code docutils literal notrans
 </tr>
 <tr class="row-even">
   <td><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-description"></div>
+    <p class="ansible-option-title"><strong>description</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-description" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-cell">
+    <p>Description of the group.</p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-http_agent"></div>
     <p class="ansible-option-title"><strong>http_agent</strong></p>
     <a class="ansibleOptionLink" href="#parameter-http_agent" title="Permalink to this option"></a>
@@ -312,7 +325,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;Ansible&#34;</code></p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-id"></div>
     <p class="ansible-option-title"><strong>id</strong></p>
@@ -326,7 +339,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>This parameter is not required for updating or deleting a group but providing it reduces the number of API calls required.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-name"></div>
     <p class="ansible-option-title"><strong>name</strong></p>
@@ -340,7 +353,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>This parameter is required only when creating or updating the group.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-parents"></div>
     <p class="ansible-option-title"><strong>parents</strong></p>
@@ -356,7 +369,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Not necessary to set when accessing an existing subgroup by its <code class='docutils literal notranslate'>ID</code> because in that case the group can be directly queried without necessarily knowing its parent(s).</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-parents/id"></div>
     <p class="ansible-option-title"><strong>id</strong></p>
@@ -372,7 +385,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Note that in principle both ID and name can be specified at the same time but current implementation only always use just one of them, with ID being preferred.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-parents/name"></div>
     <p class="ansible-option-title"><strong>name</strong></p>
@@ -389,7 +402,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
   </div></td>
 </tr>
 
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-realm"></div>
     <p class="ansible-option-title"><strong>realm</strong></p>
@@ -403,7 +416,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;master&#34;</code></p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-refresh_token"></div>
     <p class="ansible-option-title"><strong>refresh_token</strong></p>
@@ -416,7 +429,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Authentication refresh token for Keycloak API.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-state"></div>
     <p class="ansible-option-title"><strong>state</strong></p>
@@ -437,7 +450,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-token"></div>
     <p class="ansible-option-title"><strong>token</strong></p>
@@ -450,7 +463,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Authentication token for Keycloak API.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-use_netrc"></div>
     <p class="ansible-option-title"><strong>use_netrc</strong></p>
@@ -470,7 +483,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-validate_certs"></div>
     <p class="ansible-option-title"><strong>validate_certs</strong></p>
@@ -750,6 +763,21 @@ To check whether it is installed, run <code class="code docutils literal notrans
 </tr>
 <tr class="row-even">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="return-end_state/description"></div>
+    <p class="ansible-option-title"><strong>description</strong></p>
+    <a class="ansibleOptionLink" href="#return-end_state/description" title="Permalink to this return value"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+    <p>A description of the group as string.</p>
+    <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> when present</p>
+    <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">&#34;An example group description&#34;</code></p>
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="return-end_state/id"></div>
     <p class="ansible-option-title"><strong>id</strong></p>
     <a class="ansibleOptionLink" href="#return-end_state/id" title="Permalink to this return value"></a>
@@ -763,7 +791,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">&#34;23f38145-3195-462c-97e7-97041ccea73e&#34;</code></p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="return-end_state/name"></div>
     <p class="ansible-option-title"><strong>name</strong></p>
@@ -778,7 +806,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">&#34;grp-test-123&#34;</code></p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="return-end_state/path"></div>
     <p class="ansible-option-title"><strong>path</strong></p>
@@ -793,7 +821,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">&#34;/grp-test-123&#34;</code></p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="return-end_state/realmRoles"></div>
     <p class="ansible-option-title"><strong>realmRoles</strong></p>
@@ -809,7 +837,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-value literal notranslate ansible-option-sample">[]</code></p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="return-end_state/subGroups"></div>
     <p class="ansible-option-title"><strong>subGroups</strong></p>
@@ -825,7 +853,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
   </div></td>
 </tr>
 
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="return-msg"></div>
     <p class="ansible-option-title"><strong>msg</strong></p>

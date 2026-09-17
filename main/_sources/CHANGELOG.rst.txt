@@ -9,6 +9,11 @@ This changelog describes changes after version 0.2.6.
 v3.1.1-devel
 ============
 
+Minor Changes
+-------------
+
+- Add support for the ``description`` attribute of keycloak groups `#419 <https://github.com/ansible-middleware/keycloak/pull/419>`_
+
 v3.1.0
 ======
 

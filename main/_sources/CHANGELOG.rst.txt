@@ -13,6 +13,7 @@ Minor Changes
 -------------
 
 - Add support for the ``description`` attribute of keycloak groups `#419 <https://github.com/ansible-middleware/keycloak/pull/419>`_
+- Bump Keycloak to 26.7.3 and RHBK to 26.4.15 `#422 <https://github.com/ansible-middleware/keycloak/pull/422>`_
 
 Bugfixes
 --------

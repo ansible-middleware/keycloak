@@ -89,6 +89,7 @@ argument_specs:
                 description: "Deprecated, use `keycloak_quarkus_http_host`"
                 type: "str"
             keycloak_quarkus_hostname:
+                default: ""
                 description: >-
                     Address at which is the server exposed.
                     Can be a full URL, or just a hostname. When only hostname is provided, scheme, port and context path are resolved from the request.

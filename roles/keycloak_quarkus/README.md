@@ -57,9 +57,11 @@ Role Defaults
 |`keycloak_quarkus_service_restartsec`| systemd RestartSec | `10s` |
 |`keycloak_quarkus_jvm_package`| RHEL java package runtime | `java-21-openjdk-headless` |
 |`keycloak_quarkus_java_home`| JAVA_HOME of installed JRE, leave empty for using specified keycloak_quarkus_jvm_package RPM path | `None` |
-|`keycloak_quarkus_java_heap_opts`| Heap memory JVM setting | `-Xms1024m -Xmx2048m` |
-|`keycloak_quarkus_java_jvm_opts`| Other JVM settings | same as keycloak |
-|`keycloak_quarkus_java_opts`| JVM arguments; if overridden, it takes precedence over `keycloak_quarkus_java_*` | `{{ keycloak_quarkus_java_heap_opts + ' ' + keycloak_quarkus_java_jvm_opts }}` |
+|`keycloak_quarkus_java_heap_opts`| Heap memory JVM setting (`JAVA_OPTS_KC_HEAP` when using Keycloak defaults) | `-Xms1024m -Xmx2048m` |
+|`keycloak_quarkus_java_jvm_opts`| Optional extra JVM flags (`JAVA_OPTS_APPEND` with Keycloak defaults) | `""` |
+|`keycloak_quarkus_java_opts_use_keycloak_defaults`| Let `kc.sh` apply upstream `JAVA_OPTS` (recommended) | `true` |
+|`keycloak_quarkus_java_append_opts`| JGroups and extra JVM flags appended after Keycloak defaults | JGroups bind/external settings |
+|`keycloak_quarkus_java_opts`| Full `JAVA_OPTS` when `keycloak_quarkus_java_opts_use_keycloak_defaults` is `false` | combined heap, JGroups, and `java_jvm_opts` |
 |`keycloak_quarkus_additional_env_vars` | List of additional env variables of { key: str, value: str} to be put in sysconfig file, see https://www.keycloak.org/server/all-config | `[]` |
 |`keycloak_quarkus_frontend_url`| Deprecated, use `keycloak_quarkus_hostname` instead. | |
 |`keycloak_quarkus_admin_url`| Deprecated, use `keycloak_quarkus_hostname_admin` instead. | |

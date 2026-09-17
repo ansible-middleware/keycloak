@@ -17,6 +17,19 @@
           - ansible_facts.services["keycloak.service"]["status"] == "enabled"
         fail_msg: "Service not running"
 
+    - name: Read Keycloak sysconfig
+      ansible.builtin.slurp:
+        src: /etc/sysconfig/keycloak
+      register: keycloak_sysconfig
+      become: true
+
+    - name: Assert sysconfig defers JAVA_OPTS to Keycloak kc.sh defaults
+      ansible.builtin.assert:
+        that:
+          - "'JAVA_OPTS_KC_HEAP=' in (keycloak_sysconfig.content | b64decode)"
+          - "'JAVA_OPTS_APPEND=' in (keycloak_sysconfig.content | b64decode)"
+          - (keycloak_sysconfig.content | b64decode).splitlines() | select('match', '^JAVA_OPTS=') | list | length == 0
+
     - name: Set internal envvar
       ansible.builtin.set_fact:
         hera_home: "{{ lookup('env', 'HERA_HOME') }}"

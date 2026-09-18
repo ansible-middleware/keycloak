@@ -47,15 +47,17 @@ keycloak_quarkus_jgroups_bind_address: "{{ ansible_facts['default_ipv4']['addres
 keycloak_quarkus_jgroups_external_addr: "{{ keycloak_quarkus_jgroups_bind_address }}"
 keycloak_quarkus_jgroups_external_port: "{{ keycloak_quarkus_jgroups_port }}"
 keycloak_quarkus_java_heap_opts: "-Xms1024m -Xmx2048m"
-keycloak_quarkus_java_jvm_opts: >
-  -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8
-  -Dsun.err.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8 -XX:+ExitOnOutOfMemoryError
-  -Djava.security.egd=file:/dev/urandom -XX:+UseParallelGC -XX:GCTimeRatio=4
-  -XX:AdaptiveSizePolicyWeight=90 -XX:FlightRecorderOptions=stackdepth=512
+# Optional extra JVM flags appended after Keycloak's kc.sh defaults (see JAVA_OPTS_APPEND).
+keycloak_quarkus_java_jvm_opts: ""
 keycloak_quarkus_jgroups_opts: >
   -Djgroups.bind.address={{ keycloak_quarkus_jgroups_bind_address }}
   -Djgroups.external_port={{ keycloak_quarkus_jgroups_external_port }}
   -Djgroups.external_addr={{ keycloak_quarkus_jgroups_external_addr }}
+# When true, sysconfig sets JAVA_OPTS_KC_HEAP / JAVA_OPTS_APPEND so kc.sh applies upstream JAVA_OPTS
+# (including security-related defaults). Set false to set JAVA_OPTS explicitly via keycloak_quarkus_java_opts.
+keycloak_quarkus_java_opts_use_keycloak_defaults: true
+keycloak_quarkus_java_append_opts: >-
+  {{ (keycloak_quarkus_jgroups_opts ~ ' ' ~ keycloak_quarkus_java_jvm_opts) | regex_replace('\s+', ' ') | trim }}
 keycloak_quarkus_java_opts: "{{ ' '.join((keycloak_quarkus_jgroups_opts, keycloak_quarkus_java_heap_opts, keycloak_quarkus_java_jvm_opts)) }}"
 keycloak_quarkus_additional_env_vars: []
 

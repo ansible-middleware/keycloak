@@ -1,0 +1,8 @@
+{% if keycloak_quarkus_java_opts_use_keycloak_defaults | default(true) | bool %}
+JAVA_OPTS_KC_HEAP="{{ keycloak_quarkus_java_heap_opts }}"
+{% if keycloak_quarkus_java_append_opts | trim | length > 0 %}
+JAVA_OPTS_APPEND="{{ keycloak_quarkus_java_append_opts }}"
+{% endif %}
+{% else %}
+JAVA_OPTS="{{ keycloak_quarkus_java_opts }}"
+{% endif %}

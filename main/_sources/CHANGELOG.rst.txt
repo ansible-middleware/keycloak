@@ -6,6 +6,9 @@ middleware\_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
+v3.1.2-devel
+============
+
 v3.1.1
 ======
 
@@ -13,14 +16,11 @@ Minor Changes
 -------------
 
 - Add support for the ``description`` attribute of keycloak groups `#419 <https://github.com/ansible-middleware/keycloak/pull/419>`_
-- Add support for the ``description`` attribute of keycloak groups `#419 <https://github.com/ansible-middleware/keycloak/pull/419>`_
-- Bump Keycloak to 26.7.3 and RHBK to 26.4.15 `#422 <https://github.com/ansible-middleware/keycloak/pull/422>`_
 - Bump Keycloak to 26.7.3 and RHBK to 26.4.15 `#422 <https://github.com/ansible-middleware/keycloak/pull/422>`_
 
 Bugfixes
 --------
 
-- Fix keycloak_quarkus_health_check_url crash when hostname is unset `#424 <https://github.com/ansible-middleware/keycloak/pull/424>`_
 - Fix keycloak_quarkus_health_check_url crash when hostname is unset `#424 <https://github.com/ansible-middleware/keycloak/pull/424>`_
 
 v3.1.0

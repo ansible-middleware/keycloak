@@ -21,14 +21,22 @@
       ansible.builtin.slurp:
         src: /etc/sysconfig/keycloak
       register: keycloak_sysconfig
-      become: true
+      become: "{{ molecule_prepare_require_privilege_escalation | default(true) }}"
+
+    - name: Decode Keycloak sysconfig
+      ansible.builtin.set_fact:
+        keycloak_sysconfig_text: "{{ keycloak_sysconfig.content | ansible.builtin.b64decode(encoding='utf-8') }}"
 
     - name: Assert sysconfig defers JAVA_OPTS to Keycloak kc.sh defaults
       ansible.builtin.assert:
         that:
-          - "'JAVA_OPTS_KC_HEAP=' in (keycloak_sysconfig.content | b64decode)"
-          - "'JAVA_OPTS_APPEND=' in (keycloak_sysconfig.content | b64decode)"
-          - (keycloak_sysconfig.content | b64decode).splitlines() | select('match', '^JAVA_OPTS=') | list | length == 0
+          - keycloak_sysconfig_text is search('JAVA_OPTS_KC_HEAP=')
+          - keycloak_sysconfig_text is search('JAVA_OPTS_APPEND=')
+          - keycloak_sysconfig_text is not search('(?m)^JAVA_OPTS=')
+        fail_msg: >-
+          Expected JAVA_OPTS_KC_HEAP and JAVA_OPTS_APPEND (not JAVA_OPTS) in sysconfig.
+          Got:
+          {{ keycloak_sysconfig_text }}
 
     - name: Set internal envvar
       ansible.builtin.set_fact:

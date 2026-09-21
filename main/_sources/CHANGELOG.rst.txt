@@ -9,6 +9,11 @@ This changelog describes changes after version 0.2.6.
 v3.1.2-devel
 ============
 
+Bugfixes
+--------
+
+- Issue#421 Remove default setting of JAVA_OPTS and restrict to JAVA_OPTS_KC_HEAP and JAVA_OPTS_APPEND `#425 <https://github.com/ansible-middleware/keycloak/pull/425>`_
+
 v3.1.1
 ======
 

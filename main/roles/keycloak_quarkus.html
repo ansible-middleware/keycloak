@@ -247,16 +247,24 @@
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_java_heap_opts</span></code></p></td>
-<td class="text-left"><p>Heap memory JVM setting</p></td>
+<td class="text-left"><p>Heap memory JVM setting (<code class="docutils literal notranslate"><span class="pre">JAVA_OPTS_KC_HEAP</span></code> when using Keycloak defaults)</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">-Xms1024m</span> <span class="pre">-Xmx2048m</span></code></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_java_jvm_opts</span></code></p></td>
-<td class="text-left"><p>Other JVM settings</p></td>
-<td class="text-left"><p>same as keycloak</p></td>
+<td class="text-left"><p>Optional extra JVM flags (<code class="docutils literal notranslate"><span class="pre">JAVA_OPTS_APPEND</span></code> with Keycloak defaults)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_java_opts_use_keycloak_defaults</span></code></p></td>
+<td class="text-left"><p>Let <code class="docutils literal notranslate"><span class="pre">kc.sh</span></code> apply upstream <code class="docutils literal notranslate"><span class="pre">JAVA_OPTS</span></code> (recommended)</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_java_append_opts</span></code></p></td>
+<td class="text-left"><p>JGroups and extra JVM flags appended after Keycloak defaults</p></td>
+<td class="text-left"><p>JGroups bind/external settings</p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_java_opts</span></code></p></td>
-<td class="text-left"><p>JVM arguments; if overridden, it takes precedence over <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_java_*</span></code></p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">keycloak_quarkus_java_heap_opts</span> <span class="pre">+</span> <span class="pre">'</span> <span class="pre">'</span> <span class="pre">+</span> <span class="pre">keycloak_quarkus_java_jvm_opts</span> <span class="pre">}}</span></code></p></td>
+<td class="text-left"><p>Full <code class="docutils literal notranslate"><span class="pre">JAVA_OPTS</span></code> when <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_java_opts_use_keycloak_defaults</span></code> is <code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td class="text-left"><p>combined heap, JGroups, and <code class="docutils literal notranslate"><span class="pre">java_jvm_opts</span></code></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_additional_env_vars</span></code></p></td>
 <td class="text-left"><p>List of additional env variables of { key: str, value: str} to be put in sysconfig file, see https://www.keycloak.org/server/all-config</p></td>

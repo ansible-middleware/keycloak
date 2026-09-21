@@ -226,15 +226,27 @@ argument_specs:
                 description: "Heap memory JVM setting"
                 type: "str"
             keycloak_quarkus_java_jvm_opts:
-                default: >
-                  -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.err.encoding=UTF-8
-                  -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8 -XX:+ExitOnOutOfMemoryError -Djava.security.egd=file:/dev/urandom -XX:+UseParallelGC
-                  -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -XX:FlightRecorderOptions=stackdepth=512
-                description: "Other JVM settings"
+                default: ""
+                description: >-
+                  Optional JVM flags appended via JAVA_OPTS_APPEND when
+                  keycloak_quarkus_java_opts_use_keycloak_defaults is true
+                type: "str"
+            keycloak_quarkus_java_opts_use_keycloak_defaults:
+                default: true
+                description: >-
+                  When true, sysconfig sets JAVA_OPTS_KC_HEAP and JAVA_OPTS_APPEND so
+                  Keycloak kc.sh applies upstream JAVA_OPTS defaults. When false, sets
+                  JAVA_OPTS from keycloak_quarkus_java_opts instead.
+                type: "bool"
+            keycloak_quarkus_java_append_opts:
+                default: >-
+                  {{ (keycloak_quarkus_jgroups_opts ~ ' ' ~ keycloak_quarkus_java_jvm_opts) | regex_replace('\s+', ' ') | trim }}
+                description: "JVM flags appended after Keycloak defaults (JGroups and java_jvm_opts)"
                 type: "str"
             keycloak_quarkus_java_opts:
                 default: "{{ ' '.join((keycloak_quarkus_jgroups_opts, keycloak_quarkus_java_heap_opts, keycloak_quarkus_java_jvm_opts)) }}"
-                description: "JVM arguments, by default heap_opts + jvm_opts, if overriden it takes precedence over them"
+                description: >-
+                  Full JAVA_OPTS string used when keycloak_quarkus_java_opts_use_keycloak_defaults is false
                 type: "str"
             keycloak_quarkus_additional_env_vars:
                 default: "[]"

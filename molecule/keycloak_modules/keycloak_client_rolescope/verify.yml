@@ -1,0 +1,240 @@
+---
+# Ported from community.general tests/integration/targets/keycloak_client_rolescope
+# Tests multi-role mapping, remap idempotency, partial removal, error handling,
+# duplicate roles, realm role operations, full-scope client rejection, and check_mode.
+
+# --- Fixtures ---
+
+- name: Create realm roles for rolescope test
+  middleware_automation.keycloak.keycloak_role:
+    name: "{{ item }}"
+    realm: "{{ ephemeral_realm }}"
+    state: present
+  loop:
+    - molecule-crs-realm-admin
+    - molecule-crs-realm-user
+
+- name: Create private client (full_scope_allowed)
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-crs-private
+    state: present
+    redirect_uris:
+      - "https://molecule-crs-backend.example.invalid/"
+    full_scope_allowed: true
+    public_client: false
+
+- name: Create client roles on private client
+  middleware_automation.keycloak.keycloak_role:
+    name: "{{ item }}"
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-crs-private
+    state: present
+  loop:
+    - molecule-crs-client-admin
+    - molecule-crs-client-user
+
+- name: Create public client (full_scope_allowed false)
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-crs-public
+    redirect_uris:
+      - "https://molecule-crs-frontend.example.invalid/"
+    full_scope_allowed: false
+    public_client: true
+
+# --- Client role scope mapping ---
+
+- name: Map two client roles to public client
+  middleware_automation.keycloak.keycloak_client_rolescope:
+    realm: "{{ ephemeral_realm }}"
+    target_client_id: molecule-crs-public
+    role_owner_client_id: molecule-crs-private
+    role_names:
+      - molecule-crs-client-admin
+      - molecule-crs-client-user
+  register: result
+
+- name: Assert both client roles mapped
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state | length == 2
+
+- name: Remap single role (additive idempotency)
+  middleware_automation.keycloak.keycloak_client_rolescope:
+    realm: "{{ ephemeral_realm }}"
+    target_client_id: molecule-crs-public
+    role_owner_client_id: molecule-crs-private
+    role_names:
+      - molecule-crs-client-user
+  register: result
+
+- name: Assert no change — both still mapped
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.end_state | length == 2
+
+- name: Remove admin role from public client scope
+  middleware_automation.keycloak.keycloak_client_rolescope:
+    realm: "{{ ephemeral_realm }}"
+    target_client_id: molecule-crs-public
+    role_owner_client_id: molecule-crs-private
+    role_names:
+      - molecule-crs-client-admin
+    state: absent
+  register: result
+
+- name: Assert admin removed, user remains
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state | length == 1
+      - result.end_state[0].name == "molecule-crs-client-user"
+
+# --- Error: missing role ---
+
+- name: Map non-existent client role (expect failure)
+  middleware_automation.keycloak.keycloak_client_rolescope:
+    realm: "{{ ephemeral_realm }}"
+    target_client_id: molecule-crs-public
+    role_owner_client_id: molecule-crs-private
+    role_names:
+      - molecule-crs-client-admin
+      - molecule-crs-role-missing
+  ignore_errors: true
+  register: result
+
+- name: Assert failure on missing client role
+  ansible.builtin.assert:
+    that:
+      - result is failed
+
+# --- Duplicate role names ---
+
+- name: Map duplicate role names
+  middleware_automation.keycloak.keycloak_client_rolescope:
+    realm: "{{ ephemeral_realm }}"
+    target_client_id: molecule-crs-public
+    role_owner_client_id: molecule-crs-private
+    role_names:
+      - molecule-crs-client-admin
+      - molecule-crs-client-admin
+  register: result
+
+- name: Assert duplicate handled — both roles mapped
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state | length == 2
+
+# --- Error: full-scope client ---
+
+- name: Map realm role to full-scope private client (expect failure)
+  middleware_automation.keycloak.keycloak_client_rolescope:
+    realm: "{{ ephemeral_realm }}"
+    target_client_id: molecule-crs-private
+    role_names:
+      - molecule-crs-realm-admin
+  ignore_errors: true
+  register: result
+
+- name: Assert failure on full-scope client
+  ansible.builtin.assert:
+    that:
+      - result is failed
+
+# --- Realm role scope mapping ---
+
+- name: Map one realm role to public client
+  middleware_automation.keycloak.keycloak_client_rolescope:
+    realm: "{{ ephemeral_realm }}"
+    target_client_id: molecule-crs-public
+    role_names:
+      - molecule-crs-realm-admin
+  register: result
+
+- name: Assert realm role mapped
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state | length == 1
+
+- name: Map two realm roles to public client
+  middleware_automation.keycloak.keycloak_client_rolescope:
+    realm: "{{ ephemeral_realm }}"
+    target_client_id: molecule-crs-public
+    role_names:
+      - molecule-crs-realm-admin
+      - molecule-crs-realm-user
+  register: result
+
+- name: Assert both realm roles mapped
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state | length == 2
+
+- name: Unmap all realm roles from public client
+  middleware_automation.keycloak.keycloak_client_rolescope:
+    realm: "{{ ephemeral_realm }}"
+    target_client_id: molecule-crs-public
+    role_names:
+      - molecule-crs-realm-admin
+      - molecule-crs-realm-user
+    state: absent
+  register: result
+
+- name: Assert all realm roles unmapped
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state | length == 0
+
+# --- Error: missing realm role ---
+
+- name: Map non-existent realm role (expect failure)
+  middleware_automation.keycloak.keycloak_client_rolescope:
+    realm: "{{ ephemeral_realm }}"
+    target_client_id: molecule-crs-public
+    role_names:
+      - molecule-crs-realm-missing
+  ignore_errors: true
+  register: result
+
+- name: Assert failure on missing realm role
+  ansible.builtin.assert:
+    that:
+      - result is failed
+
+# --- Check mode ---
+
+- name: Check-mode map realm roles to public client
+  middleware_automation.keycloak.keycloak_client_rolescope:
+    realm: "{{ ephemeral_realm }}"
+    target_client_id: molecule-crs-public
+    role_names:
+      - molecule-crs-realm-admin
+      - molecule-crs-realm-user
+  check_mode: true
+  register: result
+
+- name: Assert check-mode reports changed
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state | length == 2
+
+- name: Verify check-mode did not actually apply changes
+  middleware_automation.keycloak.keycloak_client_rolescope:
+    realm: "{{ ephemeral_realm }}"
+    target_client_id: molecule-crs-public
+    role_names: []
+  register: result
+
+- name: Assert no roles present after check-mode
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.end_state | length == 0

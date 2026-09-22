@@ -620,7 +620,7 @@ def get_keycloak_config_key(param_name, provider_id=None):
     """
     # Handle elliptic_curve specially - each provider uses a different config key
     if param_name == "elliptic_curve" and provider_id in ELLIPTIC_CURVE_CONFIG_KEYS:
-        return ELLIPTIC_CURVE_CONFIG_KEYS[param_name]
+        return ELLIPTIC_CURVE_CONFIG_KEYS[provider_id]
     if param_name in CONFIG_PARAM_MAPPING:
         return CONFIG_PARAM_MAPPING[param_name]
     return camel(param_name)

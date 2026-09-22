@@ -1,0 +1,459 @@
+---
+# Ported from community.general tests/integration/targets/keycloak_authz_permission
+# Tests error paths, scope permission CRUD, resource permission CRUD, permission_info queries.
+
+# --- Setup: ensure Default Policy and authorization scopes exist ---
+# Keycloak 26.x no longer auto-creates "Default Policy" when authz is enabled via API.
+
+- name: Obtain access token for policy setup
+  ansible.builtin.uri:
+    url: "{{ auth_keycloak_url }}/realms/{{ auth_realm }}/protocol/openid-connect/token"
+    method: POST
+    body_format: form-urlencoded
+    body:
+      grant_type: password
+      client_id: admin-cli
+      username: "{{ auth_username }}"
+      password: "{{ auth_password }}"
+    validate_certs: false
+  register: authz_perm_token
+
+- name: Look up client UUID
+  ansible.builtin.uri:
+    url: "{{ auth_keycloak_url }}/admin/realms/{{ target_realm }}/clients?clientId={{ client }}"
+    headers:
+      Authorization: "Bearer {{ authz_perm_token.json.access_token }}"
+    validate_certs: false
+  register: authz_perm_client
+
+- name: Ensure Default Policy exists (role-based positive policy)
+  ansible.builtin.uri:
+    url: "{{ auth_keycloak_url }}/admin/realms/{{ target_realm }}/clients/{{ authz_perm_client.json[0].id }}/authz/resource-server/policy/role"
+    method: POST
+    headers:
+      Authorization: "Bearer {{ authz_perm_token.json.access_token }}"
+      Content-Type: application/json
+    body_format: json
+    body:
+      name: "Default Policy"
+      description: "A default policy"
+      logic: POSITIVE
+      roles: []
+    status_code: [201, 409]
+    validate_certs: false
+
+- name: Ensure Default Resource exists
+  ansible.builtin.uri:
+    url: "{{ auth_keycloak_url }}/admin/realms/{{ target_realm }}/clients/{{ authz_perm_client.json[0].id }}/authz/resource-server/resource"
+    method: POST
+    headers:
+      Authorization: "Bearer {{ authz_perm_token.json.access_token }}"
+      Content-Type: application/json
+    body_format: json
+    body:
+      name: "Default Resource"
+      type: "urn:molecule-client:resources:default"
+      uris:
+        - "/*"
+    status_code: [201, 409]
+    validate_certs: false
+
+- name: Create molecule-authz-perm-scope-create authorization scope
+  middleware_automation.keycloak.keycloak_authz_authorization_scope:
+    state: present
+    name: "molecule-authz-perm-scope-create"
+    display_name: "Perm test create"
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+
+- name: Create molecule-authz-perm-scope-delete authorization scope
+  middleware_automation.keycloak.keycloak_authz_authorization_scope:
+    state: present
+    name: "molecule-authz-perm-scope-delete"
+    display_name: "Perm test delete"
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+
+# --- Error paths ---
+
+- name: Create permission without type (test for failure)
+  middleware_automation.keycloak.keycloak_authz_permission:
+    state: present
+    name: "molecule-ScopePermission"
+    description: "Scope permission"
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  register: result
+  failed_when: result.msg.find('missing required arguments') == -1
+
+- name: Create scope permission without scopes (test for failure)
+  middleware_automation.keycloak.keycloak_authz_permission:
+    state: present
+    name: "molecule-ScopePermission"
+    description: "Scope permission"
+    permission_type: scope
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  register: result
+  failed_when: result.msg.find('Scopes need to defined when permission type is set to scope!') == -1
+
+- name: Create scope permission with multiple resources (test for failure)
+  middleware_automation.keycloak.keycloak_authz_permission:
+    state: present
+    name: "molecule-ScopePermission"
+    description: "Scope permission"
+    resources:
+      - "Default Resource"
+      - "Other Resource"
+    permission_type: scope
+    scopes:
+      - "molecule-authz-perm-scope-delete"
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  register: result
+  failed_when: result.msg.find('Only one resource can be defined for a scope permission!') == -1
+
+- name: Create scope permission with invalid policy name (test for failure)
+  middleware_automation.keycloak.keycloak_authz_permission:
+    state: present
+    name: "molecule-ScopePermission"
+    description: "Scope permission"
+    permission_type: scope
+    scopes:
+      - "molecule-authz-perm-scope-delete"
+    policies:
+      - "Missing Policy"
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  register: result
+  failed_when: result.msg.find('Unable to find authorization policy with name') == -1
+
+# --- Scope permission CRUD ---
+
+- name: Create scope permission
+  middleware_automation.keycloak.keycloak_authz_permission:
+    state: present
+    name: "molecule-ScopePermission"
+    description: "Scope permission"
+    permission_type: scope
+    scopes:
+      - "molecule-authz-perm-scope-delete"
+    policies:
+      - "Default Policy"
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  register: result
+
+- name: Assert scope permission was created
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - result.end_state.name == "molecule-ScopePermission"
+      - result.end_state.description == "Scope permission"
+      - result.end_state.type == "scope"
+      - result.end_state.resources == []
+      - result.end_state.policies | length == 1
+      - result.end_state.scopes | length == 1
+
+- name: Query scope permission state
+  middleware_automation.keycloak.keycloak_authz_permission_info:
+    name: "molecule-ScopePermission"
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  register: result
+
+- name: Assert queried state matches
+  ansible.builtin.assert:
+    that:
+      - result.queried_state.name == "molecule-ScopePermission"
+      - result.queried_state.description == "Scope permission"
+
+- name: Create scope permission (idempotency)
+  middleware_automation.keycloak.keycloak_authz_permission:
+    state: present
+    name: "molecule-ScopePermission"
+    description: "Scope permission"
+    permission_type: scope
+    scopes:
+      - "molecule-authz-perm-scope-delete"
+    policies:
+      - "Default Policy"
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  register: result
+
+- name: Assert scope permission unchanged
+  ansible.builtin.assert:
+    that:
+      - result.end_state != {}
+      - result.end_state.name == "molecule-ScopePermission"
+      - result.end_state.policies | length == 1
+      - result.end_state.scopes | length == 1
+
+- name: Update scope permission
+  middleware_automation.keycloak.keycloak_authz_permission:
+    state: present
+    name: "molecule-ScopePermission"
+    description: "Scope permission changed"
+    permission_type: scope
+    decision_strategy: 'AFFIRMATIVE'
+    scopes:
+      - "molecule-authz-perm-scope-create"
+      - "molecule-authz-perm-scope-delete"
+    policies: []
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  register: result
+
+- name: Assert scope permission updated
+  ansible.builtin.assert:
+    that:
+      - result.changed == True
+      - result.end_state != {}
+      - result.end_state.scopes | length == 2
+      - result.end_state.policies == []
+      - result.end_state.resources == []
+      - result.end_state.name == "molecule-ScopePermission"
+      - result.end_state.description == "Scope permission changed"
+
+- name: Query updated scope permission state
+  middleware_automation.keycloak.keycloak_authz_permission_info:
+    name: "molecule-ScopePermission"
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  register: result
+
+- name: Assert queried state matches after update
+  ansible.builtin.assert:
+    that:
+      - result.queried_state.name == "molecule-ScopePermission"
+      - result.queried_state.description == "Scope permission changed"
+
+- name: Update scope permission (idempotency)
+  middleware_automation.keycloak.keycloak_authz_permission:
+    state: present
+    name: "molecule-ScopePermission"
+    description: "Scope permission changed"
+    permission_type: scope
+    decision_strategy: 'AFFIRMATIVE'
+    scopes:
+      - "molecule-authz-perm-scope-create"
+      - "molecule-authz-perm-scope-delete"
+    policies: []
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  register: result
+
+- name: Assert scope permission update idempotent
+  ansible.builtin.assert:
+    that:
+      - result.end_state != {}
+      - result.end_state.name == "molecule-ScopePermission"
+      - result.end_state.description == "Scope permission changed"
+
+- name: Remove scope permission
+  middleware_automation.keycloak.keycloak_authz_permission:
+    state: absent
+    name: "molecule-ScopePermission"
+    permission_type: scope
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  register: result
+
+- name: Assert scope permission removed
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state == {}
+
+- name: Remove scope permission (idempotency)
+  middleware_automation.keycloak.keycloak_authz_permission:
+    state: absent
+    name: "molecule-ScopePermission"
+    permission_type: scope
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  register: result
+
+- name: Assert scope permission already absent
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.end_state == {}
+
+# --- Resource permission error paths ---
+
+- name: Create resource permission without resources (test for failure)
+  middleware_automation.keycloak.keycloak_authz_permission:
+    state: present
+    name: "molecule-ResourcePermission"
+    description: "Resource permission"
+    permission_type: resource
+    policies:
+      - "Default Policy"
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  register: result
+  failed_when: result.msg.find('A resource need to defined when permission type is set to resource!') == -1
+
+- name: Create resource permission with scopes (test for failure)
+  middleware_automation.keycloak.keycloak_authz_permission:
+    state: present
+    name: "molecule-ResourcePermission"
+    description: "Resource permission"
+    permission_type: resource
+    resources:
+      - "Default Resource"
+    policies:
+      - "Default Policy"
+    scopes:
+      - "molecule-authz-perm-scope-delete"
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  register: result
+  failed_when: result.msg.find('Scopes cannot be defined when permission type is set to resource!') == -1
+
+# --- Resource permission CRUD ---
+
+- name: Create resource permission
+  middleware_automation.keycloak.keycloak_authz_permission:
+    state: present
+    name: "molecule-ResourcePermission"
+    description: "Resource permission"
+    resources:
+      - "Default Resource"
+    permission_type: resource
+    policies:
+      - "Default Policy"
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  register: result
+
+- name: Assert resource permission was created
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - result.end_state.policies | length == 1
+      - result.end_state.resources | length == 1
+      - result.end_state.name == "molecule-ResourcePermission"
+      - result.end_state.description == "Resource permission"
+
+- name: Query resource permission state
+  middleware_automation.keycloak.keycloak_authz_permission_info:
+    name: "molecule-ResourcePermission"
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  register: result
+
+- name: Assert queried resource state matches
+  ansible.builtin.assert:
+    that:
+      - result.queried_state.name == "molecule-ResourcePermission"
+      - result.queried_state.description == "Resource permission"
+
+- name: Create resource permission (idempotency)
+  middleware_automation.keycloak.keycloak_authz_permission:
+    state: present
+    name: "molecule-ResourcePermission"
+    description: "Resource permission"
+    resources:
+      - "Default Resource"
+    permission_type: resource
+    policies:
+      - "Default Policy"
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  register: result
+
+- name: Assert resource permission unchanged
+  ansible.builtin.assert:
+    that:
+      - result.end_state != {}
+      - result.end_state.policies | length == 1
+      - result.end_state.resources | length == 1
+      - result.end_state.name == "molecule-ResourcePermission"
+      - result.end_state.description == "Resource permission"
+
+- name: Update resource permission
+  middleware_automation.keycloak.keycloak_authz_permission:
+    state: present
+    name: "molecule-ResourcePermission"
+    description: "Resource permission changed"
+    resources:
+      - "Default Resource"
+    permission_type: resource
+    policies: []
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  register: result
+
+- name: Assert resource permission updated
+  ansible.builtin.assert:
+    that:
+      - result.changed == True
+      - result.end_state != {}
+      - result.end_state.policies == []
+      - result.end_state.resources | length == 1
+      - result.end_state.name == "molecule-ResourcePermission"
+      - result.end_state.description == "Resource permission changed"
+
+- name: Query updated resource permission state
+  middleware_automation.keycloak.keycloak_authz_permission_info:
+    name: "molecule-ResourcePermission"
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  register: result
+
+- name: Assert queried resource state matches after update
+  ansible.builtin.assert:
+    that:
+      - result.queried_state.name == "molecule-ResourcePermission"
+      - result.queried_state.description == "Resource permission changed"
+
+- name: Remove resource permission
+  middleware_automation.keycloak.keycloak_authz_permission:
+    state: absent
+    name: "molecule-ResourcePermission"
+    permission_type: resource
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  register: result
+
+- name: Assert resource permission removed
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state == {}
+
+- name: Remove resource permission (idempotency)
+  middleware_automation.keycloak.keycloak_authz_permission:
+    state: absent
+    name: "molecule-ResourcePermission"
+    permission_type: resource
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  register: result
+
+- name: Assert resource permission already absent
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.end_state == {}
+
+# --- Cleanup: remove authorization scopes ---
+
+- name: Remove molecule-authz-perm-scope-create
+  middleware_automation.keycloak.keycloak_authz_authorization_scope:
+    state: absent
+    name: "molecule-authz-perm-scope-create"
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+
+- name: Remove molecule-authz-perm-scope-delete
+  middleware_automation.keycloak.keycloak_authz_authorization_scope:
+    state: absent
+    name: "molecule-authz-perm-scope-delete"
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"

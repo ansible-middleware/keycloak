@@ -1,0 +1,55 @@
+---
+# Ported from community.general tests/integration/targets/keycloak_realm_users_info
+# Tests multi-user listing and group membership in realm users info response.
+
+- name: Create groups for users info test
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    name: "{{ item }}"
+    state: present
+  loop:
+    - molecule-rui-group1
+    - molecule-rui-group2
+
+- name: Create user with groups
+  middleware_automation.keycloak.keycloak_user:
+    realm: "{{ ephemeral_realm }}"
+    username: molecule-rui-user1
+    first_name: Molecule
+    last_name: RuiTest
+    email: molecule-rui-test@example.invalid
+    groups:
+      - name: molecule-rui-group1
+      - name: molecule-rui-group2
+    state: present
+  register: create_user1
+
+- name: Assert first user created with groups
+  ansible.builtin.assert:
+    that:
+      - create_user1 is changed
+      - create_user1.end_state.username == 'molecule-rui-user1'
+      - create_user1.end_state.groups | length == 2
+
+- name: Create second user without groups
+  middleware_automation.keycloak.keycloak_user:
+    realm: "{{ ephemeral_realm }}"
+    username: molecule-rui-user2
+    first_name: Molecule2
+    last_name: RuiTest2
+    email: molecule-rui-test2@example.invalid
+    state: present
+  register: create_user2
+
+- name: Get realm users info
+  middleware_automation.keycloak.keycloak_realm_users_info:
+    realm: "{{ ephemeral_realm }}"
+  register: user_infos
+
+- name: Assert realm users info returns both users
+  ansible.builtin.assert:
+    that:
+      - user_infos is not changed
+      - user_infos.users | length >= 2
+      - user_infos.users | selectattr('username', 'equalto', 'molecule-rui-user1') | list | length == 1
+      - user_infos.users | selectattr('username', 'equalto', 'molecule-rui-user2') | list | length == 1

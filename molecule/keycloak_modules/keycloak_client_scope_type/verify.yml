@@ -1,0 +1,115 @@
+---
+# Ported from community.general tests/integration/targets/keycloak_client_scope_type
+# Tests full realm-level and client-level scope type management with idempotency.
+
+- name: Create client for scope type tests
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-cst-client
+    state: present
+    enabled: true
+
+- name: Create scope1 client scope
+  middleware_automation.keycloak.keycloak_client_scope:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-cst-scope1
+    description: scope type test 1
+    protocol: openid-connect
+
+- name: Create scope2 client scope
+  middleware_automation.keycloak.keycloak_client_scope:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-cst-scope2
+    description: scope type test 2
+    protocol: openid-connect
+
+# --- Realm level ---
+
+- name: Set both scopes as realm defaults
+  middleware_automation.keycloak.keycloak_client_scope_type:
+    realm: "{{ ephemeral_realm }}"
+    default_client_scopes: ['molecule-cst-scope1', 'molecule-cst-scope2']
+    optional_client_scopes: []
+  register: result
+
+- name: Assert realm default scopes are set
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - '"molecule-cst-scope1" in result.end_state.default_client_scopes'
+      - '"molecule-cst-scope2" in result.end_state.default_client_scopes'
+      - result.end_state.default_client_scopes | length == 2
+      - result.end_state.optional_client_scopes | length == 0
+
+- name: Set same realm defaults (idempotency)
+  middleware_automation.keycloak.keycloak_client_scope_type:
+    realm: "{{ ephemeral_realm }}"
+    default_client_scopes: ['molecule-cst-scope1', 'molecule-cst-scope2']
+    optional_client_scopes: []
+  register: result
+  failed_when: result is changed
+
+- name: Move scope2 to optional at realm level
+  middleware_automation.keycloak.keycloak_client_scope_type:
+    realm: "{{ ephemeral_realm }}"
+    default_client_scopes: ['molecule-cst-scope1']
+    optional_client_scopes: ['molecule-cst-scope2']
+  register: result
+
+- name: Assert scope2 moved to optional
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - '"molecule-cst-scope1" in result.end_state.default_client_scopes'
+      - '"molecule-cst-scope2" in result.end_state.optional_client_scopes'
+      - result.end_state.default_client_scopes | length == 1
+      - result.end_state.optional_client_scopes | length == 1
+
+# --- Client level ---
+
+- name: Set both scopes as client defaults
+  middleware_automation.keycloak.keycloak_client_scope_type:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-cst-client
+    default_client_scopes: ['molecule-cst-scope1', 'molecule-cst-scope2']
+    optional_client_scopes: []
+  register: result
+
+- name: Assert client default scopes are set
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - '"molecule-cst-scope1" in result.end_state.default_client_scopes'
+      - '"molecule-cst-scope2" in result.end_state.default_client_scopes'
+      - result.end_state.default_client_scopes | length == 2
+      - result.end_state.optional_client_scopes | length == 0
+
+- name: Set same client defaults (idempotency)
+  middleware_automation.keycloak.keycloak_client_scope_type:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-cst-client
+    default_client_scopes: ['molecule-cst-scope1', 'molecule-cst-scope2']
+    optional_client_scopes: []
+  register: result
+  failed_when: result is changed
+
+- name: Move scope2 to optional at client level
+  middleware_automation.keycloak.keycloak_client_scope_type:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-cst-client
+    default_client_scopes: ['molecule-cst-scope1']
+    optional_client_scopes: ['molecule-cst-scope2']
+  register: result
+
+- name: Assert scope2 moved to optional on client
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - '"molecule-cst-scope1" in result.end_state.default_client_scopes'
+      - '"molecule-cst-scope2" in result.end_state.optional_client_scopes'
+      - result.end_state.default_client_scopes | length == 1
+      - result.end_state.optional_client_scopes | length == 1

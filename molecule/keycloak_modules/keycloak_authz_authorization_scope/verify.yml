@@ -1,0 +1,156 @@
+---
+# Ported from community.general tests/integration/targets/keycloak_authz_authorization_scope
+# Tests full CRUD lifecycle with check_mode, diff, and idempotency.
+
+- name: Create authorization scope (check mode)
+  middleware_automation.keycloak.keycloak_authz_authorization_scope:
+    state: present
+    name: "molecule-file:delete"
+    display_name: "File delete"
+    icon_uri: "http://localhost/icon.png"
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  check_mode: true
+  diff: true
+  register: result
+
+- name: Assert scope not created in check mode
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state == {}
+      - result.msg == 'Authorization scope would be created'
+      - result.diff.before == {}
+      - result.diff.after.name == 'molecule-file:delete'
+      - result.diff.after.displayName == 'File delete'
+      - result.diff.after.iconUri == 'http://localhost/icon.png'
+
+- name: Create authorization scope
+  middleware_automation.keycloak.keycloak_authz_authorization_scope:
+    state: present
+    name: "molecule-file:delete"
+    display_name: "File delete"
+    icon_uri: "http://localhost/icon.png"
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  register: result
+
+- name: Assert scope created
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - result.end_state.name == "molecule-file:delete"
+      - result.end_state.iconUri == "http://localhost/icon.png"
+      - result.end_state.displayName == "File delete"
+
+- name: Create authorization scope (idempotency)
+  middleware_automation.keycloak.keycloak_authz_authorization_scope:
+    state: present
+    name: "molecule-file:delete"
+    display_name: "File delete"
+    icon_uri: "http://localhost/icon.png"
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  register: result
+
+- name: Assert scope unchanged
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.end_state.name == "molecule-file:delete"
+
+- name: Update scope — remove optional params (check mode)
+  middleware_automation.keycloak.keycloak_authz_authorization_scope:
+    state: present
+    name: "molecule-file:delete"
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  diff: true
+  check_mode: true
+  register: result
+
+- name: Assert scope not updated in check mode
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.msg == 'Authorization scope would be updated'
+      - result.diff.before.displayName == 'File delete'
+      - result.diff.before.iconUri == 'http://localhost/icon.png'
+      - result.diff.after.displayName == ''
+      - result.diff.after.iconUri == ''
+
+- name: Update scope — remove optional params
+  middleware_automation.keycloak.keycloak_authz_authorization_scope:
+    state: present
+    name: "molecule-file:delete"
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  register: result
+
+- name: Assert optional params removed
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state.name == "molecule-file:delete"
+      - result.end_state.iconUri == ""
+      - result.end_state.displayName == ""
+
+- name: Update scope — idempotency after removal
+  middleware_automation.keycloak.keycloak_authz_authorization_scope:
+    state: present
+    name: "molecule-file:delete"
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  register: result
+
+- name: Assert scope unchanged after update
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+
+- name: Remove scope (check mode)
+  middleware_automation.keycloak.keycloak_authz_authorization_scope:
+    state: absent
+    name: "molecule-file:delete"
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  diff: true
+  check_mode: true
+  register: result
+
+- name: Assert scope not removed in check mode
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.msg == 'Authorization scope would be removed'
+      - result.diff.before.name == 'molecule-file:delete'
+      - result.diff.after == {}
+
+- name: Remove scope
+  middleware_automation.keycloak.keycloak_authz_authorization_scope:
+    state: absent
+    name: "molecule-file:delete"
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  register: result
+
+- name: Assert scope removed
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state == {}
+
+- name: Remove scope (idempotency)
+  middleware_automation.keycloak.keycloak_authz_authorization_scope:
+    state: absent
+    name: "molecule-file:delete"
+    client_id: "{{ client }}"
+    realm: "{{ target_realm }}"
+  register: result
+
+- name: Assert scope already absent
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.end_state == {}

@@ -1,0 +1,180 @@
+---
+# Ported from community.general tests/integration/targets/keycloak_user
+# Tests: user with groups+attributes, plus-addressed email, email_verified default reset,
+# required_actions explicit reset to empty list.
+
+# --- Create user with groups and attributes ---
+
+- name: Create groups for user test
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    name: "{{ item }}"
+    state: present
+  loop:
+    - molecule-usr-group1
+    - molecule-usr-group2
+
+- name: Create user with groups and attributes in one call
+  middleware_automation.keycloak.keycloak_user:
+    realm: "{{ ephemeral_realm }}"
+    username: molecule-usr-test
+    first_name: Molecule
+    last_name: UserTest
+    email: molecule-usr-test@example.invalid
+    groups:
+      - name: molecule-usr-group1
+        state: present
+      - name: molecule-usr-group2
+        state: present
+    attributes:
+      - name: attr1
+        values:
+          - value1
+        state: present
+      - name: attr2
+        values:
+          - value2
+        state: present
+    state: present
+  register: create_result
+
+- name: Assert user created with groups and attributes
+  ansible.builtin.assert:
+    that:
+      - create_result is changed
+      - create_result.end_state.username == 'molecule-usr-test'
+      - create_result.end_state.groups | length == 2
+
+- name: Delete user for next tests
+  middleware_automation.keycloak.keycloak_user:
+    realm: "{{ ephemeral_realm }}"
+    username: molecule-usr-test
+    state: absent
+
+# --- Plus-addressed email ---
+
+- name: Create user with plus-addressed email
+  middleware_automation.keycloak.keycloak_user:
+    realm: "{{ ephemeral_realm }}"
+    username: "molecule-usr+tag"
+    first_name: Plus
+    last_name: User
+    email: "molecule-usr+tag@example.invalid"
+    state: present
+  register: plus_create_result
+
+- name: Assert plus-addressed user is created
+  ansible.builtin.assert:
+    that:
+      - plus_create_result is changed
+      - plus_create_result.end_state.username == 'molecule-usr+tag'
+      - plus_create_result.end_state.email == 'molecule-usr+tag@example.invalid'
+
+- name: Re-run plus-addressed user creation (idempotency)
+  middleware_automation.keycloak.keycloak_user:
+    realm: "{{ ephemeral_realm }}"
+    username: "molecule-usr+tag"
+    first_name: Plus
+    last_name: User
+    email: "molecule-usr+tag@example.invalid"
+    state: present
+  register: plus_idempotent_result
+
+- name: Assert plus-addressed user is idempotent
+  ansible.builtin.assert:
+    that:
+      - plus_idempotent_result is not changed
+
+- name: Delete plus-addressed user
+  middleware_automation.keycloak.keycloak_user:
+    realm: "{{ ephemeral_realm }}"
+    username: "molecule-usr+tag"
+    state: absent
+  register: plus_delete_result
+
+- name: Assert plus-addressed user is deleted
+  ansible.builtin.assert:
+    that:
+      - plus_delete_result is changed
+
+# --- email_verified default reset behavior ---
+
+- name: Create user with no_defaults for email_verified
+  middleware_automation.keycloak.keycloak_user:
+    realm: "{{ ephemeral_realm }}"
+    username: molecule-usr-ev
+    first_name: Email
+    last_name: Verified
+    email: molecule-usr-ev@example.invalid
+    state: present
+    email_verified_behavior: no_defaults
+  register: ev_create_result
+
+- name: Assert user created without email_verified forced
+  ansible.builtin.assert:
+    that:
+      - ev_create_result is changed
+      - ev_create_result.end_state.emailVerified == false
+
+- name: Set email_verified to true
+  middleware_automation.keycloak.keycloak_user:
+    realm: "{{ ephemeral_realm }}"
+    username: molecule-usr-ev
+    email_verified: true
+    state: present
+  register: ev_set_result
+
+- name: Assert email_verified is set
+  ansible.builtin.assert:
+    that:
+      - ev_set_result is changed
+      - ev_set_result.end_state.emailVerified == true
+
+- name: Test old email_verified behavior (default resets to false)
+  middleware_automation.keycloak.keycloak_user:
+    realm: "{{ ephemeral_realm }}"
+    username: molecule-usr-ev
+    first_name: Email
+    last_name: Verified
+    email: molecule-usr-ev@example.invalid
+    state: present
+  register: ev_reset_result
+
+- name: Assert email_verified is reset by default behavior
+  ansible.builtin.assert:
+    that:
+      - ev_reset_result is changed
+      - ev_reset_result.end_state.emailVerified == false
+
+# --- required_actions explicit reset to empty ---
+
+- name: Set required_actions on user
+  middleware_automation.keycloak.keycloak_user:
+    realm: "{{ ephemeral_realm }}"
+    username: molecule-usr-ev
+    required_actions:
+      - UPDATE_PASSWORD
+      - VERIFY_EMAIL
+    state: present
+  register: ra_set_result
+
+- name: Assert required_actions are set
+  ansible.builtin.assert:
+    that:
+      - ra_set_result is changed
+      - "'UPDATE_PASSWORD' in ra_set_result.end_state.requiredActions"
+      - "'VERIFY_EMAIL' in ra_set_result.end_state.requiredActions"
+
+- name: Reset required_actions to empty list
+  middleware_automation.keycloak.keycloak_user:
+    realm: "{{ ephemeral_realm }}"
+    username: molecule-usr-ev
+    required_actions: []
+    state: present
+  register: ra_reset_result
+
+- name: Assert required_actions are reset to empty
+  ansible.builtin.assert:
+    that:
+      - ra_reset_result is changed
+      - ra_reset_result.end_state.requiredActions == []

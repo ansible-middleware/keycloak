@@ -1,0 +1,364 @@
+---
+# Ported from community.general tests/integration/targets/keycloak_group
+# Tests group CRUD, custom attributes, subgroups, deep chains, and deletion patterns.
+
+# --- Group CRUD ---
+
+- name: Create a group
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-grp-test
+    state: present
+  register: result
+
+- name: Assert group was created
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - result.end_state.name == "molecule-grp-test"
+      - result.end_state.path == "/molecule-grp-test"
+      - result.end_state.attributes == {}
+      - result.end_state.clientRoles == {}
+      - result.end_state.realmRoles == []
+      - result.end_state.subGroups == []
+
+- name: Save group id
+  ansible.builtin.set_fact:
+    molecule_grp_test_id: "{{ result.end_state.id }}"
+
+- name: Create group again (idempotency)
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-grp-test
+    state: present
+  register: result
+
+- name: Assert group unchanged
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.end_state != {}
+      - result.end_state.name == "molecule-grp-test"
+      - result.end_state.path == "/molecule-grp-test"
+      - result.end_state.attributes == {}
+      - result.end_state.clientRoles == {}
+      - result.end_state.realmRoles == []
+      - result.end_state.subGroups == []
+
+- name: Rename group by id
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    id: "{{ molecule_grp_test_id }}"
+    name: molecule-grp-renamed
+    state: present
+  register: result
+
+- name: Assert group was renamed
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - result.end_state.name == "molecule-grp-renamed"
+      - result.end_state.path == "/molecule-grp-renamed"
+
+- name: Delete group by id
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    id: "{{ molecule_grp_test_id }}"
+    state: absent
+  register: result
+
+- name: Assert group was deleted
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state == {}
+
+- name: Delete group by id again (idempotency)
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    id: "{{ molecule_grp_test_id }}"
+    state: absent
+  register: result
+
+- name: Assert no change on absent group
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.end_state == {}
+
+# --- Custom attributes ---
+
+- name: Create group with custom attributes
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-grp-attrs
+    attributes:
+      attrib1: value1
+      attrib2: value2
+      attrib3:
+        - item1
+        - item2
+  register: result
+
+- name: Assert group created with attributes
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - result.end_state.name == "molecule-grp-attrs"
+      - result.end_state.attributes != {}
+      - result.end_state.attributes.attrib1 == ["value1"]
+      - result.end_state.attributes.attrib2 == ["value2"]
+      - result.end_state.attributes.attrib3 == ["item1", "item2"]
+
+- name: Delete group with attributes by name
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-grp-attrs
+    state: absent
+  register: result
+
+- name: Assert group with attributes was deleted
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state == {}
+
+# --- Subgroup tests ---
+
+- name: Create base group for subgroup testing
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-grp-root
+  register: grp_root_result
+
+- name: Create subgroup using parent id
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-grp-sub1
+    parents:
+      - id: "{{ grp_root_result.end_state.id }}"
+  register: result
+
+- name: Assert subgroup created by parent id
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - result.end_state.name == "molecule-grp-sub1"
+      - result.end_state.path == "/molecule-grp-root/molecule-grp-sub1"
+      - result.end_state.subGroups == []
+
+- name: Recreate subgroup using parent id (idempotency)
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-grp-sub1
+    parents:
+      - id: "{{ grp_root_result.end_state.id }}"
+  register: result
+
+- name: Assert subgroup unchanged
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.end_state.name == "molecule-grp-sub1"
+      - result.end_state.path == "/molecule-grp-root/molecule-grp-sub1"
+
+- name: Rename subgroup
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    id: "{{ result.end_state.id }}"
+    name: molecule-grp-sub1-renamed
+    parents:
+      - id: "{{ grp_root_result.end_state.id }}"
+  register: result
+
+- name: Assert subgroup renamed
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state.name == "molecule-grp-sub1-renamed"
+      - result.end_state.path == "/molecule-grp-root/molecule-grp-sub1-renamed"
+
+- name: Create subgroup using parent name
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-grp-sub2
+    parents:
+      - name: molecule-grp-root
+  register: result
+
+- name: Assert subgroup created by parent name
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - result.end_state.name == "molecule-grp-sub2"
+      - result.end_state.path == "/molecule-grp-root/molecule-grp-sub2"
+
+- name: Recreate subgroup using parent name (idempotency)
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-grp-sub2
+    parents:
+      - name: molecule-grp-root
+  register: result
+
+- name: Assert subgroup unchanged
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.end_state.name == "molecule-grp-sub2"
+      - result.end_state.path == "/molecule-grp-root/molecule-grp-sub2"
+
+# --- Sub-subgroup (deep chain) ---
+
+- name: Create sub-subgroup using parent name chain
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-grp-subsub
+    parents:
+      - name: molecule-grp-root
+      - name: molecule-grp-sub2
+  register: result
+
+- name: Assert sub-subgroup created
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - result.end_state.name == "molecule-grp-subsub"
+      - result.end_state.path == "/molecule-grp-root/molecule-grp-sub2/molecule-grp-subsub"
+
+- name: Recreate sub-subgroup using parent names (idempotency)
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-grp-subsub
+    parents:
+      - name: molecule-grp-root
+      - name: molecule-grp-sub2
+  register: result_subsub
+
+- name: Assert sub-subgroup unchanged
+  ansible.builtin.assert:
+    that:
+      - result_subsub is not changed
+      - result_subsub.end_state.name == "molecule-grp-subsub"
+      - result_subsub.end_state.path == "/molecule-grp-root/molecule-grp-sub2/molecule-grp-subsub"
+
+- name: Create sub-sub-subgroup using direct parent id
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-grp-subsubsub
+    parents:
+      - id: "{{ result_subsub.end_state.id }}"
+  register: result
+
+- name: Assert sub-sub-subgroup created
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - result.end_state.name == "molecule-grp-subsubsub"
+      - result.end_state.path == "/molecule-grp-root/molecule-grp-sub2/molecule-grp-subsub/molecule-grp-subsubsub"
+
+- name: Recreate sub-sub-subgroup using direct parent id (idempotency)
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-grp-subsubsub
+    parents:
+      - id: "{{ result_subsub.end_state.id }}"
+  register: result_subsubsub
+
+- name: Assert sub-sub-subgroup unchanged
+  ansible.builtin.assert:
+    that:
+      - result_subsubsub is not changed
+      - result_subsubsub.end_state.name == "molecule-grp-subsubsub"
+      - result_subsubsub.end_state.path == "/molecule-grp-root/molecule-grp-sub2/molecule-grp-subsub/molecule-grp-subsubsub"
+
+# --- Subgroup deletion ---
+
+- name: Delete subgroup by id (no parents needed)
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    id: "{{ result_subsubsub.end_state.id }}"
+    state: absent
+  register: result
+
+- name: Assert subgroup deleted by id
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state == {}
+
+- name: Redo subgroup deletion by id (idempotency)
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    id: "{{ result_subsubsub.end_state.id }}"
+    state: absent
+  register: result
+
+- name: Assert subgroup deletion idempotent
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.end_state == {}
+
+- name: Delete subgroup by name with parents
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-grp-sub1-renamed
+    parents:
+      - name: molecule-grp-root
+    state: absent
+  register: result
+
+- name: Assert subgroup deleted by name
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state == {}
+
+- name: Redo subgroup deletion by name (idempotency)
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-grp-sub1-renamed
+    parents:
+      - name: molecule-grp-root
+    state: absent
+  register: result
+
+- name: Assert subgroup name deletion idempotent
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.end_state == {}
+
+- name: Delete group that has subgroups (cascade)
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-grp-root
+    state: absent
+  register: result
+
+- name: Assert group with subgroups deleted
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state == {}
+
+- name: Redo delete group with subgroups (idempotency)
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-grp-root
+    state: absent
+  register: result
+
+- name: Assert group deletion idempotent
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.end_state == {}

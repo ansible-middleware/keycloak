@@ -296,6 +296,74 @@
               - custom_realm_attributes_result.end_state.attributes["custom-realm-attribute-2"] is not defined
               - custom_realm_attributes_result.end_state.attributes["custom-realm-attribute-3"] == "custom-attribute-3"
 
+        - name: keycloak_realm — session timeout and OAuth2 device settings
+          ansible.builtin.include_tasks:
+            file: keycloak_realm/verify.yml
+
+        - name: keycloak_group_rolemapping — full map/unmap lifecycle
+          ansible.builtin.include_tasks:
+            file: keycloak_group_rolemapping/verify.yml
+
+        - name: keycloak_client_scope_type — realm and client scope types
+          ansible.builtin.include_tasks:
+            file: keycloak_client_scope_type/verify.yml
+
+        - name: keycloak_realm_users_info — multi-user and group membership
+          ansible.builtin.include_tasks:
+            file: keycloak_realm_users_info/verify.yml
+
+        - name: keycloak_user_rolemapping — service account role mapping
+          ansible.builtin.include_tasks:
+            file: keycloak_user_rolemapping/verify.yml
+
+        - name: keycloak_role — full CRUD and composite roles
+          ansible.builtin.include_tasks:
+            file: keycloak_role/verify.yml
+
+        - name: keycloak_user — edge cases (plus-addressed email, groups, required_actions reset)
+          ansible.builtin.include_tasks:
+            file: keycloak_user/verify.yml
+
+        - name: keycloak_identity_provider — mapper CRUD and fromUrl discovery
+          ansible.builtin.include_tasks:
+            file: keycloak_identity_provider/verify.yml
+
+        - name: keycloak_client_rolescope — multi-role and error cases
+          ansible.builtin.include_tasks:
+            file: keycloak_client_rolescope/verify.yml
+
+        - name: keycloak_client_scope_rolemappings — error paths, check_mode, multi-role
+          ansible.builtin.include_tasks:
+            file: keycloak_client_scope_rolemappings/verify.yml
+
+        - name: keycloak_user_federation — full LDAP federation lifecycle
+          ansible.builtin.include_tasks:
+            file: keycloak_user_federation/verify.yml
+
+        - name: keycloak_component_info — query patterns (name, type, parent, subcomponents)
+          ansible.builtin.include_tasks:
+            file: keycloak_component_info/verify.yml
+
+        - name: keycloak_realm_key — auto-generated key providers (7 types)
+          ansible.builtin.include_tasks:
+            file: keycloak_realm_key/verify.yml
+
+        - name: keycloak_userprofile — full CRUD with check_mode
+          ansible.builtin.include_tasks:
+            file: keycloak_userprofile/verify.yml
+
+        - name: keycloak_client — flow bindings, scopes behavior, attributes
+          ansible.builtin.include_tasks:
+            file: keycloak_client/verify.yml
+
+        - name: keycloak_group — deep subgroups, attributes, rename, cascade delete
+          ansible.builtin.include_tasks:
+            file: keycloak_group/verify.yml
+
+        - name: keycloak_authentication — conditional OTP flow CRUD and config uniqueness
+          ansible.builtin.include_tasks:
+            file: keycloak_authentication/verify.yml
+
         # --- Organization module tests ---
 
         - name: keycloak_realm — enable organizations on ephemeral realm
@@ -805,6 +873,22 @@
             client_id: "{{ client }}"
           no_log: true
 
+        - name: keycloak_clientsecret_info — fetch by client_id and by id
+          ansible.builtin.include_tasks:
+            file: keycloak_clientsecret_info/verify.yml
+
+        - name: keycloak_clientsecret_regenerate — rotation contract and by-id
+          ansible.builtin.include_tasks:
+            file: keycloak_clientsecret_regenerate/verify.yml
+
+        - name: keycloak_authz_authorization_scope — full CRUD with check_mode
+          ansible.builtin.include_tasks:
+            file: keycloak_authz_authorization_scope/verify.yml
+
+        - name: keycloak_authz_permission — scope and resource permissions lifecycle
+          ansible.builtin.include_tasks:
+            file: keycloak_authz_permission/verify.yml
+
         - name: keycloak_authz_authorization_scope — create authorization scope
           middleware_automation.keycloak.keycloak_authz_authorization_scope:
             realm: "{{ target_realm }}"
@@ -870,6 +954,10 @@
             provider_id: ldap
             provider_type: org.keycloak.storage.UserStorageProvider
             state: absent
+
+        - name: keycloak_modules_authentication — token, refresh, client_credentials auth
+          ansible.builtin.include_tasks:
+            file: keycloak_modules_authentication/verify.yml
 
     - name: Remove shared test fixtures
       module_defaults:

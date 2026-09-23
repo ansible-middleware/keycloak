@@ -1,0 +1,188 @@
+---
+# Ported from community.general tests/integration/targets/keycloak_component_info
+# Tests querying components by name, provider_type, parent_id, and combined filters.
+
+- name: Query LDAP federation when absent
+  middleware_automation.keycloak.keycloak_component_info:
+    name: molecule-ci-ldap
+    provider_type: "org.keycloak.storage.UserStorageProvider"
+    realm: "{{ ephemeral_realm }}"
+  register: result
+
+- name: Assert LDAP federation is absent
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.components | length == 0
+
+- name: Create LDAP federation for component_info tests
+  middleware_automation.keycloak.keycloak_user_federation:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-ci-ldap
+    provider_id: ldap
+    provider_type: org.keycloak.storage.UserStorageProvider
+    config:
+      vendor: other
+      connectionUrl: "ldap://localhost:10389"
+      bindDn: "cn=admin,dc=example,dc=org"
+      bindCredential: admin
+      usersDn: "ou=users,dc=example,dc=org"
+      usernameLDAPAttribute: uid
+      rdnLDAPAttribute: uid
+      uuidLDAPAttribute: entryUUID
+      userObjectClasses: "inetOrgPerson"
+      editMode: READ_ONLY
+    mappers:
+      - name: "email"
+        providerId: "user-attribute-ldap-mapper"
+        providerType: "org.keycloak.storage.ldap.mappers.LDAPStorageMapper"
+        config:
+          ldap.attribute: mail
+          user.model.attribute: email
+          is.mandatory.in.ldap: "false"
+          read.only: "true"
+      - name: "username"
+        providerId: "user-attribute-ldap-mapper"
+        providerType: "org.keycloak.storage.ldap.mappers.LDAPStorageMapper"
+        config:
+          ldap.attribute: uid
+          user.model.attribute: username
+          is.mandatory.in.ldap: "true"
+          read.only: "true"
+    state: present
+
+- name: Query LDAP federation by name and type
+  middleware_automation.keycloak.keycloak_component_info:
+    name: molecule-ci-ldap
+    provider_type: "org.keycloak.storage.UserStorageProvider"
+    realm: "{{ ephemeral_realm }}"
+  register: result
+
+- name: Assert LDAP federation found
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.components | length == 1
+      - result.components[0].name == "molecule-ci-ldap"
+
+- name: Save LDAP federation id
+  ansible.builtin.set_fact:
+    ci_ldap_id: "{{ result.components[0].id }}"
+
+- name: Query LDAP subcomponents by parent_id
+  middleware_automation.keycloak.keycloak_component_info:
+    realm: "{{ ephemeral_realm }}"
+    parent_id: "{{ ci_ldap_id }}"
+  register: result
+
+- name: Assert subcomponents exist
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.components | length > 0
+
+- name: Query LDAP subcomponents filter by name
+  middleware_automation.keycloak.keycloak_component_info:
+    realm: "{{ ephemeral_realm }}"
+    parent_id: "{{ ci_ldap_id }}"
+    name: "email"
+  register: result
+
+- name: Assert subcomponent with name email exists
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.components | length == 1
+      - result.components[0].name == "email"
+
+- name: Query LDAP subcomponents filter by type
+  middleware_automation.keycloak.keycloak_component_info:
+    realm: "{{ ephemeral_realm }}"
+    parent_id: "{{ ci_ldap_id }}"
+    provider_type: "org.keycloak.storage.ldap.mappers.LDAPStorageMapper"
+  register: result
+
+- name: Assert LDAP mapper subcomponents found
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.components | length > 0
+      - result.components[0].providerType == "org.keycloak.storage.ldap.mappers.LDAPStorageMapper"
+
+- name: Create AES realm key for component query test
+  middleware_automation.keycloak.keycloak_realm_key:
+    name: molecule-ci-aes-key
+    state: present
+    parent_id: "{{ ephemeral_realm }}"
+    provider_id: aes-generated
+    config:
+      priority: 150
+      enabled: true
+      active: true
+
+- name: Query key component by name and type
+  middleware_automation.keycloak.keycloak_component_info:
+    name: molecule-ci-aes-key
+    provider_type: "org.keycloak.keys.KeyProvider"
+    realm: "{{ ephemeral_realm }}"
+  register: result
+
+- name: Assert key component found
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.components | length == 1
+
+- name: Query all realm components
+  middleware_automation.keycloak.keycloak_component_info:
+    realm: "{{ ephemeral_realm }}"
+  register: result
+
+- name: Assert realm has components
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.components | length > 0
+
+- name: Query all UserStorageProviders in realm
+  middleware_automation.keycloak.keycloak_component_info:
+    realm: "{{ ephemeral_realm }}"
+    provider_type: "org.keycloak.storage.UserStorageProvider"
+  register: result
+
+- name: Assert only the LDAP federation is returned
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.components | length == 1
+      - result.components[0].providerType == "org.keycloak.storage.UserStorageProvider"
+      - result.components[0].name == "molecule-ci-ldap"
+
+- name: Query component by name only
+  middleware_automation.keycloak.keycloak_component_info:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-ci-aes-key
+  register: result
+
+- name: Assert key found by name only
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.components | length == 1
+      - result.components[0].providerType == "org.keycloak.keys.KeyProvider"
+      - result.components[0].name == "molecule-ci-aes-key"
+
+- name: Clean up — remove AES key
+  middleware_automation.keycloak.keycloak_realm_key:
+    name: molecule-ci-aes-key
+    parent_id: "{{ ephemeral_realm }}"
+    provider_id: aes-generated
+    state: absent
+
+- name: Clean up — remove LDAP federation
+  middleware_automation.keycloak.keycloak_user_federation:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-ci-ldap
+    provider_id: ldap
+    provider_type: org.keycloak.storage.UserStorageProvider
+    state: absent

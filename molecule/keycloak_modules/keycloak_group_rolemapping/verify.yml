@@ -1,0 +1,108 @@
+---
+# Ported from community.general tests/integration/targets/keycloak_group_rolemapping
+# Tests full map/unmap lifecycle with idempotency for realm role mappings on groups.
+
+- name: Create realm roles for rolemapping test
+  middleware_automation.keycloak.keycloak_role:
+    realm: "{{ ephemeral_realm }}"
+    name: "{{ item }}"
+    state: present
+  loop:
+    - molecule-grm-role-1
+    - molecule-grm-role-2
+
+- name: Create group for rolemapping test
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-grm-group
+    state: present
+
+- name: Map both realm roles to group
+  middleware_automation.keycloak.keycloak_realm_rolemapping:
+    realm: "{{ ephemeral_realm }}"
+    group_name: molecule-grm-group
+    roles:
+      - name: molecule-grm-role-1
+      - name: molecule-grm-role-2
+    state: present
+  register: result
+
+- name: Assert both roles are assigned
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state | count == 2
+
+- name: Map both roles again (idempotency)
+  middleware_automation.keycloak.keycloak_realm_rolemapping:
+    realm: "{{ ephemeral_realm }}"
+    group_name: molecule-grm-group
+    roles:
+      - name: molecule-grm-role-1
+      - name: molecule-grm-role-2
+    state: present
+  register: result
+
+- name: Assert roles stay assigned
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+
+- name: Unmap role 1 from group
+  middleware_automation.keycloak.keycloak_realm_rolemapping:
+    realm: "{{ ephemeral_realm }}"
+    group_name: molecule-grm-group
+    roles:
+      - name: molecule-grm-role-1
+    state: absent
+  register: result
+
+- name: Assert role 1 removed and role 2 remains
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state | count == 1
+
+- name: Unmap role 1 again (idempotency)
+  middleware_automation.keycloak.keycloak_realm_rolemapping:
+    realm: "{{ ephemeral_realm }}"
+    group_name: molecule-grm-group
+    roles:
+      - name: molecule-grm-role-1
+    state: absent
+  register: result
+
+- name: Assert role 1 stays absent
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+
+- name: Unmap role 2 from group
+  middleware_automation.keycloak.keycloak_realm_rolemapping:
+    realm: "{{ ephemeral_realm }}"
+    group_name: molecule-grm-group
+    roles:
+      - name: molecule-grm-role-2
+    state: absent
+  register: result
+
+- name: Assert no roles remain on group
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state | count == 0
+
+- name: Unmap role 2 again (idempotency)
+  middleware_automation.keycloak.keycloak_realm_rolemapping:
+    realm: "{{ ephemeral_realm }}"
+    group_name: molecule-grm-group
+    roles:
+      - name: molecule-grm-role-2
+    state: absent
+  register: result
+
+- name: Assert group stays with no roles
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.end_state | count == 0

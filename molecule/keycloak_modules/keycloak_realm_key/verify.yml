@@ -1,0 +1,526 @@
+---
+# Ported from community.general tests/integration/targets/keycloak_realm_key
+# Tests auto-generated key providers: HMAC, AES, ECDSA, RSA, RSA-ENC, ECDH, EdDSA.
+# Skips RSA with private key (needs external key material) and Java Keystore (needs keystore file).
+
+# --- HMAC generated key ---
+
+- name: Create HMAC key (check mode)
+  middleware_automation.keycloak.keycloak_realm_key:
+    name: molecule-rk-hmac
+    state: present
+    parent_id: "{{ ephemeral_realm }}"
+    provider_id: hmac-generated
+    config:
+      enabled: true
+      active: true
+      priority: 100
+      algorithm: HS256
+      secret_size: 64
+  check_mode: true
+  register: result
+
+- name: Assert HMAC key would be created
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - result.end_state.name == "molecule-rk-hmac"
+      - result.end_state.providerId == "hmac-generated"
+      - result.end_state.config.algorithm == ["HS256"]
+      - result.end_state.config.secretSize == ["64"]
+      - result.msg == "Realm key molecule-rk-hmac would be created"
+
+- name: Create HMAC key
+  middleware_automation.keycloak.keycloak_realm_key:
+    name: molecule-rk-hmac
+    state: present
+    parent_id: "{{ ephemeral_realm }}"
+    provider_id: hmac-generated
+    config:
+      enabled: true
+      active: true
+      priority: 100
+      algorithm: HS256
+      secret_size: 64
+  register: result
+
+- name: Assert HMAC key was created
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - result.end_state.name == "molecule-rk-hmac"
+      - result.end_state.providerId == "hmac-generated"
+      - result.end_state.providerType == "org.keycloak.keys.KeyProvider"
+      - result.end_state.config.algorithm == ["HS256"]
+      - result.end_state.config.secretSize == ["64"]
+      - result.msg == "Realm key molecule-rk-hmac created"
+
+- name: Create HMAC key (idempotency)
+  middleware_automation.keycloak.keycloak_realm_key:
+    name: molecule-rk-hmac
+    state: present
+    parent_id: "{{ ephemeral_realm }}"
+    provider_id: hmac-generated
+    config:
+      enabled: true
+      active: true
+      priority: 100
+      algorithm: HS256
+      secret_size: 64
+  register: result
+
+- name: Assert HMAC key is in sync
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.msg == "Realm key molecule-rk-hmac was in sync"
+
+- name: Update HMAC key priority
+  middleware_automation.keycloak.keycloak_realm_key:
+    name: molecule-rk-hmac
+    state: present
+    parent_id: "{{ ephemeral_realm }}"
+    provider_id: hmac-generated
+    config:
+      enabled: true
+      active: true
+      priority: 110
+      algorithm: HS256
+      secret_size: 64
+  register: result
+
+- name: Assert HMAC key was updated
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state.config.priority == ["110"]
+      - "'config.priority' in result.msg"
+
+- name: Remove HMAC key
+  middleware_automation.keycloak.keycloak_realm_key:
+    name: molecule-rk-hmac
+    state: absent
+    parent_id: "{{ ephemeral_realm }}"
+    provider_id: hmac-generated
+    config:
+      priority: 110
+  register: result
+
+- name: Assert HMAC key was deleted
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state == {}
+      - result.msg == "Realm key molecule-rk-hmac deleted"
+
+# --- AES generated key ---
+
+- name: Create AES key
+  middleware_automation.keycloak.keycloak_realm_key:
+    name: molecule-rk-aes
+    state: present
+    parent_id: "{{ ephemeral_realm }}"
+    provider_id: aes-generated
+    config:
+      enabled: true
+      active: true
+      priority: 100
+      secret_size: 32
+  register: result
+
+- name: Assert AES key was created
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - result.end_state.name == "molecule-rk-aes"
+      - result.end_state.providerId == "aes-generated"
+      - result.end_state.config.secretSize == ["32"]
+      - result.msg == "Realm key molecule-rk-aes created"
+
+- name: Create AES key (idempotency)
+  middleware_automation.keycloak.keycloak_realm_key:
+    name: molecule-rk-aes
+    state: present
+    parent_id: "{{ ephemeral_realm }}"
+    provider_id: aes-generated
+    config:
+      enabled: true
+      active: true
+      priority: 100
+      secret_size: 32
+  register: result
+
+- name: Assert AES key is in sync
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.msg == "Realm key molecule-rk-aes was in sync"
+
+- name: Remove AES key
+  middleware_automation.keycloak.keycloak_realm_key:
+    name: molecule-rk-aes
+    state: absent
+    parent_id: "{{ ephemeral_realm }}"
+    provider_id: aes-generated
+    config:
+      priority: 100
+  register: result
+
+- name: Assert AES key was deleted
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.msg == "Realm key molecule-rk-aes deleted"
+
+# --- ECDSA generated key ---
+
+- name: Create ECDSA key
+  middleware_automation.keycloak.keycloak_realm_key:
+    name: molecule-rk-ecdsa
+    state: present
+    parent_id: "{{ ephemeral_realm }}"
+    provider_id: ecdsa-generated
+    config:
+      enabled: true
+      active: true
+      priority: 100
+      algorithm: ES256
+      elliptic_curve: P-256
+  register: result
+
+- name: Assert ECDSA key was created
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - result.end_state.name == "molecule-rk-ecdsa"
+      - result.end_state.providerId == "ecdsa-generated"
+      - result.end_state.config.algorithm == ["ES256"]
+      - result.end_state.config.ecdsaEllipticCurveKey == ["P-256"]
+      - result.msg == "Realm key molecule-rk-ecdsa created"
+
+- name: Create ECDSA key (idempotency)
+  middleware_automation.keycloak.keycloak_realm_key:
+    name: molecule-rk-ecdsa
+    state: present
+    parent_id: "{{ ephemeral_realm }}"
+    provider_id: ecdsa-generated
+    config:
+      enabled: true
+      active: true
+      priority: 100
+      algorithm: ES256
+      elliptic_curve: P-256
+  register: result
+
+- name: Assert ECDSA key is in sync
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.msg == "Realm key molecule-rk-ecdsa was in sync"
+
+- name: Remove ECDSA key
+  middleware_automation.keycloak.keycloak_realm_key:
+    name: molecule-rk-ecdsa
+    state: absent
+    parent_id: "{{ ephemeral_realm }}"
+    provider_id: ecdsa-generated
+    config:
+      priority: 100
+  register: result
+
+- name: Assert ECDSA key was deleted
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.msg == "Realm key molecule-rk-ecdsa deleted"
+
+# --- RSA generated key ---
+
+- name: Create RSA generated key
+  middleware_automation.keycloak.keycloak_realm_key:
+    name: molecule-rk-rsa-gen
+    state: present
+    parent_id: "{{ ephemeral_realm }}"
+    provider_id: rsa-generated
+    config:
+      enabled: true
+      active: true
+      priority: 100
+      algorithm: RS256
+      key_size: 2048
+  register: result
+
+- name: Assert RSA generated key was created
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - result.end_state.name == "molecule-rk-rsa-gen"
+      - result.end_state.providerId == "rsa-generated"
+      - result.end_state.config.algorithm == ["RS256"]
+      - result.end_state.config.keySize == ["2048"]
+      - result.msg == "Realm key molecule-rk-rsa-gen created"
+
+- name: Create RSA generated key (idempotency)
+  middleware_automation.keycloak.keycloak_realm_key:
+    name: molecule-rk-rsa-gen
+    state: present
+    parent_id: "{{ ephemeral_realm }}"
+    provider_id: rsa-generated
+    config:
+      enabled: true
+      active: true
+      priority: 100
+      algorithm: RS256
+      key_size: 2048
+  register: result
+
+- name: Assert RSA generated key is in sync
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.msg == "Realm key molecule-rk-rsa-gen was in sync"
+
+- name: Remove RSA generated key
+  middleware_automation.keycloak.keycloak_realm_key:
+    name: molecule-rk-rsa-gen
+    state: absent
+    parent_id: "{{ ephemeral_realm }}"
+    provider_id: rsa-generated
+    config:
+      priority: 100
+  register: result
+
+- name: Assert RSA generated key was deleted
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.msg == "Realm key molecule-rk-rsa-gen deleted"
+
+# --- Default realm key management ---
+
+- name: Update priority of default hmac-generated key
+  middleware_automation.keycloak.keycloak_realm_key:
+    name: hmac-generated
+    state: present
+    parent_id: "{{ ephemeral_realm }}"
+    provider_id: hmac-generated
+    config:
+      enabled: true
+      active: true
+      priority: 150
+      algorithm: HS256
+  register: result
+
+- name: Assert default hmac-generated key was updated
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state.config.priority == ["150"]
+
+- name: Remove default hmac-generated key
+  middleware_automation.keycloak.keycloak_realm_key:
+    name: hmac-generated
+    state: absent
+    parent_id: "{{ ephemeral_realm }}"
+    provider_id: hmac-generated
+    config:
+      priority: 150
+  register: result
+
+- name: Assert default hmac-generated key was deleted
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state == {}
+      - result.msg == "Realm key hmac-generated deleted"
+
+# --- RSA encryption generated key ---
+
+- name: Create RSA encryption key
+  middleware_automation.keycloak.keycloak_realm_key:
+    name: molecule-rk-rsa-enc
+    state: present
+    parent_id: "{{ ephemeral_realm }}"
+    provider_id: rsa-enc-generated
+    config:
+      enabled: true
+      active: true
+      priority: 100
+      algorithm: RSA-OAEP
+      key_size: 2048
+  register: result
+
+- name: Assert RSA encryption key was created
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - result.end_state.name == "molecule-rk-rsa-enc"
+      - result.end_state.providerId == "rsa-enc-generated"
+      - result.end_state.config.algorithm == ["RSA-OAEP"]
+      - result.end_state.config.keySize == ["2048"]
+      - result.msg == "Realm key molecule-rk-rsa-enc created"
+
+- name: Create RSA encryption key (idempotency)
+  middleware_automation.keycloak.keycloak_realm_key:
+    name: molecule-rk-rsa-enc
+    state: present
+    parent_id: "{{ ephemeral_realm }}"
+    provider_id: rsa-enc-generated
+    config:
+      enabled: true
+      active: true
+      priority: 100
+      algorithm: RSA-OAEP
+      key_size: 2048
+  register: result
+
+- name: Assert RSA encryption key is in sync
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.msg == "Realm key molecule-rk-rsa-enc was in sync"
+
+- name: Remove RSA encryption key
+  middleware_automation.keycloak.keycloak_realm_key:
+    name: molecule-rk-rsa-enc
+    state: absent
+    parent_id: "{{ ephemeral_realm }}"
+    provider_id: rsa-enc-generated
+    config:
+      priority: 100
+  register: result
+
+- name: Assert RSA encryption key was deleted
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.msg == "Realm key molecule-rk-rsa-enc deleted"
+
+# --- ECDH generated key ---
+
+- name: Create ECDH key
+  middleware_automation.keycloak.keycloak_realm_key:
+    name: molecule-rk-ecdh
+    state: present
+    parent_id: "{{ ephemeral_realm }}"
+    provider_id: ecdh-generated
+    config:
+      enabled: true
+      active: true
+      priority: 100
+      algorithm: ECDH_ES
+      elliptic_curve: P-256
+  register: result
+
+- name: Assert ECDH key was created
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - result.end_state.name == "molecule-rk-ecdh"
+      - result.end_state.providerId == "ecdh-generated"
+      - result.end_state.config.algorithm == ["ECDH_ES"]
+      - result.end_state.config.ecdhEllipticCurveKey == ["P-256"]
+      - result.msg == "Realm key molecule-rk-ecdh created"
+
+- name: Create ECDH key (idempotency)
+  middleware_automation.keycloak.keycloak_realm_key:
+    name: molecule-rk-ecdh
+    state: present
+    parent_id: "{{ ephemeral_realm }}"
+    provider_id: ecdh-generated
+    config:
+      enabled: true
+      active: true
+      priority: 100
+      algorithm: ECDH_ES
+      elliptic_curve: P-256
+  register: result
+
+- name: Assert ECDH key is in sync
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.msg == "Realm key molecule-rk-ecdh was in sync"
+
+- name: Remove ECDH key
+  middleware_automation.keycloak.keycloak_realm_key:
+    name: molecule-rk-ecdh
+    state: absent
+    parent_id: "{{ ephemeral_realm }}"
+    provider_id: ecdh-generated
+    config:
+      priority: 100
+  register: result
+
+- name: Assert ECDH key was deleted
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.msg == "Realm key molecule-rk-ecdh deleted"
+
+# --- EdDSA generated key ---
+
+- name: Create EdDSA key
+  middleware_automation.keycloak.keycloak_realm_key:
+    name: molecule-rk-eddsa
+    state: present
+    parent_id: "{{ ephemeral_realm }}"
+    provider_id: eddsa-generated
+    config:
+      enabled: true
+      active: true
+      priority: 100
+      elliptic_curve: Ed25519
+  register: result
+
+- name: Assert EdDSA key was created
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - result.end_state.name == "molecule-rk-eddsa"
+      - result.end_state.providerId == "eddsa-generated"
+      - result.end_state.config.eddsaEllipticCurveKey == ["Ed25519"]
+      - result.msg == "Realm key molecule-rk-eddsa created"
+
+- name: Create EdDSA key (idempotency)
+  middleware_automation.keycloak.keycloak_realm_key:
+    name: molecule-rk-eddsa
+    state: present
+    parent_id: "{{ ephemeral_realm }}"
+    provider_id: eddsa-generated
+    config:
+      enabled: true
+      active: true
+      priority: 100
+      elliptic_curve: Ed25519
+  register: result
+
+- name: Assert EdDSA key is in sync
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.msg == "Realm key molecule-rk-eddsa was in sync"
+
+- name: Remove EdDSA key
+  middleware_automation.keycloak.keycloak_realm_key:
+    name: molecule-rk-eddsa
+    state: absent
+    parent_id: "{{ ephemeral_realm }}"
+    provider_id: eddsa-generated
+    config:
+      priority: 100
+  register: result
+
+- name: Assert EdDSA key was deleted
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.msg == "Realm key molecule-rk-eddsa deleted"

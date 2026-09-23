@@ -1,0 +1,294 @@
+---
+# Ported from community.general tests/integration/targets/keycloak_client
+# Tests flow binding overrides, client_scopes_behavior, attribute updates,
+# and post-logout redirect URIs / backchannel logout URL.
+# NOTE: protocol_mapper modification tests skipped (require community.general.json_query).
+
+# --- Flow binding overrides ---
+
+- name: Create client for flow binding tests
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-cl-flow
+    state: present
+    redirect_uris:
+      - "http://example.com/"
+
+- name: Set flow binding overrides by name
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-cl-flow
+    state: present
+    authentication_flow_binding_overrides:
+      browser_name: browser
+      direct_grant_name: direct grant
+  register: result
+
+- name: Assert flows are set
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - "'authenticationFlowBindingOverrides' in result.end_state"
+      - result.end_state.authenticationFlowBindingOverrides.browser | length > 0
+      - result.end_state.authenticationFlowBindingOverrides.direct_grant | length > 0
+
+- name: Backup flow UUIDs
+  ansible.builtin.set_fact:
+    flow_browser_uuid: "{{ result.end_state.authenticationFlowBindingOverrides.browser }}"
+    flow_direct_grant_uuid: "{{ result.end_state.authenticationFlowBindingOverrides.direct_grant }}"
+
+- name: Remove direct_grant binding, keep browser
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-cl-flow
+    state: present
+    authentication_flow_binding_overrides:
+      browser_name: browser
+  register: result
+
+- name: Assert direct_grant removed
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state.authenticationFlowBindingOverrides.browser | length > 0
+      - "'direct_grant' not in result.end_state.authenticationFlowBindingOverrides"
+
+- name: Swap bindings — remove browser, add direct_grant
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-cl-flow
+    state: present
+    authentication_flow_binding_overrides:
+      direct_grant_name: direct grant
+  register: result
+
+- name: Assert browser removed and direct_grant set
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - "'browser' not in result.end_state.authenticationFlowBindingOverrides"
+      - result.end_state.authenticationFlowBindingOverrides.direct_grant | length > 0
+
+- name: Set flow bindings by UUID
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-cl-flow
+    state: present
+    authentication_flow_binding_overrides:
+      browser: "{{ flow_browser_uuid }}"
+      direct_grant: "{{ flow_direct_grant_uuid }}"
+  register: result
+
+- name: Assert flows set by UUID
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state.authenticationFlowBindingOverrides.browser == flow_browser_uuid
+      - result.end_state.authenticationFlowBindingOverrides.direct_grant == flow_direct_grant_uuid
+
+- name: Unset flow binding overrides
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-cl-flow
+    state: present
+    authentication_flow_binding_overrides:
+      browser: "{{ None }}"
+      direct_grant: null
+  register: result
+
+- name: Assert flow bindings removed
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - "'browser' not in result.end_state.authenticationFlowBindingOverrides"
+      - "'direct_grant' not in result.end_state.authenticationFlowBindingOverrides"
+
+# --- Client scopes behavior ---
+
+- name: Create scopes for client_scopes_behavior tests
+  middleware_automation.keycloak.keycloak_client_scope:
+    realm: "{{ ephemeral_realm }}"
+    name: "{{ item.name }}"
+    description: "{{ item.desc }}"
+    protocol: openid-connect
+  loop:
+    - { name: molecule-cl-scope1, desc: "scope behavior test 1" }
+    - { name: molecule-cl-scope2, desc: "scope behavior test 2" }
+    - { name: molecule-cl-scope3, desc: "scope behavior test 3" }
+
+- name: Create client with scopes (idempotent behavior)
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-cl-scopes
+    client_scopes_behavior: idempotent
+    default_client_scopes: ['molecule-cl-scope1']
+    optional_client_scopes: ['molecule-cl-scope2']
+    state: present
+  register: result
+
+- name: Assert default and optional scopes set
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - '"molecule-cl-scope1" in result.end_state.defaultClientScopes'
+      - '"molecule-cl-scope2" in result.end_state.optionalClientScopes'
+      - result.end_state.defaultClientScopes | length == 1
+      - result.end_state.optionalClientScopes | length == 1
+
+- name: Update scopes with ignore behavior (default, check mode)
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-cl-scopes
+    default_client_scopes: ['molecule-cl-scope3']
+    optional_client_scopes: ['molecule-cl-scope3']
+    state: present
+  check_mode: true
+  register: result
+
+- name: Assert scopes unchanged with ignore behavior
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.end_state.defaultClientScopes | length == 1
+      - result.end_state.optionalClientScopes | length == 1
+      - '"molecule-cl-scope1" in result.end_state.defaultClientScopes'
+      - '"molecule-cl-scope2" in result.end_state.optionalClientScopes'
+
+- name: Update with conflicting scopes (patch, should fail)
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-cl-scopes
+    client_scopes_behavior: patch
+    default_client_scopes: ['molecule-cl-scope3']
+    optional_client_scopes: ['molecule-cl-scope1', 'molecule-cl-scope2', 'molecule-cl-scope3']
+    state: present
+  ignore_errors: true
+  register: result
+
+- name: Assert patch fails when scope is both default and optional
+  ansible.builtin.assert:
+    that:
+      - result is failed
+      - "'molecule-cl-scope3' in result.msg"
+
+- name: Update with patch behavior (valid)
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-cl-scopes
+    client_scopes_behavior: patch
+    default_client_scopes: ['molecule-cl-scope1', 'molecule-cl-scope3']
+    optional_client_scopes: []
+    state: present
+  register: result
+
+- name: Assert scopes patched correctly
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state.defaultClientScopes | length == 2
+      - result.end_state.optionalClientScopes | length == 1
+      - '"molecule-cl-scope1" in result.end_state.defaultClientScopes'
+      - '"molecule-cl-scope3" in result.end_state.defaultClientScopes'
+      - '"molecule-cl-scope2" in result.end_state.optionalClientScopes'
+
+- name: Reset to empty defaults (idempotent behavior)
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-cl-scopes
+    client_scopes_behavior: idempotent
+    default_client_scopes: []
+    optional_client_scopes: ['molecule-cl-scope3']
+    state: present
+  register: result
+
+- name: Assert idempotent with empty defaults
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state.defaultClientScopes | length == 0
+      - result.end_state.optionalClientScopes | length == 1
+      - '"molecule-cl-scope3" in result.end_state.optionalClientScopes'
+
+# --- Attribute updates ---
+
+- name: Create client with initial attributes
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-cl-attrs
+    state: present
+    attributes:
+      backchannel.logout.session.required: "true"
+      backchannel.logout.revoke.offline.tokens: "false"
+      oauth2.device.authorization.grant.enabled: "true"
+      client.secret.creation.time: "0"
+
+- name: Update client attributes
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-cl-attrs
+    state: present
+    attributes:
+      backchannel.logout.session.required: "false"
+      oauth2.device.authorization.grant.enabled: "false"
+      client.secret.creation.time: "0"
+  register: result
+
+- name: Assert attributes are updated
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state.attributes["backchannel.logout.revoke.offline.tokens"] == "false"
+      - result.end_state.attributes["backchannel.logout.session.required"] == "false"
+      - result.end_state.attributes["oauth2.device.authorization.grant.enabled"] == "false"
+
+# --- Post-logout redirect URIs and backchannel logout URL ---
+
+- name: Create client with post logout redirect URIs and backchannel logout URL
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-cl-logout
+    valid_post_logout_redirect_uris:
+      - "https://example.com/logout-callback"
+      - "https://example.com/signout"
+    backchannel_logout_url: "https://example.com/backchannel-logout"
+    state: present
+  register: result
+
+- name: Assert logout client created with correct attributes
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state.attributes["post.logout.redirect.uris"] is defined
+      - result.end_state.attributes["backchannel.logout.url"] == "https://example.com/backchannel-logout"
+
+- name: Re-create client with same logout fields (idempotency)
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-cl-logout
+    valid_post_logout_redirect_uris:
+      - "https://example.com/logout-callback"
+      - "https://example.com/signout"
+    backchannel_logout_url: "https://example.com/backchannel-logout"
+    state: present
+  register: result
+
+- name: Assert logout client is idempotent
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+
+- name: Update client logout fields
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-cl-logout
+    valid_post_logout_redirect_uris:
+      - "https://example.com/new-logout"
+    backchannel_logout_url: "https://example.com/new-backchannel"
+    state: present
+  register: result
+
+- name: Assert logout fields updated
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state.attributes["backchannel.logout.url"] == "https://example.com/new-backchannel"

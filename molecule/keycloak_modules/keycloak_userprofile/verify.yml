@@ -1,0 +1,172 @@
+---
+# Ported from community.general tests/integration/targets/keycloak_userprofile
+# Tests full CRUD cycle with check_mode for user profile config,
+# switching between unmanaged attribute policies (ENABLED, ADMIN_EDIT, ADMIN_VIEW).
+
+- name: Load user profile config variables
+  ansible.builtin.include_vars:
+    file: vars.yml
+
+- name: Create default User Profile (check mode)
+  middleware_automation.keycloak.keycloak_userprofile:
+    parent_id: "{{ ephemeral_realm }}"
+    config: "{{ up_config_default }}"
+  check_mode: true
+  register: result
+
+- name: Assert User Profile would be created
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - result.end_state.providerId == "declarative-user-profile"
+      - result.end_state.providerType == "org.keycloak.userprofile.UserProfileProvider"
+      - result.msg == "Userprofile declarative-user-profile would be created"
+
+- name: Create default User Profile
+  middleware_automation.keycloak.keycloak_userprofile:
+    state: present
+    parent_id: "{{ ephemeral_realm }}"
+    config: "{{ up_config_default }}"
+  diff: true
+  register: result
+
+- name: Assert User Profile was created
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - result.end_state.providerId == "declarative-user-profile"
+      - result.end_state.providerType == "org.keycloak.userprofile.UserProfileProvider"
+      - result.msg == "Userprofile declarative-user-profile created"
+
+- name: Create default User Profile (idempotency)
+  middleware_automation.keycloak.keycloak_userprofile:
+    state: present
+    parent_id: "{{ ephemeral_realm }}"
+    config: "{{ up_config_default }}"
+  register: result
+
+- name: Assert User Profile was in sync
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.end_state != {}
+      - result.msg == "Userprofile declarative-user-profile was in sync"
+
+- name: Update User Profile (check mode)
+  middleware_automation.keycloak.keycloak_userprofile:
+    state: present
+    parent_id: "{{ ephemeral_realm }}"
+    config: "{{ up_config_updated }}"
+  check_mode: true
+  register: result
+
+- name: Assert User Profile would be changed
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - result.msg is match("Userprofile declarative-user-profile would be changed.*")
+
+- name: Update User Profile
+  middleware_automation.keycloak.keycloak_userprofile:
+    state: present
+    parent_id: "{{ ephemeral_realm }}"
+    config: "{{ up_config_updated }}"
+  diff: true
+  register: result
+
+- name: Assert User Profile changed
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - result.msg is match("Userprofile declarative-user-profile changed.*")
+
+- name: Update User Profile (idempotency)
+  middleware_automation.keycloak.keycloak_userprofile:
+    state: present
+    parent_id: "{{ ephemeral_realm }}"
+    config: "{{ up_config_updated }}"
+  register: result
+
+- name: Assert User Profile still in sync
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.msg == "Userprofile declarative-user-profile was in sync"
+
+- name: Remove User Profile
+  middleware_automation.keycloak.keycloak_userprofile:
+    state: absent
+    parent_id: "{{ ephemeral_realm }}"
+    config: "{{ up_config_default }}"
+  diff: true
+  register: result
+
+- name: Assert User Profile was deleted
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state == {}
+      - result.msg == "Userprofile declarative-user-profile deleted"
+
+- name: Remove User Profile (idempotency)
+  middleware_automation.keycloak.keycloak_userprofile:
+    state: absent
+    parent_id: "{{ ephemeral_realm }}"
+    config: "{{ up_config_default }}"
+  register: result
+
+- name: Assert User Profile not present
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.end_state == {}
+      - result.msg == "Userprofile declarative-user-profile not present"
+
+- name: Create User Profile with unmanaged attributes ENABLED
+  middleware_automation.keycloak.keycloak_userprofile:
+    state: present
+    parent_id: "{{ ephemeral_realm }}"
+    config: "{{ up_config_unmanaged_enabled }}"
+  diff: true
+  register: result
+
+- name: Assert User Profile created with ENABLED policy
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - result.msg == "Userprofile declarative-user-profile created"
+
+- name: Change User Profile to unmanaged ADMIN_EDIT
+  middleware_automation.keycloak.keycloak_userprofile:
+    state: present
+    parent_id: "{{ ephemeral_realm }}"
+    config: "{{ up_config_unmanaged_admin_edit }}"
+  diff: true
+  register: result
+
+- name: Assert User Profile changed to ADMIN_EDIT
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - result.msg is match("Userprofile declarative-user-profile changed.*")
+
+- name: Change User Profile to unmanaged ADMIN_VIEW
+  middleware_automation.keycloak.keycloak_userprofile:
+    state: present
+    parent_id: "{{ ephemeral_realm }}"
+    config: "{{ up_config_unmanaged_admin_view }}"
+  diff: true
+  register: result
+
+- name: Assert User Profile changed to ADMIN_VIEW
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state != {}
+      - result.msg is match("Userprofile declarative-user-profile changed.*")

@@ -244,6 +244,12 @@ options:
           - Way to identify and track external users from the assertion.
         type: str
 
+      doNotStoreUsers:
+        description:
+          - If V(true), users authenticating through this identity provider will not be stored in the Keycloak database.
+          - This requires the C(transient-users) feature to be enabled on the Keycloak server (available since Keycloak 23).
+        type: bool
+
       fromUrl:
         description:
           - IDP well-known OpenID Connect configuration URL.
@@ -371,6 +377,25 @@ EXAMPLES = r"""
           attribute.friendly.name: User Roles
           attribute.name: roles
           syncMode: INHERIT
+
+- name: Create OIDC identity provider with transient users (do not store users in database)
+  middleware_automation.keycloak.keycloak_identity_provider:
+    state: present
+    auth_keycloak_url: https://auth.example.com
+    auth_realm: master
+    auth_username: admin
+    auth_password: admin
+    realm: myrealm
+    alias: oidc-idp
+    display_name: OpenID Connect IdP
+    enabled: true
+    provider_id: oidc
+    config:
+      fromUrl: https://the-idp.example.com/realms/idprealm/.well-known/openid-configuration
+      clientAuthMethod: client_secret_post
+      clientId: my-client
+      clientSecret: secret
+      doNotStoreUsers: true
 
 - name: Create OIDC identity provider, authentication with credentials and advanced claim to group
   middleware_automation.keycloak.keycloak_identity_provider:

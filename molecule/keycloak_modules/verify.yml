@@ -546,6 +546,51 @@
               - idp_hide_on_login_off_result.end_state.hideOnLogin == false
               - "'hide_on_login_page' not in (idp_hide_on_login_off_result.end_state.config | default({}))"
 
+        - name: keycloak_identity_provider — set doNotStoreUsers config option
+          middleware_automation.keycloak.keycloak_identity_provider:
+            realm: "{{ target_realm }}"
+            alias: "{{ idp }}"
+            config:
+              doNotStoreUsers: "true"
+            state: present
+          register: idp_do_not_store_users_result
+
+        - name: Assert doNotStoreUsers is set correctly in end_state config
+          ansible.builtin.assert:
+            that:
+              - idp_do_not_store_users_result is changed
+              - idp_do_not_store_users_result.end_state.config.doNotStoreUsers == "true"
+
+        - name: keycloak_identity_provider — set doNotStoreUsers idempotency check
+          middleware_automation.keycloak.keycloak_identity_provider:
+            realm: "{{ target_realm }}"
+            alias: "{{ idp }}"
+            config:
+              doNotStoreUsers: "true"
+            state: present
+          register: idp_do_not_store_users_idempotent_result
+
+        - name: Assert doNotStoreUsers idempotency (no change)
+          ansible.builtin.assert:
+            that:
+              - idp_do_not_store_users_idempotent_result is not changed
+              - idp_do_not_store_users_idempotent_result.end_state.config.doNotStoreUsers == "true"
+
+        - name: keycloak_identity_provider — disable doNotStoreUsers
+          middleware_automation.keycloak.keycloak_identity_provider:
+            realm: "{{ target_realm }}"
+            alias: "{{ idp }}"
+            config:
+              doNotStoreUsers: "false"
+            state: present
+          register: idp_do_not_store_users_off_result
+
+        - name: Assert doNotStoreUsers can be toggled off
+          ansible.builtin.assert:
+            that:
+              - idp_do_not_store_users_off_result is changed
+              - idp_do_not_store_users_off_result.end_state.config.doNotStoreUsers == "false"
+
         - name: keycloak_clienttemplate — create client template
           middleware_automation.keycloak.keycloak_clienttemplate:
             realm: "{{ target_realm }}"

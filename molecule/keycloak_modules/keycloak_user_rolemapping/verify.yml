@@ -1,0 +1,127 @@
+---
+# Ported from community.general tests/integration/targets/keycloak_user_rolemapping
+# Tests service account role mapping (realm and client roles) and cross-client mapping.
+
+- name: Create client with service account for rolemapping test
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-urm-client1
+    service_accounts_enabled: true
+    state: present
+  register: urm_client1
+
+- name: Create second client with service account for cross-client test
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-urm-client2
+    service_accounts_enabled: true
+    state: present
+
+- name: Create realm role for service account mapping
+  middleware_automation.keycloak.keycloak_role:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-urm-role
+    description: service account mapping test role
+    state: present
+
+- name: Map realm role to client service account
+  middleware_automation.keycloak.keycloak_user_rolemapping:
+    realm: "{{ ephemeral_realm }}"
+    service_account_user_client_id: molecule-urm-client1
+    roles:
+      - name: molecule-urm-role
+    state: present
+  register: result
+
+- name: Assert realm role is assigned to service account
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state | selectattr("clientRole", "eq", false) | selectattr("name", "eq", "molecule-urm-role") | list | count > 0
+
+- name: Unmap realm role from client service account
+  middleware_automation.keycloak.keycloak_user_rolemapping:
+    realm: "{{ ephemeral_realm }}"
+    service_account_user_client_id: molecule-urm-client1
+    roles:
+      - name: molecule-urm-role
+    state: absent
+  register: result
+
+- name: Assert realm role is unassigned from service account
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state | selectattr("clientRole", "eq", false) | selectattr("name", "eq", "molecule-urm-role") | list | count == 0
+
+- name: Create client role for cross-client mapping
+  middleware_automation.keycloak.keycloak_role:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-urm-client1
+    name: molecule-urm-client-role
+    description: cross-client mapping test role
+    state: present
+
+- name: Map client1 role to client2 service account (cross-client)
+  middleware_automation.keycloak.keycloak_user_rolemapping:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-urm-client1
+    service_account_user_client_id: molecule-urm-client2
+    roles:
+      - name: molecule-urm-client-role
+    state: present
+  register: result
+
+- name: Assert cross-client role is assigned
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state | selectattr("clientRole", "eq", true) | selectattr("name", "eq", "molecule-urm-client-role") | list | count > 0
+
+- name: Unmap cross-client role mapping
+  middleware_automation.keycloak.keycloak_user_rolemapping:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-urm-client1
+    service_account_user_client_id: molecule-urm-client2
+    roles:
+      - name: molecule-urm-client-role
+    state: absent
+  register: result
+
+- name: Assert cross-client role is removed
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state == []
+
+- name: Map client role to own service account
+  middleware_automation.keycloak.keycloak_user_rolemapping:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-urm-client1
+    service_account_user_client_id: molecule-urm-client1
+    roles:
+      - name: molecule-urm-client-role
+    state: present
+  register: result
+
+- name: Assert own-client role is assigned
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state | selectattr("clientRole", "eq", true) | selectattr("name", "eq", "molecule-urm-client-role") | list | count > 0
+
+- name: Unmap own-client role
+  middleware_automation.keycloak.keycloak_user_rolemapping:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-urm-client1
+    service_account_user_client_id: molecule-urm-client1
+    roles:
+      - name: molecule-urm-client-role
+    state: absent
+  register: result
+
+- name: Assert own-client role is removed
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state == []

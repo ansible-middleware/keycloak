@@ -1,0 +1,293 @@
+---
+# Ported from community.general tests/integration/targets/keycloak_modules_authentication
+# Tests the authentication layer shared by all keycloak modules:
+# token auth, refresh token fallback, auth fallback chains, client_credentials, and 401 errors.
+
+- name: Create realm role with username/password auth
+  middleware_automation.keycloak.keycloak_role:
+    auth_keycloak_url: "{{ auth_keycloak_url }}"
+    auth_realm: master
+    auth_username: "{{ auth_username }}"
+    auth_password: "{{ auth_password }}"
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-auth-role
+    description: molecule auth test role
+    state: present
+  register: result
+
+- name: Assert role created with username/password
+  ansible.builtin.assert:
+    that:
+      - result is changed
+
+- name: Remove role (cleanup for next test)
+  middleware_automation.keycloak.keycloak_role:
+    auth_keycloak_url: "{{ auth_keycloak_url }}"
+    auth_realm: master
+    auth_username: "{{ auth_username }}"
+    auth_password: "{{ auth_password }}"
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-auth-role
+    state: absent
+
+# --- Token-based authentication ---
+
+- name: Get Keycloak access and refresh tokens
+  ansible.builtin.uri:
+    url: "{{ auth_keycloak_url }}/realms/master/protocol/openid-connect/token"
+    method: POST
+    return_content: true
+    status_code: 200
+    body_format: form-urlencoded
+    body:
+      grant_type: "password"
+      client_id: "admin-cli"
+      username: "{{ auth_username }}"
+      password: "{{ auth_password }}"
+  register: token_response
+
+- name: Extract tokens
+  ansible.builtin.set_fact:
+    molecule_access_token: "{{ token_response.json.access_token }}"
+    molecule_refresh_token: "{{ token_response.json.refresh_token }}"
+
+- name: Create realm role with access token auth
+  middleware_automation.keycloak.keycloak_role:
+    auth_keycloak_url: "{{ auth_keycloak_url }}"
+    token: "{{ molecule_access_token }}"
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-auth-role
+    description: molecule auth test role
+    state: present
+  register: result
+
+- name: Assert role created with token
+  ansible.builtin.assert:
+    that:
+      - result is changed
+
+- name: Remove role (cleanup)
+  middleware_automation.keycloak.keycloak_role:
+    auth_keycloak_url: "{{ auth_keycloak_url }}"
+    auth_realm: master
+    auth_username: "{{ auth_username }}"
+    auth_password: "{{ auth_password }}"
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-auth-role
+    state: absent
+
+# --- Fallback: invalid token + valid refresh token ---
+
+- name: Create role with invalid token and valid refresh token
+  middleware_automation.keycloak.keycloak_role:
+    auth_keycloak_url: "{{ auth_keycloak_url }}"
+    auth_realm: master
+    auth_username: "{{ auth_username }}"
+    auth_password: "{{ auth_password }}"
+    token: "invalidtoken!!!"
+    refresh_token: "{{ molecule_refresh_token }}"
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-auth-role
+    description: molecule auth test role
+    state: present
+  register: result
+
+- name: Assert role created via refresh token fallback
+  ansible.builtin.assert:
+    that:
+      - result is changed
+
+- name: Remove role (cleanup)
+  middleware_automation.keycloak.keycloak_role:
+    auth_keycloak_url: "{{ auth_keycloak_url }}"
+    auth_realm: master
+    auth_username: "{{ auth_username }}"
+    auth_password: "{{ auth_password }}"
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-auth-role
+    state: absent
+
+# --- Fallback: invalid token + valid username/password ---
+
+- name: Create role with invalid token and valid credentials
+  middleware_automation.keycloak.keycloak_role:
+    auth_keycloak_url: "{{ auth_keycloak_url }}"
+    auth_realm: master
+    auth_username: "{{ auth_username }}"
+    auth_password: "{{ auth_password }}"
+    token: "invalidtoken!!!"
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-auth-role
+    description: molecule auth test role
+    state: present
+  register: result
+
+- name: Assert role created via credential fallback
+  ansible.builtin.assert:
+    that:
+      - result is changed
+
+- name: Remove role (cleanup)
+  middleware_automation.keycloak.keycloak_role:
+    auth_keycloak_url: "{{ auth_keycloak_url }}"
+    auth_realm: master
+    auth_username: "{{ auth_username }}"
+    auth_password: "{{ auth_password }}"
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-auth-role
+    state: absent
+
+# --- Fallback: invalid token + invalid refresh + valid credentials ---
+
+- name: Create role with invalid token, invalid refresh, valid credentials
+  middleware_automation.keycloak.keycloak_role:
+    auth_keycloak_url: "{{ auth_keycloak_url }}"
+    auth_realm: master
+    auth_username: "{{ auth_username }}"
+    auth_password: "{{ auth_password }}"
+    token: "invalidtoken!!!"
+    refresh_token: "invalidrefreshtoken!!!"
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-auth-role
+    description: molecule auth test role
+    state: present
+  register: result
+
+- name: Assert role created via full fallback chain
+  ansible.builtin.assert:
+    that:
+      - result is changed
+
+- name: Remove role (cleanup)
+  middleware_automation.keycloak.keycloak_role:
+    auth_keycloak_url: "{{ auth_keycloak_url }}"
+    auth_realm: master
+    auth_username: "{{ auth_username }}"
+    auth_password: "{{ auth_password }}"
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-auth-role
+    state: absent
+
+# --- Client credentials authentication ---
+
+- name: Client credentials auth test
+  vars:
+    molecule_auth_client_secret: molecule-auth-cli-secret
+  block:
+    - name: Make admin-cli confidential with service account
+      middleware_automation.keycloak.keycloak_client:
+        auth_keycloak_url: "{{ auth_keycloak_url }}"
+        auth_realm: master
+        auth_username: "{{ auth_username }}"
+        auth_password: "{{ auth_password }}"
+        auth_client_id: admin-cli
+        auth_client_secret: "{{ molecule_auth_client_secret }}"
+        client_id: admin-cli
+        secret: "{{ molecule_auth_client_secret }}"
+        public_client: false
+        service_accounts_enabled: true
+        client_authenticator_type: client-secret
+        state: present
+
+    - name: Assign admin role to admin-cli service account
+      middleware_automation.keycloak.keycloak_user_rolemapping:
+        auth_keycloak_url: "{{ auth_keycloak_url }}"
+        auth_realm: master
+        auth_username: "{{ auth_username }}"
+        auth_password: "{{ auth_password }}"
+        auth_client_id: admin-cli
+        auth_client_secret: "{{ molecule_auth_client_secret }}"
+        realm: master
+        roles:
+          - name: admin
+        service_account_user_client_id: admin-cli
+
+    - name: Create realm role with client_credentials auth
+      middleware_automation.keycloak.keycloak_role:
+        auth_keycloak_url: "{{ auth_keycloak_url }}"
+        auth_realm: master
+        auth_client_id: admin-cli
+        auth_client_secret: "{{ molecule_auth_client_secret }}"
+        realm: "{{ ephemeral_realm }}"
+        name: molecule-auth-role
+        description: molecule auth test role
+        state: present
+      register: result
+
+    - name: Assert role created with client credentials
+      ansible.builtin.assert:
+        that:
+          - result is changed
+
+  always:
+    - name: Restore admin-cli to public client
+      middleware_automation.keycloak.keycloak_client:
+        auth_keycloak_url: "{{ auth_keycloak_url }}"
+        auth_realm: master
+        auth_username: "{{ auth_username }}"
+        auth_password: "{{ auth_password }}"
+        auth_client_id: admin-cli
+        auth_client_secret: "{{ molecule_auth_client_secret }}"
+        client_id: admin-cli
+        secret: "{{ molecule_auth_client_secret }}"
+        public_client: true
+        state: present
+
+    - name: Remove role (cleanup)
+      middleware_automation.keycloak.keycloak_role:
+        auth_keycloak_url: "{{ auth_keycloak_url }}"
+        auth_realm: master
+        auth_username: "{{ auth_username }}"
+        auth_password: "{{ auth_password }}"
+        realm: "{{ ephemeral_realm }}"
+        name: molecule-auth-role
+        state: absent
+
+# --- Unhappy paths (401 errors) ---
+
+- name: Fail with invalid username/password
+  middleware_automation.keycloak.keycloak_role:
+    auth_keycloak_url: "{{ auth_keycloak_url }}"
+    auth_realm: master
+    auth_username: "{{ auth_username }}"
+    auth_password: "invalid_password"
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-auth-role
+    description: molecule auth test role
+    state: present
+  register: result
+  failed_when: >
+    ("HTTP Error 401" not in result.msg) and
+    ("HTTP Error 400" not in result.msg)
+
+- name: Fail with invalid token only
+  middleware_automation.keycloak.keycloak_role:
+    auth_keycloak_url: "{{ auth_keycloak_url }}"
+    auth_username: ""
+    auth_password: ""
+    token: "invalidtoken!!!"
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-auth-role
+    description: molecule auth test role
+    state: present
+  register: result
+  failed_when: >
+    ("HTTP Error 401" not in result.msg) and
+    ("HTTP Error 400" not in result.msg)
+
+- name: Fail with all invalid auth methods
+  middleware_automation.keycloak.keycloak_role:
+    auth_keycloak_url: "{{ auth_keycloak_url }}"
+    auth_realm: master
+    auth_username: "{{ auth_username }}"
+    auth_password: "invalid_password"
+    token: "invalidtoken!!!"
+    refresh_token: "invalidtoken!!!"
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-auth-role
+    description: molecule auth test role
+    state: present
+  register: result
+  failed_when: >
+    ("HTTP Error 401" not in result.msg) and
+    ("HTTP Error 400" not in result.msg)

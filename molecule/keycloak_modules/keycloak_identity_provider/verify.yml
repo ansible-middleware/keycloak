@@ -1,0 +1,282 @@
+---
+# Ported from community.general tests/integration/targets/keycloak_identity_provider
+# Tests create with mappers, mapper CRUD, update, clientSecret masking, delete idempotency, fromUrl discovery.
+
+- name: Create provider realm for fromUrl discovery test
+  middleware_automation.keycloak.keycloak_realm:
+    id: molecule-idp-provider-realm
+    realm: molecule-idp-provider-realm
+    state: present
+
+- name: Create identity provider with mappers
+  middleware_automation.keycloak.keycloak_identity_provider:
+    realm: "{{ ephemeral_realm }}"
+    alias: molecule-idp-oidc
+    display_name: OpenID Connect IdP
+    enabled: true
+    provider_id: oidc
+    config:
+      issuer: https://idp.example.com
+      authorizationUrl: https://idp.example.com/auth
+      tokenUrl: https://idp.example.com/token
+      userInfoUrl: https://idp.example.com/userinfo
+      clientAuthMethod: client_secret_post
+      clientId: clientid
+      clientSecret: clientsecret
+      syncMode: FORCE
+    mappers:
+      - name: "first_name"
+        identityProviderAlias: molecule-idp-oidc
+        identityProviderMapper: "oidc-user-attribute-idp-mapper"
+        config:
+          claim: "first_name"
+          user.attribute: "first_name"
+          syncMode: "INHERIT"
+      - name: "last_name"
+        identityProviderAlias: molecule-idp-oidc
+        identityProviderMapper: "oidc-user-attribute-idp-mapper"
+        config:
+          claim: "last_name"
+          user.attribute: "last_name"
+          syncMode: "INHERIT"
+    state: present
+  register: result
+
+- name: Assert identity provider created with mappers and masked secret
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.existing == {}
+      - result.end_state.alias == "molecule-idp-oidc"
+      - result.end_state.mappers != []
+      - result.end_state.config.clientSecret == "**********"
+
+- name: Update identity provider (no change, idempotency with masked secret)
+  middleware_automation.keycloak.keycloak_identity_provider:
+    realm: "{{ ephemeral_realm }}"
+    alias: molecule-idp-oidc
+    enabled: true
+    provider_id: oidc
+    config:
+      issuer: https://idp.example.com
+      authorizationUrl: https://idp.example.com/auth
+      tokenUrl: https://idp.example.com/token
+      userInfoUrl: https://idp.example.com/userinfo
+      clientAuthMethod: client_secret_post
+      clientId: clientid
+      clientSecret: "**********"
+      syncMode: FORCE
+    mappers:
+      - name: "first_name"
+        identityProviderAlias: molecule-idp-oidc
+        identityProviderMapper: "oidc-user-attribute-idp-mapper"
+        config:
+          claim: "first_name"
+          user.attribute: "first_name"
+          syncMode: "INHERIT"
+      - name: "last_name"
+        identityProviderAlias: molecule-idp-oidc
+        identityProviderMapper: "oidc-user-attribute-idp-mapper"
+        config:
+          claim: "last_name"
+          user.attribute: "last_name"
+          syncMode: "INHERIT"
+    state: present
+  register: result
+
+- name: Assert identity provider unchanged
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+
+- name: Update identity provider (disable)
+  middleware_automation.keycloak.keycloak_identity_provider:
+    realm: "{{ ephemeral_realm }}"
+    alias: molecule-idp-oidc
+    enabled: false
+    state: present
+  register: result
+
+- name: Assert identity provider disabled
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.existing.enabled == true
+      - result.end_state.enabled == false
+
+- name: Delete mapper from identity provider
+  middleware_automation.keycloak.keycloak_identity_provider:
+    realm: "{{ ephemeral_realm }}"
+    alias: molecule-idp-oidc
+    state: present
+    mappers:
+      - name: "first_name"
+        identityProviderAlias: molecule-idp-oidc
+        identityProviderMapper: "oidc-user-attribute-idp-mapper"
+        config:
+          claim: "first_name"
+          user.attribute: "first_name"
+          syncMode: "INHERIT"
+  register: result
+
+- name: Assert mapper deleted
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.existing.mappers | length == 2
+      - result.end_state.mappers | length == 1
+      - result.end_state.mappers[0].name == "first_name"
+
+- name: Add mapper to identity provider
+  middleware_automation.keycloak.keycloak_identity_provider:
+    realm: "{{ ephemeral_realm }}"
+    alias: molecule-idp-oidc
+    state: present
+    mappers:
+      - name: "last_name"
+        identityProviderAlias: molecule-idp-oidc
+        identityProviderMapper: "oidc-user-attribute-idp-mapper"
+        config:
+          claim: "last_name"
+          user.attribute: "last_name"
+          syncMode: "INHERIT"
+      - name: "first_name"
+        identityProviderAlias: molecule-idp-oidc
+        identityProviderMapper: "oidc-user-attribute-idp-mapper"
+        config:
+          claim: "first_name"
+          user.attribute: "first_name"
+          syncMode: "INHERIT"
+  register: result
+
+- name: Assert mapper added
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.existing.mappers | length == 1
+      - result.end_state.mappers | length == 2
+
+- name: Update identity provider mappers (idempotency)
+  middleware_automation.keycloak.keycloak_identity_provider:
+    realm: "{{ ephemeral_realm }}"
+    alias: molecule-idp-oidc
+    state: present
+    mappers:
+      - name: "last_name"
+        identityProviderAlias: molecule-idp-oidc
+        identityProviderMapper: "oidc-user-attribute-idp-mapper"
+        config:
+          claim: "last_name"
+          user.attribute: "last_name"
+          syncMode: "INHERIT"
+      - name: "first_name"
+        identityProviderAlias: molecule-idp-oidc
+        identityProviderMapper: "oidc-user-attribute-idp-mapper"
+        config:
+          claim: "first_name"
+          user.attribute: "first_name"
+          syncMode: "INHERIT"
+  register: result
+
+- name: Assert mappers unchanged
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+
+- name: Delete identity provider
+  middleware_automation.keycloak.keycloak_identity_provider:
+    realm: "{{ ephemeral_realm }}"
+    alias: molecule-idp-oidc
+    state: absent
+  register: result
+
+- name: Assert identity provider deleted
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state == {}
+
+- name: Delete absent identity provider (idempotency)
+  middleware_automation.keycloak.keycloak_identity_provider:
+    realm: "{{ ephemeral_realm }}"
+    alias: molecule-idp-oidc
+    state: absent
+  register: result
+
+- name: Assert no change on absent provider
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.end_state == {}
+
+# --- fromUrl discovery tests ---
+
+- name: Create identity provider with fromUrl
+  middleware_automation.keycloak.keycloak_identity_provider:
+    realm: "{{ ephemeral_realm }}"
+    alias: molecule-idp-fromurl
+    display_name: OpenID Connect IdP from url
+    enabled: true
+    provider_id: oidc
+    config:
+      fromUrl: "{{ auth_keycloak_url }}/realms/molecule-idp-provider-realm/.well-known/openid-configuration"
+      clientAuthMethod: client_secret_post
+      clientId: clientid
+      clientSecret: clientsecret
+      syncMode: FORCE
+    state: present
+  register: result
+
+- name: Assert identity provider created with discovered endpoints
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state.config.authorizationUrl == "{{ auth_keycloak_url }}/realms/molecule-idp-provider-realm/protocol/openid-connect/auth"
+      - result.end_state.config.issuer == "{{ auth_keycloak_url }}/realms/molecule-idp-provider-realm"
+      - result.end_state.config.jwksUrl == "{{ auth_keycloak_url }}/realms/molecule-idp-provider-realm/protocol/openid-connect/certs"
+      - result.end_state.config.logoutUrl == "{{ auth_keycloak_url }}/realms/molecule-idp-provider-realm/protocol/openid-connect/logout"
+      - result.end_state.config.tokenUrl == "{{ auth_keycloak_url }}/realms/molecule-idp-provider-realm/protocol/openid-connect/token"
+      - result.end_state.config.userInfoUrl == "{{ auth_keycloak_url }}/realms/molecule-idp-provider-realm/protocol/openid-connect/userinfo"
+
+- name: Create identity provider with fromUrl and exclusion should fail
+  middleware_automation.keycloak.keycloak_identity_provider:
+    realm: "{{ ephemeral_realm }}"
+    alias: "molecule-idp-mustfail"
+    display_name: Failed OpenID Connect IdP from url
+    enabled: true
+    provider_id: oidc
+    config: "{{ config | combine(endpoint) }}"
+    state: present
+  no_log: true
+  vars:
+    config:
+      fromUrl: "{{ auth_keycloak_url }}/realms/molecule-idp-provider-realm/.well-known/openid-configuration"
+      clientAuthMethod: client_secret_post
+      clientId: clientid
+      clientSecret: clientsecret
+    endpoint: "{{ '{\"' + item + '\": \"' + auth_keycloak_url + '/realms/molecule-idp-provider-realm/protocol/openid-connect/' + item + '\"}' }}"
+  with_items: ['userInfoUrl', 'authorizationUrl', 'tokenUrl', 'logoutUrl', 'issuer', 'jwksUrl']
+  register: result
+  ignore_errors: true
+
+- name: Assert fromUrl with endpoint URL conflict fails
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result is failed
+      - result.results | selectattr('failed', 'equalto', false) | list | length == 0
+
+# --- Cleanup ---
+
+- name: Remove fromUrl identity provider
+  middleware_automation.keycloak.keycloak_identity_provider:
+    realm: "{{ ephemeral_realm }}"
+    alias: molecule-idp-fromurl
+    state: absent
+  failed_when: false
+
+- name: Remove provider realm
+  middleware_automation.keycloak.keycloak_realm:
+    id: molecule-idp-provider-realm
+    realm: molecule-idp-provider-realm
+    state: absent

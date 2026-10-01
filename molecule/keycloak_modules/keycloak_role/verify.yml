@@ -1,0 +1,360 @@
+---
+# Ported from community.general tests/integration/targets/keycloak_role
+# Tests full CRUD lifecycle for realm/client roles and composite role management.
+
+# --- Realm role CRUD ---
+
+- name: Create realm role
+  middleware_automation.keycloak.keycloak_role:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-role-test
+    description: molecule role test desc 1
+    state: present
+  register: result
+
+- name: Assert realm role created
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.existing == {}
+      - result.end_state.name == "molecule-role-test"
+      - result.end_state.containerId == ephemeral_realm
+
+- name: Create realm role again (idempotency)
+  middleware_automation.keycloak.keycloak_role:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-role-test
+    description: molecule role test desc 1
+    state: present
+  register: result
+
+- name: Assert realm role unchanged
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+
+- name: Update realm role description
+  middleware_automation.keycloak.keycloak_role:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-role-test
+    description: molecule role test desc 2
+    state: present
+  register: result
+
+- name: Assert realm role updated
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.existing.description == "molecule role test desc 1"
+      - result.end_state.description == "molecule role test desc 2"
+
+- name: Delete realm role
+  middleware_automation.keycloak.keycloak_role:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-role-test
+    state: absent
+  register: result
+
+- name: Assert realm role deleted
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state == {}
+
+- name: Delete absent realm role (idempotency)
+  middleware_automation.keycloak.keycloak_role:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-role-test
+    state: absent
+  register: result
+
+- name: Assert no change on absent realm role
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.end_state == {}
+
+# --- Client role CRUD ---
+
+- name: Create client for role tests
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-role-client
+    state: present
+  register: role_test_client
+
+- name: Create client role
+  middleware_automation.keycloak.keycloak_role:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-role-client
+    name: molecule-client-role-test
+    description: molecule client role desc 1
+    state: present
+  register: result
+
+- name: Assert client role created
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.existing == {}
+      - result.end_state.name == "molecule-client-role-test"
+      - result.end_state.containerId == role_test_client.end_state.id
+
+- name: Create client role again (idempotency)
+  middleware_automation.keycloak.keycloak_role:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-role-client
+    name: molecule-client-role-test
+    description: molecule client role desc 1
+    state: present
+  register: result
+
+- name: Assert client role unchanged
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+
+- name: Update client role description
+  middleware_automation.keycloak.keycloak_role:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-role-client
+    name: molecule-client-role-test
+    description: molecule client role desc 2
+    state: present
+  register: result
+
+- name: Assert client role updated
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.existing.description == "molecule client role desc 1"
+      - result.end_state.description == "molecule client role desc 2"
+
+- name: Delete client role
+  middleware_automation.keycloak.keycloak_role:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-role-client
+    name: molecule-client-role-test
+    state: absent
+  register: result
+
+- name: Assert client role deleted
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state == {}
+
+- name: Delete absent client role (idempotency)
+  middleware_automation.keycloak.keycloak_role:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-role-client
+    name: molecule-client-role-test
+    state: absent
+  register: result
+
+- name: Assert no change on absent client role
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.end_state == {}
+
+# --- Composite realm roles ---
+
+- name: Create realm role with composites
+  middleware_automation.keycloak.keycloak_role:
+    name: molecule-composite-role
+    realm: "{{ ephemeral_realm }}"
+    description: molecule composite role test
+    composite: true
+    composites:
+      - name: view-clients
+        client_id: "realm-management"
+        state: present
+      - name: query-clients
+        client_id: "realm-management"
+        state: present
+      - name: offline_access
+        state: present
+    state: present
+  register: result
+
+- name: Assert realm role created with composites
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state.composites | length == 3
+
+- name: Realm role with composites (idempotency)
+  middleware_automation.keycloak.keycloak_role:
+    name: molecule-composite-role
+    realm: "{{ ephemeral_realm }}"
+    description: molecule composite role test
+    composite: true
+    composites:
+      - name: view-clients
+        client_id: "realm-management"
+        state: present
+      - name: query-clients
+        client_id: "realm-management"
+        state: present
+      - name: offline_access
+        state: present
+    state: present
+  register: result
+
+- name: Assert composites unchanged
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.end_state.composites | length == 3
+
+- name: Realm composites with aliases (idempotency)
+  middleware_automation.keycloak.keycloak_role:
+    name: molecule-composite-role
+    realm: "{{ ephemeral_realm }}"
+    description: molecule composite role test
+    composite: true
+    composites:
+      - name: view-clients
+        clientId: "realm-management"
+        state: present
+      - name: query-clients
+        clientId: "realm-management"
+        state: present
+      - name: offline_access
+        state: present
+    state: present
+  register: result
+
+- name: Assert composites unchanged with aliases
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+
+- name: Remove one composite from realm role
+  middleware_automation.keycloak.keycloak_role:
+    name: molecule-composite-role
+    realm: "{{ ephemeral_realm }}"
+    description: molecule composite role test
+    composite: true
+    composites:
+      - name: view-clients
+        client_id: "realm-management"
+        state: present
+      - name: query-clients
+        client_id: "realm-management"
+        state: present
+      - name: offline_access
+        state: absent
+    state: present
+  register: result
+
+- name: Assert composite removed
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state.composites | length == 2
+
+- name: Delete composite realm role
+  middleware_automation.keycloak.keycloak_role:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-composite-role
+    state: absent
+  register: result
+
+- name: Assert composite role deleted
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state == {}
+
+# --- Composite client roles ---
+
+- name: Create client role with composites
+  middleware_automation.keycloak.keycloak_role:
+    name: molecule-composite-client-role
+    client_id: molecule-role-client
+    realm: "{{ ephemeral_realm }}"
+    description: molecule composite client role test
+    composite: true
+    composites:
+      - name: view-clients
+        client_id: "realm-management"
+        state: present
+      - name: query-clients
+        client_id: "realm-management"
+        state: present
+      - name: offline_access
+        state: present
+    state: present
+  register: result
+
+- name: Assert client role created with composites
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state.composites | length == 3
+
+- name: Client role with composites (idempotency)
+  middleware_automation.keycloak.keycloak_role:
+    name: molecule-composite-client-role
+    client_id: molecule-role-client
+    realm: "{{ ephemeral_realm }}"
+    description: molecule composite client role test
+    composite: true
+    composites:
+      - name: view-clients
+        client_id: "realm-management"
+        state: present
+      - name: query-clients
+        client_id: "realm-management"
+        state: present
+      - name: offline_access
+        state: present
+    state: present
+  register: result
+
+- name: Assert client composites unchanged
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.end_state.composites | length == 3
+
+- name: Remove one composite from client role
+  middleware_automation.keycloak.keycloak_role:
+    name: molecule-composite-client-role
+    client_id: molecule-role-client
+    realm: "{{ ephemeral_realm }}"
+    description: molecule composite client role test
+    composite: true
+    composites:
+      - name: view-clients
+        client_id: "realm-management"
+        state: present
+      - name: query-clients
+        client_id: "realm-management"
+        state: present
+      - name: offline_access
+        state: absent
+    state: present
+  register: result
+
+- name: Assert composite removed from client role
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state.composites | length == 2
+
+- name: Delete composite client role
+  middleware_automation.keycloak.keycloak_role:
+    realm: "{{ ephemeral_realm }}"
+    name: molecule-composite-client-role
+    client_id: molecule-role-client
+    state: absent
+  register: result
+
+- name: Assert composite client role deleted
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state == {}

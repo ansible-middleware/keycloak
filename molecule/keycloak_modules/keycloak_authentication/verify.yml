@@ -1,0 +1,148 @@
+---
+# Ported from community.general tests/integration/targets/keycloak_authentication
+# Tests authentication flow CRUD: create from copy, create with conditional OTP,
+# update config, verify config uniqueness via realm export, and delete.
+
+- name: Set auth flow test variables
+  ansible.builtin.set_fact:
+    keycloak_no_otp_required_pattern_original: 'X-Forwarded-For: 10\.[0-9\.:]+'
+    keycloak_no_otp_required_pattern_modified: 'X-Original-Forwarded-For: 10\.[0-9\.:]+'
+
+- name: Create auth flow from first broker login copy
+  middleware_automation.keycloak.keycloak_authentication:
+    realm: "{{ ephemeral_realm }}"
+    alias: "Test first broker login"
+    copyFrom: "first broker login"
+    authenticationExecutions:
+      - providerId: "idp-review-profile"
+        requirement: "REQUIRED"
+        authenticationConfig:
+          alias: "Test review profile config"
+          config:
+            update.profile.on.first.login: "missing"
+
+- name: Create conditional OTP auth flow
+  middleware_automation.keycloak.keycloak_authentication:
+    realm: "{{ ephemeral_realm }}"
+    alias: "My conditional browser otp"
+    description: "browser based authentication with otp"
+    providerId: "basic-flow"
+    authenticationExecutions:
+      - displayName: Cookie
+        providerId: auth-cookie
+        requirement: ALTERNATIVE
+      - displayName: Kerberos
+        providerId: auth-spnego
+        requirement: DISABLED
+      - displayName: Identity Provider Redirector
+        providerId: identity-provider-redirector
+        requirement: ALTERNATIVE
+      - displayName: My browser otp forms
+        requirement: ALTERNATIVE
+      - displayName: Username Password Form
+        flowAlias: My browser otp forms
+        providerId: auth-username-password-form
+        requirement: REQUIRED
+      - displayName: My browser otp Browser - Conditional OTP
+        flowAlias: My browser otp forms
+        requirement: REQUIRED
+        providerId: "auth-conditional-otp-form"
+        authenticationConfig:
+          alias: my-conditional-otp-config
+          config:
+            defaultOtpOutcome: "force"
+            noOtpRequiredForHeaderPattern: "{{ keycloak_no_otp_required_pattern_original }}"
+    state: present
+
+- name: Update conditional OTP auth flow config
+  middleware_automation.keycloak.keycloak_authentication:
+    realm: "{{ ephemeral_realm }}"
+    alias: "My conditional browser otp"
+    description: "browser based authentication with otp"
+    providerId: "basic-flow"
+    authenticationExecutions:
+      - displayName: Cookie
+        providerId: auth-cookie
+        requirement: ALTERNATIVE
+      - displayName: Kerberos
+        providerId: auth-spnego
+        requirement: DISABLED
+      - displayName: Identity Provider Redirector
+        providerId: identity-provider-redirector
+        requirement: ALTERNATIVE
+      - displayName: My browser otp forms
+        requirement: ALTERNATIVE
+      - displayName: Username Password Form
+        flowAlias: My browser otp forms
+        providerId: auth-username-password-form
+        requirement: REQUIRED
+      - displayName: My browser otp Browser - Conditional OTP
+        flowAlias: My browser otp forms
+        requirement: REQUIRED
+        providerId: "auth-conditional-otp-form"
+        authenticationConfig:
+          alias: my-conditional-otp-config
+          config:
+            defaultOtpOutcome: "force"
+            noOtpRequiredForHeaderPattern: "{{ keycloak_no_otp_required_pattern_modified }}"
+    state: present
+  register: result
+
+- name: Assert auth flow was updated
+  ansible.builtin.assert:
+    that:
+      - result is changed
+
+- name: Get access token for realm export
+  ansible.builtin.uri:
+    url: "{{ auth_keycloak_url }}/realms/{{ auth_realm }}/protocol/openid-connect/token"
+    method: POST
+    status_code: 200
+    body_format: form-urlencoded
+    body:
+      grant_type: "password"
+      client_id: "admin-cli"
+      username: "{{ auth_username }}"
+      password: "{{ auth_password }}"
+  register: token_response
+  no_log: true
+
+- name: Extract access token
+  ansible.builtin.set_fact:
+    molecule_auth_access_token: "{{ token_response.json.access_token }}"
+  no_log: true
+
+- name: Export ephemeral realm
+  ansible.builtin.uri:
+    url: "{{ auth_keycloak_url }}/admin/realms/{{ ephemeral_realm }}/partial-export?exportClients=false&exportGroupsAndRoles=false"
+    method: POST
+    headers:
+      Accept: application/json
+      Authorization: "Bearer {{ molecule_auth_access_token }}"
+    body_format: form-urlencoded
+    body: {}
+  register: exported_realm
+  no_log: true
+
+- name: Assert my-conditional-otp-config exists only once
+  ansible.builtin.assert:
+    that:
+      - exported_realm.json.authenticatorConfig | selectattr('alias', 'equalto', 'my-conditional-otp-config') | list | length == 1
+
+- name: Delete conditional OTP auth flow
+  middleware_automation.keycloak.keycloak_authentication:
+    realm: "{{ ephemeral_realm }}"
+    alias: "My conditional browser otp"
+    state: absent
+  register: result
+
+- name: Assert auth flow was deleted
+  ansible.builtin.assert:
+    that:
+      - result is changed
+
+- name: Delete first broker login copy
+  middleware_automation.keycloak.keycloak_authentication:
+    realm: "{{ ephemeral_realm }}"
+    alias: "Test first broker login"
+    state: absent

@@ -313,6 +313,26 @@ Parameters
   </tr>
   <tr class="row-even">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+      <div class="ansibleOptionAnchor" id="parameter-config/doNotStoreUsers"></div>
+      <p class="ansible-option-title"><strong>doNotStoreUsers</strong></p>
+      <a class="ansibleOptionLink" href="#parameter-config/doNotStoreUsers" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line">
+        <span class="ansible-option-type">boolean</span>
+      </p>
+    </div></td>
+    <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+      <p>If <code class="ansible-value literal notranslate">true</code>, users authenticating through this identity provider will not be stored in the Keycloak database.</p>
+      <p>This requires the <code class='docutils literal notranslate'>transient-users</code> feature to be enabled on the Keycloak server (available since Keycloak 23).</p>
+      <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+      <ul class="simple">
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+        <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+      </ul>
+
+    </div></td>
+  </tr>
+  <tr class="row-odd">
+    <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-config/entityId"></div>
       <p class="ansible-option-title"><strong>entityId</strong></p>
       <a class="ansibleOptionLink" href="#parameter-config/entityId" title="Permalink to this option"></a>
@@ -324,7 +344,7 @@ Parameters
       <p>The Entity ID that is used to uniquely identify this SAML Service Provider.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-config/fromUrl"></div>
       <p class="ansible-option-title"><strong>fromUrl</strong></p>
@@ -339,7 +359,7 @@ Parameters
       <p><code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-config/fromUrl"><span class="std std-ref"><span class="pre">config.fromUrl</span></span></a></strong></code> is mutually exclusive with <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-config/userInfoUrl"><span class="std std-ref"><span class="pre">config.userInfoUrl</span></span></a></strong></code>, <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-config/authorizationUrl"><span class="std std-ref"><span class="pre">config.authorizationUrl</span></span></a></strong></code>, <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-config/tokenUrl"><span class="std std-ref"><span class="pre">config.tokenUrl</span></span></a></strong></code>, <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-config/logoutUrl"><span class="std std-ref"><span class="pre">config.logoutUrl</span></span></a></strong></code>, <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-config/issuer"><span class="std std-ref"><span class="pre">config.issuer</span></span></a></strong></code> and <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-config/jwksUrl"><span class="std std-ref"><span class="pre">config.jwksUrl</span></span></a></strong></code>.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-config/gui_order"></div>
       <div class="ansibleOptionAnchor" id="parameter-config/guiOrder"></div>
@@ -354,7 +374,7 @@ Parameters
       <p>Number defining order of the provider in GUI (for example, on Login page).</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-config/issuer"></div>
       <p class="ansible-option-title"><strong>issuer</strong></p>
@@ -367,7 +387,7 @@ Parameters
       <p>The issuer identifier for the issuer of the response. If not provided, no validation is performed.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-config/jwksUrl"></div>
       <p class="ansible-option-title"><strong>jwksUrl</strong></p>
@@ -380,7 +400,7 @@ Parameters
       <p>URL where identity provider keys in JWK format are stored. See JWK specification for more details.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-config/logoutUrl"></div>
       <p class="ansible-option-title"><strong>logoutUrl</strong></p>
@@ -393,7 +413,7 @@ Parameters
       <p>End session endpoint to use to logout user from external IDP.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-config/nameIDPolicyFormat"></div>
       <p class="ansible-option-title"><strong>nameIDPolicyFormat</strong></p>
@@ -406,7 +426,7 @@ Parameters
       <p>Specifies the URI reference corresponding to a name identifier format.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-config/principalType"></div>
       <p class="ansible-option-title"><strong>principalType</strong></p>
@@ -419,7 +439,7 @@ Parameters
       <p>Way to identify and track external users from the assertion.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-config/singleLogoutServiceUrl"></div>
       <p class="ansible-option-title"><strong>singleLogoutServiceUrl</strong></p>
@@ -432,7 +452,7 @@ Parameters
       <p>The URL that must be used to send logout requests.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-config/singleSignOnServiceUrl"></div>
       <p class="ansible-option-title"><strong>singleSignOnServiceUrl</strong></p>
@@ -445,7 +465,7 @@ Parameters
       <p>The URL that must be used to send authentication requests (SAML AuthnRequest).</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-config/sync_mode"></div>
       <div class="ansibleOptionAnchor" id="parameter-config/syncMode"></div>
@@ -460,7 +480,7 @@ Parameters
       <p>Default sync mode for all mappers. The sync mode determines when user data is synced using the mappers.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-config/tokenUrl"></div>
       <p class="ansible-option-title"><strong>tokenUrl</strong></p>
@@ -473,7 +493,7 @@ Parameters
       <p>The Token URL.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-config/useJwksUrl"></div>
       <p class="ansible-option-title"><strong>useJwksUrl</strong></p>
@@ -492,7 +512,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-config/userInfoUrl"></div>
       <p class="ansible-option-title"><strong>userInfoUrl</strong></p>
@@ -505,7 +525,7 @@ Parameters
       <p>The User Info URL.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-config/validateSignature"></div>
       <p class="ansible-option-title"><strong>validateSignature</strong></p>
@@ -525,7 +545,7 @@ Parameters
     </div></td>
   </tr>
 
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-connection_timeout"></div>
       <p class="ansible-option-title"><strong>connection_timeout</strong></p>
@@ -539,7 +559,7 @@ Parameters
       <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">10</code></p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-display_name"></div>
       <div class="ansibleOptionAnchor" id="parameter-displayName"></div>
@@ -554,7 +574,7 @@ Parameters
       <p>Friendly name for identity provider.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-enabled"></div>
       <p class="ansible-option-title"><strong>enabled</strong></p>
@@ -573,7 +593,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-first_broker_login_flow_alias"></div>
       <div class="ansibleOptionAnchor" id="parameter-firstBrokerLoginFlowAlias"></div>
@@ -588,7 +608,7 @@ Parameters
       <p>Alias of authentication flow, which is triggered after first login with this identity provider.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-hide_on_login"></div>
       <div class="ansibleOptionAnchor" id="parameter-hideOnLogin"></div>
@@ -610,7 +630,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-http_agent"></div>
       <p class="ansible-option-title"><strong>http_agent</strong></p>
@@ -624,7 +644,7 @@ Parameters
       <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;Ansible&#34;</code></p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-link_only"></div>
       <div class="ansibleOptionAnchor" id="parameter-linkOnly"></div>
@@ -645,7 +665,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-mappers"></div>
       <p class="ansible-option-title"><strong>mappers</strong></p>
@@ -659,7 +679,7 @@ Parameters
       <p>A list of dicts defining mappers associated with this Identity Provider.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-mappers/config"></div>
       <p class="ansible-option-title"><strong>config</strong></p>
@@ -672,7 +692,7 @@ Parameters
       <p>Dict specifying the configuration options for the mapper; the contents differ depending on the value of <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-mappers/identityProviderMapper"><span class="std std-ref"><span class="pre">mappers[].identityProviderMapper</span></span></a></strong></code>.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-mappers/id"></div>
       <p class="ansible-option-title"><strong>id</strong></p>
@@ -685,7 +705,7 @@ Parameters
       <p>Unique ID of this mapper.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-mappers/identityProviderAlias"></div>
       <p class="ansible-option-title"><strong>identityProviderAlias</strong></p>
@@ -698,7 +718,7 @@ Parameters
       <p>Alias of the identity provider for this mapper.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-mappers/identityProviderMapper"></div>
       <p class="ansible-option-title"><strong>identityProviderMapper</strong></p>
@@ -711,7 +731,7 @@ Parameters
       <p>Type of mapper.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-mappers/name"></div>
       <p class="ansible-option-title"><strong>name</strong></p>
@@ -725,7 +745,7 @@ Parameters
     </div></td>
   </tr>
 
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-post_broker_login_flow_alias"></div>
       <div class="ansibleOptionAnchor" id="parameter-postBrokerLoginFlowAlias"></div>
@@ -740,7 +760,7 @@ Parameters
       <p>Alias of authentication flow, which is triggered after each login with this identity provider.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-provider_id"></div>
       <div class="ansibleOptionAnchor" id="parameter-providerId"></div>
@@ -755,7 +775,7 @@ Parameters
       <p>Protocol used by this provider (supported values are <code class="ansible-value literal notranslate">oidc</code> or <code class="ansible-value literal notranslate">saml</code>).</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-realm"></div>
       <p class="ansible-option-title"><strong>realm</strong></p>
@@ -769,7 +789,7 @@ Parameters
       <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;master&#34;</code></p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-refresh_token"></div>
       <p class="ansible-option-title"><strong>refresh_token</strong></p>
@@ -782,7 +802,7 @@ Parameters
       <p>Authentication refresh token for Keycloak API.</p>
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-state"></div>
       <p class="ansible-option-title"><strong>state</strong></p>
@@ -803,7 +823,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-store_token"></div>
       <div class="ansibleOptionAnchor" id="parameter-storeToken"></div>
@@ -824,7 +844,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-token"></div>
       <p class="ansible-option-title"><strong>token</strong></p>
@@ -837,7 +857,7 @@ Parameters
       <p>Authentication token for Keycloak API.</p>
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-trust_email"></div>
       <div class="ansibleOptionAnchor" id="parameter-trustEmail"></div>
@@ -858,7 +878,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-even">
+  <tr class="row-odd">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-use_netrc"></div>
       <p class="ansible-option-title"><strong>use_netrc</strong></p>
@@ -878,7 +898,7 @@ Parameters
 
     </div></td>
   </tr>
-  <tr class="row-odd">
+  <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-validate_certs"></div>
       <p class="ansible-option-title"><strong>validate_certs</strong></p>
@@ -1140,6 +1160,25 @@ Examples
               attribute.friendly.name: User Roles
               attribute.name: roles
               syncMode: INHERIT
+
+    - name: Create OIDC identity provider with transient users (do not store users in database)
+      middleware_automation.keycloak.keycloak_identity_provider:
+        state: present
+        auth_keycloak_url: https://auth.example.com
+        auth_realm: master
+        auth_username: admin
+        auth_password: admin
+        realm: myrealm
+        alias: oidc-idp
+        display_name: OpenID Connect IdP
+        enabled: true
+        provider_id: oidc
+        config:
+          fromUrl: https://the-idp.example.com/realms/idprealm/.well-known/openid-configuration
+          clientAuthMethod: client_secret_post
+          clientId: my-client
+          clientSecret: secret
+          doNotStoreUsers: true
 
     - name: Create OIDC identity provider, authentication with credentials and advanced claim to group
       middleware_automation.keycloak.keycloak_identity_provider:

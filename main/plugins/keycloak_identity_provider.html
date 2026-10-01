@@ -415,6 +415,26 @@ To check whether it is installed, run <code class="code docutils literal notrans
 </tr>
 <tr class="row-even">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-config/doNotStoreUsers"></div>
+    <p class="ansible-option-title"><strong>doNotStoreUsers</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-config/doNotStoreUsers" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">boolean</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+    <p>If <code class="ansible-value literal notranslate">true</code>, users authenticating through this identity provider will not be stored in the Keycloak database.</p>
+    <p>This requires the <code class='docutils literal notranslate'>transient-users</code> feature to be enabled on the Keycloak server (available since Keycloak 23).</p>
+    <p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+    <ul class="simple">
+      <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">false</code></p></li>
+      <li><p><code class="ansible-value literal notranslate ansible-option-choices-entry">true</code></p></li>
+    </ul>
+
+  </div></td>
+</tr>
+<tr class="row-odd">
+  <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/entityId"></div>
     <p class="ansible-option-title"><strong>entityId</strong></p>
     <a class="ansibleOptionLink" href="#parameter-config/entityId" title="Permalink to this option"></a>
@@ -426,7 +446,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The Entity ID that is used to uniquely identify this SAML Service Provider.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/fromUrl"></div>
     <p class="ansible-option-title"><strong>fromUrl</strong></p>
@@ -441,7 +461,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p><code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-config/fromUrl"><span class="std std-ref"><span class="pre">config.fromUrl</span></span></a></strong></code> is mutually exclusive with <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-config/userInfoUrl"><span class="std std-ref"><span class="pre">config.userInfoUrl</span></span></a></strong></code>, <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-config/authorizationUrl"><span class="std std-ref"><span class="pre">config.authorizationUrl</span></span></a></strong></code>, <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-config/tokenUrl"><span class="std std-ref"><span class="pre">config.tokenUrl</span></span></a></strong></code>, <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-config/logoutUrl"><span class="std std-ref"><span class="pre">config.logoutUrl</span></span></a></strong></code>, <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-config/issuer"><span class="std std-ref"><span class="pre">config.issuer</span></span></a></strong></code> and <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-config/jwksUrl"><span class="std std-ref"><span class="pre">config.jwksUrl</span></span></a></strong></code>.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/gui_order"></div>
     <div class="ansibleOptionAnchor" id="parameter-config/guiOrder"></div>
@@ -456,7 +476,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Number defining order of the provider in GUI (for example, on Login page).</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/issuer"></div>
     <p class="ansible-option-title"><strong>issuer</strong></p>
@@ -469,7 +489,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The issuer identifier for the issuer of the response. If not provided, no validation is performed.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/jwksUrl"></div>
     <p class="ansible-option-title"><strong>jwksUrl</strong></p>
@@ -482,7 +502,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>URL where identity provider keys in JWK format are stored. See JWK specification for more details.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/logoutUrl"></div>
     <p class="ansible-option-title"><strong>logoutUrl</strong></p>
@@ -495,7 +515,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>End session endpoint to use to logout user from external IDP.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/nameIDPolicyFormat"></div>
     <p class="ansible-option-title"><strong>nameIDPolicyFormat</strong></p>
@@ -508,7 +528,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Specifies the URI reference corresponding to a name identifier format.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/principalType"></div>
     <p class="ansible-option-title"><strong>principalType</strong></p>
@@ -521,7 +541,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Way to identify and track external users from the assertion.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/singleLogoutServiceUrl"></div>
     <p class="ansible-option-title"><strong>singleLogoutServiceUrl</strong></p>
@@ -534,7 +554,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The URL that must be used to send logout requests.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/singleSignOnServiceUrl"></div>
     <p class="ansible-option-title"><strong>singleSignOnServiceUrl</strong></p>
@@ -547,7 +567,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The URL that must be used to send authentication requests (SAML AuthnRequest).</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/sync_mode"></div>
     <div class="ansibleOptionAnchor" id="parameter-config/syncMode"></div>
@@ -562,7 +582,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Default sync mode for all mappers. The sync mode determines when user data is synced using the mappers.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/tokenUrl"></div>
     <p class="ansible-option-title"><strong>tokenUrl</strong></p>
@@ -575,7 +595,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The Token URL.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/useJwksUrl"></div>
     <p class="ansible-option-title"><strong>useJwksUrl</strong></p>
@@ -594,7 +614,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/userInfoUrl"></div>
     <p class="ansible-option-title"><strong>userInfoUrl</strong></p>
@@ -607,7 +627,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The User Info URL.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/validateSignature"></div>
     <p class="ansible-option-title"><strong>validateSignature</strong></p>
@@ -627,7 +647,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
   </div></td>
 </tr>
 
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-connection_timeout"></div>
     <p class="ansible-option-title"><strong>connection_timeout</strong></p>
@@ -641,7 +661,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">10</code></p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-display_name"></div>
     <div class="ansibleOptionAnchor" id="parameter-displayName"></div>
@@ -656,7 +676,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Friendly name for identity provider.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-enabled"></div>
     <p class="ansible-option-title"><strong>enabled</strong></p>
@@ -675,7 +695,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-first_broker_login_flow_alias"></div>
     <div class="ansibleOptionAnchor" id="parameter-firstBrokerLoginFlowAlias"></div>
@@ -690,7 +710,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Alias of authentication flow, which is triggered after first login with this identity provider.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-hide_on_login"></div>
     <div class="ansibleOptionAnchor" id="parameter-hideOnLogin"></div>
@@ -712,7 +732,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-http_agent"></div>
     <p class="ansible-option-title"><strong>http_agent</strong></p>
@@ -726,7 +746,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;Ansible&#34;</code></p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-link_only"></div>
     <div class="ansibleOptionAnchor" id="parameter-linkOnly"></div>
@@ -747,7 +767,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-mappers"></div>
     <p class="ansible-option-title"><strong>mappers</strong></p>
@@ -761,7 +781,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>A list of dicts defining mappers associated with this Identity Provider.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-mappers/config"></div>
     <p class="ansible-option-title"><strong>config</strong></p>
@@ -774,7 +794,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Dict specifying the configuration options for the mapper; the contents differ depending on the value of <code class="ansible-option literal notranslate"><strong><a class="reference internal" href="#parameter-mappers/identityProviderMapper"><span class="std std-ref"><span class="pre">mappers[].identityProviderMapper</span></span></a></strong></code>.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-mappers/id"></div>
     <p class="ansible-option-title"><strong>id</strong></p>
@@ -787,7 +807,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Unique ID of this mapper.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-mappers/identityProviderAlias"></div>
     <p class="ansible-option-title"><strong>identityProviderAlias</strong></p>
@@ -800,7 +820,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Alias of the identity provider for this mapper.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-mappers/identityProviderMapper"></div>
     <p class="ansible-option-title"><strong>identityProviderMapper</strong></p>
@@ -813,7 +833,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Type of mapper.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-mappers/name"></div>
     <p class="ansible-option-title"><strong>name</strong></p>
@@ -827,7 +847,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
   </div></td>
 </tr>
 
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-post_broker_login_flow_alias"></div>
     <div class="ansibleOptionAnchor" id="parameter-postBrokerLoginFlowAlias"></div>
@@ -842,7 +862,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Alias of authentication flow, which is triggered after each login with this identity provider.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-provider_id"></div>
     <div class="ansibleOptionAnchor" id="parameter-providerId"></div>
@@ -857,7 +877,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Protocol used by this provider (supported values are <code class="ansible-value literal notranslate">oidc</code> or <code class="ansible-value literal notranslate">saml</code>).</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-realm"></div>
     <p class="ansible-option-title"><strong>realm</strong></p>
@@ -871,7 +891,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;master&#34;</code></p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-refresh_token"></div>
     <p class="ansible-option-title"><strong>refresh_token</strong></p>
@@ -884,7 +904,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Authentication refresh token for Keycloak API.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-state"></div>
     <p class="ansible-option-title"><strong>state</strong></p>
@@ -905,7 +925,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-store_token"></div>
     <div class="ansibleOptionAnchor" id="parameter-storeToken"></div>
@@ -926,7 +946,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-token"></div>
     <p class="ansible-option-title"><strong>token</strong></p>
@@ -939,7 +959,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Authentication token for Keycloak API.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-trust_email"></div>
     <div class="ansibleOptionAnchor" id="parameter-trustEmail"></div>
@@ -960,7 +980,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-use_netrc"></div>
     <p class="ansible-option-title"><strong>use_netrc</strong></p>
@@ -980,7 +1000,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-validate_certs"></div>
     <p class="ansible-option-title"><strong>validate_certs</strong></p>
@@ -1119,6 +1139,25 @@ To check whether it is installed, run <code class="code docutils literal notrans
 <span class="w">          </span><span class="nt">attribute.friendly.name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">User Roles</span>
 <span class="w">          </span><span class="nt">attribute.name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">roles</span>
 <span class="w">          </span><span class="nt">syncMode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">INHERIT</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Create OIDC identity provider with transient users (do not store users in database)</span>
+<span class="w">  </span><span class="nt">middleware_automation.keycloak.keycloak_identity_provider</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
+<span class="w">    </span><span class="nt">auth_keycloak_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://auth.example.com</span>
+<span class="w">    </span><span class="nt">auth_realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class="w">    </span><span class="nt">auth_username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+<span class="w">    </span><span class="nt">auth_password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+<span class="w">    </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">myrealm</span>
+<span class="w">    </span><span class="nt">alias</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">oidc-idp</span>
+<span class="w">    </span><span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OpenID Connect IdP</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">provider_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">oidc</span>
+<span class="w">    </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">fromUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://the-idp.example.com/realms/idprealm/.well-known/openid-configuration</span>
+<span class="w">      </span><span class="nt">clientAuthMethod</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">client_secret_post</span>
+<span class="w">      </span><span class="nt">clientId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-client</span>
+<span class="w">      </span><span class="nt">clientSecret</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">secret</span>
+<span class="w">      </span><span class="nt">doNotStoreUsers</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Create OIDC identity provider, authentication with credentials and advanced claim to group</span>
 <span class="w">  </span><span class="nt">middleware_automation.keycloak.keycloak_identity_provider</span><span class="p">:</span>

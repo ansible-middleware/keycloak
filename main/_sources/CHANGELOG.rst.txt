@@ -9,6 +9,11 @@ This changelog describes changes after version 0.2.6.
 v3.1.2-devel
 ============
 
+Minor Changes
+-------------
+
+- AMW-642 keycloak_identity_provider: add support for Do not store users from transient-users feature `#430 <https://github.com/ansible-middleware/keycloak/pull/430>`_
+
 Bugfixes
 --------
 

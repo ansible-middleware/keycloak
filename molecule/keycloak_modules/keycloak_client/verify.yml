@@ -1,8 +1,154 @@
 ---
 # Ported from community.general tests/integration/targets/keycloak_client
-# Tests flow binding overrides, client_scopes_behavior, attribute updates,
-# and post-logout redirect URIs / backchannel logout URL.
-# NOTE: protocol_mapper modification tests skipped (require community.general.json_query).
+# Tests protocol_mapper CRUD, flow binding overrides, client_scopes_behavior,
+# attribute updates, and post-logout redirect URIs / backchannel logout URL.
+
+# --- Protocol mapper create, idempotency, and modification ---
+
+- name: Define protocol mappers for tests
+  ansible.builtin.set_fact:
+    molecule_cl_mappers:
+      - name: email
+        protocol: openid-connect
+        protocolMapper: oidc-usermodel-property-mapper
+        config:
+          claim.name: email
+          user.attribute: email
+          jsonType.label: String
+          id.token.claim: "true"
+          access.token.claim: "true"
+          userinfo.token.claim: "true"
+      - name: email_verified
+        protocol: openid-connect
+        protocolMapper: oidc-usermodel-property-mapper
+        config:
+          claim.name: email_verified
+          user.attribute: emailVerified
+          jsonType.label: boolean
+          id.token.claim: "true"
+          access.token.claim: "true"
+          userinfo.token.claim: "true"
+      - name: family_name
+        protocol: openid-connect
+        protocolMapper: oidc-usermodel-property-mapper
+        config:
+          claim.name: family_name
+          user.attribute: lastName
+          jsonType.label: String
+          id.token.claim: "true"
+          access.token.claim: "true"
+          userinfo.token.claim: "true"
+
+- name: Create client with protocol mappers
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-cl-mappers
+    state: present
+    redirect_uris:
+      - "http://example.com/"
+    protocol_mappers: "{{ molecule_cl_mappers }}"
+  register: desire_client_not_present
+
+- name: Create client again with same mappers (idempotency)
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-cl-mappers
+    state: present
+    redirect_uris:
+      - "http://example.com/"
+    protocol_mappers: "{{ molecule_cl_mappers }}"
+  register: desire_client_same
+
+- name: Check client with same mappers reordered (check_mode)
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-cl-mappers
+    state: present
+    redirect_uris:
+      - "http://example.com/"
+    protocol_mappers:
+      - "{{ molecule_cl_mappers[2] }}"
+      - "{{ molecule_cl_mappers[1] }}"
+      - "{{ molecule_cl_mappers[0] }}"
+    authorization_services_enabled: false
+  check_mode: true
+  register: check_client_same
+
+- name: Assert no changes detected for idempotency and reorder
+  ansible.builtin.assert:
+    that:
+      - desire_client_same is not changed
+      - check_client_same is not changed
+
+- name: Check client with changed props (check_mode)
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-cl-mappers
+    state: present
+    redirect_uris:
+      - "http://example.com/"
+    protocol_mappers: "{{ molecule_cl_mappers }}"
+    authorization_services_enabled: false
+    service_accounts_enabled: true
+  check_mode: true
+  register: check_client_changed
+
+- name: Assert changes detected for changed props
+  ansible.builtin.assert:
+    that:
+      - check_client_changed is changed
+
+- name: Modify protocol mappers (remove email_verified, add address, change email)
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: molecule-cl-mappers
+    state: present
+    redirect_uris:
+      - "http://example.com/"
+    protocol_mappers:
+      - "{{ molecule_cl_mappers[2] }}"
+      - name: address
+        protocol: openid-connect
+        protocolMapper: oidc-address-mapper
+        consentRequired: false
+        config:
+          user.attribute.formatted: formatted
+          user.attribute.country: country
+          introspection.token.claim: "true"
+          user.attribute.postal_code: postal_code
+          userinfo.token.claim: "true"
+          user.attribute.street: street
+          id.token.claim: "true"
+          user.attribute.region: region
+          access.token.claim: "true"
+          user.attribute.locality: locality
+      - name: email
+        protocol: openid-connect
+        protocolMapper: oidc-usermodel-property-mapper
+        config:
+          claim.name: email
+          user.attribute: email
+          jsonType.label: String
+          id.token.claim: "true"
+          access.token.claim: "false"
+          userinfo.token.claim: "true"
+    authorization_services_enabled: false
+    service_accounts_enabled: true
+  register: mapper_modify_result
+
+- name: Assert protocol mapper modifications applied
+  ansible.builtin.assert:
+    that:
+      - mapper_modify_result is changed
+      - mapper_modify_result.end_state.protocolMappers | length == 3
+      - mapper_modify_result.end_state.protocolMappers | selectattr('name', 'equalto', 'email_verified') | list | length == 0
+      - mapper_modify_result.end_state.protocolMappers | selectattr('name', 'equalto', 'address') | list | length == 1
+      - mapper_modify_result.end_state.protocolMappers | selectattr('name', 'equalto', 'email') | list | length == 1
+      - mapper_modify_result.end_state.protocolMappers | selectattr('name', 'equalto', 'family_name') | list | length == 1
+      - email_mapper.config is defined
+      - email_mapper.config['access.token.claim'] == "false"
+  vars:
+    email_mapper: "{{ mapper_modify_result.end_state.protocolMappers | selectattr('name', 'equalto', 'email') | first }}"
 
 # --- Flow binding overrides ---
 

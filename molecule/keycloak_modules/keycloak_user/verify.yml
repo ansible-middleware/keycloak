@@ -165,6 +165,20 @@
       - "'UPDATE_PASSWORD' in ra_set_result.end_state.requiredActions"
       - "'VERIFY_EMAIL' in ra_set_result.end_state.requiredActions"
 
+- name: Test required_actions unchanged when omitted
+  middleware_automation.keycloak.keycloak_user:
+    realm: "{{ ephemeral_realm }}"
+    username: molecule-usr-ev
+    state: present
+  register: ra_unchanged_result
+
+- name: Assert required_actions are still set when omitted
+  ansible.builtin.assert:
+    that:
+      - ra_unchanged_result is not changed
+      - "'UPDATE_PASSWORD' in ra_unchanged_result.end_state.requiredActions"
+      - "'VERIFY_EMAIL' in ra_unchanged_result.end_state.requiredActions"
+
 - name: Reset required_actions to empty list
   middleware_automation.keycloak.keycloak_user:
     realm: "{{ ephemeral_realm }}"

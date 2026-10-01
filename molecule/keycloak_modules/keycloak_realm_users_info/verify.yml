@@ -46,10 +46,15 @@
     realm: "{{ ephemeral_realm }}"
   register: user_infos
 
-- name: Assert realm users info returns both users
+- name: Extract user1 from info response
+  ansible.builtin.set_fact:
+    user1_info: "{{ user_infos.users | selectattr('username', 'equalto', 'molecule-rui-user1') | first }}"
+
+- name: Assert realm users info returns both users with correct data
   ansible.builtin.assert:
     that:
       - user_infos is not changed
       - user_infos.users | length >= 2
       - user_infos.users | selectattr('username', 'equalto', 'molecule-rui-user1') | list | length == 1
       - user_infos.users | selectattr('username', 'equalto', 'molecule-rui-user2') | list | length == 1
+      - user1_info.groups | length == 2

@@ -23,6 +23,7 @@
   ansible.builtin.assert:
     that:
       - fetch_by_client_id_result.clientsecret_info.type == "secret"
+      - fetch_by_client_id_result.clientsecret_info.value | length >= 32
 
 - name: Fetch client secret by internal id
   middleware_automation.keycloak.keycloak_clientsecret_info:
@@ -31,7 +32,7 @@
   no_log: true
   register: fetch_by_id_result
 
-- name: Assert both fetch methods return the same type
+- name: Assert both fetch methods return the same secret value
   ansible.builtin.assert:
     that:
-      - fetch_by_id_result.clientsecret_info.type == fetch_by_client_id_result.clientsecret_info.type
+      - fetch_by_id_result.clientsecret_info.value == fetch_by_client_id_result.clientsecret_info.value

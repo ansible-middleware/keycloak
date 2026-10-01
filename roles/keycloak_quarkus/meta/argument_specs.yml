@@ -115,13 +115,21 @@ argument_specs:
                 default: 8080
                 description: "HTTP port"
                 type: "int"
+            keycloak_quarkus_health_check_url_protocol:
+                default: "{{ 'http' if keycloak_quarkus_http_enabled else 'https' }}"
+                description: "Protocol for the health check URL"
+                type: "str"
+            keycloak_quarkus_health_check_url_port:
+                default: "{{ keycloak_quarkus_http_port if keycloak_quarkus_http_enabled else keycloak_quarkus_https_port }}"
+                description: "Port for the health check URL"
+                type: "str"
             keycloak_quarkus_health_check_url:
-                default: "{{ keycloak_quarkus_hostname.rstrip('/').removesuffix(keycloak_quarkus_http_relative_path.rstrip('/')) ~ keycloak_quarkus_http_relative_path.rstrip('/') ~ '/' ~ keycloak_quarkus_health_check_url_path }}"
-                description: "Full URL (including scheme, host, path, fragment etc.) used for health check endpoint; keycloak_quarkus_hostname will NOT be prepended; helpful when health checks should happen against http port, but keycloak_quarkus_hostname uses https scheme per default"
+                default: "{{ keycloak_quarkus_health_check_url_protocol }}://localhost:{{ keycloak_quarkus_health_check_url_port }}{{ keycloak_quarkus_http_relative_path.rstrip('/') }}/{{ keycloak_quarkus_health_check_url_path }}"
+                description: "Full URL for the health check endpoint"
                 type: "str"
             keycloak_quarkus_health_check_url_path:
                 default: "realms/{{ keycloak_quarkus_master_realm }}/.well-known/openid-configuration"
-                description: "Path to the health check endpoint; keycloak_quarkus_hostname will be prepended automatically; Note that keycloak_quarkus_health_check_url takes precedence over this property"
+                description: "Path appended to the health check URL"
                 type: "str"
             keycloak_quarkus_https_key_file_enabled:
                 default: false

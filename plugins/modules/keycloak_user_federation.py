@@ -989,7 +989,10 @@ def main():
                 else:
                     old_mapper = {}
             new_mapper = old_mapper.copy()
+            old_mapper_config = old_mapper.get("config", {})
             new_mapper.update(change)
+            if "config" in change and old_mapper_config:
+                new_mapper["config"] = {**old_mapper_config, **change["config"]}
             # changeset contains all desired mappers: those existing, to update or to create
             if changeset.get("mappers") is None:
                 changeset["mappers"] = list()
@@ -1008,6 +1011,12 @@ def main():
     # Prepare the desired values using the existing values (non-existence results in a dict that is save to use as a basis)
     desired_comp = before_comp.copy()
     desired_comp.update(changeset)
+
+    # Merge config: preserve KC-internal config keys not managed by this module
+    if "config" in changeset and "config" in before_comp:
+        merged_config = deepcopy(before_comp["config"])
+        merged_config.update(changeset["config"])
+        desired_comp["config"] = merged_config
 
     result["proposed"] = sanitize(changeset)
     result["existing"] = sanitize(before_comp)
@@ -1052,7 +1061,10 @@ def main():
                 old_mapper = {}
 
             new_mapper = old_mapper.copy()
+            old_default_config = old_mapper.get("config", {})
             new_mapper.update(desired_mapper)
+            if "config" in desired_mapper and old_default_config:
+                new_mapper["config"] = {**old_default_config, **desired_mapper["config"]}
 
             if new_mapper.get("id") is not None:
                 kc.update_component(new_mapper, realm)

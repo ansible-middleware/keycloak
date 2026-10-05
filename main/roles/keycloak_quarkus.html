@@ -279,11 +279,11 @@
 <td class="text-left"><p></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_health_check_url</span></code></p></td>
-<td class="text-left"><p>Full URL (including scheme, host, path, fragment etc.) used for health check endpoint; keycloak_quarkus_hostname will NOT be prepended; helpful when health checks should happen against http port, but keycloak_quarkus_hostname uses https scheme per default</p></td>
-<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">keycloak_quarkus_hostname</span> <span class="pre">~</span> <span class="pre">keycloak_quarkus_http_relative_path.rstrip('/')</span> <span class="pre">~</span> <span class="pre">'/'</span> <span class="pre">~</span> <span class="pre">keycloak_quarkus_health_check_url_path</span> <span class="pre">}}</span></code></p></td>
+<td class="text-left"><p>Full URL for the health check endpoint, targets localhost</p></td>
+<td class="text-left"><p>Composed from <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_http_enabled</span></code>, <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_http_port</span></code>/<code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_https_port</span></code>, and <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_http_relative_path</span></code></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_health_check_url_path</span></code></p></td>
-<td class="text-left"><p>Path to the health check endpoint; keycloak_quarkus_hostname will be prepended automatically; Note that keycloak_quarkus_health_check_url takes precedence over this property</p></td>
+<td class="text-left"><p>Path appended to the health check URL</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">realms/{{</span> <span class="pre">keycloak_quarkus_master_realm</span> <span class="pre">}}/.well-known/openid-configuration</span></code></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_proxy_headers</span></code></p></td>

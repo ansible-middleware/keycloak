@@ -18,6 +18,7 @@ Minor Changes
 Bugfixes
 --------
 
+- Fix health check URL to use localhost with protocol and port `#429 <https://github.com/ansible-middleware/keycloak/pull/429>`_
 - Issue#421 Remove default setting of JAVA_OPTS and restrict to JAVA_OPTS_KC_HEAP and JAVA_OPTS_APPEND `#425 <https://github.com/ansible-middleware/keycloak/pull/425>`_
 
 v3.1.1

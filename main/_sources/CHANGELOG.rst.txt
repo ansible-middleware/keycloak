@@ -13,6 +13,7 @@ Minor Changes
 -------------
 
 - AMW-642 keycloak_identity_provider: add support for Do not store users from transient-users feature `#430 <https://github.com/ansible-middleware/keycloak/pull/430>`_
+- AMW-644 keycloak_user_federation module always reports task as changed in check mode `#433 <https://github.com/ansible-middleware/keycloak/pull/433>`_
 
 Bugfixes
 --------

@@ -902,6 +902,127 @@
             - "'Connection refused' in (execute_actions_email_result.msg | default(''))"
             - "'Failed to send' in (execute_actions_email_result.msg | default(''))"
 
+        - name: keycloak_user_federation — create LDAP federation
+          middleware_automation.keycloak.keycloak_user_federation:
+            realm: "{{ target_realm }}"
+            name: "{{ federation }}"
+            state: present
+            provider_id: ldap
+            provider_type: org.keycloak.storage.UserStorageProvider
+            config:
+              enabled: true
+              priority: 0
+              editMode: READ_ONLY
+              syncRegistrations: false
+              vendor: other
+              usernameLDAPAttribute: uid
+              rdnLDAPAttribute: uid
+              uuidLDAPAttribute: entryUUID
+              userObjectClasses: inetOrgPerson, organizationalPerson
+              connectionUrl: ldap://ldap.example.com
+              usersDn: ou=users,dc=example,dc=com
+              authType: simple
+              bindDn: cn=admin,dc=example,dc=com
+              bindCredential: admin_password
+              searchScope: "1"
+              pagination: true
+              importEnabled: true
+              batchSizeForSync: 1000
+              fullSyncPeriod: -1
+              changedSyncPeriod: -1
+            bind_credential_update_mode: only_indirect
+          register: federation_create_result
+
+        - name: Assert federation was created
+          ansible.builtin.assert:
+            that:
+              - federation_create_result is changed
+
+        - name: keycloak_user_federation — create LDAP federation (idempotency)
+          middleware_automation.keycloak.keycloak_user_federation:
+            realm: "{{ target_realm }}"
+            name: "{{ federation }}"
+            state: present
+            provider_id: ldap
+            provider_type: org.keycloak.storage.UserStorageProvider
+            config:
+              enabled: true
+              priority: 0
+              editMode: READ_ONLY
+              syncRegistrations: false
+              vendor: other
+              usernameLDAPAttribute: uid
+              rdnLDAPAttribute: uid
+              uuidLDAPAttribute: entryUUID
+              userObjectClasses: inetOrgPerson, organizationalPerson
+              connectionUrl: ldap://ldap.example.com
+              usersDn: ou=users,dc=example,dc=com
+              authType: simple
+              bindDn: cn=admin,dc=example,dc=com
+              bindCredential: admin_password
+              searchScope: "1"
+              pagination: true
+              importEnabled: true
+              batchSizeForSync: 1000
+              fullSyncPeriod: -1
+              changedSyncPeriod: -1
+            bind_credential_update_mode: only_indirect
+          register: federation_idempotent_result
+
+        - name: Assert federation creation is idempotent
+          ansible.builtin.assert:
+            that:
+              - federation_idempotent_result is not changed
+
+        - name: keycloak_user_federation — check mode reports no change when config matches
+          middleware_automation.keycloak.keycloak_user_federation:
+            realm: "{{ target_realm }}"
+            name: "{{ federation }}"
+            state: present
+            provider_id: ldap
+            provider_type: org.keycloak.storage.UserStorageProvider
+            config:
+              enabled: true
+              priority: 0
+              editMode: READ_ONLY
+              syncRegistrations: false
+              vendor: other
+              usernameLDAPAttribute: uid
+              rdnLDAPAttribute: uid
+              uuidLDAPAttribute: entryUUID
+              userObjectClasses: inetOrgPerson, organizationalPerson
+              connectionUrl: ldap://ldap.example.com
+              usersDn: ou=users,dc=example,dc=com
+              authType: simple
+              bindDn: cn=admin,dc=example,dc=com
+              bindCredential: admin_password
+              searchScope: "1"
+              pagination: true
+              importEnabled: true
+              batchSizeForSync: 1000
+              fullSyncPeriod: -1
+              changedSyncPeriod: -1
+            bind_credential_update_mode: only_indirect
+          check_mode: true
+          register: federation_check_mode_result
+
+        - name: Assert check mode returns no change when config matches
+          ansible.builtin.assert:
+            that:
+              - federation_check_mode_result is not changed
+
+        - name: keycloak_user_federation — remove federation
+          middleware_automation.keycloak.keycloak_user_federation:
+            realm: "{{ target_realm }}"
+            name: "{{ federation }}"
+            state: absent
+          register: federation_remove_result
+
+        - name: Assert federation was removed
+          ansible.builtin.assert:
+            that:
+              - federation_remove_result is changed
+
         - name: keycloak_user_federation — remove non-existent federation (module API test)
           middleware_automation.keycloak.keycloak_user_federation:
             realm: "{{ target_realm }}"

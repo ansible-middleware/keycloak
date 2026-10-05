@@ -1,0 +1,22 @@
+---
+- name: Verify
+  hosts: all
+  tasks:
+    - name: Populate service facts
+      ansible.builtin.service_facts:
+
+    - name: Check if keycloak service started
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.services["keycloak.service"]["state"] == "running"
+          - ansible_facts.services["keycloak.service"]["status"] == "enabled"
+
+    - name: Verify health check endpoint is reachable on localhost
+      ansible.builtin.uri:
+        url: "http://localhost:8080/realms/master/.well-known/openid-configuration"
+        method: GET
+        validate_certs: false
+      register: keycloak_health_response
+      until: keycloak_health_response.status == 200
+      retries: 5
+      delay: 5

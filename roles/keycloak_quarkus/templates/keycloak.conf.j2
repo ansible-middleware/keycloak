@@ -50,8 +50,12 @@ https-trust-store-password={{ keycloak_quarkus_https_trust_store_password }}
 {% endif %}
 
 # Client URL configuration
+{% if keycloak_quarkus_hostname | length > 0 %}
 hostname={{ keycloak_quarkus_hostname }}
+{% endif %}
+{% if keycloak_quarkus_hostname_admin | length > 0 %}
 hostname-admin={{ keycloak_quarkus_hostname_admin }}
+{% endif %}
 hostname-strict={{ keycloak_quarkus_hostname_strict | lower }}
 hostname-backchannel-dynamic={{ keycloak_quarkus_hostname_backchannel_dynamic | lower }}
 

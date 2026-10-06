@@ -66,7 +66,7 @@ Role Defaults
 |`keycloak_quarkus_frontend_url`| Deprecated, use `keycloak_quarkus_hostname` instead. | |
 |`keycloak_quarkus_admin_url`| Deprecated, use `keycloak_quarkus_hostname_admin` instead. | |
 |`keycloak_quarkus_health_check_url`| Full URL for the health check endpoint, targets localhost | Composed from `keycloak_quarkus_http_enabled`, `keycloak_quarkus_http_port`/`keycloak_quarkus_https_port`, and `keycloak_quarkus_http_relative_path` |
-|`keycloak_quarkus_health_check_url_path`| Path appended to the health check URL | `realms/{{ keycloak_quarkus_master_realm }}/.well-known/openid-configuration` |
+|`keycloak_quarkus_health_check_url_path`| Path appended to the health check URL; ignored if keycloak_quarkus_health_check_url is set directly | `realms/{{ keycloak_quarkus_master_realm }}/.well-known/openid-configuration` |
 |`keycloak_quarkus_proxy_headers`| Parse reverse proxy headers (`forwarded` or `xforwarded`) | `""` |
 |`keycloak_quarkus_config_key_store_file`| Path to the configuration key store; only used if `keycloak_quarkus_config_key_store_password` is not empty  | `{{ keycloak.home }}/conf/conf_store.p12` if `keycloak_quarkus_config_key_store_password != ''`, else `''` |
 |`keycloak_quarkus_config_key_store_password`| Password of the configuration keystore; if non-empty, `keycloak_quarkus_db_pass` will be saved to the keystore at `keycloak_quarkus_config_key_store_file` instead of being written to the configuration file in clear text | `""` |

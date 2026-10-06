@@ -126,7 +126,7 @@ argument_specs:
                 type: "str"
             keycloak_quarkus_health_check_url_path:
                 default: "realms/{{ keycloak_quarkus_master_realm }}/.well-known/openid-configuration"
-                description: "Path appended to the health check URL"
+                description: "Path appended to the health check URL; ignored if keycloak_quarkus_health_check_url is set directly"
                 type: "str"
             keycloak_quarkus_https_key_file_enabled:
                 default: false

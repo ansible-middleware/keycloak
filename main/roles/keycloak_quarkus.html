@@ -283,7 +283,7 @@
 <td class="text-left"><p>Composed from <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_http_enabled</span></code>, <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_http_port</span></code>/<code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_https_port</span></code>, and <code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_http_relative_path</span></code></p></td>
 </tr>
 <tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_health_check_url_path</span></code></p></td>
-<td class="text-left"><p>Path appended to the health check URL</p></td>
+<td class="text-left"><p>Path appended to the health check URL; ignored if keycloak_quarkus_health_check_url is set directly</p></td>
 <td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">realms/{{</span> <span class="pre">keycloak_quarkus_master_realm</span> <span class="pre">}}/.well-known/openid-configuration</span></code></p></td>
 </tr>
 <tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">keycloak_quarkus_proxy_headers</span></code></p></td>

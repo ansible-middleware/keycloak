@@ -1,0 +1,4 @@
+---
+client_secret: myclientsecret
+auth_test_role: myrole
+keycloak_role_description: test

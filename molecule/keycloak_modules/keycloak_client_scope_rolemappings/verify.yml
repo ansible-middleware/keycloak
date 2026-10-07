@@ -1,0 +1,247 @@
+---
+# Ported from community.general tests/integration/targets/keycloak_client_scope_rolemappings
+# Tests multi-role mapping, error paths, check_mode, partial removal, and full-scope rejection.
+
+# --- Fixtures ---
+
+- name: Create client for scope rolemapping tests
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: backend-client
+    state: present
+    public_client: true
+    full_scope_allowed: false
+
+- name: Create full-scope client for rejection test
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: full-scope-client
+    state: present
+    public_client: true
+    full_scope_allowed: true
+
+- name: Create realm roles
+  middleware_automation.keycloak.keycloak_role:
+    realm: "{{ ephemeral_realm }}"
+    name: "{{ item }}"
+  loop:
+    - realm-role-admin
+    - realm-role-user
+
+- name: Create client roles
+  middleware_automation.keycloak.keycloak_role:
+    realm: "{{ ephemeral_realm }}"
+    client_id: backend-client
+    name: "{{ item }}"
+  loop:
+    - client-role-admin
+    - client-role-user
+
+- name: Create client roles in full-scope client
+  middleware_automation.keycloak.keycloak_role:
+    realm: "{{ ephemeral_realm }}"
+    client_id: full-scope-client
+    name: "{{ item }}"
+  loop:
+    - client-role-admin
+    - client-role-user
+
+- name: Create client scope
+  middleware_automation.keycloak.keycloak_client_scope:
+    realm: "{{ ephemeral_realm }}"
+    name: client-scope
+    description: ""
+    protocol: openid-connect
+    state: present
+
+# --- Client role mapping tests ---
+
+- name: Map two client roles to scope
+  middleware_automation.keycloak.keycloak_client_scope_rolemappings:
+    realm: "{{ ephemeral_realm }}"
+    client_id: backend-client
+    client_scope_id: client-scope
+    role_names:
+      - client-role-admin
+      - client-role-user
+  register: result
+
+- name: Assert both client roles mapped
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state | length == 2
+
+- name: Remap one existing client role (idempotency - additive)
+  middleware_automation.keycloak.keycloak_client_scope_rolemappings:
+    realm: "{{ ephemeral_realm }}"
+    client_id: backend-client
+    client_scope_id: client-scope
+    role_names:
+      - client-role-user
+  register: result
+
+- name: Assert no change and both still mapped
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.end_state | length == 2
+
+- name: Remove admin client role from scope
+  middleware_automation.keycloak.keycloak_client_scope_rolemappings:
+    realm: "{{ ephemeral_realm }}"
+    client_id: backend-client
+    client_scope_id: client-scope
+    role_names:
+      - client-role-admin
+    state: absent
+  register: result
+
+- name: Assert admin role removed and user role remains
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state | length == 1
+      - result.end_state[0].name == "client-role-user"
+
+- name: Map non-existent client role
+  middleware_automation.keycloak.keycloak_client_scope_rolemappings:
+    realm: "{{ ephemeral_realm }}"
+    client_id: backend-client
+    client_scope_id: client-scope
+    role_names:
+      - client-role-admin
+      - client-role-missing
+  ignore_errors: true
+  register: result
+
+- name: Assert failed for missing client role
+  ansible.builtin.assert:
+    that:
+      - result is failed
+      - "result.msg == \"Failed to retrieve role '\" ~ ephemeral_realm ~ \".backend-client.client-role-missing'\""
+
+- name: Map duplicate client roles
+  middleware_automation.keycloak.keycloak_client_scope_rolemappings:
+    realm: "{{ ephemeral_realm }}"
+    client_id: backend-client
+    client_scope_id: client-scope
+    role_names:
+      - client-role-admin
+      - client-role-admin
+  register: result
+
+- name: Assert duplicate handled and both roles present
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state | length == 2
+
+- name: Map role to full-scope client (should fail)
+  middleware_automation.keycloak.keycloak_client_scope_rolemappings:
+    realm: "{{ ephemeral_realm }}"
+    client_scope_id: client-scope
+    client_id: full-scope-client
+    role_names:
+      - client-role-admin
+  ignore_errors: true
+  register: result
+
+- name: Assert full-scope client rejected
+  ansible.builtin.assert:
+    that:
+      - result is failed
+      - "result.msg == \"FullScopeAllowed is active for Client '\" ~ ephemeral_realm ~ \".full-scope-client'\""
+
+# --- Realm role mapping tests ---
+
+- name: Map one realm role to scope
+  middleware_automation.keycloak.keycloak_client_scope_rolemappings:
+    realm: "{{ ephemeral_realm }}"
+    client_scope_id: client-scope
+    role_names:
+      - realm-role-admin
+  register: result
+
+- name: Assert realm role mapped
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state | length == 1
+
+- name: Map two realm roles
+  middleware_automation.keycloak.keycloak_client_scope_rolemappings:
+    realm: "{{ ephemeral_realm }}"
+    client_scope_id: client-scope
+    role_names:
+      - realm-role-admin
+      - realm-role-user
+  register: result
+
+- name: Assert both realm roles mapped
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state | length == 2
+
+- name: Unmap all realm roles
+  middleware_automation.keycloak.keycloak_client_scope_rolemappings:
+    realm: "{{ ephemeral_realm }}"
+    client_scope_id: client-scope
+    role_names:
+      - realm-role-admin
+      - realm-role-user
+    state: absent
+  register: result
+
+- name: Assert all realm roles unmapped
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state | length == 0
+
+- name: Map non-existent realm role
+  middleware_automation.keycloak.keycloak_client_scope_rolemappings:
+    realm: "{{ ephemeral_realm }}"
+    client_scope_id: client-scope
+    role_names:
+      - client-role-missing
+  ignore_errors: true
+  register: result
+
+- name: Assert failed for missing realm role
+  ansible.builtin.assert:
+    that:
+      - result is failed
+      - "result.msg == \"Failed to retrieve role '\" ~ ephemeral_realm ~ \".client-role-missing'\""
+
+# --- Check-mode test ---
+
+- name: Map realm roles in check mode
+  middleware_automation.keycloak.keycloak_client_scope_rolemappings:
+    realm: "{{ ephemeral_realm }}"
+    client_scope_id: client-scope
+    role_names:
+      - realm-role-admin
+      - realm-role-user
+  check_mode: true
+  register: result
+
+- name: Assert check mode reports change
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state | length == 2
+
+- name: Verify check mode did not persist changes
+  middleware_automation.keycloak.keycloak_client_scope_rolemappings:
+    realm: "{{ ephemeral_realm }}"
+    client_scope_id: client-scope
+    role_names: []
+  register: result
+
+- name: Assert no roles actually mapped after check mode
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.end_state | length == 0

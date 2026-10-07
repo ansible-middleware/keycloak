@@ -1,0 +1,141 @@
+---
+# Ported from community.general tests/integration/targets/keycloak_user_rolemapping
+# Tests service account role mapping (realm and client roles) and cross-client mapping.
+
+- name: Load user rolemapping test variables
+  ansible.builtin.include_vars:
+    file: vars.yml
+
+- name: Create client with service account for rolemapping test
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: "{{ client_id }}"
+    service_accounts_enabled: true
+    state: present
+  register: rolemapping_client
+
+- name: Create realm role for service account mapping
+  middleware_automation.keycloak.keycloak_role:
+    realm: "{{ ephemeral_realm }}"
+    name: "{{ test_role }}"
+    description: "{{ description_1 }}"
+    state: present
+
+- name: Map realm role to client service account
+  middleware_automation.keycloak.keycloak_user_rolemapping:
+    realm: "{{ ephemeral_realm }}"
+    service_account_user_client_id: "{{ client_id }}"
+    roles:
+      - name: "{{ test_role }}"
+    state: present
+  register: result
+
+- name: Assert realm role is assigned to service account
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state | selectattr("clientRole", "eq", false) | selectattr("name", "eq", test_role) | list | count > 0
+
+- name: Unmap realm role from client service account
+  middleware_automation.keycloak.keycloak_user_rolemapping:
+    realm: "{{ ephemeral_realm }}"
+    service_account_user_client_id: "{{ client_id }}"
+    roles:
+      - name: "{{ test_role }}"
+    state: absent
+  register: result
+
+- name: Assert realm role is unassigned from service account
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - (result.end_state | length) == (result.existing | length) - 1
+      - result.existing | selectattr("clientRole", "eq", false) | selectattr("name", "eq", test_role) | list | count > 0
+      - result.end_state | selectattr("clientRole", "eq", false) | selectattr("name", "eq", test_role) | list | count == 0
+
+- name: Delete existing realm role
+  middleware_automation.keycloak.keycloak_role:
+    realm: "{{ ephemeral_realm }}"
+    name: "{{ test_role }}"
+    state: absent
+
+- name: Create second client for cross-client role mapping test
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ ephemeral_realm }}"
+    client_id: "{{ client_id_2 }}"
+    service_accounts_enabled: true
+    state: present
+  register: client_2
+
+- name: Create new client role
+  middleware_automation.keycloak.keycloak_role:
+    realm: "{{ ephemeral_realm }}"
+    client_id: "{{ client_id }}"
+    name: "{{ test_role }}"
+    description: "{{ description_1 }}"
+    state: present
+
+- name: Map client role to user with no existing roles for that client
+  middleware_automation.keycloak.keycloak_user_rolemapping:
+    realm: "{{ ephemeral_realm }}"
+    client_id: "{{ client_id }}"
+    service_account_user_client_id: "{{ client_id_2 }}"
+    roles:
+      - name: "{{ test_role }}"
+    state: present
+  register: result
+
+- name: Assert client role is assigned to user with no prior roles
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state | selectattr("clientRole", "eq", true) | selectattr("name", "eq", test_role) | list | count > 0
+
+- name: Unmap the cross-client role mapping
+  middleware_automation.keycloak.keycloak_user_rolemapping:
+    realm: "{{ ephemeral_realm }}"
+    client_id: "{{ client_id }}"
+    service_account_user_client_id: "{{ client_id_2 }}"
+    roles:
+      - name: "{{ test_role }}"
+    state: absent
+  register: result
+
+- name: Assert cross-client role mapping is removed
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state == []
+
+- name: Map client role to client service account
+  middleware_automation.keycloak.keycloak_user_rolemapping:
+    realm: "{{ ephemeral_realm }}"
+    client_id: "{{ client_id }}"
+    service_account_user_client_id: "{{ client_id }}"
+    roles:
+      - name: "{{ test_role }}"
+    state: present
+  register: result
+
+- name: Assert client role is assigned
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state | selectattr("clientRole", "eq", true) | selectattr("name", "eq", test_role) | list | count > 0
+
+- name: Unmap client role from client service account
+  middleware_automation.keycloak.keycloak_user_rolemapping:
+    realm: "{{ ephemeral_realm }}"
+    client_id: "{{ client_id }}"
+    service_account_user_client_id: "{{ client_id }}"
+    roles:
+      - name: "{{ test_role }}"
+    state: absent
+  register: result
+
+- name: Assert client role is unassigned
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state == []
+      - result.existing | selectattr("clientRole", "eq", true) | selectattr("name", "eq", test_role) | list | count > 0

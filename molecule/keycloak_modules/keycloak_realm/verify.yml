@@ -1,0 +1,56 @@
+---
+# Ported from community.general tests/integration/targets/keycloak_realm
+# Tests session timeout and OAuth2 device settings on keycloak_realm module.
+
+- name: Modify realm
+  middleware_automation.keycloak.keycloak_realm:
+    id: "{{ ephemeral_realm }}"
+    realm: "{{ ephemeral_realm }}"
+    client_session_idle_timeout: 240
+    client_session_max_lifespan: 21600
+    client_offline_session_idle_timeout: 100
+    client_offline_session_max_lifespan: 200
+    oauth2_device_code_lifespan: 700
+    oauth2_device_polling_interval: 800
+    state: present
+  register: result
+
+- name: Assert result
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state.clientSessionIdleTimeout == 240
+      - result.end_state.clientSessionMaxLifespan == 21600
+      - result.end_state.clientOfflineSessionIdleTimeout == 100
+      - result.end_state.clientOfflineSessionMaxLifespan == 200
+      - result.end_state.oauth2DeviceCodeLifespan == 700
+      - result.end_state.oauth2DevicePollingInterval == 800
+
+- name: Delete realm
+  middleware_automation.keycloak.keycloak_realm:
+    realm: "{{ ephemeral_realm }}"
+    state: absent
+
+- name: create realm
+  middleware_automation.keycloak.keycloak_realm:
+    id: "{{ ephemeral_realm }}"
+    realm: "{{ ephemeral_realm }}"
+    client_session_idle_timeout: 240
+    client_session_max_lifespan: 21600
+    client_offline_session_idle_timeout: 100
+    client_offline_session_max_lifespan: 200
+    oauth2_device_code_lifespan: 700
+    oauth2_device_polling_interval: 800
+    state: present
+  register: result
+
+- name: Assert result
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state.clientSessionIdleTimeout == 240
+      - result.end_state.clientSessionMaxLifespan == 21600
+      - result.end_state.clientOfflineSessionIdleTimeout == 100
+      - result.end_state.clientOfflineSessionMaxLifespan == 200
+      - result.end_state.oauth2DeviceCodeLifespan == 700
+      - result.end_state.oauth2DevicePollingInterval == 800

@@ -1,0 +1,57 @@
+---
+# Ported from community.general tests/integration/targets/keycloak_realm_users_info
+# Tests multi-user listing and group membership in realm users info response.
+
+- name: Load realm users info test variables
+  ansible.builtin.include_vars:
+    file: vars.yml
+
+- name: Create new groups
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    name: "{{ item.name }}"
+    state: present
+  loop: "{{ keycloak_user_groups }}"
+
+- name: Create user
+  middleware_automation.keycloak.keycloak_user:
+    username: "{{ keycloak_username }}"
+    realm: "{{ ephemeral_realm }}"
+    first_name: Ceciestes
+    last_name: Untestes
+    email: ceciestuntestes@test.com
+    groups: "{{ keycloak_user_groups }}"
+    state: present
+  register: create_result
+
+- name: Assert user is created
+  ansible.builtin.assert:
+    that:
+      - create_result.changed
+      - create_result.end_state.username == 'test'
+      - create_result.end_state.groups | length == 2
+
+- name: Create another user
+  middleware_automation.keycloak.keycloak_user:
+    username: "testuser2"
+    realm: "{{ ephemeral_realm }}"
+    first_name: Ceciestes2
+    last_name: Untestes2
+    email: ceciestuntestes2@test.com
+    state: present
+  register: create_result2
+
+- name: Get user info
+  middleware_automation.keycloak.keycloak_realm_users_info:
+    realm: "{{ ephemeral_realm }}"
+  register: user_infos
+
+- name: Add missing group info for comparison
+  ansible.builtin.set_fact:
+    user_info_with_groups: "{{ [user_infos.users[0] | combine({'groups': ['test', 'test2']}), user_infos.users[1] | combine({'groups': []}) ] }}"
+
+- name: Assert user info is returned correctly
+  ansible.builtin.assert:
+    that:
+      - not user_infos.changed
+      - "user_info_with_groups == [create_result.end_state, create_result2.end_state]"

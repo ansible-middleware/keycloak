@@ -6,24 +6,29 @@ middleware\_automation.keycloak Release Notes
 
 This changelog describes changes after version 0.2.6.
 
-v3.1.2-devel
-============
+v3.1.2
+======
 
 Major Changes
 -------------
 
+- Port integration tests from community.general `#409 <https://github.com/ansible-middleware/keycloak/pull/409>`_
 - Port integration tests from community.general `#409 <https://github.com/ansible-middleware/keycloak/pull/409>`_
 
 Minor Changes
 -------------
 
 - AMW-642 keycloak_identity_provider: add support for Do not store users from transient-users feature `#430 <https://github.com/ansible-middleware/keycloak/pull/430>`_
+- AMW-642 keycloak_identity_provider: add support for Do not store users from transient-users feature `#430 <https://github.com/ansible-middleware/keycloak/pull/430>`_
+- AMW-644 keycloak_user_federation module always reports task as changed in check mode `#433 <https://github.com/ansible-middleware/keycloak/pull/433>`_
 - AMW-644 keycloak_user_federation module always reports task as changed in check mode `#433 <https://github.com/ansible-middleware/keycloak/pull/433>`_
 
 Bugfixes
 --------
 
 - Fix health check URL to use localhost with protocol and port `#429 <https://github.com/ansible-middleware/keycloak/pull/429>`_
+- Fix health check URL to use localhost with protocol and port `#429 <https://github.com/ansible-middleware/keycloak/pull/429>`_
+- Issue#421 Remove default setting of JAVA_OPTS and restrict to JAVA_OPTS_KC_HEAP and JAVA_OPTS_APPEND `#425 <https://github.com/ansible-middleware/keycloak/pull/425>`_
 - Issue#421 Remove default setting of JAVA_OPTS and restrict to JAVA_OPTS_KC_HEAP and JAVA_OPTS_APPEND `#425 <https://github.com/ansible-middleware/keycloak/pull/425>`_
 
 v3.1.1

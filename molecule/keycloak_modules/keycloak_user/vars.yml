@@ -1,0 +1,19 @@
+---
+keycloak_username: test
+keycloak_user_attributes:
+  - name: attr1
+    values:
+      - value1s
+    state: present
+  - name: attr2
+    values:
+      - value2s
+    state: present
+  - name: attr3
+    values:
+      - value3s
+    state: present
+keycloak_user_groups:
+  - name: test
+    state: present
+  - name: test2

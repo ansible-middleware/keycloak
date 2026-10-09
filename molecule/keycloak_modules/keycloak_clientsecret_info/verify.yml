@@ -1,0 +1,33 @@
+---
+# Ported from community.general tests/integration/targets/keycloak_clientsecret_info
+# Tests fetch-by-client_id vs fetch-by-id and value assertions.
+
+- name: Look up test client to get internal id
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ target_realm }}"
+    client_id: "{{ client }}"
+    state: present
+  register: client_lookup
+
+- name: Fetch client secret by client_id
+  middleware_automation.keycloak.keycloak_clientsecret_info:
+    realm: "{{ target_realm }}"
+    client_id: "{{ client }}"
+  register: fetch_by_client_id_result
+
+- name: Assert client secret retrieved by client_id
+  ansible.builtin.assert:
+    that:
+      - fetch_by_client_id_result.clientsecret_info.type == "secret"
+      - fetch_by_client_id_result.clientsecret_info.value | length >= 32
+
+- name: Fetch client secret by internal id
+  middleware_automation.keycloak.keycloak_clientsecret_info:
+    realm: "{{ target_realm }}"
+    id: "{{ client_lookup.end_state.id }}"
+  register: fetch_by_id_result
+
+- name: Assert both fetch methods return the same secret value
+  ansible.builtin.assert:
+    that:
+      - fetch_by_id_result.clientsecret_info.value == fetch_by_client_id_result.clientsecret_info.value

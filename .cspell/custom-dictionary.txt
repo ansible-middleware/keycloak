@@ -65,7 +65,11 @@ PYTHONHTTPSVERIFY
 # Keycloak-specific
 ciba
 clusterless
+eddsa
+multivalued
 remembertochangeme
+subcomponent
+subcomponents
 
 # Molecule / Testing
 hspaans
@@ -83,6 +87,18 @@ decomment
 
 # British spellings (from upstream Keycloak docs)
 recognises
+
+# Integration test container/variable names
+Ceciestes
+myidpfromurl
+myidprealm
+myfed
+myldap
+rootgrp
+subgrp
+subsubgrp
+subsubsubgrp
+Untestes
 
 # Other
 rmaster

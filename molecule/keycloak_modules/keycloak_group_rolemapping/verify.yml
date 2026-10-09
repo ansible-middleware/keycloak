@@ -1,0 +1,113 @@
+---
+# Ported from community.general tests/integration/targets/keycloak_group_rolemapping
+# Tests full map/unmap lifecycle with idempotency for realm role mappings on groups.
+
+- name: Load group rolemapping test variables
+  ansible.builtin.include_vars:
+    file: vars.yml
+
+- name: Create realm roles
+  middleware_automation.keycloak.keycloak_role:
+    realm: "{{ ephemeral_realm }}"
+    name: "{{ item }}"
+    state: present
+  loop:
+    - "{{ role_1 }}"
+    - "{{ role_2 }}"
+
+- name: Create group
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    name: "{{ test_group }}"
+    state: present
+
+- name: Map realm roles to group
+  middleware_automation.keycloak.keycloak_realm_rolemapping:
+    realm: "{{ ephemeral_realm }}"
+    group_name: "{{ test_group }}"
+    roles:
+      - name: "{{ role_1 }}"
+      - name: "{{ role_2 }}"
+    state: present
+  register: result
+
+- name: Assert realm roles are assigned to group
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state | count == 2
+
+- name: Map realm roles to group again (idempotency)
+  middleware_automation.keycloak.keycloak_realm_rolemapping:
+    realm: "{{ ephemeral_realm }}"
+    group_name: "{{ test_group }}"
+    roles:
+      - name: "{{ role_1 }}"
+      - name: "{{ role_2 }}"
+    state: present
+  register: result
+
+- name: Assert realm roles stay assigned to group
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+
+- name: Unmap realm role 1 from group
+  middleware_automation.keycloak.keycloak_realm_rolemapping:
+    realm: "{{ ephemeral_realm }}"
+    group_name: "{{ test_group }}"
+    roles:
+      - name: "{{ role_1 }}"
+    state: absent
+  register: result
+
+- name: Assert realm role 1 is unassigned from group
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state | count == 1
+      - result.end_state[0] == role_2
+
+- name: Unmap realm role 1 from group again (idempotency)
+  middleware_automation.keycloak.keycloak_realm_rolemapping:
+    realm: "{{ ephemeral_realm }}"
+    group_name: "{{ test_group }}"
+    roles:
+      - name: "{{ role_1 }}"
+    state: absent
+  register: result
+
+- name: Assert realm role 1 stays unassigned from group
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+
+- name: Unmap realm role 2 from group
+  middleware_automation.keycloak.keycloak_realm_rolemapping:
+    realm: "{{ ephemeral_realm }}"
+    group_name: "{{ test_group }}"
+    roles:
+      - name: "{{ role_2 }}"
+    state: absent
+  register: result
+
+- name: Assert no realm roles are assigned to group
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state | count == 0
+
+- name: Unmap realm role 2 from group again (idempotency)
+  middleware_automation.keycloak.keycloak_realm_rolemapping:
+    realm: "{{ ephemeral_realm }}"
+    group_name: "{{ test_group }}"
+    roles:
+      - name: "{{ role_2 }}"
+    state: absent
+  register: result
+
+- name: Assert no realm roles are assigned to group
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.end_state | count == 0

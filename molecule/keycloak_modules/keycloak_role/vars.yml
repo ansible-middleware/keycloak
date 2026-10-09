@@ -1,0 +1,32 @@
+---
+description_1: role test desc 1
+description_2: role test desc 2
+keycloak_role_description: composite role test
+
+keycloak_role_composites:
+  - name: view-clients
+    client_id: "realm-management"
+    state: present
+  - name: query-clients
+    client_id: "realm-management"
+    state: present
+  - name: offline_access
+    state: present
+keycloak_role_composites_with_aliases:
+  - name: view-clients
+    clientId: "realm-management"
+    state: present
+  - name: query-clients
+    clientId: "realm-management"
+    state: present
+  - name: offline_access
+    state: present
+keycloak_role_composites_with_absent:
+  - name: view-clients
+    client_id: "realm-management"
+    state: present
+  - name: query-clients
+    client_id: "realm-management"
+    state: present
+  - name: offline_access
+    state: absent

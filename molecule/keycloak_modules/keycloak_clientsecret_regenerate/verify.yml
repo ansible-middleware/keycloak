@@ -1,0 +1,34 @@
+---
+# Ported from community.general tests/integration/targets/keycloak_clientsecret_regenerate
+# Tests regenerate-by-client_id vs regenerate-by-id and rotation contract.
+
+- name: Look up test client to get internal id
+  middleware_automation.keycloak.keycloak_client:
+    realm: "{{ target_realm }}"
+    client_id: "{{ client }}"
+    state: present
+  register: client_lookup
+
+- name: Regenerate client secret by client_id
+  middleware_automation.keycloak.keycloak_clientsecret_regenerate:
+    realm: "{{ target_realm }}"
+    client_id: "{{ client }}"
+  register: regenerate_by_client_id
+
+- name: Assert regenerated secret is valid
+  ansible.builtin.assert:
+    that:
+      - regenerate_by_client_id.end_state.type == "secret"
+      - regenerate_by_client_id.end_state.value | length >= 32
+
+- name: Regenerate client secret by internal id
+  middleware_automation.keycloak.keycloak_clientsecret_regenerate:
+    realm: "{{ target_realm }}"
+    id: "{{ client_lookup.end_state.id }}"
+  register: regenerate_by_id
+
+- name: Assert secret value changed after second regeneration
+  ansible.builtin.assert:
+    that:
+      - regenerate_by_id.end_state.value | length >= 32
+      - regenerate_by_id.end_state.value != regenerate_by_client_id.end_state.value

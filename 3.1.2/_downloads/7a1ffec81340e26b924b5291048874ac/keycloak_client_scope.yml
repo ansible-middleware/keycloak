@@ -1,0 +1,48 @@
+---
+- name: Playbook for Keycloak Client Scope Configuration
+  hosts: all
+  vars:
+    keycloak_admin_user: admin
+    keycloak_admin_password: "remembertochangeme"
+    keycloak_url: "http://localhost:8080"
+    keycloak_realm: TestRealm
+  tasks:
+    - name: Create client scope with protocol mappers
+      middleware_automation.keycloak.keycloak_client_scope:
+        auth_keycloak_url: "{{ keycloak_url }}"
+        auth_realm: master
+        auth_username: "{{ keycloak_admin_user }}"
+        auth_password: "{{ keycloak_admin_password }}"
+        realm: "{{ keycloak_realm }}"
+        name: TestClientScope
+        description: "Client scope created via Ansible"
+        protocol: openid-connect
+        protocol_mappers:
+          - name: email
+            protocolMapper: oidc-usermodel-attribute-mapper
+            config:
+              user.attribute: email
+              claim.name: email
+              jsonType.label: String
+              id.token.claim: "true"
+              access.token.claim: "true"
+              userinfo.token.claim: "true"
+          - name: firstName
+            protocolMapper: oidc-usermodel-attribute-mapper
+            config:
+              user.attribute: firstName
+              claim.name: given_name
+              jsonType.label: String
+              id.token.claim: "true"
+              access.token.claim: "true"
+              userinfo.token.claim: "true"
+          - name: username
+            protocolMapper: oidc-usermodel-attribute-mapper
+            config:
+              user.attribute: username
+              claim.name: preferred_username
+              jsonType.label: String
+              id.token.claim: "true"
+              access.token.claim: "true"
+              userinfo.token.claim: "true"
+        state: present

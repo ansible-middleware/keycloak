@@ -255,8 +255,10 @@ Parameters
   <tr class="row-even">
     <td><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-protocol_mappers"></div>
+      <div class="ansibleOptionAnchor" id="parameter-protocolMappers"></div>
       <p class="ansible-option-title"><strong>protocol_mappers</strong></p>
       <a class="ansibleOptionLink" href="#parameter-protocol_mappers" title="Permalink to this option"></a>
+      <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: protocolMappers</span></p>
       <p class="ansible-option-type-line">
         <span class="ansible-option-type">list</span>
         / <span class="ansible-option-elements">elements=dictionary</span>
@@ -271,6 +273,7 @@ Parameters
   <tr class="row-odd">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-protocol_mappers/config"></div>
+      <div class="ansibleOptionAnchor" id="parameter-protocolMappers/config"></div>
       <p class="ansible-option-title"><strong>config</strong></p>
       <a class="ansibleOptionLink" href="#parameter-protocol_mappers/config" title="Permalink to this option"></a>
       <p class="ansible-option-type-line">
@@ -285,6 +288,7 @@ Parameters
   <tr class="row-even">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-protocol_mappers/name"></div>
+      <div class="ansibleOptionAnchor" id="parameter-protocolMappers/name"></div>
       <p class="ansible-option-title"><strong>name</strong></p>
       <a class="ansibleOptionLink" href="#parameter-protocol_mappers/name" title="Permalink to this option"></a>
       <p class="ansible-option-type-line">
@@ -299,6 +303,7 @@ Parameters
   <tr class="row-odd">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-protocol_mappers/protocol"></div>
+      <div class="ansibleOptionAnchor" id="parameter-protocolMappers/protocol"></div>
       <p class="ansible-option-title"><strong>protocol</strong></p>
       <a class="ansibleOptionLink" href="#parameter-protocol_mappers/protocol" title="Permalink to this option"></a>
       <p class="ansible-option-type-line">
@@ -313,7 +318,9 @@ Parameters
   <tr class="row-even">
     <td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
       <div class="ansibleOptionAnchor" id="parameter-protocol_mappers/protocolMapper"></div>
+      <div class="ansibleOptionAnchor" id="parameter-protocolMappers/protocolMapper"></div>
       <div class="ansibleOptionAnchor" id="parameter-protocol_mappers/protocol_mapper_type"></div>
+      <div class="ansibleOptionAnchor" id="parameter-protocolMappers/protocol_mapper_type"></div>
       <p class="ansible-option-title"><strong>protocolMapper</strong></p>
       <a class="ansibleOptionLink" href="#parameter-protocol_mappers/protocolMapper" title="Permalink to this option"></a>
       <p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: protocol_mapper_type</span></p>

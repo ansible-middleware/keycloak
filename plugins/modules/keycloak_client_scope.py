@@ -83,6 +83,8 @@ options:
         description:
             - A list of protocol mappers to associate with the client scope.
             - Each mapper is a dict with the keys C(name), C(protocol), C(protocolMapper), and C(config).
+        aliases:
+            - protocolMappers
         default: []
         suboptions:
             name:
@@ -204,7 +206,7 @@ def main():
         realm=dict(type='str', default='master'),
         protocol=dict(type='str', default='openid-connect', choices=['openid-connect', 'saml']),
         attributes=dict(type='dict'),
-        protocol_mappers=dict(type='list', default=[], options=mapper_spec, elements='dict'),
+        protocol_mappers=dict(type='list', default=[], options=mapper_spec, elements='dict', aliases=['protocolMappers']),
     )
 
     argument_spec.update(meta_args)

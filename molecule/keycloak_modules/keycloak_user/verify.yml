@@ -219,3 +219,129 @@
     that:
       - create_result.changed
       - create_result.end_state.requiredActions == []
+
+- name: Create user for check mode tests
+  middleware_automation.keycloak.keycloak_user:
+    username: check-mode-user
+    realm: "{{ ephemeral_realm }}"
+    state: present
+
+- name: Re-run with identical input in check mode
+  middleware_automation.keycloak.keycloak_user:
+    username: check-mode-user
+    realm: "{{ ephemeral_realm }}"
+    state: present
+  check_mode: true
+  register: check_mode_result
+
+- name: Assert check mode reports no change for identical input
+  ansible.builtin.assert:
+    that:
+      - check_mode_result is not changed
+
+- name: Add the user to a group
+  middleware_automation.keycloak.keycloak_user:
+    username: check-mode-user
+    realm: "{{ ephemeral_realm }}"
+    groups:
+      - name: test
+    state: present
+
+- name: Re-run with identical groups in check mode
+  middleware_automation.keycloak.keycloak_user:
+    username: check-mode-user
+    realm: "{{ ephemeral_realm }}"
+    groups:
+      - name: test
+    state: present
+  check_mode: true
+  register: check_mode_result
+
+- name: Assert check mode reports no change for identical groups
+  ansible.builtin.assert:
+    that:
+      - check_mode_result is not changed
+
+- name: Join a second group in check mode
+  middleware_automation.keycloak.keycloak_user:
+    username: check-mode-user
+    realm: "{{ ephemeral_realm }}"
+    groups:
+      - name: test
+      - name: test2
+    state: present
+  check_mode: true
+  register: check_mode_result
+
+- name: Assert check mode reports joining a group as a change
+  ansible.builtin.assert:
+    that:
+      - check_mode_result is changed
+
+- name: Create a parent group and a subgroup for check mode tests
+  middleware_automation.keycloak.keycloak_group:
+    realm: "{{ ephemeral_realm }}"
+    name: "{{ item.name }}"
+    parents: "{{ item.parents | default(omit) }}"
+    state: present
+  loop:
+    - name: check-mode-parent
+    - name: check-mode-child
+      parents:
+        - name: check-mode-parent
+
+- name: Add the user to the subgroup by path
+  middleware_automation.keycloak.keycloak_user:
+    username: check-mode-user
+    realm: "{{ ephemeral_realm }}"
+    groups:
+      - name: test
+      - name: /check-mode-parent/check-mode-child
+    state: present
+
+- name: Re-run with identical groups given by path in check mode
+  middleware_automation.keycloak.keycloak_user:
+    username: check-mode-user
+    realm: "{{ ephemeral_realm }}"
+    groups:
+      - name: test
+      - name: /check-mode-parent/check-mode-child
+    state: present
+  check_mode: true
+  register: check_mode_result
+
+- name: Assert check mode reports no change for identical groups given by path
+  ansible.builtin.assert:
+    that:
+      - check_mode_result is not changed
+      - check_mode_result.end_state.groups | sort == ['check-mode-child', 'test']
+
+- name: Leave the subgroup by path in check mode
+  middleware_automation.keycloak.keycloak_user:
+    username: check-mode-user
+    realm: "{{ ephemeral_realm }}"
+    groups:
+      - name: test
+      - name: /check-mode-parent/check-mode-child
+        state: absent
+    state: present
+  check_mode: true
+  register: check_mode_result
+
+- name: Assert check mode reports leaving a group given by path as a change
+  ansible.builtin.assert:
+    that:
+      - check_mode_result is changed
+      - check_mode_result.end_state.groups == ['test']
+
+- name: Delete user for check mode tests
+  middleware_automation.keycloak.keycloak_user:
+    username: check-mode-user
+    realm: "{{ ephemeral_realm }}"
+    state: absent
+  register: check_mode_delete_result
+
+- name: Assert user for check mode tests is deleted
+  ansible.builtin.assert:
+    that:
+      - check_mode_delete_result.changed

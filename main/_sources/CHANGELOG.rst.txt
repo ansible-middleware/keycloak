@@ -9,6 +9,11 @@ This changelog describes changes after version 0.2.6.
 v3.1.3-devel
 ============
 
+Minor Changes
+-------------
+
+- AMW-654 keycloak_realms doesn't update default or optional default client scopes `#439 <https://github.com/ansible-middleware/keycloak/pull/439>`_
+
 v3.1.2
 ======
 

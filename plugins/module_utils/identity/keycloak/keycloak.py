@@ -3153,19 +3153,9 @@ class KeycloakAPI:
                 return False
 
             user_groups = self.get_user_group_details(user_id=userrep["id"], realm=realm)
-            user_group_names = [user_group["name"] for user_group in user_groups if "name" in user_group]
-            user_group_paths = [user_group["path"] for user_group in user_groups if "path" in user_group]
-
-            groups_to_add = [
-                group_to_add
-                for group_to_add in groups_to_add
-                if group_to_add not in user_group_names and group_to_add not in user_group_paths
-            ]
-            groups_to_remove = [
-                group_to_remove
-                for group_to_remove in groups_to_remove
-                if group_to_remove in user_group_names or group_to_remove in user_group_paths
-            ]
+            groups_to_add, groups_to_remove = self.filter_groups_to_add_to_and_remove_from_user(
+                user_groups, groups_to_add, groups_to_remove
+            )
             if not groups_to_add and not groups_to_remove:
                 return False
 
@@ -3204,6 +3194,29 @@ class KeycloakAPI:
                         groups_to_add.append(group_name)
                     else:
                         groups_to_remove.append(group_name)
+        return groups_to_add, groups_to_remove
+
+    def filter_groups_to_add_to_and_remove_from_user(self, user_groups, groups_to_add, groups_to_remove):
+        """
+        Keep only the group membership changes that a user still needs.
+        :param user_groups: The user's current groups, as returned by get_user_group_details.
+        :param groups_to_add: Names or paths of the groups the user must be in.
+        :param groups_to_remove: Names or paths of the groups the user must not be in.
+        :return: The groups the user is not in yet, and the groups the user is in and must leave.
+        """
+        user_group_names = [user_group["name"] for user_group in user_groups if "name" in user_group]
+        user_group_paths = [user_group["path"] for user_group in user_groups if "path" in user_group]
+
+        groups_to_add = [
+            group_to_add
+            for group_to_add in groups_to_add
+            if group_to_add not in user_group_names and group_to_add not in user_group_paths
+        ]
+        groups_to_remove = [
+            group_to_remove
+            for group_to_remove in groups_to_remove
+            if group_to_remove in user_group_names or group_to_remove in user_group_paths
+        ]
         return groups_to_add, groups_to_remove
 
     def find_group_by_path(self, target, realm: str = "master"):

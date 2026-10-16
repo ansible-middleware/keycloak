@@ -490,10 +490,10 @@ def main():
     desired_user.update(changeset)
 
     if before_user:
-        before_groups = kc.get_user_groups(user_id=before_user["id"], realm=realm)
-        before_user["groups"] = before_groups
+        before_group_details = kc.get_user_group_details(user_id=before_user["id"], realm=realm)
+        before_user["groups"] = [group["name"] for group in before_group_details if "name" in group]
     else:
-        before_groups = []
+        before_group_details = []
 
     result["proposed"] = changeset
     result["existing"] = before_user
@@ -579,16 +579,17 @@ def main():
         if not module.check_mode:
             changed |= kc.update_user_groups_membership(userrep=desired_user, groups=groups, realm=realm)
 
-        present_groups = [g["name"] for g in groups if g["state"] == "present"]
-        absent_groups = [g["name"] for g in groups if g["state"] == "absent"]
-
-        desired_user["groups"] = (set(before_groups) | set(present_groups)) - set(absent_groups)
-
         if module.check_mode:
             # check if group meberships would have changed
-            changed |= not is_struct_included(
-                desired_user["groups"], before_groups, user_compare_excludes, empty_list_result=False
+            groups_to_add, groups_to_remove = kc.filter_groups_to_add_to_and_remove_from_user(
+                before_group_details, *kc.extract_groups_to_add_to_and_remove_from_user(groups)
             )
+            desired_user["groups"] = [
+                group["name"]
+                for group in before_group_details
+                if "name" in group and group["name"] not in groups_to_remove and group.get("path") not in groups_to_remove
+            ] + groups_to_add
+            changed |= bool(groups_to_add or groups_to_remove)
         else:
             after_user["groups"] = kc.get_user_groups(user_id=desired_user["id"], realm=realm)
 

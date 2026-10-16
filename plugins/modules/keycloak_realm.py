@@ -817,6 +817,74 @@ from ansible_collections.middleware_automation.keycloak.plugins.module_utils.ide
 )
 
 
+SCOPE_TYPES = [
+    ("default", "defaultDefaultClientScopes"),
+    ("optional", "defaultOptionalClientScopes"),
+]
+
+
+def _get_realm_client_scopes(kc, realm, scope_type):
+    if scope_type == "default":
+        scopes = kc.get_default_client_scopes(realm)
+    else:
+        scopes = kc.get_optional_client_scopes(realm)
+    return scopes or []
+
+
+def _build_scope_name_to_id(kc, realm):
+    return {s["name"]: s["id"] for s in kc.get_client_scopes(realm)}
+
+
+def _validate_desired_scopes(module, realm, desired_scopes, scope_name_to_id):
+    for scope_type, _key in SCOPE_TYPES:
+        for name in (desired_scopes.get(scope_type) or []):
+            if name not in scope_name_to_id:
+                module.fail_json(msg=f"Client scope '{name}' does not exist in realm {realm}.")
+
+
+def _sync_realm_client_scopes(kc, realm, desired_scope_names, scope_type, current_scopes, scope_name_to_id):
+    current_names = {s["name"] for s in current_scopes}
+    desired_names = set(desired_scope_names)
+
+    for name in current_names - desired_names:
+        scope_id = next(s["id"] for s in current_scopes if s["name"] == name)
+        if scope_type == "default":
+            kc.delete_default_client_scope(scope_id, realm)
+        else:
+            kc.delete_optional_client_scope(scope_id, realm)
+
+    for name in desired_names - current_names:
+        scope_id = scope_name_to_id[name]
+        if scope_type == "default":
+            kc.add_default_client_scope(scope_id, realm)
+        else:
+            kc.add_optional_client_scope(scope_id, realm)
+
+
+def _apply_realm_client_scopes(module, kc, realm, desired_scopes):
+    scope_name_to_id = _build_scope_name_to_id(kc, realm)
+    _validate_desired_scopes(module, realm, desired_scopes, scope_name_to_id)
+    for scope_type, _key in SCOPE_TYPES:
+        if scope_type in desired_scopes:
+            current = _get_realm_client_scopes(kc, realm, scope_type)
+            _sync_realm_client_scopes(kc, realm, desired_scopes[scope_type],
+                                      scope_type, current, scope_name_to_id)
+
+
+def _get_scope_names_dict(kc, realm, desired_scopes):
+    result = {}
+    for scope_type, _key in SCOPE_TYPES:
+        if scope_type in desired_scopes:
+            result[scope_type] = sorted(s["name"] for s in _get_realm_client_scopes(kc, realm, scope_type))
+    return result
+
+
+def _inject_scope_names(target, scope_names):
+    for scope_type, key in SCOPE_TYPES:
+        if scope_type in scope_names:
+            target[key] = scope_names[scope_type]
+
+
 def normalise_cr(realmrep):
     """Re-sorts any properties where the order is important so that diff's is minimised and the change detection is more effective.
 
@@ -1073,13 +1141,27 @@ def main():
 
         changeset[camel(realm_param)] = new_param_value
 
+    # Extract client scope settings - these require separate API calls
+    desired_scopes = {}
+    for scope_type, key in SCOPE_TYPES:
+        value = changeset.pop(key, None)
+        if value is not None:
+            desired_scopes[scope_type] = value
+    has_scope_changes = bool(desired_scopes)
+
     # Prepare the desired values using the existing values (non-existence results in a dict that is save to use as a basis)
     desired_realm = before_realm.copy()
     desired_realm.update(changeset)
 
     result["proposed"] = sanitize_cr(changeset)
+    _inject_scope_names(result["proposed"], desired_scopes)
     before_realm_sanitized = sanitize_cr(before_realm)
     result["existing"] = before_realm_sanitized
+
+    # Validate that all desired scope names exist (early, before check_mode or mutations)
+    if has_scope_changes and before_realm:
+        scope_name_to_id = _build_scope_name_to_id(kc, realm)
+        _validate_desired_scopes(module, realm, desired_scopes, scope_name_to_id)
 
     # Cater for when it doesn't exist (an empty dict)
     if not before_realm:
@@ -1103,23 +1185,36 @@ def main():
 
         # create it
         kc.create_realm(desired_realm)
-        after_realm = kc.get_realm_by_id(desired_realm["realm"])
 
-        result["end_state"] = sanitize_cr(after_realm)
+        created_realm_name = desired_realm.get("realm") or desired_realm.get("id")
+        if has_scope_changes:
+            _apply_realm_client_scopes(module, kc, created_realm_name, desired_scopes)
 
-        result["msg"] = f"Realm {desired_realm['realm']} has been created."
+        after_realm = kc.get_realm_by_id(created_realm_name)
+        after_realm_sanitized = sanitize_cr(after_realm)
+        _inject_scope_names(after_realm_sanitized, _get_scope_names_dict(kc, created_realm_name, desired_scopes))
+
+        result["end_state"] = after_realm_sanitized
+
+        result["msg"] = f"Realm {created_realm_name} has been created."
         module.exit_json(**result)
 
     else:
         if state == "present":
-            # Process an update
+            # Fetch current client scopes before update for comparison
+            before_scope_names = _get_scope_names_dict(kc, realm, desired_scopes)
+            _inject_scope_names(before_realm_sanitized, before_scope_names)
 
-            # doing an update
+            result["existing"] = before_realm_sanitized
+
+            # Process an update
             result["changed"] = True
             if module.check_mode:
                 # We can only compare the current realm with the proposed updates we have
                 before_norm = normalise_cr(before_realm)
                 desired_norm = normalise_cr(desired_realm)
+                _inject_scope_names(before_norm, before_scope_names)
+                _inject_scope_names(desired_norm, {st: sorted(v) for st, v in desired_scopes.items()})
                 if module._diff:
                     result["diff"] = dict(before=sanitize_cr(before_norm), after=sanitize_cr(desired_norm))
                 result["changed"] = before_norm != desired_norm
@@ -1129,15 +1224,23 @@ def main():
             # do the update
             kc.update_realm(desired_realm, realm=realm)
 
-            after_realm = kc.get_realm_by_id(realm=realm)
+            if has_scope_changes:
+                _apply_realm_client_scopes(module, kc, realm, desired_scopes)
 
-            if before_realm == after_realm:
+            after_realm = kc.get_realm_by_id(realm=realm)
+            after_realm_sanitized = sanitize_cr(after_realm)
+
+            after_scope_names = _get_scope_names_dict(kc, realm, desired_scopes)
+            _inject_scope_names(after_realm_sanitized, after_scope_names)
+            scopes_changed = before_scope_names != after_scope_names
+
+            if before_realm == after_realm and not scopes_changed:
                 result["changed"] = False
 
-            result["end_state"] = sanitize_cr(after_realm)
+            result["end_state"] = after_realm_sanitized
 
             if module._diff:
-                result["diff"] = dict(before=before_realm_sanitized, after=sanitize_cr(after_realm))
+                result["diff"] = dict(before=before_realm_sanitized, after=after_realm_sanitized)
 
             result["msg"] = f"Realm {desired_realm['realm']} has been updated."
             module.exit_json(**result)

@@ -19,6 +19,35 @@
         executable: /bin/bash
       changed_when: False
 
+    - name: Verify token api call
+      ansible.builtin.uri:
+        url: "http://localhost:8080/realms/master/protocol/openid-connect/token"
+        method: POST
+        body: "client_id=admin-cli&username=remembertochangeme&password=remembertochangeme&grant_type=password"
+        validate_certs: false
+      register: keycloak_auth_response
+      until: keycloak_auth_response.status == 200
+      retries: 2
+      delay: 2
+
+    - name: Get clients in TestRealm
+      ansible.builtin.uri:
+        url: "http://localhost:8080/admin/realms/TestRealm/clients"
+        validate_certs: false
+        headers:
+          Authorization: "Bearer {{ keycloak_auth_response.json.access_token }}"
+      register: keycloak_clients
+
+    - name: Get TestClient details
+      ansible.builtin.set_fact:
+        test_client: "{{ (keycloak_clients.json | selectattr('clientId', '==', 'TestClient')) | first }}"
+
+    - name: Assert TestClient is confidential (not public)
+      ansible.builtin.assert:
+        that:
+          - test_client.publicClient == false
+        fail_msg: "TestClient should be confidential (publicClient=false) but got publicClient={{ test_client.publicClient }}"
+
     - name: Set internal envvar
       ansible.builtin.set_fact:
         hera_home: "{{ lookup('env', 'HERA_HOME') }}"

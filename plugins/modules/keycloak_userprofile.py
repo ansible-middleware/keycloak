@@ -257,6 +257,13 @@ options:
                     default:
                       - user
 
+                  scopes:
+                    description:
+                      - The client scopes for which this attribute is required.
+                      - If not set, the attribute is required regardless of the requested scopes.
+                    type: list
+                    elements: str
+
               selector:
                 description:
                   - Selector when the attribute should be added.
@@ -583,7 +590,11 @@ def main():
                                 ),
                                 "multivalued": dict(type="bool", default=False),
                                 "required": dict(
-                                    type="dict", options={"roles": dict(type="list", elements="str", default=["user"])}
+                                    type="dict",
+                                    options={
+                                        "roles": dict(type="list", elements="str", default=["user"]),
+                                        "scopes": dict(type="list", elements="str"),
+                                    },
                                 ),
                                 "selector": dict(type="dict", options={"scopes": dict(type="list", elements="str")}),
                             },

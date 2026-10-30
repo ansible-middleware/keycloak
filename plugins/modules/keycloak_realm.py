@@ -906,6 +906,54 @@ def normalise_cr(realmrep):
     return realmrep
 
 
+# Keycloak masks the stored SMTP password with this value when returning a realm representation
+SECRET_MASK = "**********"
+
+
+def _stringify_map_value(value):
+    """Convert a value to the string form Keycloak uses for string-to-string map entries."""
+    if isinstance(value, bool):
+        return "true" if value else "false"
+    return str(value)
+
+
+def _check_mode_desired_realm(before_realm, changeset):
+    """Predict the realm representation Keycloak would return after applying changeset.
+
+    Keycloak stores realm ``attributes``, ``browserSecurityHeaders`` and ``smtpServer`` as
+    string-to-string maps and merges ``attributes`` and ``browserSecurityHeaders`` into the
+    existing values, while ``smtpServer`` is replaced as a whole and returned with its
+    password masked. A plain ``dict.update()`` of the module parameters therefore never
+    matches the realm Keycloak returns, so check mode always reported a change.
+
+    :param before_realm: the realm representation currently stored in Keycloak
+    :param changeset: the proposed changes built from the module parameters
+    :return: the predicted realm representation
+    """
+    desired = before_realm.copy()
+    desired.update(changeset)
+
+    for key in ("attributes", "browserSecurityHeaders"):
+        if isinstance(changeset.get(key), dict):
+            merged = dict(before_realm.get(key) or {})
+            for name, value in changeset[key].items():
+                if value is None:
+                    merged.pop(name, None)
+                else:
+                    merged[name] = _stringify_map_value(value)
+            desired[key] = merged
+
+    if isinstance(changeset.get("smtpServer"), dict):
+        smtp = dict((name, _stringify_map_value(value)) for name, value in changeset["smtpServer"].items() if value is not None)
+        before_password = (before_realm.get("smtpServer") or {}).get("password")
+        if "password" in smtp and before_password == SECRET_MASK:
+            # The stored password cannot be read back, so it cannot be compared
+            smtp["password"] = before_password
+        desired["smtpServer"] = smtp
+
+    return desired
+
+
 def sanitize_cr(realmrep):
     """Removes probably sensitive details from a realm representation.
 
@@ -1212,7 +1260,7 @@ def main():
             if module.check_mode:
                 # We can only compare the current realm with the proposed updates we have
                 before_norm = normalise_cr(before_realm)
-                desired_norm = normalise_cr(desired_realm)
+                desired_norm = normalise_cr(_check_mode_desired_realm(before_realm, changeset))
                 _inject_scope_names(before_norm, before_scope_names)
                 _inject_scope_names(desired_norm, {st: sorted(v) for st, v in desired_scopes.items()})
                 if module._diff:

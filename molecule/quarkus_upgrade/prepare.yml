@@ -31,7 +31,7 @@
       ansible.builtin.dnf:
         name: "{{ sudo_pkg_name }}"
       when:
-        - ansible_user_id == 'root'
+        - ansible_facts["user_id"] == 'root'
 
     - name: Gather the package facts
       ansible.builtin.package_facts:

@@ -12,7 +12,7 @@
     name: "{{ sudo_pkg_name }}"
     state: present
   when:
-    - ansible_user_id == 'root'
+    - ansible_facts["user_id"] == 'root'
 
 - name: Gather the package facts
   ansible.builtin.package_facts:
@@ -30,7 +30,7 @@
       - iproute
     state: present
   when:
-    - ansible_user_id == 'root'
+    - ansible_facts["user_id"] == 'root'
 
 - name: "Retrieve assets server from env"
   ansible.builtin.set_fact:

@@ -118,3 +118,93 @@
     that:
       - result is failed
       - "'nonexistent-scope' in result.msg"
+
+- name: Configure realm attributes, SMTP server and browser security headers
+  middleware_automation.keycloak.keycloak_realm: &realm_map_settings
+    id: "{{ ephemeral_realm }}"
+    realm: "{{ ephemeral_realm }}"
+    attributes:
+      molecule-number: 123
+      molecule-flag: true
+    smtp_server:
+      host: smtp.example.com
+      port: 587
+      from: noreply@example.com
+      auth: true
+      user: molecule
+      password: molecule-smtp-password
+      starttls: true
+    browser_security_headers:
+      xFrameOptions: DENY
+    state: present
+  register: result
+
+- name: Assert realm map settings applied
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state.attributes['molecule-number'] == '123'
+      - result.end_state.smtpServer.port == '587'
+      - result.end_state.browserSecurityHeaders.xFrameOptions == 'DENY'
+
+- name: Re-apply realm map settings in check mode
+  middleware_automation.keycloak.keycloak_realm: *realm_map_settings
+  check_mode: true
+  register: result
+
+- name: Assert check mode reports no change for unchanged map settings
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+
+- name: Change a realm attribute in check mode
+  middleware_automation.keycloak.keycloak_realm:
+    id: "{{ ephemeral_realm }}"
+    realm: "{{ ephemeral_realm }}"
+    attributes:
+      molecule-number: 456
+      molecule-flag: true
+    state: present
+  check_mode: true
+  register: result
+
+- name: Assert check mode reports a changed realm attribute
+  ansible.builtin.assert:
+    that:
+      - result is changed
+
+- name: Change the SMTP port in check mode
+  middleware_automation.keycloak.keycloak_realm:
+    id: "{{ ephemeral_realm }}"
+    realm: "{{ ephemeral_realm }}"
+    smtp_server:
+      host: smtp.example.com
+      port: 25
+      from: noreply@example.com
+      auth: true
+      user: molecule
+      password: molecule-smtp-password
+      starttls: true
+    state: present
+  check_mode: true
+  register: result
+
+- name: Assert check mode reports a changed SMTP server
+  ansible.builtin.assert:
+    that:
+      - result is changed
+
+- name: Change a browser security header in check mode
+  middleware_automation.keycloak.keycloak_realm:
+    id: "{{ ephemeral_realm }}"
+    realm: "{{ ephemeral_realm }}"
+    browser_security_headers:
+      xRobotsTag: all
+    state: present
+  check_mode: true
+  register: result
+
+- name: Assert check mode reports a changed browser security header
+  ansible.builtin.assert:
+    that:
+      - result is changed

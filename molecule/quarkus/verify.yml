@@ -47,23 +47,20 @@
         - hera_home is defined
         - hera_home | length == 0
       block:
-        - name: Fetch openID config # noqa blocked_modules command-instead-of-module
-          ansible.builtin.shell: |
-            set -o pipefail
-            curl -H 'Host: instance' https://localhost:8443/realms/master/.well-known/openid-configuration -k | jq .
-          args:
-            executable: /bin/bash
-          delegate_to: localhost
+        - name: Fetch openID config
+          ansible.builtin.uri:
+            url: https://localhost:8443/realms/master/.well-known/openid-configuration
+            headers:
+              Host: instance
+            validate_certs: false
           register: openid_config
-          changed_when: False
         - name: Verify endpoint URLs
           ansible.builtin.assert:
             that:
-              - (openid_config.stdout | from_json)["backchannel_authentication_endpoint"] == 'https://instance:8443/realms/master/protocol/openid-connect/ext/ciba/auth'
-              - (openid_config.stdout | from_json)['issuer'] == 'https://instance:8443/realms/master'
-              - (openid_config.stdout | from_json)['authorization_endpoint'] == 'https://instance:8443/realms/master/protocol/openid-connect/auth'
-              - (openid_config.stdout | from_json)['token_endpoint'] == 'https://instance:8443/realms/master/protocol/openid-connect/token'
-          delegate_to: localhost
+              - openid_config.json["backchannel_authentication_endpoint"] == 'https://instance:8443/realms/master/protocol/openid-connect/ext/ciba/auth'
+              - openid_config.json['issuer'] == 'https://instance:8443/realms/master'
+              - openid_config.json['authorization_endpoint'] == 'https://instance:8443/realms/master/protocol/openid-connect/auth'
+              - openid_config.json['token_endpoint'] == 'https://instance:8443/realms/master/protocol/openid-connect/token'
 
     - name: Check log folder
       ansible.builtin.stat:

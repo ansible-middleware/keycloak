@@ -30,17 +30,13 @@ platforms:
     image: ubuntu/postgres:14-22.04_beta
     pre_build_image: true
     privileged: true
-    command: postgres
+    command: "postgres -c listen_addresses=*"
     groups:
       - database
     networks:
       - name: rhbk
     exposed_ports:
       - "5432/tcp"
-    mounts:
-      - type: bind
-        target: /etc/postgresql/postgresql.conf
-        source: ${MOLECULE_PROJECT_DIRECTORY}/molecule/quarkus_ha_remote/postgresql/postgresql.conf
     env:
       POSTGRES_USER: keycloak
       POSTGRES_PASSWORD: mysecretpass

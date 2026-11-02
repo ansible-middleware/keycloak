@@ -20,6 +20,7 @@ Bugfixes
 - Fix INJECT_FACTS_AS_VARS deprecation in molecule prepare files `#446 <https://github.com/ansible-middleware/keycloak/pull/446>`_
 - keycloak_realm: fix check mode always reporting changed `#450 <https://github.com/ansible-middleware/keycloak/pull/450>`_
 - keycloak_user: fix check mode reporting changed=True for every existing user `#444 <https://github.com/ansible-middleware/keycloak/pull/444>`_
+- molecule: make scenarios work on containerized CI runners `#451 <https://github.com/ansible-middleware/keycloak/pull/451>`_
 
 v3.1.2
 ======

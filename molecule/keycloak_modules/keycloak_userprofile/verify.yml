@@ -185,3 +185,30 @@
       - result.end_state.providerId == "declarative-user-profile"
       - result.end_state.providerType == "org.keycloak.userprofile.UserProfileProvider"
       - result.msg.startswith("Userprofile declarative-user-profile changed:")
+
+- name: Require an attribute only for a client scope
+  middleware_automation.keycloak.keycloak_userprofile:
+    state: present
+    parent_id: "{{ ephemeral_realm }}"
+    config: "{{ config_required_by_scope }}"
+  diff: true
+  register: result
+
+- name: Assert the attribute is required for the scope
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - (result.end_state.config['kc.user.profile.config'][0].attributes | selectattr('name', 'equalto', 'requiredByScope') | first).required.scopes == ['profile']
+
+- name: Require an attribute only for a client scope (idempotency)
+  middleware_automation.keycloak.keycloak_userprofile:
+    state: present
+    parent_id: "{{ ephemeral_realm }}"
+    config: "{{ config_required_by_scope }}"
+  register: result
+
+- name: Assert the scoped requirement is in sync
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+      - result.msg == "Userprofile declarative-user-profile was in sync"

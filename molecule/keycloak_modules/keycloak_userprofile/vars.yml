@@ -107,3 +107,22 @@ config_unmanaged_attributes_admin_view:
   kc_user_profile_config:
     - unmanagedAttributePolicy: ADMIN_VIEW
       attributes: "{{ attributes_default }}"
+
+attributes_required_by_scope:
+  - name: requiredByScope
+    displayName: requiredByScope
+    required:
+      roles:
+        - user
+      scopes:
+        - profile
+    permissions:
+      view:
+        - admin
+        - user
+      edit: []
+    multivalued: false
+
+config_required_by_scope:
+  kc_user_profile_config:
+    - attributes: "{{ attributes_default + attributes_required_by_scope }}"

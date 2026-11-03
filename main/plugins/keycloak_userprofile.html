@@ -473,8 +473,24 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">[&#34;user&#34;]</code></p>
   </div></td>
 </tr>
-
 <tr class="row-odd">
+  <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
+    <div class="ansibleOptionAnchor" id="parameter-config/kc_user_profile_config/attributes/required/scopes"></div>
+    <div class="ansibleOptionAnchor" id="parameter-config/kcUserProfileConfig/attributes/required/scopes"></div>
+    <p class="ansible-option-title"><strong>scopes</strong></p>
+    <a class="ansibleOptionLink" href="#parameter-config/kc_user_profile_config/attributes/required/scopes" title="Permalink to this option"></a>
+    <p class="ansible-option-type-line">
+      <span class="ansible-option-type">list</span>
+      / <span class="ansible-option-elements">elements=string</span>
+    </p>
+  </div></td>
+  <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-indent-desc"></div><div class="ansible-option-indent-desc"></div><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell">
+    <p>The client scopes for which this attribute is required.</p>
+    <p>If not set, the attribute is required regardless of the requested scopes.</p>
+  </div></td>
+</tr>
+
+<tr class="row-even">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/kc_user_profile_config/attributes/selector"></div>
     <div class="ansibleOptionAnchor" id="parameter-config/kcUserProfileConfig/attributes/selector"></div>
@@ -488,7 +504,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Selector when the attribute should be added.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/kc_user_profile_config/attributes/selector/scopes"></div>
     <div class="ansibleOptionAnchor" id="parameter-config/kcUserProfileConfig/attributes/selector/scopes"></div>
@@ -504,7 +520,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
   </div></td>
 </tr>
 
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/kc_user_profile_config/attributes/validations"></div>
     <div class="ansibleOptionAnchor" id="parameter-config/kcUserProfileConfig/attributes/validations"></div>
@@ -518,7 +534,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The validations to be applied to the attribute.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/kc_user_profile_config/attributes/validations/double"></div>
     <div class="ansibleOptionAnchor" id="parameter-config/kcUserProfileConfig/attributes/validations/double"></div>
@@ -532,7 +548,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The double validation for the attribute.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/kc_user_profile_config/attributes/validations/email"></div>
     <div class="ansibleOptionAnchor" id="parameter-config/kcUserProfileConfig/attributes/validations/email"></div>
@@ -546,7 +562,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The email validation for the attribute.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/kc_user_profile_config/attributes/validations/integer"></div>
     <div class="ansibleOptionAnchor" id="parameter-config/kcUserProfileConfig/attributes/validations/integer"></div>
@@ -560,7 +576,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The integer validation for the attribute.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/kc_user_profile_config/attributes/validations/iso_date"></div>
     <div class="ansibleOptionAnchor" id="parameter-config/kcUserProfileConfig/attributes/validations/iso_date"></div>
@@ -577,7 +593,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The iso-date validation for the attribute.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/kc_user_profile_config/attributes/validations/length"></div>
     <div class="ansibleOptionAnchor" id="parameter-config/kcUserProfileConfig/attributes/validations/length"></div>
@@ -591,7 +607,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The length validation for the attribute.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/kc_user_profile_config/attributes/validations/length/max"></div>
     <div class="ansibleOptionAnchor" id="parameter-config/kcUserProfileConfig/attributes/validations/length/max"></div>
@@ -606,7 +622,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The maximum length of the attribute.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/kc_user_profile_config/attributes/validations/length/min"></div>
     <div class="ansibleOptionAnchor" id="parameter-config/kcUserProfileConfig/attributes/validations/length/min"></div>
@@ -621,7 +637,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
   </div></td>
 </tr>
 
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/kc_user_profile_config/attributes/validations/local_date"></div>
     <div class="ansibleOptionAnchor" id="parameter-config/kcUserProfileConfig/attributes/validations/local_date"></div>
@@ -638,7 +654,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The local-date validation for the attribute.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/kc_user_profile_config/attributes/validations/multivalued"></div>
     <div class="ansibleOptionAnchor" id="parameter-config/kcUserProfileConfig/attributes/validations/multivalued"></div>
@@ -652,7 +668,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The multivalued validation for the attribute.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/kc_user_profile_config/attributes/validations/multivalued/max"></div>
     <div class="ansibleOptionAnchor" id="parameter-config/kcUserProfileConfig/attributes/validations/multivalued/max"></div>
@@ -667,7 +683,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The maximum amount of values of the attribute.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/kc_user_profile_config/attributes/validations/multivalued/min"></div>
     <div class="ansibleOptionAnchor" id="parameter-config/kcUserProfileConfig/attributes/validations/multivalued/min"></div>
@@ -682,7 +698,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
   </div></td>
 </tr>
 
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/kc_user_profile_config/attributes/validations/options"></div>
     <div class="ansibleOptionAnchor" id="parameter-config/kcUserProfileConfig/attributes/validations/options"></div>
@@ -696,7 +712,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Validation to ensure the attribute matches one of the provided options.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/kc_user_profile_config/attributes/validations/pattern"></div>
     <div class="ansibleOptionAnchor" id="parameter-config/kcUserProfileConfig/attributes/validations/pattern"></div>
@@ -710,7 +726,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The pattern validation for the attribute using regular expressions.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/kc_user_profile_config/attributes/validations/person_name_prohibited_characters"></div>
     <div class="ansibleOptionAnchor" id="parameter-config/kcUserProfileConfig/attributes/validations/person_name_prohibited_characters"></div>
@@ -727,7 +743,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The prohibited characters validation for person name attributes.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/kc_user_profile_config/attributes/validations/up_username_not_idn_homograph"></div>
     <div class="ansibleOptionAnchor" id="parameter-config/kcUserProfileConfig/attributes/validations/up_username_not_idn_homograph"></div>
@@ -744,7 +760,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The validation to prevent IDN homograph attacks in usernames.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/kc_user_profile_config/attributes/validations/uri"></div>
     <div class="ansibleOptionAnchor" id="parameter-config/kcUserProfileConfig/attributes/validations/uri"></div>
@@ -758,7 +774,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The URI validation for the attribute.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/kc_user_profile_config/attributes/validations/username_prohibited_characters"></div>
     <div class="ansibleOptionAnchor" id="parameter-config/kcUserProfileConfig/attributes/validations/username_prohibited_characters"></div>
@@ -777,7 +793,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 </tr>
 
 
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/kc_user_profile_config/groups"></div>
     <div class="ansibleOptionAnchor" id="parameter-config/kcUserProfileConfig/groups"></div>
@@ -792,7 +808,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>A list of attribute groups to be included in the User Profile.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/kc_user_profile_config/groups/annotations"></div>
     <div class="ansibleOptionAnchor" id="parameter-config/kcUserProfileConfig/groups/annotations"></div>
@@ -806,7 +822,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The annotations included in the group.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/kc_user_profile_config/groups/display_description"></div>
     <div class="ansibleOptionAnchor" id="parameter-config/kcUserProfileConfig/groups/display_description"></div>
@@ -823,7 +839,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The display description for the group.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/kc_user_profile_config/groups/display_header"></div>
     <div class="ansibleOptionAnchor" id="parameter-config/kcUserProfileConfig/groups/display_header"></div>
@@ -841,7 +857,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The display header for the group.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/kc_user_profile_config/groups/name"></div>
     <div class="ansibleOptionAnchor" id="parameter-config/kcUserProfileConfig/groups/name"></div>
@@ -857,7 +873,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
   </div></td>
 </tr>
 
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-indent"></div><div class="ansible-option-indent"></div><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-config/kc_user_profile_config/unmanaged_attribute_policy"></div>
     <div class="ansibleOptionAnchor" id="parameter-config/kcUserProfileConfig/unmanaged_attribute_policy"></div>
@@ -883,7 +899,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 </tr>
 
 
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-connection_timeout"></div>
     <p class="ansible-option-title"><strong>connection_timeout</strong></p>
@@ -897,7 +913,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">10</code></p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-http_agent"></div>
     <p class="ansible-option-title"><strong>http_agent</strong></p>
@@ -911,7 +927,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p class="ansible-option-line"><strong class="ansible-option-default-bold">Default:</strong> <code class="ansible-value literal notranslate ansible-option-default">&#34;Ansible&#34;</code></p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-parent_id"></div>
     <div class="ansibleOptionAnchor" id="parameter-parentId"></div>
@@ -928,7 +944,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>The parent ID of the realm key. In practice the ID (name) of the realm.</p>
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-provider_id"></div>
     <div class="ansibleOptionAnchor" id="parameter-providerId"></div>
@@ -948,7 +964,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-provider_type"></div>
     <div class="ansibleOptionAnchor" id="parameter-providerType"></div>
@@ -968,7 +984,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-refresh_token"></div>
     <p class="ansible-option-title"><strong>refresh_token</strong></p>
@@ -981,7 +997,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Authentication refresh token for Keycloak API.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-state"></div>
     <p class="ansible-option-title"><strong>state</strong></p>
@@ -1002,7 +1018,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-token"></div>
     <p class="ansible-option-title"><strong>token</strong></p>
@@ -1015,7 +1031,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
     <p>Authentication token for Keycloak API.</p>
   </div></td>
 </tr>
-<tr class="row-odd">
+<tr class="row-even">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-use_netrc"></div>
     <p class="ansible-option-title"><strong>use_netrc</strong></p>
@@ -1035,7 +1051,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 
   </div></td>
 </tr>
-<tr class="row-even">
+<tr class="row-odd">
   <td><div class="ansible-option-cell">
     <div class="ansibleOptionAnchor" id="parameter-validate_certs"></div>
     <p class="ansible-option-title"><strong>validate_certs</strong></p>

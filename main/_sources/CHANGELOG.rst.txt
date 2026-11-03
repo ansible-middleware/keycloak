@@ -13,6 +13,7 @@ Minor Changes
 -------------
 
 - AMW-654 keycloak_realms doesn't update default or optional default client scopes `#439 <https://github.com/ansible-middleware/keycloak/pull/439>`_
+- keycloak_userprofile: support required.scopes `#448 <https://github.com/ansible-middleware/keycloak/pull/448>`_
 
 Bugfixes
 --------

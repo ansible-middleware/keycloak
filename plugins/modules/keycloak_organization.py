@@ -249,6 +249,21 @@ def normalise_org(org):
     return org
 
 
+def merge_domains(desired_domains, current_domains):
+    """Overlay the requested domain settings on the existing domain representations.
+    Keys the module does not manage (for example autoRedirect, added in Keycloak 26.8)
+    are kept as returned by the server, so they neither break the comparison nor get
+    reset on update.
+    """
+    current_by_name = {d.get("name"): d for d in current_domains or []}
+    merged = []
+    for domain in desired_domains:
+        merged_domain = dict(current_by_name.get(domain["name"], {}))
+        merged_domain.update(domain)
+        merged.append(merged_domain)
+    return sorted(merged, key=lambda d: d.get("name", ""))
+
+
 def main():
     argument_spec = keycloak_argument_spec()
 
@@ -334,6 +349,8 @@ def main():
                 )
             continue
         old_value = before_org.get(camel(param))
+        if param == "domains":
+            new_param_value = merge_domains(new_param_value, old_value)
         if new_param_value != old_value:
             changeset[camel(param)] = new_param_value
 

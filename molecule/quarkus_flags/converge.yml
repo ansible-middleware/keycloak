@@ -1,0 +1,26 @@
+---
+- name: Converge
+  hosts: all
+  vars_files:
+    - ../group_vars/all/vars.yml
+  vars:
+    keycloak_quarkus_show_deprecation_warnings: false
+    keycloak_quarkus_bootstrap_admin_password: "remembertochangeme"
+    keycloak_quarkus_bootstrap_admin_user: "remembertochangeme"
+    keycloak_quarkus_hostname: "http://localhost:8080"
+    keycloak_quarkus_log: file
+    keycloak_quarkus_start_dev: true
+    keycloak_quarkus_proxy_mode: none
+    keycloak_quarkus_offline_install: true
+    keycloak_quarkus_download_path: /tmp/keycloak/
+    keycloak_quarkus_java_heap_opts: "-Xms640m -Xmx640m"
+    keycloak_quarkus_metrics_enabled: true
+    keycloak_quarkus_transaction_xa_enabled: false
+    keycloak_quarkus_spi_sticky_session_encoder_infinispan_should_attach_route: false
+    keycloak_quarkus_java_opts_use_keycloak_defaults: false
+    keycloak_quarkus_validate_certs: false
+    keycloak_quarkus_health_enabled: false
+    keycloak_quarkus_restart_health_check: false
+    keycloak_quarkus_hostname_backchannel_dynamic: true
+  roles:
+    - role: keycloak_quarkus

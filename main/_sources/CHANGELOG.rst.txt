@@ -19,6 +19,7 @@ Minor Changes
 Bugfixes
 --------
 
+- Add quarkus_flags molecule scenario for untested flag toggles `#445 <https://github.com/ansible-middleware/keycloak/pull/445>`_
 - Fix INJECT_FACTS_AS_VARS deprecation in molecule prepare files `#446 <https://github.com/ansible-middleware/keycloak/pull/446>`_
 - keycloak_realm: fix check mode always reporting changed `#450 <https://github.com/ansible-middleware/keycloak/pull/450>`_
 - keycloak_user: fix check mode reporting changed=True for every existing user `#444 <https://github.com/ansible-middleware/keycloak/pull/444>`_

@@ -208,3 +208,18 @@
   ansible.builtin.assert:
     that:
       - result is changed
+
+- name: Configure admin events settings
+  middleware_automation.keycloak.keycloak_realm:
+    id: "{{ ephemeral_realm }}"
+    realm: "{{ ephemeral_realm }}"
+    admin_events_enabled: true
+    admin_events_expiration: 3600
+    state: present
+  register: result
+
+- name: Assert admin events expiration applied
+  ansible.builtin.assert:
+    that:
+      - result is changed
+      - result.end_state.adminEventsExpiration == 3600

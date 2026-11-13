@@ -114,6 +114,12 @@ options:
     aliases:
       - adminEventsEnabled
     type: bool
+  admin_events_expiration:
+    description:
+      - The realm admin events expiration.
+    aliases:
+      - adminEventsExpiration
+    type: int
   admin_permissions_enabled:
     description:
       - The realm admin permissions enabled.
@@ -1001,6 +1007,7 @@ def main():
         ),
         admin_events_details_enabled=dict(type="bool", aliases=["adminEventsDetailsEnabled"]),
         admin_events_enabled=dict(type="bool", aliases=["adminEventsEnabled"]),
+        admin_events_expiration=dict(type="int", aliases=["adminEventsExpiration"]),
         admin_permissions_enabled=dict(type="bool", aliases=["adminPermissionsEnabled"]),
         admin_theme=dict(type="str", aliases=["adminTheme"]),
         attributes=dict(type="dict"),

@@ -1,0 +1,71 @@
+---
+- name: Verify
+  hosts: all
+  tasks:
+    - name: Populate service facts
+      ansible.builtin.service_facts:
+
+    - name: Check if keycloak service started
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.services["keycloak.service"]["state"] == "running"
+          - ansible_facts.services["keycloak.service"]["status"] == "enabled"
+
+    - name: Read keycloak.conf
+      ansible.builtin.slurp:
+        src: /opt/keycloak/keycloak-26.7.3/conf/keycloak.conf
+      register: keycloak_conf
+
+    - name: Verify toggled flags in keycloak.conf
+      ansible.builtin.assert:
+        that:
+          - "'metrics-enabled=true' in keycloak_conf_content"
+          - "'transaction-xa-enabled=false' in keycloak_conf_content"
+          - "'spi-sticky-session-encoder-infinispan-should-attach-route=false' in keycloak_conf_content"
+          - "'health-enabled=false' in keycloak_conf_content"
+          - "'hostname-backchannel-dynamic=true' in keycloak_conf_content"
+      vars:
+        keycloak_conf_content: "{{ keycloak_conf.content | b64decode }}"
+
+    - name: Read sysconfig
+      ansible.builtin.slurp:
+        src: /etc/sysconfig/keycloak
+      register: keycloak_sysconfig
+
+    - name: Verify JAVA_OPTS is used instead of JAVA_OPTS_KC_HEAP
+      ansible.builtin.assert:
+        that:
+          - "'JAVA_OPTS=' in keycloak_sysconfig_content"
+          - "'JAVA_OPTS_KC_HEAP' not in keycloak_sysconfig_content"
+      vars:
+        keycloak_sysconfig_content: "{{ keycloak_sysconfig.content | b64decode }}"
+
+    - name: Fetch metrics endpoint
+      ansible.builtin.uri:
+        url: "http://localhost:9000/metrics"
+        method: GET
+        validate_certs: false
+      register: metrics_response
+      until: metrics_response.status == 200
+      retries: 5
+      delay: 5
+
+    - name: Assert metrics endpoint is reachable
+      ansible.builtin.assert:
+        that:
+          - metrics_response.status == 200
+        fail_msg: "Metrics endpoint should be enabled but returned {{ metrics_response.status }}"
+
+    - name: Fetch health endpoint
+      ansible.builtin.uri:
+        url: "http://localhost:9000/health"
+        method: GET
+        validate_certs: false
+        status_code: [200, 404]
+      register: health_response
+
+    - name: Assert health endpoint is disabled
+      ansible.builtin.assert:
+        that:
+          - health_response.status == 404
+        fail_msg: "Health endpoint should be disabled (404) but returned {{ health_response.status }}"

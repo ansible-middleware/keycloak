@@ -96,6 +96,44 @@
     that:
       - plus_delete_result.changed
 
+- name: Create user without attributes
+  middleware_automation.keycloak.keycloak_user:
+    username: bare-user
+    realm: "{{ ephemeral_realm }}"
+    state: present
+  register: bare_user_create_result
+
+- name: Assert user without attributes is created
+  ansible.builtin.assert:
+    that:
+      - bare_user_create_result.changed
+      - bare_user_create_result.end_state.attributes is not defined
+
+- name: Pass an empty attributes list to the user without attributes (idempotency)
+  middleware_automation.keycloak.keycloak_user:
+    username: bare-user
+    realm: "{{ ephemeral_realm }}"
+    attributes: []
+    state: present
+  register: bare_user_idempotent_result
+
+- name: Assert an empty attributes list is idempotent for a user without attributes
+  ansible.builtin.assert:
+    that:
+      - bare_user_idempotent_result is not changed
+
+- name: Delete user without attributes
+  middleware_automation.keycloak.keycloak_user:
+    username: bare-user
+    realm: "{{ ephemeral_realm }}"
+    state: absent
+  register: bare_user_delete_result
+
+- name: Assert user without attributes is deleted
+  ansible.builtin.assert:
+    that:
+      - bare_user_delete_result.changed
+
 - name: Create user again
   middleware_automation.keycloak.keycloak_user:
     username: "{{ keycloak_username }}"

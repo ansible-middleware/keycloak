@@ -556,10 +556,10 @@ def main():
             desired_user["id"] = before_user["id"]
 
             before_user_for_compare = before_user
-            if "attributes" in changeset and "attributes" in before_user:
+            if "attributes" in changeset:
                 before_user_for_compare = before_user.copy()
                 before_user_for_compare["attributes"] = kc.convert_keycloak_user_attributes_dict_to_module_list(
-                    attributes=before_user["attributes"]
+                    attributes=before_user.get("attributes", {})
                 )
 
             # Compare users

@@ -12,8 +12,8 @@
           - ansible_facts.services["keycloak.service"]["status"] == "enabled"
 
     - name: Read keycloak.conf
-      ansible.builtin.slurp:
-        src: /opt/keycloak/keycloak-26.7.3/conf/keycloak.conf
+      ansible.builtin.shell: cat /opt/keycloak/keycloak-*/conf/keycloak.conf
+      changed_when: false
       register: keycloak_conf
 
     - name: Verify toggled flags in keycloak.conf
@@ -25,7 +25,7 @@
           - "'health-enabled=false' in keycloak_conf_content"
           - "'hostname-backchannel-dynamic=true' in keycloak_conf_content"
       vars:
-        keycloak_conf_content: "{{ keycloak_conf.content | b64decode }}"
+        keycloak_conf_content: "{{ keycloak_conf.stdout }}"
 
     - name: Read sysconfig
       ansible.builtin.slurp:

@@ -9,22 +9,6 @@ This changelog describes changes after version 0.2.6.
 v3.1.3-devel
 ============
 
-Minor Changes
--------------
-
-- AMW-654 keycloak_realms doesn't update default or optional default client scopes `#439 <https://github.com/ansible-middleware/keycloak/pull/439>`_
-- Bump Keycloak to 26.8.1 and RHBK to 26.6.7 `#452 <https://github.com/ansible-middleware/keycloak/pull/452>`_
-- keycloak_userprofile: support required.scopes `#448 <https://github.com/ansible-middleware/keycloak/pull/448>`_
-
-Bugfixes
---------
-
-- Add quarkus_flags molecule scenario for untested flag toggles `#445 <https://github.com/ansible-middleware/keycloak/pull/445>`_
-- Fix INJECT_FACTS_AS_VARS deprecation in molecule prepare files `#446 <https://github.com/ansible-middleware/keycloak/pull/446>`_
-- keycloak_realm: fix check mode always reporting changed `#450 <https://github.com/ansible-middleware/keycloak/pull/450>`_
-- keycloak_user: fix check mode reporting changed=True for every existing user `#444 <https://github.com/ansible-middleware/keycloak/pull/444>`_
-- molecule: make scenarios work on containerized CI runners `#451 <https://github.com/ansible-middleware/keycloak/pull/451>`_
-
 v3.1.2
 ======
 
